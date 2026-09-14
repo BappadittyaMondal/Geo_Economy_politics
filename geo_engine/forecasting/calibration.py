@@ -45,9 +45,9 @@ class BrierScorer:
         Calculates the Brier score: (1/N) * sum((f_t - o_t)^2).
         Scores range from 0.0 (perfect accuracy) to 1.0 (complete failure).
         """
-        if not forecast_probabilities or len(forecast_probabilities) != len(observed_outcomes):
-            return 0.0
-        
+        if not forecast_probabilities or not observed_outcomes or len(forecast_probabilities) != len(observed_outcomes):
+            raise ValueError("forecast_probabilities and observed_outcomes must be non-empty lists of identical length.")
+
         n = len(forecast_probabilities)
         total_error = sum((f - o) ** 2 for f, o in zip(forecast_probabilities, observed_outcomes))
         return round(total_error / n, 4)
@@ -69,12 +69,22 @@ class ForecastingEngine:
         if not evidence_claims or not scenarios:
             return scenarios
 
+        # Discard TIER_0 / insufficient or 0-reliability degraded claims before updating
+        valid_claims = [
+            c for c in evidence_claims
+            if getattr(c, "evidence_status", "sufficient") != "insufficient"
+            and getattr(c, "reliability_weight", 1.0) > 0.0
+        ]
+        if not valid_claims:
+            return scenarios
+
+        # Weight claim contributions by their epistemic reliability weight
         sanction_or_covert_count = sum(
-            1 for c in evidence_claims
+            getattr(c, "reliability_weight", 1.0) for c in valid_claims
             if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in ["sanction", "fatf", "ofac", "intercept", "chokepoint", "infiltrat", "migrant"])
         )
         sinocentric_or_friction_count = sum(
-            1 for c in evidence_claims
+            getattr(c, "reliability_weight", 1.0) for c in valid_claims
             if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in ["cips", "yuan", "pla", "border tension", "dispute", "lac"])
         )
 
@@ -493,14 +503,22 @@ class ForecastingEngine:
 
         # Persist forecasts to SQLite ledger
         try:
+            import hashlib
+            from datetime import timedelta
             from ..storage.event_store import EventStore
             store = EventStore()
+            created_dt = get_system_reference_date()
             for fc in forecasts:
-                fc_id = f"FCST-{year}-{abs(hash(fc.target_hypothesis)) % 100000}"
+                # Deterministic SHA-256 forecast ID (stable across process restarts)
+                id_seed = f"{year}:{fc.target_hypothesis}"
+                hypo_hash = hashlib.sha256(id_seed.encode("utf-8")).hexdigest()[:8]
+                fc_id = f"FCST-{year}-{hypo_hash}"
+                # Dynamically calculate target date based on forecast horizon months
+                target_dt = created_dt + timedelta(days=fc.time_horizon_months * 30)
                 store.record_forecast({
                     "forecast_id": fc_id,
-                    "created_at": get_system_reference_date().isoformat(),
-                    "target_date": f"{year}-12-31",
+                    "created_at": created_dt.isoformat(),
+                    "target_date": target_dt.strftime("%Y-%m-%d"),
                     "event_name": summit_name,
                     "hypothesis": fc.target_hypothesis,
                     "predicted_probability": fc.forecast_probability,

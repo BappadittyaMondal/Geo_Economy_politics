@@ -247,6 +247,8 @@ class SummitSynthesizer:
         summit: SummitEvent,
         kinesic_observations: Optional[List[KinesicObservation]] = None,
         financial_flows: Optional[List[FinancialFlow]] = None,
+        claims: Optional[List[Any]] = None,
+        evidence_items: Optional[List[Any]] = None,
         fixture_mode: bool = True
     ) -> SummitAnalysisReport:
         """
@@ -256,8 +258,37 @@ class SummitSynthesizer:
         mode, guidance = TemporalGuardrail.evaluate_event_mode(summit)
         summit.temporal_mode = mode
 
-        # Run all registered lenses
-        lens_evals = [l.evaluate(summit) for l in LENS_REGISTRY]
+        # Run all registered lenses with evidence claims if supported
+        import inspect
+        lens_evals = []
+        for l in LENS_REGISTRY:
+            l_name = l.__name__
+            sig = inspect.signature(l.evaluate)
+            call_kwargs = {}
+
+            # Filter claims for this specific lens if target_lenses is populated
+            if claims:
+                targeted = [
+                    c for c in claims
+                    if hasattr(c, "target_lenses") and c.target_lenses and l_name in c.target_lenses
+                ]
+                claim_subset = targeted if targeted else claims
+            else:
+                claim_subset = None
+
+            if "claims" in sig.parameters:
+                call_kwargs["claims"] = claim_subset
+            elif "evidence" in sig.parameters:
+                call_kwargs["evidence"] = evidence_items or claim_subset
+
+            if "flows" in sig.parameters and financial_flows:
+                call_kwargs["flows"] = financial_flows
+            if "observations" in sig.parameters and kinesic_observations:
+                call_kwargs["observations"] = kinesic_observations
+            if "fixture_mode" in sig.parameters:
+                call_kwargs["fixture_mode"] = fixture_mode
+
+            lens_evals.append(l.evaluate(summit, **call_kwargs))
 
         # Tier 1: Negative Space Diff
         _, _, negative_space_synopsis = NegativeSpaceDiffEngine.analyze_diff()
@@ -387,6 +418,26 @@ class SummitSynthesizer:
                 "strategic_endgame": (
                     "Civilization-states that build indigenous institutional resilience and technological self-reliance "
                     "(Atmanirbharta) secure permanent insulation against external judicial and regulatory coercion."
+                )
+            }
+        elif "CIVILIZATIONAL_CRISIS" in event_type_val or "CRISIS" in event_type_val:
+            civilizational_inner_meaning = {
+                "civilizational_core": (
+                    "Civilizational crisis threatens the foundational survival imperatives of the realm: "
+                    "caloric supply continuity (Annaraksha), territorial defense depth (Kshtra Dharma), and sovereign spiritual/cultural "
+                    "integrity. In existential confrontations, ceremonial protocol, multilateral declarations, and diplomatic decorum "
+                    "dissolve before raw physical force, food security, and military endurance."
+                ),
+                "sanatan_dharmic_statecraft": (
+                    "In classical Rajdharma (Apaddharma and Yogakshema), crisis statecraft demands uncompromising realism: "
+                    "unfaltering protection of food reserves (Dhanya Kosha), strategic ammunition stockpiles (Ayudhadhyaksha / WWR), "
+                    "and total deterrence posture against coercive encirclement. The sovereign's supreme duty is the preservation "
+                    "of the civilizational realm and its people, superseding external appeasement or paper treaties."
+                ),
+                "strategic_endgame": (
+                    "Enduring civilizational sovereignty is secured through physical ground-truth self-reliance: complete agricultural "
+                    "and fertilizer security, indigenous defense industrial manufacturing (Atmanirbharta), and an unbreachable kinetic "
+                    "and nuclear deterrence escalation ladder."
                 )
             }
         else:

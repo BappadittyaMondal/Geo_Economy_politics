@@ -110,11 +110,18 @@ class QueryParser:
         "demographic_infiltration": ["infiltrat", "migrant", "migration", "ceuta", "melilla", "refugee", "asylum", "demographic", "andalucia", "schengen", "human trafficking"],
         "critical_minerals": ["rare earth", "mineral", "lithium", "cobalt", "semiconductor", "gallium", "germanium", "supply chain"],
         "institutional_lawfare": ["fatf", "lawfare", "icc", "icj", "sanctions", "ofac", "asset freeze", "jurisdiction", "blacklisting"],
+        "food_security": ["food", "fertilizer", "urea", "dap", "mop", "grain", "wheat", "rice", "famine", "buffer stock", "pds", "agriculture", "export ban"],
+        "military_readiness": ["military readiness", "orbat", "order of battle", "wwr", "war wastage", "ammunition", "air defense", "s-400", "tejas", "nuclear triad", "deterrence", "escalation ladder", "mobilization"],
     }
 
     @classmethod
     def parse(cls, prompt: str) -> StrategicQuery:
         """Parses an arbitrary query string into an actionable StrategicQuery."""
+        if not prompt or not isinstance(prompt, str) or not prompt.strip():
+            prompt = "Strategic Horizon Analysis"
+        # Input envelope: truncate excessive prompt length to prevent ReDoS / memory exhaustion
+        if len(prompt) > 5000:
+            prompt = prompt[:5000]
         text_lower = prompt.lower()
 
         # 1. Extract Target Countries first to inform event titles
@@ -161,9 +168,9 @@ class QueryParser:
         elif any(kw in text_lower for kw in ["de-dollar", "dollar collapse", "vostro", "currency run", "gold bullion", "bank default"]):
             event_type = "GEO_ECONOMIC"
             summit_full_name = f"Geo-Economic Liquidity & Currency Crisis ({year})"
-        elif any(kw in text_lower for kw in ["feet", "touch feet", "spiritual", "shirk", "blasphemy"]):
+        elif any(kw in text_lower for kw in ["feet", "touch feet", "spiritual", "shirk", "blasphemy", "civilizational crisis", "existential crisis", "famine", "food embargo"]):
             event_type = "CIVILIZATIONAL_CRISIS"
-            summit_full_name = f"Civilizational Protocol & Religious Statecraft Crisis ({year})"
+            summit_full_name = f"Civilizational Protocol & Existential Crisis ({year})"
         elif any(kw in text_lower for kw in ["fatf", "lawfare", "icc", "icj", "asset freeze"]):
             event_type = "HYBRID_WARFARE"
             summit_full_name = f"Institutional Lawfare & Sanctions Escalation ({year})"
@@ -186,7 +193,7 @@ class QueryParser:
 
         # Boolean flags
         req_kinesics = "kinesics" in active_lenses or "photo" in text_lower or "bodylanguage" in text_lower
-        req_cash = "cash_flow" in active_lenses or "cash" in text_lower or "achive" in text_lower or "yield" in text_lower
+        req_cash = "cash_flow" in active_lenses or "cash" in text_lower or "achieve" in text_lower or "achive" in text_lower or "yield" in text_lower
         req_neg_space = "negative_space" in active_lenses or "synopsis" in text_lower or "meeting" in text_lower
         req_civilizational = "civilizational" in active_lenses or "meaning" in text_lower or "deep" in text_lower
         req_timeline = "india_timeline" in active_lenses or any(kw in text_lower for kw in ["bangladesh", "hasina", "netaji", "ram mandir", "siliguri"])

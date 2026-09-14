@@ -22,7 +22,8 @@ class PersonaNarrator:
                 "CashFlowLens": 1.5,
                 "GeoEconomistLens": 1.5,
                 "HistoryLens": 1.3,
-                "PetroLogisticsLens": 1.2
+                "PetroLogisticsLens": 1.2,
+                "FoodSecurityLens": 1.4
             },
             "conceptual_framing": (
                 "An economic and historical CAS framework: multilateral summits are not static equilibrium treaties, "
@@ -35,6 +36,7 @@ class PersonaNarrator:
             "name": "Strategic Security & Deterrence Realist (Ajit Doval Tradition)",
             "doctrinal_axis": "Defensive-Offense & Internal-External Security Nexus",
             "lens_weights": {
+                "MilitaryReadinessLens": 1.7,
                 "HybridCovertLens": 1.6,
                 "BureaucraticInertiaLens": 1.3,
                 "GeopoliticalLens": 1.3,
@@ -86,7 +88,8 @@ class PersonaNarrator:
                 "CashFlowLens": 1.8,
                 "GeoEconomistLens": 1.6,
                 "CriticalMineralsLens": 1.5,
-                "PetroLogisticsLens": 1.4
+                "PetroLogisticsLens": 1.4,
+                "FoodSecurityLens": 1.3
             },
             "conceptual_framing": (
                 "A hard macro-monetary warfare framework: global geopolitics is governed by the structural unwind "
@@ -207,7 +210,8 @@ class PersonaNarrator:
             "conceptual_framing": profile["conceptual_framing"],
             "executive_takeaway": takeaway,
             "strategic_recommendations": recommendations,
-            "lens_weights": profile["lens_weights"]
+            "lens_weights": profile["lens_weights"],
+            "disclaimer": "[Analytical modeling of doctrinal tradition — not a statement by or attributable to the named individual]"
         }
 
     @classmethod

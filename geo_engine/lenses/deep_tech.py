@@ -4,7 +4,7 @@ Applies Bayesian confidence discounting, knowledge graph entity resolution,
 and discrepancy vector calculation between declarative text and ground-truth metrics.
 """
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
 

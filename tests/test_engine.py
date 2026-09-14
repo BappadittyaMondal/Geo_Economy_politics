@@ -321,7 +321,7 @@ class TestEngineUpgrades:
     Cash Flow Clamping, EventStore SQLite, Persona Narrators, and Strategic News Ranker."""
 
     def test_lens_registry_dynamic_discovery(self):
-        assert len(LENS_REGISTRY) == 16
+        assert len(LENS_REGISTRY) == 18
         lens_names = [cls.__name__ for cls in LENS_REGISTRY]
         assert "IndiaTimelineLens" in lens_names
         assert "CashFlowLens" in lens_names
@@ -329,6 +329,8 @@ class TestEngineUpgrades:
         assert "DemographicInfiltrationLens" in lens_names
         assert "CriticalMineralsLens" in lens_names
         assert "InstitutionalLawfareLens" in lens_names
+        assert "FoodSecurityLens" in lens_names
+        assert "MilitaryReadinessLens" in lens_names
 
 
     def test_ingestion_normalizer_claim_extraction(self):
@@ -797,6 +799,157 @@ class TestInstitutionalHardening:
         # Deduplication must collapse identical syndicated wires into a single claim set
         fin_claims = [c for c in batch_claims if c.claim_type == ClaimType.FINANCIAL_CAPEX]
         assert len(fin_claims) == 1
+
+
+class TestInstitutionalExpansionPhase30:
+    """Tests for Phase 30 and Phase 31 institutional upgrades:
+    - Evidence propagation from batch ingestion to lens evaluation
+    - Reliability-weighted Bayesian filtering
+    - Multi-currency normalization (EUR, GBP, INR, USD)
+    - Deterministic SHA-256 forecast IDs
+    - FoodSecurityLens and MilitaryReadinessLens evaluations
+    - CIVILIZATIONAL_CRISIS synthesis branch
+    """
+
+    def test_evidence_propagation_to_lenses(self):
+        from geo_engine.ingestion.models import ClaimItem, ClaimType
+        summit = SummitEvent(
+            summit_name="Strategic Agriculture & Defense Summit 2026",
+            year=2026,
+            host_country="India",
+            location="New Delhi",
+            event_type="STRATEGIC_EVENT"
+        )
+        claim = ClaimItem(
+            claim_id="clm-food-01",
+            source_evidence_id="ev-food-01",
+            claim_type=ClaimType.LEGAL_COMMITMENT,
+            asserted_fact="Bilateral fertilizer supply contract for 2.5M metric tons of DAP and Urea finalized.",
+            target_lenses=["FoodSecurityLens", "MilitaryReadinessLens"],
+            epistemic_tier=EpistemicTier.TIER_1_PHYSICAL,
+            reliability_weight=0.90
+        )
+        report = SummitSynthesizer.synthesize_report(summit, claims=[claim])
+        assert report is not None
+        assert report.event.summit_name == "Strategic Agriculture & Defense Summit 2026"
+
+    def test_reliability_weighted_bayesian_filtering(self):
+        from geo_engine.forecasting.calibration import ForecastingEngine, ScenarioBranch
+        from geo_engine.ingestion.models import ClaimItem, ClaimType
+        scenarios = [
+            ScenarioBranch(
+                scenario_name="Scenario A: Baseline Stability",
+                probability=0.50,
+                key_drivers=["Status quo protocols"],
+                early_indicators=["Scheduled meetings"],
+                impact_severity="LOW"
+            ),
+            ScenarioBranch(
+                scenario_name="Scenario B: Sanctions & Decoupling Disruption",
+                probability=0.50,
+                key_drivers=["Secondary sanctions enforcement"],
+                early_indicators=["Vessel seizures"],
+                impact_severity="HIGH"
+            )
+        ]
+        # Claim with reliability 0.0 must not affect probabilities
+        zero_rel_claim = ClaimItem(
+            claim_id="clm-zero-01",
+            source_evidence_id="ev-zero-01",
+            claim_type=ClaimType.LEGAL_COMMITMENT,
+            asserted_fact="Secondary sanctions and OFAC asset freeze targeting logistics.",
+            target_lenses=["InstitutionalLawfareLens"],
+            epistemic_tier=EpistemicTier.TIER_0_INSUFFICIENT_EVIDENCE,
+            reliability_weight=0.0
+        )
+        updated = ForecastingEngine.update_scenario_probabilities(scenarios, [zero_rel_claim])
+        assert updated[0].probability == pytest.approx(0.50)
+        assert updated[1].probability == pytest.approx(0.50)
+
+        # Verified claim with high reliability should update scenario probabilities
+        verified_claim = ClaimItem(
+            claim_id="clm-ver-02",
+            source_evidence_id="ev-ver-02",
+            claim_type=ClaimType.LEGAL_COMMITMENT,
+            asserted_fact="Secondary sanctions and OFAC asset freeze targeting logistics.",
+            target_lenses=["InstitutionalLawfareLens"],
+            epistemic_tier=EpistemicTier.TIER_1_PHYSICAL,
+            reliability_weight=0.95
+        )
+        updated_2 = ForecastingEngine.update_scenario_probabilities(scenarios, [verified_claim])
+        assert updated_2[1].probability > 0.50
+        assert updated_2[0].probability < 0.50
+        assert sum(s.probability for s in updated_2) == pytest.approx(1.0, abs=1e-3)
+
+    def test_multi_currency_normalization(self):
+        from geo_engine.ingestion.normalizer import IngestionNormalizer
+        # Euro (€)
+        eur_flow = IngestionNormalizer.extract_financial_flow("France committed €5.0 billion to joint defense co-production.")
+        assert eur_flow is not None
+        assert eur_flow == pytest.approx(5_000_000_000.0 * 1.09, rel=1e-2)
+
+        # British Pound (£)
+        gbp_flow = IngestionNormalizer.extract_financial_flow("UK pledged £2.0 billion for maritime engine research.")
+        assert gbp_flow is not None
+        assert gbp_flow == pytest.approx(2_000_000_000.0 * 1.28, rel=1e-2)
+
+        # Indian Rupee (₹/Rs)
+        inr_flow = IngestionNormalizer.extract_financial_flow("Cabinet approved ₹500 crore for critical mineral processing facility.")
+        assert inr_flow is not None
+        assert inr_flow > 50_000_000.0  # 500 crore INR is ~$59.5M USD
+
+        # US Dollar ($)
+        usd_flow = IngestionNormalizer.extract_financial_flow("Sovereign fund invested $10.0 billion into semiconductor fab.")
+        assert usd_flow is not None
+        assert usd_flow == pytest.approx(10_000_000_000.0)
+
+    def test_forecast_id_reproducibility(self):
+        import hashlib
+        from geo_engine.forecasting.calibration import ForecastingEngine
+        year = 2026
+        target_hypothesis = "BRICS expands bilateral local currency clearing volume by >20% within 12 months"
+        id_seed = f"{year}:{target_hypothesis}"
+        hypo_hash = hashlib.sha256(id_seed.encode("utf-8")).hexdigest()[:8]
+        fc_id_1 = f"FCST-{year}-{hypo_hash}"
+        fc_id_2 = f"FCST-{year}-{hypo_hash}"
+        assert fc_id_1 == fc_id_2
+        assert fc_id_1.startswith("FCST-2026-")
+
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi")
+        strata = ForecastingEngine.generate_strata(summit)
+        assert len(strata.calibrated_forecasts) >= 2
+        assert all(fc.forecast_probability >= 0.0 for fc in strata.calibrated_forecasts)
+
+    def test_food_security_and_military_readiness_contracts(self):
+        from geo_engine.lenses.food_security import FoodSecurityLens
+        from geo_engine.lenses.military_readiness import MilitaryReadinessLens
+        summit = SummitEvent(summit_name="Defense and Agriculture 2026", year=2026, host_country="India", location="New Delhi")
+
+        food_eval = FoodSecurityLens.evaluate(summit)
+        assert food_eval.hard_metrics["urea_import_dependency_pct"] == 28.4
+        assert food_eval.hard_metrics["mop_potash_import_dependency_pct"] == 100.0
+        assert food_eval.confidence >= 0.85
+        assert food_eval.evidence_status == "sufficient"
+
+        mil_eval = MilitaryReadinessLens.evaluate(summit)
+        assert mil_eval.hard_metrics["two_front_deterrence_posture_score"] == 0.78
+        assert mil_eval.hard_metrics["wwr_ammunition_reserve_days"] == 21.5
+        assert mil_eval.confidence >= 0.90
+        assert mil_eval.evidence_status == "sufficient"
+
+    def test_civilizational_crisis_synthesis_branch(self):
+        summit = SummitEvent(
+            summit_name="Existential Civilizational Crisis Protocol",
+            year=2026,
+            host_country="India",
+            location="New Delhi",
+            event_type="CIVILIZATIONAL_CRISIS"
+        )
+        report = SummitSynthesizer.synthesize_report(summit)
+        assert "Annaraksha" in report.civilizational_synthesis["civilizational_core"]
+        assert "Dhanya Kosha" in report.civilizational_synthesis["sanatan_dharmic_statecraft"]
+        assert "Ayudhadhyaksha" in report.civilizational_synthesis["sanatan_dharmic_statecraft"]
+
 
 
 

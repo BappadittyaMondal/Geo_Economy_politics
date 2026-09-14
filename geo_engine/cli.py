@@ -54,7 +54,9 @@ def render_full_report(
     summit_name: str = "BRICS 2026 Summit",
     year: int = 2026,
     persona: str = "neutral",
-    target_event: Optional[Union[SummitEvent, StrategicEvent]] = None
+    target_event: Optional[Union[SummitEvent, StrategicEvent]] = None,
+    claims: Optional[List[Any]] = None,
+    evidence_items: Optional[List[Any]] = None
 ):
     """Generates and renders the complete 5-tier report using rich terminal formatting."""
     if target_event is not None:
@@ -71,7 +73,11 @@ def render_full_report(
             ]
         )
 
-    report = SummitSynthesizer.synthesize_report(summit)
+    report = SummitSynthesizer.synthesize_report(
+        summit,
+        claims=claims,
+        evidence_items=evidence_items
+    )
 
     # Header Panel
     event_title = getattr(report.event, "summit_name", "") or getattr(report.event, "title", "Strategic Event")
@@ -176,9 +182,13 @@ def render_full_report(
     if persona and persona.lower() != "neutral":
         p_data = PersonaNarrator.apply_persona(report, persona)
         p_recs = "\n".join([f"  [bold green]*[/bold green] {r}" for r in p_data["strategic_recommendations"]])
+        weights_str = ", ".join([f"{k} ({v}x)" for k, v in p_data.get("lens_weights", {}).items()])
+        disclaimer_str = p_data.get("disclaimer", "")
         p_box = (
+            f"[dim italic]{disclaimer_str}[/dim italic]\n\n"
             f"[bold cyan]Intellectual Tradition:[/bold cyan] {p_data['archetype_name']}\n"
-            f"[bold yellow]Doctrinal Axis:[/bold yellow] {p_data['doctrinal_axis']}\n\n"
+            f"[bold yellow]Doctrinal Axis:[/bold yellow] {p_data['doctrinal_axis']}\n"
+            f"[bold magenta]Prioritized Lens Weights:[/bold magenta] {weights_str}\n\n"
             f"[bold white]Executive Takeaway:[/bold white]\n{p_data['executive_takeaway']}\n\n"
             f"[bold green]Key Strategic Recommendations:[/bold green]\n{p_recs}"
         )
@@ -262,10 +272,8 @@ def render_query_pipeline(prompt: str, persona: str = "neutral"):
     for ev in evidence_items:
         console.print(f" [bold green][+][/bold green] [cyan]{ev.source_name}[/cyan] ({ev.source_type} - {ev.timestamp[:10]}): [dim]{ev.raw_text[:120]}...[/dim]")
 
-    # Normalize into structured claims for Bayesian updating
-    all_claims = []
-    for ev in evidence_items:
-        all_claims.extend(IngestionNormalizer.normalize_evidence_item(ev))
+    # Normalize into structured claims with batch SHA-256 wire deduplication
+    all_claims = IngestionNormalizer.normalize_evidence_batch(evidence_items)
 
     # 3. Calibrated Forecasting & Scenario Engine (Bayesian Evidence Updated)
     strata = ForecastingEngine.generate_strata(
@@ -317,7 +325,14 @@ def render_query_pipeline(prompt: str, persona: str = "neutral"):
         member_countries=target_countries,
         focal_date=query.focal_date
     )
-    render_full_report(query.target_summit, query.year, persona=persona, target_event=event_obj)
+    render_full_report(
+        query.target_summit,
+        query.year,
+        persona=persona,
+        target_event=event_obj,
+        claims=all_claims,
+        evidence_items=evidence_items
+    )
 
 
 def main():
@@ -333,6 +348,7 @@ def main():
     # Command: lenses
     lens_parser = subparsers.add_parser("lenses", help="Display evaluation across all registered lenses")
     lens_parser.add_argument("--summit", default="BRICS 2026 Summit", help="Summit title")
+    lens_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
 
     # Command: query
     query_parser = subparsers.add_parser("query", help="Answer a complex user strategic prompt")

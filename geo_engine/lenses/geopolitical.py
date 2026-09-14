@@ -4,7 +4,7 @@ Evaluates multipolar balance, strategic hedging, deterrence,
 and regional rivalries (LAC standoff, Gulf balance, Horn of Africa frictions).
 """
 
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
 

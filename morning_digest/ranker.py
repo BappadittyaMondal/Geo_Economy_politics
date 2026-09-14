@@ -89,7 +89,7 @@ class StrategicNewsRanker:
 
         for item in evidence_items:
             # Skip explicit empty/degraded records in ranking
-            if item.reliability_weight == 0.0 and "No live telemetry" in item.raw_text:
+            if item.reliability_weight == 0.0 or getattr(item, "evidence_status", "") == "insufficient" or "No live telemetry" in item.raw_text:
                 continue
 
             cleaned_text = item.raw_text.strip()

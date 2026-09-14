@@ -15,6 +15,7 @@ if REPO_ROOT not in sys.path:
 import json
 import urllib.request
 import urllib.parse
+import urllib.error
 from datetime import datetime
 try:
     from .ranker import StrategicNewsRanker
@@ -61,6 +62,8 @@ class TelegramDigestPublisher:
             category = item["category"]
             score = int(item["strategic_score"] * 100)
             headline = item["headline"]
+            if len(headline) > 2000:
+                headline = headline[:1997] + "..."
             source = item["source"]
 
             entry = (
@@ -116,8 +119,11 @@ class TelegramDigestPublisher:
             )
             with urllib.request.urlopen(req, timeout=10) as response:
                 return response.status == 200
+        except urllib.error.HTTPError as e:
+            print(f"[ERROR] Failed to publish message chunk to Telegram: HTTP {e.code} {e.reason}", file=sys.stderr)
+            return False
         except Exception as e:
-            print(f"[ERROR] Failed to publish message chunk to Telegram: {e}", file=sys.stderr)
+            print(f"[ERROR] Failed to publish message chunk to Telegram: {type(e).__name__}", file=sys.stderr)
             return False
 
     @classmethod

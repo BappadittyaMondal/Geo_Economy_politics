@@ -23,6 +23,8 @@ from .india_timeline import IndiaTimelineLens
 from .demographic_infiltration import DemographicInfiltrationLens
 from .critical_minerals import CriticalMineralsLens
 from .institutional_lawfare import InstitutionalLawfareLens
+from .food_security import FoodSecurityLens
+from .military_readiness import MilitaryReadinessLens
 
 LENS_REGISTRY: List[Type[Any]] = [
     DeepTechLens,
@@ -41,6 +43,8 @@ LENS_REGISTRY: List[Type[Any]] = [
     DemographicInfiltrationLens,
     CriticalMineralsLens,
     InstitutionalLawfareLens,
+    FoodSecurityLens,
+    MilitaryReadinessLens,
 ]
 
 __all__ = [
@@ -61,5 +65,7 @@ __all__ = [
     "DemographicInfiltrationLens",
     "CriticalMineralsLens",
     "InstitutionalLawfareLens",
+    "FoodSecurityLens",
+    "MilitaryReadinessLens",
 ]
 

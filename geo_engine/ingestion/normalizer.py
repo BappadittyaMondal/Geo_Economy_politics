@@ -31,7 +31,7 @@ class IngestionNormalizer:
     }
 
     FINANCIAL_AMOUNT_REGEX = re.compile(
-        r"(?:[\$€£]|USD\s*|INR\s*|Rs\.?\s*)?(\d+(?:\.\d+)?|\.\d+)\s*(billion|million|trillion|crore|bn|m)\b",
+        r"(?:([\$€£]|USD|INR|Rs\.?)\s*)?(\d+(?:\.\d+)?|\.\d+)\s*(billion|million|trillion|crore|bn|m)\b",
         re.IGNORECASE
     )
 
@@ -66,19 +66,37 @@ class IngestionNormalizer:
         if not match:
             return None
 
-        number = float(match.group(1))
-        unit = match.group(2).lower()
+        currency_marker = (match.group(1) or "$").upper()
+        number = float(match.group(2))
+        unit = match.group(3).lower()
 
+        # Base multiplier by scale unit
         if unit in ["billion", "bn"]:
-            return number * 1_000_000_000.0
+            base_amount = number * 1_000_000_000.0
         elif unit in ["million", "m"]:
-            return number * 1_000_000.0
+            base_amount = number * 1_000_000.0
         elif unit == "trillion":
-            return number * 1_000_000_000_000.0
+            base_amount = number * 1_000_000_000_000.0
         elif unit == "crore":
-            # 1 Crore INR ~ 120,000 USD rough conversion for nominal scaling
-            return number * 10_000_000.0 / 83.5
-        return None
+            base_amount = number * 10_000_000.0
+            currency_marker = "INR"
+        else:
+            return None
+
+        # Currency conversion to USD
+        import os
+        inr_rate = float(os.environ.get("INR_USD_RATE", "83.5"))
+        eur_rate = float(os.environ.get("EUR_USD_RATE", "1.08"))
+        gbp_rate = float(os.environ.get("GBP_USD_RATE", "1.28"))
+
+        if "INR" in currency_marker or "RS" in currency_marker:
+            return round(base_amount / inr_rate, 2)
+        elif "€" in currency_marker or "EUR" in currency_marker:
+            return round(base_amount * eur_rate, 2)
+        elif "£" in currency_marker or "GBP" in currency_marker:
+            return round(base_amount * gbp_rate, 2)
+        else:
+            return round(base_amount, 2)
 
     @classmethod
     def normalize_evidence_item(cls, item: EvidenceItem) -> List[ClaimItem]:
