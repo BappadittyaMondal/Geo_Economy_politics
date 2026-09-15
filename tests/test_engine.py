@@ -1264,24 +1264,20 @@ class TestCanonicalBundlesAndGovernance:
         assert os.path.exists(CONSOLIDATE_5_DIR)
         assert os.path.exists(CONSOLIDATE_50_DIR)
 
-        # Folder 1: consolidate_5_files
+        # Folder 1: consolidate_5_files (Strictly Flat: 6 Files, 0 Subfolders)
         assert os.path.exists(os.path.join(CONSOLIDATE_5_DIR, "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"))
         for fname in ["00_CANONICAL_CONTRACT.md", "01_SYSTEM_ARCHITECTURE.md", "02_OBJECT_AND_DATA_CONTRACTS.md", "03_ENGINE_AND_LENS_REGISTRY.md", "04_RUNTIME_OPERATING_PROTOCOL.md"]:
             assert os.path.exists(os.path.join(CONSOLIDATE_5_DIR, fname))
-        # Subfolders validation if present (backward compatible with nested or flat modes)
-        for sdir in ["00_CANONICAL", "01_ARCHITECTURE", "02_CONTRACTS", "03_REGISTRY", "04_PROTOCOLS"]:
-            subpath = os.path.join(CONSOLIDATE_5_DIR, sdir)
-            if os.path.exists(subpath):
-                assert os.path.isdir(subpath)
+        subdirs_5 = [d for d in os.listdir(CONSOLIDATE_5_DIR) if os.path.isdir(os.path.join(CONSOLIDATE_5_DIR, d))]
+        assert len(subdirs_5) == 0, f"Expected 0 subdirectories in consolidate_5_files, found: {subdirs_5}"
 
-        # Folder 2: consolidate_50_files
+        # Folder 2: consolidate_50_files (Strictly Flat: 32 Files, 0 Subfolders)
         assert os.path.exists(os.path.join(CONSOLIDATE_50_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"))
+        assert os.path.exists(os.path.join(CONSOLIDATE_50_DIR, "01_CANONICAL_MANIFEST.yaml"))
         for fname in ["00_CANONICAL_CONTRACT.md", "01_SYSTEM_ARCHITECTURE.md", "02_OBJECT_AND_DATA_CONTRACTS.md", "03_ENGINE_AND_LENS_REGISTRY.md", "04_RUNTIME_OPERATING_PROTOCOL.md"]:
             assert os.path.exists(os.path.join(CONSOLIDATE_50_DIR, fname))
-        for sdir in ["00_CANONICAL", "01_ARCHITECTURE", "02_CONTRACTS", "03_REGISTRY", "04_PROTOCOLS", "05_LENSES", "06_GOVERNANCE", "07_ARCHIVE"]:
-            subpath = os.path.join(CONSOLIDATE_50_DIR, sdir)
-            if os.path.exists(subpath):
-                assert os.path.isdir(subpath)
+        subdirs_50 = [d for d in os.listdir(CONSOLIDATE_50_DIR) if os.path.isdir(os.path.join(CONSOLIDATE_50_DIR, d))]
+        assert len(subdirs_50) == 0, f"Expected 0 subdirectories in consolidate_50_files, found: {subdirs_50}"
 
 
 class TestPhase35Hardening:

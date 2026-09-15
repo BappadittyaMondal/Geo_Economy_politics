@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `ef68691`
+- **Canonical Git Commit:** `802561c`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`
 
@@ -16,7 +16,7 @@ This master document consolidates all 30 research universe specifications, 18 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: ef68691
+CANONICAL_COMMIT: 802561c
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: ef68691
+CANONICAL_COMMIT: 802561c
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -136,7 +136,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: ef68691
+CANONICAL_COMMIT: 802561c
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -241,7 +241,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: ef68691
+CANONICAL_COMMIT: 802561c
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -385,7 +385,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: ef68691
+CANONICAL_COMMIT: 802561c
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -508,7 +508,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: ef68691
+CANONICAL_COMMIT: 802561c
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1054,6 +1054,13 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **SQLite Non-Mutating Reads & Test Isolation (P1):** Added `is_initialized()` to `geo_engine/storage/event_store.py` to prevent redundant DDL commits on existing databases and inspect journal mode before re-issuing `PRAGMA journal_mode=WAL;`. Added `GEO_ENGINE_DB_PATH` environment variable support and an autouse session fixture `isolated_test_database` in `tests/test_engine.py`, guaranteeing that test runs never alter or dirty the canonical tracked `data/events.db` file header.
   - **Canonical Distribution & Anti-Drift Quality Gates:** Regenerated all canonical bundles (`dist_ai/core_5`, `dist_ai/deep_50`) and consolidated distribution directories (`consolidate_5_files`, `consolidate_50_files`). All 10 Anti-Drift Quality Gates verified with 100% compliance.
   - **Verification Suite Expansion:** Added `TestPhase35Hardening` suite to `tests/test_engine.py`, expanding automated test coverage to **76/76 unit and integration tests passing with 100% success rate**.
+
+* **Phase 36 (Strict Flat Distribution Architecture & Zero-Subfolder Parity):**
+  - **Flat Delivery Architecture (P0):** Eliminated nested internal subdirectories (`00_CANONICAL`, `01_ARCHITECTURE`, `02_CONTRACTS`, `03_REGISTRY`, `04_PROTOCOLS`, `05_LENSES`, `06_GOVERNANCE`, `07_ARCHIVE`) from `consolidate_5_files/` and `consolidate_50_files/`. Both distribution directories now contain strictly flat markdown/yaml files at the root level, completely eliminating 31 redundant duplicate file copies.
+  - **GenAI Context Token Optimization (P1):** Formally optimized distribution folders for 1-click bulk upload to external LLM environments (Google NotebookLM, Claude Projects, Custom GPTs). Removed directory recursion overhead and eliminated token waste caused by duplicate document indexing.
+  - **Canonical Authoring Source Preservation:** Confirmed strict preservation of the 5 canonical authoring source folders (`00_CANONICAL/`, `01_ARCHITECTURE/`, `02_CONTRACTS/`, `03_REGISTRY/`, `04_PROTOCOLS/`) in the repository root as the immutable source of truth for build compilation.
+  - **Harness & Anti-Drift Verification:** Updated `test_consolidate_folders_structure_and_subfolders()` in `tests/test_engine.py` to assert exactly 0 subdirectories in both consolidated folders. 100% test pass rate retained across **76/76 unit and integration tests** and 10/10 Anti-Drift Quality Gates.
+
 
 
 
@@ -2827,7 +2834,7 @@ class PropagandaLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `ef68691`
+- **Canonical Git Commit:** `802561c`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 29 files
