@@ -37,18 +37,28 @@ def get_git_commit_hash() -> str:
 
 def resolve_canonical_source(rel_path: str) -> str:
     """Polymorphic resolver for canonical specifications across root and distribution bundles."""
+    base = os.path.basename(rel_path)
     candidates = [
         os.path.join(REPO_ROOT, rel_path),
         os.path.join(CONSOLIDATE_50_DIR, rel_path),
         os.path.join(DEEP_50_DIR, rel_path),
-        os.path.join(CONSOLIDATE_5_DIR, os.path.basename(rel_path)),
-        os.path.join(CORE_5_DIR, os.path.basename(rel_path)),
-        os.path.join(CONSOLIDATE_50_DIR, os.path.basename(rel_path)),
-        os.path.join(DEEP_50_DIR, os.path.basename(rel_path)),
+        os.path.join(CONSOLIDATE_5_DIR, base),
+        os.path.join(CORE_5_DIR, base),
+        os.path.join(CONSOLIDATE_50_DIR, base),
+        os.path.join(DEEP_50_DIR, base),
     ]
     for c in candidates:
         if os.path.exists(c):
             return c
+    # Prefix / keyword scan across candidate directories
+    for search_dir in [CONSOLIDATE_50_DIR, DEEP_50_DIR, CONSOLIDATE_5_DIR, CORE_5_DIR, REPO_ROOT]:
+        if os.path.exists(search_dir):
+            for f in os.listdir(search_dir):
+                if f == base or f.endswith(base) or base.endswith(f):
+                    return os.path.join(search_dir, f)
+                core_keyword = re.sub(r"^\d+_", "", base)
+                if core_keyword in f:
+                    return os.path.join(search_dir, f)
     return candidates[0]
 
 
