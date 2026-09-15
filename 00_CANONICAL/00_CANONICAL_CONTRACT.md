@@ -3,7 +3,7 @@
 **Security Classification:** SOVEREIGN RESEARCH / CONSTITUTIONAL SPECIFICATION  
 **System Identity:** Geo-Economic & Geopolitical Intelligence Engine (`Geo_Economy_politics`)  
 **Canonical Repository:** `https://github.com/BappadittyaMondal/Geo_Economy_politics.git` (Branch: `main`)  
-**Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`  
+**Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`  
 
 ---
 
@@ -67,7 +67,7 @@ Where:
 
 ### Law 3: Epistemic Tier-Weighted Confidence Mean
 Composite analytical confidence is calculated strictly as a tier-weighted mean, preventing lower-tier PR noise from diluting verified physical data:
-$$\text{Confidence}_{\text{weighted}} = \frac{\sum_{i=1}^{18} \omega(\text{Tier}_i) \cdot c_i}{\sum_{i=1}^{18} \omega(\text{Tier}_i)} \quad \in [0.0, 1.0]$$
+$$\text{Confidence}_{\text{weighted}} = \frac{\sum_{i=1}^{20} \omega(\text{Tier}_i) \cdot c_i}{\sum_{i=1}^{20} \omega(\text{Tier}_i)} \quad \in [0.0, 1.0]$$
 
 ### Law 4: Mundell-Fleming Macro-Monetary Trilemma
 A monetary bloc cannot simultaneously maintain: (1) Fixed exchange rates, (2) Free capital mobility, and (3) Sovereign monetary autonomy. Any supranational "BRICS currency" proposal without joint fiscal union is classified as **STRUCTURALLY IMPOSSIBLE**.

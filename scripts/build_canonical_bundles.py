@@ -197,7 +197,7 @@ def build_deep_50_bundle(commit_hash: str) -> List[str]:
         f.write(serialized_db)
     emitted.append(db_dst)
 
-    # 4. Copy 18 Lenses as fenced Markdown specifications
+    # 4. Copy 20 Lenses as fenced Markdown specifications
     lenses_dir = os.path.join(REPO_ROOT, "geo_engine", "lenses")
     if os.path.exists(lenses_dir):
         idx = 16
@@ -255,7 +255,7 @@ def build_consolidated_folders(commit_hash: str):
         f"# CONSOLIDATED ALL-IN-ONE CANONICAL CORE SPECIFICATION\n\n"
         f"- **Canonical Git Commit:** `{commit_hash}`\n"
         f"- **Project Identity:** `Geo_Economy_politics`\n"
-        f"- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`\n"
+        f"- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`\n"
         f"- **Architecture:** Pure Markdown Knowledge Distribution\n\n"
         f"This master document consolidates the complete 5-file Core Cognitive Runtime Brain into a single continuous specification for single-file upload environments.\n\n"
         f"---\n"
@@ -285,8 +285,8 @@ def build_consolidated_folders(commit_hash: str):
         f"# CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION\n\n"
         f"- **Canonical Git Commit:** `{commit_hash}`\n"
         f"- **Project Identity:** `Geo_Economy_politics`\n"
-        f"- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`\n\n"
-        f"This master document consolidates all 30 research universe specifications, 18 analytical lenses, contracts, and archives into a single continuous reference for single-file upload environments.\n\n"
+        f"- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`\n\n"
+        f"This master document consolidates all 32 research universe specifications, 20 analytical lenses, contracts, and archives into a single continuous reference for single-file upload environments.\n\n"
         f"---\n"
     ]
 

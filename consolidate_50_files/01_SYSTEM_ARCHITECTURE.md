@@ -1,7 +1,7 @@
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -84,7 +84,7 @@ The engine transforms raw, unverified natural language text and ingested open-so
 
 1. **Ingestion $\rightarrow$ Arbitration Boundary:** Raw text claims are normalized into immutable `ClaimItem` records. Unverified wire reports receive `reliability_weight = 0.0`.
 2. **Arbitration $\rightarrow$ Lenses Boundary:** Claims are filtered via `ClaimItem.target_lenses` so each lens receives only relevant empirical assertions.
-3. **Lenses $\rightarrow$ Synthesizer Boundary:** All 18 lenses output `LensEvaluation` records. The synthesizer calculates composite confidence using epistemic tier weights, preventing narrative PR lenses from dragging down verified physical data.
+3. **Lenses $\rightarrow$ Synthesizer Boundary:** All 20 lenses output `LensEvaluation` records. The synthesizer calculates composite confidence using epistemic tier weights, preventing narrative PR lenses from dragging down verified physical data.
 4. **Synthesizer $\rightarrow$ Forecasting Boundary:** Scenarios are updated via reliability-weighted Bayesian updating; claims with zero reliability cause zero probability shift.
 5. **Synthesizer $\rightarrow$ Presentation Boundary:** Persona narration applies prioritized lens multipliers without modifying the underlying factual arbitration log.
 

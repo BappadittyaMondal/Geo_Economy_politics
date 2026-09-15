@@ -21,7 +21,7 @@ Every analytical engine and lens in `Geo_Economy_politics` operates in one of fi
 
 ---
 
-## 2. THE 18-LENS EVIDENCE CAPABILITY AUDIT
+## 2. THE 20-LENS EVIDENCE CAPABILITY AUDIT
 
 | Lens ID & Domain | Primary Tier | Required Empirical Evidence | Current Availability | Confidence Ceiling (No Telemetry) | Mandatory Fallback Behavior |
 | :--- | :---: | :--- | :--- | :---: | :--- |
@@ -43,3 +43,5 @@ Every analytical engine and lens in `Geo_Economy_politics` operates in one of fi
 | **L16: Lawfare** | Tier 2 | OFAC SDN notices & ICJ/ICC dockets | **AVAILABLE** (Primary legal) | 0.95 | Calculate sovereign foreign asset freeze risk. |
 | **L17: Food Security** | Tier 1 | FCI central pool buffer stocks & MOP data | **AVAILABLE** (Official gazette)| 0.89 | Calculate grain buffer ratio vs. statutory norms. |
 | **L18: Military ORBAT** | Tier 1 | Troop deployments & WWR ammunition norms | **PARTIAL** (Parliamentary) | 0.78 | Audit two-front posture; flag unverified shifts. |
+| **L19: Subsea Cables** | Tier 1 | Subsea cable landing stations & seabed mining | **PARTIAL** (Telemetry / EEZ) | 0.82 | Audit hydro-spatial sovereignty and cable repairs. |
+| **L20: Astro-Politics** | Tier 1 | LEO satellite telemetry & counter-space tests | **PARTIAL** (ISRO / Space-Track) | 0.85 | Audit NavIC coverage and kinetic ASAT readiness. |

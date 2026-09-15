@@ -9,7 +9,7 @@ version_matrix:
   project_version: "0.0.5"
   contract_version: "C2"
   architecture_version: "A3"
-  registry_version: "R18"
+  registry_version: "R20"
   bundle_version: "B1"
 
 bundle_definitions:
@@ -77,7 +77,7 @@ components:
     required_for_core_5: true
     required_for_deep_50: true
 
-  # The 18 Analytical Lenses
+  # The 20 Analytical Lenses
   - id: "LENS-01"
     name: "Deep-Tech Bayesian Lens"
     path: "geo_engine/lenses/deep_tech.py"
@@ -186,3 +186,16 @@ components:
     tier: "TIER_1_PHYSICAL"
     required_for_core_5: false
     required_for_deep_50: true
+  - id: "LENS-19"
+    name: "Subsea Cables & Hydro-Spatial Sovereignty Lens"
+    path: "geo_engine/lenses/subsea_cables.py"
+    tier: "TIER_1_PHYSICAL"
+    required_for_core_5: false
+    required_for_deep_50: true
+  - id: "LENS-20"
+    name: "Astro-Politics & Counter-Space Deterrence Lens"
+    path: "geo_engine/lenses/astro_politics.py"
+    tier: "TIER_1_PHYSICAL"
+    required_for_core_5: false
+    required_for_deep_50: true
+

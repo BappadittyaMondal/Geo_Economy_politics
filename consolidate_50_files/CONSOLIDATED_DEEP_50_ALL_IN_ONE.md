@@ -1,10 +1,10 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `206299b`
+- **Canonical Git Commit:** `50e946e`
 - **Project Identity:** `Geo_Economy_politics`
-- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`
+- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
-This master document consolidates all 30 research universe specifications, 18 analytical lenses, contracts, and archives into a single continuous reference for single-file upload environments.
+This master document consolidates all 32 research universe specifications, 20 analytical lenses, contracts, and archives into a single continuous reference for single-file upload environments.
 
 ---
 
@@ -16,7 +16,7 @@ This master document consolidates all 30 research universe specifications, 18 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -37,7 +37,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 **Security Classification:** SOVEREIGN RESEARCH / CONSTITUTIONAL SPECIFICATION  
 **System Identity:** Geo-Economic & Geopolitical Intelligence Engine (`Geo_Economy_politics`)  
 **Canonical Repository:** `https://github.com/BappadittyaMondal/Geo_Economy_politics.git` (Branch: `main`)  
-**Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`  
+**Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`  
 
 ---
 
@@ -101,7 +101,7 @@ Where:
 
 ### Law 3: Epistemic Tier-Weighted Confidence Mean
 Composite analytical confidence is calculated strictly as a tier-weighted mean, preventing lower-tier PR noise from diluting verified physical data:
-$$\text{Confidence}_{\text{weighted}} = \frac{\sum_{i=1}^{18} \omega(\text{Tier}_i) \cdot c_i}{\sum_{i=1}^{18} \omega(\text{Tier}_i)} \quad \in [0.0, 1.0]$$
+$$\text{Confidence}_{\text{weighted}} = \frac{\sum_{i=1}^{20} \omega(\text{Tier}_i) \cdot c_i}{\sum_{i=1}^{20} \omega(\text{Tier}_i)} \quad \in [0.0, 1.0]$$
 
 ### Law 4: Mundell-Fleming Macro-Monetary Trilemma
 A monetary bloc cannot simultaneously maintain: (1) Fixed exchange rates, (2) Free capital mobility, and (3) Sovereign monetary autonomy. Any supranational "BRICS currency" proposal without joint fiscal union is classified as **STRUCTURALLY IMPOSSIBLE**.
@@ -136,7 +136,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -219,7 +219,7 @@ The engine transforms raw, unverified natural language text and ingested open-so
 
 1. **Ingestion $\rightarrow$ Arbitration Boundary:** Raw text claims are normalized into immutable `ClaimItem` records. Unverified wire reports receive `reliability_weight = 0.0`.
 2. **Arbitration $\rightarrow$ Lenses Boundary:** Claims are filtered via `ClaimItem.target_lenses` so each lens receives only relevant empirical assertions.
-3. **Lenses $\rightarrow$ Synthesizer Boundary:** All 18 lenses output `LensEvaluation` records. The synthesizer calculates composite confidence using epistemic tier weights, preventing narrative PR lenses from dragging down verified physical data.
+3. **Lenses $\rightarrow$ Synthesizer Boundary:** All 20 lenses output `LensEvaluation` records. The synthesizer calculates composite confidence using epistemic tier weights, preventing narrative PR lenses from dragging down verified physical data.
 4. **Synthesizer $\rightarrow$ Forecasting Boundary:** Scenarios are updated via reliability-weighted Bayesian updating; claims with zero reliability cause zero probability shift.
 5. **Synthesizer $\rightarrow$ Presentation Boundary:** Persona narration applies prioritized lens multipliers without modifying the underlying factual arbitration log.
 
@@ -241,7 +241,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -385,7 +385,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -518,7 +518,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -650,7 +650,7 @@ Every analytical engine and lens in `Geo_Economy_politics` operates in one of fi
 
 ---
 
-## 2. THE 18-LENS EVIDENCE CAPABILITY AUDIT
+## 2. THE 20-LENS EVIDENCE CAPABILITY AUDIT
 
 | Lens ID & Domain | Primary Tier | Required Empirical Evidence | Current Availability | Confidence Ceiling (No Telemetry) | Mandatory Fallback Behavior |
 | :--- | :---: | :--- | :--- | :---: | :--- |
@@ -672,6 +672,8 @@ Every analytical engine and lens in `Geo_Economy_politics` operates in one of fi
 | **L16: Lawfare** | Tier 2 | OFAC SDN notices & ICJ/ICC dockets | **AVAILABLE** (Primary legal) | 0.95 | Calculate sovereign foreign asset freeze risk. |
 | **L17: Food Security** | Tier 1 | FCI central pool buffer stocks & MOP data | **AVAILABLE** (Official gazette)| 0.89 | Calculate grain buffer ratio vs. statutory norms. |
 | **L18: Military ORBAT** | Tier 1 | Troop deployments & WWR ammunition norms | **PARTIAL** (Parliamentary) | 0.78 | Audit two-front posture; flag unverified shifts. |
+| **L19: Subsea Cables** | Tier 1 | Subsea cable landing stations & seabed mining | **PARTIAL** (Telemetry / EEZ) | 0.82 | Audit hydro-spatial sovereignty and cable repairs. |
+| **L20: Astro-Politics** | Tier 1 | LEO satellite telemetry & counter-space tests | **PARTIAL** (ISRO / Space-Track) | 0.85 | Audit NavIC coverage and kinetic ASAT readiness. |
 
 
 
@@ -1078,6 +1080,35 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Automated Morning Digest GitHub Actions Workflow (P1):** Created `.github/workflows/morning_digest.yml` running daily at 00:30 UTC (06:00 AM IST) with `workflow_dispatch` manual trigger. Configured live dispatch via GitHub secrets (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`) with automated fallback to dry-run simulation mode when secrets are not populated.
   - **Telegram Bot Delivery Tracking & Exit Gating (P1):** Added `TelegramDigestPublisher.last_delivery_success` state tracking and non-zero exit code gating (`sys.exit(1)`) in `morning_digest/bot.py` when live dispatch fails or required environment variables are absent.
   - **Verification Suite Expansion & Anti-Drift Compliance:** Added `TestPhase37Hardening` to `tests/test_engine.py`, certifying query parser lens keyword activation, 18-lens registry completeness, bot dispatch state tracking, and calibration ledger logging. All **80/80 unit and integration tests** pass deterministically. All **10/10 Anti-Drift Quality Gates** pass at 100%.
+
+* **Phase 38 (The 20-Lens Analytical Matrix, Execution Gating, Multi-Lens Digest Scoring & Question-First Video Intelligence Engine):**
+  - **Dynamic Execution Gating (P0):** Implemented selective lens evaluation in `geo_engine/arbitration/synthesizer.py` and `geo_engine/cli.py`. When a query prioritizes specific analytical lenses via `prioritized_lenses`, unprioritized lenses are dynamically bypassed, eliminating wasteful compute while preserving full 20-lens evaluation fallback when no restriction is specified.
+  - **The 20-Lens Matrix Expansion (P0):** Expanded the analytical matrix from 18 to 20 specialized evaluators by implementing and registering:
+    - **Lens 19: Subsea Cables & Hydro-Spatial Sovereignty (`SubseaCablesLens`):** Evaluates deep-sea fiber-optic cable landing stations (Mumbai, Chennai), seabed mining of polymetallic nodules, and underwater acoustic hydrophone monitoring across the Indian Ocean and Andaman Sea. Tier 1 Physical.
+    - **Lens 20: Astro-Politics & Counter-Space Deterrence (`AstroPoliticsLens`):** Evaluates Low Earth Orbit (LEO) mega-constellations, sovereign PNT autonomy (NavIC vs. GPS denial), space domain awareness (NETRA), and kinetic/directed-energy ASAT deterrence. Tier 1 Physical.
+  - **Strategic Resilience Matrix Expansion (P1):** Integrated subsea and space metrics into `SummitSynthesizer` and the CLI report (`subsea_bandwidth_dependency_pct`, `hydro_spatial_sovereignty_score`, `satcom_sovereignty_coverage_pct`, `orbital_sovereignty_index`).
+  - **Persona Archetype Projection Weights (P1):** Calibrated weights for Lenses 19 and 20 across all five strategic personas (`sanyal`, `doval`, `jaishankar`, `ranganathan`, `ankit_shah`) in `geo_engine/arbitration/persona_narrator.py`.
+  - **Forecast Ledger CLI Interface (P1):** Added `forecasts` CLI command to `geo_engine/cli.py` with `--resolve`, `--outcome`, and `--status` options, exposing SQLite forecast resolution and Brier score tracking directly to operators.
+  - **Daily Digest State Persistence (P1):** Integrated `actions/upload-artifact@v4` in `.github/workflows/morning_digest.yml` to preserve `data/events.db` across GitHub Actions runner instances with 90-day retention.
+  - **Morning Digest Multi-Lens & India Strategic Impact Scoring (P1):** Upgraded `morning_digest/ranker.py` to scan incoming headlines against the 20 analytical optics via `QueryParser.LENS_KEYWORDS` and compute an `india_impact_score` composite (0.0 - 1.0) assessing direct national sovereignty vectors (LAC/LOC, Vostro, energy chokepoints, critical minerals, and neighborhood stability).
+  - **Question-First Video Intelligence Subsystem (P0):** Built the complete `geo_engine/video/` package:
+    - `url_parser.py`: Safe YouTube URL parsing with domain whitelisting, 11-character video ID validation, start timestamp extraction (`t=120s`, `t=2m15s`), and SSRF/malicious URI rejection.
+    - `transcript_engine.py`: Timestamped caption extraction with resilient fallback to high-fidelity simulated geopolitical transcript corpus for offline/test execution.
+    - `indexer.py`: Partitions granular caption segments into 45-60s timestamp-indexed `VideoChunk` objects with clickable jump URLs (`https://youtu.be/{video_id}?t={start}s`).
+    - `retriever.py`: Salience ranking using sub-linear term frequency keyword scoring within a strict token budget (<800 tokens), preventing context window blowout.
+    - `synthesizer.py`: Formats verifiable answers with clickable markdown timestamp links and wraps untrusted video transcripts in prompt-injection defense envelopes (`<untrusted_video_transcript>`).
+  - **Canonical Documentation & Governance Synchronization:** Updated `03_REGISTRY/ENGINE_AND_LENS_REGISTRY.md` (Document Reference `LENS-REGISTRY-R20`), `00_CANONICAL/00_CANONICAL_CONTRACT.md`, and `01_ARCHITECTURE/SYSTEM_ARCHITECTURE.md` to formally document the 20-Lens Analytical Matrix.
+  - **Anti-Drift Quality Gates Certification:** Updated `scripts/build_canonical_bundles.py` Gate 2 parity check to assert 20 lenses. Regenerated all distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`). All 10 Anti-Drift Quality Gates certified at 100%.
+  - **Verification Suite Expansion:** Added `TestPhase38Hardening` to `tests/test_engine.py`. Expanded automated test suite from 80 to **89 unit and integration tests passing with 100% success rate**.
+
+* **Phase 39 (Full Canonical Manifest Synchronization, Video CLI Operationalization & Governance Certification):**
+  - **Canonical Manifest & Evidence Matrix Parity (P0):** Synchronized `00_CANONICAL/01_CANONICAL_MANIFEST.yaml` and `00_CANONICAL/02_EVIDENCE_CAPABILITY_MATRIX.md` to reflect `registry_version: "R20"` and full 20-lens mapping (adding `LENS-19: Subsea Cables` and `LENS-20: Astro-Politics` specifications, confidence ceilings, and fallback rules).
+  - **Video Intelligence CLI Interface (P0):** Operationalized the Video Intelligence Subsystem in `geo_engine/cli.py` with the `video` subcommand (`python -m geo_engine.cli video <url> --query <query>`) and `render_video_intelligence()` renderer, outputting clickable evidence citations, 20-lens reality checks, and structured strategic briefs directly in the CLI.
+  - **Constitutional Invariant Formula Synchronization (P1):** Updated the Epistemic Tier-Weighted Confidence Mean formula in `00_CANONICAL/00_CANONICAL_CONTRACT.md` from $\sum_{i=1}^{18}$ to $\sum_{i=1}^{20}$, ensuring constitutional parity across all 20 lenses.
+  - **Bundle Generator Lineage Synchronization (P1):** Updated master specification section headers in `scripts/build_canonical_bundles.py` to `Registry: R20` and 20 analytical lenses across Core-5 and Deep-50 distribution targets.
+  - **Test Suite Expansion & Zero-Drift Certification:** Updated canonical test assertions in `tests/test_engine.py` and added `test_cli_video_intelligence_invocation`. Full test suite certified at **90/90 unit and integration tests passing with 100% success rate**. All **10/10 Anti-Drift Quality Gates certified at 100%**.
+
+
 
 
 
@@ -4482,7 +4513,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `206299b`
+- **Canonical Git Commit:** `50e946e`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

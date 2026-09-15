@@ -424,6 +424,31 @@ def render_forecast_ledger(status: Optional[str] = None, resolve_id: Optional[st
     console.print(table)
 
 
+def render_video_intelligence(video_url: str, query: str):
+    """Executes question-first video intelligence and prints timestamp citations and synthesis."""
+    from geo_engine.video import VideoSynthesizer
+    report = VideoSynthesizer.synthesize_video_query(video_url=video_url, query=query)
+
+    console.print(Panel(
+        f"[bold cyan]Video ID:[/bold cyan] {report.video_id}\n"
+        f"[bold cyan]Canonical URL:[/bold cyan] {report.canonical_url}\n"
+        f"[bold yellow]Query Question:[/bold yellow] {report.query}\n"
+        f"[bold magenta]Transcript Mode:[/bold magenta] {'[Simulated Geopolitical Fallback]' if report.is_simulated_transcript else '[Verified Captions]'}",
+        title="Question-First Video Intelligence",
+        border_style="cyan"
+    ))
+
+    console.print("\n[bold yellow]=== TIMESTAMPED CITATIONS & EVIDENCE JUMP LINKS ===[/bold yellow]")
+    for item in report.cited_timestamps:
+        console.print(f"* [bold green][{item['timestamp']}][/bold green] ({item['url']}): {item['text_snippet']}")
+
+    console.print("\n[bold yellow]=== PHYSICAL REALITY VS. RHETORIC AUDIT ===[/bold yellow]")
+    console.print(Panel(report.rhetoric_vs_reality_check, title="20-Lens Physical Audit", border_style="green"))
+
+    console.print("\n[bold yellow]=== STRATEGIC SYNTHESIS ===[/bold yellow]")
+    console.print(Panel(report.synthesis_markdown, title="Verifiable Intelligence Brief", border_style="yellow"))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -450,6 +475,10 @@ def main():
     fc_parser.add_argument("--resolve", type=str, default=None, help="Forecast ID to resolve")
     fc_parser.add_argument("--outcome", type=int, choices=[0, 1], default=None, help="Actual outcome binary (0 or 1)")
 
+    # Command: video
+    video_parser = subparsers.add_parser("video", help="Run question-first video intelligence on YouTube video")
+    video_parser.add_argument("url", type=str, help="YouTube video URL")
+    video_parser.add_argument("--query", "-q", type=str, required=True, help="Question to answer from video")
 
     try:
         args = parser.parse_args()
@@ -462,6 +491,8 @@ def main():
             render_query_pipeline(args.prompt, persona=persona)
         elif args.command == "forecasts":
             render_forecast_ledger(status=args.status, resolve_id=args.resolve, outcome=args.outcome)
+        elif args.command == "video":
+            render_video_intelligence(args.url, args.query)
         elif args.command == "audit" or args.command is None:
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)

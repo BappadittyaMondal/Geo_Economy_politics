@@ -1169,7 +1169,7 @@ class TestCanonicalBundlesAndGovernance:
         assert "CANONICAL-CONTRACT-V1.0" in content
         assert "Contract: `C2`" in content
         assert "Architecture: `A3`" in content
-        assert "Registry: `R18`" in content
+        assert "Registry: `R20`" in content
         assert "https://github.com/BappadittyaMondal/Geo_Economy_politics.git" in content
 
         # Check 5 Epistemic Tiers and Mathematical Weights
@@ -1196,13 +1196,13 @@ class TestCanonicalBundlesAndGovernance:
         assert 'project_version: "0.0.5"' in content
         assert 'contract_version: "C2"' in content
         assert 'architecture_version: "A3"' in content
-        assert 'registry_version: "R18"' in content
+        assert 'registry_version: "R20"' in content
         assert 'bundle_version: "B1"' in content
 
-        # All 18 lenses mapped in manifest
+        # All 20 lenses mapped in manifest
         lens_ids = re.findall(r'- id:\s*"LENS-(\d{2})"', content)
-        assert len(lens_ids) == 18
-        for i in range(1, 19):
+        assert len(lens_ids) == 20
+        for i in range(1, 21):
             expected = f"{i:02d}"
             assert expected in lens_ids
 
@@ -1218,9 +1218,9 @@ class TestCanonicalBundlesAndGovernance:
         for state in ["DESIGNED", "IMPLEMENTED", "TESTED", "EVIDENCE-CONN.", "RELEASE-ELIGIBLE"]:
             assert state in content
 
-        # 18 Lenses present in capability table
+        # 20 Lenses present in capability table
         table_lenses = re.findall(r"\|\s*\*\*?(L\d{2})", content)
-        assert len(table_lenses) == 18
+        assert len(table_lenses) == 20
 
     def test_anti_drift_quality_gates_execution(self):
         import os
@@ -1635,5 +1635,14 @@ class TestPhase38Hardening:
         monkeypatch.setattr(EventStore, "get_forecast_ledger", mock_get_forecast_ledger)
         # Should execute cleanly without throwing
         render_forecast_ledger()
+
+    def test_cli_video_intelligence_invocation(self):
+        from geo_engine.cli import render_video_intelligence
+
+        # Should execute cleanly with fallback simulated transcript
+        render_video_intelligence(
+            video_url="https://www.youtube.com/watch?v=12345678901",
+            query="subsea cables and NavIC"
+        )
 
 

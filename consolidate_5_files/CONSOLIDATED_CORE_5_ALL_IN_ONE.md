@@ -1,8 +1,8 @@
 # CONSOLIDATED ALL-IN-ONE CANONICAL CORE SPECIFICATION
 
-- **Canonical Git Commit:** `206299b`
+- **Canonical Git Commit:** `50e946e`
 - **Project Identity:** `Geo_Economy_politics`
-- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`
+- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 - **Architecture:** Pure Markdown Knowledge Distribution
 
 This master document consolidates the complete 5-file Core Cognitive Runtime Brain into a single continuous specification for single-file upload environments.
@@ -17,7 +17,7 @@ This master document consolidates the complete 5-file Core Cognitive Runtime Bra
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -29,7 +29,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -38,7 +38,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 **Security Classification:** SOVEREIGN RESEARCH / CONSTITUTIONAL SPECIFICATION  
 **System Identity:** Geo-Economic & Geopolitical Intelligence Engine (`Geo_Economy_politics`)  
 **Canonical Repository:** `https://github.com/BappadittyaMondal/Geo_Economy_politics.git` (Branch: `main`)  
-**Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`  
+**Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`  
 
 ---
 
@@ -102,7 +102,7 @@ Where:
 
 ### Law 3: Epistemic Tier-Weighted Confidence Mean
 Composite analytical confidence is calculated strictly as a tier-weighted mean, preventing lower-tier PR noise from diluting verified physical data:
-$$\text{Confidence}_{\text{weighted}} = \frac{\sum_{i=1}^{18} \omega(\text{Tier}_i) \cdot c_i}{\sum_{i=1}^{18} \omega(\text{Tier}_i)} \quad \in [0.0, 1.0]$$
+$$\text{Confidence}_{\text{weighted}} = \frac{\sum_{i=1}^{20} \omega(\text{Tier}_i) \cdot c_i}{\sum_{i=1}^{20} \omega(\text{Tier}_i)} \quad \in [0.0, 1.0]$$
 
 ### Law 4: Mundell-Fleming Macro-Monetary Trilemma
 A monetary bloc cannot simultaneously maintain: (1) Fixed exchange rates, (2) Free capital mobility, and (3) Sovereign monetary autonomy. Any supranational "BRICS currency" proposal without joint fiscal union is classified as **STRUCTURALLY IMPOSSIBLE**.
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -220,7 +220,7 @@ The engine transforms raw, unverified natural language text and ingested open-so
 
 1. **Ingestion $\rightarrow$ Arbitration Boundary:** Raw text claims are normalized into immutable `ClaimItem` records. Unverified wire reports receive `reliability_weight = 0.0`.
 2. **Arbitration $\rightarrow$ Lenses Boundary:** Claims are filtered via `ClaimItem.target_lenses` so each lens receives only relevant empirical assertions.
-3. **Lenses $\rightarrow$ Synthesizer Boundary:** All 18 lenses output `LensEvaluation` records. The synthesizer calculates composite confidence using epistemic tier weights, preventing narrative PR lenses from dragging down verified physical data.
+3. **Lenses $\rightarrow$ Synthesizer Boundary:** All 20 lenses output `LensEvaluation` records. The synthesizer calculates composite confidence using epistemic tier weights, preventing narrative PR lenses from dragging down verified physical data.
 4. **Synthesizer $\rightarrow$ Forecasting Boundary:** Scenarios are updated via reliability-weighted Bayesian updating; claims with zero reliability cause zero probability shift.
 5. **Synthesizer $\rightarrow$ Presentation Boundary:** Persona narration applies prioritized lens multipliers without modifying the underlying factual arbitration log.
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 206299b
+CANONICAL_COMMIT: 50e946e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
