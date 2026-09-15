@@ -160,6 +160,8 @@ def build_core_5_bundle(commit_hash: str) -> List[str]:
 
 def build_deep_50_bundle(commit_hash: str) -> List[str]:
     """Compiles the Deep-50 Research Universe Markdown bundle."""
+    if os.path.exists(DEEP_50_DIR):
+        shutil.rmtree(DEEP_50_DIR)
     os.makedirs(DEEP_50_DIR, exist_ok=True)
     emitted = []
 

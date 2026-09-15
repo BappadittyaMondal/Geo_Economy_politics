@@ -35,6 +35,8 @@ class TranscriptResult(BaseModel):
     segments: List[TranscriptSegment] = Field(default_factory=list)
     language: str = "en"
     is_simulated: bool = False
+    is_degraded: bool = False
+    fallback_mode: Optional[str] = None
 
     @property
     def full_text(self) -> str:
@@ -82,12 +84,15 @@ class VideoTranscriptEngine:
         cls,
         video_id: str,
         custom_segments: Optional[List[Dict[str, Any]]] = None,
-        preferred_languages: Optional[List[str]] = None
+        preferred_languages: Optional[List[str]] = None,
+        metadata_fallback: Optional[Dict[str, Any]] = None
     ) -> TranscriptResult:
         """
         Retrieves transcript for a video ID.
         If custom_segments are provided, parses and returns them.
-        Attempts youtube_transcript_api if installed, else returns structured simulated transcript.
+        Attempts youtube_transcript_api if installed.
+        If captions are unavailable and metadata_fallback is provided, synthesizes degraded segments from metadata.
+        Else returns structured simulated transcript marked with explicit simulation and degradation flags.
         """
         if custom_segments:
             segments = [
@@ -102,7 +107,9 @@ class VideoTranscriptEngine:
                 video_id=video_id,
                 segments=segments,
                 language="en",
-                is_simulated=False
+                is_simulated=False,
+                is_degraded=False,
+                fallback_mode=None
             )
 
         # Attempt dynamic import of youtube_transcript_api if available
@@ -122,13 +129,40 @@ class VideoTranscriptEngine:
                 video_id=video_id,
                 segments=segments,
                 language=langs[0],
-                is_simulated=False
+                is_simulated=False,
+                is_degraded=False,
+                fallback_mode=None
             )
         except Exception:
-            # Resilient fallback: return structured simulated transcript for offline/test environments
+            # Check for authentic video metadata fallback before resorting to synthetic corpus
+            if metadata_fallback:
+                title = metadata_fallback.get("title", "")
+                desc = metadata_fallback.get("description", "")
+                kws = metadata_fallback.get("keywords", [])
+                meta_segments = []
+                if title:
+                    meta_segments.append(TranscriptSegment(text=f"[METADATA_TITLE] {title}", start=0.0, duration=10.0))
+                if desc:
+                    meta_segments.append(TranscriptSegment(text=f"[METADATA_DESCRIPTION] {desc[:800]}", start=10.0, duration=30.0))
+                if kws:
+                    kw_str = ", ".join(kws) if isinstance(kws, list) else str(kws)
+                    meta_segments.append(TranscriptSegment(text=f"[METADATA_KEYWORDS] {kw_str}", start=40.0, duration=20.0))
+                if meta_segments:
+                    return TranscriptResult(
+                        video_id=video_id,
+                        segments=meta_segments,
+                        language="hi" if any(ord(c) > 127 for c in title) else "en",
+                        is_simulated=False,
+                        is_degraded=True,
+                        fallback_mode="video_metadata"
+                    )
+
+            # Resilient fallback: return structured simulated transcript with explicit simulation and degradation flags
             return TranscriptResult(
                 video_id=video_id,
                 segments=cls.SIMULATED_CORPUS,
                 language="en",
-                is_simulated=True
+                is_simulated=True,
+                is_degraded=True,
+                fallback_mode="synthetic_offline_fixture"
             )

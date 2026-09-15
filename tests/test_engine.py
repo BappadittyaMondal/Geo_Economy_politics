@@ -1878,3 +1878,98 @@ class TestPhase41DeepCausality:
         assert "REGISTRY_VERSION: R20 (20 Analytical Lenses)" in content
         assert "REGISTRY_VERSION: R18" not in content
 
+
+class TestPhase42SovereignLawfareAndHygiene:
+    """Phase 42 sovereign lawfare, video epistemic guard, and bundle hygiene tests."""
+
+    def test_video_transcript_simulation_safeguard(self):
+        """Video fallback carries explicit simulation/degraded flags; metadata fallback synthesizes degraded segments."""
+        from geo_engine.video.transcript_engine import VideoTranscriptEngine
+
+        # Test 1: Offline fallback has explicit simulation and degradation signaling
+        res = VideoTranscriptEngine.fetch_transcript("vid_offline_test")
+        assert res.is_simulated is True
+        assert res.is_degraded is True
+        assert res.fallback_mode == "synthetic_offline_fixture"
+
+        # Test 2: Metadata fallback synthesizes authentic degraded segments without simulation
+        meta = {
+            "title": "UP Mein UCC Analysis",
+            "description": "Discussion on Uniform Civil Code in Uttar Pradesh.",
+            "keywords": ["UCC", "UP", "Article 44"]
+        }
+        res_meta = VideoTranscriptEngine.fetch_transcript("vid_meta_test", metadata_fallback=meta)
+        assert res_meta.is_simulated is False
+        assert res_meta.is_degraded is True
+        assert res_meta.fallback_mode == "video_metadata"
+        assert len(res_meta.segments) == 3
+        assert "[METADATA_TITLE]" in res_meta.segments[0].text
+
+    def test_bundle_deep_50_zero_duplicates(self):
+        """Asserts that consolidate_50_files contains zero duplicate base lens specifications."""
+        import pathlib
+        repo_root = pathlib.Path(__file__).parent.parent
+        c50_dir = repo_root / "consolidate_50_files"
+        assert c50_dir.exists()
+
+        files = [f.name for f in c50_dir.iterdir() if f.is_file()]
+        lens_bases = []
+        for f in files:
+            parts = f.split("_", 1)
+            if len(parts) > 1 and parts[0].isdigit() and parts[1].startswith("lens_"):
+                lens_bases.append(parts[1])
+
+        # Assert exactly 20 unique lenses and zero duplicates
+        assert len(lens_bases) == 20
+        assert len(set(lens_bases)) == 20
+
+    def test_institutional_lawfare_domestic_constitutional_telemetry(self):
+        """Domestic constitutional claims (Article 44, UCC, Waqf) trigger domestic lawfare telemetry."""
+        from geo_engine.lenses.institutional_lawfare import InstitutionalLawfareLens
+        from geo_engine.ingestion.models import ClaimItem, EpistemicTier, ClaimType
+
+        claims = [
+            ClaimItem(
+                claim_id="DOM_LAW_01",
+                source_evidence_id="EV_01",
+                claim_type=ClaimType.LEGAL_COMMITMENT,
+                epistemic_tier=EpistemicTier.TIER_3_SOVEREIGN_REDLINES,
+                actors=["State Legislature", "Supreme Court"],
+                asserted_fact="State enacted Article 44 UCC draft while Waqf Act Section 40 tribunal overrides remain unharmonized.",
+                is_binding_commitment=True,
+                reliability_weight=0.90,
+                evidence_status="sufficient"
+            )
+        ]
+        eval_res = InstitutionalLawfareLens.evaluate(event="Domestic Reform", claims=claims)
+        assert eval_res.alignment_score <= -0.60
+        assert "domestic_statutory_asymmetry_score" in eval_res.hard_metrics
+        assert eval_res.hard_metrics["domestic_statutory_asymmetry_score"] >= 0.80
+        assert eval_res.hard_metrics["fcra_litigation_leverage_index"] >= 0.70
+        assert any("Domestic constitutional/statutory lawfare detected" in f for f in eval_res.key_findings)
+
+    def test_civilizational_internal_dharmic_jurisprudence(self):
+        """Internal Sanatan jurisprudence claims (Dharmashastra, Deshadharma, Shankaracharya) trigger polycentric metrics."""
+        from geo_engine.lenses.civilizational import CivilizationalLens
+        from geo_engine.ingestion.models import ClaimItem, EpistemicTier, ClaimType
+
+        claims = [
+            ClaimItem(
+                claim_id="CIV_DHARM_01",
+                source_evidence_id="EV_02",
+                claim_type=ClaimType.GENERAL_INTEL,
+                epistemic_tier=EpistemicTier.TIER_3_SOVEREIGN_REDLINES,
+                actors=["Shankaracharya Matha", "Dharmic Council"],
+                asserted_fact="Traditional Dharmashastra jurisprudence emphasizes Deshadharma and Sadachara over centralized statutory uniform codes.",
+                is_binding_commitment=False,
+                reliability_weight=0.85,
+                evidence_status="sufficient"
+            )
+        ]
+        eval_res = CivilizationalLens.evaluate(summit=None, claims=claims)
+        assert "internal_jurisprudential_model" in eval_res.hard_metrics
+        assert "Dharmic Polycentricity" in eval_res.hard_metrics["internal_jurisprudential_model"]
+        assert eval_res.hard_metrics["traditional_institutional_autonomy_friction"] >= 0.70
+        assert any("Internal Dharmic jurisprudence detected" in f for f in eval_res.key_findings)
+
+

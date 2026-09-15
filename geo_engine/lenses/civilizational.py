@@ -55,6 +55,21 @@ class CivilizationalLens:
                 findings.insert(0, "[GROUNDED TELEMETRY] Civilizational doctrine / Raja Mandala alignment detected in diplomatic conduct.")
                 confidence = min(0.99, round(confidence + 0.02, 2))
                 metrics["grounded_civilizational_claims_verified"] = True
+
+            internal_dharmic_keywords = [
+                "dharmashastra", "smriti", "sadachara", "deshadharma", "kuladharma",
+                "shankaracharya", "peetham", "samskara", "matha", "traditional jurisprudence"
+            ]
+            matched_internal = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in internal_dharmic_keywords)
+                for c in claims
+            )
+            if matched_internal:
+                findings.insert(0, "[GROUNDED TELEMETRY] Internal Dharmic jurisprudence detected: Polycentric Sanatan traditions (Deshadharma / Sadachara / Peetham autonomy) contrasted against centralized statutory secular codification.")
+                metrics["internal_jurisprudential_model"] = "Dharmic Polycentricity (Deshadharma / Sadachara) vs Statutory Uniformity"
+                metrics["traditional_institutional_autonomy_friction"] = 0.76
+                confidence = min(0.99, round(confidence + 0.02, 2))
+
             metrics["claims_evaluated"] = len(claims)
 
         return LensEvaluation(

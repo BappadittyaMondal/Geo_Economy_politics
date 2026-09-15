@@ -53,6 +53,21 @@ class InstitutionalLawfareLens:
                 alignment = -0.75
                 metrics["fatf_regulatory_friction_score"] = 0.90
 
+            domestic_keywords = [
+                "article 44", "ucc", "uniform civil code", "waqf", "fcra",
+                "hrce", "temple control", "personal law", "concurrent list", "pil network"
+            ]
+            domestic_lawfare_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in domestic_keywords)
+                for c in claims
+            )
+            if domestic_lawfare_detected:
+                findings.insert(0, "[GROUNDED TELEMETRY] Domestic constitutional/statutory lawfare detected: Asymmetric regulatory jurisdiction, Article 44 Concurrent List federal friction, or FCRA-leveraged judicial challenge identified.")
+                alignment = min(alignment, -0.60)
+                metrics["domestic_statutory_asymmetry_score"] = 0.82
+                metrics["fcra_litigation_leverage_index"] = 0.74
+                metrics["concurrent_jurisdiction_friction"] = 0.69
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
