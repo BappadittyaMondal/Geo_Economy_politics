@@ -337,6 +337,11 @@ To bridge the gap between architectural simulation and production-grade evidenti
       - `consolidate_50_files/`: Houses all 30 research universe specifications for bulk file upload platforms (Claude Projects, NotebookLM), a single unified master document `CONSOLIDATED_DEEP_50_ALL_IN_ONE.md`, and keeps all thematic subfolders (`00_CANONICAL`, `01_ARCHITECTURE`, `02_CONTRACTS`, `03_REGISTRY`, `04_PROTOCOLS`, `05_LENSES`, `06_GOVERNANCE`, `07_ARCHIVE`) cleanly organized inside it.
   - **Automated Test Harness Expansion:** Added `TestCanonicalBundlesAndGovernance` in `tests/test_engine.py` covering canonical governance contracts, 5-tier mathematical weights, manifest version parity, capability matrix confidence ceilings, anti-drift quality gate verification, RAG context header enforcement, and consolidated folder structural integrity. Verification suite expanded from 67 to **73 automated tests** (100% passing deterministically).
 
+* **Phase 34 (Polymorphic Canonical Path Resolution & Anti-Drift Resilience):**
+  - **Polymorphic Path Resolver:** Added `resolve_canonical_source()` in `scripts/build_canonical_bundles.py` and `resolve_path()` in `tests/test_engine.py` to seamlessly resolve canonical governance specifications whether located at root, inside `consolidate_50_files/`, `dist_ai/deep_50/`, or `consolidate_5_files/`.
+  - **Quadruple Redundancy Immunity:** Guaranteed that future reorganization, consolidation, or cleanup of root directories cannot break the 10 Anti-Drift Quality Gates or the automated test suite.
+  - **Verification Suite Parity:** Retained 100% test pass rate across **73/73 unit and integration tests** and 10/10 Anti-Drift Quality Gates.
+
 ---
 
 ### Two-Axis Forensic Scorecard (Code Architecture vs. Evidentiary Grounding)

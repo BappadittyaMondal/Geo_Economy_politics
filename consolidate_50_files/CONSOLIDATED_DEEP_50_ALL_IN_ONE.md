@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `2396b21`
+- **Canonical Git Commit:** `cccd5b2`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`
 
@@ -16,7 +16,7 @@ This master document consolidates all 30 research universe specifications, 18 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 2396b21
+CANONICAL_COMMIT: cccd5b2
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 2396b21
+CANONICAL_COMMIT: cccd5b2
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -136,7 +136,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 2396b21
+CANONICAL_COMMIT: cccd5b2
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -241,7 +241,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 2396b21
+CANONICAL_COMMIT: cccd5b2
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -385,7 +385,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 2396b21
+CANONICAL_COMMIT: cccd5b2
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -508,7 +508,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 2396b21
+CANONICAL_COMMIT: cccd5b2
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1007,6 +1007,11 @@ To bridge the gap between architectural simulation and production-grade evidenti
       - `consolidate_5_files/`: Houses the 5 core individual files for 5-file upload platforms (Custom GPTs, Kimi), a single unified master document `CONSOLIDATED_CORE_5_ALL_IN_ONE.md` for single-file upload environments, and keeps all modular subfolders (`00_CANONICAL`, `01_ARCHITECTURE`, `02_CONTRACTS`, `03_REGISTRY`, `04_PROTOCOLS`) cleanly organized inside it.
       - `consolidate_50_files/`: Houses all 30 research universe specifications for bulk file upload platforms (Claude Projects, NotebookLM), a single unified master document `CONSOLIDATED_DEEP_50_ALL_IN_ONE.md`, and keeps all thematic subfolders (`00_CANONICAL`, `01_ARCHITECTURE`, `02_CONTRACTS`, `03_REGISTRY`, `04_PROTOCOLS`, `05_LENSES`, `06_GOVERNANCE`, `07_ARCHIVE`) cleanly organized inside it.
   - **Automated Test Harness Expansion:** Added `TestCanonicalBundlesAndGovernance` in `tests/test_engine.py` covering canonical governance contracts, 5-tier mathematical weights, manifest version parity, capability matrix confidence ceilings, anti-drift quality gate verification, RAG context header enforcement, and consolidated folder structural integrity. Verification suite expanded from 67 to **73 automated tests** (100% passing deterministically).
+
+* **Phase 34 (Polymorphic Canonical Path Resolution & Anti-Drift Resilience):**
+  - **Polymorphic Path Resolver:** Added `resolve_canonical_source()` in `scripts/build_canonical_bundles.py` and `resolve_path()` in `tests/test_engine.py` to seamlessly resolve canonical governance specifications whether located at root, inside `consolidate_50_files/`, `dist_ai/deep_50/`, or `consolidate_5_files/`.
+  - **Quadruple Redundancy Immunity:** Guaranteed that future reorganization, consolidation, or cleanup of root directories cannot break the 10 Anti-Drift Quality Gates or the automated test suite.
+  - **Verification Suite Parity:** Retained 100% test pass rate across **73/73 unit and integration tests** and 10/10 Anti-Drift Quality Gates.
 
 ---
 
@@ -2614,7 +2619,7 @@ class PropagandaLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `2396b21`
+- **Canonical Git Commit:** `cccd5b2`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 29 files

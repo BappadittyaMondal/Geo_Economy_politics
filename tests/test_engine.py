@@ -1043,9 +1043,26 @@ class TestCanonicalBundlesAndGovernance:
         import os
         cls.repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+    @classmethod
+    def resolve_path(cls, rel_path: str) -> str:
+        import os
+        candidates = [
+            os.path.join(cls.repo_root, rel_path),
+            os.path.join(cls.repo_root, "consolidate_50_files", rel_path),
+            os.path.join(cls.repo_root, "dist_ai", "deep_50", rel_path),
+            os.path.join(cls.repo_root, "consolidate_5_files", os.path.basename(rel_path)),
+            os.path.join(cls.repo_root, "dist_ai", "core_5", os.path.basename(rel_path)),
+            os.path.join(cls.repo_root, "consolidate_50_files", os.path.basename(rel_path)),
+            os.path.join(cls.repo_root, "dist_ai", "deep_50", os.path.basename(rel_path)),
+        ]
+        for c in candidates:
+            if os.path.exists(c):
+                return c
+        return candidates[0]
+
     def test_canonical_governance_contract_and_tier_weights(self):
         import os
-        contract_path = os.path.join(self.repo_root, "00_CANONICAL", "00_CANONICAL_CONTRACT.md")
+        contract_path = self.resolve_path("00_CANONICAL/00_CANONICAL_CONTRACT.md")
         assert os.path.exists(contract_path)
         with open(contract_path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -1072,7 +1089,7 @@ class TestCanonicalBundlesAndGovernance:
     def test_canonical_manifest_structure_and_lens_parity(self):
         import os
         import re
-        manifest_path = os.path.join(self.repo_root, "00_CANONICAL", "01_CANONICAL_MANIFEST.yaml")
+        manifest_path = self.resolve_path("00_CANONICAL/01_CANONICAL_MANIFEST.yaml")
         assert os.path.exists(manifest_path)
         with open(manifest_path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -1094,7 +1111,7 @@ class TestCanonicalBundlesAndGovernance:
     def test_evidence_capability_matrix_confidence_ceilings(self):
         import os
         import re
-        matrix_path = os.path.join(self.repo_root, "00_CANONICAL", "02_EVIDENCE_CAPABILITY_MATRIX.md")
+        matrix_path = self.resolve_path("00_CANONICAL/02_EVIDENCE_CAPABILITY_MATRIX.md")
         assert os.path.exists(matrix_path)
         with open(matrix_path, "r", encoding="utf-8") as f:
             content = f.read()

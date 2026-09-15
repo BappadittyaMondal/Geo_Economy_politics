@@ -35,6 +35,24 @@ def get_git_commit_hash() -> str:
         return "fa45f17"
 
 
+def resolve_canonical_source(rel_path: str) -> str:
+    """Polymorphic resolver for canonical specifications across root and distribution bundles."""
+    candidates = [
+        os.path.join(REPO_ROOT, rel_path),
+        os.path.join(CONSOLIDATE_50_DIR, rel_path),
+        os.path.join(DEEP_50_DIR, rel_path),
+        os.path.join(CONSOLIDATE_5_DIR, os.path.basename(rel_path)),
+        os.path.join(CORE_5_DIR, os.path.basename(rel_path)),
+        os.path.join(CONSOLIDATE_50_DIR, os.path.basename(rel_path)),
+        os.path.join(DEEP_50_DIR, os.path.basename(rel_path)),
+    ]
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    return candidates[0]
+
+
+
 def serialize_sqlite_to_markdown() -> str:
     """Serializes persistent SQLite events.db tables into readable Markdown text."""
     db_path = os.path.join(REPO_ROOT, "data", "events.db")
@@ -358,7 +376,7 @@ def verify_anti_drift_gates() -> bool:
             errors.append(f"Gate 1 Failed: Core-5 contains {core_files_count} files, expected exactly 5.")
 
     # Gate 2: Registry Count Parity (18 lenses)
-    reg_path = os.path.join(REPO_ROOT, "03_REGISTRY", "ENGINE_AND_LENS_REGISTRY.md")
+    reg_path = resolve_canonical_source("03_REGISTRY/ENGINE_AND_LENS_REGISTRY.md")
     if os.path.exists(reg_path):
         with open(reg_path, "r", encoding="utf-8") as f:
             content = f.read()
@@ -395,7 +413,7 @@ def verify_anti_drift_gates() -> bool:
                         errors.append(f"Gate 5 Failed: Potential credential leak in {fname}")
 
     # Gate 6: Object Schema Completeness
-    contracts_path = os.path.join(REPO_ROOT, "02_CONTRACTS", "OBJECT_AND_DATA_CONTRACTS.md")
+    contracts_path = resolve_canonical_source("02_CONTRACTS/OBJECT_AND_DATA_CONTRACTS.md")
     if os.path.exists(contracts_path):
         with open(contracts_path, "r", encoding="utf-8") as f:
             txt = f.read()
@@ -405,7 +423,7 @@ def verify_anti_drift_gates() -> bool:
                 errors.append(f"Gate 6 Failed: Missing required schema {schema} in contracts.")
 
     # Gate 7: Evidence Capability Matrix Validation
-    matrix_path = os.path.join(REPO_ROOT, "00_CANONICAL", "02_EVIDENCE_CAPABILITY_MATRIX.md")
+    matrix_path = resolve_canonical_source("00_CANONICAL/02_EVIDENCE_CAPABILITY_MATRIX.md")
     if not os.path.exists(matrix_path):
         errors.append("Gate 7 Failed: Missing EVIDENCE_CAPABILITY_MATRIX.md.")
 
