@@ -275,8 +275,7 @@ def render_query_pipeline(prompt: str, persona: str = "neutral"):
         f"[bold yellow]Prompt Analyzed:[/bold yellow] \"{query.raw_prompt}\"\n\n"
         f"[bold cyan]Target Event:[/bold cyan] {query.target_summit} (Horizon: {query.year}) | "
         f"[bold cyan]Countries Detected:[/bold cyan] {', '.join(query.target_countries) if query.target_countries else 'All 10 Core Member States'}\n"
-        f"[bold cyan]Prioritized Lenses:[/bold cyan] {', '.join(query.prioritized_lenses) if query.prioritized_lenses else f'All {len(LENS_REGISTRY)} Lenses Activated'}\n"
-        f"[bold cyan]Forensic Modules Required:[/bold cyan] Kinesics: {query.requires_kinesics} | Cash Audit: {query.requires_cash_audit} | Negative Space: {query.requires_negative_space}",
+        f"[bold cyan]Forensic Modules Required:[/bold cyan] Kinesics: {query.requires_kinesics} | Cash: {query.requires_cash_audit} | Negative Space: {query.requires_negative_space} | Civilizational: {query.requires_civilizational_depth} | India Timeline: {query.requires_india_timeline} | Demographic: {query.requires_demographic_audit} | Critical Minerals: {query.requires_minerals_audit} | Lawfare: {query.requires_lawfare_audit}",
         title="[bold white on green] 1. DYNAMIC STRATEGIC QUERY DECONSTRUCTION [/bold white on green]",
         border_style="green"
     ))
@@ -400,20 +399,25 @@ def main():
     query_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
 
 
-    args = parser.parse_args()
+    try:
+        args = parser.parse_args()
 
-    if args.command == "lenses":
-        persona = getattr(args, "persona", "neutral")
-        render_lenses_summary(args.summit, persona=persona)
-    elif args.command == "query":
-        persona = getattr(args, "persona", "neutral")
-        render_query_pipeline(args.prompt, persona=persona)
-    elif args.command == "audit" or args.command is None:
-        summit_title = getattr(args, "summit", "BRICS 2026 Summit")
-        year = getattr(args, "year", 2026)
-        persona = getattr(args, "persona", "neutral")
-        render_full_report(summit_title, year, persona=persona)
+        if args.command == "lenses":
+            persona = getattr(args, "persona", "neutral")
+            render_lenses_summary(args.summit, persona=persona)
+        elif args.command == "query":
+            persona = getattr(args, "persona", "neutral")
+            render_query_pipeline(args.prompt, persona=persona)
+        elif args.command == "audit" or args.command is None:
+            summit_title = getattr(args, "summit", "BRICS 2026 Summit")
+            year = getattr(args, "year", 2026)
+            persona = getattr(args, "persona", "neutral")
+            render_full_report(summit_title, year, persona=persona)
+    except Exception as e:
+        console.print(f"[bold red][ERROR][/bold red] CLI Execution Failed: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
     main()
+

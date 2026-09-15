@@ -1,0 +1,45 @@
+name: Daily Strategic Morning Digest
+
+on:
+  schedule:
+    # 00:30 UTC = 06:00 AM IST (Indian Standard Time) every morning
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+    inputs:
+      dispatch_live:
+        description: 'Send live Telegram message if configured (true/false)'
+        required: false
+        default: 'true'
+
+jobs:
+  digest:
+    name: Generate & Dispatch Morning Strategic Intelligence
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute Daily Strategic Digest
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISPATCH_LIVE: ${{ github.event.inputs.dispatch_live || 'true' }}
+        run: |
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ "$DISPATCH_LIVE" = "true" ]; then
+            echo "Dispatching live intelligence digest to Telegram..."
+            python -m morning_digest.bot --top 50 --live
+          else
+            echo "Running morning digest in dry-run simulation mode..."
+            python -m morning_digest.bot --top 50
+          fi

@@ -99,19 +99,25 @@ class QueryParser:
     ]
 
     LENS_KEYWORDS: Dict[str, List[str]] = {
+        "deep_tech": ["ai", "deep tech", "quantum", "compute", "algorithm", "frontier tech", "supercomputer", "synthetic", "biotech"],
+        "history": ["treaty", "precedent", "historical", "panchsheel", "1962", "1971", "1993", "cold war", "bretton woods", "bandung"],
+        "civilizational": ["meaning", "inner meaning", "civilization", "sanatan", "history", "kautilya", "mandala", "rajdharma"],
+        "geo_economist": ["geo-economic", "geoeconomic", "trilemma", "mundell-fleming", "cips", "mbridge", "swift", "de-dollarization", "dedollarization", "dedollar", "vostro", "current account"],
+        "geopolitical": ["power", "alliance", "rivalry", "border", "lac", "loc", "military", "troops", "standoff", "hedging", "security"],
         "kinesics": ["bodylanguage", "body language", "photoshoot", "photo", "handshake", "posture", "gaze", "facial"],
         "cash_flow": ["cash", "investment", "fdi", "capex", "mou", "currency", "settlement", "money", "vostro", "funding"],
-        "negative_space": ["synopsis", "omitted", "dropped", "communique", "declaration", "text", "agenda", "draft"],
         "propaganda": ["optics", "narrative", "message", "propaganda", "spin", "media"],
-        "civilizational": ["meaning", "inner meaning", "civilization", "sanatan", "history", "kautilya", "mandala", "rajdharma"],
         "petro_logistics": ["crude", "oil", "energy", "tanker", "chokepoint", "malacca", "hormuz"],
-        "geopolitical": ["power", "alliance", "rivalry", "border", "lac", "loc", "military", "troops", "standoff", "hedging", "security"],
+        "bureaucratic_inertia": ["bureaucracy", "bureaucratic", "press note 3", "veto", "ndrc", "rbi", "mea", "commerce", "regulatory delay", "inter-ministerial", "inertia"],
+        "digital_sovereignty": ["digital sovereignty", "semiconductor", "lithography", "asml", "tsmc", "chip", "chips", "huawei", "5g", "6g", "telecom ban", "navic", "beidou", "gps", "data sovereignty"],
+        "hybrid_covert": ["hybrid", "covert", "grey zone", "gray zone", "sabotage", "subversion", "intelligence", "proxy", "espionage", "psyop"],
         "india_timeline": ["bangladesh", "hasina", "yunus", "netaji", "ram mandir", "ayodhya", "siliguri", "chicken neck", "teesta", "bimstec", "saarc", "neighborhood", "neighborhood first"],
         "demographic_infiltration": ["infiltrat", "migrant", "migration", "ceuta", "melilla", "refugee", "asylum", "demographic", "andalucia", "schengen", "human trafficking"],
         "critical_minerals": ["rare earth", "mineral", "lithium", "cobalt", "semiconductor", "gallium", "germanium", "supply chain"],
         "institutional_lawfare": ["fatf", "lawfare", "icc", "icj", "sanctions", "ofac", "asset freeze", "jurisdiction", "blacklisting"],
         "food_security": ["food", "fertilizer", "urea", "dap", "mop", "grain", "wheat", "rice", "famine", "buffer stock", "pds", "agriculture", "export ban"],
         "military_readiness": ["military readiness", "orbat", "order of battle", "wwr", "war wastage", "ammunition", "air defense", "s-400", "tejas", "nuclear triad", "deterrence", "escalation ladder", "mobilization"],
+        "negative_space": ["synopsis", "omitted", "dropped", "communique", "declaration", "text", "agenda", "draft"],
     }
 
     @classmethod

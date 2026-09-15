@@ -588,8 +588,9 @@ class ForecastingEngine:
                     "epistemic_basis": fc.epistemic_basis,
                     "status": "ACTIVE"
                 })
-        except Exception:
-            pass
+        except Exception as e:
+            import sys
+            print(f"[WARNING] Failed to persist forecast to SQLite ledger: {e}", file=sys.stderr)
 
         return EpistemicStrata(
             observed_facts=observed,

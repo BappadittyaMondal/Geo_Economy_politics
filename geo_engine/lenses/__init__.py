@@ -1,8 +1,10 @@
 """
-The 12-Lens Analytical Matrix.
+The 18-Lens Analytical Matrix.
 Provides specialized evaluators for deep-tech, history, civilizational statecraft,
 geo-economics, geopolitics, kinesics, cash flow, propaganda, petro-logistics,
-bureaucratic inertia, digital sovereignty, and hybrid/covert warfare.
+bureaucratic inertia, digital sovereignty, hybrid/covert warfare, India timeline,
+demographic infiltration, critical minerals, institutional lawfare, food security,
+and military readiness.
 """
 
 from typing import List, Type, Any

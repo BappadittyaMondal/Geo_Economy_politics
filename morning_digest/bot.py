@@ -153,6 +153,7 @@ class TelegramDigestPublisher:
             if not ok:
                 all_delivered = False
 
+        cls.last_delivery_success = all_delivered
         if not all_delivered:
             print("[ERROR] Failed to deliver one or more Telegram message chunks.", file=sys.stderr)
         return chunks
@@ -172,8 +173,12 @@ def main():
     args = parser.parse_args()
 
     dry_run_mode = not args.live or args.dry_run
-    chunks = TelegramDigestPublisher.publish_morning_digest(top_n=args.top, dry_run=dry_run_mode)
     if not dry_run_mode and not os.environ.get("TELEGRAM_BOT_TOKEN"):
+        print("[ERROR] TELEGRAM_BOT_TOKEN environment variable is missing for live dispatch.", file=sys.stderr)
+        sys.exit(1)
+
+    chunks = TelegramDigestPublisher.publish_morning_digest(top_n=args.top, dry_run=dry_run_mode)
+    if not dry_run_mode and not getattr(TelegramDigestPublisher, "last_delivery_success", True):
         sys.exit(1)
 
 

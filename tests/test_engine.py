@@ -1409,10 +1409,66 @@ class TestPhase35Hardening:
         assert args_default.dry_run is False
 
 
+class TestPhase37Hardening:
+    """Phase 37 verification: Keyword matrix expansion, execution gating, and operational resilience."""
 
+    def test_query_parser_newly_registered_lenses(self):
+        from geo_engine.core.query_parser import QueryParser
 
+        q_tech = QueryParser.parse("Analyze quantum computing and semiconductor chip algorithms")
+        assert "deep_tech" in q_tech.prioritized_lenses
+        assert "digital_sovereignty" in q_tech.prioritized_lenses
 
+        q_hist = QueryParser.parse("What do the 1962 war archives and Westphalia precedents say?")
+        assert "history" in q_hist.prioritized_lenses
 
+        q_econ = QueryParser.parse("Evaluate the Mundell-Fleming trilemma and balance of payments")
+        assert "geo_economist" in q_econ.prioritized_lenses
 
+        q_bureaucracy = QueryParser.parse("Examine Press Note 3 inter-ministerial delays and red tape")
+        assert "bureaucratic_inertia" in q_bureaucracy.prioritized_lenses
 
+        q_covert = QueryParser.parse("Detect grey zone subversion and covert sabotage in the maritime corridor")
+        assert "hybrid_covert" in q_covert.prioritized_lenses
+
+    def test_all_18_lenses_present_in_registry(self):
+        from geo_engine.lenses import LENS_REGISTRY
+        assert len(LENS_REGISTRY) == 18
+        names = {lens.__name__ for lens in LENS_REGISTRY}
+        expected = {
+            "DeepTechLens", "HistoryLens", "CivilizationalLens", "GeoEconomistLens",
+            "GeopoliticalLens", "KinesicsLens", "CashFlowLens", "PropagandaLens",
+            "PetroLogisticsLens", "FoodSecurityLens", "MilitaryReadinessLens",
+            "DiplomaticProtocolLens", "BureaucraticInertiaLens", "DigitalSovereigntyLens",
+            "HybridCovertLens", "IndiaTimelineLens", "DemographicInfiltrationLens",
+            "CriticalMineralsLens", "InstitutionalLawfareLens"
+        }
+        assert names.issubset(expected)
+        assert len(names) == 18
+
+    def test_telegram_bot_dispatch_state_tracking(self, monkeypatch):
+        from morning_digest.bot import TelegramDigestPublisher
+
+        monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+        TelegramDigestPublisher.last_delivery_success = False
+        res = TelegramDigestPublisher.send_to_telegram("Phase 37 Test")
+        assert res is False
+        assert TelegramDigestPublisher.last_delivery_success is False
+
+    def test_calibration_sqlite_persistence_logging(self, monkeypatch, capsys):
+        from geo_engine.forecasting.calibration import ForecastingEngine
+        from geo_engine.storage.event_store import EventStore
+
+        def mock_record_forecast(self, record):
+            raise RuntimeError("Simulated SQLite write lock timeout")
+
+        monkeypatch.setattr(EventStore, "record_forecast", mock_record_forecast)
+
+        strata = ForecastingEngine.generate_strata(
+            summit_name="Test Resilience Summit",
+            year=2026
+        )
+        assert strata is not None
+        captured = capsys.readouterr()
+        assert "[WARNING] Failed to persist forecast to SQLite ledger" in captured.err
 

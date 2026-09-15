@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `802561c`
+- **Canonical Git Commit:** `2b2d148`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`
 
@@ -16,7 +16,7 @@ This master document consolidates all 30 research universe specifications, 18 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 802561c
+CANONICAL_COMMIT: 2b2d148
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 802561c
+CANONICAL_COMMIT: 2b2d148
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -136,7 +136,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 802561c
+CANONICAL_COMMIT: 2b2d148
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -241,7 +241,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 802561c
+CANONICAL_COMMIT: 2b2d148
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -385,7 +385,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 802561c
+CANONICAL_COMMIT: 2b2d148
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -508,7 +508,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 802561c
+CANONICAL_COMMIT: 2b2d148
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1060,6 +1060,14 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **GenAI Context Token Optimization (P1):** Formally optimized distribution folders for 1-click bulk upload to external LLM environments (Google NotebookLM, Claude Projects, Custom GPTs). Removed directory recursion overhead and eliminated token waste caused by duplicate document indexing.
   - **Canonical Authoring Source Preservation:** Confirmed strict preservation of the 5 canonical authoring source folders (`00_CANONICAL/`, `01_ARCHITECTURE/`, `02_CONTRACTS/`, `03_REGISTRY/`, `04_PROTOCOLS/`) in the repository root as the immutable source of truth for build compilation.
   - **Harness & Anti-Drift Verification:** Updated `test_consolidate_folders_structure_and_subfolders()` in `tests/test_engine.py` to assert exactly 0 subdirectories in both consolidated folders. 100% test pass rate retained across **76/76 unit and integration tests** and 10/10 Anti-Drift Quality Gates.
+* **Phase 37 (Execution Gating, Keyword Matrix Expansion, Operational Resilience & Daily Automation):**
+  - **Execution Gating & CLI Operational Error Handling (P0):** Wrapped `main()` in `geo_engine/cli.py` in a top-level `try...except Exception as e` block printing structured diagnostic errors to `sys.stderr` and terminating with non-zero exit code (`sys.exit(1)`), preventing silent failures in headless and automated pipeline environments.
+  - **Keyword Matrix Expansion for Full 18-Lens Query Routing (P0):** Expanded `LENS_KEYWORDS` in `geo_engine/core/query_parser.py` to provide explicit keyword triggers for all 18 registered lenses. Added dedicated routing triggers for `deep_tech`, `history`, `geo_economist`, `bureaucratic_inertia`, `digital_sovereignty`, and `hybrid_covert`, preventing any registered analytical lens from being bypassed during dynamic query deconstruction.
+  - **Forensic Pipeline Visualization in CLI (P1):** Updated `render_query_pipeline()` in `geo_engine/cli.py` to display all 8 dynamic forensic flags (`requires_kinesics`, `requires_cash_audit`, `requires_negative_space`, `requires_civilizational_depth`, `requires_india_timeline`, `requires_demographic_audit`, `requires_minerals_audit`, and `requires_lawfare_audit`), ensuring full transparency into forensic query routing.
+  - **Forecasting Ledger Exception Gating & Warning Logging (P1):** Replaced silent `except Exception: pass` in `geo_engine/forecasting/calibration.py` with explicit diagnostic logging to `sys.stderr` whenever SQLite forecast ledger recording encounters locks or write failures, ensuring auditability of forecasting persistence.
+  - **Automated Morning Digest GitHub Actions Workflow (P1):** Created `.github/workflows/morning_digest.yml` running daily at 00:30 UTC (06:00 AM IST) with `workflow_dispatch` manual trigger. Configured live dispatch via GitHub secrets (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`) with automated fallback to dry-run simulation mode when secrets are not populated.
+  - **Telegram Bot Delivery Tracking & Exit Gating (P1):** Added `TelegramDigestPublisher.last_delivery_success` state tracking and non-zero exit code gating (`sys.exit(1)`) in `morning_digest/bot.py` when live dispatch fails or required environment variables are absent.
+  - **Verification Suite Expansion & Anti-Drift Compliance:** Added `TestPhase37Hardening` to `tests/test_engine.py`, certifying query parser lens keyword activation, 18-lens registry completeness, bot dispatch state tracking, and calibration ledger logging. All **80/80 unit and integration tests** pass deterministically. All **10/10 Anti-Drift Quality Gates** pass at 100%.
 
 
 
@@ -2834,7 +2842,7 @@ class PropagandaLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `802561c`
+- **Canonical Git Commit:** `2b2d148`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 29 files
