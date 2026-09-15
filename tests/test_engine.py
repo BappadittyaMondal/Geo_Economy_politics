@@ -1035,6 +1035,117 @@ class TestPhase32Hardening:
         render_full_report(target_event=summit, persona="jaishankar")
 
 
+class TestCanonicalBundlesAndGovernance:
+    """Rigorous machine-verifiable tests for Phase 33 Canonical Multi-AI Distribution Architecture."""
+
+    @classmethod
+    def setup_class(cls):
+        import os
+        cls.repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    def test_canonical_governance_contract_and_tier_weights(self):
+        import os
+        contract_path = os.path.join(self.repo_root, "00_CANONICAL", "00_CANONICAL_CONTRACT.md")
+        assert os.path.exists(contract_path)
+        with open(contract_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Check supreme contract headers and release
+        assert "CANONICAL-CONTRACT-V1.0" in content
+        assert "Contract: `C2`" in content
+        assert "Architecture: `A3`" in content
+        assert "Registry: `R18`" in content
+        assert "https://github.com/BappadittyaMondal/Geo_Economy_politics.git" in content
+
+        # Check 5 Epistemic Tiers and Mathematical Weights
+        assert "Tier 1: Physical Reality" in content and "1.00" in content
+        assert "Tier 2: Hard Financial Flows" in content and "0.85" in content
+        assert "Tier 3: Sovereign Redlines" in content and "0.70" in content
+        assert "Tier 4: Filtered Kinesics" in content and "0.30" in content
+        assert "Tier 5: Communiqué / PR" in content and "0.10" in content
+
+        # Check mathematical clamping laws
+        assert "0.15" in content  # 85% haircut rule
+        assert "Mundell-Fleming" in content
+        assert "Protocol Baseline Subtraction" in content or "Protocol Subtraction" in content
+
+    def test_canonical_manifest_structure_and_lens_parity(self):
+        import os
+        import re
+        manifest_path = os.path.join(self.repo_root, "00_CANONICAL", "01_CANONICAL_MANIFEST.yaml")
+        assert os.path.exists(manifest_path)
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Version Matrix
+        assert 'project_version: "0.0.5"' in content
+        assert 'contract_version: "C2"' in content
+        assert 'architecture_version: "A3"' in content
+        assert 'registry_version: "R18"' in content
+        assert 'bundle_version: "B1"' in content
+
+        # All 18 lenses mapped in manifest
+        lens_ids = re.findall(r'- id:\s*"LENS-(\d{2})"', content)
+        assert len(lens_ids) == 18
+        for i in range(1, 19):
+            expected = f"{i:02d}"
+            assert expected in lens_ids
+
+    def test_evidence_capability_matrix_confidence_ceilings(self):
+        import os
+        import re
+        matrix_path = os.path.join(self.repo_root, "00_CANONICAL", "02_EVIDENCE_CAPABILITY_MATRIX.md")
+        assert os.path.exists(matrix_path)
+        with open(matrix_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # 5-State Capability Maturity Model
+        for state in ["DESIGNED", "IMPLEMENTED", "TESTED", "EVIDENCE-CONN.", "RELEASE-ELIGIBLE"]:
+            assert state in content
+
+        # 18 Lenses present in capability table
+        table_lenses = re.findall(r"\|\s*\*\*?(L\d{2})", content)
+        assert len(table_lenses) == 18
+
+    def test_anti_drift_quality_gates_execution(self):
+        import os
+        from scripts.build_canonical_bundles import verify_anti_drift_gates, CORE_5_DIR, DEEP_50_DIR
+
+        # Execute the 10 quality gates verification
+        result = verify_anti_drift_gates()
+        assert result is True
+
+        # Verify Core-5 strict file count and format
+        core_files = [f for f in os.listdir(CORE_5_DIR) if not f.startswith(".")]
+        assert len(core_files) == 5
+        assert all(f.endswith(".md") for f in core_files)
+
+        # Verify Deep-50 file count and format
+        deep_files = [f for f in os.listdir(DEEP_50_DIR) if not f.startswith(".")]
+        assert len(deep_files) <= 50
+        assert all(f.endswith(".md") for f in deep_files)
+
+    def test_rag_context_headers_and_zero_db_contamination(self):
+        import os
+        from scripts.build_canonical_bundles import CORE_5_DIR, DEEP_50_DIR
+
+        # Core 5 must have RAG context headers and zero .db files
+        for fname in os.listdir(CORE_5_DIR):
+            fpath = os.path.join(CORE_5_DIR, fname)
+            with open(fpath, "r", encoding="utf-8") as f:
+                content = f.read()
+            assert "<!-- RAG_CONTEXT_HEADER" in content
+            assert "CANONICAL_COMMIT:" in content
+            assert "CANONICAL_REPO:" in content
+            assert not fname.endswith(".db")
+
+        # Deep 50 must have zero .db files and serialized database markdown
+        for fname in os.listdir(DEEP_50_DIR):
+            assert not fname.endswith(".db")
+        assert os.path.exists(os.path.join(DEEP_50_DIR, "38_spec_historical_treaty_archive.md"))
+
+
+
 
 
 
