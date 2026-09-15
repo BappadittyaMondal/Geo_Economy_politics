@@ -1,11 +1,11 @@
 # 03 ENGINE AND LENS REGISTRY
-**Document Reference:** `LENS-REGISTRY-R18`  
+**Document Reference:** `LENS-REGISTRY-R20`  
 **System Identity:** Geo-Economic & Geopolitical Intelligence Engine (`Geo_Economy_politics`)  
-**Canonical Matrix Count:** **18 Analytical Lenses**  
+**Canonical Matrix Count:** **20 Analytical Lenses**  
 
 ---
 
-## THE 18-LENS ANALYTICAL MATRIX SPECIFICATION
+## THE 20-LENS ANALYTICAL MATRIX SPECIFICATION
 
 | ID | Analytical Lens Name | Tier | Primary Domain |
 | :--- | :--- | :--- | :--- |
@@ -27,6 +27,8 @@
 | L16 | Institutional Lawfare & OFAC Sanctions | Tier 2 | Asset Freezes |
 | L17 | Food Security & Caloric Sovereignty | Tier 1 | Fertilizer & FCI |
 | L18 | Military Readiness, ORBAT & Deterrence | Tier 1 | WWR Ammunition |
+| L19 | Subsea Cables & Hydro-Spatial Sovereignty | Tier 1 | Subsea & Mining |
+| L20 | Astro-Politics & Counter-Space Deterrence | Tier 1 | LEO & Kinetic ASAT |
 
 ---
 
@@ -107,3 +109,11 @@
 ### L18: Military Readiness, ORBAT & Escalation Dominance Lens
 - **Purpose:** Audits dual-front ORBAT posture, War Wastage Reserves (WWR) ammunition stocking depth (21.5 days), defense indigenization, and S-400/IADS air defense saturation.
 - **Metrics:** `two_front_deterrence_posture_score`, `wwr_ammunition_reserve_days`, `iads_air_defense_coverage_index`.
+
+### L19: Subsea Cables & Hydro-Spatial Sovereignty Lens
+- **Purpose:** Audits deep-sea fiber-optic cable landing stations (Mumbai, Chennai), seabed mining of polymetallic nodules, and hydrophone choke monitoring in the Indian Ocean / Andaman Sea.
+- **Metrics:** `subsea_bandwidth_dependency_pct`, `hydro_spatial_sovereignty_score`, `seabed_mining_concession_status`.
+
+### L20: Astro-Politics & Counter-Space Deterrence Lens
+- **Purpose:** Audits Low Earth Orbit (LEO) mega-constellations, sovereign PNT autonomy (NavIC vs. GPS denial), space domain awareness (NETRA), and kinetic/non-kinetic ASAT deterrence.
+- **Metrics:** `satcom_sovereignty_coverage_pct`, `orbital_sovereignty_index`, `counter_space_deterrence_posture`.

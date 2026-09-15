@@ -23,7 +23,8 @@ class PersonaNarrator:
                 "GeoEconomistLens": 1.5,
                 "HistoryLens": 1.3,
                 "PetroLogisticsLens": 1.2,
-                "FoodSecurityLens": 1.4
+                "FoodSecurityLens": 1.4,
+                "SubseaCablesLens": 1.4
             },
             "conceptual_framing": (
                 "An economic and historical CAS framework: multilateral summits are not static equilibrium treaties, "
@@ -40,7 +41,9 @@ class PersonaNarrator:
                 "HybridCovertLens": 1.6,
                 "BureaucraticInertiaLens": 1.3,
                 "GeopoliticalLens": 1.3,
-                "IndiaTimelineLens": 1.4
+                "IndiaTimelineLens": 1.4,
+                "AstroPoliticsLens": 1.6,
+                "SubseaCablesLens": 1.4
             },
             "conceptual_framing": (
                 "A hard-security and intelligence realist framework: statecraft must be judged not by photocalls "
@@ -56,7 +59,9 @@ class PersonaNarrator:
                 "GeopoliticalLens": 1.5,
                 "CivilizationalLens": 1.4,
                 "DigitalSovereigntyLens": 1.2,
-                "IndiaTimelineLens": 1.3
+                "IndiaTimelineLens": 1.3,
+                "SubseaCablesLens": 1.3,
+                "AstroPoliticsLens": 1.3
             },
             "conceptual_framing": (
                 "A diplomatic-realist framework rooted in 'The India Way' and Mahabharata statecraft: "
@@ -72,7 +77,8 @@ class PersonaNarrator:
                 "PropagandaLens": 1.7,
                 "CivilizationalLens": 1.6,
                 "InstitutionalLawfareLens": 1.5,
-                "HistoryLens": 1.3
+                "HistoryLens": 1.3,
+                "AstroPoliticsLens": 1.4
             },
             "conceptual_framing": (
                 "A rigorous, scientifically grounded civilizational critique: statecraft and diplomacy must be audited "
@@ -89,7 +95,8 @@ class PersonaNarrator:
                 "GeoEconomistLens": 1.6,
                 "CriticalMineralsLens": 1.5,
                 "PetroLogisticsLens": 1.4,
-                "FoodSecurityLens": 1.3
+                "FoodSecurityLens": 1.3,
+                "SubseaCablesLens": 1.4
             },
             "conceptual_framing": (
                 "A hard macro-monetary warfare framework: global geopolitics is governed by the structural unwind "

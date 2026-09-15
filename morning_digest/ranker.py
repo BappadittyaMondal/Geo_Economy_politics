@@ -8,6 +8,7 @@ and outputs the prioritized Top-50 Morning Intelligence Digest.
 import re
 from typing import Any, Dict, List, Optional
 from geo_engine.ingestion import SovereignRSSClient, GDELTClient, EvidenceItem
+from geo_engine.core.query_parser import QueryParser
 
 
 class StrategicNewsRanker:
@@ -46,9 +47,17 @@ class StrategicNewsRanker:
         }
     }
 
+    INDIA_IMPACT_VECTORS = [
+        "india", "bharat", "new delhi", "lac", "loc", "galwan", "doklam", "siliguri",
+        "arunachal", "ladakh", "indian ocean", "modi", "jaishankar", "doval", "iaf",
+        "drdo", "isro", "navic", "rbi", "rupee", "inr", "vostro", "sebi", "upi",
+        "bangladesh", "dhaka", "hasina", "yunus", "pakistan", "islamabad", "sri lanka",
+        "nepal", "maldives", "myanmar", "subsea", "landing station", "potash", "urea"
+    ]
+
     @classmethod
     def score_headline(cls, text: str) -> Dict[str, Any]:
-        """Calculates strategic relevance score (0.0 to 1.0) and primary category for a headline."""
+        """Calculates strategic relevance score, lens tags, and India strategic impact score."""
         text_lower = text.lower()
         domain_scores = {}
         total_score = 0.0
@@ -63,10 +72,24 @@ class StrategicNewsRanker:
         best_domain = max(domain_scores.items(), key=lambda x: x[1])[0] if domain_scores else "general_intel"
         final_score = round(min(1.0, total_score), 3)
 
+        # Multi-lens tags scanning across the 20 analytical optics
+        lens_tags: List[str] = []
+        for lens_name, kws in QueryParser.LENS_KEYWORDS.items():
+            if any(re.search(rf"\b{re.escape(kw)}\b", text_lower) for kw in kws):
+                lens_tags.append(lens_name)
+
+        # India Strategic Impact Score calculation
+        india_hits = sum(1 for kw in cls.INDIA_IMPACT_VECTORS if re.search(rf"\b{re.escape(kw)}\b", text_lower))
+        direct_india_mention = 0.30 if ("india" in text_lower or "bharat" in text_lower) else 0.0
+        calculated_impact = min(1.0, (india_hits * 0.20) + direct_india_mention)
+        india_impact = round(calculated_impact if india_hits > 0 else (final_score * 0.5), 3)
+
         return {
             "strategic_score": final_score,
             "primary_domain": best_domain,
-            "requires_deep_dive": final_score >= 0.70
+            "requires_deep_dive": final_score >= 0.70,
+            "lens_tags": lens_tags,
+            "india_impact_score": india_impact
         }
 
     @classmethod
@@ -105,9 +128,11 @@ class StrategicNewsRanker:
                 "category": meta["primary_domain"].replace("_", " ").title(),
                 "strategic_score": meta["strategic_score"],
                 "requires_deep_dive": meta["requires_deep_dive"],
+                "lens_tags": meta.get("lens_tags", []),
+                "india_impact_score": meta.get("india_impact_score", 0.0),
                 "provenance_url": item.provenance_url
             })
 
-        # Sort by strategic relevance descending
-        scored_items.sort(key=lambda x: x["strategic_score"], reverse=True)
+        # Sort by strategic relevance descending (with India impact tie-breaker)
+        scored_items.sort(key=lambda x: (x["strategic_score"], x.get("india_impact_score", 0.0)), reverse=True)
         return scored_items[:top_n]

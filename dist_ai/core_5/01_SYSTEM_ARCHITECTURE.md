@@ -1,7 +1,7 @@
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -43,7 +43,7 @@ The engine transforms raw, unverified natural language text and ingested open-so
              - Enforces text-only safeguard on kinesic claims (TIER_0)
                        │
                        ▼
-          5. The 18-Lens Analytical Matrix (LENS_REGISTRY)
+          5. The 20-Lens Analytical Matrix (LENS_REGISTRY)
              - Evaluates physical, financial, sovereign, and narrative layers
              - Dynamic signature inspect.signature parameter claim injection
              - Outputs LensEvaluation objects with confidence & hard metrics

@@ -36,7 +36,7 @@ The engine transforms raw, unverified natural language text and ingested open-so
              - Enforces text-only safeguard on kinesic claims (TIER_0)
                        │
                        ▼
-          5. The 18-Lens Analytical Matrix (LENS_REGISTRY)
+          5. The 20-Lens Analytical Matrix (LENS_REGISTRY)
              - Evaluates physical, financial, sovereign, and narrative layers
              - Dynamic signature inspect.signature parameter claim injection
              - Outputs LensEvaluation objects with confidence & hard metrics

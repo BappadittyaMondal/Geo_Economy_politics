@@ -37,6 +37,8 @@ from ..lenses import (
     InstitutionalLawfareLens,
     FoodSecurityLens,
     MilitaryReadinessLens,
+    SubseaCablesLens,
+    AstroPoliticsLens,
 )
 
 
@@ -255,7 +257,8 @@ class SummitSynthesizer:
         financial_flows: Optional[List[FinancialFlow]] = None,
         claims: Optional[List[Any]] = None,
         evidence_items: Optional[List[Any]] = None,
-        fixture_mode: bool = True
+        fixture_mode: bool = True,
+        prioritized_lenses: Optional[List[str]] = None
     ) -> SummitAnalysisReport:
         """
         Executes the end-to-end synthesis pipeline across all 5 tiers.
@@ -269,6 +272,13 @@ class SummitSynthesizer:
         lens_evals = []
         for l in LENS_REGISTRY:
             l_name = l.__name__
+            # Execution Gating: if prioritized_lenses specified, skip non-matching lenses
+            if prioritized_lenses:
+                l_key = l_name.lower().replace("lens", "").replace("_", "")
+                p_keys = [p.lower().replace("lens", "").replace("_", "") for p in prioritized_lenses]
+                if l_key not in p_keys and l_name not in prioritized_lenses:
+                    continue
+
             sig = inspect.signature(l.evaluate)
             call_kwargs = {}
 
@@ -492,6 +502,8 @@ class SummitSynthesizer:
         demo_eval = lens_eval_map.get(DemographicInfiltrationLens.LENS_NAME) or lens_eval_map.get("Demographic Infiltration & Migration Corridors")
         lawfare_eval = lens_eval_map.get(InstitutionalLawfareLens.LENS_NAME) or lens_eval_map.get("Institutional Lawfare & Multilateral Traps")
         timeline_eval = lens_eval_map.get(IndiaTimelineLens.LENS_NAME) or lens_eval_map.get("India's Strategic Timelines & Post-1947 Boundary Trajectories")
+        subsea_eval = lens_eval_map.get(SubseaCablesLens.LENS_NAME) or lens_eval_map.get("Subsea Cables & Hydro-Spatial Sovereignty")
+        astro_eval = lens_eval_map.get(AstroPoliticsLens.LENS_NAME) or lens_eval_map.get("Astro-Politics, Orbital Sovereignty & Space Defense")
 
         strategic_resilience_matrix = {
             "food_caloric_sovereignty_index": food_eval.hard_metrics.get("caloric_sovereignty_index", 0.81) if food_eval else 0.81,
@@ -505,6 +517,10 @@ class SummitSynthesizer:
             "demographic_border_vulnerability": demo_eval.hard_metrics.get("border_transit_vulnerability_score", 0.72) if demo_eval else 0.72,
             "institutional_lawfare_ofac_risk": lawfare_eval.hard_metrics.get("ofac_secondary_sanctions_risk_score", 0.65) if lawfare_eval else 0.65,
             "strategic_frontier_timeline_score": timeline_eval.alignment_score if timeline_eval else 0.60,
+            "subsea_bandwidth_dependency_pct": subsea_eval.hard_metrics.get("subsea_bandwidth_dependency_pct", 98.5) if subsea_eval else 98.5,
+            "hydro_spatial_sovereignty_score": subsea_eval.hard_metrics.get("hydro_spatial_sovereignty_score", 0.68) if subsea_eval else 0.68,
+            "satcom_sovereignty_coverage_pct": astro_eval.hard_metrics.get("satcom_sovereignty_coverage_pct", 84.0) if astro_eval else 84.0,
+            "orbital_sovereignty_index": astro_eval.hard_metrics.get("orbital_sovereignty_index", 0.79) if astro_eval else 0.79,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log
@@ -534,6 +550,7 @@ class SummitSynthesizer:
 
         return SummitAnalysisReport(
             event=summit,
+            lens_evaluations=lens_evals,
             negative_space_synopsis=negative_space_synopsis,
             country_ledgers=country_ledgers,
             kinesic_forensics=kinesic_observations,

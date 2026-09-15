@@ -191,6 +191,7 @@ class SummitAnalysisReport(BaseModel):
     """Final de-sanitized multilateral intelligence synthesis."""
     event: Union[SummitEvent, StrategicEvent]
 
+    lens_evaluations: List[LensEvaluation] = Field(default_factory=list)
     negative_space_synopsis: List[str] = Field(default_factory=list)
     country_ledgers: List[MemberCountryAudit] = Field(default_factory=list)
     kinesic_forensics: List[KinesicObservation] = Field(default_factory=list)

@@ -20,7 +20,7 @@ This document is the supreme constitutional authority for the `Geo_Economy_polit
 3. **01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
 4. **02_OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
 5. **01_SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
-6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 18-lens capability registry, inputs, and failure modes.
+6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
 7. **04_RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
 8. **Implementation Code (Python Modules):** Operational execution layer.
 9. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.

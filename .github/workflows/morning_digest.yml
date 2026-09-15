@@ -43,3 +43,11 @@ jobs:
             echo "Running morning digest in dry-run simulation mode..."
             python -m morning_digest.bot --top 50
           fi
+
+      - name: Persist Intelligence State & SQLite Database Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: intelligence-state-${{ github.run_id }}
+          path: data/events.db
+          retention-days: 90
+

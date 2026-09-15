@@ -1,10 +1,10 @@
 """
-The 18-Lens Analytical Matrix.
+The 20-Lens Analytical Matrix.
 Provides specialized evaluators for deep-tech, history, civilizational statecraft,
 geo-economics, geopolitics, kinesics, cash flow, propaganda, petro-logistics,
 bureaucratic inertia, digital sovereignty, hybrid/covert warfare, India timeline,
 demographic infiltration, critical minerals, institutional lawfare, food security,
-and military readiness.
+military readiness, subsea cables, and astro-politics space defense.
 """
 
 from typing import List, Type, Any
@@ -27,6 +27,8 @@ from .critical_minerals import CriticalMineralsLens
 from .institutional_lawfare import InstitutionalLawfareLens
 from .food_security import FoodSecurityLens
 from .military_readiness import MilitaryReadinessLens
+from .subsea_cables import SubseaCablesLens
+from .astro_politics import AstroPoliticsLens
 
 LENS_REGISTRY: List[Type[Any]] = [
     DeepTechLens,
@@ -47,6 +49,8 @@ LENS_REGISTRY: List[Type[Any]] = [
     InstitutionalLawfareLens,
     FoodSecurityLens,
     MilitaryReadinessLens,
+    SubseaCablesLens,
+    AstroPoliticsLens,
 ]
 
 __all__ = [
@@ -69,5 +73,8 @@ __all__ = [
     "InstitutionalLawfareLens",
     "FoodSecurityLens",
     "MilitaryReadinessLens",
+    "SubseaCablesLens",
+    "AstroPoliticsLens",
 ]
+
 

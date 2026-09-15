@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE CANONICAL CORE SPECIFICATION
 
-- **Canonical Git Commit:** `2b2d148`
+- **Canonical Git Commit:** `206299b`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`
 - **Architecture:** Pure Markdown Knowledge Distribution
@@ -17,7 +17,7 @@ This master document consolidates the complete 5-file Core Cognitive Runtime Bra
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -29,7 +29,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -55,7 +55,7 @@ This document is the supreme constitutional authority for the `Geo_Economy_polit
 3. **01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
 4. **02_OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
 5. **01_SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
-6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 18-lens capability registry, inputs, and failure modes.
+6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
 7. **04_RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
 8. **Implementation Code (Python Modules):** Operational execution layer.
 9. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -179,7 +179,7 @@ The engine transforms raw, unverified natural language text and ingested open-so
              - Enforces text-only safeguard on kinesic claims (TIER_0)
                        │
                        ▼
-          5. The 18-Lens Analytical Matrix (LENS_REGISTRY)
+          5. The 20-Lens Analytical Matrix (LENS_REGISTRY)
              - Evaluates physical, financial, sovereign, and narrative layers
              - Dynamic signature inspect.signature parameter claim injection
              - Outputs LensEvaluation objects with confidence & hard metrics
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,18 +386,18 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
 # 03 ENGINE AND LENS REGISTRY
-**Document Reference:** `LENS-REGISTRY-R18`  
+**Document Reference:** `LENS-REGISTRY-R20`  
 **System Identity:** Geo-Economic & Geopolitical Intelligence Engine (`Geo_Economy_politics`)  
-**Canonical Matrix Count:** **18 Analytical Lenses**  
+**Canonical Matrix Count:** **20 Analytical Lenses**  
 
 ---
 
-## THE 18-LENS ANALYTICAL MATRIX SPECIFICATION
+## THE 20-LENS ANALYTICAL MATRIX SPECIFICATION
 
 | ID | Analytical Lens Name | Tier | Primary Domain |
 | :--- | :--- | :--- | :--- |
@@ -419,6 +419,8 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 | L16 | Institutional Lawfare & OFAC Sanctions | Tier 2 | Asset Freezes |
 | L17 | Food Security & Caloric Sovereignty | Tier 1 | Fertilizer & FCI |
 | L18 | Military Readiness, ORBAT & Deterrence | Tier 1 | WWR Ammunition |
+| L19 | Subsea Cables & Hydro-Spatial Sovereignty | Tier 1 | Subsea & Mining |
+| L20 | Astro-Politics & Counter-Space Deterrence | Tier 1 | LEO & Kinetic ASAT |
 
 ---
 
@@ -500,6 +502,14 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Purpose:** Audits dual-front ORBAT posture, War Wastage Reserves (WWR) ammunition stocking depth (21.5 days), defense indigenization, and S-400/IADS air defense saturation.
 - **Metrics:** `two_front_deterrence_posture_score`, `wwr_ammunition_reserve_days`, `iads_air_defense_coverage_index`.
 
+### L19: Subsea Cables & Hydro-Spatial Sovereignty Lens
+- **Purpose:** Audits deep-sea fiber-optic cable landing stations (Mumbai, Chennai), seabed mining of polymetallic nodules, and hydrophone choke monitoring in the Indian Ocean / Andaman Sea.
+- **Metrics:** `subsea_bandwidth_dependency_pct`, `hydro_spatial_sovereignty_score`, `seabed_mining_concession_status`.
+
+### L20: Astro-Politics & Counter-Space Deterrence Lens
+- **Purpose:** Audits Low Earth Orbit (LEO) mega-constellations, sovereign PNT autonomy (NavIC vs. GPS denial), space domain awareness (NETRA), and kinetic/non-kinetic ASAT deterrence.
+- **Metrics:** `satcom_sovereignty_coverage_pct`, `orbital_sovereignty_index`, `counter_space_deterrence_posture`.
+
 
 
 ================================================================================
@@ -509,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 

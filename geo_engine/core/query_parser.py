@@ -117,6 +117,8 @@ class QueryParser:
         "institutional_lawfare": ["fatf", "lawfare", "icc", "icj", "sanctions", "ofac", "asset freeze", "jurisdiction", "blacklisting"],
         "food_security": ["food", "fertilizer", "urea", "dap", "mop", "grain", "wheat", "rice", "famine", "buffer stock", "pds", "agriculture", "export ban"],
         "military_readiness": ["military readiness", "orbat", "order of battle", "wwr", "war wastage", "ammunition", "air defense", "s-400", "tejas", "nuclear triad", "deterrence", "escalation ladder", "mobilization"],
+        "subsea_cables": ["subsea", "subsea cable", "underwater cable", "fiber optic", "submarine cable", "seabed", "seabed mining", "hydrophone", "eez", "polymetallic"],
+        "astro_politics": ["space", "satellite", "orbital", "navic", "asat", "anti-satellite", "counter-space", "starlink", "isro", "leo constellation", "space situational awareness"],
         "negative_space": ["synopsis", "omitted", "dropped", "communique", "declaration", "text", "agenda", "draft"],
     }
 

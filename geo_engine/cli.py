@@ -56,7 +56,8 @@ def render_full_report(
     persona: str = "neutral",
     target_event: Optional[Union[SummitEvent, StrategicEvent]] = None,
     claims: Optional[List[Any]] = None,
-    evidence_items: Optional[List[Any]] = None
+    evidence_items: Optional[List[Any]] = None,
+    prioritized_lenses: Optional[List[str]] = None
 ):
     """Generates and renders the complete 5-tier report using rich terminal formatting."""
     if target_event is not None:
@@ -76,7 +77,8 @@ def render_full_report(
     report = SummitSynthesizer.synthesize_report(
         summit,
         claims=claims,
-        evidence_items=evidence_items
+        evidence_items=evidence_items,
+        prioritized_lenses=prioritized_lenses
     )
 
     # Header Panel
@@ -162,7 +164,7 @@ def render_full_report(
     )
     console.print(Panel(cash_text, title="Financial Ground Truth vs. Rhetoric", border_style="green"))
 
-    # Strategic Resilience & Escalation Readiness Matrix (Lenses 13-18)
+    # Strategic Resilience & Escalation Readiness Matrix (Lenses 13-20)
     if getattr(report, "strategic_resilience_matrix", None):
         res = report.strategic_resilience_matrix
         res_text = (
@@ -173,10 +175,14 @@ def render_full_report(
             f"[bold green]IADS Integrated Air Defense Coverage:[/bold green] {res.get('iads_air_defense_coverage', 0.0):.2f}  |  "
             f"[bold red]HREE Refining Monopoly Exposure:[/bold red] {res.get('hree_refining_monopoly_pct', 0.0):.1f}%\n"
             f"[bold red]Demographic Border Transit Vulnerability:[/bold red] {res.get('demographic_border_vulnerability', 0.0):.2f}  |  "
-            f"[bold yellow]Institutional Lawfare & OFAC Risk:[/bold yellow] {res.get('institutional_lawfare_ofac_risk', 0.0):.2f}"
+            f"[bold yellow]Institutional Lawfare & OFAC Risk:[/bold yellow] {res.get('institutional_lawfare_ofac_risk', 0.0):.2f}\n"
+            f"[bold cyan]Subsea Bandwidth Dependency:[/bold cyan] {res.get('subsea_bandwidth_dependency_pct', 0.0):.1f}%  |  "
+            f"[bold green]Hydro-Spatial Seabed Sovereignty:[/bold green] {res.get('hydro_spatial_sovereignty_score', 0.0):.2f}\n"
+            f"[bold magenta]SatCom Sovereignty Coverage (NavIC):[/bold magenta] {res.get('satcom_sovereignty_coverage_pct', 0.0):.1f}%  |  "
+            f"[bold green]Orbital Anti-ASAT Sovereignty Index:[/bold green] {res.get('orbital_sovereignty_index', 0.0):.2f}"
         )
-        console.print("\n[bold yellow]=== STRATEGIC RESILIENCE & ESCALATION READINESS (LENSES 13-18) ===[/bold yellow]")
-        console.print(Panel(res_text, title="Physical Caloric, Military & Mineral Sovereignty Matrix", border_style="cyan"))
+        console.print("\n[bold yellow]=== STRATEGIC RESILIENCE & ESCALATION READINESS (LENSES 13-20) ===[/bold yellow]")
+        console.print(Panel(res_text, title="Physical Caloric, Military, Subsea & Orbital Sovereignty Matrix", border_style="cyan"))
 
     # TIER 5: Strategic Inner Meaning (Civilizational & Geopolitical Synthesis)
     console.print("\n[bold yellow]=== TIER 5: STRATEGIC 'INNER MEANING' (CIVILIZATIONAL SYNTHESIS) ===[/bold yellow]")
@@ -374,8 +380,48 @@ def render_query_pipeline(prompt: str, persona: str = "neutral"):
         persona=persona,
         target_event=event_obj,
         claims=all_claims,
-        evidence_items=evidence_items
+        evidence_items=evidence_items,
+        prioritized_lenses=query.prioritized_lenses
     )
+
+
+def render_forecast_ledger(status: Optional[str] = None, resolve_id: Optional[str] = None, outcome: Optional[int] = None):
+    """Displays and resolves persistent calibrated forecasts in SQLite ledger."""
+    store = EventStore()
+    if resolve_id and outcome is not None:
+        brier = store.resolve_forecast(resolve_id, outcome)
+        console.print(f"[bold green][+][/bold green] Resolved forecast [cyan]{resolve_id}[/cyan] with outcome [yellow]{outcome}[/yellow]. Brier score: [bold green]{brier:.4f}[/bold green]")
+        return
+
+    records = store.get_forecast_ledger(status=status)
+    if not records:
+        console.print(f"[yellow]No forecast records found matching status={status}.[/yellow]")
+        return
+
+    table = Table(title=f"Calibrated Forecast Ledger (SQLite: events.db) [Count: {len(records)}]", border_style="cyan")
+    table.add_column("Forecast ID", style="bold cyan", width=22)
+    table.add_column("Target Date", style="yellow", width=12)
+    table.add_column("Event / Summit", style="white", width=20)
+    table.add_column("Hypothesis", style="bold white", width=36)
+    table.add_column("Predicted", style="green", width=10)
+    table.add_column("Outcome", style="magenta", width=10)
+    table.add_column("Brier", style="bold yellow", width=10)
+    table.add_column("Status", style="bold green", width=10)
+
+    for r in records:
+        out_str = str(r["actual_outcome"]) if r.get("actual_outcome") is not None else "N/A"
+        brier_str = f"{r['brier_score']:.4f}" if r.get("brier_score") is not None else "N/A"
+        table.add_row(
+            r["forecast_id"],
+            r.get("target_date", "N/A"),
+            r.get("event_name", "N/A"),
+            r["hypothesis"][:34] + "..." if len(r["hypothesis"]) > 34 else r["hypothesis"],
+            f"{r['predicted_probability']*100:.0f}%",
+            out_str,
+            brier_str,
+            r.get("status", "ACTIVE")
+        )
+    console.print(table)
 
 
 def main():
@@ -398,6 +444,12 @@ def main():
     query_parser.add_argument("prompt", type=str, help="The user question string")
     query_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
 
+    # Command: forecasts
+    fc_parser = subparsers.add_parser("forecasts", help="Inspect and resolve calibrated forecasts in SQLite ledger")
+    fc_parser.add_argument("--status", choices=["ACTIVE", "RESOLVED"], default=None, help="Filter by status")
+    fc_parser.add_argument("--resolve", type=str, default=None, help="Forecast ID to resolve")
+    fc_parser.add_argument("--outcome", type=int, choices=[0, 1], default=None, help="Actual outcome binary (0 or 1)")
+
 
     try:
         args = parser.parse_args()
@@ -408,6 +460,8 @@ def main():
         elif args.command == "query":
             persona = getattr(args, "persona", "neutral")
             render_query_pipeline(args.prompt, persona=persona)
+        elif args.command == "forecasts":
+            render_forecast_ledger(status=args.status, resolve_id=args.resolve, outcome=args.outcome)
         elif args.command == "audit" or args.command is None:
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)

@@ -1,6 +1,6 @@
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -12,7 +12,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 2b2d148
+CANONICAL_COMMIT: 206299b
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -38,7 +38,7 @@ This document is the supreme constitutional authority for the `Geo_Economy_polit
 3. **01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
 4. **02_OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
 5. **01_SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
-6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 18-lens capability registry, inputs, and failure modes.
+6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
 7. **04_RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
 8. **Implementation Code (Python Modules):** Operational execution layer.
 9. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.

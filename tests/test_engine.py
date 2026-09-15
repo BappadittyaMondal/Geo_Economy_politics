@@ -349,7 +349,7 @@ class TestEngineUpgrades:
     Cash Flow Clamping, EventStore SQLite, Persona Narrators, and Strategic News Ranker."""
 
     def test_lens_registry_dynamic_discovery(self):
-        assert len(LENS_REGISTRY) == 18
+        assert len(LENS_REGISTRY) == 20
         lens_names = [cls.__name__ for cls in LENS_REGISTRY]
         assert "IndiaTimelineLens" in lens_names
         assert "CashFlowLens" in lens_names
@@ -359,6 +359,8 @@ class TestEngineUpgrades:
         assert "InstitutionalLawfareLens" in lens_names
         assert "FoodSecurityLens" in lens_names
         assert "MilitaryReadinessLens" in lens_names
+        assert "SubseaCablesLens" in lens_names
+        assert "AstroPoliticsLens" in lens_names
 
 
     def test_ingestion_normalizer_claim_extraction(self):
@@ -1298,9 +1300,9 @@ class TestPhase35Hardening:
         from geo_engine.lenses.history import HistoryLens
         from geo_engine.lenses.civilizational import CivilizationalLens
 
-        assert len(LENS_REGISTRY) == 18
+        assert len(LENS_REGISTRY) == 20
 
-        # 1. Verify all 18 lenses accept claims
+        # 1. Verify all 20 lenses accept claims
         for lens in LENS_REGISTRY:
             sig = inspect.signature(lens.evaluate)
             assert "claims" in sig.parameters, f"Lens {lens.__name__} does not accept claims in evaluate()"
@@ -1431,9 +1433,9 @@ class TestPhase37Hardening:
         q_covert = QueryParser.parse("Detect grey zone subversion and covert sabotage in the maritime corridor")
         assert "hybrid_covert" in q_covert.prioritized_lenses
 
-    def test_all_18_lenses_present_in_registry(self):
+    def test_all_20_lenses_present_in_registry(self):
         from geo_engine.lenses import LENS_REGISTRY
-        assert len(LENS_REGISTRY) == 18
+        assert len(LENS_REGISTRY) == 20
         names = {lens.__name__ for lens in LENS_REGISTRY}
         expected = {
             "DeepTechLens", "HistoryLens", "CivilizationalLens", "GeoEconomistLens",
@@ -1441,10 +1443,11 @@ class TestPhase37Hardening:
             "PetroLogisticsLens", "FoodSecurityLens", "MilitaryReadinessLens",
             "DiplomaticProtocolLens", "BureaucraticInertiaLens", "DigitalSovereigntyLens",
             "HybridCovertLens", "IndiaTimelineLens", "DemographicInfiltrationLens",
-            "CriticalMineralsLens", "InstitutionalLawfareLens"
+            "CriticalMineralsLens", "InstitutionalLawfareLens", "SubseaCablesLens",
+            "AstroPoliticsLens"
         }
         assert names.issubset(expected)
-        assert len(names) == 18
+        assert len(names) == 20
 
     def test_telegram_bot_dispatch_state_tracking(self, monkeypatch):
         from morning_digest.bot import TelegramDigestPublisher
@@ -1471,4 +1474,166 @@ class TestPhase37Hardening:
         assert strata is not None
         captured = capsys.readouterr()
         assert "[WARNING] Failed to persist forecast to SQLite ledger" in captured.err
+
+
+class TestPhase38Hardening:
+    """Tests for Phase 38 upgrades: 20-Lens Matrix, Execution Gating, Video Intelligence, and Digest Multi-Lens Scoring."""
+
+    def test_subsea_cables_lens_evaluation(self):
+        from geo_engine.lenses.subsea_cables import SubseaCablesLens
+        from geo_engine.core.models import SummitEvent, EpistemicTier
+        from geo_engine.core.epistemic_hierarchy import TruthClaim
+
+        event = SummitEvent(
+            summit_name="Indian Ocean Littoral Forum",
+            year=2026,
+            host_country="India",
+            primary_agenda="Deep Seabed Infrastructure"
+        )
+        res = SubseaCablesLens.evaluate(event)
+        assert "Subsea Cables" in res.lens_name
+        assert res.primary_epistemic_tier == EpistemicTier.TIER_1_PHYSICAL
+        assert "subsea_bandwidth_dependency_pct" in res.hard_metrics
+        assert "hydro_spatial_sovereignty_score" in res.hard_metrics
+
+        # Test with physical claim
+        claim = TruthClaim(
+            lens_name="SubseaCablesLens",
+            tier=EpistemicTier.TIER_1_PHYSICAL,
+            assertion="Underwater acoustic array deployed in the Andaman Sea with 99.2% cable protection coverage.",
+            claim_type="PHYSICAL_STATUS"
+        )
+        res_with_claim = SubseaCablesLens.evaluate(event, claims=[claim])
+        assert res_with_claim.hard_metrics["hydro_spatial_sovereignty_score"] > res.hard_metrics["hydro_spatial_sovereignty_score"]
+
+    def test_astro_politics_lens_evaluation(self):
+        from geo_engine.lenses.astro_politics import AstroPoliticsLens
+        from geo_engine.core.models import SummitEvent, EpistemicTier
+        from geo_engine.core.epistemic_hierarchy import TruthClaim
+
+        event = SummitEvent(
+            summit_name="Global Space Summit",
+            year=2026,
+            host_country="India",
+            primary_agenda="Counter-Space Deterrence"
+        )
+        res = AstroPoliticsLens.evaluate(event)
+        assert "Astro-Politics" in res.lens_name
+        assert res.primary_epistemic_tier == EpistemicTier.TIER_1_PHYSICAL
+        assert "satcom_sovereignty_coverage_pct" in res.hard_metrics
+        assert "orbital_sovereignty_index" in res.hard_metrics
+
+        # Test with physical claim
+        claim = TruthClaim(
+            lens_name="AstroPoliticsLens",
+            tier=EpistemicTier.TIER_1_PHYSICAL,
+            assertion="Mission Shakti kinetic ASAT capability verified alongside NavIC constellation deployment.",
+            claim_type="PHYSICAL_STATUS"
+        )
+        res_with_claim = AstroPoliticsLens.evaluate(event, claims=[claim])
+        assert res_with_claim.hard_metrics["orbital_sovereignty_index"] > res.hard_metrics["orbital_sovereignty_index"]
+
+    def test_execution_gating_in_synthesizer(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        event = SummitEvent(
+            summit_name="Subsea Security Forum",
+            year=2026,
+            host_country="India",
+            primary_agenda="Subsea infrastructure"
+        )
+        # Test gated execution with only subsea_cables prioritized
+        report = SummitSynthesizer.synthesize_report(
+            summit=event,
+            prioritized_lenses=["subsea_cables"]
+        )
+        assert len(report.lens_evaluations) == 1
+        assert "Subsea Cables" in report.lens_evaluations[0].lens_name
+
+        # Test ungated fallback evaluates all 20 lenses
+        full_report = SummitSynthesizer.synthesize_report(
+            summit=event,
+            prioritized_lenses=None
+        )
+        assert len(full_report.lens_evaluations) == 20
+
+    def test_youtube_url_parser_validation(self):
+        from geo_engine.video.url_parser import YouTubeURLParser
+        import pytest
+
+        valid_urls = [
+            ("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "dQw4w9WgXcQ", 0),
+            ("https://youtu.be/dQw4w9WgXcQ?t=90s", "dQw4w9WgXcQ", 90),
+            ("https://youtube.com/embed/dQw4w9WgXcQ?start=120", "dQw4w9WgXcQ", 120),
+            ("https://m.youtube.com/watch?v=dQw4w9WgXcQ&t=2m15s", "dQw4w9WgXcQ", 135)
+        ]
+        for url, expected_id, expected_t in valid_urls:
+            parsed = YouTubeURLParser.parse(url)
+            assert parsed["video_id"] == expected_id
+            assert parsed["start_seconds"] == expected_t
+
+        # Invalid domains / schemes
+        with pytest.raises(ValueError):
+            YouTubeURLParser.parse("https://malicious-site.com/watch?v=dQw4w9WgXcQ")
+        with pytest.raises(ValueError):
+            YouTubeURLParser.parse("ftp://youtube.com/watch?v=dQw4w9WgXcQ")
+        with pytest.raises(ValueError):
+            YouTubeURLParser.parse("https://youtube.com/watch?v=short")
+
+    def test_video_intelligence_pipeline(self):
+        from geo_engine.video import VideoSynthesizer, VideoIndexer, VideoRetriever, TranscriptSegment
+
+        segments = [
+            TranscriptSegment(text="Opening remarks on maritime strategy.", start=0.0, duration=15.0),
+            TranscriptSegment(text="The deployment of subsea cables and hydrophones in the Indian Ocean.", start=15.0, duration=25.0),
+            TranscriptSegment(text="NavIC positioning autonomy protects against foreign GPS blackouts.", start=40.0, duration=20.0),
+        ]
+        report = VideoSynthesizer.synthesize_video_query(
+            video_url="https://www.youtube.com/watch?v=12345678901",
+            query="subsea cables and Indian ocean",
+            custom_segments=[s.model_dump() for s in segments]
+        )
+        assert report.video_id == "12345678901"
+        assert len(report.relevant_chunks) > 0
+        assert "subsea" in report.relevant_chunks[0].text.lower()
+        assert len(report.cited_timestamps) > 0
+        assert "https://youtu.be/12345678901?t=" in report.cited_timestamps[0]["url"]
+        assert "<untrusted_video_transcript" in report.prompt_envelope
+        assert "SECURITY NOTICE:" in report.prompt_envelope
+
+    def test_morning_digest_multi_lens_and_india_impact(self):
+        from morning_digest.ranker import StrategicNewsRanker
+
+        res = StrategicNewsRanker.score_headline(
+            "India deploys NavIC-guided coastal patrol vessels to protect subsea landing stations in Chennai."
+        )
+        assert res["strategic_score"] >= 0.15
+        assert res["india_impact_score"] >= 0.3
+        assert "subsea_cables" in res["lens_tags"]
+        assert "astro_politics" in res["lens_tags"]
+
+    def test_cli_forecast_ledger_invocation(self, monkeypatch):
+        from geo_engine.cli import render_forecast_ledger
+        from geo_engine.storage.event_store import EventStore
+
+        def mock_get_forecast_ledger(self, status=None):
+            return [{
+                "forecast_id": "FC-TEST-001",
+                "target_date": "2026-10-24",
+                "event_name": "Kazan Summit",
+                "hypothesis": "BRICS unit of account remains virtual MOU.",
+                "predicted_probability": 0.88,
+                "confidence_interval_low": 0.70,
+                "confidence_interval_high": 0.95,
+                "epistemic_basis": "Multi-lens synthesis",
+                "status": "ACTIVE",
+                "actual_outcome": None,
+                "brier_score": None
+            }]
+
+        monkeypatch.setattr(EventStore, "get_forecast_ledger", mock_get_forecast_ledger)
+        # Should execute cleanly without throwing
+        render_forecast_ledger()
+
 

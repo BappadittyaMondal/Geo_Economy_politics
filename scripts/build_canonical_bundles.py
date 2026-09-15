@@ -330,14 +330,14 @@ def verify_anti_drift_gates() -> bool:
         if core_files_count != 5:
             errors.append(f"Gate 1 Failed: Core-5 contains {core_files_count} files, expected exactly 5.")
 
-    # Gate 2: Registry Count Parity (18 lenses)
+    # Gate 2: Registry Count Parity (20 lenses)
     reg_path = resolve_canonical_source("03_REGISTRY/ENGINE_AND_LENS_REGISTRY.md")
     if os.path.exists(reg_path):
         with open(reg_path, "r", encoding="utf-8") as f:
             content = f.read()
         lens_count = len(re.findall(r"\|\s*L\d{2}\s*\|", content))
-        if lens_count != 18:
-            errors.append(f"Gate 2 Failed: Registry lens count is {lens_count}, expected 18.")
+        if lens_count != 20:
+            errors.append(f"Gate 2 Failed: Registry lens count is {lens_count}, expected 20.")
     else:
         errors.append("Gate 2 Failed: ENGINE_AND_LENS_REGISTRY.md does not exist.")
 
