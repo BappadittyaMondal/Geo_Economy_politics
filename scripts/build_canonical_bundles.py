@@ -16,6 +16,8 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST_DIR = os.path.join(REPO_ROOT, "dist_ai")
 CORE_5_DIR = os.path.join(DIST_DIR, "core_5")
 DEEP_50_DIR = os.path.join(DIST_DIR, "deep_50")
+CONSOLIDATE_5_DIR = os.path.join(REPO_ROOT, "consolidate_5_files")
+CONSOLIDATE_50_DIR = os.path.join(REPO_ROOT, "consolidate_50_files")
 
 
 def get_git_commit_hash() -> str:
@@ -201,6 +203,139 @@ def build_deep_50_bundle(commit_hash: str) -> List[str]:
     return emitted
 
 
+def build_consolidated_folders(commit_hash: str):
+    """
+    Builds the two consolidated distribution folders:
+    1. consolidate_5_files/: Contains the 5 core runtime files, a single master consolidated file,
+       and keeps the modular subfolders inside it.
+    2. consolidate_50_files/: Contains the complete deep research universe files, a single master consolidated file,
+       and keeps all thematic subfolders (00_CANONICAL, 01_ARCHITECTURE, 02_CONTRACTS, 03_REGISTRY,
+       04_PROTOCOLS, 05_LENSES, 06_GOVERNANCE, 07_ARCHIVE) inside it.
+    """
+    # -------------------------------------------------------------
+    # 1. FOLDER 1: consolidate_5_files
+    # -------------------------------------------------------------
+    if os.path.exists(CONSOLIDATE_5_DIR):
+        shutil.rmtree(CONSOLIDATE_5_DIR)
+    os.makedirs(CONSOLIDATE_5_DIR, exist_ok=True)
+
+    core_files = [
+        "00_CANONICAL_CONTRACT.md",
+        "01_SYSTEM_ARCHITECTURE.md",
+        "02_OBJECT_AND_DATA_CONTRACTS.md",
+        "03_ENGINE_AND_LENS_REGISTRY.md",
+        "04_RUNTIME_OPERATING_PROTOCOL.md"
+    ]
+    core_combined_sections = [
+        f"# CONSOLIDATED ALL-IN-ONE CANONICAL CORE SPECIFICATION\n\n"
+        f"- **Canonical Git Commit:** `{commit_hash}`\n"
+        f"- **Project Identity:** `Geo_Economy_politics`\n"
+        f"- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`\n"
+        f"- **Architecture:** Pure Markdown Knowledge Distribution\n\n"
+        f"This master document consolidates the complete 5-file Core Cognitive Runtime Brain into a single continuous specification for single-file upload environments.\n\n"
+        f"---\n"
+    ]
+
+    for fname in core_files:
+        src = os.path.join(CORE_5_DIR, fname)
+        if os.path.exists(src):
+            dst = os.path.join(CONSOLIDATE_5_DIR, fname)
+            shutil.copy2(src, dst)
+            with open(src, "r", encoding="utf-8") as f:
+                content = f.read()
+            core_combined_sections.append(f"\n\n{'='*80}\n# SECTION: {fname}\n{'='*80}\n\n{content}")
+
+    # Single consolidated master file for 1-file uploads
+    with open(os.path.join(CONSOLIDATE_5_DIR, "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(core_combined_sections))
+
+    # Keep all modular subfolders inside consolidate_5_files
+    subfolders_map_5 = {
+        "00_CANONICAL": ["00_CANONICAL_CONTRACT.md"],
+        "01_ARCHITECTURE": ["01_SYSTEM_ARCHITECTURE.md"],
+        "02_CONTRACTS": ["02_OBJECT_AND_DATA_CONTRACTS.md"],
+        "03_REGISTRY": ["03_ENGINE_AND_LENS_REGISTRY.md"],
+        "04_PROTOCOLS": ["04_RUNTIME_OPERATING_PROTOCOL.md"],
+    }
+    for sub, fnames in subfolders_map_5.items():
+        sdir = os.path.join(CONSOLIDATE_5_DIR, sub)
+        os.makedirs(sdir, exist_ok=True)
+        for fn in fnames:
+            src = os.path.join(CORE_5_DIR, fn)
+            if os.path.exists(src):
+                shutil.copy2(src, os.path.join(sdir, fn))
+
+    # -------------------------------------------------------------
+    # 2. FOLDER 2: consolidate_50_files
+    # -------------------------------------------------------------
+    if os.path.exists(CONSOLIDATE_50_DIR):
+        shutil.rmtree(CONSOLIDATE_50_DIR)
+    os.makedirs(CONSOLIDATE_50_DIR, exist_ok=True)
+
+    deep_combined_sections = [
+        f"# CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION\n\n"
+        f"- **Canonical Git Commit:** `{commit_hash}`\n"
+        f"- **Project Identity:** `Geo_Economy_politics`\n"
+        f"- **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`\n\n"
+        f"This master document consolidates all 30 research universe specifications, 18 analytical lenses, contracts, and archives into a single continuous reference for single-file upload environments.\n\n"
+        f"---\n"
+    ]
+
+    for fname in sorted(os.listdir(DEEP_50_DIR)):
+        if fname.endswith(".md"):
+            src = os.path.join(DEEP_50_DIR, fname)
+            dst = os.path.join(CONSOLIDATE_50_DIR, fname)
+            shutil.copy2(src, dst)
+            with open(src, "r", encoding="utf-8") as f:
+                content = f.read()
+            deep_combined_sections.append(f"\n\n{'='*80}\n# SPECIFICATION: {fname}\n{'='*80}\n\n{content}")
+
+    # Single consolidated master file for 1-file uploads
+    with open(os.path.join(CONSOLIDATE_50_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(deep_combined_sections))
+
+    # Keep all thematic subfolders inside consolidate_50_files
+    subfolders_map_50 = {
+        "00_CANONICAL": [
+            ("00_CANONICAL_CONTRACT.md", os.path.join(REPO_ROOT, "00_CANONICAL", "00_CANONICAL_CONTRACT.md")),
+            ("01_CANONICAL_MANIFEST.yaml", os.path.join(REPO_ROOT, "00_CANONICAL", "01_CANONICAL_MANIFEST.yaml")),
+            ("02_EVIDENCE_CAPABILITY_MATRIX.md", os.path.join(REPO_ROOT, "00_CANONICAL", "02_EVIDENCE_CAPABILITY_MATRIX.md")),
+        ],
+        "01_ARCHITECTURE": [
+            ("SYSTEM_ARCHITECTURE.md", os.path.join(REPO_ROOT, "01_ARCHITECTURE", "SYSTEM_ARCHITECTURE.md")),
+        ],
+        "02_CONTRACTS": [
+            ("OBJECT_AND_DATA_CONTRACTS.md", os.path.join(REPO_ROOT, "02_CONTRACTS", "OBJECT_AND_DATA_CONTRACTS.md")),
+        ],
+        "03_REGISTRY": [
+            ("ENGINE_AND_LENS_REGISTRY.md", os.path.join(REPO_ROOT, "03_REGISTRY", "ENGINE_AND_LENS_REGISTRY.md")),
+        ],
+        "04_PROTOCOLS": [
+            ("RUNTIME_OPERATING_PROTOCOL.md", os.path.join(REPO_ROOT, "04_PROTOCOLS", "RUNTIME_OPERATING_PROTOCOL.md")),
+        ],
+        "05_LENSES": [
+            (fname, os.path.join(DEEP_50_DIR, fname)) for fname in os.listdir(DEEP_50_DIR) if "_lens_" in fname
+        ],
+        "06_GOVERNANCE": [
+            ("05_EVIDENCE_CAPABILITY_MATRIX.md", os.path.join(DEEP_50_DIR, "05_EVIDENCE_CAPABILITY_MATRIX.md")),
+            ("06_History_upgradation.md", os.path.join(DEEP_50_DIR, "06_History_upgradation.md")),
+            ("07_LICENSE_APACHE2.md", os.path.join(DEEP_50_DIR, "07_LICENSE_APACHE2.md")),
+            ("08_requirements_lock.md", os.path.join(DEEP_50_DIR, "08_requirements_lock.md")),
+            ("09_ci_cd_workflow.md", os.path.join(DEEP_50_DIR, "09_ci_cd_workflow.md")),
+        ],
+        "07_ARCHIVE": [
+            ("38_spec_historical_treaty_archive.md", os.path.join(DEEP_50_DIR, "38_spec_historical_treaty_archive.md")),
+        ]
+    }
+
+    for sub, items in subfolders_map_50.items():
+        sdir = os.path.join(CONSOLIDATE_50_DIR, sub)
+        os.makedirs(sdir, exist_ok=True)
+        for dest_name, src_path in items:
+            if os.path.exists(src_path):
+                shutil.copy2(src_path, os.path.join(sdir, dest_name))
+
+
 def verify_anti_drift_gates() -> bool:
     """Verifies the 10 Anti-Drift Quality Gates."""
     print("[GATE_CHECK] Commencing Anti-Drift Quality Gate Verification...")
@@ -334,6 +469,9 @@ def main():
 
     deep_emitted = build_deep_50_bundle(commit_hash)
     print(f"[BUILD] Deep-50 Bundle compiled: {len(deep_emitted)} files in {DEEP_50_DIR}")
+
+    build_consolidated_folders(commit_hash)
+    print(f"[BUILD] Consolidated Folders built: {CONSOLIDATE_5_DIR} and {CONSOLIDATE_50_DIR}")
 
     passed = verify_anti_drift_gates()
     if not passed:

@@ -1144,6 +1144,26 @@ class TestCanonicalBundlesAndGovernance:
             assert not fname.endswith(".db")
         assert os.path.exists(os.path.join(DEEP_50_DIR, "38_spec_historical_treaty_archive.md"))
 
+    def test_consolidate_folders_structure_and_subfolders(self):
+        import os
+        from scripts.build_canonical_bundles import CONSOLIDATE_5_DIR, CONSOLIDATE_50_DIR
+
+        assert os.path.exists(CONSOLIDATE_5_DIR)
+        assert os.path.exists(CONSOLIDATE_50_DIR)
+
+        # Folder 1: consolidate_5_files
+        assert os.path.exists(os.path.join(CONSOLIDATE_5_DIR, "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"))
+        for fname in ["00_CANONICAL_CONTRACT.md", "01_SYSTEM_ARCHITECTURE.md", "02_OBJECT_AND_DATA_CONTRACTS.md", "03_ENGINE_AND_LENS_REGISTRY.md", "04_RUNTIME_OPERATING_PROTOCOL.md"]:
+            assert os.path.exists(os.path.join(CONSOLIDATE_5_DIR, fname))
+        for sdir in ["00_CANONICAL", "01_ARCHITECTURE", "02_CONTRACTS", "03_REGISTRY", "04_PROTOCOLS"]:
+            assert os.path.isdir(os.path.join(CONSOLIDATE_5_DIR, sdir))
+
+        # Folder 2: consolidate_50_files
+        assert os.path.exists(os.path.join(CONSOLIDATE_50_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"))
+        for sdir in ["00_CANONICAL", "01_ARCHITECTURE", "02_CONTRACTS", "03_REGISTRY", "04_PROTOCOLS", "05_LENSES", "06_GOVERNANCE", "07_ARCHIVE"]:
+            assert os.path.isdir(os.path.join(CONSOLIDATE_50_DIR, sdir))
+
+
 
 
 
