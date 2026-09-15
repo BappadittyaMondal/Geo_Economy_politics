@@ -19,14 +19,34 @@ class EventStore:
     )
 
     def __init__(self, db_path: Optional[str] = None):
-        self.db_path = db_path or self.DEFAULT_DB_PATH
+        self.db_path = db_path or os.environ.get("GEO_ENGINE_DB_PATH") or self.DEFAULT_DB_PATH
         os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
-        self.initialize_schema_and_seed()
+        if not self.is_initialized():
+            self.initialize_schema_and_seed()
+
+    def is_initialized(self) -> bool:
+        """Checks if the SQLite database is already initialized with essential baseline tables."""
+        if not os.path.exists(self.db_path) or os.path.getsize(self.db_path) == 0:
+            return False
+        try:
+            with sqlite3.connect(self.db_path, timeout=5.0) as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='historical_treaty_clauses'"
+                )
+                row = cursor.fetchone()
+                return bool(row and row[0] > 0)
+        except Exception:
+            return False
 
     def _get_connection(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self.db_path, timeout=10.0)
         conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA journal_mode=WAL;")
+        cursor = conn.cursor()
+        cursor.execute("PRAGMA journal_mode;")
+        current_mode = cursor.fetchone()
+        if current_mode and current_mode[0].lower() != "wal":
+            conn.execute("PRAGMA journal_mode=WAL;")
         conn.execute("PRAGMA busy_timeout=5000;")
         return conn
 

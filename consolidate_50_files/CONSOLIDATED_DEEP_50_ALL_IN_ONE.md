@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `773c63b`
+- **Canonical Git Commit:** `ef68691`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R18`
 
@@ -16,7 +16,7 @@ This master document consolidates all 30 research universe specifications, 18 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 773c63b
+CANONICAL_COMMIT: ef68691
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 773c63b
+CANONICAL_COMMIT: ef68691
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -136,7 +136,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 773c63b
+CANONICAL_COMMIT: ef68691
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -241,7 +241,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 773c63b
+CANONICAL_COMMIT: ef68691
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -385,7 +385,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 773c63b
+CANONICAL_COMMIT: ef68691
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -508,7 +508,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 773c63b
+CANONICAL_COMMIT: ef68691
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1033,12 +1033,12 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
 | **10. Persona Projection Layer** | 100% | 95% | 5 distinct doctrinal projections with non-attributable disclaimers and prioritized `lens_weights` across all 18 lenses |
 | **11. Two-Stage News Pipeline** | 100% | 70% | Stage A ranker with degraded-state filtering + Stage B publisher with sanitized logging & 2000-char headline cap |
 | **12. Rich Terminal CLI Engine** | 100% | 95% | Windows UTF-8 safe; Strategic Resilience Matrix panel; supports `audit`, `lenses --persona`, `query --persona` |
-| **13. Automated Test Suite & CI**| 100% | 100% | **73/73 unit and integration tests** passing deterministically; GitHub Actions CI matrix across OS/Python |
+| **13. Automated Test Suite & CI**| 100% | 100% | **76/76 unit and integration tests** passing deterministically; GitHub Actions CI matrix across OS/Python |
 | **14. Canonical Governance & Multi-AI Bundles**| 100% | 96% | 10 Anti-Drift Quality Gates; Core-5 and Deep-50 bundles + consolidated folders with subfolders & single-file specs |
 | **COMPOSITE SUBSYSTEM AVERAGE** | **100.0%** | **79.7%** | **Overall Production Readiness: 89.9% (Maturity Level 5 - Production Hardened & Multi-AI Certified)** |
 
 ### Truthful Evidentiary Footnote:
-* **Axis 1 (100.0% - Production Hardened & Release Engineered):** The internal code architecture, canonical contracts, 18-lens registry, data contracts, runtime operating protocols, 10 Anti-Drift Quality Gates, consolidated distribution folders (`consolidate_5_files`, `consolidate_50_files`), regression test harness (73/73 tests passing), CI workflow, dependency lockfile, Apache 2.0 license, Bayesian normalization, SQLite WAL concurrency, and deterministic algorithms are robust, verified, and completely free of regressions or circular wheel-spinning.
+* **Axis 1 (100.0% - Production Hardened & Release Engineered):** The internal code architecture, canonical contracts, 18-lens registry, data contracts, runtime operating protocols, 10 Anti-Drift Quality Gates, consolidated distribution folders (`consolidate_5_files`, `consolidate_50_files`), regression test harness (76/76 tests passing), CI workflow, dependency lockfile, Apache 2.0 license, Bayesian normalization, SQLite WAL concurrency, and deterministic algorithms are robust, verified, and completely free of regressions or circular wheel-spinning.
 * **Axis 2 (79.7% - Operational with Honest Epistemic Degradation):** Because the engine utilizes free open-access telemetry (GDELT 2.0 and Sovereign RSS) without commercial terminals, live external feeds can experience rate-limiting or network downtime. The engine honestly signals this via `TIER_0_INSUFFICIENT_EVIDENCE` and degraded status rather than confabulating synthetic mock data. Derived bundles are protected from drift by automated hash verification.
 
 ---
@@ -1051,6 +1051,7 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Telegram Bot CLI Contract Hardening (P1):** Added `--live` and refactored argument parsing into a testable `build_parser()` in `morning_digest/bot.py`. Unlocked safe dry-run defaults, fixed store_true boolean flag trap, tracked `all_delivered` delivery status, and added stderr logging on dispatch failures.
   - **Universal 18-Lens Evidence-to-Lens Ingestion Spine (P1):** Expanded `evaluate()` across all 18 lenses in `geo_engine/lenses/` (`PetroLogisticsLens`, `DigitalSovereigntyLens`, `GeoEconomistLens`, `PropagandaLens`, `BureaucraticInertiaLens`, `HybridCovertLens`, `HistoryLens`, `CivilizationalLens`, `GeopoliticalLens`, `DeepTechLens`, etc.) to accept `claims: Optional[List[Any]] = None`. All 18 lenses now dynamically detect keyword-grounded telemetry claims and inject verified evidence citations and updated metrics.
   - **Epistemic Honesty & Quasi-Bayesian Calibration (P1):** Formally updated docstrings and mathematical specifications in `geo_engine/forecasting/calibration.py` to label scenario updates as "Reliability-Weighted Heuristic Updating" (discrete quasi-Bayesian likelihood updating), truthfully bounding scenario probabilities without claiming continuous integration over unparameterized priors.
+  - **SQLite Non-Mutating Reads & Test Isolation (P1):** Added `is_initialized()` to `geo_engine/storage/event_store.py` to prevent redundant DDL commits on existing databases and inspect journal mode before re-issuing `PRAGMA journal_mode=WAL;`. Added `GEO_ENGINE_DB_PATH` environment variable support and an autouse session fixture `isolated_test_database` in `tests/test_engine.py`, guaranteeing that test runs never alter or dirty the canonical tracked `data/events.db` file header.
   - **Canonical Distribution & Anti-Drift Quality Gates:** Regenerated all canonical bundles (`dist_ai/core_5`, `dist_ai/deep_50`) and consolidated distribution directories (`consolidate_5_files`, `consolidate_50_files`). All 10 Anti-Drift Quality Gates verified with 100% compliance.
   - **Verification Suite Expansion:** Added `TestPhase35Hardening` suite to `tests/test_engine.py`, expanding automated test coverage to **76/76 unit and integration tests passing with 100% success rate**.
 
@@ -2826,7 +2827,7 @@ class PropagandaLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `773c63b`
+- **Canonical Git Commit:** `ef68691`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 29 files

@@ -318,6 +318,11 @@ def build_consolidated_folders(commit_hash: str):
                 content = f.read()
             deep_combined_sections.append(f"\n\n{'='*80}\n# SPECIFICATION: {fname}\n{'='*80}\n\n{content}")
 
+    # Copy canonical manifest to root of consolidate_50_files if present
+    manifest_src = resolve_canonical_source("00_CANONICAL/01_CANONICAL_MANIFEST.yaml")
+    if os.path.exists(manifest_src):
+        shutil.copy2(manifest_src, os.path.join(CONSOLIDATE_50_DIR, "01_CANONICAL_MANIFEST.yaml"))
+
     # Single consolidated master file for 1-file uploads
     with open(os.path.join(CONSOLIDATE_50_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(deep_combined_sections))

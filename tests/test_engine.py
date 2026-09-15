@@ -31,8 +31,36 @@ from geo_engine.lenses import (
     BureaucraticInertiaLens,
     DigitalSovereigntyLens,
     HybridCovertLens,
-    IndiaTimelineLens,
+    FoodSecurityLens,
+    MilitaryReadinessLens
 )
+
+
+@pytest.fixture(scope="session", autouse=True)
+def isolated_test_database():
+    """Isolates all test runs to a temporary SQLite database, preventing mutation of canonical data/events.db."""
+    import tempfile
+    import os
+    import shutil
+    from geo_engine.storage.event_store import EventStore
+
+    with tempfile.NamedTemporaryFile(suffix="_test_events.db", delete=False) as tf:
+        temp_db = tf.name
+
+    # Pre-seed temp_db from canonical seed data if present
+    canonical_db = EventStore.DEFAULT_DB_PATH
+    if os.path.exists(canonical_db):
+        shutil.copy2(canonical_db, temp_db)
+
+    os.environ["GEO_ENGINE_DB_PATH"] = temp_db
+    yield temp_db
+    os.environ.pop("GEO_ENGINE_DB_PATH", None)
+    if os.path.exists(temp_db):
+        try:
+            os.remove(temp_db)
+        except Exception:
+            pass
+
 from geo_engine.arbitration.negative_space import NegativeSpaceDiffEngine
 from geo_engine.arbitration.synthesizer import SummitSynthesizer
 
@@ -398,16 +426,29 @@ class TestEngineUpgrades:
         assert eval_b.alignment_score == 1.0
 
     def test_event_store_persistence(self):
+        import tempfile
+        import os
         from geo_engine.storage.event_store import EventStore
-        store = EventStore()
-        # Seeded events check
-        events = store.get_events_by_region("South Asia")
-        assert len(events) >= 1
-        assert any("Bangladesh" in e["title"] or "Ram Mandir" in e["title"] for e in events)
 
-        # Baseline treaty clauses
-        brics_clauses = store.get_baseline_clauses("BRICS")
-        assert len(brics_clauses) >= 1
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            temp_db = tf.name
+        try:
+            store = EventStore(db_path=temp_db)
+            # Seeded events check
+            events = store.get_events_by_region("South Asia")
+            assert len(events) >= 1
+            assert any("Bangladesh" in e["title"] or "Ram Mandir" in e["title"] for e in events)
+
+            # Baseline treaty clauses
+            brics_clauses = store.get_baseline_clauses("BRICS")
+            assert len(brics_clauses) >= 1
+        finally:
+            if os.path.exists(temp_db):
+                try:
+                    os.remove(temp_db)
+                except Exception:
+                    pass
+
 
     def test_persona_narrator_archetypes(self):
         from geo_engine.arbitration.persona_narrator import PersonaNarrator
@@ -470,62 +511,89 @@ class TestEngineUpgrades:
         assert ranked[0]["strategic_score"] > ranked[1]["strategic_score"]
 
     def test_historical_anniversary_matcher(self):
+        import tempfile
+        import os
         from geo_engine.storage.event_store import EventStore
-        store = EventStore()
-        
-        # Test July 31 matching Guadalete (711 AD)
-        annivs_july = store.match_anniversaries(7, 31)
-        assert len(annivs_july) >= 1
-        guadalete = [a for a in annivs_july if "Guadalete" in a["event_title"]]
-        assert len(guadalete) == 1
-        assert guadalete[0]["year"] == 711
-        assert "Europe / Iberia" in guadalete[0]["region"]
-        assert "Tariq ibn Ziyad" in guadalete[0]["historical_summary"]
 
-        # Test January 2 matching Granada (1492 AD)
-        annivs_jan = store.match_anniversaries(1, 2)
-        assert len(annivs_jan) >= 1
-        granada = [a for a in annivs_jan if "Granada" in a["event_title"]]
-        assert len(granada) == 1
-        assert granada[0]["year"] == 1492
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            temp_db = tf.name
+        try:
+            store = EventStore(db_path=temp_db)
 
-        # Test full month search for August (Indo-Soviet 1971 & Dhaka 2024)
-        annivs_aug = store.match_anniversaries(8)
-        assert len(annivs_aug) >= 2
-        titles = [a["event_title"] for a in annivs_aug]
-        assert any("Indo-Soviet" in t for t in titles)
-        assert any("Dhaka" in t for t in titles)
+            # Test July 31 matching Guadalete (711 AD)
+            annivs_july = store.match_anniversaries(7, 31)
+            assert len(annivs_july) >= 1
+            guadalete = [a for a in annivs_july if "Guadalete" in a["event_title"]]
+            assert len(guadalete) == 1
+            assert guadalete[0]["year"] == 711
+            assert "Europe / Iberia" in guadalete[0]["region"]
+            assert "Tariq ibn Ziyad" in guadalete[0]["historical_summary"]
+
+            # Test January 2 matching Granada (1492 AD)
+            annivs_jan = store.match_anniversaries(1, 2)
+            assert len(annivs_jan) >= 1
+            granada = [a for a in annivs_jan if "Granada" in a["event_title"]]
+            assert len(granada) == 1
+            assert granada[0]["year"] == 1492
+
+            # Test full month search for August (Indo-Soviet 1971 & Dhaka 2024)
+            annivs_aug = store.match_anniversaries(8)
+            assert len(annivs_aug) >= 2
+            titles = [a["event_title"] for a in annivs_aug]
+            assert any("Indo-Soviet" in t for t in titles)
+            assert any("Dhaka" in t for t in titles)
+        finally:
+            if os.path.exists(temp_db):
+                try:
+                    os.remove(temp_db)
+                except Exception:
+                    pass
+
 
     def test_forecast_ledger_persistence_and_resolution(self):
+        import tempfile
+        import os
         from geo_engine.storage.event_store import EventStore
-        store = EventStore()
-        
-        forecast_id = "FCST-TEST-SPAIN-2026"
-        store.record_forecast({
-            "forecast_id": forecast_id,
-            "created_at": "2026-09-14T10:00:00",
-            "target_date": "2026-12-31",
-            "event_name": "Iberian Maritime Border Transit Stress",
-            "hypothesis": "Frontex emergency intervention requested along Andalucian littoral",
-            "predicted_probability": 0.75,
-            "confidence_interval_low": 0.60,
-            "confidence_interval_high": 0.85,
-            "epistemic_basis": "Historical mirror (711 AD) and demographic infiltration lens telemetry",
-            "status": "ACTIVE"
-        })
 
-        active_forecasts = store.get_forecast_ledger(status="ACTIVE")
-        assert any(f["forecast_id"] == forecast_id for f in active_forecasts)
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            temp_db = tf.name
 
-        # Resolve forecast as true event (actual_outcome = 1)
-        # Brier score = (0.75 - 1.0)^2 = (-0.25)^2 = 0.0625
-        brier = store.resolve_forecast(forecast_id=forecast_id, actual_outcome=1)
-        assert brier == 0.0625
+        try:
+            store = EventStore(db_path=temp_db)
 
-        resolved = store.get_forecast_ledger(status="RESOLVED")
-        entry = next(f for f in resolved if f["forecast_id"] == forecast_id)
-        assert entry["brier_score"] == 0.0625
-        assert entry["actual_outcome"] == 1
+            forecast_id = "FCST-TEST-SPAIN-2026"
+            store.record_forecast({
+                "forecast_id": forecast_id,
+                "created_at": "2026-09-14T10:00:00",
+                "target_date": "2026-12-31",
+                "event_name": "Iberian Maritime Border Transit Stress",
+                "hypothesis": "Frontex emergency intervention requested along Andalucian littoral",
+                "predicted_probability": 0.75,
+                "confidence_interval_low": 0.60,
+                "confidence_interval_high": 0.85,
+                "epistemic_basis": "Historical mirror (711 AD) and demographic infiltration lens telemetry",
+                "status": "ACTIVE"
+            })
+
+            active_forecasts = store.get_forecast_ledger(status="ACTIVE")
+            assert any(f["forecast_id"] == forecast_id for f in active_forecasts)
+
+            # Resolve forecast as true event (actual_outcome = 1)
+            # Brier score = (0.75 - 1.0)^2 = (-0.25)^2 = 0.0625
+            brier = store.resolve_forecast(forecast_id=forecast_id, actual_outcome=1)
+            assert brier == 0.0625
+
+            resolved = store.get_forecast_ledger(status="RESOLVED")
+            entry = next(f for f in resolved if f["forecast_id"] == forecast_id)
+            assert entry["brier_score"] == 0.0625
+            assert entry["actual_outcome"] == 1
+        finally:
+            if os.path.exists(temp_db):
+                try:
+                    os.remove(temp_db)
+                except Exception:
+                    pass
+
 
     def test_bayesian_scenario_updating(self):
         from geo_engine.forecasting.calibration import ForecastingEngine, ScenarioBranch
@@ -756,18 +824,30 @@ class TestInstitutionalHardening:
         assert sum(s.probability for s in strata_summit_mece.scenario_branches) == pytest.approx(1.0, abs=1e-3)
 
     def test_sqlite_wal_mode_and_concurrency(self):
+        import tempfile
+        import os
         from geo_engine.storage.event_store import EventStore
 
-        store = EventStore()
-        with store._get_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute("PRAGMA journal_mode;")
-            row = cursor.fetchone()
-            assert row[0].lower() == "wal"
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            temp_db = tf.name
+        try:
+            store = EventStore(db_path=temp_db)
+            with store._get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("PRAGMA journal_mode;")
+                row = cursor.fetchone()
+                assert row[0].lower() == "wal"
 
-            cursor.execute("PRAGMA busy_timeout;")
-            timeout_row = cursor.fetchone()
-            assert timeout_row[0] >= 5000
+                cursor.execute("PRAGMA busy_timeout;")
+                timeout_row = cursor.fetchone()
+                assert timeout_row[0] >= 5000
+        finally:
+            if os.path.exists(temp_db):
+                try:
+                    os.remove(temp_db)
+                except Exception:
+                    pass
+
 
     def test_ingestion_wire_deduplication(self):
         from geo_engine.ingestion.models import EvidenceItem, ClaimType
