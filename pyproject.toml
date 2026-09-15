@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "geo-engine"
+version = "0.40.0"
+description = "Institutional-grade 20-Lens Geo-Economic & Geopolitical Strategic Intelligence Engine"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+authors = [
+    {name = "Bappaditya Mondal"}
+]
+
+dependencies = [
+    "pydantic>=2.11.0",
+    "rich>=14.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0.0",
+    "mypy>=1.10",
+    "ruff>=0.5.0",
+]
+
+[project.scripts]
+geo-engine = "geo_engine.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true

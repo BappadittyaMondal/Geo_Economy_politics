@@ -1,5 +1,5 @@
 # Project History & Upgradation Chronicle
-**Project:** Geo-Economic & Geopolitical Intelligence Engine (12-Lens Matrix & Epistemic Arbitration)  
+**Project:** Geo-Economic & Geopolitical Intelligence Engine (20-Lens Matrix & Epistemic Arbitration)  
 **Workspace:** `d:\Geo_Economy_politics`  
 **Created:** September 2026  
 **Status:** In Active Execution  
@@ -162,14 +162,14 @@ meaning all aspect think deep and give realistic answar"
 ### Key Architectural Assets
 1. **Core Domain Models & Epistemics:** [models.py](file:///d:/Geo_Economy_politics/geo_engine/core/models.py), [epistemic_hierarchy.py](file:///d:/Geo_Economy_politics/geo_engine/core/epistemic_hierarchy.py), [temporal_guardrail.py](file:///d:/Geo_Economy_politics/geo_engine/core/temporal_guardrail.py), [query_parser.py](file:///d:/Geo_Economy_politics/geo_engine/core/query_parser.py)
 2. **Open Ingestion & Stage 0 Normalizer:** [geo_engine/ingestion/](file:///d:/Geo_Economy_politics/geo_engine/ingestion/) (`IngestionNormalizer`, `ClaimItem`, `GDELTClient`, `SovereignRSSClient`, `DocumentLoader`)
-3. **The 13 Analytical Lenses:** [geo_engine/lenses/](file:///d:/Geo_Economy_politics/geo_engine/lenses/) (Dynamic `LENS_REGISTRY` of 13 specialized evaluators)
+3. **The 20 Analytical Lenses:** [geo_engine/lenses/](file:///d:/Geo_Economy_politics/geo_engine/lenses/) (Dynamic `LENS_REGISTRY` of 20 specialized evaluators)
 4. **Local SQLite Knowledge Base:** [geo_engine/storage/event_store.py](file:///d:/Geo_Economy_politics/geo_engine/storage/event_store.py) (`data/events.db` - Foundational events and mandatory treaty baselines)
 5. **Arbitration & Diff Engines:** [negative_space.py](file:///d:/Geo_Economy_politics/geo_engine/arbitration/negative_space.py), [synthesizer.py](file:///d:/Geo_Economy_politics/geo_engine/arbitration/synthesizer.py)
 6. **Persona Archetype Projections:** [persona_narrator.py](file:///d:/Geo_Economy_politics/geo_engine/arbitration/persona_narrator.py) (Sanjeev Sanyal, Ajit Doval, Dr. S. Jaishankar, Neutral)
 7. **Forecasting & Brier Engine:** [geo_engine/forecasting/](file:///d:/Geo_Economy_politics/geo_engine/forecasting/)
 8. **Decoupled Two-Stage Morning News Digest:** [morning_digest/](file:///d:/Geo_Economy_politics/morning_digest/) (`StrategicNewsRanker`, `TelegramDigestPublisher`)
 9. **Interactive CLI:** [cli.py](file:///d:/Geo_Economy_politics/geo_engine/cli.py)
-10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (37/37 passing in ~5.0s)
+10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (90/90 passing in ~6.8s)
 
 ---
 
@@ -425,5 +425,11 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Bundle Generator Lineage Synchronization (P1):** Updated master specification section headers in `scripts/build_canonical_bundles.py` to `Registry: R20` and 20 analytical lenses across Core-5 and Deep-50 distribution targets.
   - **Test Suite Expansion & Zero-Drift Certification:** Updated canonical test assertions in `tests/test_engine.py` and added `test_cli_video_intelligence_invocation`. Full test suite certified at **90/90 unit and integration tests passing with 100% success rate**. All **10/10 Anti-Drift Quality Gates certified at 100%**.
 
-
-
+* **Phase 40 (Full Forensic Audit Execution — Critical Fixes, Document Parity, Governance Sync, CI Hardening, Test Expansion & Architecture Cleanup):**
+  - **Phase 40A — Critical Bug Fix (P0):** Fixed latent `NameError` in `geo_engine/cli.py` — `List` and `Any` were used in function signatures (lines 58-59) but missing from `typing` imports. Added `Any, List` to import statement.
+  - **Phase 40B — README & Document Parity (P0):** Complete rewrite of `README.md` fixing 7 stale claims: 16→20 lenses, 53→90 tests, inverted Tier 3/4 ordering corrected to match Canonical Contract (Tier 3 = Treaties ω=0.70, Tier 4 = Kinesics ω=0.30), "Proprietary & Confidential" → "Apache 2.0" (matching LICENSE file), added `forecasts` and `video` CLI commands. Updated `History_upgradation.md` header (12→20 lenses), Key Architectural Assets (13→20 evaluators, 37/37→90/90 tests).
+  - **Phase 40C — Canonical Governance Synchronization:** Fixed `00_CANONICAL_CONTRACT.md` authority hierarchy: corrected flat filenames to actual repo paths (`02_CONTRACTS/OBJECT_AND_DATA_CONTRACTS.md`, `01_ARCHITECTURE/SYSTEM_ARCHITECTURE.md`, etc.), added `02_EVIDENCE_CAPABILITY_MATRIX.md` as hierarchy level 4, expanded to 11-level hierarchy. Fixed `02_EVIDENCE_CAPABILITY_MATRIX.md` column header from "No Telemetry" to "Current State" resolving semantic clash with Contract Section 4.2 (0.25 cap). Normalized 5 lens naming mismatches in `ENGINE_AND_LENS_REGISTRY.md` (L03, L07, L10, L12, L18 headings aligned to summary table). Updated `01_CANONICAL_MANIFEST.yaml` deep_50 file_count from 46 to 52.
+  - **Phase 40D — CI/CD Hardening:** Added Python 3.14 to `.github/workflows/ci.yml` test matrix with `allow-prereleases: true` for setup-python compatibility.
+  - **Phase 40E — Test Suite Expansion (90→104 tests):** Added 4 new test classes: `TestVideoSubsystem` (5 tests: URL parser validation, rejection, short URLs, transcript fallback, indexer chunking), `TestPersonaNarrator` (2 tests: all 5 personas produce output, ARCHETYPES lens_weights coverage), `TestAdversarialResilience` (4 tests: empty input, whitespace, oversized 12K-char input, Unicode/Cyrillic), `TestPhase40Hardening` (3 tests: CLI typing import regression gate, README lens count parity gate, full synthesis 15s timing guard). Updated test suite docstring from 12 to 20 lenses.
+  - **Phase 40F — Code Architecture Cleanup:** Created `pyproject.toml` (PEP 621) with project metadata, CLI entry point (`geo-engine`), runtime/dev dependency separation, and tool configuration (pytest, ruff, mypy). Created centralized `geo_engine/config.py` consolidating all scattered env vars (`SYSTEM_REFERENCE_DATE`, `GEO_ENGINE_DB_PATH`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `INR_USD_RATE`, `GEO_ENGINE_MAX_QUERY_LENGTH`) into a validated singleton settings object.
+  - **Verification:** Full test suite certified at **104/104 unit and integration tests passing with 100% success rate in 6.21s**. All **10/10 Anti-Drift Quality Gates certified at 100%**.

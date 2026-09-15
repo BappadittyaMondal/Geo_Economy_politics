@@ -44,7 +44,7 @@
 - **Inputs:** `SummitEvent`.
 - **Metrics:** `historical_precedent_index`, `non_alignment_continuity_score`.
 
-### L03: Civilizational Statecraft & Sanatan Dharma Lens
+### L03: Civilizational Statecraft & Mandala Lens
 - **Purpose:** Evaluates statecraft through Kautilya’s *Arthashastra*, the *Raja Mandala* (Ari, Mitra, Madhyama, Udasina), *Rajdharma*, and *Yogakshema*.
 - **Metrics:** `kautilyan_mandala_balance`, `civilizational_cohesion_score`.
 
@@ -61,7 +61,7 @@
 - **Safeguard:** Text claims lacking visual vectors enter `TIER_0_INSUFFICIENT_EVIDENCE`.
 - **Metrics:** `protocol_subtracted_warmth`, `micro_tension_index`.
 
-### L07: Real Cash Flow & Forensic Financial Filter
+### L07: Real Cash Flow & 85% Haircut Rule Lens
 - **Purpose:** Enforces 85% haircut on unfinanced MOUs and sanctions risk discount.
 - **Mathematical Clamping Gate:** $\min(1.0, 0.15 + 0.85 \times \text{CapEx Ratio})$.
 - **Metrics:** `total_nominal_announced_usd`, `total_effective_capex_usd`, `aggregate_haircut_percentage`.
@@ -74,7 +74,7 @@
 - **Purpose:** Evaluates physical crude diversions, shadow tanker fleets, and maritime straits (Hormuz, Malacca).
 - **Metrics:** `physical_crude_diversion_bpd`, `shadow_tanker_dependence_pct`, `western_pi_insurance_choke_pct`.
 
-### L10: Bureaucratic Inertia & Putnam Lens
+### L10: Bureaucratic Inertia & Two-Level Games Lens
 - **Purpose:** Models Putnam’s Two-Level Game and permanent civil service filters (Press Note 3, MEA, NDRC).
 - **Metrics:** `two_level_ratification_feasibility`, `bureaucratic_drag_score`.
 
@@ -82,7 +82,7 @@
 - **Purpose:** Audits semiconductor supply chains, telecom clean-core bans (Huawei ban), and NavIC satellite positioning.
 - **Metrics:** `compute_sovereignty_index`, `telecom_clean_core_compliance`.
 
-### L12: Hybrid & Covert Levers Lens
+### L12: Hybrid & Covert Levers (Lawfare) Lens
 - **Purpose:** Audits FATF mutual evaluations, extraterritorial intelligence shielding, and non-kinetic leverage.
 - **Metrics:** `fatf_regulatory_exposure_score`, `asymmetric_leverage_index`.
 
@@ -106,7 +106,7 @@
 - **Purpose:** Evaluates fertilizer import dependencies (MOP 100%, DAP ~60%, Urea), FCI grain buffer stock ratios ($1.82\times$), and caloric welfare commitments.
 - **Metrics:** `caloric_sovereignty_index`, `strategic_grain_buffer_ratio`, `mop_potash_import_dependency_pct`.
 
-### L18: Military Readiness, ORBAT & Escalation Dominance Lens
+### L18: Military Readiness, ORBAT & Deterrence Lens
 - **Purpose:** Audits dual-front ORBAT posture, War Wastage Reserves (WWR) ammunition stocking depth (21.5 days), defense indigenization, and S-400/IADS air defense saturation.
 - **Metrics:** `two_front_deterrence_posture_score`, `wwr_ammunition_reserve_days`, `iads_air_defense_coverage_index`.
 

@@ -1,4 +1,4 @@
-﻿# Geo-Economic & Geopolitical Strategic Intelligence Platform
+# Geo-Economic & Geopolitical Strategic Intelligence Platform
 
 An institutional-grade, multi-lens geopolitical intelligence platform and de-sanitized strategic synthesis engine. Engineered for sovereign statecraft, civilizational defense, macro-financial forensics, and predictive forecasting.
 
@@ -6,7 +6,7 @@ An institutional-grade, multi-lens geopolitical intelligence platform and de-san
 
 ## 🏛️ Core Architecture
 
-The platform processes geopolitical developments, bilateral crises, and multilateral summits through a **16-Lens Strategic Matrix** governed by a strict **5-Tier Epistemic Truth Hierarchy**:
+The platform processes geopolitical developments, bilateral crises, and multilateral summits through a **20-Lens Strategic Matrix** governed by a strict **5-Tier Epistemic Truth Hierarchy**:
 
 ```
                        [ Incoming Evidence & Open Telemetry ]
@@ -17,9 +17,9 @@ The platform processes geopolitical developments, bilateral crises, and multilat
                  ├────────────────────────────────────────────────┤
                  │   Tier 2: Financial Realism & Capital Flows    │ (SWIFT Data, CapEx, Forex, Debt Spreads)
                  ├────────────────────────────────────────────────┤
-                 │   Tier 3: Leader Proxemics & Micro-Kinesics    │ (Photocall Forensics, Baseline-Subtracted)
+                 │   Tier 3: Sovereign Redlines & Treaties        │ (Signed Bilateral Accords, Border Pacts)
                  ├────────────────────────────────────────────────┤
-                 │   Tier 4: Treaties & Legal Commitments         │ (Signed Bilateral Accords, Border Pacts)
+                 │   Tier 4: Protocol-Subtracted Kinesics         │ (Photocall Forensics, Baseline-Subtracted)
                  ├────────────────────────────────────────────────┤
                  │   Tier 5: Communiqués & Narrative Rhetoric     │ (Joint Statements, PR Wire Communiqués)
                  └────────────────────────────────────────────────┘
@@ -29,7 +29,7 @@ The platform processes geopolitical developments, bilateral crises, and multilat
 
 ---
 
-## 🔬 The 16 Analytical Lenses
+## 🔬 The 20 Analytical Lenses
 
 1. **DeepTech & Compute Sovereignty Lens:** Foundry nodes, lithography export controls, hyperscaler data centers, AI models.
 2. **History & Treaty Precedent Lens:** Bilateral treaties, historical inflection points, boundary demarcations.
@@ -47,6 +47,10 @@ The platform processes geopolitical developments, bilateral crises, and multilat
 14. **Demographic Infiltration & Weaponized Migration Lens:** Grey-zone border destabilization, Schengen/Iberian/Eastern European border pressures.
 15. **Critical Minerals & Supply Chain Logistics Lens:** Heavy Rare Earth (HREE) refining concentration, lithium/cobalt processing bottlenecks.
 16. **Institutional Lawfare & Sovereign Jurisdiction Lens:** Extraterritorial sanctions, FATF timing leverage, central bank reserve freezes.
+17. **Food Security & Caloric Sovereignty Lens:** Fertilizer import dependencies (MOP, DAP), FCI grain buffer stocks, NFSA/PMGKAY entitlements.
+18. **Military Readiness, ORBAT & Escalation Dominance Lens:** Dual-front posture, WWR ammunition reserves, IADS/S-400 air defense.
+19. **Subsea Cables & Hydro-Spatial Sovereignty Lens:** Deep-sea fiber-optic cable landing stations, seabed mining, hydrophone monitoring.
+20. **Astro-Politics & Counter-Space Deterrence Lens:** LEO mega-constellations, NavIC PNT autonomy, NETRA space domain awareness, ASAT deterrence.
 
 ---
 
@@ -67,7 +71,7 @@ Audit reports and query syntheses can be projected through five distinct strateg
 Run the platform interactively via PowerShell or Terminal:
 
 ```bash
-# Display all 16 Analytical Lenses and active telemetry status
+# Display all 20 Analytical Lenses and active telemetry status
 python -m geo_engine.cli lenses
 
 # Run full 5-tier audit on a multilateral summit (e.g. 2026 BRICS Horizon)
@@ -78,6 +82,12 @@ python -m geo_engine.cli query "Analyze India-China LAC border disengagement and
 
 # Query monetary and gold settlement dynamics
 python -m geo_engine.cli query "Evaluate de-dollarization and bilateral rupee-ruble settlement" --persona ankit_shah
+
+# Inspect and resolve calibrated forecasts in SQLite ledger
+python -m geo_engine.cli forecasts --status ACTIVE
+
+# Run question-first video intelligence on a YouTube video
+python -m geo_engine.cli video "https://youtu.be/VIDEO_ID" --query "What were the key bilateral outcomes?"
 ```
 
 ---
@@ -91,14 +101,14 @@ Ingests open sovereign gazettes and news feeds, scores articles across national 
 python -m morning_digest.bot --dry-run
 
 # Live dispatch (requires TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in environment)
-python -m morning_digest.bot --top 50
+python -m morning_digest.bot --top 50 --live
 ```
 
 ---
 
 ## 🧪 Automated Testing & Verification
 
-The test suite includes 53 comprehensive unit and integration tests verifying all mathematical clamping gates, Brier score calculations, Bayesian likelihood updates, SQLite WAL concurrency, and multi-lens contracts:
+The test suite includes **90 comprehensive unit and integration tests** verifying all mathematical clamping gates, Brier score calculations, Bayesian likelihood updates, SQLite WAL concurrency, 20-lens contracts, and 10 Anti-Drift Quality Gates:
 
 ```bash
 python -m pytest tests/ -v
@@ -108,4 +118,5 @@ python -m pytest tests/ -v
 
 ## 🛡️ License
 
-Proprietary & Confidential. Designed for sovereign policy analysis, strategic intelligence research, and high-stakes geo-economic foresight.
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
+Designed for sovereign policy analysis, strategic intelligence research, and high-stakes geo-economic foresight.

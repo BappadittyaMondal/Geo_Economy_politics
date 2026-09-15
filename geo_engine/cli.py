@@ -7,7 +7,7 @@ and epistemic audit logs for strategic decision-makers.
 import sys
 import re
 import argparse
-from typing import Optional, Union
+from typing import Any, List, Optional, Union
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel

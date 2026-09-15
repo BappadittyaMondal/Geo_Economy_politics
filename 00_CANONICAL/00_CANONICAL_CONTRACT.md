@@ -16,15 +16,16 @@ This document is the supreme constitutional authority for the `Geo_Economy_polit
 
 ### Authoritative Hierarchy of the Knowledge System:
 1. **Git Repository (HEAD Commit):** The absolute physical source of truth.
-2. **00_CANONICAL_CONTRACT.md (This Document):** Constitutional truths, epistemic doctrine, mathematical laws.
-3. **01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
-4. **02_OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
-5. **01_SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
-6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
-7. **04_RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
-8. **Implementation Code (Python Modules):** Operational execution layer.
-9. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.
-10. **Derived Delivery Bundles (Core-5 & Deep-50):** Ephemeral AI delivery projections.
+2. **00_CANONICAL/00_CANONICAL_CONTRACT.md (This Document):** Constitutional truths, epistemic doctrine, mathematical laws.
+3. **00_CANONICAL/01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
+4. **00_CANONICAL/02_EVIDENCE_CAPABILITY_MATRIX.md:** Lens-by-lens evidentiary audit, confidence ceilings, and maturity states.
+5. **02_CONTRACTS/OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
+6. **01_ARCHITECTURE/SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
+7. **03_REGISTRY/ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
+8. **04_PROTOCOLS/RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
+9. **Implementation Code (Python Modules):** Operational execution layer.
+10. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.
+11. **Derived Delivery Bundles (Core-5 & Deep-50):** Ephemeral AI delivery projections.
 
 ### Anti-Silent-Override Protocol:
 If a downstream implementation or documentation conflicts with a higher authority level, neither an analyst nor an AI may silently compromise or guess. The system must emit an explicit structural notification:

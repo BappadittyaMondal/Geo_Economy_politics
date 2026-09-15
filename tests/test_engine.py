@@ -1,7 +1,8 @@
 """
 Comprehensive Unit & Integration Test Suite for the Geo-Engine.
-Tests all 12 analytical lenses, epistemic truth arbitration, the 85% MOU haircut rule,
+Tests all 20 analytical lenses, epistemic truth arbitration, the 85% MOU haircut rule,
 kinesic protocol baseline subtraction, negative-space communique diffing,
+video intelligence subsystem, persona narrator, adversarial resilience,
 and the end-to-end 5-Tier Response Protocol.
 """
 
@@ -1646,3 +1647,131 @@ class TestPhase38Hardening:
         )
 
 
+class TestVideoSubsystem:
+    """Tests the video intelligence pipeline components."""
+
+    def test_url_parser_valid_youtube_urls(self):
+        from geo_engine.video.url_parser import YouTubeURLParser
+        result = YouTubeURLParser.parse("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        assert result is not None
+        assert result["video_id"] == "dQw4w9WgXcQ"
+
+    def test_url_parser_rejects_non_youtube(self):
+        from geo_engine.video.url_parser import YouTubeURLParser
+        import pytest
+        with pytest.raises(ValueError):
+            YouTubeURLParser.parse("https://vimeo.com/12345678")
+
+    def test_url_parser_short_url(self):
+        from geo_engine.video.url_parser import YouTubeURLParser
+        result = YouTubeURLParser.parse("https://youtu.be/dQw4w9WgXcQ?t=120")
+        assert result is not None
+        assert result["video_id"] == "dQw4w9WgXcQ"
+
+    def test_transcript_engine_fallback(self):
+        from geo_engine.video.transcript_engine import VideoTranscriptEngine
+        result = VideoTranscriptEngine.fetch_transcript("test_video_id_12")
+        assert result is not None
+        assert hasattr(result, 'segments')
+        assert len(result.segments) > 0
+
+    def test_indexer_creates_chunks(self):
+        from geo_engine.video.indexer import VideoIndexer
+        from geo_engine.video.transcript_engine import VideoTranscriptEngine
+        # Use the built-in fallback transcript to get valid TranscriptSegment objects
+        result = VideoTranscriptEngine.fetch_transcript("test_indexer_vid")
+        chunks = VideoIndexer.index_transcript(result.segments, "test_indexer_vid")
+        assert isinstance(chunks, list)
+        assert len(chunks) >= 1
+
+
+class TestPersonaNarrator:
+    """Tests persona projection layer."""
+
+    def test_all_five_personas_produce_output(self):
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        # Create a minimal report for persona projection
+        summit = SummitEvent(
+            summit_name="Persona Test", year=2026,
+            host_country="India", location="Delhi",
+            member_countries=["India", "China"]
+        )
+        report = SummitSynthesizer.synthesize_report(summit)
+        for persona_name in ["sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"]:
+            result = PersonaNarrator.apply_persona(report, persona_name)
+            assert result is not None
+            assert isinstance(result, dict)
+
+    def test_persona_lens_weights_coverage(self):
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        for persona_name in ["sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"]:
+            profile = PersonaNarrator.ARCHETYPES.get(persona_name, {})
+            assert "lens_weights" in profile, f"Persona {persona_name} missing lens_weights"
+            assert isinstance(profile["lens_weights"], dict)
+
+
+class TestAdversarialResilience:
+    """Tests edge cases and adversarial inputs."""
+
+    def test_query_parser_empty_input(self):
+        from geo_engine.core.query_parser import QueryParser
+        result = QueryParser.parse("")
+        assert result is not None
+        assert result.event_type is not None
+
+    def test_query_parser_whitespace_input(self):
+        from geo_engine.core.query_parser import QueryParser
+        result = QueryParser.parse("   \n\t   ")
+        assert result is not None
+
+    def test_query_parser_oversized_input(self):
+        from geo_engine.core.query_parser import QueryParser
+        oversized = "india china lac border " * 500  # 12000 chars, exceeds 5000-char cap
+        result = QueryParser.parse(oversized)
+        assert result is not None
+
+    def test_query_parser_unicode_input(self):
+        from geo_engine.core.query_parser import QueryParser
+        result = QueryParser.parse("भारत-चीन LAC सीमा विवाद и Россия-Индия партнёрство")
+        assert result is not None
+
+
+class TestPhase40Hardening:
+    """Phase 40 governance and timing verification."""
+
+    def test_cli_typing_imports_complete(self):
+        """Verify cli.py has all required typing imports (regression gate for bug A-1)."""
+        import importlib
+        import inspect
+        from geo_engine import cli
+        # Force module reload to verify imports at parse time
+        importlib.reload(cli)
+        # Verify render_full_report signature can be inspected without NameError
+        sig = inspect.signature(cli.render_full_report)
+        params = list(sig.parameters.keys())
+        assert "claims" in params
+        assert "evidence_items" in params
+
+    def test_readme_lens_count_parity(self):
+        """Verify README.md references 20 lenses (not stale 16)."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        if readme_path.exists():
+            content = readme_path.read_text(encoding="utf-8")
+            assert "20-Lens" in content or "20 Analytical Lenses" in content, \
+                f"README.md still references stale lens count"
+            assert "16-Lens" not in content, "README.md still references stale 16-Lens"
+
+    def test_full_synthesis_timing_guard(self):
+        """Ensure full synthesis completes in under 15 seconds."""
+        import time
+        summit = SummitEvent(
+            summit_name="Timing Test Summit", year=2026,
+            host_country="India", location="New Delhi",
+            member_countries=["India", "China", "Russia"]
+        )
+        start = time.monotonic()
+        report = SummitSynthesizer.synthesize_report(summit)
+        elapsed = time.monotonic() - start
+        assert elapsed < 15.0, f"Full synthesis took {elapsed:.2f}s, exceeding 15s gate"
+        assert report.overall_confidence_score > 0.0
