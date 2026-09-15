@@ -23,7 +23,7 @@ Every analytical engine and lens in `Geo_Economy_politics` operates in one of fi
 
 ## 2. THE 20-LENS EVIDENCE CAPABILITY AUDIT
 
-| Lens ID & Domain | Primary Tier | Required Empirical Evidence | Current Availability | Confidence Ceiling (No Telemetry) | Mandatory Fallback Behavior |
+| Lens ID & Domain | Primary Tier | Required Empirical Evidence | Current Availability | Confidence Ceiling (Current State) | Mandatory Fallback Behavior |
 | :--- | :---: | :--- | :--- | :---: | :--- |
 | **L01: Deep-Tech** | Tier 1 | Verifiable entity graph links, citations | **AVAILABLE** (Local NLP) | 0.85 | Cap confidence if unresolved entities. |
 | **L02: History** | Tier 3 | Archived primary treaty texts | **AVAILABLE** (SQLite Archive) | 0.90 | Cite historical precedent as structural baseline. |

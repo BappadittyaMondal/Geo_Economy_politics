@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE CANONICAL CORE SPECIFICATION
 
-- **Canonical Git Commit:** `50e946e`
+- **Canonical Git Commit:** `c089873`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 - **Architecture:** Pure Markdown Knowledge Distribution
@@ -17,11 +17,11 @@ This master document consolidates the complete 5-file Core Cognitive Runtime Bra
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
-REGISTRY_VERSION: R18 (18 Analytical Lenses)
+REGISTRY_VERSION: R20 (20 Analytical Lenses)
 FILE_COUNT: 5 (Strict Hard Ceiling)
 CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 -->
@@ -29,7 +29,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -51,15 +51,16 @@ This document is the supreme constitutional authority for the `Geo_Economy_polit
 
 ### Authoritative Hierarchy of the Knowledge System:
 1. **Git Repository (HEAD Commit):** The absolute physical source of truth.
-2. **00_CANONICAL_CONTRACT.md (This Document):** Constitutional truths, epistemic doctrine, mathematical laws.
-3. **01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
-4. **02_OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
-5. **01_SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
-6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
-7. **04_RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
-8. **Implementation Code (Python Modules):** Operational execution layer.
-9. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.
-10. **Derived Delivery Bundles (Core-5 & Deep-50):** Ephemeral AI delivery projections.
+2. **00_CANONICAL/00_CANONICAL_CONTRACT.md (This Document):** Constitutional truths, epistemic doctrine, mathematical laws.
+3. **00_CANONICAL/01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
+4. **00_CANONICAL/02_EVIDENCE_CAPABILITY_MATRIX.md:** Lens-by-lens evidentiary audit, confidence ceilings, and maturity states.
+5. **02_CONTRACTS/OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
+6. **01_ARCHITECTURE/SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
+7. **03_REGISTRY/ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
+8. **04_PROTOCOLS/RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
+9. **Implementation Code (Python Modules):** Operational execution layer.
+10. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.
+11. **Derived Delivery Bundles (Core-5 & Deep-50):** Ephemeral AI delivery projections.
 
 ### Anti-Silent-Override Protocol:
 If a downstream implementation or documentation conflicts with a higher authority level, neither an analyst nor an AI may silently compromise or guess. The system must emit an explicit structural notification:
@@ -137,7 +138,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +243,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +387,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -436,7 +437,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Inputs:** `SummitEvent`.
 - **Metrics:** `historical_precedent_index`, `non_alignment_continuity_score`.
 
-### L03: Civilizational Statecraft & Sanatan Dharma Lens
+### L03: Civilizational Statecraft & Mandala Lens
 - **Purpose:** Evaluates statecraft through Kautilya’s *Arthashastra*, the *Raja Mandala* (Ari, Mitra, Madhyama, Udasina), *Rajdharma*, and *Yogakshema*.
 - **Metrics:** `kautilyan_mandala_balance`, `civilizational_cohesion_score`.
 
@@ -453,7 +454,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Safeguard:** Text claims lacking visual vectors enter `TIER_0_INSUFFICIENT_EVIDENCE`.
 - **Metrics:** `protocol_subtracted_warmth`, `micro_tension_index`.
 
-### L07: Real Cash Flow & Forensic Financial Filter
+### L07: Real Cash Flow & 85% Haircut Rule Lens
 - **Purpose:** Enforces 85% haircut on unfinanced MOUs and sanctions risk discount.
 - **Mathematical Clamping Gate:** $\min(1.0, 0.15 + 0.85 \times \text{CapEx Ratio})$.
 - **Metrics:** `total_nominal_announced_usd`, `total_effective_capex_usd`, `aggregate_haircut_percentage`.
@@ -466,7 +467,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Purpose:** Evaluates physical crude diversions, shadow tanker fleets, and maritime straits (Hormuz, Malacca).
 - **Metrics:** `physical_crude_diversion_bpd`, `shadow_tanker_dependence_pct`, `western_pi_insurance_choke_pct`.
 
-### L10: Bureaucratic Inertia & Putnam Lens
+### L10: Bureaucratic Inertia & Two-Level Games Lens
 - **Purpose:** Models Putnam’s Two-Level Game and permanent civil service filters (Press Note 3, MEA, NDRC).
 - **Metrics:** `two_level_ratification_feasibility`, `bureaucratic_drag_score`.
 
@@ -474,7 +475,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Purpose:** Audits semiconductor supply chains, telecom clean-core bans (Huawei ban), and NavIC satellite positioning.
 - **Metrics:** `compute_sovereignty_index`, `telecom_clean_core_compliance`.
 
-### L12: Hybrid & Covert Levers Lens
+### L12: Hybrid & Covert Levers (Lawfare) Lens
 - **Purpose:** Audits FATF mutual evaluations, extraterritorial intelligence shielding, and non-kinetic leverage.
 - **Metrics:** `fatf_regulatory_exposure_score`, `asymmetric_leverage_index`.
 
@@ -498,7 +499,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Purpose:** Evaluates fertilizer import dependencies (MOP 100%, DAP ~60%, Urea), FCI grain buffer stock ratios ($1.82\times$), and caloric welfare commitments.
 - **Metrics:** `caloric_sovereignty_index`, `strategic_grain_buffer_ratio`, `mop_potash_import_dependency_pct`.
 
-### L18: Military Readiness, ORBAT & Escalation Dominance Lens
+### L18: Military Readiness, ORBAT & Deterrence Lens
 - **Purpose:** Audits dual-front ORBAT posture, War Wastage Reserves (WWR) ammunition stocking depth (21.5 days), defense indigenization, and S-400/IADS air defense saturation.
 - **Metrics:** `two_front_deterrence_posture_score`, `wwr_ammunition_reserve_days`, `iads_air_defense_coverage_index`.
 
@@ -519,7 +520,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 

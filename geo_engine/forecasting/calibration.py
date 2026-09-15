@@ -599,3 +599,34 @@ class ForecastingEngine:
             calibrated_forecasts=forecasts
         )
 
+    @classmethod
+    def resolve_forecast_with_bayesian_update(
+        cls,
+        forecast_id: str,
+        actual_outcome: int,
+        contributing_lenses: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        """
+        Resolves a forecast, calculates Brier score, and backpropagates error
+        to update persistent epistemic reliability multipliers for contributing lenses.
+        """
+        from ..storage.event_store import EventStore
+        store = EventStore()
+        brier = store.resolve_forecast(forecast_id, actual_outcome)
+
+        updated_multipliers = {}
+        target_lenses = contributing_lenses or [
+            "GeoEconomistLens", "GeopoliticalLens", "DeepTechLens", "CashFlowLens"
+        ]
+        for lname in target_lenses:
+            mult = store.update_lens_reliability(lname, brier)
+            updated_multipliers[lname] = mult
+
+        return {
+            "forecast_id": forecast_id,
+            "actual_outcome": actual_outcome,
+            "brier_score": brier,
+            "updated_multipliers": updated_multipliers
+        }
+
+

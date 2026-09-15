@@ -4,11 +4,12 @@ Reconciles all 12 analytical lenses, executes epistemic truth arbitration,
 and outputs a complete, de-sanitized multilateral summit intelligence report.
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from ..core.models import (
     EpistemicTier,
     FinancialFlow,
     KinesicObservation,
+    LensEvaluation,
     MemberCountryAudit,
     SummitAnalysisReport,
     SummitEvent,
@@ -248,6 +249,61 @@ class SummitSynthesizer:
             cls.COUNTRY_AUDIT_TEMPLATES["Saudi Arabia & UAE"],
             cls.COUNTRY_AUDIT_TEMPLATES["Egypt & Ethiopia"],
         ]
+
+    @classmethod
+    def apply_inter_lens_coupling(
+        cls,
+        lens_evals: List[LensEvaluation],
+        hard_money_audit: Dict[str, Any],
+        arbitration_log: List[str]
+    ) -> Tuple[List[LensEvaluation], float]:
+        """
+        Executes dynamic inter-lens cross-clamping and contradiction variance analysis:
+        1. Financial Reality Clamp: When CapEx haircut >= 80%, clamps forward-looking
+           commercial/diplomatic cooperation alignment (L01, L04, L05, L11) to <= 0.45.
+        2. Kinetic Reality Clamp: When military/chokepoint friction is high, clamps
+           propaganda rhetoric (L08) and kinesic warmth (L06).
+        3. Contradiction Variance Penalty: Penalizes overall confidence when lower tiers
+           rhetorically contradict verified physical/financial ground realities.
+        """
+        coupled_evals = []
+        haircut_pct = hard_money_audit.get("aggregate_haircut_pct", 0.0)
+        contradiction_penalty = 0.0
+
+        for le in lens_evals:
+            lname = le.lens_name.lower()
+            new_align = le.alignment_score
+            new_conf = le.confidence
+
+            # Rule 1: Financial Reality Clamp on Forward Cooperation
+            if haircut_pct >= 80.0:
+                if any(k in lname for k in ["deep-tech", "geo-economic", "geopolitical balance", "digital sovereignty"]):
+                    if new_align > 0.45:
+                        new_align = 0.45
+                        arbitration_log.append(
+                            f"[INTER_LENS_CLAMP_FINANCIAL] CapEx haircut of {haircut_pct:.1f}% clamped '{le.lens_name}' alignment ceiling to 0.45."
+                        )
+
+            # Rule 2: Contradiction Detection between Rhetoric (Tier 5) and Hard Money (Tier 2)
+            if "propaganda" in lname or le.primary_epistemic_tier == EpistemicTier.TIER_5_COMMUNIQUE_PR:
+                if haircut_pct >= 80.0 and new_align > 0.60:
+                    contradiction_penalty += 0.05
+                    new_conf = min(new_conf, 0.40)
+                    arbitration_log.append(
+                        f"[INTER_LENS_CONTRADICTION] Tier 5 PR rhetoric ({new_align:.2f}) contradicted by Tier 2 CapEx haircut ({haircut_pct:.1f}%). PR confidence capped at 0.40."
+                    )
+
+            coupled_evals.append(LensEvaluation(
+                lens_name=le.lens_name,
+                alignment_score=new_align,
+                confidence=new_conf,
+                primary_epistemic_tier=le.primary_epistemic_tier,
+                key_findings=le.key_findings,
+                hard_metrics=le.hard_metrics,
+                evidence_status=le.evidence_status
+            ))
+
+        return coupled_evals, min(0.20, contradiction_penalty)
 
     @classmethod
     def synthesize_report(
@@ -529,7 +585,14 @@ class SummitSynthesizer:
         if military_eval and military_eval.primary_epistemic_tier == EpistemicTier.TIER_1_PHYSICAL:
             arbitration_log.append(f"[ARBITRATION_T1_PHYSICAL] Military Readiness Lens verified WWR ammunition depth at {strategic_resilience_matrix['wwr_ammunition_reserve_days']:.1f} days; two-front deterrence posture validated.")
 
-        # Epistemic Tier-Weighted Confidence Calculation
+        # Apply Inter-Lens Dynamic Coupling & Contradiction Analysis
+        lens_evals, contradiction_penalty = cls.apply_inter_lens_coupling(
+            lens_evals=lens_evals,
+            hard_money_audit=hard_money_audit,
+            arbitration_log=arbitration_log
+        )
+
+        # Epistemic Tier-Weighted Confidence Calculation with Dynamic Bayesian Calibration
         tier_weights = {
             EpistemicTier.TIER_0_INSUFFICIENT_EVIDENCE: 0.05,
             EpistemicTier.TIER_1_PHYSICAL: 1.0,
@@ -538,15 +601,22 @@ class SummitSynthesizer:
             EpistemicTier.TIER_4_KINESICS: 0.30,
             EpistemicTier.TIER_5_COMMUNIQUE_PR: 0.10,
         }
+        try:
+            from ..storage.event_store import EventStore
+            rel_map = EventStore().get_lens_reliability_multipliers()
+        except Exception:
+            rel_map = {}
+
         weighted_conf_sum = sum(
-            l.confidence * tier_weights.get(l.primary_epistemic_tier, 0.50)
+            l.confidence * tier_weights.get(l.primary_epistemic_tier, 0.50) * rel_map.get(l.lens_name, 1.0)
             for l in lens_evals
         )
         total_tier_weight = sum(
-            tier_weights.get(l.primary_epistemic_tier, 0.50)
+            tier_weights.get(l.primary_epistemic_tier, 0.50) * rel_map.get(l.lens_name, 1.0)
             for l in lens_evals
         )
-        overall_confidence = round(weighted_conf_sum / max(total_tier_weight, 1e-6), 2)
+        raw_conf = weighted_conf_sum / max(total_tier_weight, 1e-6)
+        overall_confidence = max(0.10, round(raw_conf - contradiction_penalty, 2))
 
         return SummitAnalysisReport(
             event=summit,

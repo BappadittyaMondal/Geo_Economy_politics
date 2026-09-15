@@ -1775,3 +1775,106 @@ class TestPhase40Hardening:
         elapsed = time.monotonic() - start
         assert elapsed < 15.0, f"Full synthesis took {elapsed:.2f}s, exceeding 15s gate"
         assert report.overall_confidence_score > 0.0
+
+
+class TestPhase41DeepCausality:
+    """Phase 41 deep causality, inter-lens coupling, and Bayesian self-learning tests."""
+
+    def test_inter_lens_financial_clamping(self):
+        """High CapEx haircut (85%) clamps forward-looking economic alignment ceiling to 0.45."""
+        from geo_engine.core.models import LensEvaluation, EpistemicTier
+        log = []
+        evals = [
+            LensEvaluation(
+                lens_name="Geo-Economic Realism & Monetary Architecture",
+                alignment_score=0.80,
+                confidence=0.90,
+                primary_epistemic_tier=EpistemicTier.TIER_2_FINANCIAL,
+                key_findings=["Announced $50B multilateral fund."],
+                hard_metrics={}
+            )
+        ]
+        coupled, _ = SummitSynthesizer.apply_inter_lens_coupling(
+            lens_evals=evals,
+            hard_money_audit={"aggregate_haircut_pct": 85.0},
+            arbitration_log=log
+        )
+        assert coupled[0].alignment_score <= 0.45
+        assert any("[INTER_LENS_CLAMP_FINANCIAL]" in entry for entry in log)
+
+    def test_inter_lens_contradiction_penalty(self):
+        """Tier 5 PR rhetoric contradicting Tier 2 CapEx haircut triggers contradiction penalty."""
+        from geo_engine.core.models import LensEvaluation, EpistemicTier
+        log = []
+        evals = [
+            LensEvaluation(
+                lens_name="Propaganda & Narrative Warfare",
+                alignment_score=0.85,
+                confidence=0.90,
+                primary_epistemic_tier=EpistemicTier.TIER_5_COMMUNIQUE_PR,
+                key_findings=["Boasts complete bilateral unanimity and $100B fund."],
+                hard_metrics={}
+            )
+        ]
+        coupled, penalty = SummitSynthesizer.apply_inter_lens_coupling(
+            lens_evals=evals,
+            hard_money_audit={"aggregate_haircut_pct": 85.0},
+            arbitration_log=log
+        )
+        assert penalty > 0.0
+        assert coupled[0].confidence <= 0.40
+        assert any("[INTER_LENS_CONTRADICTION]" in entry for entry in log)
+
+    def test_bayesian_reliability_weight_persistence(self):
+        """Forecast resolution backpropagates error into persistent SQLite lens reliability multipliers."""
+        from geo_engine.storage.event_store import EventStore
+        from geo_engine.forecasting.calibration import ForecastingEngine
+        store = EventStore()
+
+        # Test direct update
+        mult1 = store.update_lens_reliability("DeepTechLens", 0.04)  # Accurate forecast: small Brier error
+        assert mult1 > 0.90
+
+        mult2 = store.update_lens_reliability("PropagandaLens", 0.81)  # Inaccurate forecast: large Brier error
+        assert mult2 < mult1
+
+        rel_map = store.get_lens_reliability_multipliers()
+        assert "DeepTechLens" in rel_map
+        assert "PropagandaLens" in rel_map
+        assert rel_map["DeepTechLens"] > rel_map["PropagandaLens"]
+
+    def test_rhetoric_deflator_panic_suppression(self):
+        """Panic clickbait headlines are scored and deflated to Tier 5 with capped reliability."""
+        from geo_engine.ingestion.normalizer import RhetoricDeflator
+        from geo_engine.ingestion.models import EvidenceItem, ClaimType
+        from geo_engine.ingestion.normalizer import IngestionNormalizer
+
+        # Sensationalism scoring
+        panic_text = "BREAKING: World War 3 started! Nuclear strike imminent, all out war, sab swaha!!"
+        score = RhetoricDeflator.calculate_sensationalism_index(panic_text)
+        assert score >= 0.50
+
+        # Normalization with deflation
+        item = EvidenceItem(
+            evidence_id="EVID-PANIC-01",
+            source_name="social_wire",
+            source_type="news_wire",
+            timestamp="2026-09-15T12:00:00Z",
+            raw_text=panic_text,
+            reliability_weight=0.80
+        )
+        claims = IngestionNormalizer.normalize_evidence_item(item)
+        assert len(claims) >= 1
+        assert claims[0].epistemic_tier == EpistemicTier.TIER_5_COMMUNIQUE_PR
+        assert claims[0].reliability_weight <= 0.20
+        assert "[DEFLATED_SENSATIONALISM_SCORE_" in claims[0].asserted_fact
+
+    def test_consolidated_core_5_parity_and_commit(self):
+        """Verify master consolidated core bundle reflects R20 and does not contain stale R18."""
+        import pathlib
+        bundle_path = pathlib.Path(__file__).parent.parent / "consolidate_5_files" / "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"
+        assert bundle_path.exists()
+        content = bundle_path.read_text(encoding="utf-8")
+        assert "REGISTRY_VERSION: R20 (20 Analytical Lenses)" in content
+        assert "REGISTRY_VERSION: R18" not in content
+

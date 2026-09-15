@@ -7,7 +7,7 @@ from .models import ClaimType, EvidenceItem, ClaimItem
 from .gdelt_client import GDELTClient
 from .sovereign_rss import SovereignRSSClient
 from .document_loader import DocumentLoader
-from .normalizer import IngestionNormalizer
+from .normalizer import IngestionNormalizer, RhetoricDeflator
 
 __all__ = [
     "ClaimType",
@@ -17,4 +17,5 @@ __all__ = [
     "SovereignRSSClient",
     "DocumentLoader",
     "IngestionNormalizer",
+    "RhetoricDeflator",
 ]

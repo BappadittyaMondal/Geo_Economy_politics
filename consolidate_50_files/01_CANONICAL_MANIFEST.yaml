@@ -23,7 +23,7 @@ bundle_definitions:
     name: "Geo_Engine_Deep_50"
     description: "Deep Research Universe with Task-Driven Profiles"
     target_platforms: ["Claude Projects", "Google NotebookLM", "Gemini 2.0 Pro"]
-    file_count: 46
+    file_count: 52
     format: "markdown"
     profiles:
       - "general"

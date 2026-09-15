@@ -23,6 +23,23 @@ class EventStore:
         os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
         if not self.is_initialized():
             self.initialize_schema_and_seed()
+        else:
+            self._ensure_migrations()
+
+    def _ensure_migrations(self) -> None:
+        """Applies schema migrations for tables added in later phases."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS lens_epistemic_reliability (
+                    lens_name TEXT PRIMARY KEY,
+                    total_evaluations INTEGER DEFAULT 0,
+                    brier_error_sum REAL DEFAULT 0.0,
+                    reliability_multiplier REAL DEFAULT 1.0,
+                    last_calibrated_at TEXT
+                )
+            """)
+            conn.commit()
 
     def is_initialized(self) -> bool:
         """Checks if the SQLite database is already initialized with essential baseline tables."""
@@ -111,6 +128,17 @@ class EventStore:
                     actual_outcome INTEGER,
                     brier_score REAL,
                     status TEXT DEFAULT 'ACTIVE'
+                )
+            """)
+
+            # 5. Dynamic Lens Epistemic Reliability Table (Bayesian Calibration)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS lens_epistemic_reliability (
+                    lens_name TEXT PRIMARY KEY,
+                    total_evaluations INTEGER DEFAULT 0,
+                    brier_error_sum REAL DEFAULT 0.0,
+                    reliability_multiplier REAL DEFAULT 1.0,
+                    last_calibrated_at TEXT
                 )
             """)
 
@@ -440,4 +468,52 @@ class EventStore:
                 cursor.execute("SELECT * FROM forecast_ledger ORDER BY created_at DESC")
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
+
+    def update_lens_reliability(self, lens_name: str, brier_error: float) -> float:
+        """
+        Updates the persistent Bayesian reliability multiplier for a specified lens.
+        Multiplier formula: exp(-0.8 * mean_brier_error), clamped to [0.20, 1.50].
+        """
+        import math
+        from datetime import datetime
+        now_iso = datetime.now().isoformat()
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM lens_epistemic_reliability WHERE lens_name = ?", (lens_name,))
+            row = cursor.fetchone()
+
+            if row:
+                count = row["total_evaluations"] + 1
+                err_sum = row["brier_error_sum"] + brier_error
+                mean_err = err_sum / count
+                multiplier = max(0.20, min(1.50, round(math.exp(-0.8 * mean_err), 3)))
+                cursor.execute("""
+                    UPDATE lens_epistemic_reliability
+                    SET total_evaluations = ?, brier_error_sum = ?, reliability_multiplier = ?, last_calibrated_at = ?
+                    WHERE lens_name = ?
+                """, (count, err_sum, multiplier, now_iso, lens_name))
+            else:
+                count = 1
+                err_sum = brier_error
+                multiplier = max(0.20, min(1.50, round(math.exp(-0.8 * brier_error), 3)))
+                cursor.execute("""
+                    INSERT INTO lens_epistemic_reliability
+                    (lens_name, total_evaluations, brier_error_sum, reliability_multiplier, last_calibrated_at)
+                    VALUES (?, ?, ?, ?, ?)
+                """, (lens_name, count, err_sum, multiplier, now_iso))
+            conn.commit()
+            return multiplier
+
+    def get_lens_reliability_multipliers(self) -> Dict[str, float]:
+        """Returns mapping of lens_name -> reliability_multiplier (defaults to 1.0 for uncalibrated)."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            try:
+                cursor.execute("SELECT lens_name, reliability_multiplier FROM lens_epistemic_reliability")
+                rows = cursor.fetchall()
+                return {r["lens_name"]: float(r["reliability_multiplier"]) for r in rows}
+            except Exception:
+                return {}
+
 

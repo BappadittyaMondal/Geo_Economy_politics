@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `50e946e`
+- **Canonical Git Commit:** `c089873`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,11 +16,11 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
-REGISTRY_VERSION: R18 (18 Analytical Lenses)
+REGISTRY_VERSION: R20 (20 Analytical Lenses)
 FILE_COUNT: 5 (Strict Hard Ceiling)
 CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 -->
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -50,15 +50,16 @@ This document is the supreme constitutional authority for the `Geo_Economy_polit
 
 ### Authoritative Hierarchy of the Knowledge System:
 1. **Git Repository (HEAD Commit):** The absolute physical source of truth.
-2. **00_CANONICAL_CONTRACT.md (This Document):** Constitutional truths, epistemic doctrine, mathematical laws.
-3. **01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
-4. **02_OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
-5. **01_SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
-6. **03_ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
-7. **04_RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
-8. **Implementation Code (Python Modules):** Operational execution layer.
-9. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.
-10. **Derived Delivery Bundles (Core-5 & Deep-50):** Ephemeral AI delivery projections.
+2. **00_CANONICAL/00_CANONICAL_CONTRACT.md (This Document):** Constitutional truths, epistemic doctrine, mathematical laws.
+3. **00_CANONICAL/01_CANONICAL_MANIFEST.yaml:** Machine-readable component inventory, dependencies, and bundle mappings.
+4. **00_CANONICAL/02_EVIDENCE_CAPABILITY_MATRIX.md:** Lens-by-lens evidentiary audit, confidence ceilings, and maturity states.
+5. **02_CONTRACTS/OBJECT_AND_DATA_CONTRACTS.md:** Inter-module data structures, schemas, and invariants.
+6. **01_ARCHITECTURE/SYSTEM_ARCHITECTURE.md:** Topological pipeline, failure boundaries, and execution flow.
+7. **03_REGISTRY/ENGINE_AND_LENS_REGISTRY.md:** The 20-lens capability registry, inputs, and failure modes.
+8. **04_PROTOCOLS/RUNTIME_OPERATING_PROTOCOL.md:** AI operating manual, persona isolation, and query deconstruction.
+9. **Implementation Code (Python Modules):** Operational execution layer.
+10. **Verification Suite (Automated Tests):** Machine-verifiable regression harness.
+11. **Derived Delivery Bundles (Core-5 & Deep-50):** Ephemeral AI delivery projections.
 
 ### Anti-Silent-Override Protocol:
 If a downstream implementation or documentation conflicts with a higher authority level, neither an analyst nor an AI may silently compromise or guess. The system must emit an explicit structural notification:
@@ -136,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -241,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -385,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -435,7 +436,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Inputs:** `SummitEvent`.
 - **Metrics:** `historical_precedent_index`, `non_alignment_continuity_score`.
 
-### L03: Civilizational Statecraft & Sanatan Dharma Lens
+### L03: Civilizational Statecraft & Mandala Lens
 - **Purpose:** Evaluates statecraft through Kautilya’s *Arthashastra*, the *Raja Mandala* (Ari, Mitra, Madhyama, Udasina), *Rajdharma*, and *Yogakshema*.
 - **Metrics:** `kautilyan_mandala_balance`, `civilizational_cohesion_score`.
 
@@ -452,7 +453,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Safeguard:** Text claims lacking visual vectors enter `TIER_0_INSUFFICIENT_EVIDENCE`.
 - **Metrics:** `protocol_subtracted_warmth`, `micro_tension_index`.
 
-### L07: Real Cash Flow & Forensic Financial Filter
+### L07: Real Cash Flow & 85% Haircut Rule Lens
 - **Purpose:** Enforces 85% haircut on unfinanced MOUs and sanctions risk discount.
 - **Mathematical Clamping Gate:** $\min(1.0, 0.15 + 0.85 \times \text{CapEx Ratio})$.
 - **Metrics:** `total_nominal_announced_usd`, `total_effective_capex_usd`, `aggregate_haircut_percentage`.
@@ -465,7 +466,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Purpose:** Evaluates physical crude diversions, shadow tanker fleets, and maritime straits (Hormuz, Malacca).
 - **Metrics:** `physical_crude_diversion_bpd`, `shadow_tanker_dependence_pct`, `western_pi_insurance_choke_pct`.
 
-### L10: Bureaucratic Inertia & Putnam Lens
+### L10: Bureaucratic Inertia & Two-Level Games Lens
 - **Purpose:** Models Putnam’s Two-Level Game and permanent civil service filters (Press Note 3, MEA, NDRC).
 - **Metrics:** `two_level_ratification_feasibility`, `bureaucratic_drag_score`.
 
@@ -473,7 +474,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Purpose:** Audits semiconductor supply chains, telecom clean-core bans (Huawei ban), and NavIC satellite positioning.
 - **Metrics:** `compute_sovereignty_index`, `telecom_clean_core_compliance`.
 
-### L12: Hybrid & Covert Levers Lens
+### L12: Hybrid & Covert Levers (Lawfare) Lens
 - **Purpose:** Audits FATF mutual evaluations, extraterritorial intelligence shielding, and non-kinetic leverage.
 - **Metrics:** `fatf_regulatory_exposure_score`, `asymmetric_leverage_index`.
 
@@ -497,7 +498,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 - **Purpose:** Evaluates fertilizer import dependencies (MOP 100%, DAP ~60%, Urea), FCI grain buffer stock ratios ($1.82\times$), and caloric welfare commitments.
 - **Metrics:** `caloric_sovereignty_index`, `strategic_grain_buffer_ratio`, `mop_potash_import_dependency_pct`.
 
-### L18: Military Readiness, ORBAT & Escalation Dominance Lens
+### L18: Military Readiness, ORBAT & Deterrence Lens
 - **Purpose:** Audits dual-front ORBAT posture, War Wastage Reserves (WWR) ammunition stocking depth (21.5 days), defense indigenization, and S-400/IADS air defense saturation.
 - **Metrics:** `two_front_deterrence_posture_score`, `wwr_ammunition_reserve_days`, `iads_air_defense_coverage_index`.
 
@@ -518,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 50e946e
+CANONICAL_COMMIT: c089873
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -652,7 +653,7 @@ Every analytical engine and lens in `Geo_Economy_politics` operates in one of fi
 
 ## 2. THE 20-LENS EVIDENCE CAPABILITY AUDIT
 
-| Lens ID & Domain | Primary Tier | Required Empirical Evidence | Current Availability | Confidence Ceiling (No Telemetry) | Mandatory Fallback Behavior |
+| Lens ID & Domain | Primary Tier | Required Empirical Evidence | Current Availability | Confidence Ceiling (Current State) | Mandatory Fallback Behavior |
 | :--- | :---: | :--- | :--- | :---: | :--- |
 | **L01: Deep-Tech** | Tier 1 | Verifiable entity graph links, citations | **AVAILABLE** (Local NLP) | 0.85 | Cap confidence if unresolved entities. |
 | **L02: History** | Tier 3 | Archived primary treaty texts | **AVAILABLE** (SQLite Archive) | 0.90 | Cite historical precedent as structural baseline. |
@@ -682,7 +683,7 @@ Every analytical engine and lens in `Geo_Economy_politics` operates in one of fi
 ================================================================================
 
 # Project History & Upgradation Chronicle
-**Project:** Geo-Economic & Geopolitical Intelligence Engine (12-Lens Matrix & Epistemic Arbitration)  
+**Project:** Geo-Economic & Geopolitical Intelligence Engine (20-Lens Matrix & Epistemic Arbitration)  
 **Workspace:** `d:\Geo_Economy_politics`  
 **Created:** September 2026  
 **Status:** In Active Execution  
@@ -845,14 +846,14 @@ meaning all aspect think deep and give realistic answar"
 ### Key Architectural Assets
 1. **Core Domain Models & Epistemics:** [models.py](file:///d:/Geo_Economy_politics/geo_engine/core/models.py), [epistemic_hierarchy.py](file:///d:/Geo_Economy_politics/geo_engine/core/epistemic_hierarchy.py), [temporal_guardrail.py](file:///d:/Geo_Economy_politics/geo_engine/core/temporal_guardrail.py), [query_parser.py](file:///d:/Geo_Economy_politics/geo_engine/core/query_parser.py)
 2. **Open Ingestion & Stage 0 Normalizer:** [geo_engine/ingestion/](file:///d:/Geo_Economy_politics/geo_engine/ingestion/) (`IngestionNormalizer`, `ClaimItem`, `GDELTClient`, `SovereignRSSClient`, `DocumentLoader`)
-3. **The 13 Analytical Lenses:** [geo_engine/lenses/](file:///d:/Geo_Economy_politics/geo_engine/lenses/) (Dynamic `LENS_REGISTRY` of 13 specialized evaluators)
+3. **The 20 Analytical Lenses:** [geo_engine/lenses/](file:///d:/Geo_Economy_politics/geo_engine/lenses/) (Dynamic `LENS_REGISTRY` of 20 specialized evaluators)
 4. **Local SQLite Knowledge Base:** [geo_engine/storage/event_store.py](file:///d:/Geo_Economy_politics/geo_engine/storage/event_store.py) (`data/events.db` - Foundational events and mandatory treaty baselines)
 5. **Arbitration & Diff Engines:** [negative_space.py](file:///d:/Geo_Economy_politics/geo_engine/arbitration/negative_space.py), [synthesizer.py](file:///d:/Geo_Economy_politics/geo_engine/arbitration/synthesizer.py)
 6. **Persona Archetype Projections:** [persona_narrator.py](file:///d:/Geo_Economy_politics/geo_engine/arbitration/persona_narrator.py) (Sanjeev Sanyal, Ajit Doval, Dr. S. Jaishankar, Neutral)
 7. **Forecasting & Brier Engine:** [geo_engine/forecasting/](file:///d:/Geo_Economy_politics/geo_engine/forecasting/)
 8. **Decoupled Two-Stage Morning News Digest:** [morning_digest/](file:///d:/Geo_Economy_politics/morning_digest/) (`StrategicNewsRanker`, `TelegramDigestPublisher`)
 9. **Interactive CLI:** [cli.py](file:///d:/Geo_Economy_politics/geo_engine/cli.py)
-10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (37/37 passing in ~5.0s)
+10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (109/109 passing in ~6.9s)
 
 ---
 
@@ -1108,7 +1109,21 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Bundle Generator Lineage Synchronization (P1):** Updated master specification section headers in `scripts/build_canonical_bundles.py` to `Registry: R20` and 20 analytical lenses across Core-5 and Deep-50 distribution targets.
   - **Test Suite Expansion & Zero-Drift Certification:** Updated canonical test assertions in `tests/test_engine.py` and added `test_cli_video_intelligence_invocation`. Full test suite certified at **90/90 unit and integration tests passing with 100% success rate**. All **10/10 Anti-Drift Quality Gates certified at 100%**.
 
+* **Phase 40 (Full Forensic Audit Execution — Critical Fixes, Document Parity, Governance Sync, CI Hardening, Test Expansion & Architecture Cleanup):**
+  - **Phase 40A — Critical Bug Fix (P0):** Fixed latent `NameError` in `geo_engine/cli.py` — `List` and `Any` were used in function signatures (lines 58-59) but missing from `typing` imports. Added `Any, List` to import statement.
+  - **Phase 40B — README & Document Parity (P0):** Complete rewrite of `README.md` fixing 7 stale claims: 16→20 lenses, 53→90 tests, inverted Tier 3/4 ordering corrected to match Canonical Contract (Tier 3 = Treaties ω=0.70, Tier 4 = Kinesics ω=0.30), "Proprietary & Confidential" → "Apache 2.0" (matching LICENSE file), added `forecasts` and `video` CLI commands. Updated `History_upgradation.md` header (12→20 lenses), Key Architectural Assets (13→20 evaluators, 37/37→90/90 tests).
+  - **Phase 40C — Canonical Governance Synchronization:** Fixed `00_CANONICAL_CONTRACT.md` authority hierarchy: corrected flat filenames to actual repo paths (`02_CONTRACTS/OBJECT_AND_DATA_CONTRACTS.md`, `01_ARCHITECTURE/SYSTEM_ARCHITECTURE.md`, etc.), added `02_EVIDENCE_CAPABILITY_MATRIX.md` as hierarchy level 4, expanded to 11-level hierarchy. Fixed `02_EVIDENCE_CAPABILITY_MATRIX.md` column header from "No Telemetry" to "Current State" resolving semantic clash with Contract Section 4.2 (0.25 cap). Normalized 5 lens naming mismatches in `ENGINE_AND_LENS_REGISTRY.md` (L03, L07, L10, L12, L18 headings aligned to summary table). Updated `01_CANONICAL_MANIFEST.yaml` deep_50 file_count from 46 to 52.
+  - **Phase 40D — CI/CD Hardening:** Added Python 3.14 to `.github/workflows/ci.yml` test matrix with `allow-prereleases: true` for setup-python compatibility.
+  - **Phase 40E — Test Suite Expansion (90→104 tests):** Added 4 new test classes: `TestVideoSubsystem` (5 tests: URL parser validation, rejection, short URLs, transcript fallback, indexer chunking), `TestPersonaNarrator` (2 tests: all 5 personas produce output, ARCHETYPES lens_weights coverage), `TestAdversarialResilience` (4 tests: empty input, whitespace, oversized 12K-char input, Unicode/Cyrillic), `TestPhase40Hardening` (3 tests: CLI typing import regression gate, README lens count parity gate, full synthesis 15s timing guard). Updated test suite docstring from 12 to 20 lenses.
+  - **Phase 40F — Code Architecture Cleanup:** Created `pyproject.toml` (PEP 621) with project metadata, CLI entry point (`geo-engine`), runtime/dev dependency separation, and tool configuration (pytest, ruff, mypy). Created centralized `geo_engine/config.py` consolidating all scattered env vars (`SYSTEM_REFERENCE_DATE`, `GEO_ENGINE_DB_PATH`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `INR_USD_RATE`, `GEO_ENGINE_MAX_QUERY_LENGTH`) into a validated singleton settings object.
+  - **Verification:** Full test suite certified at **104/104 unit and integration tests passing with 100% success rate in 6.21s**. All **10/10 Anti-Drift Quality Gates certified at 100%**.
 
+* **Phase 41 (Deep Vertical Causality, Inter-Lens Dynamic Coupling, Closed-Loop Bayesian Self-Learning & Disinformation Deflator):**
+  - **Inter-Lens Dynamic Coupling (Matrix Cross-Clamping):** Implemented `apply_inter_lens_coupling()` in `geo_engine/arbitration/synthesizer.py`. Enforces that hard financial reality (Lens 07 CapEx haircut $\ge 80\%$) dynamically clamps forward-looking economic, deep-tech, and geopolitical alignment ceilings to $\le 0.45$. Enforces contradiction variance penalty when Tier 5 PR rhetoric directly clashes with Tier 1/2 ground realities, preventing staged photocalls and non-binding declarations from skewing intelligence synthesis.
+  - **Closed-Loop Bayesian Epistemic Calibration:** Added persistent `lens_epistemic_reliability` table to `geo_engine/storage/event_store.py` with automatic runtime migrations. Implemented `resolve_forecast_with_bayesian_update()` in `geo_engine/forecasting/calibration.py` to backpropagate empirical Brier errors into lens reliability multipliers ($\text{reliability} = \text{Clamp}_{[0.20, 1.50]}(\exp(-0.8 \cdot \text{MeanError}))$). Connected dynamic Bayesian multipliers into `synthesizer.py` tier weighting.
+  - **Automated Disinformation & Rhetoric Deflator:** Implemented `RhetoricDeflator` in `geo_engine/ingestion/normalizer.py`. Quantifies panic language and sensationalism indices across incoming media/OSINT wires; automatically deflates uncorroborated hyperbolic claims to Tier 5 with confidence capped at $\le 0.20$ and prepends audit warnings.
+  - **Bundle Lineage Resynchronization & R20 Parity:** Recompiled `dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, and `consolidate_50_files` using `scripts/build_canonical_bundles.py`. Synchronized `CONSOLIDATED_CORE_5_ALL_IN_ONE.md` from stale Phase 38 lineage (`R18` / `50e946e`) to current Git HEAD and `R20 (20 Analytical Lenses)`.
+  - **Verification Suite Expansion (104→109 tests):** Added `TestPhase41DeepCausality` in `tests/test_engine.py` covering inter-lens financial clamping, contradiction penalty, Bayesian reliability persistence, clickbait deflation, and bundle parity. Certified **109/109 unit and integration tests passing with 100% success rate**. All **10/10 Anti-Drift Quality Gates certified at 100%**.
 
 
 
@@ -1351,7 +1366,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: ['3.11', '3.12', '3.13']
+        python-version: ['3.11', '3.12', '3.13', '3.14']
 
     steps:
       - name: Check out repository
@@ -1361,6 +1376,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
 
       - name: Install dependencies
         run: |
@@ -1374,7 +1390,6 @@ jobs:
       - name: Verify Canonical Bundles & Anti-Drift Gates
         run: |
           python scripts/build_canonical_bundles.py --verify-only
-
 
 
 
@@ -4513,7 +4528,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `50e946e`
+- **Canonical Git Commit:** `c089873`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

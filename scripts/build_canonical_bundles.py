@@ -141,7 +141,7 @@ def build_core_5_bundle(commit_hash: str) -> List[str]:
                     f"PROJECT_VERSION: 0.0.5\n"
                     f"CONTRACT_VERSION: C2\n"
                     f"ARCHITECTURE_VERSION: A3\n"
-                    f"REGISTRY_VERSION: R18 (18 Analytical Lenses)\n"
+                    f"REGISTRY_VERSION: R20 (20 Analytical Lenses)\n"
                     f"FILE_COUNT: 5 (Strict Hard Ceiling)\n"
                     f"CERTIFICATION_STATUS: CERTIFIED_CANONICAL\n"
                     f"-->\n\n"

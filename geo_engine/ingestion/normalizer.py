@@ -181,7 +181,7 @@ class IngestionNormalizer:
                 evidence_status="sufficient"
             ))
 
-        return claims
+        return [RhetoricDeflator.deflate_claim(c) for c in claims]
 
     @classmethod
     def normalize_evidence_batch(cls, items: List[EvidenceItem]) -> List[ClaimItem]:
@@ -197,3 +197,51 @@ class IngestionNormalizer:
             seen_hashes.add(content_hash)
             all_claims.extend(cls.normalize_evidence_item(item))
         return all_claims
+
+
+class RhetoricDeflator:
+    """
+    Detects hyperbolic panic language, clickbait sensationalism, and uncorroborated
+    apocalyptic rhetoric in media / OSINT wire inputs.
+    Deflates hyperbolic claims to TIER_5_COMMUNIQUE_PR or TIER_0_INSUFFICIENT_EVIDENCE
+    and caps confidence until verified by physical ground telemetry.
+    """
+    PANIC_KEYWORDS = [
+        "sab swaha", "swaha", "ww3", "world war 3", "apocalypse", "apocalyptic",
+        "annihilation", "annihilated", "total destruction", "all out war",
+        "nuke", "nuclear strike", "nuclear holocaust", "armageddon", "tabahi",
+        "parmanu hamla", "khatam", "sarvanash"
+    ]
+
+    @classmethod
+    def calculate_sensationalism_index(cls, text: str) -> float:
+        """
+        Calculates a sensationalism index in [0.0, 1.0] based on density
+        of panic keywords, excessive exclamation marks, and hyperbolic phrasing.
+        """
+        if not text:
+            return 0.0
+        lower = text.lower()
+        matched_keywords = sum(1 for kw in cls.PANIC_KEYWORDS if kw in lower)
+        exclamation_count = text.count("!") + text.count("‼️")
+        all_caps_words = sum(1 for w in text.split() if len(w) > 2 and w.isupper())
+
+        score = (matched_keywords * 0.35) + (min(exclamation_count, 5) * 0.08) + (min(all_caps_words, 5) * 0.05)
+        return min(1.0, round(score, 2))
+
+    @classmethod
+    def deflate_claim(cls, claim: ClaimItem) -> ClaimItem:
+        """
+        Applies epistemic deflation: if sensationalism_index >= 0.40,
+        downgrades claim epistemic tier to TIER_5 or TIER_0, caps reliability,
+        and adds deflator warning tags.
+        """
+        s_idx = cls.calculate_sensationalism_index(claim.asserted_fact)
+        if s_idx >= 0.40:
+            claim.epistemic_tier = EpistemicTier.TIER_5_COMMUNIQUE_PR
+            claim.reliability_weight = min(claim.reliability_weight, 0.20)
+            if "PropagandaLens" not in claim.target_lenses:
+                claim.target_lenses.append("PropagandaLens")
+            claim.asserted_fact = f"[DEFLATED_SENSATIONALISM_SCORE_{s_idx:.2f}] {claim.asserted_fact}"
+        return claim
+
