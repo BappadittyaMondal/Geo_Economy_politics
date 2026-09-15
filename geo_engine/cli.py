@@ -196,29 +196,57 @@ def render_full_report(
         console.print()
 
 
-def render_lenses_summary(summit_name: str = "BRICS 2026 Summit"):
-    """Displays alignment scores and key findings from all registered lenses."""
+def render_lenses_summary(summit_name: str = "BRICS 2026 Summit", persona: str = "neutral"):
+    """Displays alignment scores and key findings from all registered lenses, optionally weighted by persona."""
     summit = SummitEvent(summit_name=summit_name, year=2026, host_country="India", location="New Delhi")
-    table = Table(title=f"The {len(LENS_REGISTRY)}-Lens Analytical Matrix Evaluation", border_style="cyan")
+    
+    # Check persona weights
+    persona_weights = {}
+    p_data = None
+    if persona and persona.lower() != "neutral":
+        from .arbitration.persona_narrator import PersonaNarrator
+        key = persona.lower().strip()
+        if key in PersonaNarrator.ARCHETYPES:
+            p_data = PersonaNarrator.ARCHETYPES[key]
+            persona_weights = p_data.get("lens_weights", {})
+
+    title_suffix = f" (Persona Weighted: {persona.upper()})" if persona_weights else ""
+    table = Table(title=f"The {len(LENS_REGISTRY)}-Lens Analytical Matrix Evaluation{title_suffix}", border_style="cyan")
     table.add_column("Lens #", style="bold white", width=6)
     table.add_column("Lens Name", style="bold cyan", width=34)
     table.add_column("Epistemic Tier", style="magenta", width=18)
     table.add_column("Alignment Score", style="green", width=16)
     table.add_column("Confidence", style="yellow", width=12)
+    if persona_weights:
+        table.add_column("Persona Weight", style="bold yellow", width=14)
     table.add_column("Primary Analytical Finding", style="white", width=45)
 
     for i, lens in enumerate(LENS_REGISTRY, 1):
         ev = lens.evaluate(summit)
         score_color = "green" if ev.alignment_score > 0.5 else "yellow" if ev.alignment_score > 0.3 else "red"
-        table.add_row(
+        row_items = [
             str(i),
             ev.lens_name,
             ev.primary_epistemic_tier.name,
             f"[{score_color}]{ev.alignment_score:+.2f}[/{score_color}]",
             f"{ev.confidence*100:.0f}%",
-            ev.key_findings[0] if ev.key_findings else "N/A"
-        )
+        ]
+        if persona_weights:
+            weight = persona_weights.get(lens.__name__, 1.0)
+            w_str = f"[bold green]{weight:.1f}x[/bold green]" if weight > 1.0 else f"[dim]{weight:.1f}x[/dim]"
+            row_items.append(w_str)
+        row_items.append(ev.key_findings[0] if ev.key_findings else "N/A")
+        table.add_row(*row_items)
     console.print(table)
+
+    if p_data:
+        console.print(Panel(
+            f"[bold cyan]Intellectual Tradition:[/bold cyan] {p_data['name']}\n"
+            f"[bold yellow]Doctrinal Axis:[/bold yellow] {p_data['doctrinal_axis']}\n\n"
+            f"[bold white]Doctrinal Framing:[/bold white]\n{p_data['conceptual_framing']}",
+            title=f"[bold white on red] STRATEGIC PERSONA PROFILE: {persona.upper()} [/bold white on red]",
+            border_style="red"
+        ))
 
 
 def render_query_pipeline(prompt: str, persona: str = "neutral"):
@@ -359,7 +387,8 @@ def main():
     args = parser.parse_args()
 
     if args.command == "lenses":
-        render_lenses_summary(args.summit)
+        persona = getattr(args, "persona", "neutral")
+        render_lenses_summary(args.summit, persona=persona)
     elif args.command == "query":
         persona = getattr(args, "persona", "neutral")
         render_query_pipeline(args.prompt, persona=persona)

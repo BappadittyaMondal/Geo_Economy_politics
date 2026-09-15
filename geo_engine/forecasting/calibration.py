@@ -370,6 +370,65 @@ class ForecastingEngine:
                     epistemic_basis="Geopolitical inertia and statutory legislative barriers prevent rapid sanctions repeal."
                 )
             ]
+        elif event_type == "CIVILIZATIONAL_CRISIS":
+            observed = [
+                "Sovereign leadership engages in cross-civilizational spiritual, cultural, or existential protocol interaction.",
+                "Intense theological and political perception management operations triggered across domestic and regional media.",
+                "Core bilateral strategic channels (energy off-take, security coordination, trade transit) remain operational."
+            ]
+            inferred = [
+                "Domestic clerical and political backlash is managed via selective state media framing, categorizing the event as diplomatic etiquette or host courtesy.",
+                "Pragmatic statecraft (Apaddharma / Yogakshema) dictates that core economic and defense yields supersede symbolic theological polarization.",
+                "Civilizational pluralism and sovereign autonomy cannot be subordinated to external ideological or moral coercion."
+            ]
+            scenarios = [
+                ScenarioBranch(
+                    scenario_name="Scenario A: Pragmatic Diplomatic Containment & De-escalation (Baseline)",
+                    probability=0.62,
+                    key_drivers=["Sovereign prioritization of energy and security accords", "Controlled state narrative emphasizing statecraft pragmatism"],
+                    early_indicators=["Scheduled bilateral ministerial meetings proceed uninterrupted", "Absence of formal diplomatic reprimands"],
+                    impact_severity="MEDIUM"
+                ),
+                ScenarioBranch(
+                    scenario_name="Scenario B: Domestic Theological Backlash & Diplomatic Retraction",
+                    probability=0.23,
+                    key_drivers=["Clerical and hardline faction mobilization in home state", "State media issuing clarificatory disclaimers"],
+                    early_indicators=["Official diplomatic communique asserting ideological redlines", "Temporary suspension of cultural exchanges"],
+                    impact_severity="HIGH"
+                ),
+                ScenarioBranch(
+                    scenario_name="Scenario C: Institutional Civilizational Detente Accord",
+                    probability=0.10,
+                    key_drivers=["Mutual recognition of civilizational statecraft traditions", "Bilateral code of conduct on spiritual/cultural respect"],
+                    early_indicators=["Joint declaration acknowledging mutual civilizational respect", "Formal protocol harmonization guidelines"],
+                    impact_severity="LOW"
+                ),
+                ScenarioBranch(
+                    scenario_name="Scenario D: Sectarian Provocation / Unmodeled Radical Escalation (Residual)",
+                    probability=0.05,
+                    key_drivers=["Third-party extremist proxy mobilization", "Coordinated information warfare campaign on social platforms"],
+                    early_indicators=["Violent street demonstrations outside diplomatic missions", "Emergency security cordons deployed"],
+                    impact_severity="CRITICAL"
+                )
+            ]
+            forecasts = [
+                CalibratedForecast(
+                    target_hypothesis="Bilateral diplomatic, energy, and infrastructure transit treaties remain legally and operationally intact within 12 months",
+                    forecast_probability=0.84,
+                    confidence_interval_low=0.76,
+                    confidence_interval_high=0.90,
+                    time_horizon_months=12,
+                    epistemic_basis="Grounded in mutual economic necessity, energy trade continuity, and strategic transit corridors."
+                ),
+                CalibratedForecast(
+                    target_hypothesis="Immediate unilateral severance of formal bilateral diplomatic ties triggered solely by the civilizational protocol incident",
+                    forecast_probability=0.02,
+                    confidence_interval_low=0.00,
+                    confidence_interval_high=0.05,
+                    time_horizon_months=12,
+                    epistemic_basis="Directly deterred by core geopolitical equities, defense supply lines, and sovereign balance-of-payments interests."
+                )
+            ]
         else:
             observed = [
                 "10 member states physically participating in summit institutional track.",

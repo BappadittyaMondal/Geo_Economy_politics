@@ -950,6 +950,24 @@ class TestInstitutionalExpansionPhase30:
         assert "Dhanya Kosha" in report.civilizational_synthesis["sanatan_dharmic_statecraft"]
         assert "Ayudhadhyaksha" in report.civilizational_synthesis["sanatan_dharmic_statecraft"]
 
+    def test_civilizational_crisis_forecasting_strata(self):
+        from geo_engine.forecasting.calibration import ForecastingEngine
+        strata = ForecastingEngine.generate_strata(
+            summit_name="Civilizational Protocol Crisis 2026",
+            year=2026,
+            event_type="CIVILIZATIONAL_CRISIS"
+        )
+        assert len(strata.scenario_branches) == 4
+        assert any("Pragmatic Diplomatic Containment" in s.scenario_name for s in strata.scenario_branches)
+        assert any("Domestic Theological Backlash" in s.scenario_name for s in strata.scenario_branches)
+        assert len(strata.calibrated_forecasts) >= 2
+        assert any("treaties remain legally and operationally intact" in f.target_hypothesis for f in strata.calibrated_forecasts)
+
+    def test_cli_lenses_persona_weighting(self):
+        from geo_engine.cli import render_lenses_summary
+        # Verify render_lenses_summary runs cleanly with persona parameter
+        render_lenses_summary(summit_name="BRICS 2026 Summit", persona="doval")
+
 
 
 
