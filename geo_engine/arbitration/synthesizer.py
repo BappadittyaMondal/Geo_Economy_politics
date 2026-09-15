@@ -4,7 +4,7 @@ Reconciles all 12 analytical lenses, executes epistemic truth arbitration,
 and outputs a complete, de-sanitized multilateral summit intelligence report.
 """
 
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from ..core.models import (
     EpistemicTier,
     FinancialFlow,
@@ -31,6 +31,12 @@ from ..lenses import (
     BureaucraticInertiaLens,
     DigitalSovereigntyLens,
     HybridCovertLens,
+    IndiaTimelineLens,
+    DemographicInfiltrationLens,
+    CriticalMineralsLens,
+    InstitutionalLawfareLens,
+    FoodSecurityLens,
+    MilitaryReadinessLens,
 )
 
 
@@ -480,12 +486,12 @@ class SummitSynthesizer:
 
         # Collect Strategic Resilience Matrix from extended physical and sovereign lenses
         lens_eval_map = {l.lens_name: l for l in lens_evals}
-        food_eval = lens_eval_map.get("Food Security, Fertilizer Geopolitics & Caloric Sovereignty")
-        military_eval = lens_eval_map.get("Military Readiness, ORBAT & Escalation Dominance")
-        minerals_eval = lens_eval_map.get("Critical Minerals & Refining Monopolies")
-        demo_eval = lens_eval_map.get("Demographic Infiltration & Migration Corridors")
-        lawfare_eval = lens_eval_map.get("Institutional Lawfare & Multilateral Traps")
-        timeline_eval = lens_eval_map.get("India's Strategic Timelines & Post-1947 Boundary Trajectories")
+        food_eval = lens_eval_map.get(FoodSecurityLens.LENS_NAME) or lens_eval_map.get("Food Security, Fertilizer Geopolitics & Caloric Sovereignty")
+        military_eval = lens_eval_map.get(MilitaryReadinessLens.LENS_NAME) or lens_eval_map.get("Military Readiness, ORBAT & Escalation Dominance")
+        minerals_eval = lens_eval_map.get(CriticalMineralsLens.LENS_NAME) or lens_eval_map.get("Critical Minerals & Refining Monopolies")
+        demo_eval = lens_eval_map.get(DemographicInfiltrationLens.LENS_NAME) or lens_eval_map.get("Demographic Infiltration & Migration Corridors")
+        lawfare_eval = lens_eval_map.get(InstitutionalLawfareLens.LENS_NAME) or lens_eval_map.get("Institutional Lawfare & Multilateral Traps")
+        timeline_eval = lens_eval_map.get(IndiaTimelineLens.LENS_NAME) or lens_eval_map.get("India's Strategic Timelines & Post-1947 Boundary Trajectories")
 
         strategic_resilience_matrix = {
             "food_caloric_sovereignty_index": food_eval.hard_metrics.get("caloric_sovereignty_index", 0.81) if food_eval else 0.81,

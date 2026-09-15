@@ -12,6 +12,7 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
+from typing import Any, Dict, List, Optional
 import json
 import urllib.request
 import urllib.parse
@@ -146,19 +147,35 @@ class TelegramDigestPublisher:
                 print()
             return chunks
 
+        all_delivered = True
         for chunk in chunks:
-            cls.send_to_telegram(chunk)
+            ok = cls.send_to_telegram(chunk)
+            if not ok:
+                all_delivered = False
+
+        if not all_delivered:
+            print("[ERROR] Failed to deliver one or more Telegram message chunks.", file=sys.stderr)
         return chunks
 
 
-def main():
+def build_parser():
     import argparse
     parser = argparse.ArgumentParser(description="Morning Strategic News Digest & Telegram Publisher")
     parser.add_argument("--top", type=int, default=50, help="Number of ranked headlines to include (default: 50)")
-    parser.add_argument("--dry-run", action="store_true", default=True, help="Print digest without sending to Telegram API")
+    parser.add_argument("--live", action="store_true", default=False, help="Execute live dispatch to configured Telegram API channel")
+    parser.add_argument("--dry-run", action="store_true", default=False, help="Force dry-run inspection mode without sending to Telegram")
+    return parser
+
+
+def main():
+    parser = build_parser()
     args = parser.parse_args()
 
-    TelegramDigestPublisher.publish_morning_digest(top_n=args.top, dry_run=args.dry_run)
+    dry_run_mode = not args.live or args.dry_run
+    chunks = TelegramDigestPublisher.publish_morning_digest(top_n=args.top, dry_run=dry_run_mode)
+    if not dry_run_mode and not os.environ.get("TELEGRAM_BOT_TOKEN"):
+        sys.exit(1)
+
 
 
 if __name__ == "__main__":

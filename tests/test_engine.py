@@ -1204,6 +1204,137 @@ class TestCanonicalBundlesAndGovernance:
                 assert os.path.isdir(subpath)
 
 
+class TestPhase35Hardening:
+    """Tests for Phase 35: Universal lens claim acceptance, resilience matrix alignment,
+    and Telegram bot CLI contracts."""
+
+    def test_all_18_lenses_universal_claim_acceptance(self):
+        import inspect
+        from geo_engine.lenses import LENS_REGISTRY
+        from geo_engine.core.models import SummitEvent, EpistemicTier
+        from geo_engine.core.epistemic_hierarchy import TruthClaim
+        from geo_engine.lenses.petro_logistics import PetroLogisticsLens
+        from geo_engine.lenses.digital_sovereignty import DigitalSovereigntyLens
+        from geo_engine.lenses.geo_economist import GeoEconomistLens
+        from geo_engine.lenses.propaganda import PropagandaLens
+        from geo_engine.lenses.bureaucratic_inertia import BureaucraticInertiaLens
+        from geo_engine.lenses.hybrid_covert import HybridCovertLens
+        from geo_engine.lenses.history import HistoryLens
+        from geo_engine.lenses.civilizational import CivilizationalLens
+
+        assert len(LENS_REGISTRY) == 18
+
+        # 1. Verify all 18 lenses accept claims
+        for lens in LENS_REGISTRY:
+            sig = inspect.signature(lens.evaluate)
+            assert "claims" in sig.parameters, f"Lens {lens.__name__} does not accept claims in evaluate()"
+
+        summit = SummitEvent(
+            summit_name="Kazan BRICS Test Event",
+            year=2024,
+            host_country="Russia",
+            primary_agenda="Multilateral Architecture Test"
+        )
+
+        # 2. Test PetroLogisticsLens grounded telemetry
+        claim_petro = TruthClaim(
+            lens_name="PetroLogisticsLens",
+            tier=EpistemicTier.TIER_1_PHYSICAL,
+            assertion="Crude oil tanker flows through Strait of Hormuz chokepoint.",
+            claim_type="PHYSICAL_STATUS"
+        )
+        res_petro = PetroLogisticsLens.evaluate(summit, claims=[claim_petro])
+        assert any("GROUNDED TELEMETRY" in f for f in res_petro.key_findings)
+        assert res_petro.hard_metrics.get("grounded_energy_claims_verified") is True
+
+        # 3. Test DigitalSovereigntyLens grounded telemetry
+        claim_digital = TruthClaim(
+            lens_name="DigitalSovereigntyLens",
+            tier=EpistemicTier.TIER_1_PHYSICAL,
+            assertion="Semiconductor compute chips export controls on GPU hardware.",
+            claim_type="PHYSICAL_STATUS"
+        )
+        res_dig = DigitalSovereigntyLens.evaluate(summit, claims=[claim_digital])
+        assert any("GROUNDED TELEMETRY" in f for f in res_dig.key_findings)
+        assert res_dig.hard_metrics.get("grounded_digital_claims_verified") is True
+
+        # 4. Test GeoEconomistLens grounded telemetry
+        claim_macro = TruthClaim(
+            lens_name="GeoEconomistLens",
+            tier=EpistemicTier.TIER_2_FINANCIAL,
+            assertion="Bilateral local currency trade clearing and mBridge settlement.",
+            claim_type="FINANCIAL_FLOW"
+        )
+        res_macro = GeoEconomistLens.evaluate(summit, claims=[claim_macro])
+        assert any("GROUNDED TELEMETRY" in f for f in res_macro.key_findings)
+        assert res_macro.hard_metrics.get("grounded_monetary_claims_verified") is True
+
+        # 5. Test HistoryLens and CivilizationalLens
+        claim_hist = TruthClaim(
+            lens_name="HistoryLens",
+            tier=EpistemicTier.TIER_3_SOVEREIGN_REDLINES,
+            assertion="1993 Peace and Tranquility Treaty and Panchsheel precedent.",
+            claim_type="SOVEREIGN_REDLINE"
+        )
+        res_hist = HistoryLens.evaluate(summit, claims=[claim_hist])
+        assert any("GROUNDED TELEMETRY" in f for f in res_hist.key_findings)
+
+        claim_civ = TruthClaim(
+            lens_name="CivilizationalLens",
+            tier=EpistemicTier.TIER_3_SOVEREIGN_REDLINES,
+            assertion="Kautilya Raja Mandala alignment and Rajdharma sovereignty.",
+            claim_type="SOVEREIGN_REDLINE"
+        )
+        res_civ = CivilizationalLens.evaluate(summit, claims=[claim_civ])
+        assert any("GROUNDED TELEMETRY" in f for f in res_civ.key_findings)
+
+    def test_strategic_resilience_matrix_exact_lens_keys(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(
+            summit_name="16th BRICS Summit",
+            year=2024,
+            host_country="Russia",
+            primary_agenda="Strengthening Multilateralism"
+        )
+        report = SummitSynthesizer.synthesize_report(summit)
+        srm = report.strategic_resilience_matrix
+
+        # Must receive dynamic score 0.62 from IndiaTimelineLens, NOT fallback 0.60
+        assert srm["strategic_frontier_timeline_score"] == 0.62
+        # Must receive dynamic score 0.48 from CriticalMineralsLens
+        assert srm["critical_minerals_sovereignty_index"] == 0.48
+        # Must receive dynamic score 0.72 from DemographicInfiltrationLens
+        assert srm["demographic_border_vulnerability"] == 0.72
+        # Must receive dynamic score 0.65 from InstitutionalLawfareLens
+        assert srm["institutional_lawfare_ofac_risk"] == 0.65
+        # Must receive dynamic score 0.81 from FoodSecurityLens
+        assert srm["food_caloric_sovereignty_index"] == 0.81
+        # Must receive dynamic score 0.78 from MilitaryReadinessLens
+        assert srm["two_front_deterrence_posture"] == 0.78
+
+
+    def test_telegram_bot_argument_parsing(self):
+        from morning_digest.bot import build_parser
+
+        parser = build_parser()
+
+        args_dry = parser.parse_args(["--dry-run"])
+        assert args_dry.dry_run is True
+        assert args_dry.live is False
+
+        args_live = parser.parse_args(["--live"])
+        assert args_live.live is True
+        assert args_live.dry_run is False
+
+        args_default = parser.parse_args([])
+        assert args_default.live is False
+        assert args_default.dry_run is False
+
+
+
+
 
 
 

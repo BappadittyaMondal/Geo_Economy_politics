@@ -24,12 +24,15 @@ class DeepTechLens:
         rhetoric_sentiment_score: float = 0.85, # Highly optimistic public declarations
         hard_data_alignment_score: float = 0.35, # Ground truth economic/border alignment
         unverified_claims_count: int = 12,
-        evidence: Optional[List[Any]] = None
+        evidence: Optional[List[Any]] = None,
+        claims: Optional[List[Any]] = None
     ) -> LensEvaluation:
         """
         Calculates the divergence vector between diplomatic sentiment and hard metrics.
         Applies Bayesian discounting for unverified claims and boosts confidence if verified primary evidence exists.
+        Dynamically handles both primary evidence items and ingested claims.
         """
+        evidence = evidence or claims
         evidence_citations = []
         if evidence:
             unverified_claims_count = sum(1 for e in evidence if getattr(e, "reliability_weight", 0.5) < 0.70)

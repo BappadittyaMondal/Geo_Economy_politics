@@ -63,8 +63,10 @@ class ForecastingEngine:
         evidence_claims: Optional[List[Any]] = None
     ) -> List[ScenarioBranch]:
         """
-        Applies Bayesian likelihood updating to scenario branches based on incoming evidence claims.
-        Ensures the sum of all updated probabilities strictly equals 1.0.
+        Applies Reliability-Weighted Heuristic Updating (discrete quasi-Bayesian likelihood updating)
+        to scenario branches based on incoming evidence claims.
+        Ensures the sum of all updated probabilities strictly equals 1.0 while explicitly bounding
+        scenario uncertainty according to epistemic reliability weights.
         """
         if not evidence_claims or not scenarios:
             return scenarios

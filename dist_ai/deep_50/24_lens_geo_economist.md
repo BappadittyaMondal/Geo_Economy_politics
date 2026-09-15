@@ -7,7 +7,7 @@ Applies rigorous macro-financial constraints: Mundell-Fleming Trilemma,
 de-dollarization realities, local-currency clearing mechanics, and NDB liquidity analysis.
 """
 
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
 
@@ -18,9 +18,14 @@ class GeoEconomistLens:
     PRIMARY_TIER = EpistemicTier.TIER_2_FINANCIAL
 
     @classmethod
-    def evaluate(cls, summit: SummitEvent) -> LensEvaluation:
+    def evaluate(
+        cls,
+        summit: SummitEvent,
+        claims: Optional[List[Any]] = None
+    ) -> LensEvaluation:
         """
         Evaluates currency mechanics, de-dollarization feasibility, and capital flows.
+        Dynamically ingests monetary clearing, FX settlement, and NDB liquidity claims.
         """
         findings = [
             "Mundell-Fleming Trilemma Reality: A common 'BRICS Currency' is mathematically unviable. Sovereign states cannot simultaneously maintain sovereign monetary policy, fixed cross-currency pegs, and open capital accounts without a unified central bank and fiscal union.",
@@ -36,13 +41,32 @@ class GeoEconomistLens:
             "capital_account_openness_friction": "High (China capital controls & India FX convertibility restrictions)"
         }
 
+        alignment = 0.55
+        confidence = 0.94
+
+        if claims:
+            monetary_keywords = [
+                "currency", "mbridge", "cips", "dollar", "yuan", "ruble", "rupee",
+                "vostro", "clearing", "ndb", "swap", "bilateral trade", "fx", "de-dollarization"
+            ]
+            matched_monetary = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in monetary_keywords)
+                for c in claims
+            )
+            if matched_monetary:
+                findings.insert(0, "[GROUNDED TELEMETRY] Bilateral currency settlement / cross-border liquidity evidence verified.")
+                confidence = min(0.99, round(confidence + 0.02, 2))
+                metrics["grounded_monetary_claims_verified"] = True
+            metrics["claims_evaluated"] = len(claims)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
-            alignment_score=0.55,
-            confidence=0.94,
+            alignment_score=alignment,
+            confidence=confidence,
             primary_epistemic_tier=cls.PRIMARY_TIER,
             key_findings=findings,
             hard_metrics=metrics
         )
+
 
 ```

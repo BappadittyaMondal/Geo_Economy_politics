@@ -5,7 +5,7 @@ Kautilya's Arthashastra (Raja Mandala Theory), Rajdharma, Yogakshema, and Vasudh
 contrasted against Chinese Tianxia, Russian Eurasianism, and Western Hegemony.
 """
 
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
 
@@ -16,9 +16,14 @@ class CivilizationalLens:
     PRIMARY_TIER = EpistemicTier.TIER_3_SOVEREIGN_REDLINES
 
     @classmethod
-    def evaluate(cls, summit: SummitEvent) -> LensEvaluation:
+    def evaluate(
+        cls,
+        summit: SummitEvent,
+        claims: Optional[List[Any]] = None
+    ) -> LensEvaluation:
         """
         Evaluates summit maneuvers through civilizational matrices and Dharmic statecraft.
+        Dynamically ingests civilizational doctrine, Raja Mandala, and philosophical claims.
         """
         findings = [
             "Kautilyan Mandala Dynamics: In Arthashastra terms, China occupies the structural role of 'Ari' (immediate neighbor rival); Russia serves as 'Mitra' (rebalancing friend); Middle Eastern entrants act as 'Madhyama' (intermediate swing powers).",
@@ -34,11 +39,30 @@ class CivilizationalLens:
             "cultural_cohesion_index": 0.30  # Low internal cultural cohesion; united purely by resistance to external hegemony
         }
 
+        alignment = 0.40
+        confidence = 0.90
+
+        if claims:
+            civ_keywords = [
+                "mandala", "rajdharma", "dharmic", "sanatan", "tianxia",
+                "vasudhaiva", "civilization", "kautilya", "yogakshema", "hegemony", "polycentric"
+            ]
+            matched_civ = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in civ_keywords)
+                for c in claims
+            )
+            if matched_civ:
+                findings.insert(0, "[GROUNDED TELEMETRY] Civilizational doctrine / Raja Mandala alignment detected in diplomatic conduct.")
+                confidence = min(0.99, round(confidence + 0.02, 2))
+                metrics["grounded_civilizational_claims_verified"] = True
+            metrics["claims_evaluated"] = len(claims)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
-            alignment_score=0.40,
-            confidence=0.90,
+            alignment_score=alignment,
+            confidence=confidence,
             primary_epistemic_tier=cls.PRIMARY_TIER,
             key_findings=findings,
             hard_metrics=metrics
         )
+

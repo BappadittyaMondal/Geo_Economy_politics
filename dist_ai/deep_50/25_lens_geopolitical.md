@@ -21,20 +21,25 @@ class GeopoliticalLens:
     def evaluate(
         cls,
         summit: SummitEvent,
-        evidence: Optional[List[Any]] = None
+        evidence: Optional[List[Any]] = None,
+        claims: Optional[List[Any]] = None
     ) -> LensEvaluation:
         """
         Assesses power projection, institutional counterbalancing, and internal friction lines.
+        Dynamically handles both primary evidence items and ingested claims.
         """
+        evidence_list = evidence or claims or []
         findings = [
             "Internal Hegemony Counter-Balancing: India and Brazil function as critical internal anchors, actively preventing Beijing and Moscow from weaponizing BRICS into a formal anti-Western or anti-G7 military-political alliance.",
             "Multi-Alignment Doctrine: India demonstrates multi-vector diplomacy—sitting in BRICS/SCO alongside China and Russia, while simultaneously anchoring the Quad (with the US, Japan, Australia) and expanding defense co-production with France.",
             "Structural Friction Lines: The bloc absorbs acute bilateral tensions—India-China LAC militarization, Saudi-Iran regional hegemony friction, and Egypt-Ethiopia disputes over the Grand Ethiopian Renaissance Dam (GERD).",
             "Expansion Dilution Effect: Rapid expansion broadens the bloc's demographic and energy footprint but dilutes institutional consensus, making binding political consensus virtually unachievable."
         ]
-        if evidence:
-            for ev in evidence[:2]:
-                findings.append(f"[VERIFIED SOVEREIGN SIGNAL: {getattr(ev, 'source_name', 'Primary Source')}] {getattr(ev, 'raw_text', '')[:110]}...")
+        if evidence_list:
+            for ev in evidence_list[:2]:
+                text = getattr(ev, 'raw_text', getattr(ev, 'asserted_fact', getattr(ev, 'assertion', '')))[:110]
+                findings.append(f"[VERIFIED SOVEREIGN SIGNAL: {getattr(ev, 'source_name', 'Primary Source')}] {text}...")
+
 
         metrics = {
             "bloc_character": "Non-Western (Pluralistic), NOT Anti-Western",
