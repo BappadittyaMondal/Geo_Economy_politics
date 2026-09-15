@@ -162,6 +162,22 @@ def render_full_report(
     )
     console.print(Panel(cash_text, title="Financial Ground Truth vs. Rhetoric", border_style="green"))
 
+    # Strategic Resilience & Escalation Readiness Matrix (Lenses 13-18)
+    if getattr(report, "strategic_resilience_matrix", None):
+        res = report.strategic_resilience_matrix
+        res_text = (
+            f"[bold green]Strategic Grain Buffer Ratio (FCI):[/bold green] {res.get('strategic_grain_buffer_ratio', 0.0):.2f}x statutory norm  |  "
+            f"[bold yellow]Potash (MOP) Import Dependency:[/bold yellow] {res.get('potash_mop_dependency_pct', 0.0):.1f}%\n"
+            f"[bold cyan]Two-Front Deterrence Posture Score:[/bold cyan] {res.get('two_front_deterrence_posture', 0.0):.2f}  |  "
+            f"[bold magenta]WWR Ammunition Reserve Depth:[/bold magenta] {res.get('wwr_ammunition_reserve_days', 0.0):.1f} Days\n"
+            f"[bold green]IADS Integrated Air Defense Coverage:[/bold green] {res.get('iads_air_defense_coverage', 0.0):.2f}  |  "
+            f"[bold red]HREE Refining Monopoly Exposure:[/bold red] {res.get('hree_refining_monopoly_pct', 0.0):.1f}%\n"
+            f"[bold red]Demographic Border Transit Vulnerability:[/bold red] {res.get('demographic_border_vulnerability', 0.0):.2f}  |  "
+            f"[bold yellow]Institutional Lawfare & OFAC Risk:[/bold yellow] {res.get('institutional_lawfare_ofac_risk', 0.0):.2f}"
+        )
+        console.print("\n[bold yellow]=== STRATEGIC RESILIENCE & ESCALATION READINESS (LENSES 13-18) ===[/bold yellow]")
+        console.print(Panel(res_text, title="Physical Caloric, Military & Mineral Sovereignty Matrix", border_style="cyan"))
+
     # TIER 5: Strategic Inner Meaning (Civilizational & Geopolitical Synthesis)
     console.print("\n[bold yellow]=== TIER 5: STRATEGIC 'INNER MEANING' (CIVILIZATIONAL SYNTHESIS) ===[/bold yellow]")
     s = report.civilizational_synthesis

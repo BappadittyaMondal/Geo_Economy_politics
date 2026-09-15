@@ -969,5 +969,72 @@ class TestInstitutionalExpansionPhase30:
         render_lenses_summary(summit_name="BRICS 2026 Summit", persona="doval")
 
 
+class TestPhase32Hardening:
+    """Tests Phase 32 Release Engineering, Epistemic Tier-Weighted Confidence & Strategic Resilience Matrix."""
+
+    def test_epistemic_tier_weighted_confidence(self):
+        from geo_engine.core.models import SummitEvent, EpistemicTier
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi")
+        report = SummitSynthesizer.synthesize_report(summit)
+
+        # Overall confidence score must be mathematically bound between 0.0 and 1.0
+        assert 0.0 <= report.overall_confidence_score <= 1.0
+        # Tier 1 physical lenses (0.85-0.95 confidence) weighted heavily must ensure robust confidence
+        assert report.overall_confidence_score >= 0.70
+
+    def test_clause_dilution_status_categorization(self):
+        from geo_engine.arbitration.negative_space import NegativeSpaceDiffEngine
+
+        clauses = NegativeSpaceDiffEngine.load_baseline_from_store()
+        assert len(clauses) >= 4
+
+        # Check status assignments
+        unsc_clause = next((c for c in clauses if "UNSC" in c.clause_id or "UNSC" in c.raw_text), None)
+        if unsc_clause:
+            assert unsc_clause.dilution_status == "omitted_negative_space"
+
+        terror_clause = next((c for c in clauses if "TERROR" in c.clause_id or "terror" in c.raw_text.lower()), None)
+        if terror_clause:
+            assert terror_clause.dilution_status == "diluted_passive"
+
+        pay_clause = next((c for c in clauses if "PAY" in c.clause_id or "local-currency" in c.raw_text.lower()), None)
+        if pay_clause:
+            assert pay_clause.dilution_status == "retained_full"
+
+    def test_strategic_resilience_matrix_in_report(self):
+        from geo_engine.core.models import SummitEvent
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+
+        summit = SummitEvent(summit_name="Strategic Frontier 2026", year=2026, host_country="India", location="New Delhi")
+        report = SummitSynthesizer.synthesize_report(summit)
+
+        matrix = report.strategic_resilience_matrix
+        assert matrix is not None
+        assert "food_caloric_sovereignty_index" in matrix
+        assert matrix["strategic_grain_buffer_ratio"] >= 1.0
+        assert "two_front_deterrence_posture" in matrix
+        assert matrix["wwr_ammunition_reserve_days"] >= 10.0
+        assert "critical_minerals_sovereignty_index" in matrix
+        assert "demographic_border_vulnerability" in matrix
+
+        # Verify arbitration log contains Tier 1 physical reality citations
+        physical_logs = [log for log in report.epistemic_arbitration_log if "[ARBITRATION_T1_PHYSICAL]" in log]
+        assert len(physical_logs) >= 2
+
+    def test_cli_render_full_report_with_resilience_matrix(self):
+        from geo_engine.core.models import SummitEvent
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.cli import render_full_report
+
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi")
+        report = SummitSynthesizer.synthesize_report(summit)
+
+        # Verify render_full_report renders cleanly with the new strategic resilience matrix and persona
+        render_full_report(target_event=summit, persona="jaishankar")
+
+
+
 
 

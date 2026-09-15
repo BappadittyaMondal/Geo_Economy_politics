@@ -70,13 +70,23 @@ class NegativeSpaceDiffEngine:
             if db_clauses:
                 loaded = []
                 for row in db_clauses:
+                    sig = row.get("omission_significance", "").lower()
+                    if any(k in sig for k in ["omission", "omitted", "dropped", "refuses", "coercion"]):
+                        status_val = "omitted_negative_space"
+                    elif any(k in sig for k in ["dilut", "passive", "toothless"]):
+                        status_val = "diluted_passive"
+                    elif any(k in sig for k in ["retain", "unanimous"]):
+                        status_val = "retained_full"
+                    else:
+                        status_val = "omitted_negative_space"
+
                     loaded.append(CommuniqueClause(
                         clause_id=row["clause_id"],
                         category=row["category"],
                         raw_text=row["clause_text"],
                         present_in_current_summit=False,
                         historical_baseline_present=True,
-                        dilution_status="omitted_negative_space" if "omission" in row.get("omission_significance", "").lower() or "diluted" not in row.get("omission_significance", "").lower() else "diluted_passive",
+                        dilution_status=status_val,
                         omission_significance=row.get("omission_significance", "")
                     ))
                 loaded.append(cls.DEFAULT_BASELINE_CLAUSES[-1]) # Retained payment clause

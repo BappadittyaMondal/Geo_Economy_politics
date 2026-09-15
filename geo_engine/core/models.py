@@ -196,6 +196,7 @@ class SummitAnalysisReport(BaseModel):
     kinesic_forensics: List[KinesicObservation] = Field(default_factory=list)
     hard_money_audit: Dict[str, Any] = Field(default_factory=dict)
     civilizational_synthesis: Dict[str, str] = Field(default_factory=dict)
+    strategic_resilience_matrix: Dict[str, Any] = Field(default_factory=dict)
     overall_confidence_score: float = Field(default=0.8)
     epistemic_arbitration_log: List[str] = Field(default_factory=list)
 
