@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `c12c8f3`
+- **Canonical Git Commit:** `d509c02`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: c12c8f3
+CANONICAL_COMMIT: d509c02
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: c12c8f3
+CANONICAL_COMMIT: d509c02
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: c12c8f3
+CANONICAL_COMMIT: d509c02
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: c12c8f3
+CANONICAL_COMMIT: d509c02
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: c12c8f3
+CANONICAL_COMMIT: d509c02
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: c12c8f3
+CANONICAL_COMMIT: d509c02
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -853,7 +853,7 @@ meaning all aspect think deep and give realistic answar"
 7. **Forecasting & Brier Engine:** [geo_engine/forecasting/](file:///d:/Geo_Economy_politics/geo_engine/forecasting/)
 8. **Decoupled Two-Stage Morning News Digest:** [morning_digest/](file:///d:/Geo_Economy_politics/morning_digest/) (`StrategicNewsRanker`, `TelegramDigestPublisher`)
 9. **Interactive CLI:** [cli.py](file:///d:/Geo_Economy_politics/geo_engine/cli.py)
-10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (117/117 passing in ~7.8s)
+10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (118/118 passing in ~6.2s)
 
 ---
 
@@ -3104,7 +3104,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `c12c8f3`
+- **Canonical Git Commit:** `d509c02`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

@@ -169,7 +169,7 @@ meaning all aspect think deep and give realistic answar"
 7. **Forecasting & Brier Engine:** [geo_engine/forecasting/](file:///d:/Geo_Economy_politics/geo_engine/forecasting/)
 8. **Decoupled Two-Stage Morning News Digest:** [morning_digest/](file:///d:/Geo_Economy_politics/morning_digest/) (`StrategicNewsRanker`, `TelegramDigestPublisher`)
 9. **Interactive CLI:** [cli.py](file:///d:/Geo_Economy_politics/geo_engine/cli.py)
-10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (117/117 passing in ~7.8s)
+10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (118/118 passing in ~6.2s)
 
 ---
 

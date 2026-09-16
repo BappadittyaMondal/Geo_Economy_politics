@@ -2053,5 +2053,28 @@ class TestPhase43CascadingAndHygiene:
         # Should run cleanly and print table output without throwing
         render_cascading_simulation(domain="critical_minerals", severity=0.75, description="Gallium and Germanium export embargo")
 
+    def test_all_10_contagion_domains_simulation(self):
+        """Verify all 10 pre-configured contagion domains execute with multi-order impacts."""
+        from geo_engine.simulation import CascadingSimulationEngine, SimulationShock
+
+        expected_domains = [
+            "petro_logistics", "critical_minerals", "digital_sovereignty",
+            "institutional_lawfare", "subsea_cables", "military_readiness",
+            "food_security", "demographic_infiltration", "astro_politics", "geo_economist"
+        ]
+        for dom in expected_domains:
+            shock = SimulationShock(
+                shock_id=f"SHOCK_{dom.upper()}",
+                domain=dom,
+                description=f"Automated test shock for {dom}",
+                severity=0.80
+            )
+            res = CascadingSimulationEngine.simulate_shock(shock)
+            assert len(res.order_1_impacts) >= 1, f"Missing Order 1 impacts for {dom}"
+            assert len(res.order_2_impacts) >= 2, f"Missing Order 2 impacts for {dom}"
+            assert len(res.order_3_impacts) >= 1, f"Missing Order 3 impacts for {dom}"
+            assert res.systemic_vulnerability_index > 0.0
+
+
 
 

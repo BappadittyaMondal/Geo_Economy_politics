@@ -363,6 +363,182 @@ class CascadingSimulationEngine:
                     "recommendation": "Reinforce national civilizational unity and civil defense preparedness."
                 }
             ]
+        },
+        "food_security": {
+            1: [
+                {
+                    "lens": "food_security",
+                    "transmission": 1.0,
+                    "mechanism": "Severe crop failure, maritime grain corridor blockade, or fertilizer export stoppage (Urea/DAP/MOP).",
+                    "recommendation": "Mobilize buffer food stocks, invoke emergency grain export bans, and release strategic potash reserves."
+                }
+            ],
+            2: [
+                {
+                    "lens": "cash_flow",
+                    "transmission": 0.85,
+                    "mechanism": "Food and fertilizer subsidy bills spike, straining fiscal deficits and sovereign borrowing.",
+                    "recommendation": "Expand direct benefit transfer (DBT) efficiency and prune non-essential fiscal expenditures."
+                },
+                {
+                    "lens": "demographic_infiltration",
+                    "transmission": 0.75,
+                    "mechanism": "Regional food insecurity and famine triggers sudden refugee migrations across borders.",
+                    "recommendation": "Reinforce border vigilance and coordinate humanitarian relief at regional borders."
+                },
+                {
+                    "lens": "petro_logistics",
+                    "transmission": 0.70,
+                    "mechanism": "Emergency bulk grain and fertilizer maritime transport demands compete with energy shipping.",
+                    "recommendation": "Prioritize sovereign charter vessels for essential food staples."
+                }
+            ],
+            3: [
+                {
+                    "lens": "civilizational",
+                    "transmission": 0.80,
+                    "mechanism": "Public distribution system stability directly preserves internal civilizational social contract.",
+                    "recommendation": "Maintain Annaraksha / grain assurance through grassroots cooperative networks."
+                },
+                {
+                    "lens": "geopolitical",
+                    "transmission": 0.75,
+                    "mechanism": "Food diplomacy becomes vital strategic leverage across the Global South.",
+                    "recommendation": "Establish grain-for-energy bilateral barter arrangements with partner nations."
+                }
+            ]
+        },
+        "demographic_infiltration": {
+            1: [
+                {
+                    "lens": "demographic_infiltration",
+                    "transmission": 1.0,
+                    "mechanism": "Engineered mass border crossings, porous border infiltration, and illegal migrant transit networks.",
+                    "recommendation": "Deploy thermal imaging surveillance, seal porous riverine frontiers, and enforce border biometric registration."
+                }
+            ],
+            2: [
+                {
+                    "lens": "institutional_lawfare",
+                    "transmission": 0.85,
+                    "mechanism": "Extraterritorial human rights bodies and local PIL litigation networks contest border deportations.",
+                    "recommendation": "Assert sovereign national security exemptions under domestic statutory immigration acts."
+                },
+                {
+                    "lens": "hybrid_covert",
+                    "transmission": 0.80,
+                    "mechanism": "Adversary intelligence services utilize undocumented corridors for sleeper cell and contraband transit.",
+                    "recommendation": "Intensify joint intelligence grid (NATGRID) monitoring of border transit hubs."
+                },
+                {
+                    "lens": "india_timeline",
+                    "transmission": 0.80,
+                    "mechanism": "Demographic transformation in sensitive border corridors (e.g. Siliguri corridor, chicken neck).",
+                    "recommendation": "Fortify strategic corridor infrastructure and conduct comprehensive census audits."
+                }
+            ],
+            3: [
+                {
+                    "lens": "civilizational",
+                    "transmission": 0.85,
+                    "mechanism": "Long-term shifts in local civilizational demography and social cohesion in border regions.",
+                    "recommendation": "Preserve indigenous civilizational ethos, linguistic continuity, and local community rights."
+                },
+                {
+                    "lens": "geopolitical",
+                    "transmission": 0.70,
+                    "mechanism": "Cross-border diplomatic friction with neighbor states facilitating transit.",
+                    "recommendation": "Tie bilateral economic cooperation to verified border control compliance."
+                }
+            ]
+        },
+        "astro_politics": {
+            1: [
+                {
+                    "lens": "astro_politics",
+                    "transmission": 1.0,
+                    "mechanism": "Anti-satellite (ASAT) test, orbital space debris cascade (Kessler syndrome), or LEO satcom jamming.",
+                    "recommendation": "Activate ISRO Project NETRA for collision avoidance and deploy maneuverable defensive satellites."
+                }
+            ],
+            2: [
+                {
+                    "lens": "military_readiness",
+                    "transmission": 0.90,
+                    "mechanism": "PNT (Positioning, Navigation, and Timing) and battlefield satcom communication degradation.",
+                    "recommendation": "Switch military navigation to indigenous NavIC constellation and ground-based inertial systems."
+                },
+                {
+                    "lens": "deep_tech",
+                    "transmission": 0.80,
+                    "mechanism": "Loss of orbital Earth observation data impacting weather, defense reconnaissance, and disaster response.",
+                    "recommendation": "Deploy high-altitude pseudo-satellite (HAPS) UAVs for persistent tactical reconnaissance."
+                },
+                {
+                    "lens": "critical_minerals",
+                    "transmission": 0.70,
+                    "mechanism": "Space-grade radiation-hardened gallium, germanium, and solar wafer supply choke.",
+                    "recommendation": "Stockpile space-qualified components and support domestic rad-hard semiconductor fabs."
+                }
+            ],
+            3: [
+                {
+                    "lens": "geopolitical",
+                    "transmission": 0.85,
+                    "mechanism": "Multilateral contestation over lunar/orbital property rights and Artemis vs. ILRS space bloc division.",
+                    "recommendation": "Anchor sovereign strategic posture in peaceful outer space exploration coalitions."
+                },
+                {
+                    "lens": "institutional_lawfare",
+                    "transmission": 0.75,
+                    "mechanism": "Outer Space Treaty (OST) liability disputes and ITU orbital slot contention.",
+                    "recommendation": "File protective spectrum and slot claims with International Telecommunication Union (ITU)."
+                }
+            ]
+        },
+        "geo_economist": {
+            1: [
+                {
+                    "lens": "geo_economist",
+                    "transmission": 1.0,
+                    "mechanism": "Weaponization of reserve currencies, SWIFT disconnection, or sovereign debt downgrade shock.",
+                    "recommendation": "Diversify foreign exchange reserves into central bank physical gold and sovereign bilateral currency lines."
+                }
+            ],
+            2: [
+                {
+                    "lens": "cash_flow",
+                    "transmission": 0.90,
+                    "mechanism": "Immediate capital flight, equity market drawdowns, and severe exchange rate depreciation pressure.",
+                    "recommendation": "Activate RBI currency swap lines, raise domestic policy rates, and manage capital outflows."
+                },
+                {
+                    "lens": "petro_logistics",
+                    "transmission": 0.85,
+                    "mechanism": "Inability to settle international crude cargoes in US dollars creating physical supply panic.",
+                    "recommendation": "Route crude payments through non-dollar Vostro accounts and bilateral energy barter."
+                },
+                {
+                    "lens": "bureaucratic_inertia",
+                    "transmission": 0.75,
+                    "mechanism": "Inter-ministerial hesitation to authorize non-standard settlement mechanisms and regulatory bottlenecks.",
+                    "recommendation": "Empower high-level economic crisis steering group to fast-track bilateral trade protocols."
+                }
+            ],
+            3: [
+                {
+                    "lens": "civilizational",
+                    "transmission": 0.80,
+                    "mechanism": "Macroeconomic sovereign self-reliance (Atmanirbharta) affirmed as civilizational survival necessity.",
+                    "recommendation": "Promote swadeshi production networks and reduce structural reliance on foreign debt."
+                },
+                {
+                    "lens": "geopolitical",
+                    "transmission": 0.85,
+                    "mechanism": "Consolidation of multi-polar economic architecture and expansion of non-Western clearing unions.",
+                    "recommendation": "Deepen integration with BRICS Pay, mBridge, and Asian Clearing Union (ACU)."
+                }
+            ]
         }
     }
 
