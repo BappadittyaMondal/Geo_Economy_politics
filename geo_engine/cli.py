@@ -449,6 +449,42 @@ def render_video_intelligence(video_url: str, query: str):
     console.print(Panel(report.synthesis_markdown, title="Verifiable Intelligence Brief", border_style="yellow"))
 
 
+def render_cascading_simulation(domain: str, severity: float = 0.8, description: str = "Exogenous Geopolitical Shock Event"):
+    from .simulation import CascadingSimulationEngine, SimulationShock
+    shock = SimulationShock(
+        shock_id=f"shock_{domain}_{int(severity*100)}",
+        domain=domain,
+        description=description,
+        severity=severity
+    )
+    res = CascadingSimulationEngine.simulate_shock(shock)
+    console.print(Panel(
+        f"[bold red]Cascading Shock Simulation: {shock.shock_id}[/bold red]\n"
+        f"Domain: [cyan]{shock.domain}[/cyan] | Severity: [yellow]{shock.severity:.2f}[/yellow]\n"
+        f"Systemic Vulnerability Index: [bold magenta]{res.systemic_vulnerability_index:.2f}[/bold magenta]",
+        title="[bold yellow]Multi-Order Contagion Simulation[/bold yellow]",
+        border_style="red"
+    ))
+
+    for order_name, impacts in [("Order 1: Direct Impacts", res.order_1_impacts),
+                                ("Order 2: Secondary Contagion", res.order_2_impacts),
+                                ("Order 3: Tertiary Realignment", res.order_3_impacts)]:
+        tbl = Table(title=order_name, show_lines=True)
+        tbl.add_column("Lens", style="bold cyan", width=24)
+        tbl.add_column("Impact Score", justify="center", width=14)
+        tbl.add_column("Mitigated", justify="center", width=12)
+        tbl.add_column("Mechanism & Strategic Impact", style="white")
+        for imp in impacts:
+            mit_text = "[green]YES[/green]" if imp.mitigated_by_resilience else "[dim]NO[/dim]"
+            tbl.add_row(imp.lens, f"{imp.impact_score:.2f}", mit_text, imp.mechanism)
+        console.print(tbl)
+
+    if res.recommended_mitigations:
+        console.print("\n[bold green]Recommended Systemic Mitigations:[/bold green]")
+        for m in res.recommended_mitigations:
+            console.print(f" • {m}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -480,6 +516,12 @@ def main():
     video_parser.add_argument("url", type=str, help="YouTube video URL")
     video_parser.add_argument("--query", "-q", type=str, required=True, help="Question to answer from video")
 
+    # Command: simulate
+    sim_parser = subparsers.add_parser("simulate", help="Run multi-order cascading shock simulation across lenses")
+    sim_parser.add_argument("--domain", required=True, help="Originating domain/lens (e.g. petro_logistics, critical_minerals, institutional_lawfare)")
+    sim_parser.add_argument("--severity", type=float, default=0.8, help="Shock severity magnitude (0.0 - 1.0)")
+    sim_parser.add_argument("--description", default="Exogenous Geopolitical Shock Event", help="Description of shock event")
+
     try:
         args = parser.parse_args()
 
@@ -493,6 +535,8 @@ def main():
             render_forecast_ledger(status=args.status, resolve_id=args.resolve, outcome=args.outcome)
         elif args.command == "video":
             render_video_intelligence(args.url, args.query)
+        elif args.command == "simulate":
+            render_cascading_simulation(args.domain, severity=args.severity, description=args.description)
         elif args.command == "audit" or args.command is None:
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)

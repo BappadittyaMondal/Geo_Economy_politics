@@ -169,7 +169,7 @@ meaning all aspect think deep and give realistic answar"
 7. **Forecasting & Brier Engine:** [geo_engine/forecasting/](file:///d:/Geo_Economy_politics/geo_engine/forecasting/)
 8. **Decoupled Two-Stage Morning News Digest:** [morning_digest/](file:///d:/Geo_Economy_politics/morning_digest/) (`StrategicNewsRanker`, `TelegramDigestPublisher`)
 9. **Interactive CLI:** [cli.py](file:///d:/Geo_Economy_politics/geo_engine/cli.py)
-10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (113/113 passing in ~6.3s)
+10. **Automated Verification Suite:** [tests/test_engine.py](file:///d:/Geo_Economy_politics/tests/test_engine.py) (117/117 passing in ~7.8s)
 
 ---
 
@@ -447,4 +447,18 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Domestic Sovereign Lawfare Telemetry (Lens 16):** Enriched `InstitutionalLawfareLens` (`geo_engine/lenses/institutional_lawfare.py`) to detect domestic constitutional and statutory lawfare claims (Article 44, UCC, Waqf Act tribunal overrides, HRCE temple control asymmetry, FCRA domestic PIL litigation networks). Outputs structured domestic metrics (`domestic_statutory_asymmetry_score`, `fcra_litigation_leverage_index`, `concurrent_jurisdiction_friction`) while preserving 100% backward compatibility with international FATF/OFAC tests.
   - **Internal Dharmic Jurisprudence & Polycentric Statecraft (Lens 03):** Enriched `CivilizationalLens` (`geo_engine/lenses/civilizational.py`) to model internal Sanatan jurisprudence (*Dharmashastra*, *Smriti*, *Sadachara*, *Deshadharma*, *Kuladharma*, and traditional Shankaracharya/Peetham autonomy vs centralized statutory codification). Outputs structured internal metrics (`internal_jurisprudential_model`, `traditional_institutional_autonomy_friction`) while maintaining complete alignment with external Raja Mandala summit doctrine.
   - **Verification Suite Expansion (109→113 tests):** Added `TestPhase42SovereignLawfareAndHygiene` class with 4 tests in `tests/test_engine.py` covering video simulation flags, bundle duplicate purging, domestic lawfare telemetry, and internal Dharmic jurisprudence. Certified **113/113 unit and integration tests passing with 100% success rate in 6.29s**. All **10/10 Anti-Drift Quality Gates certified at 100%**.
+
+* **Phase 43 (Multi-Order Cascading Simulation Engine, Strict Hard Bundle Ceilings & Constitutional Query Routing):**
+  - **Strict Multi-AI Bundle Ceilings & All-in-One Dedicated Isolation (P0):** Enforced hard platform ceilings across distribution bundles in `scripts/build_canonical_bundles.py`. Isolated master all-in-one consolidated files (`CONSOLIDATED_CORE_5_ALL_IN_ONE.md`, `CONSOLIDATED_DEEP_50_ALL_IN_ONE.md`) into a dedicated `dist_ai/all_in_one/` directory. Guaranteed that `consolidate_5_files` strictly contains exactly 5 files and 0 subdirectories for strict 5-file upload platforms (Kimi, Custom GPTs), and `consolidate_50_files` strictly adheres to $\le 50$ files (34 files) for Claude Projects and NotebookLM. Enforced this constraint inside Anti-Drift Quality Gate 1.
+  - **Constitutional & Dharmic Query Parser Synchronization (P0):** Enriched `LENS_KEYWORDS` in `geo_engine/core/query_parser.py`:
+    - `institutional_lawfare`: Added explicit constitutional/statutory triggers (`constitution`, `constitutional`, `article 44`, `ucc`, `uniform civil code`, `waqf`, `fcra`, `sc/st`, `reservation`, `fundamental rights`, `hrce`, `temple control`, `judicial activism`).
+    - `civilizational`: Added Dharmic jurisprudence triggers (`dharmashastra`, `smriti`, `sadachara`, `deshadharma`, `kuladharma`, `shankaracharya`, `peetham`, `matha`, `parampara`, `sampradaya`, `dharma`).
+    - `geo_economist`: Added sovereign balance sheet & de-dollarization triggers (`gold reserve`, `central bank gold`, `sovereign debt`).
+  - **Multi-Order Cascading Shock Simulation Engine (P0):** Built the complete simulation package in `geo_engine/simulation/`:
+    - `SimulationShock`: Typed Pydantic model for exogenous/endogenous shocks with severity ($[0.0, 1.0]$), actors, domain, and metadata.
+    - `CascadingImpact`: Multi-order impact modeling (Order 1 Direct Physical, Order 2 Macro/Supply Chain Contagion, Order 3 Geopolitical/Civilizational Realignment) with transmission factors and mitigation flags.
+    - `CascadingSimulationEngine`: Calculates cross-lens shock propagation across the 20 analytical lenses, dynamically damped or amplified by the Strategic Resilience Matrix ($\text{impact}_{\text{effective}} = \text{impact}_{\text{base}} \times (1.0 - 0.5 \times \text{resilience})$). Computes composite `systemic_vulnerability_index` and outputs structured Markdown briefs.
+  - **CLI Simulation Subcommand (P1):** Added `simulate` subcommand to `geo_engine/cli.py` (`python -m geo_engine.cli simulate --domain petro_logistics --severity 0.85 --description "..."`) rendering rich multi-order impact tables, resilience mitigation indicators, and systemic strategic hedges directly in the terminal.
+  - **Verification Suite Expansion (113→117 tests):** Added `TestPhase43CascadingAndHygiene` class with 4 tests in `tests/test_engine.py` covering strict bundle ceilings, constitutional/Dharmic query routing, multi-order cascading simulation propagation with resilience dampening, and CLI simulation execution. Certified **117/117 unit and integration tests passing with 100% success rate in 7.77s**. All **10/10 Anti-Drift Quality Gates certified at 100%**.
+
 

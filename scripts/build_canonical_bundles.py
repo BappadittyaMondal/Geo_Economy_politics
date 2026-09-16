@@ -18,6 +18,7 @@ CORE_5_DIR = os.path.join(DIST_DIR, "core_5")
 DEEP_50_DIR = os.path.join(DIST_DIR, "deep_50")
 CONSOLIDATE_5_DIR = os.path.join(REPO_ROOT, "consolidate_5_files")
 CONSOLIDATE_50_DIR = os.path.join(REPO_ROOT, "consolidate_50_files")
+ALL_IN_ONE_DIR = os.path.join(DIST_DIR, "all_in_one")
 
 
 def get_git_commit_hash() -> str:
@@ -272,8 +273,12 @@ def build_consolidated_folders(commit_hash: str):
                 content = f.read()
             core_combined_sections.append(f"\n\n{'='*80}\n# SECTION: {fname}\n{'='*80}\n\n{content}")
 
-    # Single consolidated master file for 1-file uploads
-    with open(os.path.join(CONSOLIDATE_5_DIR, "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"), "w", encoding="utf-8") as f:
+    # Dedicated All-in-One Master Bundles for 1-file upload environments (Zero impact on 5-file folder)
+    if os.path.exists(ALL_IN_ONE_DIR):
+        shutil.rmtree(ALL_IN_ONE_DIR)
+    os.makedirs(ALL_IN_ONE_DIR, exist_ok=True)
+
+    with open(os.path.join(ALL_IN_ONE_DIR, "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(core_combined_sections))
 
     # -------------------------------------------------------------
@@ -309,6 +314,8 @@ def build_consolidated_folders(commit_hash: str):
     # Single consolidated master file for 1-file uploads
     with open(os.path.join(CONSOLIDATE_50_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(deep_combined_sections))
+    with open(os.path.join(ALL_IN_ONE_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(deep_combined_sections))
 
 
 def verify_anti_drift_gates() -> bool:
@@ -331,6 +338,14 @@ def verify_anti_drift_gates() -> bool:
         core_files_count = len([f for f in os.listdir(CORE_5_DIR) if not f.startswith(".")])
         if core_files_count != 5:
             errors.append(f"Gate 1 Failed: Core-5 contains {core_files_count} files, expected exactly 5.")
+    if os.path.exists(CONSOLIDATE_5_DIR):
+        c5_count = len([f for f in os.listdir(CONSOLIDATE_5_DIR) if not f.startswith(".")])
+        if c5_count != 5:
+            errors.append(f"Gate 1 Failed: consolidate_5_files contains {c5_count} files, expected strictly 5.")
+    if os.path.exists(CONSOLIDATE_50_DIR):
+        c50_count = len([f for f in os.listdir(CONSOLIDATE_50_DIR) if not f.startswith(".")])
+        if c50_count > 50:
+            errors.append(f"Gate 1 Failed: consolidate_50_files contains {c50_count} files, exceeds 50 ceiling.")
 
     # Gate 2: Registry Count Parity (20 lenses)
     reg_path = resolve_canonical_source("03_REGISTRY/ENGINE_AND_LENS_REGISTRY.md")

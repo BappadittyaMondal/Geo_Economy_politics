@@ -1262,19 +1262,23 @@ class TestCanonicalBundlesAndGovernance:
 
     def test_consolidate_folders_structure_and_subfolders(self):
         import os
-        from scripts.build_canonical_bundles import CONSOLIDATE_5_DIR, CONSOLIDATE_50_DIR
+        from scripts.build_canonical_bundles import CONSOLIDATE_5_DIR, CONSOLIDATE_50_DIR, ALL_IN_ONE_DIR
 
         assert os.path.exists(CONSOLIDATE_5_DIR)
         assert os.path.exists(CONSOLIDATE_50_DIR)
 
-        # Folder 1: consolidate_5_files (Strictly Flat: 6 Files, 0 Subfolders)
-        assert os.path.exists(os.path.join(CONSOLIDATE_5_DIR, "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"))
+        # Folder 1: consolidate_5_files (Strictly Flat: 5 Files, 0 Subfolders - Hard 5-File Ceilings)
+        assert len([f for f in os.listdir(CONSOLIDATE_5_DIR) if not f.startswith(".")]) == 5
         for fname in ["00_CANONICAL_CONTRACT.md", "01_SYSTEM_ARCHITECTURE.md", "02_OBJECT_AND_DATA_CONTRACTS.md", "03_ENGINE_AND_LENS_REGISTRY.md", "04_RUNTIME_OPERATING_PROTOCOL.md"]:
             assert os.path.exists(os.path.join(CONSOLIDATE_5_DIR, fname))
         subdirs_5 = [d for d in os.listdir(CONSOLIDATE_5_DIR) if os.path.isdir(os.path.join(CONSOLIDATE_5_DIR, d))]
         assert len(subdirs_5) == 0, f"Expected 0 subdirectories in consolidate_5_files, found: {subdirs_5}"
 
-        # Folder 2: consolidate_50_files (Strictly Flat: 32 Files, 0 Subfolders)
+        # Dedicated All-in-One Master Bundles
+        assert os.path.exists(os.path.join(ALL_IN_ONE_DIR, "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"))
+        assert os.path.exists(os.path.join(ALL_IN_ONE_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"))
+
+        # Folder 2: consolidate_50_files (Strictly Flat: <= 50 Files, 0 Subfolders)
         assert os.path.exists(os.path.join(CONSOLIDATE_50_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"))
         assert os.path.exists(os.path.join(CONSOLIDATE_50_DIR, "01_CANONICAL_MANIFEST.yaml"))
         for fname in ["00_CANONICAL_CONTRACT.md", "01_SYSTEM_ARCHITECTURE.md", "02_OBJECT_AND_DATA_CONTRACTS.md", "03_ENGINE_AND_LENS_REGISTRY.md", "04_RUNTIME_OPERATING_PROTOCOL.md"]:
@@ -1872,7 +1876,8 @@ class TestPhase41DeepCausality:
     def test_consolidated_core_5_parity_and_commit(self):
         """Verify master consolidated core bundle reflects R20 and does not contain stale R18."""
         import pathlib
-        bundle_path = pathlib.Path(__file__).parent.parent / "consolidate_5_files" / "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"
+        from scripts.build_canonical_bundles import ALL_IN_ONE_DIR
+        bundle_path = pathlib.Path(ALL_IN_ONE_DIR) / "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"
         assert bundle_path.exists()
         content = bundle_path.read_text(encoding="utf-8")
         assert "REGISTRY_VERSION: R20 (20 Analytical Lenses)" in content
@@ -1971,5 +1976,82 @@ class TestPhase42SovereignLawfareAndHygiene:
         assert "Dharmic Polycentricity" in eval_res.hard_metrics["internal_jurisprudential_model"]
         assert eval_res.hard_metrics["traditional_institutional_autonomy_friction"] >= 0.70
         assert any("Internal Dharmic jurisprudence detected" in f for f in eval_res.key_findings)
+
+
+class TestPhase43CascadingAndHygiene:
+    """Phase 43 strict bundle ceilings, query keyword routing, and cascading simulation tests."""
+
+    def test_strict_bundle_ceilings_and_all_in_one_isolation(self):
+        """Verify consolidate_5_files strictly contains 5 files and all_in_one contains dedicated masters."""
+        import os
+        from scripts.build_canonical_bundles import CONSOLIDATE_5_DIR, CONSOLIDATE_50_DIR, ALL_IN_ONE_DIR
+
+        c5_files = [f for f in os.listdir(CONSOLIDATE_5_DIR) if not f.startswith(".")]
+        assert len(c5_files) == 5, f"Expected strictly 5 files in consolidate_5_files, found {len(c5_files)}: {c5_files}"
+
+        c50_files = [f for f in os.listdir(CONSOLIDATE_50_DIR) if not f.startswith(".")]
+        assert len(c50_files) <= 50, f"Expected <= 50 files in consolidate_50_files, found {len(c50_files)}"
+
+        assert os.path.exists(os.path.join(ALL_IN_ONE_DIR, "CONSOLIDATED_CORE_5_ALL_IN_ONE.md"))
+        assert os.path.exists(os.path.join(ALL_IN_ONE_DIR, "CONSOLIDATED_DEEP_50_ALL_IN_ONE.md"))
+
+    def test_query_parser_constitutional_and_dharmic_routing(self):
+        """Verify QueryParser routes constitutional, statutory, and Dharmic concepts to target lenses."""
+        from geo_engine.core.query_parser import QueryParser
+
+        q_lawfare = QueryParser.parse("Analysis of Article 44 UCC draft and Waqf Act property jurisdiction")
+        assert "institutional_lawfare" in q_lawfare.prioritized_lenses
+        assert q_lawfare.requires_lawfare_audit is True
+
+        q_dharmic = QueryParser.parse("Traditional Dharmashastra and Shankaracharya guidance on temple autonomy and sadachara")
+        assert "civilizational" in q_dharmic.prioritized_lenses
+        assert q_dharmic.requires_civilizational_depth is True
+
+        q_gold = QueryParser.parse("Central bank gold reserve repatriation and sovereign debt dedollarization")
+        assert "geo_economist" in q_gold.prioritized_lenses
+
+    def test_cascading_simulation_engine_multi_order_propagation(self):
+        """Verify CascadingSimulationEngine propagates 3-order shocks with resilience dampening."""
+        from geo_engine.simulation import CascadingSimulationEngine, SimulationShock
+
+        # Unmitigated simulation
+        shock = SimulationShock(
+            shock_id="SHOCK_TEST_HORMUZ",
+            domain="petro_logistics",
+            description="Strait of Hormuz naval mine incident and closure",
+            severity=0.85
+        )
+        res_raw = CascadingSimulationEngine.simulate_shock(shock)
+        assert len(res_raw.order_1_impacts) >= 1
+        assert res_raw.order_1_impacts[0].lens == "petro_logistics"
+        assert res_raw.order_1_impacts[0].impact_score == 0.85
+        assert len(res_raw.order_2_impacts) >= 3
+        assert len(res_raw.order_3_impacts) >= 2
+        assert res_raw.systemic_vulnerability_index > 0.40
+        assert len(res_raw.recommended_mitigations) >= 3
+        md = res_raw.to_markdown()
+        assert "Cascading Shock Simulation: SHOCK_TEST_HORMUZ" in md
+        assert "Order 1: Direct Physical & Strategic Impacts" in md
+        assert "Order 2: Secondary Macro & Supply Contagion" in md
+        assert "Order 3: Tertiary Geopolitical & Civilizational Realignment" in md
+
+        # Mitigated simulation via Strategic Resilience Matrix
+        resilience_matrix = {
+            "petro_logistics": 0.90,
+            "cash_flow": 0.80,
+            "food_security": 0.75
+        }
+        res_mitigated = CascadingSimulationEngine.simulate_shock(shock, resilience_matrix=resilience_matrix)
+        assert res_mitigated.order_1_impacts[0].mitigated_by_resilience is True
+        assert res_mitigated.order_1_impacts[0].impact_score < res_raw.order_1_impacts[0].impact_score
+        assert res_mitigated.systemic_vulnerability_index < res_raw.systemic_vulnerability_index
+
+    def test_cli_simulate_subcommand_execution(self):
+        """Verify CLI render_cascading_simulation executes without exception."""
+        from geo_engine.cli import render_cascading_simulation
+
+        # Should run cleanly and print table output without throwing
+        render_cascading_simulation(domain="critical_minerals", severity=0.75, description="Gallium and Germanium export embargo")
+
 
 
