@@ -169,3 +169,78 @@ class MacroTelemetryAdapter:
             conn.commit()
 
         return ingested_count
+
+    @classmethod
+    def extract_claims_from_audit_markdown(cls, markdown_path: str) -> List[ClaimItem]:
+        """
+        Parses a forensic audit markdown document (e.g. FORENSIC_AUDIT_INDIA_1991_2026.md),
+        extracts empirical findings and statistical illusion caveats, and normalizes them
+        into verified ClaimItem models tagged with their appropriate target lenses.
+        """
+        import os
+        import re
+
+        if not os.path.exists(markdown_path):
+            return []
+
+        with open(markdown_path, "r", encoding="utf-8", errors="ignore") as f:
+            content = f.read()
+
+        records = []
+
+        # 1. Extract Statistical Illusions (Part I)
+        illusion_matches = re.findall(
+            r"### (?:Illusion \d+:|\d+\.)\s*([^\n]+)\n(.*?)(?=\n###|\n##|\Z)",
+            content,
+            re.DOTALL
+        )
+        for title, text in illusion_matches:
+            clean_title = title.strip()
+            lines = [l.strip().lstrip("*- ") for l in text.strip().splitlines() if l.strip() and not l.startswith("```")]
+            snippet = " ".join(lines[:3])[:280]
+            records.append({
+                "id": f"ILLUSION-{hashlib.md5(clean_title.encode()).hexdigest()[:6]}",
+                "text": f"Statistical Illusion '{clean_title}': {snippet}",
+                "source_id": "AUDIT-PART1-ILLUSIONS",
+                "actors": ["India"],
+                "target_lenses": ["GeoEconomistLens", "CashFlowLens"]
+            })
+
+        # 2. Extract Claim-Audit Matrix rows (Part V)
+        table_rows = re.findall(
+            r"\|\s*\*\*\"?([^\"]+?)\"?\*\*\s*\|\s*([^\|]+)\|\s*([^\|]+)\|\s*([^\|]+)\|\s*([^\|]+)\|",
+            content
+        )
+        for claim_title, claimant, evidence_for, evidence_against, verdict in table_rows:
+            clean_claim = claim_title.strip()
+            clean_verdict = verdict.strip()
+            if "Claim" in clean_claim or "---" in clean_claim:
+                continue
+            records.append({
+                "id": f"AUDIT-CLAIM-{hashlib.md5(clean_claim.encode()).hexdigest()[:6]}",
+                "text": f"Audited Claim '{clean_claim}' (Claimant: {claimant.strip()}) -> Forensic Verdict: {clean_verdict}. Evidence: {evidence_for.strip()[:100]} vs {evidence_against.strip()[:100]}",
+                "source_id": "AUDIT-PART5-CLAIM-MATRIX",
+                "actors": ["India"],
+                "target_lenses": ["GeoEconomistLens", "CashFlowLens", "FoodSecurityLens"]
+            })
+
+        # 3. Extract Executive Scorecard entries (Going Up, Going Down, Stagnant)
+        scorecard_rows = re.findall(
+            r"\|\s*\*\*([^\*]+?)\*\*\s*\|\s*\*\*([^\*]+?)\*\*\s*\|\s*([^\|]+)\|\s*([^\|]+)\|",
+            content
+        )
+        for domain, status, vs_nonbjp, vs_g20 in scorecard_rows:
+            clean_domain = domain.strip()
+            clean_status = status.strip()
+            if "Aspect" in clean_domain or "Domain" in clean_domain or "---" in clean_domain:
+                continue
+            records.append({
+                "id": f"SCORECARD-{hashlib.md5(clean_domain.encode()).hexdigest()[:6]}",
+                "text": f"Executive Scorecard '{clean_domain}' rated '{clean_status}' (vs Non-BJP: {vs_nonbjp.strip()[:80]}; vs G-20: {vs_g20.strip()[:80]})",
+                "source_id": "AUDIT-SCORECARD",
+                "actors": ["India"],
+                "target_lenses": ["GeoEconomistLens", "CashFlowLens"]
+            })
+
+        return cls.normalize_telemetry(records)
+

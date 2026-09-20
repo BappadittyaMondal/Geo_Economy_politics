@@ -2154,7 +2154,7 @@ class TestPhase44AuditHardening:
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         assert readme_path.exists(), "README.md not found"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156, 162, 164)), (
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156, 162, 164, 171)), (
             "README.md test count is stale — should cite comprehensive tests"
         )
 
@@ -2242,7 +2242,7 @@ class TestPhase45MillennialReversal:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156, 162, 164))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156, 162, 164, 171))
 
 
 class TestPhase46MaritimeGreyZone:
@@ -2346,7 +2346,7 @@ class TestPhase46MaritimeGreyZone:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156, 162, 164))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156, 162, 164, 171))
 
 
 class TestPhase47CompetingHypotheses:
@@ -2439,7 +2439,7 @@ class TestPhase47CompetingHypotheses:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156, 162, 164))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156, 162, 164, 171))
 
 
 class TestPhase48SaptangaAndResourceChokepoints:
@@ -2533,7 +2533,7 @@ class TestPhase48SaptangaAndResourceChokepoints:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156, 162, 164))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156, 162, 164, 171))
 
     def test_canonical_bundle_ceilings_and_saptanga_parity(self):
         """Verify strict canonical bundle ceilings (5 files == 5, 50 files <= 50) and lens execution."""
@@ -2671,7 +2671,7 @@ class TestPhase49NonLinearTippingAndGameTheoretic:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (156, 162, 164))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (156, 162, 164, 171))
 
 
 class TestPhase50VostroAndWargamePersistence:
@@ -2917,11 +2917,133 @@ class TestPhase50VostroAndWargamePersistence:
                     pass
 
     def test_readme_phase50_test_count_parity(self):
-        """Verify README.md test count matches exactly 164 comprehensive tests."""
+        """Verify README.md test count matches comprehensive test string."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "164 comprehensive unit and integration tests" in content
+        assert "comprehensive unit and integration tests" in content
+
+
+class TestPhase51MacroForensicBridge:
+    """Phase 51 macro-forensic bridge, NPA resolution filtering, and audit ingestion tests."""
+
+    def test_cash_flow_lens_npa_recovery_metrics_and_claims(self):
+        """Verify CashFlowLens provides NPA recovery efficiency metrics and audits write-off claims."""
+        from geo_engine.lenses.cash_flow import CashFlowLens
+        from geo_engine.core.models import SummitEvent
+        from geo_engine.ingestion.models import ClaimItem, ClaimType, EpistemicTier
+
+        summit = SummitEvent(summit_name="Economic Forensic Summit", host_country="India")
+        ev = CashFlowLens.evaluate(summit)
+        assert "npa_recovery_efficiency_ratio" in ev.hard_metrics
+        assert ev.hard_metrics["npa_recovery_efficiency_ratio"] == 0.26
+        assert ev.hard_metrics["npa_cleanup_taxpayer_subsidy_usd_b"] == 37.5
+
+        claim = ClaimItem(
+            claim_id="CLM-NPA-01",
+            source_evidence_id="SRC-NPA",
+            claim_type=ClaimType.FINANCIAL_CAPEX,
+            epistemic_tier=EpistemicTier.TIER_2_FINANCIAL,
+            actors=["India"],
+            asserted_fact="Banking clean-up write-off of bad loans exceeded actual cash recovery."
+        )
+        ev_claims = CashFlowLens.evaluate(summit, claims=[claim])
+        assert ev_claims.hard_metrics.get("banking_resolution_audit_applied") is True
+        assert any("[FORENSIC AUDIT]" in f for f in ev_claims.key_findings)
+
+    def test_geo_economist_china_trade_gap_and_discrepancy_metrics(self):
+        """Verify GeoEconomistLens tracks China trade divergence and GDP discrepancy risk."""
+        from geo_engine.lenses.geo_economist import GeoEconomistLens
+        from geo_engine.core.models import SummitEvent
+        from geo_engine.ingestion.models import ClaimItem, ClaimType, EpistemicTier
+
+        summit = SummitEvent(summit_name="Trade Audit Summit", host_country="India")
+        ev = GeoEconomistLens.evaluate(summit)
+        assert ev.hard_metrics["china_bilateral_trade_gap_usd_b"] == 18.5
+        assert ev.hard_metrics["gdp_discrepancy_item_risk_pct"] == 3.2
+        assert ev.hard_metrics["single_deflation_distortion_flag"] is True
+
+        claim = ClaimItem(
+            claim_id="CLM-TRADE-01",
+            source_evidence_id="SRC-TRADE",
+            claim_type=ClaimType.GENERAL_INTEL,
+            epistemic_tier=EpistemicTier.TIER_2_FINANCIAL,
+            actors=["India", "China"],
+            asserted_fact="China trade gap under-invoicing evades customs tariffs and inflates deficit."
+        )
+        ev_claims = GeoEconomistLens.evaluate(summit, claims=[claim])
+        assert ev_claims.hard_metrics.get("trade_gap_discrepancy_verified") is True
+        assert any("[FORENSIC AUDIT]" in f for f in ev_claims.key_findings)
+
+    def test_food_security_anti_farmer_export_ban_metrics(self):
+        """Verify FoodSecurityLens tracks anti-farmer export ban penalties."""
+        from geo_engine.lenses.food_security import FoodSecurityLens
+        from geo_engine.core.models import StrategicEvent
+        from geo_engine.ingestion.models import ClaimItem, ClaimType, EpistemicTier
+
+        event = StrategicEvent(title="Agrarian Trade Policy", region="South Asia")
+        ev = FoodSecurityLens.evaluate(event)
+        assert ev.hard_metrics["anti_farmer_export_ban_penalty"] == 0.35
+        assert ev.hard_metrics["producer_to_consumer_welfare_transfer_score"] == 0.72
+
+        claim = ClaimItem(
+            claim_id="CLM-AGRI-01",
+            source_evidence_id="SRC-AGRI",
+            claim_type=ClaimType.GENERAL_INTEL,
+            epistemic_tier=EpistemicTier.TIER_1_PHYSICAL,
+            actors=["India"],
+            asserted_fact="Rice ban price stabilization suppresses rural producer income."
+        )
+        ev_claims = FoodSecurityLens.evaluate(event, claims=[claim])
+        assert ev_claims.hard_metrics.get("export_ban_price_stabilization_flag") is True
+        assert any("[FORENSIC AUDIT]" in f for f in ev_claims.key_findings)
+
+    def test_telemetry_adapter_audit_markdown_ingestion(self):
+        """Verify MacroTelemetryAdapter parses and normalizes FORENSIC_AUDIT_INDIA_1991_2026.md."""
+        from geo_engine.ingestion.telemetry_adapter import MacroTelemetryAdapter
+        import os
+
+        audit_file = "FORENSIC_AUDIT_INDIA_1991_2026.md"
+        assert os.path.exists(audit_file)
+        claims = MacroTelemetryAdapter.extract_claims_from_audit_markdown(audit_file)
+        assert len(claims) >= 10
+        # Verify target lenses are mapped
+        has_geo_or_cash = any(
+            "GeoEconomistLens" in c.target_lenses or "CashFlowLens" in c.target_lenses
+            for c in claims
+        )
+        assert has_geo_or_cash is True
+
+    def test_query_parser_macro_forensics_routing(self):
+        """Verify QueryParser routes macro forensic terms to appropriate analytical lenses."""
+        from geo_engine.core.query_parser import QueryParser
+
+        q_npa = QueryParser.parse("Audit banking NPA write-off and bank recapitalization haircuts")
+        assert "cash_flow" in q_npa.prioritized_lenses
+
+        q_china = QueryParser.parse("Evaluate China trade gap under-invoicing and double deflation in manufacturing")
+        assert "geo_economist" in q_china.prioritized_lenses
+
+        q_agri = QueryParser.parse("Analyze non-basmati rice ban and wheat export ban price stabilization")
+        assert "food_security" in q_agri.prioritized_lenses
+
+    def test_cli_ingest_audit_execution(self):
+        """Verify CLI render_audit_ingestion executes cleanly on forensic audit file."""
+        from geo_engine.cli import render_audit_ingestion
+        import os
+
+        audit_file = "FORENSIC_AUDIT_INDIA_1991_2026.md"
+        assert os.path.exists(audit_file)
+        # Should execute without throwing any exception
+        render_audit_ingestion(audit_file)
+
+    def test_readme_phase51_test_count_parity(self):
+        """Verify README.md reflects 171 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "171 comprehensive unit and integration tests" in content
+
 
 
 

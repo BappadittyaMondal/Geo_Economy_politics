@@ -594,6 +594,46 @@ def render_game_theoretic_simulation(
         console.print(f"\n[bold green]✓ Campaign session persisted to EventStore:[/bold green] [cyan]{res.simulation_id}[/cyan]")
 
 
+def render_audit_ingestion(audit_path: str):
+    """Parses a forensic audit markdown document and persists normalized claims into EventStore SQLite."""
+    import os
+    from .ingestion.telemetry_adapter import MacroTelemetryAdapter
+    from .storage.event_store import EventStore
+
+    resolved_path = os.path.abspath(audit_path)
+    if not os.path.exists(resolved_path):
+        console.print(f"[bold red][ERROR][/bold red] Audit file not found: {resolved_path}", file=sys.stderr)
+        sys.exit(1)
+
+    console.print(f"\n[bold cyan]=== INGESTING FORENSIC AUDIT TELEMETRY INTO EVENT STORE ===[/bold cyan]")
+    console.print(f"[dim]Audit Source File: {resolved_path}[/dim]")
+
+    claims = MacroTelemetryAdapter.extract_claims_from_audit_markdown(resolved_path)
+    if not claims:
+        console.print(f"[yellow]No structured audit claims extracted from {resolved_path}.[/yellow]")
+        return
+
+    store = EventStore()
+    ingested_count = MacroTelemetryAdapter.ingest_to_event_store(claims, store=store)
+
+    tbl = Table(box=box.ROUNDED, show_header=True, header_style="bold magenta")
+    tbl.add_column("Claim ID", style="bold cyan", width=18)
+    tbl.add_column("Tier", justify="center", width=10)
+    tbl.add_column("Target Lenses", style="green", width=32)
+    tbl.add_column("Summary / Asserted Fact", style="white")
+
+    for c in claims[:12]:
+        tbl.add_row(
+            c.claim_id,
+            f"Tier {c.epistemic_tier.value}",
+            ", ".join(c.target_lenses),
+            c.asserted_fact[:95] + "..." if len(c.asserted_fact) > 95 else c.asserted_fact
+        )
+
+    console.print(tbl)
+    console.print(f"\n[bold green]✓ Successfully normalized {len(claims)} audit findings and persisted {ingested_count} verified events into SQLite EventStore![/bold green]\n")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -642,6 +682,10 @@ def main():
     rt_parser.add_argument("--persist", action="store_true", help="Persist wargame campaign session and turns into EventStore SQLite")
     rt_parser.add_argument("--session-id", default=None, help="Custom identifier for persistent wargame campaign")
 
+    # Command: ingest-audit
+    ingest_parser = subparsers.add_parser("ingest-audit", help="Ingest forensic audit markdown findings into SQLite EventStore")
+    ingest_parser.add_argument("path", nargs="?", default="FORENSIC_AUDIT_INDIA_1991_2026.md", help="Path to forensic audit markdown file")
+
     try:
         args = parser.parse_args()
 
@@ -668,6 +712,8 @@ def main():
                 persist=getattr(args, "persist", False),
                 session_id=getattr(args, "session_id", None)
             )
+        elif args.command == "ingest-audit":
+            render_audit_ingestion(args.path)
         elif args.command == "audit" or args.command is None:
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)

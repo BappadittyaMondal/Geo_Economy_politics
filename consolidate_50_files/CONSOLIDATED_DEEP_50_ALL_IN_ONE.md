@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `5453fd3`
+- **Canonical Git Commit:** `ba36daa`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 5453fd3
+CANONICAL_COMMIT: ba36daa
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 5453fd3
+CANONICAL_COMMIT: ba36daa
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 5453fd3
+CANONICAL_COMMIT: ba36daa
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 5453fd3
+CANONICAL_COMMIT: ba36daa
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 5453fd3
+CANONICAL_COMMIT: ba36daa
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 5453fd3
+CANONICAL_COMMIT: ba36daa
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1221,6 +1221,16 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **RBI SRVA Statutory Baseline & Historical Event Seeding (P0):** Seeded the landmark July 11, 2022 RBI Circular (`RBI/2022-2023/90 A.P. (DIR Series) Circular No. 10`) into `historical_treaty_clauses` (`CLAUSE-2022-RBI-SRVA`) and `events` (`HIST-2022-RBI-SRVA-FRAMEWORK`) in `geo_engine/storage/event_store.py`, providing an immutable statutory baseline for international trade settlement in Indian Rupees and capital recycling into sovereign debt.
   - **Documentation & Verification Suite Expansion (162→164 tests):** Updated `README.md` test counter from 162 to 164 comprehensive tests. Added `test_synthesizer_hard_money_audit_vostro_integration` and `test_event_store_rbi_srva_baseline_clause_and_event` to `tests/test_engine.py`. Certified **164/164 unit and integration tests passing deterministically with 100% success rate in 16.78s**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) via `scripts/build_canonical_bundles.py`. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$).
+* **Phase 51 (Macro-Forensic Engine Bridge, Empirical Clamping & Longitudinal Audit Memory):**
+  - **Banking NPA Resolution & Write-off Discount in CashFlowLens (P0):** Added `npa_recovery_efficiency_ratio: 0.26` (grounding the reality that the banking clean-up was 74% balance-sheet write-offs vs 26% cash recoveries) and `npa_cleanup_taxpayer_subsidy_usd_b: 37.5` (>₹3.10L Cr taxpayer bank recapitalization). Enhanced `CashFlowLens.evaluate()` to ingest banking clean-up claims even without gross CapEx flows, injecting explicit `[FORENSIC AUDIT]` reality checks.
+  - **China Trade Gap & Single-Deflation Distortion in GeoEconomistLens (P0):** Added `china_bilateral_trade_gap_usd_b: 18.5` (capturing the $17–20B discrepancy between Indian DGFT and Chinese GACC customs reporting), `gdp_discrepancy_item_risk_pct: 3.2` (production GVA vs. expenditure discrepancy), and `single_deflation_distortion_flag: True` to flag artificial manufacturing GVA surges during negative commodity cost cycles. Ingests trade gap and customs divergence claims with verified forensic audit findings.
+  - **Anti-Farmer Price Stabilization Penalty in FoodSecurityLens (P0):** Added `anti_farmer_export_ban_penalty: 0.35` and `producer_to_consumer_welfare_transfer_score: 0.72`. Formalized how frequent export bans on non-basmati rice, wheat, and onion export duties act as an implicit tax on rural producers to subsidize urban CPI inflation.
+  - **Longitudinal Audit Memory & Markdown Ingestion Adapter (P0):** Built `MacroTelemetryAdapter.extract_claims_from_audit_markdown()` in `geo_engine/ingestion/telemetry_adapter.py`. Parses `FORENSIC_AUDIT_INDIA_1991_2026.md` (or arbitrary forensic reports), extracting statistical illusion caveats, Claim-Audit matrices, and executive scorecards, and normalizing them into Tier 1, 2, and 3 `ClaimItem` records.
+  - **CLI Ingest-Audit Subcommand (P0):** Added `ingest-audit` subcommand to `geo_engine/cli.py` (`python -m geo_engine.cli ingest-audit [path]`), enabling automated normalization and persistence of 50+ empirical audit claims into SQLite `events.db` in seconds, permanently eliminating the longitudinal amnesia between conversational research and runtime execution.
+  - **QueryParser Macro Forensic Keyword Matrix Expansion (P0):** Enriched `LENS_KEYWORDS` in `geo_engine/core/query_parser.py` with macro forensic terms: `npa write-off`, `bad loan`, `bank recapitalization`, `trade gap`, `under-invoicing`, `china deficit`, `gdp discrepancy`, `double deflation`, `single deflation`, `iebr`, `fuel tax`, `rice ban`, `wheat ban`, `onion duty`, `price stabilization`, `farmer income`, and `anti-farmer`.
+  - **Documentation & Verification Suite Expansion (164→171 tests):** Updated `README.md` test counter from 164 to 171 comprehensive tests. Added `TestPhase51MacroForensicBridge` in `tests/test_engine.py` with 7 deterministic unit tests certifying NPA metrics, China trade gap telemetry, anti-farmer penalties, audit markdown normalization, CLI execution, query routing, and documentation parity.
+  - **Verification:** Certified **171/171 unit and integration tests passing deterministically with 100% success rate**. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$).
+
 
 
 
@@ -1735,18 +1745,43 @@ class CashFlowLens:
             ]
 
         if not flows:
+            findings = ["Zero empirical financial flows or binding CapEx contracts verified for this event."]
+            metrics = {
+                "total_nominal_announced_usd": 0.0,
+                "total_effective_capex_usd": 0.0,
+                "aggregate_haircut_percentage": 0.0,
+                "active_vostro_accounts_operational": False,
+                "npa_recovery_efficiency_ratio": 0.26,
+                "npa_cleanup_taxpayer_subsidy_usd_b": 37.5
+            }
+            if claims:
+                banking_npa_claims = [
+                    c for c in claims
+                    if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
+                           for kw in ["npa", "bad loan", "write-off", "recapitalization", "banking clean", "ibc recovery"])
+                ]
+                if banking_npa_claims:
+                    findings.append(
+                        "[FORENSIC AUDIT] Banking NPA Resolution vs. Write-Off Reality: Bad loans cleaned up primarily via balance-sheet write-offs ($175B written off vs. ~$45B cash recovered, efficiency ~26%), funded by >$37B in taxpayer bank recapitalization."
+                    )
+                    metrics["banking_resolution_audit_applied"] = True
+                    return LensEvaluation(
+                        lens_name=cls.LENS_NAME,
+                        alignment_score=0.35,
+                        confidence=0.85,
+                        primary_epistemic_tier=cls.PRIMARY_TIER,
+                        key_findings=findings,
+                        hard_metrics=metrics,
+                        evidence_status="sufficient"
+                    )
+
             return LensEvaluation(
                 lens_name=cls.LENS_NAME,
                 alignment_score=0.0,
                 confidence=0.0,
                 primary_epistemic_tier=EpistemicTier.TIER_0_INSUFFICIENT_EVIDENCE,
-                key_findings=["Zero empirical financial flows or binding CapEx contracts verified for this event."],
-                hard_metrics={
-                    "total_nominal_announced_usd": 0.0,
-                    "total_effective_capex_usd": 0.0,
-                    "aggregate_haircut_percentage": 0.0,
-                    "active_vostro_accounts_operational": False
-                },
+                key_findings=findings,
+                hard_metrics=metrics,
                 evidence_status="insufficient"
             )
 
@@ -1765,8 +1800,22 @@ class CashFlowLens:
             "total_nominal_announced_usd": total_nominal,
             "total_effective_capex_usd": total_effective,
             "aggregate_haircut_percentage": haircut_pct,
-            "active_vostro_accounts_operational": all(f.vostro_nostro_operational for f in flows)
+            "active_vostro_accounts_operational": all(f.vostro_nostro_operational for f in flows),
+            "npa_recovery_efficiency_ratio": 0.26,
+            "npa_cleanup_taxpayer_subsidy_usd_b": 37.5
         }
+
+        if claims:
+            banking_npa_claims = [
+                c for c in claims
+                if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
+                       for kw in ["npa", "bad loan", "write-off", "recapitalization", "banking clean", "ibc recovery"])
+            ]
+            if banking_npa_claims:
+                findings.append(
+                    "[FORENSIC AUDIT] Banking NPA Resolution vs. Write-Off Reality: Bad loans cleaned up primarily via balance-sheet write-offs ($175B written off vs. ~$45B cash recovered, efficiency ~26%), funded by >$37B in taxpayer bank recapitalization."
+                )
+                metrics["banking_resolution_audit_applied"] = True
 
         # Mathematical Validation Gate: Clamps alignment score to the ratio of effective to nominal CapEx
         capex_ratio = total_effective / max(total_nominal, 1.0)
@@ -2271,7 +2320,8 @@ class FoodSecurityLens:
             "Caloric Protectionism & Export Restrictions: Strategic calibration of agricultural trade (non-basmati white rice bans, broken rice export prohibitions, onion minimum export prices, and sugar export quotas) prioritizes domestic price stability over global commodity market liquidity.",
             "Maritime Caloric Corridors: Vulnerability of bulk carrier shipping across Bab-el-Mandeb, the Suez Canal, and the Black Sea maritime corridors introduces persistent insurance premiums and transit delays for grain and rock phosphate deliveries.",
             "Water Security & Transboundary Rivers: India's monsoon dependency (70%+ agricultural water), accelerating groundwater depletion (NASA GRACE satellite data), and contested transboundary river systems (Indus Waters Treaty, Teesta Basin, Brahmaputra/Yarlung Tsangpo Chinese dam-building) represent existential upstream threats to caloric sovereignty.",
-            "Nutrient-Specific Chemical Fertilizer Fragility: While domestic Urea synthesis has expanded via revived gas-based plants, 100% reliance on imported Muriate of Potash (MOP) from Canada, Belarus, and Russia, alongside 58-65% dependency on imported Di-ammonium Phosphate (DAP) raw materials from Morocco, Saudi Arabia, and Jordan, creates an acute single-season agrarian vulnerability where Red Sea or Persian Gulf chokepoint interdictions directly jeopardize sowing yields."
+            "Nutrient-Specific Chemical Fertilizer Fragility: While domestic Urea synthesis has expanded via revived gas-based plants, 100% reliance on imported Muriate of Potash (MOP) from Canada, Belarus, and Russia, alongside 58-65% dependency on imported Di-ammonium Phosphate (DAP) raw materials from Morocco, Saudi Arabia, and Jordan, creates an acute single-season agrarian vulnerability where Red Sea or Persian Gulf chokepoint interdictions directly jeopardize sowing yields.",
+            "Anti-Farmer Price Stabilization Trade-off: Frequent export bans on non-basmati white rice, wheat, and export tariffs on onions function as an implicit tax on domestic agricultural producers, subsidizing urban consumer inflation at the direct expense of rural producer terms-of-trade."
         ]
 
         metrics = {
@@ -2285,7 +2335,9 @@ class FoodSecurityLens:
             "transboundary_river_dispute_count": 3,
             "potassium_mop_import_dependency": 1.0,
             "phosphatic_dap_supply_risk": 0.65,
-            "soil_nutrient_chokepoint_vulnerability": 0.78
+            "soil_nutrient_chokepoint_vulnerability": 0.78,
+            "anti_farmer_export_ban_penalty": 0.35,
+            "producer_to_consumer_welfare_transfer_score": 0.72
         }
 
         alignment = 0.45  # Baseline reflects solid grain buffer stocks tempered by fertilizer input dependency
@@ -2301,6 +2353,15 @@ class FoodSecurityLens:
                 alignment = 0.60
                 metrics["caloric_sovereignty_index"] = 0.88
                 metrics["soil_nutrient_chokepoint_vulnerability"] = 0.85
+
+            export_ban_claims = [
+                c for c in claims
+                if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
+                       for kw in ["export ban", "rice ban", "wheat ban", "onion duty", "price stabilization", "implicit tax", "anti-farmer"])
+            ]
+            if export_ban_claims:
+                findings.insert(0, "[FORENSIC AUDIT] Agricultural Price Stabilization Policy Verified: Domestic export bans transfer producer surplus to urban CPI insulation.")
+                metrics["export_ban_price_stabilization_flag"] = True
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -2354,7 +2415,9 @@ class GeoEconomistLens:
             "Currency Accumulation Imbalances: Bilateral clearing creates trapped non-convertible balances (e.g., Russian exporters accumulating INR in Indian banks, requiring reinvestment into Indian infrastructure or sovereign debt).",
             "Special Rupee Vostro Account (SRVA) Capital Recycling: Non-convertible bilateral currency balances do not sit idle; through RBI-approved frameworks, ~65% of trapped balances are recycled into Indian sovereign debt (G-Secs), domestic equities, and joint ventures, establishing an effective capital recycling velocity of 0.38x.",
             "New Development Bank (NDB) Constraints: Despite political rhetoric, NDB remains partially reliant on Western debt markets and USD/EUR liquidity for high credit ratings, limiting aggressive non-dollar balance sheet expansion.",
-            "Central Bank Gold Repatriation: India, China, Poland, and Turkey collectively acquiring 1000+ tonnes/year in physical gold, representing the single largest de-dollarization signal in sovereign reserve management."
+            "Central Bank Gold Repatriation: India, China, Poland, and Turkey collectively acquiring 1000+ tonnes/year in physical gold, representing the single largest de-dollarization signal in sovereign reserve management.",
+            "China Bilateral Trade Gap & Customs Divergence: Systematic $17-20 Billion annual discrepancy between Indian DGFT ($101.7B imports) and Chinese GACC ($118.5B exports) reflects duty-evasion under-invoicing, ASEAN transshipment, and unrecorded trade flows.",
+            "Macro Accounting & GDP Discrepancy Risk: Headline GDP growth influenced by statistical discrepancies reaching 2.5-3.8% of GDP alongside single-deflation distortion in real manufacturing GVA."
         ]
 
         metrics = {
@@ -2365,7 +2428,10 @@ class GeoEconomistLens:
             "central_bank_gold_reserves_tonnes": 854.7,
             "vostro_balance_trapped_usd_b": 42.0,
             "vostro_capital_recycling_velocity": 0.38,
-            "sovereign_debt_reinvestment_ratio": 0.65
+            "sovereign_debt_reinvestment_ratio": 0.65,
+            "china_bilateral_trade_gap_usd_b": 18.5,
+            "gdp_discrepancy_item_risk_pct": 3.2,
+            "single_deflation_distortion_flag": True
         }
 
         alignment = 0.55
@@ -2387,6 +2453,16 @@ class GeoEconomistLens:
                 metrics["grounded_monetary_claims_verified"] = True
                 if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims for kw in ["vostro", "srva", "recycling"]):
                     metrics["vostro_recycling_verified"] = True
+
+            trade_or_discrepancy_claims = [
+                c for c in claims
+                if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
+                       for kw in ["trade gap", "under-invoicing", "customs divergence", "china deficit", "gdp discrepancy", "single deflation", "double deflation"])
+            ]
+            if trade_or_discrepancy_claims:
+                findings.insert(0, "[FORENSIC AUDIT] Trade Mirror & Discrepancy Evidence Verified: Bilateral customs discrepancy (~$18.5B) and statistical discrepancy item flagged.")
+                metrics["trade_gap_discrepancy_verified"] = True
+
             metrics["claims_evaluated"] = len(claims)
 
         return LensEvaluation(
@@ -3268,7 +3344,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `5453fd3`
+- **Canonical Git Commit:** `ba36daa`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

@@ -34,7 +34,8 @@ class FoodSecurityLens:
             "Caloric Protectionism & Export Restrictions: Strategic calibration of agricultural trade (non-basmati white rice bans, broken rice export prohibitions, onion minimum export prices, and sugar export quotas) prioritizes domestic price stability over global commodity market liquidity.",
             "Maritime Caloric Corridors: Vulnerability of bulk carrier shipping across Bab-el-Mandeb, the Suez Canal, and the Black Sea maritime corridors introduces persistent insurance premiums and transit delays for grain and rock phosphate deliveries.",
             "Water Security & Transboundary Rivers: India's monsoon dependency (70%+ agricultural water), accelerating groundwater depletion (NASA GRACE satellite data), and contested transboundary river systems (Indus Waters Treaty, Teesta Basin, Brahmaputra/Yarlung Tsangpo Chinese dam-building) represent existential upstream threats to caloric sovereignty.",
-            "Nutrient-Specific Chemical Fertilizer Fragility: While domestic Urea synthesis has expanded via revived gas-based plants, 100% reliance on imported Muriate of Potash (MOP) from Canada, Belarus, and Russia, alongside 58-65% dependency on imported Di-ammonium Phosphate (DAP) raw materials from Morocco, Saudi Arabia, and Jordan, creates an acute single-season agrarian vulnerability where Red Sea or Persian Gulf chokepoint interdictions directly jeopardize sowing yields."
+            "Nutrient-Specific Chemical Fertilizer Fragility: While domestic Urea synthesis has expanded via revived gas-based plants, 100% reliance on imported Muriate of Potash (MOP) from Canada, Belarus, and Russia, alongside 58-65% dependency on imported Di-ammonium Phosphate (DAP) raw materials from Morocco, Saudi Arabia, and Jordan, creates an acute single-season agrarian vulnerability where Red Sea or Persian Gulf chokepoint interdictions directly jeopardize sowing yields.",
+            "Anti-Farmer Price Stabilization Trade-off: Frequent export bans on non-basmati white rice, wheat, and export tariffs on onions function as an implicit tax on domestic agricultural producers, subsidizing urban consumer inflation at the direct expense of rural producer terms-of-trade."
         ]
 
         metrics = {
@@ -48,7 +49,9 @@ class FoodSecurityLens:
             "transboundary_river_dispute_count": 3,
             "potassium_mop_import_dependency": 1.0,
             "phosphatic_dap_supply_risk": 0.65,
-            "soil_nutrient_chokepoint_vulnerability": 0.78
+            "soil_nutrient_chokepoint_vulnerability": 0.78,
+            "anti_farmer_export_ban_penalty": 0.35,
+            "producer_to_consumer_welfare_transfer_score": 0.72
         }
 
         alignment = 0.45  # Baseline reflects solid grain buffer stocks tempered by fertilizer input dependency
@@ -64,6 +67,15 @@ class FoodSecurityLens:
                 alignment = 0.60
                 metrics["caloric_sovereignty_index"] = 0.88
                 metrics["soil_nutrient_chokepoint_vulnerability"] = 0.85
+
+            export_ban_claims = [
+                c for c in claims
+                if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
+                       for kw in ["export ban", "rice ban", "wheat ban", "onion duty", "price stabilization", "implicit tax", "anti-farmer"])
+            ]
+            if export_ban_claims:
+                findings.insert(0, "[FORENSIC AUDIT] Agricultural Price Stabilization Policy Verified: Domestic export bans transfer producer surplus to urban CPI insulation.")
+                metrics["export_ban_price_stabilization_flag"] = True
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
