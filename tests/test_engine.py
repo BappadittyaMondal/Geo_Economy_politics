@@ -2154,7 +2154,7 @@ class TestPhase44AuditHardening:
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         assert readme_path.exists(), "README.md not found"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156)), (
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156, 162)), (
             "README.md test count is stale — should cite comprehensive tests"
         )
 
@@ -2242,7 +2242,7 @@ class TestPhase45MillennialReversal:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156, 162))
 
 
 class TestPhase46MaritimeGreyZone:
@@ -2346,7 +2346,7 @@ class TestPhase46MaritimeGreyZone:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156, 162))
 
 
 class TestPhase47CompetingHypotheses:
@@ -2439,7 +2439,7 @@ class TestPhase47CompetingHypotheses:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156, 162))
 
 
 class TestPhase48SaptangaAndResourceChokepoints:
@@ -2533,7 +2533,7 @@ class TestPhase48SaptangaAndResourceChokepoints:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156, 162))
 
     def test_canonical_bundle_ceilings_and_saptanga_parity(self):
         """Verify strict canonical bundle ceilings (5 files == 5, 50 files <= 50) and lens execution."""
@@ -2667,11 +2667,216 @@ class TestPhase49NonLinearTippingAndGameTheoretic:
         assert "hybrid_covert" in q_asym.prioritized_lenses
 
     def test_readme_phase49_test_count_parity(self):
-        """Verify README.md test count matches exactly 156 comprehensive tests."""
+        """Verify README.md test count matches comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "156 comprehensive unit and integration tests" in content
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (156, 162))
+
+
+class TestPhase50VostroAndWargamePersistence:
+    """Phase 50: Vostro capital recycling velocity, persistent wargame campaign state,
+    and asynchronous macro telemetry ingestion verification."""
+
+    def test_vostro_capital_recycling_metrics(self):
+        """Verify GeoEconomistLens hard metrics and claim matching for SRVA capital recycling."""
+        import types
+        from geo_engine.lenses.geo_economist import GeoEconomistLens
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(summit_name="Monetary Forum 2026", host_country="India")
+        res = GeoEconomistLens.evaluate(summit)
+
+        # Baseline metrics verification
+        assert "vostro_balance_trapped_usd_b" in res.hard_metrics
+        assert res.hard_metrics["vostro_balance_trapped_usd_b"] == 42.0
+        assert res.hard_metrics["vostro_capital_recycling_velocity"] == 0.38
+        assert res.hard_metrics["sovereign_debt_reinvestment_ratio"] == 0.65
+        assert any("Special Rupee Vostro Account" in f for f in res.key_findings)
+
+        # Grounded telemetry claim verification
+        claim = types.SimpleNamespace(asserted_fact="Special Rupee Vostro Account capital recycling into Indian G-Secs")
+        telemetry_res = GeoEconomistLens.evaluate(summit, claims=[claim])
+        assert telemetry_res.hard_metrics.get("vostro_recycling_verified") is True
+        assert telemetry_res.hard_metrics.get("grounded_monetary_claims_verified") is True
+        assert any("[GROUNDED TELEMETRY]" in f for f in telemetry_res.key_findings)
+
+    def test_wargame_session_sqlite_persistence(self):
+        """Verify EventStore saves and retrieves persistent wargame sessions and turn sequences."""
+        import tempfile
+        import os
+        from geo_engine.storage.event_store import EventStore
+
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            test_db = tf.name
+        try:
+            store = EventStore(db_path=test_db)
+            session_data = {
+                "session_id": "TEST-CAMPAIGN-001",
+                "initiator": "China",
+                "target": "India",
+                "domain": "critical_minerals",
+                "action_summary": "Export ban on NdFeB magnets",
+                "counter_summary": "Press Note 3 and Quad diversification",
+                "backlash_summary": "Track 1.5 de-escalation off-ramp",
+                "equilibrium_payoff": 0.72,
+                "status": "COMPLETED",
+                "created_at": "2026-09-20 12:00:00 UTC"
+            }
+            turns = [
+                {
+                    "turn_number": 1,
+                    "actor": "China",
+                    "domain": "critical_minerals",
+                    "action_description": "Export ban on NdFeB magnets",
+                    "severity": 0.85,
+                    "payoff": -0.15,
+                    "details_json": '{"intent": "Supply choke"}'
+                },
+                {
+                    "turn_number": 2,
+                    "actor": "India",
+                    "domain": "geo_economist",
+                    "action_description": "Press Note 3 and Quad diversification",
+                    "severity": 0.75,
+                    "payoff": 0.10,
+                    "details_json": '{"response": "ASYMMETRIC_LEVERAGE"}'
+                }
+            ]
+            saved_id = store.save_wargame_session(session_data, turns)
+            assert saved_id == "TEST-CAMPAIGN-001"
+
+            fetched = store.get_wargame_session("TEST-CAMPAIGN-001")
+            assert fetched is not None
+            assert fetched["session_id"] == "TEST-CAMPAIGN-001"
+            assert fetched["initiator"] == "China"
+            assert fetched["target"] == "India"
+            assert len(fetched["turns"]) == 2
+            assert fetched["turns"][0]["actor"] == "China"
+            assert fetched["turns"][1]["actor"] == "India"
+
+            campaigns = store.list_wargame_sessions(limit=10)
+            assert len(campaigns) >= 1
+            assert any(c["session_id"] == "TEST-CAMPAIGN-001" for c in campaigns)
+        finally:
+            if os.path.exists(test_db):
+                try:
+                    os.unlink(test_db)
+                except Exception:
+                    pass
+
+    def test_game_theoretic_persist_parameter(self):
+        """Verify GameTheoreticEngine persists session when persist=True."""
+        import tempfile
+        import os
+        from geo_engine.simulation.game_theoretic import GameTheoreticEngine
+        from geo_engine.storage.event_store import EventStore
+
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            test_db = tf.name
+        try:
+            store = EventStore(db_path=test_db)
+            res = GameTheoreticEngine.simulate_interaction(
+                initiator_name="United States",
+                target_name="India",
+                domain="institutional_lawfare",
+                severity=0.70,
+                action_description="Secondary sanctions probe on energy payments",
+                persist=True,
+                store=store,
+                session_id="SESSION-PERSIST-TEST-US-IND"
+            )
+            assert res.simulation_id == "SESSION-PERSIST-TEST-US-IND"
+
+            persisted = store.get_wargame_session("SESSION-PERSIST-TEST-US-IND")
+            assert persisted is not None
+            assert persisted["initiator"] == "United States"
+            assert persisted["target"] == "India"
+            assert len(persisted["turns"]) == 3
+            assert persisted["turns"][0]["turn_number"] == 1
+            assert persisted["turns"][1]["turn_number"] == 2
+            assert persisted["turns"][2]["turn_number"] == 3
+        finally:
+            if os.path.exists(test_db):
+                try:
+                    os.unlink(test_db)
+                except Exception:
+                    pass
+
+    def test_macro_telemetry_adapter_normalization(self):
+        """Verify MacroTelemetryAdapter normalizes feeds, generates indicator claims, and ingests to EventStore."""
+        import tempfile
+        import os
+        from geo_engine.ingestion.telemetry_adapter import MacroTelemetryAdapter
+        from geo_engine.ingestion.models import ClaimType
+        from geo_engine.storage.event_store import EventStore
+
+        raw_records = [
+            {
+                "id": "TEL-VOSTRO-01",
+                "text": "Special Rupee Vostro Account balances accumulated by Rosneft reach 42 billion USD equivalent in Mumbai commercial banks.",
+                "amount_usd": 42000000000.0,
+                "is_binding": True
+            },
+            {
+                "id": "TEL-AIS-01",
+                "text": "AIS telemetry indicates shadow fleet tanker diversion around Cape of Good Hope avoiding Bab-el-Mandeb chokepoint.",
+                "physical_units": "24 tankers"
+            }
+        ]
+
+        claims = MacroTelemetryAdapter.normalize_telemetry(raw_records)
+        assert len(claims) == 2
+        assert claims[0].claim_type == ClaimType.FINANCIAL_CAPEX
+        assert "GeoEconomistLens" in claims[0].target_lenses
+        assert claims[1].claim_type == ClaimType.PHYSICAL_PRESENCE
+        assert "PetroLogisticsLens" in claims[1].target_lenses
+
+        # Indicator claims generation
+        indicators = {
+            "vostro_balance_trapped": 42.0,
+            "spr_import_cover": 9.5,
+            "potassium_mop_choke": 1.0
+        }
+        indicator_claims = MacroTelemetryAdapter.create_claims_from_indicators(indicators)
+        assert len(indicator_claims) == 3
+
+        # Ingestion into EventStore
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            test_db = tf.name
+        try:
+            store = EventStore(db_path=test_db)
+            ingested = MacroTelemetryAdapter.ingest_to_event_store(claims, store=store)
+            assert ingested == 2
+            with store._get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT count(*) FROM events WHERE event_id LIKE 'EVT-TEL-%'")
+                count = cursor.fetchone()[0]
+                assert count == 2
+        finally:
+            if os.path.exists(test_db):
+                try:
+                    os.unlink(test_db)
+                except Exception:
+                    pass
+
+    def test_query_parser_vostro_and_wargame_routing(self):
+        """Verify QueryParser routes vostro recycling and persistent wargame queries."""
+        from geo_engine.core.query_parser import QueryParser
+
+        q_vostro = QueryParser.parse("Special rupee vostro account SRVA capital recycling into G-Secs")
+        assert "geo_economist" in q_vostro.prioritized_lenses
+
+        q_wargame = QueryParser.parse("Run persistent wargame campaign session and counter-move simulation")
+        assert "geopolitical" in q_wargame.prioritized_lenses
+
+    def test_readme_phase50_test_count_parity(self):
+        """Verify README.md test count matches exactly 162 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "162 comprehensive unit and integration tests" in content
+
 
 
 

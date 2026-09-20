@@ -155,10 +155,14 @@ class GameTheoreticEngine:
         domain: str,
         severity: float,
         action_description: str,
-        intent: str = ""
+        intent: str = "",
+        persist: bool = False,
+        store: Optional[Any] = None,
+        session_id: Optional[str] = None
     ) -> GameTheoreticSimulationResult:
         """
         Executes a 3-turn sequential game-theoretic simulation.
+        Optionally persists campaign session and turn state into EventStore SQLite database.
         """
         ref_time = get_system_reference_date().strftime("%Y-%m-%d %H:%M:%S UTC")
         clamped_severity = max(0.0, min(1.0, float(severity)))
@@ -172,7 +176,7 @@ class GameTheoreticEngine:
             StrategicActor(name=target_name, strategic_autonomy_score=0.70, risk_tolerance=0.60)
         )
 
-        sim_id = f"SIM-GT-{initiator.name[:3].upper()}-{target.name[:3].upper()}-{domain[:4].upper()}"
+        sim_id = session_id or f"SIM-GT-{initiator.name[:3].upper()}-{target.name[:3].upper()}-{domain[:4].upper()}"
 
         # Turn 1: Action Move
         turn_1 = ActionMove(
@@ -270,6 +274,57 @@ class GameTheoreticEngine:
             f"Putnam Two-Level analysis indicates {initiator.name} faces {domestic_friction:.2f} domestic political friction, "
             f"with optimal off-ramp centering on: {off_ramp}"
         )
+
+        if persist:
+            import json
+            from ..storage.event_store import EventStore
+            target_store = store or EventStore()
+            session_data = {
+                "session_id": sim_id,
+                "initiator": initiator.name,
+                "target": target.name,
+                "domain": domain,
+                "action_summary": turn_1.action_description,
+                "counter_summary": turn_2.action_description,
+                "backlash_summary": turn_3.de_escalation_off_ramp,
+                "equilibrium_payoff": stability,
+                "status": "COMPLETED",
+                "created_at": ref_time
+            }
+            turns = [
+                {
+                    "turn_number": 1,
+                    "actor": initiator.name,
+                    "domain": domain,
+                    "action_description": turn_1.action_description,
+                    "severity": turn_1.severity,
+                    "payoff": init_payoff,
+                    "details_json": json.dumps({"declared_intent": turn_1.declared_intent})
+                },
+                {
+                    "turn_number": 2,
+                    "actor": target.name,
+                    "domain": counter_domain,
+                    "action_description": turn_2.action_description,
+                    "severity": turn_2.severity,
+                    "payoff": target_payoff,
+                    "details_json": json.dumps({"response_type": turn_2.response_type, "rationality": turn_2.strategic_rationality})
+                },
+                {
+                    "turn_number": 3,
+                    "actor": "SYSTEMIC_EQUILIBRIUM",
+                    "domain": "systemic",
+                    "action_description": turn_3.third_party_realignment,
+                    "severity": turn_3.escalation_spiral_risk,
+                    "payoff": stability,
+                    "details_json": json.dumps({
+                        "domestic_friction": turn_3.domestic_political_friction,
+                        "inflation_score": turn_3.inflationary_backlash_score,
+                        "off_ramp": turn_3.de_escalation_off_ramp
+                    })
+                }
+            ]
+            target_store.save_wargame_session(session_data, turns)
 
         return GameTheoreticSimulationResult(
             simulation_id=sim_id,

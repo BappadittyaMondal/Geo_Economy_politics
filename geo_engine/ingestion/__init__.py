@@ -8,6 +8,7 @@ from .gdelt_client import GDELTClient
 from .sovereign_rss import SovereignRSSClient
 from .document_loader import DocumentLoader
 from .normalizer import IngestionNormalizer, RhetoricDeflator
+from .telemetry_adapter import MacroTelemetryAdapter
 
 __all__ = [
     "ClaimType",
@@ -18,4 +19,5 @@ __all__ = [
     "DocumentLoader",
     "IngestionNormalizer",
     "RhetoricDeflator",
+    "MacroTelemetryAdapter",
 ]

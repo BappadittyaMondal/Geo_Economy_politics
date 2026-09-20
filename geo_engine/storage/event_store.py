@@ -39,6 +39,35 @@ class EventStore:
                     last_calibrated_at TEXT
                 )
             """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS wargame_sessions (
+                    session_id TEXT PRIMARY KEY,
+                    initiator TEXT,
+                    target TEXT,
+                    domain TEXT,
+                    action_summary TEXT,
+                    counter_summary TEXT,
+                    backlash_summary TEXT,
+                    equilibrium_payoff REAL,
+                    status TEXT,
+                    created_at TEXT
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS wargame_turns (
+                    turn_id TEXT PRIMARY KEY,
+                    session_id TEXT,
+                    turn_number INTEGER,
+                    actor TEXT,
+                    domain TEXT,
+                    action_description TEXT,
+                    severity REAL,
+                    payoff REAL,
+                    details_json TEXT,
+                    created_at TEXT,
+                    FOREIGN KEY(session_id) REFERENCES wargame_sessions(session_id)
+                )
+            """)
             conn.commit()
 
     def is_initialized(self) -> bool:
@@ -139,6 +168,37 @@ class EventStore:
                     brier_error_sum REAL DEFAULT 0.0,
                     reliability_multiplier REAL DEFAULT 1.0,
                     last_calibrated_at TEXT
+                )
+            """)
+
+            # 6. Persistent Wargame Campaign Sessions & Multi-Turn State
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS wargame_sessions (
+                    session_id TEXT PRIMARY KEY,
+                    initiator TEXT,
+                    target TEXT,
+                    domain TEXT,
+                    action_summary TEXT,
+                    counter_summary TEXT,
+                    backlash_summary TEXT,
+                    equilibrium_payoff REAL,
+                    status TEXT,
+                    created_at TEXT
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS wargame_turns (
+                    turn_id TEXT PRIMARY KEY,
+                    session_id TEXT,
+                    turn_number INTEGER,
+                    actor TEXT,
+                    domain TEXT,
+                    action_description TEXT,
+                    severity REAL,
+                    payoff REAL,
+                    details_json TEXT,
+                    created_at TEXT,
+                    FOREIGN KEY(session_id) REFERENCES wargame_sessions(session_id)
                 )
             """)
 
@@ -704,5 +764,70 @@ class EventStore:
                 return {r["lens_name"]: float(r["reliability_multiplier"]) for r in rows}
             except Exception:
                 return {}
+
+    def save_wargame_session(self, session_data: Dict[str, Any], turns: Optional[List[Dict[str, Any]]] = None) -> str:
+        """Persists a strategic wargame campaign session and associated turns to SQLite."""
+        session_id = session_data.get("session_id") or f"SESSION-{os.urandom(4).hex()}"
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO wargame_sessions
+                (session_id, initiator, target, domain, action_summary, counter_summary, backlash_summary, equilibrium_payoff, status, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                session_id,
+                session_data.get("initiator", ""),
+                session_data.get("target", ""),
+                session_data.get("domain", ""),
+                session_data.get("action_summary", ""),
+                session_data.get("counter_summary", ""),
+                session_data.get("backlash_summary", ""),
+                float(session_data.get("equilibrium_payoff", 0.0)),
+                session_data.get("status", "COMPLETED"),
+                session_data.get("created_at", "")
+            ))
+            if turns:
+                for idx, t in enumerate(turns):
+                    turn_id = t.get("turn_id") or f"{session_id}-T{t.get('turn_number', idx + 1)}"
+                    cursor.execute("""
+                        INSERT OR REPLACE INTO wargame_turns
+                        (turn_id, session_id, turn_number, actor, domain, action_description, severity, payoff, details_json, created_at)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        turn_id,
+                        session_id,
+                        int(t.get("turn_number", idx + 1)),
+                        t.get("actor", ""),
+                        t.get("domain", ""),
+                        t.get("action_description", ""),
+                        float(t.get("severity", 0.0)),
+                        float(t.get("payoff", 0.0)),
+                        t.get("details_json", "{}"),
+                        t.get("created_at", session_data.get("created_at", ""))
+                    ))
+            conn.commit()
+            return session_id
+
+    def get_wargame_session(self, session_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieves a persistent wargame campaign session and all recorded turns."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM wargame_sessions WHERE session_id = ?", (session_id,))
+            row = cursor.fetchone()
+            if not row:
+                return None
+            session = dict(row)
+            cursor.execute("SELECT * FROM wargame_turns WHERE session_id = ? ORDER BY turn_number ASC", (session_id,))
+            turn_rows = cursor.fetchall()
+            session["turns"] = [dict(tr) for tr in turn_rows]
+            return session
+
+    def list_wargame_sessions(self, limit: int = 20) -> List[Dict[str, Any]]:
+        """Lists recent persistent wargame campaigns."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM wargame_sessions ORDER BY created_at DESC LIMIT ?", (limit,))
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
 
 

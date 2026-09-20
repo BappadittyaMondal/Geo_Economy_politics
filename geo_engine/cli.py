@@ -523,7 +523,9 @@ def render_game_theoretic_simulation(
     domain: str = "critical_minerals",
     severity: float = 0.85,
     action: str = "Export restrictions on sintered NdFeB permanent magnets",
-    intent: str = ""
+    intent: str = "",
+    persist: bool = False,
+    session_id: Optional[str] = None
 ):
     from .simulation import GameTheoreticEngine
 
@@ -533,7 +535,9 @@ def render_game_theoretic_simulation(
         domain=domain,
         severity=severity,
         action_description=action,
-        intent=intent
+        intent=intent,
+        persist=persist,
+        session_id=session_id
     )
 
     console.print(Panel(
@@ -581,6 +585,8 @@ def render_game_theoretic_simulation(
         color = "green" if payoff >= 0 else "red"
         console.print(f" • {actor_name} Net Strategic Payoff: [{color}]{payoff:+.2f}[/{color}]")
     console.print(f"\n[italic]{res.summary}[/italic]")
+    if persist:
+        console.print(f"\n[bold green]✓ Campaign session persisted to EventStore:[/bold green] [cyan]{res.simulation_id}[/cyan]")
 
 
 def main():
@@ -599,19 +605,19 @@ def main():
     lens_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
 
     # Command: query
-    query_parser = subparsers.add_parser("query", help="Answer a complex user strategic prompt")
-    query_parser.add_argument("prompt", type=str, help="The user question string")
+    query_parser = subparsers.add_parser("query", help="Run natural-language query routing through dynamic lens activation")
+    query_parser.add_argument("prompt", type=str, help="Analytical question or scenario prompt")
     query_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
 
     # Command: forecasts
-    fc_parser = subparsers.add_parser("forecasts", help="Inspect and resolve calibrated forecasts in SQLite ledger")
-    fc_parser.add_argument("--status", choices=["ACTIVE", "RESOLVED"], default=None, help="Filter by status")
+    fc_parser = subparsers.add_parser("forecasts", help="Inspect and resolve calibrated strategic forecasts")
+    fc_parser.add_argument("--status", choices=["ACTIVE", "RESOLVED"], default=None, help="Filter by forecast resolution status")
     fc_parser.add_argument("--resolve", type=str, default=None, help="Forecast ID to resolve")
-    fc_parser.add_argument("--outcome", type=int, choices=[0, 1], default=None, help="Actual outcome binary (0 or 1)")
+    fc_parser.add_argument("--outcome", type=int, choices=[0, 1], default=None, help="Actual binary outcome (1=occurred, 0=did not occur)")
 
     # Command: video
-    video_parser = subparsers.add_parser("video", help="Run question-first video intelligence on YouTube video")
-    video_parser.add_argument("url", type=str, help="YouTube video URL")
+    video_parser = subparsers.add_parser("video", help="Run multi-lens open-source video intelligence audit")
+    video_parser.add_argument("--url", "-u", type=str, required=True, help="YouTube video or shorts URL")
     video_parser.add_argument("--query", "-q", type=str, required=True, help="Question to answer from video")
 
     # Command: simulate
@@ -628,6 +634,8 @@ def main():
     rt_parser.add_argument("--severity", type=float, default=0.85, help="Severity magnitude (0.0 - 1.0)")
     rt_parser.add_argument("--action", default="Export restrictions on sintered NdFeB permanent magnets", help="Description of action")
     rt_parser.add_argument("--intent", default="", help="Declared intent of initiating move")
+    rt_parser.add_argument("--persist", action="store_true", help="Persist wargame campaign session and turns into EventStore SQLite")
+    rt_parser.add_argument("--session-id", default=None, help="Custom identifier for persistent wargame campaign")
 
     try:
         args = parser.parse_args()
@@ -651,7 +659,9 @@ def main():
                 domain=args.domain,
                 severity=args.severity,
                 action=args.action,
-                intent=args.intent
+                intent=args.intent,
+                persist=getattr(args, "persist", False),
+                session_id=getattr(args, "session_id", None)
             )
         elif args.command == "audit" or args.command is None:
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
