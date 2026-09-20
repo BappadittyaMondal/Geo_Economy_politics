@@ -12,6 +12,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.text import Text
+from rich import box
 
 from .core.models import SummitEvent, StrategicEvent, TemporalMode
 from .core.query_parser import QueryParser, StrategicQuery
@@ -183,6 +184,37 @@ def render_full_report(
         )
         console.print("\n[bold yellow]=== STRATEGIC RESILIENCE & ESCALATION READINESS (LENSES 13-20) ===[/bold yellow]")
         console.print(Panel(res_text, title="Physical Caloric, Military, Subsea & Orbital Sovereignty Matrix", border_style="cyan"))
+
+    # Analysis of Competing Hypotheses (ACH) Deep Reasoning Matrix
+    if getattr(report, "ach_evaluation", None):
+        ach = report.ach_evaluation
+        console.print("\n[bold yellow]=== ANALYSIS OF COMPETING HYPOTHESES (ACH) DEEP REASONING MATRIX ===[/bold yellow]")
+        ach_table = Table(box=box.ROUNDED, show_header=True, header_style="bold magenta")
+        ach_table.add_column("Causal Hypothesis", style="bold white", width=38)
+        ach_table.add_column("Prior", style="dim", justify="right", width=8)
+        ach_table.add_column("Likelihood", style="yellow", justify="right", width=12)
+        ach_table.add_column("Posterior", style="bold green", justify="right", width=11)
+        ach_table.add_column("Evidence Grounding", style="dim white", width=36)
+
+        for h in ach.get("hypotheses", []):
+            is_dom = (h.get("id") == ach.get("dominant_hypothesis_id"))
+            p_style = "[bold green]" if is_dom else ""
+            p_end = "[/bold green]" if is_dom else ""
+            label_str = f"[bold yellow]* {h.get('label')}[/bold yellow]" if is_dom else h.get("label")
+            ev_summary = f"{h.get('supporting_count', 0)} supporting, {h.get('contradicting_count', 0)} contradicting"
+            ach_table.add_row(
+                label_str,
+                f"{h.get('prior', 0.25):.2f}",
+                f"{h.get('likelihood', 0.50):.2f}",
+                f"{p_style}{h.get('posterior', 0.25):.1%}{p_end}",
+                ev_summary
+            )
+        console.print(ach_table)
+        if ach.get("epistemic_warning"):
+            console.print(Panel(
+                f"[bold red]ACH CAUTION / TRUTH GUARD:[/bold red]\n{ach['epistemic_warning']}",
+                border_style="red"
+            ))
 
     # TIER 5: Strategic Inner Meaning (Civilizational & Geopolitical Synthesis)
     console.print("\n[bold yellow]=== TIER 5: STRATEGIC 'INNER MEANING' (CIVILIZATIONAL SYNTHESIS) ===[/bold yellow]")

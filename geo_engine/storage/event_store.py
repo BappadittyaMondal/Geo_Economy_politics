@@ -194,6 +194,16 @@ class EventStore:
                     "regime_change",
                     "Resignation and departure of Prime Minister Sheikh Hasina following student demonstrations; formation of interim council under Muhammad Yunus.",
                     "Strains India's eastern security perimeter, rail transit treaties, and Chicken's Neck / Siliguri Corridor logistics."
+                ),
+                (
+                    "HIST-2026-ARABIAN-SEA-STANDOFF",
+                    "2026-09-15",
+                    "North Arabian Sea Maritime Grey-Zone Ramming Incident",
+                    "Pakistan Navy (PNS Hunain), Indian Navy",
+                    "North Arabian Sea / Indian Ocean",
+                    "maritime_grey_zone",
+                    "Pakistani corvette PNS Hunain executed aggressive bow crossing and collided with an Indian Navy warship on surveillance in international waters, breaching Article 10 of the 1991 Bilateral Agreement and COLREGs Rule 8.",
+                    "Demonstrates importation of Chinese South China Sea grey-zone tactics into the Arabian Sea to probe Indian Rules of Engagement below kinetic threshold."
                 )
             ]
 
@@ -240,6 +250,15 @@ class EventStore:
                     "Zero-tolerance condemnation of state-sponsored cross-border terrorism, explicitly naming regional terror sanctuaries and FATF compliance.",
                     1,
                     "Diluted into toothless generic phrasing to shield bilateral allies and prevent bilateral disputes."
+                ),
+                (
+                    "CLAUSE-1991-INDO-PAK-NAV-ART10",
+                    "1991 India-Pakistan Agreement on Advance Notice of Military Exercises, Maneuvers and Troop Movements",
+                    1991,
+                    "maritime_deconfliction",
+                    "Article 10: Naval vessels and submarines of the two countries shall not approach within 3 nautical miles of each other's territorial waters and shall maintain safe buffer distance during maneuvers in international waters.",
+                    1,
+                    "Breach of 3 nautical mile buffer distance and deliberate bow crossing constitutes maritime grey-zone provocation and sub-kinetic escalation below UN Charter Article 51 threshold."
                 )
             ]
 
@@ -309,6 +328,176 @@ class EventStore:
                     "South Asia",
                     "Fall of Awami League administration in Dhaka and transition to Muhammad Yunus interim council.",
                     "Immediate stress on eastern border, Siliguri Corridor security, and bilateral transit accords."
+                ),
+                (
+                    "ANNIV-1947-PARTITION-INDIA",
+                    8,
+                    15,
+                    1947,
+                    "Partition of India",
+                    "South Asia",
+                    "British India was partitioned into the independent dominions of India and Pakistan, triggering one of the largest mass migrations and communal violence episodes in modern history.",
+                    "Civilizational rupture whose demographic, territorial, and psychological aftershocks continue to shape South Asian geopolitics."
+                ),
+                (
+                    "ANNIV-1962-SINO-INDIAN-WAR",
+                    10,
+                    20,
+                    1962,
+                    "Sino-Indian War / Aksai Chin",
+                    "South Asia / Central Asia",
+                    "China launched a massive invasion across NEFA (Arunachal Pradesh) and consolidated control over Aksai Chin, exposing critical Indian strategic and intelligence failures.",
+                    "Foundational trauma driving Indian forward-posture doctrine on the LAC and Himalayan infrastructure build-up."
+                ),
+                (
+                    "ANNIV-1971-BANGLADESH-LIBERATION",
+                    12,
+                    16,
+                    1971,
+                    "Bangladesh Liberation War Victory",
+                    "South Asia",
+                    "Indian armed forces achieved decisive victory, liberating East Pakistan and leading to the creation of Bangladesh after Pakistan's unconditional surrender.",
+                    "Demonstrated India's capacity for rapid decisive military operations and reshaped the South Asian balance of power."
+                ),
+                (
+                    "ANNIV-1998-POKHRAN-II",
+                    5,
+                    11,
+                    1998,
+                    "Pokhran-II Nuclear Tests",
+                    "South Asia",
+                    "India conducted Operation Shakti — a series of five thermonuclear and fission device tests at the Pokhran range — declaring itself a nuclear-weapons state.",
+                    "Strategic watershed establishing India's minimum credible nuclear deterrent and triggering global non-proliferation debates."
+                ),
+                (
+                    "ANNIV-1999-KARGIL-WAR",
+                    5,
+                    26,
+                    1999,
+                    "Kargil War",
+                    "South Asia / Kashmir",
+                    "Pakistani soldiers and militants intruded across the Line of Control in the Kargil-Dras sector, triggering a high-altitude limited war won by Indian forces.",
+                    "Validated India's conventional escalation dominance under a nuclear overhang and exposed Pakistani adventurism."
+                ),
+                (
+                    "ANNIV-2019-BALAKOT",
+                    2,
+                    26,
+                    2019,
+                    "Balakot Airstrike",
+                    "South Asia",
+                    "Indian Air Force conducted precision airstrikes on a Jaish-e-Mohammed (JeM) training camp in Balakot, Pakistan — the first cross-border airstrike since 1971.",
+                    "Established a new Indian doctrine of pre-emptive cross-border counterterrorism strikes against non-state actor infrastructure."
+                ),
+                (
+                    "ANNIV-2020-GALWAN",
+                    6,
+                    15,
+                    2020,
+                    "Galwan Valley Clash",
+                    "South Asia / LAC",
+                    "Indian and Chinese troops engaged in a violent hand-to-hand clash in the Galwan Valley along the LAC, resulting in casualties on both sides.",
+                    "Shattered the post-1993 border peace framework and triggered permanent Indian strategic decoupling from China."
+                ),
+                (
+                    "ANNIV-2025-OP-SINDOOR",
+                    5,
+                    7,
+                    2025,
+                    "Operation Sindoor",
+                    "South Asia",
+                    "India executed precision retaliatory strikes on terror infrastructure in Pakistan following cross-border provocations, demonstrating calibrated escalation capability.",
+                    "Reinforced India's zero-tolerance doctrine against state-sponsored terrorism and validated standoff precision-strike assets."
+                ),
+                (
+                    "ANNIV-1916-SYKES-PICOT",
+                    5,
+                    16,
+                    1916,
+                    "Sykes-Picot Agreement",
+                    "Middle East",
+                    "Secret Anglo-French agreement partitioning Ottoman Arab provinces into spheres of influence, drawing artificial borders across Mesopotamia, the Levant, and Arabia.",
+                    "Root cause of chronic Middle Eastern state fragility, sectarian conflict, and post-colonial boundary disputes."
+                ),
+                (
+                    "ANNIV-1944-BRETTON-WOODS",
+                    7,
+                    1,
+                    1944,
+                    "Bretton Woods Conference",
+                    "Global",
+                    "Allied nations convened at Bretton Woods, New Hampshire, establishing the International Monetary Fund (IMF), World Bank, and the US dollar-anchored global reserve currency system.",
+                    "Architected the post-WWII financial order whose erosion now drives de-dollarization and BRICS alternative currency initiatives."
+                ),
+                (
+                    "ANNIV-1025-CHOLA-SRIVIJAYA",
+                    11,
+                    15,
+                    1025,
+                    "Rajendra Chola I Srivijaya Maritime Expedition",
+                    "Indian Ocean / Southeast Asia",
+                    "Rajendra Chola I launched a massive naval expedition across the Bay of Bengal, securing the Strait of Malacca and subordinating the Srivijaya maritime empire.",
+                    "Foundational anchor of Indian Ocean naval power and maritime trade dominance, currently mirrored in India's SAGAR and IMEC corridors."
+                ),
+                (
+                    "ANNIV-1026-SOMNATH",
+                    1,
+                    8,
+                    1026,
+                    "Raid on Somnath & Millennial Arc Initiation",
+                    "South Asia",
+                    "Mahmud of Ghazni raided and plundered the Somnath temple, inaugurating the millennial arc of civilizational disruption, economic plunder, and iconoclasm.",
+                    "Symbolic baseline of civilizational disruption, whose post-independence reconstruction by Sardar Patel marked the beginning of modern reclamation."
+                ),
+                (
+                    "ANNIV-1192-TARAIN",
+                    3,
+                    15,
+                    1192,
+                    "Second Battle of Tarain",
+                    "South Asia",
+                    "Muhammad Ghori defeated Prithviraj Chauhan at the Second Battle of Tarain, precipitating the fall of Delhi and the establishment of the Delhi Sultanate.",
+                    "Foundational inflection point representing sovereign internal fragmentation and loss of northern border defense."
+                ),
+                (
+                    "ANNIV-1193-NALANDA",
+                    5,
+                    20,
+                    1193,
+                    "Destruction of Nalanda Mahavihara",
+                    "South Asia",
+                    "Bakhtiyar Khilji sacked and burned the ancient Nalanda Mahavihara university, destroying millions of manuscripts and intellectually de-capitalizing the Dharmic world.",
+                    "Civilizational epistemic rupture, whose 830-year recovery was formalized with the 2024 inauguration of the new Nalanda campus."
+                ),
+                (
+                    "ANNIV-1453-CONSTANTINOPLE",
+                    5,
+                    29,
+                    1453,
+                    "Fall of Constantinople & Silk Road Closure",
+                    "Eurasia",
+                    "Ottoman Sultan Mehmed II conquered Constantinople, ending the Byzantine Empire, closing overland Silk Road transit to Europe, and forcing Western maritime expeditions toward India.",
+                    "Global trade inflection point that triggered the Age of Discovery and the maritime colonization of Afro-Asian trade routes."
+                ),
+                (
+                    "ANNIV-1674-CHHATRAPATI-SHIVAJI",
+                    6,
+                    6,
+                    1674,
+                    "Coronation of Chhatrapati Shivaji Maharaj & Hindavi Swarajya",
+                    "South Asia",
+                    "Chhatrapati Shivaji Maharaj was coronated at Raigad Fort, formally inaugurating Hindavi Swarajya and re-establishing indigenous Dharmic sovereignty and naval defense.",
+                    "Doctrinal baseline of asymmetric military resistance, naval fort fortification, and indigenous sovereign reclamation."
+                ),
+                (
+                    "ANNIV-2024-NALANDA-REBIRTH",
+                    6,
+                    19,
+                    2024,
+                    "Nalanda University Rebirth & Epistemic Reversal",
+                    "South Asia",
+                    "Prime Minister Narendra Modi and envoys from 17 partner nations inaugurated the resurrected Nalanda University campus in Rajgir, Bihar.",
+                    "Physical and symbolic closure of the 830-year intellectual destruction arc, re-establishing Bharat as a global knowledge repository."
                 )
             ]
 

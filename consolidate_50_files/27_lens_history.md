@@ -33,13 +33,15 @@ class HistoryLens:
             "Bandung 1955 & NAM Lineage: Summit reflects the structural evolution of Afro-Asian solidarity against Western institutional monopolies.",
             "Indian Strategic Autonomy: New Delhi preserves its historical doctrine of multi-alignment (Panchsheel evolution), refusing to convert BRICS into a Sinocentric or anti-Western vassal bloc.",
             "Post-Bretton Woods Revisionism: Acceleration of alternative settlement systems is a direct historical reaction to the weaponization of SWIFT and sovereign reserve asset freezes in 2022.",
-            "Historical Border Distrust: Lingering 1962 historical trauma and unresolved LAC disputes fundamentally cap strategic trust between India and China, preventing a formal collective security treaty."
+            "Historical Border Distrust: Lingering 1962 historical trauma and unresolved LAC disputes fundamentally cap strategic trust between India and China, preventing a formal collective security treaty.",
+            "1000-Year Historical Reversal Cycle: Modern Indian sovereign posture inverts the millennial arc of subjugation (1026 Somnath, 1192 Tarain, 1193 Nalanda) through systemic reclamation (Nalanda 2024 rebirth, BNS decolonization, maritime SAGAR doctrine mirroring 1025 Chola expeditions)."
         ]
 
         metrics = {
             "historical_precedent": "Bandung 1955 -> NAM 1961 -> BRIC 2006 -> Expanded BRICS",
             "indian_doctrinal_anchor": "Strategic Autonomy & Panchsheel",
-            "structural_historical_friction": "Sino-Indian Territorial Standoff & Rivalry for Global South Leadership"
+            "structural_historical_friction": "Sino-Indian Territorial Standoff & Rivalry for Global South Leadership",
+            "civilizational_reversal_ratio": 1.45
         }
 
         alignment = 0.45

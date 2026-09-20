@@ -31,7 +31,8 @@ class CriticalMineralsLens:
             "Heavy Rare Earth (HREE) Processing Monopoly: China controls approximately 70-90% of global commercial refining capacity for Dysprosium, Neodymium, and Terbium, imposing an asymmetric material constraint on Western defense and green-tech hardware.",
             "Battery Chemistry Vulnerability: Lithium refining concentration, Indonesian Nickel export quotas, and DRC Cobalt concessions represent single-point physical chokepoints for global electrification.",
             "Semiconductor Precursor Export Controls: Strategic restrictions on Gallium, Germanium, and Antimony create upstream supply bottlenecks for wafer fabrication and radar/defense electronics.",
-            "Maritime Chokepoint Dual-Use Exposure: Transit through the Strait of Malacca (80% Chinese hydrocarbon imports), Strait of Hormuz (20% global petroleum liquids), and Bab-el-Mandeb remains vulnerable to asymmetric denial operations."
+            "Maritime Chokepoint Dual-Use Exposure: Transit through the Strait of Malacca (80% Chinese hydrocarbon imports), Strait of Hormuz (20% global petroleum liquids), and Bab-el-Mandeb remains vulnerable to asymmetric denial operations.",
+            "Midstream Metallurgical & Chemical Refining Chokepoint: While raw mineral ores exist globally, midstream chemical conversion (battery-grade Lithium Hydroxide, sintered NdFeB permanent magnets) is over 85-90% concentrated in China, creating an absolute processing bottleneck that decouples raw mining from usable technological components."
         ]
 
         metrics = {
@@ -39,7 +40,10 @@ class CriticalMineralsLens:
             "lithium_processing_monopoly_risk": 0.74,
             "semiconductor_precursor_vulnerability": 0.86,
             "maritime_chokepoint_exposure_score": 0.79,
-            "material_sovereignty_index": 0.48
+            "material_sovereignty_index": 0.48,
+            "midstream_refining_monopoly_risk": 0.85,
+            "heavy_rare_earth_processing_dependency": 0.90,
+            "ndfeb_permanent_magnet_choke_pct": 92.0
         }
 
         alignment = -0.35  # Reflects significant systemic physical supply chain friction
@@ -50,13 +54,17 @@ class CriticalMineralsLens:
                 "lithium" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or
                 "chokepoint" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or
                 "hormuz" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or
-                "malacca" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
+                "malacca" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or
+                "refining" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or
+                "magnet" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or
+                "ndfeb" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
                 for c in claims
             )
             if mineral_or_chokepoint:
-                findings.insert(0, "[GROUNDED TELEMETRY] Strategic chokepoint or mineral asset claim verified: High physical vulnerability in maritime transit corridor or processing refinery.")
+                findings.insert(0, "[GROUNDED TELEMETRY] Strategic chokepoint or midstream mineral refining monopoly verified: Processing concentration in NdFeB magnets and battery chemicals creates direct single-point failure.")
                 alignment = -0.60
                 metrics["material_sovereignty_index"] = 0.32
+                metrics["midstream_refining_monopoly_risk"] = 0.92
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,

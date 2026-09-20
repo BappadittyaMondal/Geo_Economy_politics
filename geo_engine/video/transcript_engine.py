@@ -112,57 +112,132 @@ class VideoTranscriptEngine:
                 fallback_mode=None
             )
 
-        # Attempt dynamic import of youtube_transcript_api if available
+        # Attempt dynamic extraction via youtube_transcript_api (modern and legacy interfaces)
         try:
             from youtube_transcript_api import YouTubeTranscriptApi
-            langs = preferred_languages or ["en", "hi"]
-            fetched = YouTubeTranscriptApi.get_transcript(video_id, languages=langs)
-            segments = [
-                TranscriptSegment(
-                    text=item["text"],
-                    start=float(item["start"]),
-                    duration=float(item.get("duration", 0.0))
-                )
-                for item in fetched
-            ]
-            return TranscriptResult(
-                video_id=video_id,
-                segments=segments,
-                language=langs[0],
-                is_simulated=False,
-                is_degraded=False,
-                fallback_mode=None
-            )
-        except Exception:
-            # Check for authentic video metadata fallback before resorting to synthetic corpus
-            if metadata_fallback:
-                title = metadata_fallback.get("title", "")
-                desc = metadata_fallback.get("description", "")
-                kws = metadata_fallback.get("keywords", [])
-                meta_segments = []
-                if title:
-                    meta_segments.append(TranscriptSegment(text=f"[METADATA_TITLE] {title}", start=0.0, duration=10.0))
-                if desc:
-                    meta_segments.append(TranscriptSegment(text=f"[METADATA_DESCRIPTION] {desc[:800]}", start=10.0, duration=30.0))
-                if kws:
-                    kw_str = ", ".join(kws) if isinstance(kws, list) else str(kws)
-                    meta_segments.append(TranscriptSegment(text=f"[METADATA_KEYWORDS] {kw_str}", start=40.0, duration=20.0))
-                if meta_segments:
-                    return TranscriptResult(
-                        video_id=video_id,
-                        segments=meta_segments,
-                        language="hi" if any(ord(c) > 127 for c in title) else "en",
-                        is_simulated=False,
-                        is_degraded=True,
-                        fallback_mode="video_metadata"
-                    )
+            langs = list(preferred_languages) if preferred_languages else ["en", "hi"]
+            fetched = None
+            detected_lang = langs[0]
 
-            # Resilient fallback: return structured simulated transcript with explicit simulation and degradation flags
-            return TranscriptResult(
-                video_id=video_id,
-                segments=cls.SIMULATED_CORPUS,
-                language="en",
-                is_simulated=True,
-                is_degraded=True,
-                fallback_mode="synthetic_offline_fixture"
+            if hasattr(YouTubeTranscriptApi, "get_transcript"):
+                # Legacy youtube_transcript_api static method
+                fetched = YouTubeTranscriptApi.get_transcript(video_id, languages=langs)
+            else:
+                # Modern youtube_transcript_api (instance-based or list/fetch)
+                api = YouTubeTranscriptApi()
+                try:
+                    t_list = api.list(video_id)
+                    try:
+                        transcript_obj = t_list.find_transcript(langs)
+                    except Exception:
+                        transcript_obj = next(iter(t_list))
+                    detected_lang = getattr(transcript_obj, "language_code", langs[0])
+                    fetched = transcript_obj.fetch()
+                except Exception:
+                    fetched = api.fetch(video_id, languages=langs)
+
+            segments = []
+            for item in fetched:
+                txt = getattr(item, "text", None) if hasattr(item, "text") else item.get("text", "")
+                st = getattr(item, "start", None) if hasattr(item, "start") else item.get("start", 0.0)
+                dur = getattr(item, "duration", None) if hasattr(item, "duration") else item.get("duration", 0.0)
+                segments.append(
+                    TranscriptSegment(
+                        text=str(txt),
+                        start=float(st or 0.0),
+                        duration=float(dur or 0.0)
+                    )
+                )
+
+            if segments:
+                return TranscriptResult(
+                    video_id=video_id,
+                    segments=segments,
+                    language=detected_lang,
+                    is_simulated=False,
+                    is_degraded=False,
+                    fallback_mode=None
+                )
+        except Exception:
+            pass
+
+        # Attempt direct web player response caption scraping if API failed
+        try:
+            import urllib.request
+            import json
+            import re
+            import html
+            watch_url = f"https://www.youtube.com/watch?v={video_id}"
+            req = urllib.request.Request(
+                watch_url,
+                headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
             )
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                page_html = resp.read().decode("utf-8", errors="ignore")
+
+            pr_match = re.search(r'ytInitialPlayerResponse\s*=\s*({.+?});', page_html)
+            if not pr_match:
+                pr_match = re.search(r'var ytInitialPlayerResponse\s*=\s*({.+?});', page_html)
+
+            if pr_match:
+                player_data = json.loads(pr_match.group(1))
+                caption_tracks = player_data.get("captions", {}).get("playerCaptionsTracklistRenderer", {}).get("captionTracks", [])
+                if caption_tracks:
+                    cap_url = caption_tracks[0].get("baseUrl")
+                    if cap_url:
+                        cap_req = urllib.request.Request(cap_url, headers={"User-Agent": "Mozilla/5.0"})
+                        with urllib.request.urlopen(cap_req, timeout=10) as c_resp:
+                            cap_xml = c_resp.read().decode("utf-8", errors="ignore")
+                        matches = re.findall(r'<text start="([\d\.]+)" dur="([\d\.]+)"[^>]*>(.*?)</text>', cap_xml)
+                        if matches:
+                            segments = [
+                                TranscriptSegment(
+                                    text=html.unescape(t).replace("\n", " ").strip(),
+                                    start=float(s),
+                                    duration=float(d)
+                                )
+                                for s, d, t in matches
+                            ]
+                            return TranscriptResult(
+                                video_id=video_id,
+                                segments=segments,
+                                language=caption_tracks[0].get("languageCode", "en"),
+                                is_simulated=False,
+                                is_degraded=False,
+                                fallback_mode=None
+                            )
+        except Exception:
+            pass
+
+        # Check for authentic video metadata fallback before resorting to synthetic corpus
+        if metadata_fallback:
+            title = metadata_fallback.get("title", "")
+            desc = metadata_fallback.get("description", "")
+            kws = metadata_fallback.get("keywords", [])
+            meta_segments = []
+            if title:
+                meta_segments.append(TranscriptSegment(text=f"[METADATA_TITLE] {title}", start=0.0, duration=10.0))
+            if desc:
+                meta_segments.append(TranscriptSegment(text=f"[METADATA_DESCRIPTION] {desc[:800]}", start=10.0, duration=30.0))
+            if kws:
+                kw_str = ", ".join(kws) if isinstance(kws, list) else str(kws)
+                meta_segments.append(TranscriptSegment(text=f"[METADATA_KEYWORDS] {kw_str}", start=40.0, duration=20.0))
+            if meta_segments:
+                return TranscriptResult(
+                    video_id=video_id,
+                    segments=meta_segments,
+                    language="hi" if any(ord(c) > 127 for c in title) else "en",
+                    is_simulated=False,
+                    is_degraded=True,
+                    fallback_mode="video_metadata"
+                )
+
+        # Resilient fallback: return structured simulated transcript with explicit simulation and degradation flags
+        return TranscriptResult(
+            video_id=video_id,
+            segments=cls.SIMULATED_CORPUS,
+            language="en",
+            is_simulated=True,
+            is_degraded=True,
+            fallback_mode="synthetic_offline_fixture"
+        )

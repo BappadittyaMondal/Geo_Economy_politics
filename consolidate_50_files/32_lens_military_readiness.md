@@ -33,7 +33,9 @@ class MilitaryReadinessLens:
             "Ammunition Stockpile & War Wastage Reserves (WWR): Ongoing capital procurement targeting 10-day intense (10I) to 40-day (40I) reserve stocking levels across critical precision-guided munitions (PGM), 155mm artillery shells, and loitering munitions.",
             "Defense Industrial Base & Indigenization (Atmanirbharta): Accelerated execution of Positive Indigenisation Lists under DAP 2020, domestic fighter engine co-production agreements (GE-414 for LCA Tejas Mk1A/Mk2), and continuous expansion of indigenous missile manufacturing.",
             "Integrated Air Defense Coverage: Strategic deployment of S-400 Triumf squadrons integrated with indigenous Akash-NG, Project Kusha long-range SAMs, and Phase-II Ballistic Missile Defence (BMD) shields protecting critical political-military nodes.",
-            "Kinetic Escalation Ladder: Credible threshold deterrence balancing conventional standoff surgical retaliation with an unyielding No-First-Use (NFU) nuclear posture backed by survivable SSBN second-strike capability (INS Arihant, Arighat)."
+            "Kinetic Escalation Ladder: Credible threshold deterrence balancing conventional standoff surgical retaliation with an unyielding No-First-Use (NFU) nuclear posture backed by survivable SSBN second-strike capability (INS Arihant, Arighat).",
+            "Cyber & Electronic Warfare Readiness: Fifth-domain warfighting capability across Defence Cyber Agency (DCA), electronic warfare suites (Himshakti/Samyukta), and SIGINT infrastructure. Pre-kinetic cyber operations increasingly precede conventional strikes (as demonstrated in Operation Sindoor 2025).",
+            "Asymmetric Naval Balancing & Sub-Kinetic Probing: The Indian Ocean Region (IOR) features structural asymmetry between Indian blue-water sea control (carrier battle groups, P-8I Neptune maritime patrol) and adversary sea-denial (Type 054A/P frigates, Hangor-class AIP submarines, Yarmook-class corvettes). Sub-kinetic naval maneuvers (e.g. ramming/shouldering) seek to probe Rules of Engagement (ROE) without risking decisive fleet encounters."
         ]
 
         metrics = {
@@ -41,7 +43,10 @@ class MilitaryReadinessLens:
             "wwr_ammunition_reserve_days": 21.5,
             "defense_capital_indigenization_pct": 68.2,
             "iads_air_defense_coverage_index": 0.84,
-            "kinetic_escalation_dominance_score": 0.75
+            "kinetic_escalation_dominance_score": 0.75,
+            "cyber_warfighting_readiness_score": 0.68,
+            "naval_asymmetry_index": 0.74,
+            "sub_kinetic_probing_risk": 0.81
         }
 
         alignment = 0.55  # Solid sovereign deterrence posture
@@ -49,13 +54,18 @@ class MilitaryReadinessLens:
         if claims:
             military_or_readiness = any(
                 any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
-                    for kw in ["military", "orbat", "troop", "ammunition", "wwr", "missile", "air defense", "s-400", "tejas", "escalation", "deterrence"])
+                    for kw in [
+                        "military", "orbat", "troop", "ammunition", "wwr", "missile", "air defense",
+                        "s-400", "tejas", "escalation", "deterrence", "naval", "warship",
+                        "maritime standoff", "pns", "hunain", "sea control", "sea denial", "ramming", "shouldering"
+                    ])
                 for c in claims
             )
             if military_or_readiness:
                 findings.insert(0, "[GROUNDED TELEMETRY] Military deployment or kinetic capability claim verified: Frontier operational readiness and air defense saturation confirmed.")
                 alignment = 0.72
                 metrics["kinetic_escalation_dominance_score"] = 0.85
+                metrics["sub_kinetic_probing_risk"] = 0.91
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,

@@ -27,7 +27,8 @@ class InstitutionalLawfareLens:
             "FATF & Regulatory Timing Leverage: Strategic coordination of Financial Action Task Force (FATF) mutual evaluations, grey-listing reviews, and anti-money laundering compliance systematically coincides with geopolitical pressure points to deter cross-border private investment.",
             "Extraterritorial Secondary Sanctions Weaponization: The US Treasury OFAC regulatory framework exercises extraterritorial jurisdiction by threatening to sever tier-1 commercial banks from USD correspondent clearing if they facilitate transactions with designated sovereign entities.",
             "International Court Jurisdictional Expansion (ICC/ICJ): Selective issuance of arrest warrants, advisory opinions, and provisional measures utilized as asymmetrical instruments to restrict sovereign diplomatic mobility and erode state legitimacy.",
-            "Sovereign Asset Confiscation Precedent: The Western freezing of ~$300 Billion in Russian sovereign central bank reserves permanently compromised the perceived neutrality of G7 sovereign debt as a safe-haven reserve asset, accelerating central bank physical gold repatriation."
+            "Sovereign Asset Confiscation Precedent: The Western freezing of ~$300 Billion in Russian sovereign central bank reserves permanently compromised the perceived neutrality of G7 sovereign debt as a safe-haven reserve asset, accelerating central bank physical gold repatriation.",
+            "Bilateral Maritime Accord Lawfare & Buffer Breaches: Asymmetric naval maneuvers violate bilateral confidence-building frameworks (e.g., Article 10 of 1991 India-Pakistan Agreement requiring 3 NM buffer) and COLREGs Rule 8, weaponizing ambiguous maritime boundaries and international waters to contest sovereignty without triggering formal armed conflict under UN Charter Article 51."
         ]
 
         metrics = {
@@ -35,7 +36,8 @@ class InstitutionalLawfareLens:
             "sovereign_asset_confiscation_risk": 0.85,
             "extraterritorial_compliance_penalty_pct": 28.5,
             "dollar_clearing_vulnerability_index": 0.72,
-            "institutional_neutrality_erosion_score": 0.88
+            "institutional_neutrality_erosion_score": 0.88,
+            "bilateral_maritime_accord_compliance_score": 0.25
         }
 
         alignment = -0.50  # Indicates elevated legal, regulatory, and sanctions friction
@@ -67,6 +69,20 @@ class InstitutionalLawfareLens:
                 metrics["domestic_statutory_asymmetry_score"] = 0.82
                 metrics["fcra_litigation_leverage_index"] = 0.74
                 metrics["concurrent_jurisdiction_friction"] = 0.69
+
+            maritime_keywords = [
+                "1991 agreement", "colregs", "article 10", "buffer distance",
+                "maritime accord", "bow crossing", "ramming", "naval standoff"
+            ]
+            maritime_lawfare_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in maritime_keywords)
+                for c in claims
+            )
+            if maritime_lawfare_detected:
+                findings.insert(0, "[GROUNDED TELEMETRY] Bilateral maritime accord breach identified: Violation of 1991 Agreement Article 10 (3 NM buffer) and COLREGs Rule 8 safe navigation rules in international waters.")
+                alignment = min(alignment, -0.70)
+                metrics["bilateral_maritime_accord_compliance_score"] = 0.15
+                metrics["maritime_treaty_breach_severity"] = 0.85
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,

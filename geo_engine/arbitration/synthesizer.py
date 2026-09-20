@@ -424,6 +424,15 @@ class SummitSynthesizer:
 
         # Tier 5: Civilizational & Geopolitical Synthesis
         event_type_val = str(getattr(summit, "event_type", "SUMMIT")).upper()
+
+        # Execute Analysis of Competing Hypotheses (ACH) before declaring strategic inner meaning
+        from .competing_hypotheses import IncidentReasoningEngine
+        incident_title = getattr(summit, "title", getattr(summit, "summit_name", "Strategic Event"))
+        ach_report = IncidentReasoningEngine.evaluate_incident(
+            incident_title=incident_title,
+            claims=claims,
+            context={"event_type": event_type_val}
+        )
         if "BORDER_MILITARY" in event_type_val:
             civilizational_inner_meaning = {
                 "civilizational_core": (
@@ -533,10 +542,23 @@ class SummitSynthesizer:
                 )
             }
 
+        # Epistemic Truth Guard: Condition Tier 5 Civilizational Synthesis on ACH Outcome
+        if ach_report and ach_report.epistemic_warning:
+            civilizational_inner_meaning["civilizational_core"] = (
+                f"{ach_report.epistemic_warning}\n\n" + civilizational_inner_meaning.get("civilizational_core", "")
+            )
+
         # Epistemic Arbitration Log
         arbitration_log = [
             f"[TEMPORAL_VALIDATION] Mode set to {mode.value.upper()}. {guidance}",
         ]
+        if ach_report:
+            arbitration_log.append(
+                f"[ACH_ARBITRATION] Causal hypothesis '{ach_report.dominant_hypothesis_label}' selected with {ach_report.dominant_probability:.1%} probability."
+            )
+            if ach_report.is_epistemically_contested:
+                arbitration_log.append("[ACH_CONTESTED] High epistemic ambiguity detected; alternative non-hostile causes probable.")
+
         if petro_eval.hard_metrics.get("physical_crude_diversion_bpd"):
             arbitration_log.append("[ARBITRATION_T1_OVER_T5] Petro-logistics physical tanker data (Tier 1) verified 4.2M bpd diversion; superseded communique rhetoric (Tier 5).")
 
@@ -627,6 +649,7 @@ class SummitSynthesizer:
             hard_money_audit=hard_money_audit,
             civilizational_synthesis=civilizational_inner_meaning,
             strategic_resilience_matrix=strategic_resilience_matrix,
+            ach_evaluation=ach_report.to_dict() if ach_report else None,
             overall_confidence_score=overall_confidence,
             epistemic_arbitration_log=arbitration_log
         )
