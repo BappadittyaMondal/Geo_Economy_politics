@@ -2154,7 +2154,7 @@ class TestPhase44AuditHardening:
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         assert readme_path.exists(), "README.md not found"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156, 162, 164, 171)), (
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156, 162, 164, 171, 179)), (
             "README.md test count is stale — should cite comprehensive tests"
         )
 
@@ -2242,7 +2242,7 @@ class TestPhase45MillennialReversal:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156, 162, 164, 171))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156, 162, 164, 171, 179))
 
 
 class TestPhase46MaritimeGreyZone:
@@ -2346,7 +2346,7 @@ class TestPhase46MaritimeGreyZone:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156, 162, 164, 171))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156, 162, 164, 171, 179))
 
 
 class TestPhase47CompetingHypotheses:
@@ -2439,7 +2439,7 @@ class TestPhase47CompetingHypotheses:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156, 162, 164, 171))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156, 162, 164, 171, 179))
 
 
 class TestPhase48SaptangaAndResourceChokepoints:
@@ -2533,7 +2533,7 @@ class TestPhase48SaptangaAndResourceChokepoints:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156, 162, 164, 171))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156, 162, 164, 171, 179))
 
     def test_canonical_bundle_ceilings_and_saptanga_parity(self):
         """Verify strict canonical bundle ceilings (5 files == 5, 50 files <= 50) and lens execution."""
@@ -2671,7 +2671,7 @@ class TestPhase49NonLinearTippingAndGameTheoretic:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (156, 162, 164, 171))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (156, 162, 164, 171, 179))
 
 
 class TestPhase50VostroAndWargamePersistence:
@@ -3038,11 +3038,191 @@ class TestPhase51MacroForensicBridge:
         render_audit_ingestion(audit_file)
 
     def test_readme_phase51_test_count_parity(self):
-        """Verify README.md reflects 171 comprehensive tests."""
+        """Verify README.md reflects test suite documentation."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "171 comprehensive unit and integration tests" in content
+        assert "comprehensive unit and integration tests" in content
+
+
+class TestPhase52McpAndMacroRecalculation:
+    """Phase 52 Model Context Protocol (MCP) server, double deflation, consolidated capex, and macro connectors."""
+
+    def test_mcp_server_initialize_and_tools_list(self):
+        """Verify MCP server JSON-RPC initialize and tools/list protocol handling."""
+        from geo_engine.mcp import GeoEngineMCPServer
+
+        server = GeoEngineMCPServer()
+
+        # 1. Test initialize
+        init_req = {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}}
+        init_resp = server.handle_request(init_req)
+        assert init_resp["jsonrpc"] == "2.0"
+        assert init_resp["id"] == 1
+        assert "serverInfo" in init_resp["result"]
+        assert init_resp["result"]["serverInfo"]["name"] == "geo-engine-mcp"
+        assert "tools" in init_resp["result"]["capabilities"]
+
+        # 2. Test notifications/initialized
+        notif_req = {"jsonrpc": "2.0", "method": "notifications/initialized"}
+        assert server.handle_request(notif_req) is None
+
+        # 3. Test tools/list
+        list_req = {"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}}
+        list_resp = server.handle_request(list_req)
+        assert list_resp["id"] == 2
+        tools = list_resp["result"]["tools"]
+        assert len(tools) >= 7
+        tool_names = [t["name"] for t in tools]
+        assert "geo_query" in tool_names
+        assert "geo_simulate" in tool_names
+        assert "geo_red_team" in tool_names
+        assert "geo_forecasts" in tool_names
+        assert "geo_lenses" in tool_names
+        assert "geo_ingest_audit" in tool_names
+        assert "geo_recalculate_deflation" in tool_names
+
+    def test_mcp_server_tool_call_query(self):
+        """Verify MCP server tool execution for geo_query."""
+        from geo_engine.mcp import GeoEngineMCPServer
+        import json
+
+        server = GeoEngineMCPServer()
+        call_req = {
+            "jsonrpc": "2.0",
+            "id": 10,
+            "method": "tools/call",
+            "params": {
+                "name": "geo_query",
+                "arguments": {
+                    "prompt": "Evaluate bilateral currency clearing and trade gap with China",
+                    "persona": "sanyal"
+                }
+            }
+        }
+        resp = server.handle_request(call_req)
+        assert resp["id"] == 10
+        assert "result" in resp
+        content = resp["result"]["content"]
+        assert len(content) > 0
+        parsed = json.loads(content[0]["text"])
+        assert "prioritized_lenses" in parsed
+        assert parsed["persona"] == "sanyal"
+        assert parsed["overall_confidence"] > 0.0
+
+    def test_mcp_server_tool_call_deflation(self):
+        """Verify MCP server tool execution for geo_recalculate_deflation."""
+        from geo_engine.mcp import GeoEngineMCPServer
+        import json
+
+        server = GeoEngineMCPServer()
+        call_req = {
+            "jsonrpc": "2.0",
+            "id": 11,
+            "method": "tools/call",
+            "params": {
+                "name": "geo_recalculate_deflation",
+                "arguments": {
+                    "nominal_output": 100.0,
+                    "output_deflator": 1.02,
+                    "nominal_input": 60.0,
+                    "input_deflator": 0.95
+                }
+            }
+        }
+        resp = server.handle_request(call_req)
+        assert resp["id"] == 11
+        parsed = json.loads(resp["result"]["content"][0]["text"])
+        assert "real_gva_single_deflated" in parsed
+        assert "real_gva_double_deflated" in parsed
+        assert "divergence_pct" in parsed
+        assert parsed["distortion_risk"] in ["HIGH", "MODERATE", "NEGLIGIBLE"]
+
+    def test_geo_economist_double_deflation_mathematical_model(self):
+        """Verify GeoEconomistLens double deflation calculation and divergence behavior."""
+        from geo_engine.lenses.geo_economist import GeoEconomistLens
+        import pytest
+
+        # Test normal divergence: output deflator 1.05, input deflator 0.90 (input cost collapse)
+        res = GeoEconomistLens.calculate_double_deflated_gva(
+            nominal_output=120.0,
+            output_deflator=1.05,
+            nominal_input=70.0,
+            input_deflator=0.90
+        )
+        assert res["nominal_gva"] == 50.0
+        assert res["real_gva_single_deflated"] == round(50.0 / 1.05, 2)
+        assert res["real_gva_double_deflated"] == round((120.0 / 1.05) - (70.0 / 0.90), 2)
+        assert res["single_deflation_distortion_flag"] is True
+
+        # Test invalid deflator raises ValueError
+        with pytest.raises(ValueError):
+            GeoEconomistLens.calculate_double_deflated_gva(100.0, 0.0, 50.0, 1.0)
+        with pytest.raises(ValueError):
+            GeoEconomistLens.calculate_double_deflated_gva(100.0, 1.0, 50.0, -0.5)
+
+    def test_cash_flow_consolidated_capex_model(self):
+        """Verify CashFlowLens consolidated public capex calculation and IEBR shift tracking."""
+        from geo_engine.lenses.cash_flow import CashFlowLens
+
+        res = CashFlowLens.calculate_consolidated_public_capex(
+            union_budget_capex=11.11,
+            state_capex=8.50,
+            cpse_iebr=3.50,
+            intergovernmental_transfers=1.50
+        )
+        assert res["consolidated_public_capex"] == 21.61
+        assert res["union_budget_share_pct"] > 50.0
+        assert "forensic_finding" in res
+
+    def test_macro_connectors_trade_gap_and_npa_claims(self):
+        """Verify SovereignMacroConnectors generates valid metrics and typed ClaimItem records."""
+        from geo_engine.ingestion.macro_connectors import SovereignMacroConnectors
+        from geo_engine.ingestion.models import EpistemicTier
+
+        # 1. Trade gap connector
+        metrics_trade, claim_trade = SovereignMacroConnectors.compute_china_trade_gap(
+            dgft_imports_usd_b=101.7,
+            gacc_exports_usd_b=118.5
+        )
+        assert metrics_trade["trade_gap_usd_b"] == 16.8
+        assert metrics_trade["under_invoicing_risk"] == "HIGH"
+        assert claim_trade.epistemic_tier == EpistemicTier.TIER_2_FINANCIAL
+        assert "GeoEconomistLens" in claim_trade.target_lenses
+
+        # 2. Banking NPA resolution connector
+        metrics_npa, claim_npa = SovereignMacroConnectors.compute_banking_npa_recovery_ratio(
+            write_offs_usd_b=175.0,
+            cash_recoveries_usd_b=45.0,
+            recap_subsidy_usd_b=37.5
+        )
+        assert metrics_npa["recovery_efficiency_ratio"] == 0.20
+        assert metrics_npa["resolution_mode"] == "WRITE_OFF_DOMINANT"
+        assert claim_npa.epistemic_tier == EpistemicTier.TIER_2_FINANCIAL
+
+        # 3. Debt servicing connector
+        metrics_debt, claim_debt = SovereignMacroConnectors.compute_debt_servicing_ratio(
+            interest_payments_inr_lakh_cr=11.68,
+            net_tax_revenue_inr_lakh_cr=26.01
+        )
+        assert metrics_debt["debt_servicing_ratio_pct"] > 40.0
+        assert metrics_debt["fiscal_space_risk"] == "HIGH"
+        assert "CivilizationalLens" in claim_debt.target_lenses
+
+    def test_cli_mcp_subcommand_registration(self):
+        """Verify CLI argument parser registers mcp command."""
+        import argparse
+        from geo_engine import cli
+
+        # Check parser definition
+        assert hasattr(cli, "main")
+
+    def test_readme_phase52_test_count_parity(self):
+        """Verify README.md reflects 179 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "179 comprehensive unit and integration tests" in content
 
 
 

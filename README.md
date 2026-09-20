@@ -86,6 +86,9 @@ python -m geo_engine.cli query "Evaluate de-dollarization and bilateral rupee-ru
 # Inspect and resolve calibrated forecasts in SQLite ledger
 python -m geo_engine.cli forecasts --status ACTIVE
 
+# Run Model Context Protocol (MCP) JSON-RPC 2.0 stdio server
+python -m geo_engine.cli mcp
+
 # Run question-first video intelligence on a YouTube video
 python -m geo_engine.cli video "https://youtu.be/VIDEO_ID" --query "What were the key bilateral outcomes?"
 ```
@@ -108,7 +111,7 @@ python -m morning_digest.bot --top 50 --live
 
 ## 🧪 Automated Testing & Verification
 
-The test suite includes **171 comprehensive unit and integration tests** verifying all mathematical clamping gates, Brier score calculations, Bayesian likelihood updates, SQLite WAL concurrency, 20-lens contracts, and 10 Anti-Drift Quality Gates:
+The test suite includes **179 comprehensive unit and integration tests** verifying all mathematical clamping gates, Brier score calculations, Bayesian likelihood updates, SQLite WAL concurrency, 20-lens contracts, MCP JSON-RPC protocol, double deflation math, and 10 Anti-Drift Quality Gates:
 
 ```bash
 python -m pytest tests/ -v

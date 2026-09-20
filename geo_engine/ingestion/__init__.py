@@ -9,6 +9,7 @@ from .sovereign_rss import SovereignRSSClient
 from .document_loader import DocumentLoader
 from .normalizer import IngestionNormalizer, RhetoricDeflator
 from .telemetry_adapter import MacroTelemetryAdapter
+from .macro_connectors import SovereignMacroConnectors
 
 __all__ = [
     "ClaimType",
@@ -20,4 +21,5 @@ __all__ = [
     "IngestionNormalizer",
     "RhetoricDeflator",
     "MacroTelemetryAdapter",
+    "SovereignMacroConnectors",
 ]

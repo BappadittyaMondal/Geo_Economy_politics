@@ -686,6 +686,9 @@ def main():
     ingest_parser = subparsers.add_parser("ingest-audit", help="Ingest forensic audit markdown findings into SQLite EventStore")
     ingest_parser.add_argument("path", nargs="?", default="FORENSIC_AUDIT_INDIA_1991_2026.md", help="Path to forensic audit markdown file")
 
+    # Command: mcp
+    mcp_parser = subparsers.add_parser("mcp", help="Run Model Context Protocol (MCP) JSON-RPC 2.0 stdio server")
+
     try:
         args = parser.parse_args()
 
@@ -714,6 +717,9 @@ def main():
             )
         elif args.command == "ingest-audit":
             render_audit_ingestion(args.path)
+        elif args.command == "mcp":
+            from .mcp import run_stdio_server
+            run_stdio_server()
         elif args.command == "audit" or args.command is None:
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)

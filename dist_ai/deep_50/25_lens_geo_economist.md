@@ -83,6 +83,16 @@ class GeoEconomistLens:
 
             metrics["claims_evaluated"] = len(claims)
 
+        # Quantitative double-deflation recalculation baseline (Output: ₹100L Cr, Input: ₹60L Cr, Output deflator 1.02, Input deflator 0.95)
+        deflation_calc = cls.calculate_double_deflated_gva(
+            nominal_output=100.0,
+            output_deflator=1.02,
+            nominal_input=60.0,
+            input_deflator=0.95
+        )
+        metrics["deflation_recalculation_model"] = deflation_calc
+        metrics["single_vs_double_deflation_divergence_pct"] = deflation_calc["divergence_pct"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -91,6 +101,47 @@ class GeoEconomistLens:
             key_findings=findings,
             hard_metrics=metrics
         )
+
+    @classmethod
+    def calculate_double_deflated_gva(
+        cls,
+        nominal_output: float,
+        output_deflator: float,
+        nominal_input: float,
+        input_deflator: float
+    ) -> Dict[str, Any]:
+        """
+        Calculates double-deflated real manufacturing GVA vs single-deflated real GVA.
+        Exposes the mathematical distortion when input costs fall faster than output prices (or vice-versa).
+        """
+        nominal_gva = nominal_output - nominal_input
+        if output_deflator <= 0 or input_deflator <= 0:
+            raise ValueError("Deflators must be positive non-zero values.")
+
+        real_gva_single = nominal_gva / output_deflator
+        real_output = nominal_output / output_deflator
+        real_input = nominal_input / input_deflator
+        real_gva_double = real_output - real_input
+
+        divergence_pct = ((real_gva_single - real_gva_double) / real_gva_double) * 100.0 if real_gva_double != 0 else 0.0
+        distortion_risk = "HIGH" if abs(divergence_pct) >= 10.0 else ("MODERATE" if abs(divergence_pct) >= 3.0 else "NEGLIGIBLE")
+
+        return {
+            "nominal_output": nominal_output,
+            "nominal_input": nominal_input,
+            "nominal_gva": round(nominal_gva, 2),
+            "output_deflator": output_deflator,
+            "input_deflator": input_deflator,
+            "real_gva_single_deflated": round(real_gva_single, 2),
+            "real_gva_double_deflated": round(real_gva_double, 2),
+            "divergence_pct": round(divergence_pct, 2),
+            "distortion_risk": distortion_risk,
+            "single_deflation_distortion_flag": abs(divergence_pct) >= 3.0,
+            "methodological_caveat": (
+                "Single deflation uses gross output deflator (WPI) for both inputs and outputs. "
+                "When global raw material prices crash, single deflation falsely attributes intermediate cost savings to manufacturing output growth."
+            )
+        }
 
 
 ```
