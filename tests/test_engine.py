@@ -2154,7 +2154,7 @@ class TestPhase44AuditHardening:
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         assert readme_path.exists(), "README.md not found"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156, 162)), (
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156, 162, 164)), (
             "README.md test count is stale — should cite comprehensive tests"
         )
 
@@ -2242,7 +2242,7 @@ class TestPhase45MillennialReversal:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156, 162))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156, 162, 164))
 
 
 class TestPhase46MaritimeGreyZone:
@@ -2346,7 +2346,7 @@ class TestPhase46MaritimeGreyZone:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156, 162))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156, 162, 164))
 
 
 class TestPhase47CompetingHypotheses:
@@ -2439,7 +2439,7 @@ class TestPhase47CompetingHypotheses:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156, 162))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156, 162, 164))
 
 
 class TestPhase48SaptangaAndResourceChokepoints:
@@ -2533,7 +2533,7 @@ class TestPhase48SaptangaAndResourceChokepoints:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156, 162))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156, 162, 164))
 
     def test_canonical_bundle_ceilings_and_saptanga_parity(self):
         """Verify strict canonical bundle ceilings (5 files == 5, 50 files <= 50) and lens execution."""
@@ -2671,7 +2671,7 @@ class TestPhase49NonLinearTippingAndGameTheoretic:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (156, 162))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (156, 162, 164))
 
 
 class TestPhase50VostroAndWargamePersistence:
@@ -2870,12 +2870,58 @@ class TestPhase50VostroAndWargamePersistence:
         q_wargame = QueryParser.parse("Run persistent wargame campaign session and counter-move simulation")
         assert "geopolitical" in q_wargame.prioritized_lenses
 
+    def test_synthesizer_hard_money_audit_vostro_integration(self):
+        """Verify SummitSynthesizer populates vostro recycling velocity in hard_money_audit."""
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", host_country="India")
+        report = SummitSynthesizer.synthesize_report(summit)
+        hma = report.hard_money_audit
+        assert "vostro_balance_trapped_usd_b" in hma
+        assert hma["vostro_balance_trapped_usd_b"] == 42.0
+        assert "vostro_capital_recycling_velocity" in hma
+        assert hma["vostro_capital_recycling_velocity"] == 0.38
+        assert "sovereign_debt_reinvestment_ratio" in hma
+        assert hma["sovereign_debt_reinvestment_ratio"] == 0.65
+
+    def test_event_store_rbi_srva_baseline_clause_and_event(self):
+        """Verify EventStore seeds contain RBI SRVA Circular Clause and Historical Framework Event."""
+        import tempfile
+        import os
+        from geo_engine.storage.event_store import EventStore
+
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            test_db = tf.name
+        try:
+            store = EventStore(db_path=test_db)
+            store.initialize_schema_and_seed()
+            with store._get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT clause_id, category FROM historical_treaty_clauses WHERE clause_id='CLAUSE-2022-RBI-SRVA'")
+                clause_row = cursor.fetchone()
+                assert clause_row is not None
+                assert clause_row[0] == "CLAUSE-2022-RBI-SRVA"
+                assert clause_row[1] == "monetary_clearing"
+
+                cursor.execute("SELECT event_id, date FROM events WHERE event_id='HIST-2022-RBI-SRVA-FRAMEWORK'")
+                event_row = cursor.fetchone()
+                assert event_row is not None
+                assert event_row[0] == "HIST-2022-RBI-SRVA-FRAMEWORK"
+                assert event_row[1] == "2022-07-11"
+        finally:
+            if os.path.exists(test_db):
+                try:
+                    os.unlink(test_db)
+                except Exception:
+                    pass
+
     def test_readme_phase50_test_count_parity(self):
-        """Verify README.md test count matches exactly 162 comprehensive tests."""
+        """Verify README.md test count matches exactly 164 comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "162 comprehensive unit and integration tests" in content
+        assert "164 comprehensive unit and integration tests" in content
 
 
 

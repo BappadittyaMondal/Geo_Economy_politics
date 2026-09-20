@@ -163,6 +163,11 @@ def render_full_report(
         f"[bold magenta]Shadow Tanker Fleet Dependency:[/bold magenta] {m['shadow_tanker_fleet_pct']}%\n"
         f"[bold red]Western P&I Maritime Reinsurance Bottleneck:[/bold red] {m['western_pi_maritime_insurance_chokepoint_pct']}%"
     )
+    if "vostro_capital_recycling_velocity" in m:
+        cash_text += (
+            f"\n[bold cyan]SRVA Capital Recycling Velocity:[/bold cyan] {m['vostro_capital_recycling_velocity']}x "
+            f"(Trapped Balances: ${m.get('vostro_balance_trapped_usd_b', 42.0):.1f}B USD, Reinvestment: {m.get('sovereign_debt_reinvestment_ratio', 0.65)*100:.0f}%)"
+        )
     console.print(Panel(cash_text, title="Financial Ground Truth vs. Rhetoric", border_style="green"))
 
     # Strategic Resilience & Escalation Readiness Matrix (Lenses 13-20)

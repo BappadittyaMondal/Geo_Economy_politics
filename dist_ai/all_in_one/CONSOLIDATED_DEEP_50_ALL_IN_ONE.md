@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `3c6ae54`
+- **Canonical Git Commit:** `de9a720`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 3c6ae54
+CANONICAL_COMMIT: de9a720
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 3c6ae54
+CANONICAL_COMMIT: de9a720
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 3c6ae54
+CANONICAL_COMMIT: de9a720
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 3c6ae54
+CANONICAL_COMMIT: de9a720
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 3c6ae54
+CANONICAL_COMMIT: de9a720
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 3c6ae54
+CANONICAL_COMMIT: de9a720
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1215,6 +1215,13 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - `geopolitical`: Added `wargame campaign`, `persistent campaign`, `wargame session`.
   - **Documentation & Verification Suite Expansion (156→162 tests):** Updated `README.md` test counter from 156 to 162 comprehensive tests. Added `TestPhase50VostroAndWargamePersistence` class in `tests/test_engine.py` with 6 deterministic unit tests validating SRVA capital recycling metrics, EventStore SQLite campaign persistence, GameTheoreticEngine persistence hooks, MacroTelemetryAdapter normalization and ingestion, query parser routing, and README test parity. Certified **162/162 unit and integration tests passing deterministically with 100% success rate in 15.21s**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) via `scripts/build_canonical_bundles.py`. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$).
+* **Phase 50 Extension (Synthesizer Hard-Money Integration & RBI SRVA Statutory Seeding):**
+  - **Hard-Money Audit Vostro Integration (P0):** Connected `GeoEconomistLens` metrics directly into `hard_money_audit` in `geo_engine/arbitration/synthesizer.py`. Formally synthesized `vostro_balance_trapped_usd_b: 42.0`, `vostro_capital_recycling_velocity: 0.38`, and `sovereign_debt_reinvestment_ratio: 0.65` into the Tier 2 executive report, bridging the macro-monetary clearing layer directly with the CapEx haircut table.
+  - **CLI Hard-Money Panel SRVA Display (P0):** Updated `geo_engine/cli.py` to render the Special Rupee Vostro Account (SRVA) capital recycling velocity and reinvestment percentage directly inside the "Financial Ground Truth vs. Rhetoric" terminal panel.
+  - **RBI SRVA Statutory Baseline & Historical Event Seeding (P0):** Seeded the landmark July 11, 2022 RBI Circular (`RBI/2022-2023/90 A.P. (DIR Series) Circular No. 10`) into `historical_treaty_clauses` (`CLAUSE-2022-RBI-SRVA`) and `events` (`HIST-2022-RBI-SRVA-FRAMEWORK`) in `geo_engine/storage/event_store.py`, providing an immutable statutory baseline for international trade settlement in Indian Rupees and capital recycling into sovereign debt.
+  - **Documentation & Verification Suite Expansion (162→164 tests):** Updated `README.md` test counter from 162 to 164 comprehensive tests. Added `test_synthesizer_hard_money_audit_vostro_integration` and `test_event_store_rbi_srva_baseline_clause_and_event` to `tests/test_engine.py`. Certified **164/164 unit and integration tests passing deterministically with 100% success rate in 16.78s**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) via `scripts/build_canonical_bundles.py`. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$).
+
 
 
 
@@ -3261,7 +3268,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `3c6ae54`
+- **Canonical Git Commit:** `de9a720`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

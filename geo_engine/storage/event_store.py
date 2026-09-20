@@ -264,6 +264,16 @@ class EventStore:
                     "maritime_grey_zone",
                     "Pakistani corvette PNS Hunain executed aggressive bow crossing and collided with an Indian Navy warship on surveillance in international waters, breaching Article 10 of the 1991 Bilateral Agreement and COLREGs Rule 8.",
                     "Demonstrates importation of Chinese South China Sea grey-zone tactics into the Arabian Sea to probe Indian Rules of Engagement below kinetic threshold."
+                ),
+                (
+                    "HIST-2022-RBI-SRVA-FRAMEWORK",
+                    "2022-07-11",
+                    "RBI Framework for International Trade Settlement in Indian Rupees",
+                    "Reserve Bank of India (RBI)",
+                    "Global / South Asia",
+                    "monetary_architecture",
+                    "RBI issued landmark circular permitting trade settlement in INR via Special Rupee Vostro Accounts (SRVAs), establishing capital recycling pathways into sovereign debt (G-Secs) and laying foundation for bilateral de-dollarization.",
+                    "Operationalizes Kautilyan Kosha sovereignty: insulating foreign trade from extraterritorial SWIFT/dollar sanctions."
                 )
             ]
 
@@ -319,6 +329,15 @@ class EventStore:
                     "Article 10: Naval vessels and submarines of the two countries shall not approach within 3 nautical miles of each other's territorial waters and shall maintain safe buffer distance during maneuvers in international waters.",
                     1,
                     "Breach of 3 nautical mile buffer distance and deliberate bow crossing constitutes maritime grey-zone provocation and sub-kinetic escalation below UN Charter Article 51 threshold."
+                ),
+                (
+                    "CLAUSE-2022-RBI-SRVA",
+                    "RBI Circular on International Trade Settlement in Indian Rupees (INR)",
+                    2022,
+                    "monetary_clearing",
+                    "A.P. (DIR Series) Circular No. 10: Authorized Dealer Category-I banks are permitted to open Special Non-Resident Rupee (SNRR) and Special Rupee Vostro Accounts (SRVA) for partner country correspondent banks, permitting invoicing, payment, and settlement in INR, with surplus balances permitted for reinvestment in Government Securities and sovereign infrastructure.",
+                    1,
+                    "Statutory baseline establishing the legal mechanism for recycling bilateral non-convertible trade surpluses into domestic sovereign debt and equities."
                 )
             ]
 

@@ -411,6 +411,7 @@ class SummitSynthesizer:
         # Tier 4: Hard Money & Petro-Logistics Audit
         cash_eval = CashFlowLens.evaluate(summit, flows=financial_flows, fixture_mode=fixture_mode)
         petro_eval = PetroLogisticsLens.evaluate(summit)
+        geo_economist_eval = GeoEconomistLens.evaluate(summit, claims=claims)
         hard_money_audit = {
             "total_nominal_announced_usd": cash_eval.hard_metrics.get("total_nominal_announced_usd", 0.0),
             "total_effective_capex_usd": cash_eval.hard_metrics.get("total_effective_capex_usd", 0.0),
@@ -419,7 +420,10 @@ class SummitSynthesizer:
             "common_reserve_currency_status": "STRUCTURALLY IMPOSSIBLE (Mundell-Fleming Trilemma)",
             "physical_crude_re_routed_bpd": petro_eval.hard_metrics.get("physical_crude_diversion_bpd", 0.0),
             "shadow_tanker_fleet_pct": petro_eval.hard_metrics.get("shadow_tanker_dependence_pct", 0.0),
-            "western_pi_maritime_insurance_chokepoint_pct": petro_eval.hard_metrics.get("western_pi_insurance_choke_pct", 0.0)
+            "western_pi_maritime_insurance_chokepoint_pct": petro_eval.hard_metrics.get("western_pi_insurance_choke_pct", 0.0),
+            "vostro_balance_trapped_usd_b": geo_economist_eval.hard_metrics.get("vostro_balance_trapped_usd_b", 42.0),
+            "vostro_capital_recycling_velocity": geo_economist_eval.hard_metrics.get("vostro_capital_recycling_velocity", 0.38),
+            "sovereign_debt_reinvestment_ratio": geo_economist_eval.hard_metrics.get("sovereign_debt_reinvestment_ratio", 0.65)
         }
 
         # Tier 5: Civilizational & Geopolitical Synthesis
