@@ -517,6 +517,72 @@ def render_cascading_simulation(domain: str, severity: float = 0.8, description:
             console.print(f" • {m}")
 
 
+def render_game_theoretic_simulation(
+    initiator: str = "China",
+    target: str = "India",
+    domain: str = "critical_minerals",
+    severity: float = 0.85,
+    action: str = "Export restrictions on sintered NdFeB permanent magnets",
+    intent: str = ""
+):
+    from .simulation import GameTheoreticEngine
+
+    res = GameTheoreticEngine.simulate_interaction(
+        initiator_name=initiator,
+        target_name=target,
+        domain=domain,
+        severity=severity,
+        action_description=action,
+        intent=intent
+    )
+
+    console.print(Panel(
+        f"[bold white]{res.simulation_id}: Sequential Game-Theoretic Red-Team[/bold white]\n"
+        f"[cyan]Initiator:[/cyan] {res.initiator.name} (Autonomy: {res.initiator.strategic_autonomy_score:.2f}, Risk: {res.initiator.risk_tolerance:.2f})\n"
+        f"[cyan]Target:[/cyan] {res.target.name} (Autonomy: {res.target.strategic_autonomy_score:.2f}, Risk: {res.target.risk_tolerance:.2f})\n"
+        f"[cyan]Equilibrium Stability Index:[/cyan] [bold yellow]{res.equilibrium_stability_index:.2f}[/bold yellow] | "
+        f"[cyan]Spiral Risk:[/cyan] [bold red]{res.turn_3_backlash.escalation_spiral_risk:.2f}[/bold red]",
+        title="[bold yellow]STRATEGIC RED-TEAMING & COUNTER-MOVE SIMULATION[/bold yellow]",
+        border_style="yellow"
+    ))
+
+    tbl = Table(title="3-Turn Game-Theoretic Interaction Sequence", show_lines=True)
+    tbl.add_column("Turn", justify="center", width=8, style="bold cyan")
+    tbl.add_column("Actor & Direction", style="bold white", width=22)
+    tbl.add_column("Domain / Category", justify="center", width=24)
+    tbl.add_column("Severity / Metric", justify="center", width=18)
+    tbl.add_column("Strategic Maneuver & Impact Rationale", style="white")
+
+    tbl.add_row(
+        "Turn 1",
+        f"{res.turn_1_action.initiator} -> {res.turn_1_action.target}",
+        res.turn_1_action.domain,
+        f"{res.turn_1_action.severity:.2f}",
+        f"{res.turn_1_action.action_description}\n[dim]Declared Intent: {res.turn_1_action.declared_intent}[/dim]"
+    )
+    tbl.add_row(
+        "Turn 2",
+        f"{res.turn_2_reaction.responder} (Counter)",
+        f"{res.turn_2_reaction.counter_domain} ({res.turn_2_reaction.response_type})",
+        f"{res.turn_2_reaction.severity:.2f}",
+        f"{res.turn_2_reaction.action_description}\n[dim]Strategic Rationale: {res.turn_2_reaction.strategic_rationality}[/dim]"
+    )
+    tbl.add_row(
+        "Turn 3",
+        "Systemic Equilibrium",
+        "Putnam Two-Level Game",
+        f"Friction: {res.turn_3_backlash.domestic_political_friction:.2f}\nInflation: {res.turn_3_backlash.inflationary_backlash_score:.2f}",
+        f"Alliance Shift: {res.turn_3_backlash.third_party_realignment}\n[green]Off-Ramp: {res.turn_3_backlash.de_escalation_off_ramp}[/green]"
+    )
+    console.print(tbl)
+
+    console.print("\n[bold green]Strategic Payoff Assessment:[/bold green]")
+    for actor_name, payoff in res.net_strategic_payoff.items():
+        color = "green" if payoff >= 0 else "red"
+        console.print(f" • {actor_name} Net Strategic Payoff: [{color}]{payoff:+.2f}[/{color}]")
+    console.print(f"\n[italic]{res.summary}[/italic]")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -554,6 +620,15 @@ def main():
     sim_parser.add_argument("--severity", type=float, default=0.8, help="Shock severity magnitude (0.0 - 1.0)")
     sim_parser.add_argument("--description", default="Exogenous Geopolitical Shock Event", help="Description of shock event")
 
+    # Command: red-team
+    rt_parser = subparsers.add_parser("red-team", help="Run sequential 3-turn game-theoretic strategic red-teaming")
+    rt_parser.add_argument("--initiator", default="China", help="Initiating sovereign actor")
+    rt_parser.add_argument("--target", default="India", help="Target sovereign actor")
+    rt_parser.add_argument("--domain", default="critical_minerals", help="Domain of opening move")
+    rt_parser.add_argument("--severity", type=float, default=0.85, help="Severity magnitude (0.0 - 1.0)")
+    rt_parser.add_argument("--action", default="Export restrictions on sintered NdFeB permanent magnets", help="Description of action")
+    rt_parser.add_argument("--intent", default="", help="Declared intent of initiating move")
+
     try:
         args = parser.parse_args()
 
@@ -569,6 +644,15 @@ def main():
             render_video_intelligence(args.url, args.query)
         elif args.command == "simulate":
             render_cascading_simulation(args.domain, severity=args.severity, description=args.description)
+        elif args.command == "red-team":
+            render_game_theoretic_simulation(
+                initiator=args.initiator,
+                target=args.target,
+                domain=args.domain,
+                severity=args.severity,
+                action=args.action,
+                intent=args.intent
+            )
         elif args.command == "audit" or args.command is None:
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)

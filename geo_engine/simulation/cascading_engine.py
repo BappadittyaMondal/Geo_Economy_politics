@@ -28,6 +28,8 @@ class CascadingImpact(BaseModel):
     impact_score: float = Field(..., ge=0.0, le=1.0, description="Adjusted impact severity on this lens")
     transmission_factor: float = Field(..., ge=0.0, le=1.0, description="Base transmission coefficient")
     mitigated_by_resilience: bool = False
+    is_tipping_point: bool = False
+    critical_resilience_deficit: float = 0.0
     mechanism: str = ""
     recommendation: str = ""
 
@@ -40,6 +42,8 @@ class CascadingSimulationResult(BaseModel):
     order_3_impacts: List[CascadingImpact] = Field(default_factory=list)
     systemic_vulnerability_index: float = Field(..., ge=0.0, le=1.0)
     propagation_depth: int = 3
+    critical_tipping_lenses: List[str] = Field(default_factory=list)
+    systemic_phase_transition_risk: float = 0.0
     recommended_mitigations: List[str] = Field(default_factory=list)
     timestamp: str = ""
 
@@ -49,12 +53,20 @@ class CascadingSimulationResult(BaseModel):
             f"- **Shock Domain:** `{self.shock.domain}` | **Initial Severity:** `{self.shock.severity:.2f}`",
             f"- **Description:** {self.shock.description}",
             f"- **Systemic Vulnerability Index:** `{self.systemic_vulnerability_index:.2f}`",
+        ]
+        if self.critical_tipping_lenses:
+            tipping_str = ", ".join(sorted(set(self.critical_tipping_lenses)))
+            lines.append(f"- **Critical Tipping Lenses (Non-Linear Collapse):** `{tipping_str}`")
+            lines.append(f"- **Systemic Phase Transition Risk:** `{self.systemic_phase_transition_risk:.2f}`")
+        lines.extend([
             f"- **Simulation Timestamp:** `{self.timestamp}`",
             "",
             "## Order 1: Direct Physical & Strategic Impacts",
-        ]
+        ])
         for imp in self.order_1_impacts:
             status = " [Mitigated by Resilience]" if imp.mitigated_by_resilience else ""
+            if imp.is_tipping_point:
+                status = " [CRITICAL TIPPING POINT / NON-LINEAR SURGE]"
             lines.append(f"- **Lens `{imp.lens}`** (Impact: `{imp.impact_score:.2f}`){status}: {imp.mechanism}")
             if imp.recommendation:
                 lines.append(f"  - *Action:* {imp.recommendation}")
@@ -62,6 +74,8 @@ class CascadingSimulationResult(BaseModel):
         lines.extend(["", "## Order 2: Secondary Macro & Supply Contagion"])
         for imp in self.order_2_impacts:
             status = " [Mitigated by Resilience]" if imp.mitigated_by_resilience else ""
+            if imp.is_tipping_point:
+                status = " [CRITICAL TIPPING POINT / NON-LINEAR SURGE]"
             lines.append(f"- **Lens `{imp.lens}`** (Impact: `{imp.impact_score:.2f}`){status}: {imp.mechanism}")
             if imp.recommendation:
                 lines.append(f"  - *Action:* {imp.recommendation}")
@@ -69,6 +83,8 @@ class CascadingSimulationResult(BaseModel):
         lines.extend(["", "## Order 3: Tertiary Geopolitical & Civilizational Realignment"])
         for imp in self.order_3_impacts:
             status = " [Mitigated by Resilience]" if imp.mitigated_by_resilience else ""
+            if imp.is_tipping_point:
+                status = " [CRITICAL TIPPING POINT / NON-LINEAR SURGE]"
             lines.append(f"- **Lens `{imp.lens}`** (Impact: `{imp.impact_score:.2f}`){status}: {imp.mechanism}")
             if imp.recommendation:
                 lines.append(f"  - *Action:* {imp.recommendation}")
@@ -611,15 +627,28 @@ class CascadingSimulationEngine:
                 order_decay = 1.0 if order_num == 1 else (0.85 if order_num == 2 else 0.70)
                 base_impact = raw_score * order_decay
 
-                # Resilience dampening
+                # Resilience dampening & Non-Linear Tipping Dynamics
                 mitigated = False
+                is_tipping = False
+                resilience_deficit = 0.0
                 resilience_val = 0.5  # default baseline resilience
                 if resilience_matrix and lens in resilience_matrix:
                     resilience_val = float(resilience_matrix[lens])
-                    # Higher resilience dampens impact: up to 50% reduction
-                    dampened_impact = base_impact * (1.0 - (0.5 * resilience_val))
-                    if resilience_val >= 0.70:
-                        mitigated = True
+                    # Check for Critical Tipping Point (Non-Linear Contagion Surge)
+                    # Critical condition: Sector resilience is severely depleted (R < 0.35)
+                    # OR initial shock magnitude overwhelms absorption capacity (shock.severity >= 0.75 and R <= 0.40)
+                    if resilience_val < 0.35 or (shock.severity >= 0.75 and resilience_val <= 0.40):
+                        is_tipping = True
+                        resilience_deficit = round(max(0.0, 0.35 - resilience_val), 4)
+                        # Sigmoid surge multiplier: when R is deficient, impact accelerates non-linearly
+                        import math
+                        surge_factor = 1.0 + (0.50 / (1.0 + math.exp(10.0 * (resilience_val - 0.25))))
+                        dampened_impact = base_impact * surge_factor
+                    else:
+                        # Standard linear dampening: Higher resilience dampens impact: up to 50% reduction
+                        dampened_impact = base_impact * (1.0 - (0.5 * resilience_val))
+                        if resilience_val >= 0.70:
+                            mitigated = True
                 else:
                     dampened_impact = base_impact
 
@@ -631,6 +660,8 @@ class CascadingSimulationEngine:
                     impact_score=final_impact,
                     transmission_factor=trans,
                     mitigated_by_resilience=mitigated,
+                    is_tipping_point=is_tipping,
+                    critical_resilience_deficit=resilience_deficit,
                     mechanism=item["mechanism"],
                     recommendation=item["recommendation"]
                 )
@@ -643,7 +674,13 @@ class CascadingSimulationEngine:
                     order_3.append(imp)
                 all_impacts.append(imp)
 
-        # Calculate systemic vulnerability index
+        # Calculate systemic vulnerability index and phase transition risk
+        critical_tipping = [imp.lens for imp in all_impacts if imp.is_tipping_point]
+        phase_transition_risk = 0.0
+        if critical_tipping:
+            tipping_ratio = len(critical_tipping) / max(1, len(all_impacts))
+            phase_transition_risk = round(min(1.0, tipping_ratio * (1.0 + shock.severity * 0.5)), 4)
+
         if all_impacts:
             # Weighted average: Order 1 has weight 0.5, Order 2 has 0.3, Order 3 has 0.2
             weights = {1: 0.5, 2: 0.3, 3: 0.2}
@@ -666,6 +703,8 @@ class CascadingSimulationEngine:
             order_3_impacts=order_3,
             systemic_vulnerability_index=min(1.0, max(0.0, vulnerability)),
             propagation_depth=3,
+            critical_tipping_lenses=critical_tipping,
+            systemic_phase_transition_risk=phase_transition_risk,
             recommended_mitigations=unique_recs[:5],
             timestamp=ref_time
         )

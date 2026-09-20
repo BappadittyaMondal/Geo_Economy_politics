@@ -9,10 +9,24 @@ from .cascading_engine import (
     CascadingSimulationResult,
     CascadingSimulationEngine,
 )
+from .game_theoretic import (
+    StrategicActor,
+    ActionMove,
+    ReactionMove,
+    SystemicBacklash,
+    GameTheoreticSimulationResult,
+    GameTheoreticEngine,
+)
 
 __all__ = [
     "SimulationShock",
     "CascadingImpact",
     "CascadingSimulationResult",
     "CascadingSimulationEngine",
+    "StrategicActor",
+    "ActionMove",
+    "ReactionMove",
+    "SystemicBacklash",
+    "GameTheoreticSimulationResult",
+    "GameTheoreticEngine",
 ]

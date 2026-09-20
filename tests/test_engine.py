@@ -2154,7 +2154,7 @@ class TestPhase44AuditHardening:
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         assert readme_path.exists(), "README.md not found"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150)), (
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156)), (
             "README.md test count is stale — should cite comprehensive tests"
         )
 
@@ -2242,7 +2242,7 @@ class TestPhase45MillennialReversal:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156))
 
 
 class TestPhase46MaritimeGreyZone:
@@ -2346,7 +2346,7 @@ class TestPhase46MaritimeGreyZone:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156))
 
 
 class TestPhase47CompetingHypotheses:
@@ -2439,7 +2439,7 @@ class TestPhase47CompetingHypotheses:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150))
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156))
 
 
 class TestPhase48SaptangaAndResourceChokepoints:
@@ -2529,11 +2529,11 @@ class TestPhase48SaptangaAndResourceChokepoints:
         assert any("[GROUNDED TELEMETRY] Agrarian input or fertilizer chokepoint claim verified" in f for f in telemetry.key_findings)
 
     def test_readme_phase48_test_count_parity(self):
-        """Verify README.md test count matches exactly 150 comprehensive tests."""
+        """Verify README.md test count matches comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "150 comprehensive unit and integration tests" in content
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156))
 
     def test_canonical_bundle_ceilings_and_saptanga_parity(self):
         """Verify strict canonical bundle ceilings (5 files == 5, 50 files <= 50) and lens execution."""
@@ -2562,6 +2562,117 @@ class TestPhase48SaptangaAndResourceChokepoints:
         assert CivilizationalLens.evaluate(ev).evidence_status == "sufficient"
         assert CriticalMineralsLens.evaluate(ev).evidence_status == "sufficient"
         assert FoodSecurityLens.evaluate(ev).evidence_status == "sufficient"
+
+
+class TestPhase49NonLinearTippingAndGameTheoretic:
+    """Phase 49: Non-linear cascading tipping points, critical phase transitions,
+    and sequential game-theoretic strategic red-teaming verification."""
+
+    def test_cascading_non_linear_tipping_activation(self):
+        """Verify CascadingSimulationEngine triggers tipping point and phase transition risk when resilience is depleted."""
+        from geo_engine.simulation import CascadingSimulationEngine, SimulationShock
+
+        shock = SimulationShock(
+            shock_id="SHOCK_CRIT_DEPLETED",
+            domain="petro_logistics",
+            description="Severe naval chokepoint interdiction with exhausted reserves",
+            severity=0.85
+        )
+        # Depleted resilience triggers critical tipping point (< 0.35)
+        resilience_matrix = {
+            "petro_logistics": 0.20,
+            "cash_flow": 0.25,
+            "food_security": 0.80
+        }
+        res = CascadingSimulationEngine.simulate_shock(shock, resilience_matrix=resilience_matrix)
+
+        # petro_logistics must be flagged as tipping point
+        imp_petro = next(imp for imp in res.order_1_impacts if imp.lens == "petro_logistics")
+        assert imp_petro.is_tipping_point is True
+        assert imp_petro.critical_resilience_deficit > 0.0
+        assert "petro_logistics" in res.critical_tipping_lenses
+        assert res.systemic_phase_transition_risk > 0.0
+
+        # food_security has 0.80 resilience, must NOT be tipping point
+        imp_food = next(imp for imp in res.order_2_impacts if imp.lens == "food_security")
+        assert imp_food.is_tipping_point is False
+        assert imp_food.mitigated_by_resilience is True
+
+        md = res.to_markdown()
+        assert "Critical Tipping Lenses (Non-Linear Collapse)" in md
+        assert "[CRITICAL TIPPING POINT / NON-LINEAR SURGE]" in md
+
+    def test_game_theoretic_actor_reaction_mapping(self):
+        """Verify GameTheoreticEngine simulates sequential multi-turn moves with asymmetric counter-levers."""
+        from geo_engine.simulation.game_theoretic import GameTheoreticEngine
+
+        res = GameTheoreticEngine.simulate_interaction(
+            initiator_name="China",
+            target_name="India",
+            domain="critical_minerals",
+            severity=0.85,
+            action_description="Export embargo on sintered NdFeB magnets"
+        )
+        assert res.turn_1_action.initiator == "China"
+        assert res.turn_1_action.domain == "critical_minerals"
+        assert res.turn_2_reaction.responder == "India"
+        assert res.turn_2_reaction.counter_domain == "geo_economist"
+        assert res.turn_2_reaction.response_type == "ASYMMETRIC_LEVERAGE"
+        assert "Press Note 3" in res.turn_2_reaction.action_description
+        assert res.turn_2_reaction.severity > 0.50
+
+    def test_putnam_two_level_game_domestic_backlash(self):
+        """Verify Turn 3 calculates Putnam domestic political friction and systemic equilibrium."""
+        from geo_engine.simulation.game_theoretic import GameTheoreticEngine
+
+        res = GameTheoreticEngine.simulate_interaction(
+            initiator_name="Pakistan",
+            target_name="India",
+            domain="hybrid_covert",
+            severity=0.90,
+            action_description="Maritime standoff and aggressive ramming maneuver in Arabian Sea"
+        )
+        assert res.turn_2_reaction.counter_domain == "institutional_lawfare"
+        assert "1991" in res.turn_2_reaction.action_description or "Maritime" in res.turn_2_reaction.action_description
+        assert res.turn_3_backlash.domestic_political_friction > 0.0
+        assert res.turn_3_backlash.inflationary_backlash_score > 0.0
+        assert 0.0 <= res.equilibrium_stability_index <= 1.0
+        assert len(res.turn_3_backlash.de_escalation_off_ramp) > 0
+        assert "Pakistan" in res.net_strategic_payoff
+        assert "India" in res.net_strategic_payoff
+
+    def test_cli_red_team_subcommand_invocation(self):
+        """Verify CLI render_game_theoretic_simulation executes without exception."""
+        from geo_engine.cli import render_game_theoretic_simulation
+
+        render_game_theoretic_simulation(
+            initiator="China",
+            target="India",
+            domain="critical_minerals",
+            severity=0.80,
+            action="Lithium refining export restrictions"
+        )
+
+    def test_query_parser_game_theoretic_routing(self):
+        """Verify QueryParser routes game theory and red team keywords."""
+        from geo_engine.core.query_parser import QueryParser
+
+        q_gt = QueryParser.parse("Game theory escalation spiral and counter-move simulation")
+        assert "geopolitical" in q_gt.prioritized_lenses
+
+        q_putnam = QueryParser.parse("Putnam two-level game domestic backlash and regulatory veto")
+        assert "bureaucratic_inertia" in q_putnam.prioritized_lenses
+
+        q_asym = QueryParser.parse("Asymmetric response and tipping point in sequential move")
+        assert "hybrid_covert" in q_asym.prioritized_lenses
+
+    def test_readme_phase49_test_count_parity(self):
+        """Verify README.md test count matches exactly 156 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "156 comprehensive unit and integration tests" in content
+
 
 
 
