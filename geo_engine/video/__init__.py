@@ -8,6 +8,7 @@ from geo_engine.video.transcript_engine import TranscriptSegment, TranscriptResu
 from geo_engine.video.indexer import VideoChunk, VideoIndexer
 from geo_engine.video.retriever import VideoRetriever
 from geo_engine.video.synthesizer import VideoIntelligenceReport, VideoSynthesizer
+from geo_engine.video.audio_stream import AudioStreamMetadata, AudioTranscript, AudioStreamConnector
 
 __all__ = [
     "YouTubeURLParser",
@@ -19,4 +20,7 @@ __all__ = [
     "VideoRetriever",
     "VideoIntelligenceReport",
     "VideoSynthesizer",
+    "AudioStreamMetadata",
+    "AudioTranscript",
+    "AudioStreamConnector",
 ]

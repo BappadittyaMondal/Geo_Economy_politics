@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `517fbd3`
+- **Canonical Git Commit:** `313e955`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 517fbd3
+CANONICAL_COMMIT: 313e955
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 517fbd3
+CANONICAL_COMMIT: 313e955
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 517fbd3
+CANONICAL_COMMIT: 313e955
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 517fbd3
+CANONICAL_COMMIT: 313e955
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 517fbd3
+CANONICAL_COMMIT: 313e955
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 517fbd3
+CANONICAL_COMMIT: 313e955
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1239,6 +1239,16 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Sovereign Macro Telemetry Connectors (P0):** Built `SovereignMacroConnectors` (`geo_engine/ingestion/macro_connectors.py` and exported in `geo_engine/ingestion/__init__.py`). Converts raw external trade, banking, and fiscal indicators into typed, epistemically prioritized `ClaimItem` records (`compute_china_trade_gap`, `compute_banking_npa_recovery_ratio`, `compute_debt_servicing_ratio`), advancing Axis 2 telemetry maturity.
   - **Documentation & Verification Suite Expansion (171→179 tests):** Synchronized `README.md` test counter from 171 to 179 comprehensive tests. Added `TestPhase52McpAndMacroRecalculation` in `tests/test_engine.py` with 8 deterministic unit tests certifying MCP initialization, tools/list, tool execution (`geo_query` and `geo_recalculate_deflation`), double deflation mathematical models, consolidated capex calculations, macro connectors, and CLI command parity. Certified **179/179 unit and integration tests passing deterministically (100% pass rate in 14.85s)**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) via `scripts/build_canonical_bundles.py`. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$).
+
+* **Phase 53 (Closed-Loop Data Self-Learning, Exponential Temporal Decay, Pundit Credibility Deflator, State Resistance Modeling & Headless Audio Stream Ingestion):**
+  - **Exponential Temporal Decay Function ($\lambda$-weighting) (P0):** Implemented `calculate_temporal_decay(event_date, reference_date=None, half_life_days=90.0)` in `geo_engine/forecasting/calibration.py` ($w(t) = \exp(-\frac{\ln(2)\cdot\Delta t}{\tau})$). Connected dynamic recency decay into `ForecastingEngine.update_scenario_probabilities()`, ensuring volatile macro telemetry and headline events decay exponentially ($\tau=90$ days) while statutory treaties, constitutional articles, and sovereign covenants maintain perpetual infinite half-life ($\tau=\infty, w(t)=1.0$). Added `EventStore.get_events_with_temporal_weights()` to annotate SQLite event queries with deterministic recency discounts.
+  - **Pundit Credibility Deflator in InstitutionalLawfareLens (P0):** Implemented `calculate_pundit_credibility(diagnostic_accuracy, operational_feasibility)` in `geo_engine/lenses/institutional_lawfare.py`. Formulates analytical credibility as $\text{Credibility} = \text{Diagnostic Accuracy} \times \text{Operational Feasibility}$, objectively separating actionable statecraft doctrine from rhetorical/normative critique and superficial commentary that ignores legislative, coalition, or constitutional constraints.
+  - **State Resistance Threshold ($R_{\text{state}}$) & Street-Veto Modeling in HybridCovertLens (P0):** Implemented `calculate_state_resistance_threshold(core_salience, coalition_cushion, disruption_cost, election_proximity_months)` in `geo_engine/lenses/hybrid_covert.py`. Quantifies state resolve against asymmetric disruption and coercive street-veto blockades, applying electoral discount discounting ($R_{\text{state}} = \text{salience} \times \text{cushion} \times \text{electoral\_discount}$) to predict policy freezes or capitulation probabilities.
+  - **Statutory Baseline & Middle East 2024–2026 Telemetry Seeding (P0):** Seeded immutable statutory baseline clauses in `geo_engine/storage/event_store.py`: Places of Worship Act 1991 (`CLAUSE-1991-POWA`), Waqf Act 1995 (`CLAUSE-1995-WAQF`), and HRCE Framework (`CLAUSE-1951-HRCE`). Seeded verified Middle East strategic realignments: Bab el-Mandeb Houthi naval interdiction (`HIST-2024-REDSEA-CHOKE`), Syrian Assad regime transition (`HIST-2024-SYRIA-COLLAPSE`), and IAF Operation Days of Repentance / S-300 degradation in Iran (`HIST-2024-ISRAEL-IRAN-AIR`). Enforced idempotent migrations via `_ensure_migrations()`.
+  - **Headless Audio Stream & Media Transcript Connector (P0):** Built `AudioStreamConnector` (`geo_engine/video/audio_stream.py` and exported in `geo_engine/video/__init__.py`). Completely circumvents client-side JavaScript lockouts on YouTube, podcasts, and video URLs (where naive HTML scraping returns 1.4 MB minified Polymer JS), extracting native timed captions, timestamped segments, and directly normalizing audio transcripts into verified `ClaimItem` records for ingestion into the SQLite `events.db`.
+  - **Documentation & Verification Suite Expansion (179→188 tests):** Synchronized `README.md` test counter from 179 to 188 comprehensive tests. Added `TestPhase53SelfLearningAndTemporalDecay` in `tests/test_engine.py` with 9 deterministic unit tests certifying exponential decay half-lives, infinite treaty weights, Bayesian scenario updating with temporal discounting, event store weighted queries, pundit credibility classifications, state resistance threshold modeling, statutory/Middle East seed verifications, audio stream connector execution, and documentation test parity. Certified **188/188 unit and integration tests passing deterministically (100% pass rate in 21.26s)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) via `scripts/build_canonical_bundles.py`. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$).
+
 
 
 
@@ -2808,6 +2818,59 @@ class HybridCovertLens:
             hard_metrics=metrics
         )
 
+    @staticmethod
+    def calculate_state_resistance_threshold(
+        core_salience: float,
+        coalition_cushion: float,
+        disruption_cost: float,
+        election_proximity_months: float
+    ) -> Dict[str, Any]:
+        """
+        Mathematically models state resolve vs. asymmetric street-veto coercion and hybrid disruption:
+            R_state = (core_salience * coalition_cushion) * electoral_discount
+        Where:
+            electoral_discount = 1.0 / (1.0 + max(0.0, (12.0 - election_proximity_months) / 12.0)) if election_proximity_months < 12 else 1.0
+        If disruption_cost > R_state:
+            State is vulnerable to street-veto capitulation or policy reversal.
+        """
+        salience = max(0.0, min(1.0, float(core_salience)))
+        cushion = max(0.0, min(1.0, float(coalition_cushion)))
+        disruption = max(0.0, min(1.0, float(disruption_cost)))
+        months = max(0.0, float(election_proximity_months))
+
+        if months < 12.0:
+            electoral_discount = round(1.0 / (1.0 + (12.0 - months) / 12.0), 4)
+        else:
+            electoral_discount = 1.0
+
+        r_state = round(salience * cushion * electoral_discount, 4)
+        threshold_gap = round(r_state - disruption, 4)
+
+        if disruption > r_state:
+            gap_ratio = (disruption - r_state) / max(0.01, 1.0 - r_state)
+            capitulation_prob = min(0.95, round(0.50 + 0.45 * gap_ratio, 4))
+            posture = "VULNERABLE_TO_STREET_VETO"
+            verdict = "Disruption cost exceeds state resolve threshold; elevated risk of tactical capitulation or policy freeze."
+        else:
+            resistance_ratio = disruption / max(0.01, r_state)
+            capitulation_prob = max(0.02, round(0.40 * resistance_ratio, 4))
+            posture = "RESILIENT_STATE_ENFORCEMENT"
+            verdict = "State institutional and political cushion exceeds disruption pressure; state resolve holds."
+
+        return {
+            "core_salience": salience,
+            "coalition_cushion": cushion,
+            "disruption_cost": disruption,
+            "election_proximity_months": months,
+            "electoral_discount_factor": electoral_discount,
+            "state_resistance_threshold": r_state,
+            "threshold_gap": threshold_gap,
+            "capitulation_probability": capitulation_prob,
+            "state_posture": posture,
+            "strategic_verdict": verdict
+        }
+
+
 
 ```
 
@@ -2984,6 +3047,58 @@ class InstitutionalLawfareLens:
             hard_metrics=metrics,
             evidence_status="sufficient"
         )
+
+    @staticmethod
+    def calculate_pundit_credibility(
+        diagnostic_accuracy: float,
+        operational_feasibility: float
+    ) -> Dict[str, Any]:
+        """
+        Quantifies the analytical credibility vs. rhetorical noise of commentators and pundits:
+            Credibility Score = Diagnostic Accuracy * Operational Feasibility
+        Separates valid constitutional/statutory critiques from normative wishful thinking
+        lacking statecraft execution capability.
+        """
+        diag = max(0.0, min(1.0, float(diagnostic_accuracy)))
+        feas = max(0.0, min(1.0, float(operational_feasibility)))
+
+        score = round(diag * feas, 4)
+
+        if diag >= 0.70 and feas >= 0.60:
+            category = "Actionable Statecraft / Strategic Doctrine"
+            operational_actionability = "HIGH"
+            guidance = "Analytical critique aligns with constitutional mechanisms and operational enforcement pathways."
+        elif diag >= 0.70 and feas < 0.40:
+            category = "Rhetorical / Normative Critique (High Diagnostic, Low Operational Execution)"
+            operational_actionability = "LOW"
+            guidance = "Accurate diagnosis of statutory asymmetry, but operational proposals ignore legislative/coalition constraints."
+        elif diag >= 0.70 and 0.40 <= feas < 0.60:
+            category = "Strategic Diagnosis Constrained by Bureaucratic Friction"
+            operational_actionability = "MODERATE"
+            guidance = "Sound diagnosis with viable mechanisms that require coalition alignment or judicial overcoming."
+        elif diag < 0.50 and feas >= 0.60:
+            category = "Bureaucratic Inertia / Procedural Compliance"
+            operational_actionability = "PROCEDURAL"
+            guidance = "High procedural feasibility but misidentifies underlying civilizational or strategic drivers."
+        elif diag < 0.50 and feas < 0.50:
+            category = "Superficial Propaganda / Informational Noise"
+            operational_actionability = "NEGLIGIBLE"
+            guidance = "Neither strategically accurate nor operationally executable; discursive noise."
+        else:
+            category = "Mixed Intermediate Discourse"
+            operational_actionability = "INTERMEDIATE"
+            guidance = "Presents partial empirical evidence with moderate execution bottlenecks."
+
+        return {
+            "diagnostic_accuracy": diag,
+            "operational_feasibility": feas,
+            "credibility_score": score,
+            "discourse_category": category,
+            "operational_actionability": operational_actionability,
+            "execution_guidance": guidance,
+            "statutory_execution_barrier_identified": feas < 0.50
+        }
+
 
 ```
 
@@ -3430,6 +3545,9 @@ class SubseaCablesLens:
 | BASE-COMMON-CURRENCY | finance | Commissioning the formal feasibility and macro-economic road-map for a unified BRICS common reserve currency mechanism. | Mundell-Fleming impossibility trilemma triggered; project quietly abandoned due to central bank resistance. |
 | BASE-UNCLOS-MARITIME | territorial | Reaffirming unwavering adherence to the 1982 UNCLOS conventions, freedom of navigation, and overflight in the South China Sea. | Chinese maritime coercion; Beijing refuses multilateral international arbitration references. |
 | BASE-CROSS-BORDER-TERROR | security | Zero-tolerance condemnation of state-sponsored cross-border terrorism, explicitly naming regional terror sanctuaries and FATF compliance. | Diluted into toothless generic phrasing to shield bilateral allies and prevent bilateral disputes. |
+| CLAUSE-1991-POWA | statutory_asymmetry | Sections 3 & 4: Declares that the religious character of a place of worship existing on August 15, 1947 shall continue to be the same as it existed on that day, prohibiting conversion and abating all pending suits or proceedings. | Statutory freeze on civilizational reclamation; creates asymmetric legal immunity for medieval temple demolitions while preempting judicial adjudication. |
+| CLAUSE-1995-WAQF | statutory_asymmetry | Section 40: Vests Waqf Boards with unilateral power to determine whether a property is waqf property, placing burden of proof on the adverse claimant and barring ordinary civil court jurisdiction under Section 85 in favor of specialized tribunals. | Asymmetric property acquisition and jurisdictional barrier exempt from standard civil procedural code. |
+| CLAUSE-1951-HRCE | statutory_asymmetry | State statutory oversight mechanisms authorizing executive officers to manage Hindu temple administrations and surplus treasury funds, whereas minority religious institutions are constitutionally protected under Article 30. | Structural financial asymmetry and state appropriation of indigenous religious endowments without reciprocal minority institution regulation. |
 
 ## Historical Turning Points & Anniversaries
 
@@ -3446,7 +3564,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `517fbd3`
+- **Canonical Git Commit:** `313e955`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

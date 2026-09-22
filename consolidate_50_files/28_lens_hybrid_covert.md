@@ -71,5 +71,58 @@ class HybridCovertLens:
             hard_metrics=metrics
         )
 
+    @staticmethod
+    def calculate_state_resistance_threshold(
+        core_salience: float,
+        coalition_cushion: float,
+        disruption_cost: float,
+        election_proximity_months: float
+    ) -> Dict[str, Any]:
+        """
+        Mathematically models state resolve vs. asymmetric street-veto coercion and hybrid disruption:
+            R_state = (core_salience * coalition_cushion) * electoral_discount
+        Where:
+            electoral_discount = 1.0 / (1.0 + max(0.0, (12.0 - election_proximity_months) / 12.0)) if election_proximity_months < 12 else 1.0
+        If disruption_cost > R_state:
+            State is vulnerable to street-veto capitulation or policy reversal.
+        """
+        salience = max(0.0, min(1.0, float(core_salience)))
+        cushion = max(0.0, min(1.0, float(coalition_cushion)))
+        disruption = max(0.0, min(1.0, float(disruption_cost)))
+        months = max(0.0, float(election_proximity_months))
+
+        if months < 12.0:
+            electoral_discount = round(1.0 / (1.0 + (12.0 - months) / 12.0), 4)
+        else:
+            electoral_discount = 1.0
+
+        r_state = round(salience * cushion * electoral_discount, 4)
+        threshold_gap = round(r_state - disruption, 4)
+
+        if disruption > r_state:
+            gap_ratio = (disruption - r_state) / max(0.01, 1.0 - r_state)
+            capitulation_prob = min(0.95, round(0.50 + 0.45 * gap_ratio, 4))
+            posture = "VULNERABLE_TO_STREET_VETO"
+            verdict = "Disruption cost exceeds state resolve threshold; elevated risk of tactical capitulation or policy freeze."
+        else:
+            resistance_ratio = disruption / max(0.01, r_state)
+            capitulation_prob = max(0.02, round(0.40 * resistance_ratio, 4))
+            posture = "RESILIENT_STATE_ENFORCEMENT"
+            verdict = "State institutional and political cushion exceeds disruption pressure; state resolve holds."
+
+        return {
+            "core_salience": salience,
+            "coalition_cushion": cushion,
+            "disruption_cost": disruption,
+            "election_proximity_months": months,
+            "electoral_discount_factor": electoral_discount,
+            "state_resistance_threshold": r_state,
+            "threshold_gap": threshold_gap,
+            "capitulation_probability": capitulation_prob,
+            "state_posture": posture,
+            "strategic_verdict": verdict
+        }
+
+
 
 ```

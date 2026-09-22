@@ -8,6 +8,7 @@ from .calibration import (
     EpistemicStrata,
     BrierScorer,
     ForecastingEngine,
+    calculate_temporal_decay,
 )
 
 __all__ = [
@@ -16,4 +17,5 @@ __all__ = [
     "EpistemicStrata",
     "BrierScorer",
     "ForecastingEngine",
+    "calculate_temporal_decay",
 ]

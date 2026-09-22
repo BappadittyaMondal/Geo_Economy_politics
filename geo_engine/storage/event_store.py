@@ -68,6 +68,79 @@ class EventStore:
                     FOREIGN KEY(session_id) REFERENCES wargame_sessions(session_id)
                 )
             """)
+
+            # Seed Phase 53 baseline statutory clauses idempotently
+            cursor.executemany("""
+                INSERT OR IGNORE INTO historical_treaty_clauses
+                (clause_id, treaty_name, year, category, clause_text, is_mandatory_baseline, omission_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "CLAUSE-1991-POWA",
+                    "Places of Worship (Special Provisions) Act, 1991",
+                    1991,
+                    "statutory_asymmetry",
+                    "Sections 3 & 4: Declares that the religious character of a place of worship existing on August 15, 1947 shall continue to be the same as it existed on that day, prohibiting conversion and abating all pending suits or proceedings.",
+                    1,
+                    "Statutory freeze on civilizational reclamation; creates asymmetric legal immunity for medieval temple demolitions while preempting judicial adjudication."
+                ),
+                (
+                    "CLAUSE-1995-WAQF",
+                    "Waqf Act, 1995",
+                    1995,
+                    "statutory_asymmetry",
+                    "Section 40: Vests Waqf Boards with unilateral power to determine whether a property is waqf property, placing burden of proof on the adverse claimant and barring ordinary civil court jurisdiction under Section 85 in favor of specialized tribunals.",
+                    1,
+                    "Asymmetric property acquisition and jurisdictional barrier exempt from standard civil procedural code."
+                ),
+                (
+                    "CLAUSE-1951-HRCE",
+                    "Hindu Religious and Charitable Endowments (HRCE) Framework",
+                    1951,
+                    "statutory_asymmetry",
+                    "State statutory oversight mechanisms authorizing executive officers to manage Hindu temple administrations and surplus treasury funds, whereas minority religious institutions are constitutionally protected under Article 30.",
+                    1,
+                    "Structural financial asymmetry and state appropriation of indigenous religious endowments without reciprocal minority institution regulation."
+                )
+            ])
+
+            # Seed Phase 53 Middle East verified telemetry events idempotently
+            cursor.executemany("""
+                INSERT OR IGNORE INTO events
+                (event_id, date, title, actor, region, category, summary, civilizational_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "HIST-2024-REDSEA-CHOKE",
+                    "2024-01-15",
+                    "Bab el-Mandeb Houthi Naval Interdiction & Red Sea Corridor Disruption",
+                    "Ansar Allah (Houthis), US Navy, Global Shipping",
+                    "Red Sea / Middle East",
+                    "maritime_chokepoint",
+                    "Asymmetric anti-ship ballistic missile and drone attacks forced container shipping around Cape of Good Hope, dropping Suez Canal transit revenues by 55-60% ($4B+ annual loss to Egypt) and inflating European freight premia.",
+                    "Demonstrates low-cost non-state asymmetric weaponry closing a primary global energy and container choke-point, exposing Western naval escort limitations."
+                ),
+                (
+                    "HIST-2024-SYRIA-COLLAPSE",
+                    "2024-12-08",
+                    "Fall of the Assad Regime in Syria & Iranian Axis Rupture",
+                    "HTS / Syrian Opposition, Syrian Armed Forces, Russia, Iran",
+                    "Middle East / Levant",
+                    "regime_change",
+                    "Rapid blitz offensive by Hayat Tahrir al-Sham captured Damascus and ended 53 years of Assad rule, forcing Bashar al-Assad's departure to Moscow and collapsing Iranian Axis of Resistance overland logistics to Hezbollah.",
+                    "Historic geopolitical fracture in the northern Levant, destabilizing Russian Mediterranean naval basing at Tartus and severing Tehran's contiguous land bridge."
+                ),
+                (
+                    "HIST-2024-ISRAEL-IRAN-AIR",
+                    "2024-10-26",
+                    "Operation Days of Repentance & Strategic S-300 Degradation in Iran",
+                    "Israeli Air Force, Islamic Republic of Iran",
+                    "Middle East",
+                    "kinetic_counter_air",
+                    "IAF executed long-range precision strikes destroying Iran's remaining Russian-supplied S-300 strategic surface-to-air missile batteries and solid-fuel mixing facilities, establishing conventional air dominance over Iranian airspace.",
+                    "Neutralized Iran's strategic air defense umbrella, demonstrating conventional technological asymmetry and shifting deterrence calculations across the Persian Gulf."
+                )
+            ])
             conn.commit()
 
     def is_initialized(self) -> bool:
@@ -274,6 +347,36 @@ class EventStore:
                     "monetary_architecture",
                     "RBI issued landmark circular permitting trade settlement in INR via Special Rupee Vostro Accounts (SRVAs), establishing capital recycling pathways into sovereign debt (G-Secs) and laying foundation for bilateral de-dollarization.",
                     "Operationalizes Kautilyan Kosha sovereignty: insulating foreign trade from extraterritorial SWIFT/dollar sanctions."
+                ),
+                (
+                    "HIST-2024-REDSEA-CHOKE",
+                    "2024-01-15",
+                    "Bab el-Mandeb Houthi Naval Interdiction & Red Sea Corridor Disruption",
+                    "Ansar Allah (Houthis), US Navy, Global Shipping",
+                    "Red Sea / Middle East",
+                    "maritime_chokepoint",
+                    "Asymmetric anti-ship ballistic missile and drone attacks forced container shipping around Cape of Good Hope, dropping Suez Canal transit revenues by 55-60% ($4B+ annual loss to Egypt) and inflating European freight premia.",
+                    "Demonstrates low-cost non-state asymmetric weaponry closing a primary global energy and container choke-point, exposing Western naval escort limitations."
+                ),
+                (
+                    "HIST-2024-SYRIA-COLLAPSE",
+                    "2024-12-08",
+                    "Fall of the Assad Regime in Syria & Iranian Axis Rupture",
+                    "HTS / Syrian Opposition, Syrian Armed Forces, Russia, Iran",
+                    "Middle East / Levant",
+                    "regime_change",
+                    "Rapid blitz offensive by Hayat Tahrir al-Sham captured Damascus and ended 53 years of Assad rule, forcing Bashar al-Assad's departure to Moscow and collapsing Iranian Axis of Resistance overland logistics to Hezbollah.",
+                    "Historic geopolitical fracture in the northern Levant, destabilizing Russian Mediterranean naval basing at Tartus and severing Tehran's contiguous land bridge."
+                ),
+                (
+                    "HIST-2024-ISRAEL-IRAN-AIR",
+                    "2024-10-26",
+                    "Operation Days of Repentance & Strategic S-300 Degradation in Iran",
+                    "Israeli Air Force, Islamic Republic of Iran",
+                    "Middle East",
+                    "kinetic_counter_air",
+                    "IAF executed long-range precision strikes destroying Iran's remaining Russian-supplied S-300 strategic surface-to-air missile batteries and solid-fuel mixing facilities, establishing conventional air dominance over Iranian airspace.",
+                    "Neutralized Iran's strategic air defense umbrella, demonstrating conventional technological asymmetry and shifting deterrence calculations across the Persian Gulf."
                 )
             ]
 
@@ -338,6 +441,33 @@ class EventStore:
                     "A.P. (DIR Series) Circular No. 10: Authorized Dealer Category-I banks are permitted to open Special Non-Resident Rupee (SNRR) and Special Rupee Vostro Accounts (SRVA) for partner country correspondent banks, permitting invoicing, payment, and settlement in INR, with surplus balances permitted for reinvestment in Government Securities and sovereign infrastructure.",
                     1,
                     "Statutory baseline establishing the legal mechanism for recycling bilateral non-convertible trade surpluses into domestic sovereign debt and equities."
+                ),
+                (
+                    "CLAUSE-1991-POWA",
+                    "Places of Worship (Special Provisions) Act, 1991",
+                    1991,
+                    "statutory_asymmetry",
+                    "Sections 3 & 4: Declares that the religious character of a place of worship existing on August 15, 1947 shall continue to be the same as it existed on that day, prohibiting conversion and abating all pending suits or proceedings.",
+                    1,
+                    "Statutory freeze on civilizational reclamation; creates asymmetric legal immunity for medieval temple demolitions while preempting judicial adjudication."
+                ),
+                (
+                    "CLAUSE-1995-WAQF",
+                    "Waqf Act, 1995",
+                    1995,
+                    "statutory_asymmetry",
+                    "Section 40: Vests Waqf Boards with unilateral power to determine whether a property is waqf property, placing burden of proof on the adverse claimant and barring ordinary civil court jurisdiction under Section 85 in favor of specialized tribunals.",
+                    1,
+                    "Asymmetric property acquisition and jurisdictional barrier exempt from standard civil procedural code."
+                ),
+                (
+                    "CLAUSE-1951-HRCE",
+                    "Hindu Religious and Charitable Endowments (HRCE) Framework",
+                    1951,
+                    "statutory_asymmetry",
+                    "State statutory oversight mechanisms authorizing executive officers to manage Hindu temple administrations and surplus treasury funds, whereas minority religious institutions are constitutionally protected under Article 30.",
+                    1,
+                    "Structural financial asymmetry and state appropriation of indigenous religious endowments without reciprocal minority institution regulation."
                 )
             ]
 
@@ -627,6 +757,51 @@ class EventStore:
             cursor.execute("SELECT * FROM events WHERE region LIKE ? ORDER BY date DESC", (pattern,))
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
+
+    def get_events_with_temporal_weights(
+        self,
+        reference_date: Optional[str] = None,
+        half_life_days: float = 90.0,
+        category: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Retrieves events annotated with exponential temporal decay weights w(t).
+        Statutory/treaty categories are exempted from decay (tau = inf -> weight = 1.0).
+        """
+        import math
+        from datetime import datetime
+        from ..core.models import get_system_reference_date
+
+        ref_dt = (
+            datetime.strptime(str(reference_date)[:10], "%Y-%m-%d")
+            if reference_date else get_system_reference_date()
+        )
+        if hasattr(ref_dt, "tzinfo") and ref_dt.tzinfo is not None:
+            ref_dt = ref_dt.replace(tzinfo=None)
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if category:
+                cursor.execute("SELECT * FROM events WHERE category = ? ORDER BY date DESC", (category,))
+            else:
+                cursor.execute("SELECT * FROM events ORDER BY date DESC")
+            rows = [dict(r) for r in cursor.fetchall()]
+
+        for r in rows:
+            cat = (r.get("category") or "").lower()
+            evt_date_str = r.get("date") or ""
+            is_statutory = any(k in cat for k in ["treaty", "legal", "statute", "sovereign_redline", "monetary_architecture"])
+            if is_statutory or half_life_days <= 0 or math.isinf(half_life_days):
+                r["temporal_decay_weight"] = 1.0
+            else:
+                try:
+                    evt_dt = datetime.strptime(evt_date_str[:10], "%Y-%m-%d")
+                    delta_days = max(0.0, (ref_dt - evt_dt).total_seconds() / 86400.0)
+                    decay = math.exp(-(math.log(2.0) * delta_days) / half_life_days)
+                    r["temporal_decay_weight"] = round(float(decay), 4)
+                except Exception:
+                    r["temporal_decay_weight"] = 1.0
+        return rows
 
 
     def query_events(self, keyword: str) -> List[Dict[str, Any]]:

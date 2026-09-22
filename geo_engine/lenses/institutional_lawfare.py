@@ -93,3 +93,55 @@ class InstitutionalLawfareLens:
             hard_metrics=metrics,
             evidence_status="sufficient"
         )
+
+    @staticmethod
+    def calculate_pundit_credibility(
+        diagnostic_accuracy: float,
+        operational_feasibility: float
+    ) -> Dict[str, Any]:
+        """
+        Quantifies the analytical credibility vs. rhetorical noise of commentators and pundits:
+            Credibility Score = Diagnostic Accuracy * Operational Feasibility
+        Separates valid constitutional/statutory critiques from normative wishful thinking
+        lacking statecraft execution capability.
+        """
+        diag = max(0.0, min(1.0, float(diagnostic_accuracy)))
+        feas = max(0.0, min(1.0, float(operational_feasibility)))
+
+        score = round(diag * feas, 4)
+
+        if diag >= 0.70 and feas >= 0.60:
+            category = "Actionable Statecraft / Strategic Doctrine"
+            operational_actionability = "HIGH"
+            guidance = "Analytical critique aligns with constitutional mechanisms and operational enforcement pathways."
+        elif diag >= 0.70 and feas < 0.40:
+            category = "Rhetorical / Normative Critique (High Diagnostic, Low Operational Execution)"
+            operational_actionability = "LOW"
+            guidance = "Accurate diagnosis of statutory asymmetry, but operational proposals ignore legislative/coalition constraints."
+        elif diag >= 0.70 and 0.40 <= feas < 0.60:
+            category = "Strategic Diagnosis Constrained by Bureaucratic Friction"
+            operational_actionability = "MODERATE"
+            guidance = "Sound diagnosis with viable mechanisms that require coalition alignment or judicial overcoming."
+        elif diag < 0.50 and feas >= 0.60:
+            category = "Bureaucratic Inertia / Procedural Compliance"
+            operational_actionability = "PROCEDURAL"
+            guidance = "High procedural feasibility but misidentifies underlying civilizational or strategic drivers."
+        elif diag < 0.50 and feas < 0.50:
+            category = "Superficial Propaganda / Informational Noise"
+            operational_actionability = "NEGLIGIBLE"
+            guidance = "Neither strategically accurate nor operationally executable; discursive noise."
+        else:
+            category = "Mixed Intermediate Discourse"
+            operational_actionability = "INTERMEDIATE"
+            guidance = "Presents partial empirical evidence with moderate execution bottlenecks."
+
+        return {
+            "diagnostic_accuracy": diag,
+            "operational_feasibility": feas,
+            "credibility_score": score,
+            "discourse_category": category,
+            "operational_actionability": operational_actionability,
+            "execution_guidance": guidance,
+            "statutory_execution_barrier_identified": feas < 0.50
+        }
+

@@ -111,7 +111,7 @@ python -m morning_digest.bot --top 50 --live
 
 ## 🧪 Automated Testing & Verification
 
-The test suite includes **179 comprehensive unit and integration tests** verifying all mathematical clamping gates, Brier score calculations, Bayesian likelihood updates, SQLite WAL concurrency, 20-lens contracts, MCP JSON-RPC protocol, double deflation math, and 10 Anti-Drift Quality Gates:
+The test suite includes **188 comprehensive unit and integration tests** verifying all mathematical clamping gates, Brier score calculations, Bayesian likelihood updates, temporal exponential decay ($\lambda$-weighting), pundit credibility deflators, state resistance thresholds ($R_{\text{state}}$), headless audio stream connectors, SQLite WAL concurrency, 20-lens contracts, MCP JSON-RPC protocol, double deflation math, and 10 Anti-Drift Quality Gates:
 
 ```bash
 python -m pytest tests/ -v

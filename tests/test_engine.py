@@ -2149,14 +2149,12 @@ class TestPhase44AuditHardening:
         assert result.hard_metrics["cyber_warfighting_readiness_score"] == 0.68
 
     def test_readme_test_count_parity(self):
-        """Verify README.md test count matches 132 comprehensive unit and integration tests."""
+        """Verify README.md test count matches comprehensive unit and integration tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         assert readme_path.exists(), "README.md not found"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (126, 132, 138, 144, 150, 156, 162, 164, 171, 179)), (
-            "README.md test count is stale — should cite comprehensive tests"
-        )
+        assert "comprehensive unit and integration tests" in content
 
 
 class TestPhase45MillennialReversal:
@@ -2242,7 +2240,7 @@ class TestPhase45MillennialReversal:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (132, 138, 144, 150, 156, 162, 164, 171, 179))
+        assert "comprehensive unit and integration tests" in content
 
 
 class TestPhase46MaritimeGreyZone:
@@ -2346,7 +2344,7 @@ class TestPhase46MaritimeGreyZone:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (138, 144, 150, 156, 162, 164, 171, 179))
+        assert "comprehensive unit and integration tests" in content
 
 
 class TestPhase47CompetingHypotheses:
@@ -2439,7 +2437,7 @@ class TestPhase47CompetingHypotheses:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (144, 150, 156, 162, 164, 171, 179))
+        assert "comprehensive unit and integration tests" in content
 
 
 class TestPhase48SaptangaAndResourceChokepoints:
@@ -2533,7 +2531,7 @@ class TestPhase48SaptangaAndResourceChokepoints:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (150, 156, 162, 164, 171, 179))
+        assert "comprehensive unit and integration tests" in content
 
     def test_canonical_bundle_ceilings_and_saptanga_parity(self):
         """Verify strict canonical bundle ceilings (5 files == 5, 50 files <= 50) and lens execution."""
@@ -2671,7 +2669,7 @@ class TestPhase49NonLinearTippingAndGameTheoretic:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (156, 162, 164, 171, 179))
+        assert "comprehensive unit and integration tests" in content
 
 
 class TestPhase50VostroAndWargamePersistence:
@@ -3218,11 +3216,206 @@ class TestPhase52McpAndMacroRecalculation:
         assert hasattr(cli, "main")
 
     def test_readme_phase52_test_count_parity(self):
-        """Verify README.md reflects 179 comprehensive tests."""
+        """Verify README.md reflects 179+ comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "179 comprehensive unit and integration tests" in content
+        assert any(f"{c} comprehensive unit and integration tests" in content for c in (179, 188))
+
+
+class TestPhase53SelfLearningAndTemporalDecay:
+    """Phase 53: Autonomous closed-loop self-learning, exponential temporal decay,
+    pundit credibility deflator, state resistance threshold, and headless audio stream connector."""
+
+    def test_calculate_temporal_decay_half_life(self):
+        """Verify exponential temporal decay calculation with 90-day half-life."""
+        from geo_engine.forecasting.calibration import calculate_temporal_decay
+
+        ref_date = "2026-09-22"
+
+        # Delta t = 0 days -> decay = 1.0
+        assert calculate_temporal_decay("2026-09-22", reference_date=ref_date, half_life_days=90.0) == 1.0
+
+        # Delta t = 90 days -> decay = exp(-ln(2)) = 0.50
+        decay_90 = calculate_temporal_decay("2026-06-24", reference_date=ref_date, half_life_days=90.0)
+        assert abs(decay_90 - 0.50) <= 0.01
+
+        # Delta t = 180 days -> decay = 0.25
+        decay_180 = calculate_temporal_decay("2026-03-26", reference_date=ref_date, half_life_days=90.0)
+        assert abs(decay_180 - 0.25) <= 0.01
+
+        # Future date -> decay = 1.0
+        assert calculate_temporal_decay("2026-10-01", reference_date=ref_date, half_life_days=90.0) == 1.0
+
+    def test_calculate_temporal_decay_infinite_treaties(self):
+        """Verify statutory treaties and constitutional covenants have infinite half-life (tau = inf -> decay = 1.0)."""
+        from geo_engine.forecasting.calibration import calculate_temporal_decay
+
+        ref_date = "2026-09-22"
+        # 35 years ago (1991)
+        decay_inf = calculate_temporal_decay("1991-09-18", reference_date=ref_date, half_life_days=float("inf"))
+        assert decay_inf == 1.0
+
+        decay_zero = calculate_temporal_decay("1991-09-18", reference_date=ref_date, half_life_days=0.0)
+        assert decay_zero == 1.0
+
+    def test_forecasting_engine_scenario_updating_with_temporal_decay(self):
+        """Verify ForecastingEngine discounts outdated evidence claims via temporal decay."""
+        import types
+        from geo_engine.forecasting.calibration import ForecastingEngine, ScenarioBranch
+
+        scenarios = [
+            ScenarioBranch(scenario_name="Scenario A: Baseline Stability", probability=0.60, key_drivers=[], early_indicators=[]),
+            ScenarioBranch(scenario_name="Scenario B: Disruption & Friction", probability=0.40, key_drivers=[], early_indicators=[])
+        ]
+
+        # Fresh claim from today
+        fresh_claim = types.SimpleNamespace(
+            asserted_fact="Active sanctions and naval chokepoint interdiction operations",
+            reliability_weight=1.0,
+            evidence_status="sufficient",
+            date="2026-09-22",
+            claim_type="PHYSICAL_PRESENCE",
+            epistemic_tier="TIER_1_PHYSICAL"
+        )
+        res_fresh = ForecastingEngine.update_scenario_probabilities(scenarios, [fresh_claim], reference_date="2026-09-22")
+        p_fresh_disruption = next(s.probability for s in res_fresh if "Disruption" in s.scenario_name)
+
+        # Stale claim from 360 days ago (4 half-lives, weight ~0.0625)
+        stale_claim = types.SimpleNamespace(
+            asserted_fact="Active sanctions and naval chokepoint interdiction operations",
+            reliability_weight=1.0,
+            evidence_status="sufficient",
+            date="2025-09-27",
+            claim_type="PHYSICAL_PRESENCE",
+            epistemic_tier="TIER_1_PHYSICAL"
+        )
+        res_stale = ForecastingEngine.update_scenario_probabilities(scenarios, [stale_claim], reference_date="2026-09-22")
+        p_stale_disruption = next(s.probability for s in res_stale if "Disruption" in s.scenario_name)
+
+        # Fresh disruption evidence must shift probability more aggressively than 1-year stale claim
+        assert p_fresh_disruption > p_stale_disruption
+
+    def test_event_store_temporal_weighted_events(self):
+        """Verify EventStore retrieves events annotated with decay weights, exempting statutory baselines."""
+        from geo_engine.storage.event_store import EventStore
+
+        store = EventStore()
+        events = store.get_events_with_temporal_weights(reference_date="2026-09-22", half_life_days=90.0)
+        assert len(events) > 0
+        for evt in events:
+            assert "temporal_decay_weight" in evt
+            assert 0.0 <= evt["temporal_decay_weight"] <= 1.0
+            cat = (evt.get("category") or "").lower()
+            if any(k in cat for k in ["treaty", "legal", "statute", "sovereign_redline", "monetary_architecture"]):
+                assert evt["temporal_decay_weight"] == 1.0
+
+    def test_institutional_lawfare_pundit_credibility(self):
+        """Verify InstitutionalLawfareLens calculate_pundit_credibility evaluates commentator discourse."""
+        from geo_engine.lenses.institutional_lawfare import InstitutionalLawfareLens
+
+        # High diagnostic, low operational feasibility (typical normative critique)
+        normative = InstitutionalLawfareLens.calculate_pundit_credibility(0.90, 0.25)
+        assert normative["credibility_score"] == 0.225
+        assert normative["discourse_category"] == "Rhetorical / Normative Critique (High Diagnostic, Low Operational Execution)"
+        assert normative["operational_actionability"] == "LOW"
+        assert normative["statutory_execution_barrier_identified"] is True
+
+        # High diagnostic, high operational feasibility (actionable statecraft)
+        statecraft = InstitutionalLawfareLens.calculate_pundit_credibility(0.85, 0.75)
+        assert statecraft["credibility_score"] == 0.6375
+        assert statecraft["discourse_category"] == "Actionable Statecraft / Strategic Doctrine"
+        assert statecraft["operational_actionability"] == "HIGH"
+
+        # Low diagnostic, low operational feasibility (noise)
+        noise = InstitutionalLawfareLens.calculate_pundit_credibility(0.20, 0.30)
+        assert noise["operational_actionability"] == "NEGLIGIBLE"
+
+    def test_hybrid_covert_state_resistance_threshold(self):
+        """Verify HybridCovertLens calculate_state_resistance_threshold models street-veto vs state resolve."""
+        from geo_engine.lenses.hybrid_covert import HybridCovertLens
+
+        # Case 1: Disruption exceeds threshold near elections -> vulnerable
+        vuln = HybridCovertLens.calculate_state_resistance_threshold(
+            core_salience=0.80,
+            coalition_cushion=0.60,
+            disruption_cost=0.75,
+            election_proximity_months=3.0
+        )
+        assert vuln["electoral_discount_factor"] < 1.0
+        assert vuln["state_resistance_threshold"] < 0.75
+        assert vuln["state_posture"] == "VULNERABLE_TO_STREET_VETO"
+        assert vuln["capitulation_probability"] > 0.50
+
+        # Case 2: Distant election (36 months) with resilient coalition -> resolve holds
+        resilient = HybridCovertLens.calculate_state_resistance_threshold(
+            core_salience=0.90,
+            coalition_cushion=0.85,
+            disruption_cost=0.40,
+            election_proximity_months=36.0
+        )
+        assert resilient["electoral_discount_factor"] == 1.0
+        assert resilient["state_resistance_threshold"] > 0.40
+        assert resilient["state_posture"] == "RESILIENT_STATE_ENFORCEMENT"
+        assert resilient["capitulation_probability"] < 0.50
+
+    def test_event_store_phase53_statutory_and_middle_east_seeds(self):
+        """Verify EventStore seeds Places of Worship Act, Waqf Act, HRCE and Middle East 2024-2026 events."""
+        from geo_engine.storage.event_store import EventStore
+
+        store = EventStore()
+        clauses = store.get_mandatory_baseline_clauses()
+        clause_ids = {c["clause_id"] for c in clauses}
+        assert "CLAUSE-1991-POWA" in clause_ids
+        assert "CLAUSE-1995-WAQF" in clause_ids
+        assert "CLAUSE-1951-HRCE" in clause_ids
+
+        # Check Middle East events
+        red_sea = store.query_events("Red Sea Corridor Disruption")
+        assert len(red_sea) >= 1
+        assert "Suez Canal" in red_sea[0]["summary"]
+
+        syria = store.query_events("Fall of the Assad Regime")
+        assert len(syria) >= 1
+        assert "Assad" in syria[0]["summary"]
+
+        israel_iran = store.query_events("Operation Days of Repentance")
+        assert len(israel_iran) >= 1
+        assert "S-300" in israel_iran[0]["summary"]
+
+    def test_audio_stream_connector_end_to_end(self):
+        """Verify AudioStreamConnector extracts media ID, fetches transcripts, and normalizes claims."""
+        from geo_engine.video.audio_stream import AudioStreamConnector
+        from geo_engine.ingestion.models import ClaimItem
+
+        conn = AudioStreamConnector()
+
+        # 1. Media ID extraction
+        yt_id = conn.extract_media_id("https://www.youtube.com/watch?v=weXHMJBrC4I")
+        assert yt_id == "weXHMJBrC4I"
+
+        podcast_id = conn.extract_media_id("https://example.com/podcast/episode123.mp3")
+        assert podcast_id.startswith("MED-")
+
+        # 2. Fetch transcript (with fallback/caption support)
+        transcript = conn.fetch_stream_transcript("https://www.youtube.com/watch?v=weXHMJBrC4I")
+        assert transcript.media_id == "weXHMJBrC4I"
+        assert len(transcript.segments) > 0
+        assert transcript.full_text != ""
+
+        # 3. Claims generation
+        claims = conn.transcript_to_claims(transcript, target_lenses=["InstitutionalLawfareLens"])
+        assert len(claims) > 0
+        assert isinstance(claims[0], ClaimItem)
+        assert "InstitutionalLawfareLens" in claims[0].target_lenses
+
+    def test_readme_phase53_test_count_parity(self):
+        """Verify README.md reflects 188 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "188 comprehensive unit and integration tests" in content
+
 
 
 

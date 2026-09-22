@@ -4,9 +4,46 @@ Separates geopolitical analysis into four rigorous epistemic strata:
 Observed, Inferred, Scenario, and Calibrated Forecast with statistical verification.
 """
 
+import math
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 from ..core.models import get_system_reference_date
+
+
+def calculate_temporal_decay(
+    event_date: str,
+    reference_date: Optional[str] = None,
+    half_life_days: float = 90.0
+) -> float:
+    """
+    Calculates exponential temporal decay weight: w(t) = exp(-ln(2) * delta_t / tau).
+    For statutory treaties, constitutional articles, and legal covenants, tau = inf, returning 1.0.
+    For volatile macro telemetry and headline events, default tau = 90.0 days.
+    """
+    if half_life_days <= 0 or math.isinf(half_life_days):
+        return 1.0
+
+    try:
+        cleaned_event_date = str(event_date).strip()[:10]
+        evt_dt = datetime.strptime(cleaned_event_date, "%Y-%m-%d")
+
+        if reference_date:
+            cleaned_ref_date = str(reference_date).strip()[:10]
+            ref_dt = datetime.strptime(cleaned_ref_date, "%Y-%m-%d")
+        else:
+            ref_dt = get_system_reference_date()
+            if hasattr(ref_dt, "tzinfo") and ref_dt.tzinfo is not None:
+                ref_dt = ref_dt.replace(tzinfo=None)
+
+        delta_days = (ref_dt - evt_dt).total_seconds() / 86400.0
+        if delta_days <= 0:
+            return 1.0
+
+        decay = math.exp(-(math.log(2.0) * delta_days) / half_life_days)
+        return round(float(decay), 4)
+    except Exception:
+        return 1.0
 
 
 class ScenarioBranch(BaseModel):
@@ -56,17 +93,26 @@ class BrierScorer:
 class ForecastingEngine:
     """Generates calibrated probabilistic scenarios for multilateral events."""
 
+    @staticmethod
+    def calculate_temporal_decay(
+        event_date: str,
+        reference_date: Optional[str] = None,
+        half_life_days: float = 90.0
+    ) -> float:
+        return calculate_temporal_decay(event_date, reference_date, half_life_days)
+
     @classmethod
     def update_scenario_probabilities(
         cls,
         scenarios: List[ScenarioBranch],
-        evidence_claims: Optional[List[Any]] = None
+        evidence_claims: Optional[List[Any]] = None,
+        reference_date: Optional[str] = None
     ) -> List[ScenarioBranch]:
         """
         Applies Reliability-Weighted Heuristic Updating (discrete quasi-Bayesian likelihood updating)
-        to scenario branches based on incoming evidence claims.
+        to scenario branches based on incoming evidence claims with exponential temporal decay.
         Ensures the sum of all updated probabilities strictly equals 1.0 while explicitly bounding
-        scenario uncertainty according to epistemic reliability weights.
+        scenario uncertainty according to epistemic reliability weights and recency.
         """
         if not evidence_claims or not scenarios:
             return scenarios
@@ -80,13 +126,38 @@ class ForecastingEngine:
         if not valid_claims:
             return scenarios
 
-        # Weight claim contributions by their epistemic reliability weight
+        # Helper to compute effective weight combining epistemic reliability and temporal decay
+        def _get_effective_claim_weight(claim: Any) -> float:
+            base_rel = float(getattr(claim, "reliability_weight", 1.0))
+            # Determine if claim is perpetual statutory/treaty/constitutional (tau = inf)
+            claim_type = str(getattr(claim, "claim_type", ""))
+            epistemic_tier = str(getattr(claim, "epistemic_tier", ""))
+            fact_text = getattr(claim, "asserted_fact", getattr(claim, "assertion", ""))
+            is_statutory = (
+                "LEGAL_COMMITMENT" in claim_type or
+                "TIER_3" in epistemic_tier or
+                any(kw in fact_text.lower() for kw in ["treaty", "statute", "clause", "act 19", "act 20", "constitution", "article 10", "article 44", "article 30"])
+            )
+            tau = float("inf") if is_statutory else 90.0
+            claim_dt = (
+                getattr(claim, "event_date", None) or
+                getattr(claim, "date", None) or
+                getattr(claim, "created_at", None) or
+                getattr(claim, "timestamp", None)
+            )
+            if claim_dt:
+                decay = calculate_temporal_decay(str(claim_dt), reference_date=reference_date, half_life_days=tau)
+            else:
+                decay = 1.0
+            return round(base_rel * decay, 4)
+
+        # Weight claim contributions by their effective reliability and temporal recency
         sanction_or_covert_count = sum(
-            getattr(c, "reliability_weight", 1.0) for c in valid_claims
+            _get_effective_claim_weight(c) for c in valid_claims
             if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in ["sanction", "fatf", "ofac", "intercept", "chokepoint", "infiltrat", "migrant"])
         )
         sinocentric_or_friction_count = sum(
-            getattr(c, "reliability_weight", 1.0) for c in valid_claims
+            _get_effective_claim_weight(c) for c in valid_claims
             if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in ["cips", "yuan", "pla", "border tension", "dispute", "lac"])
         )
 
