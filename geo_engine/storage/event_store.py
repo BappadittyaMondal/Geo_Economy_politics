@@ -68,6 +68,23 @@ class EventStore:
                     FOREIGN KEY(session_id) REFERENCES wargame_sessions(session_id)
                 )
             """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS prediction_scorecard (
+                    prediction_id TEXT PRIMARY KEY,
+                    session_label TEXT,
+                    prediction_text TEXT NOT NULL,
+                    domain TEXT,
+                    lens_source TEXT,
+                    forecast_probability REAL,
+                    time_horizon_months INTEGER,
+                    created_at TEXT NOT NULL,
+                    outcome_recorded_at TEXT,
+                    outcome_description TEXT,
+                    outcome_binary INTEGER,
+                    brier_score REAL,
+                    status TEXT DEFAULT 'PENDING'
+                )
+            """)
 
             # Seed Phase 53 baseline statutory clauses idempotently
             cursor.executemany("""
@@ -272,6 +289,23 @@ class EventStore:
                     details_json TEXT,
                     created_at TEXT,
                     FOREIGN KEY(session_id) REFERENCES wargame_sessions(session_id)
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS prediction_scorecard (
+                    prediction_id TEXT PRIMARY KEY,
+                    session_label TEXT,
+                    prediction_text TEXT NOT NULL,
+                    domain TEXT,
+                    lens_source TEXT,
+                    forecast_probability REAL,
+                    time_horizon_months INTEGER,
+                    created_at TEXT NOT NULL,
+                    outcome_recorded_at TEXT,
+                    outcome_description TEXT,
+                    outcome_binary INTEGER,
+                    brier_score REAL,
+                    status TEXT DEFAULT 'PENDING'
                 )
             """)
 
@@ -1047,4 +1081,102 @@ class EventStore:
             rows = cursor.fetchall()
             return [dict(r) for r in rows]
 
+    def record_prediction(
+        self,
+        prediction_text: str,
+        forecast_probability: float,
+        domain: str = "general",
+        lens_source: str = "",
+        time_horizon_months: int = 12,
+        session_label: str = ""
+    ) -> str:
+        """
+        Records a new prediction in the cross-session scorecard.
+        Returns the prediction_id for future outcome resolution.
+
+        Cross-session Prediction Memory: bridges the engine's self-learning loop —
+        predictions recorded here persist across all future conversations and can be
+        resolved with actual outcomes to generate Brier score calibration feedback.
+        """
+        import hashlib
+        from datetime import datetime, timezone
+        now_str = datetime.now(timezone.utc).isoformat()
+        pred_id = "PRED-" + hashlib.sha256(
+            f"{prediction_text}{now_str}".encode("utf-8")
+        ).hexdigest()[:10].upper()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR IGNORE INTO prediction_scorecard
+                (prediction_id, session_label, prediction_text, domain, lens_source,
+                 forecast_probability, time_horizon_months, created_at, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'PENDING')
+            """, (pred_id, session_label, prediction_text, domain, lens_source,
+                  round(float(forecast_probability), 4), time_horizon_months, now_str))
+            conn.commit()
+        return pred_id
+
+    def resolve_prediction(
+        self,
+        prediction_id: str,
+        outcome_binary: int,
+        outcome_description: str = ""
+    ) -> Dict[str, Any]:
+        """
+        Resolves a pending prediction with the actual binary outcome (1=correct, 0=wrong).
+        Calculates and persists the Brier score: (forecast_p - outcome)^2.
+        Returns the resolved scorecard entry.
+        """
+        from datetime import datetime, timezone
+        now_str = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT prediction_id, forecast_probability FROM prediction_scorecard WHERE prediction_id = ?",
+                (prediction_id,)
+            )
+            row = cursor.fetchone()
+            if not row:
+                return {"error": f"Prediction {prediction_id} not found"}
+            fp = float(row["forecast_probability"])
+            o = int(outcome_binary)
+            brier = round((fp - o) ** 2, 4)
+            cursor.execute("""
+                UPDATE prediction_scorecard SET
+                    outcome_recorded_at = ?,
+                    outcome_description = ?,
+                    outcome_binary = ?,
+                    brier_score = ?,
+                    status = 'RESOLVED'
+                WHERE prediction_id = ?
+            """, (now_str, outcome_description, o, brier, prediction_id))
+            conn.commit()
+            return {
+                "prediction_id": prediction_id,
+                "forecast_probability": fp,
+                "outcome_binary": o,
+                "brier_score": brier,
+                "status": "RESOLVED"
+            }
+
+    def get_prediction_scorecard(self, status: str = "ALL", limit: int = 50) -> List[Dict[str, Any]]:
+        """
+        Returns the cross-session prediction history.
+        status: 'ALL', 'PENDING', or 'RESOLVED'
+        Sorted by creation date descending (most recent first).
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if status == "ALL":
+                cursor.execute(
+                    "SELECT * FROM prediction_scorecard ORDER BY created_at DESC LIMIT ?",
+                    (limit,)
+                )
+            else:
+                cursor.execute(
+                    "SELECT * FROM prediction_scorecard WHERE status = ? ORDER BY created_at DESC LIMIT ?",
+                    (status.upper(), limit)
+                )
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
 

@@ -152,27 +152,76 @@ class ForecastingEngine:
             return round(base_rel * decay, 4)
 
         # Weight claim contributions by their effective reliability and temporal recency
+        # 6 named domain groups replacing the original 2 — covers all scenario types
         sanction_or_covert_count = sum(
             _get_effective_claim_weight(c) for c in valid_claims
-            if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in ["sanction", "fatf", "ofac", "intercept", "chokepoint", "infiltrat", "migrant"])
+            if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in [
+                "sanction", "fatf", "ofac", "intercept", "chokepoint", "infiltrat", "migrant",
+                "lawfare", "icc", "icj", "asset freeze", "secondary sanction", "blacklist"
+            ])
         )
         sinocentric_or_friction_count = sum(
             _get_effective_claim_weight(c) for c in valid_claims
-            if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in ["cips", "yuan", "pla", "border tension", "dispute", "lac"])
+            if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in [
+                "cips", "yuan", "pla", "border tension", "dispute", "lac", "china", "beijing",
+                "belt and road", "bri", "debt trap", "sinosphere"
+            ])
+        )
+        energy_petro_count = sum(
+            _get_effective_claim_weight(c) for c in valid_claims
+            if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in [
+                "crude", "oil", "tanker", "hormuz", "bab el-mandeb", "malacca", "shadow fleet",
+                "energy", "petro", "lng", "natural gas", "opec", "refinery"
+            ])
+        )
+        food_fertilizer_count = sum(
+            _get_effective_claim_weight(c) for c in valid_claims
+            if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in [
+                "food", "fertilizer", "urea", "dap", "mop", "potash", "grain", "wheat", "rice",
+                "famine", "buffer stock", "caloric", "agriculture", "monsoon", "groundwater"
+            ])
+        )
+        military_conflict_count = sum(
+            _get_effective_claim_weight(c) for c in valid_claims
+            if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in [
+                "troop", "military", "orbat", "standoff", "clash", "galwan", "doklam",
+                "nuclear", "missile", "escalation", "conflict", "war", "operation sindoor", "balakot"
+            ])
+        )
+        tech_minerals_count = sum(
+            _get_effective_claim_weight(c) for c in valid_claims
+            if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in [
+                "semiconductor", "chip", "rare earth", "lithium", "gallium", "germanium",
+                "critical mineral", "refining monopoly", "ndfeb", "huawei", "5g", "compute"
+            ])
         )
 
         likelihoods = []
         for s in scenarios:
             l = 1.0
             s_name = s.scenario_name.lower()
-            if "disruption" in s_name or "decoupling" in s_name or "sanctions" in s_name:
+            if "disruption" in s_name or "decoupling" in s_name or "sanctions" in s_name or "lawfare" in s_name:
                 l += sanction_or_covert_count * 0.35
-            elif "sinocentric" in s_name or "capture" in s_name or "friction" in s_name:
+            elif "sinocentric" in s_name or "capture" in s_name or "friction" in s_name or "china" in s_name:
                 l += sinocentric_or_friction_count * 0.35
+            elif "energy" in s_name or "oil" in s_name or "petro" in s_name or "hormuz" in s_name:
+                l += energy_petro_count * 0.35
+            elif "food" in s_name or "fertilizer" in s_name or "famine" in s_name or "caloric" in s_name:
+                l += food_fertilizer_count * 0.35
+            elif "conflict" in s_name or "military" in s_name or "escalation" in s_name or "war" in s_name:
+                l += military_conflict_count * 0.35
+            elif "tech" in s_name or "mineral" in s_name or "semiconductor" in s_name or "supply chain" in s_name:
+                l += tech_minerals_count * 0.35
             else:
-                if sanction_or_covert_count > 0 or sinocentric_or_friction_count > 0:
-                    l = max(0.4, 1.0 - (0.15 * (sanction_or_covert_count + sinocentric_or_friction_count)))
+                total_evidence_weight = (
+                    sanction_or_covert_count + sinocentric_or_friction_count +
+                    energy_petro_count + food_fertilizer_count +
+                    military_conflict_count + tech_minerals_count
+                )
+                if total_evidence_weight > 0:
+                    l = max(0.4, 1.0 - (0.10 * total_evidence_weight))
             likelihoods.append(l)
+
 
         unnormalized = [s.probability * l for s, l in zip(scenarios, likelihoods)]
         total_prob = sum(unnormalized)

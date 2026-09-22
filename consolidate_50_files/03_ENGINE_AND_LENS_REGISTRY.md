@@ -1,7 +1,7 @@
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 95ad878
+CANONICAL_COMMIT: c384ca7
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 

@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 from .transcript_engine import TranscriptResult, TranscriptSegment, VideoTranscriptEngine
 from .url_parser import YouTubeURLParser
 from ..ingestion.models import ClaimItem, ClaimType
+from ..core.query_parser import QueryParser
 from ..ingestion.telemetry_adapter import MacroTelemetryAdapter
 from ..core.models import EpistemicTier
 from ..storage.event_store import EventStore
@@ -106,6 +107,10 @@ class AudioStreamConnector:
         """
         Transforms transcript segments into epistemically tiered ClaimItem records
         suitable for ingestion into the SQLite EventStore and multi-lens evaluators.
+
+        If target_lenses is not specified, dynamically detects relevant lenses for each
+        chunk using QueryParser.LENS_KEYWORDS, routing claims across all 20 analytical
+        optics based on the actual transcript content.
         """
         raw_records = []
         # Group transcript segments into ~30-60 second chunks for coherent claim representation
@@ -113,16 +118,32 @@ class AudioStreamConnector:
         chunk_start = 0.0
         chunk_idx = 0
 
+        def _detect_lenses_from_text(text: str) -> List[str]:
+            """Scans chunk text against QueryParser.LENS_KEYWORDS to detect relevant lenses."""
+            text_lower = text.lower()
+            detected = []
+            for lens_name, keywords in QueryParser.LENS_KEYWORDS.items():
+                if any(kw in text_lower for kw in keywords):
+                    detected.append(lens_name)
+            # Always include at minimum the two baseline lenses for political/economic video content
+            if "institutional_lawfare" not in detected:
+                detected.append("institutional_lawfare")
+            if "geopolitical" not in detected:
+                detected.append("geopolitical")
+            return detected
+
         for seg in transcript.segments:
             chunk_text.append(seg.text)
             if (seg.start - chunk_start) >= 45.0 or seg == transcript.segments[-1]:
                 combined = " ".join(chunk_text).strip()
                 if combined:
+                    # Use caller-provided lenses if given; otherwise detect dynamically
+                    chunk_lenses = target_lenses if target_lenses else _detect_lenses_from_text(combined)
                     raw_records.append({
                         "id": f"AUD-{transcript.media_id}-{chunk_idx:02d}",
                         "text": combined,
                         "source_id": f"SRC-AUDIO-{transcript.media_id}",
-                        "target_lenses": target_lenses or ["InstitutionalLawfareLens", "GeopoliticalLens"],
+                        "target_lenses": chunk_lenses,
                         "reliability_weight": default_reliability
                     })
                     chunk_idx += 1
@@ -130,15 +151,17 @@ class AudioStreamConnector:
                 chunk_start = seg.end
 
         if not raw_records and transcript.full_text:
+            fallback_lenses = target_lenses if target_lenses else _detect_lenses_from_text(transcript.full_text[:500])
             raw_records.append({
                 "id": f"AUD-{transcript.media_id}-00",
                 "text": transcript.full_text[:500],
                 "source_id": f"SRC-AUDIO-{transcript.media_id}",
-                "target_lenses": target_lenses or ["InstitutionalLawfareLens", "GeopoliticalLens"],
+                "target_lenses": fallback_lenses,
                 "reliability_weight": default_reliability
             })
 
         return MacroTelemetryAdapter.normalize_telemetry(raw_records)
+
 
     @classmethod
     def ingest_media_url(

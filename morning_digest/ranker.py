@@ -137,9 +137,12 @@ class StrategicNewsRanker:
         # Resilient EventStore fallback if live external feeds are unavailable or degraded
         if not scored_items and is_default_query:
             try:
+                import math
+                from datetime import datetime, timezone
                 from geo_engine.storage.event_store import EventStore
                 store = EventStore()
                 db_events = store.query_events("")
+                now_dt = datetime.now(timezone.utc).replace(tzinfo=None)
                 for ev in db_events:
                     title = ev.get("title", "")
                     summary = ev.get("summary", "")
@@ -150,20 +153,36 @@ class StrategicNewsRanker:
                     seen_texts.add(cleaned_text)
 
                     meta = cls.score_headline(cleaned_text)
+                    base_score = meta["strategic_score"]
+
+                    # Apply temporal decay: w(t) = exp(-ln2 * delta_days / tau)
+                    # tau=365 days for archived sovereign events (slower decay than 90-day RSS)
+                    event_date_str = str(ev.get("date", ""))[:10]
+                    temporal_weight = 1.0
+                    if event_date_str and len(event_date_str) == 10:
+                        try:
+                            ev_dt = datetime.strptime(event_date_str, "%Y-%m-%d")
+                            delta_days = max(0.0, (now_dt - ev_dt).total_seconds() / 86400.0)
+                            temporal_weight = round(math.exp(-(math.log(2.0) * delta_days) / 365.0), 4)
+                        except Exception:
+                            temporal_weight = 1.0
+                    decayed_score = round(base_score * temporal_weight, 4)
+
                     actor_str = ev.get("actor", "Sovereign Telemetry")
                     scored_items.append({
                         "source": f"EventStore: {actor_str}",
-                        "timestamp": str(ev.get("date", ""))[:16],
+                        "timestamp": event_date_str,
                         "headline": cleaned_text,
                         "category": meta["primary_domain"].replace("_", " ").title(),
-                        "strategic_score": meta["strategic_score"],
-                        "requires_deep_dive": meta["requires_deep_dive"],
+                        "strategic_score": decayed_score,
+                        "requires_deep_dive": decayed_score >= 0.70,
                         "lens_tags": meta.get("lens_tags", []),
                         "india_impact_score": meta.get("india_impact_score", 0.0),
                         "provenance_url": f"sqlite://events.db/{ev.get('event_id', '')}"
                     })
             except Exception:
                 pass
+
 
         # Sort by strategic relevance descending (with India impact tie-breaker)
         scored_items.sort(key=lambda x: (x["strategic_score"], x.get("india_impact_score", 0.0)), reverse=True)
