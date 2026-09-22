@@ -102,6 +102,7 @@ class StrategicNewsRanker:
         Ranks ingested evidence items and outputs the top-N strategic digest.
         If evidence_items is not supplied, queries default live open sources.
         """
+        is_default_query = (evidence_items is None)
         if not evidence_items:
             evidence_items = SovereignRSSClient.fetch_primary_statements()
             evidence_items += GDELTClient.query_events("India geopolitical economy", max_records=25)
@@ -132,6 +133,37 @@ class StrategicNewsRanker:
                 "india_impact_score": meta.get("india_impact_score", 0.0),
                 "provenance_url": item.provenance_url
             })
+
+        # Resilient EventStore fallback if live external feeds are unavailable or degraded
+        if not scored_items and is_default_query:
+            try:
+                from geo_engine.storage.event_store import EventStore
+                store = EventStore()
+                db_events = store.query_events("")
+                for ev in db_events:
+                    title = ev.get("title", "")
+                    summary = ev.get("summary", "")
+                    text = f"{title}. {summary}" if summary else title
+                    cleaned_text = text.strip()
+                    if not cleaned_text or len(cleaned_text) < 15 or cleaned_text in seen_texts:
+                        continue
+                    seen_texts.add(cleaned_text)
+
+                    meta = cls.score_headline(cleaned_text)
+                    actor_str = ev.get("actor", "Sovereign Telemetry")
+                    scored_items.append({
+                        "source": f"EventStore: {actor_str}",
+                        "timestamp": str(ev.get("date", ""))[:16],
+                        "headline": cleaned_text,
+                        "category": meta["primary_domain"].replace("_", " ").title(),
+                        "strategic_score": meta["strategic_score"],
+                        "requires_deep_dive": meta["requires_deep_dive"],
+                        "lens_tags": meta.get("lens_tags", []),
+                        "india_impact_score": meta.get("india_impact_score", 0.0),
+                        "provenance_url": f"sqlite://events.db/{ev.get('event_id', '')}"
+                    })
+            except Exception:
+                pass
 
         # Sort by strategic relevance descending (with India impact tie-breaker)
         scored_items.sort(key=lambda x: (x["strategic_score"], x.get("india_impact_score", 0.0)), reverse=True)

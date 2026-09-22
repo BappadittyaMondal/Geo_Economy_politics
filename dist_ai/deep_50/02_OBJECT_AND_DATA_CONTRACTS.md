@@ -1,7 +1,7 @@
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 8862172
+CANONICAL_COMMIT: 95ad878
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 

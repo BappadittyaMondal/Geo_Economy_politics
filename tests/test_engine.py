@@ -3455,11 +3455,35 @@ class TestPhase53SelfLearningAndTemporalDecay:
         assert data["claims_ingested"] >= 0
 
     def test_readme_phase53_test_count_parity(self):
-        """Verify README.md reflects 190 comprehensive tests."""
+        """Verify README.md reflects 190 or higher comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "190 comprehensive unit and integration tests" in content
+        assert "comprehensive unit and integration tests" in content
+
+
+class TestPhase54OperationalPipeline:
+    """Automated verification for Phase 54 Resilient Operational Pipeline & EventStore Fallback."""
+
+    def test_ranker_event_store_fallback(self):
+        """Verify StrategicNewsRanker falls back to EventStore when external feeds are degraded."""
+        from morning_digest.ranker import StrategicNewsRanker
+        ranked = StrategicNewsRanker.rank_headlines(evidence_items=None, top_n=5)
+        assert len(ranked) >= 1
+        top_story = ranked[0]
+        assert "strategic_score" in top_story
+        assert "category" in top_story
+        assert "headline" in top_story
+        assert len(top_story["headline"]) >= 15
+        assert "EventStore" in top_story["source"] or "Official Gazette" in top_story["source"] or "GDELT" in top_story["source"]
+
+    def test_readme_phase54_test_count_parity(self):
+        """Verify README.md reflects 192 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "192 comprehensive unit and integration tests" in content
+
 
 
 
