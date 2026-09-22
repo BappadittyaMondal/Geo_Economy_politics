@@ -3220,7 +3220,7 @@ class TestPhase52McpAndMacroRecalculation:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(f"{c} comprehensive unit and integration tests" in content for c in (179, 188))
+        assert "comprehensive unit and integration tests" in content
 
 
 class TestPhase53SelfLearningAndTemporalDecay:
@@ -3409,12 +3409,57 @@ class TestPhase53SelfLearningAndTemporalDecay:
         assert isinstance(claims[0], ClaimItem)
         assert "InstitutionalLawfareLens" in claims[0].target_lenses
 
+    def test_event_store_record_claim(self):
+        """Verify EventStore record_claim method persists claim items into SQLite events table."""
+        from geo_engine.storage.event_store import EventStore
+        from geo_engine.ingestion.models import ClaimItem, ClaimType, EpistemicTier
+
+        store = EventStore()
+        claim = ClaimItem(
+            claim_id="TEST-CLM-REC-01",
+            source_evidence_id="SRC-TEST-01",
+            claim_type=ClaimType.LEGAL_COMMITMENT,
+            epistemic_tier=EpistemicTier.TIER_3_SOVEREIGN_REDLINES,
+            actors=["India", "Global"],
+            asserted_fact="Bilateral currency clearing and local debt recycling verified.",
+            target_lenses=["InstitutionalLawfareLens", "GeoEconomistLens"]
+        )
+        store.record_claim(claim)
+        found = store.query_events("Bilateral currency clearing")
+        assert len(found) >= 1
+        assert "EVT-TEST-CLM-REC-01" in [e["event_id"] for e in found]
+
+    def test_mcp_geo_ingest_media_tool(self):
+        """Verify MCP server exposes and executes geo_ingest_media tool."""
+        from geo_engine.mcp import GeoEngineMCPServer
+        import json
+
+        server = GeoEngineMCPServer()
+        list_resp = server.handle_request({"jsonrpc": "2.0", "id": 1, "method": "tools/list", "params": {}})
+        tool_names = [t["name"] for t in list_resp["result"]["tools"]]
+        assert "geo_ingest_media" in tool_names
+
+        call_resp = server.handle_request({
+            "jsonrpc": "2.0",
+            "id": 2,
+            "method": "tools/call",
+            "params": {
+                "name": "geo_ingest_media",
+                "arguments": {"url": "weXHMJBrC4I", "target_lenses": ["InstitutionalLawfareLens"]}
+            }
+        })
+        assert "result" in call_resp
+        content_txt = call_resp["result"]["content"][0]["text"]
+        data = json.loads(content_txt)
+        assert data["media_id"] == "weXHMJBrC4I"
+        assert data["claims_ingested"] >= 0
+
     def test_readme_phase53_test_count_parity(self):
-        """Verify README.md reflects 188 comprehensive tests."""
+        """Verify README.md reflects 190 comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "188 comprehensive unit and integration tests" in content
+        assert "190 comprehensive unit and integration tests" in content
 
 
 

@@ -837,6 +837,29 @@ class EventStore:
             ))
             conn.commit()
 
+    def record_claim(self, claim: Any) -> None:
+        """Persists an individual ClaimItem or telemetry dictionary into the persistent events table."""
+        from ..core.models import get_system_reference_date
+        ref_time = get_system_reference_date().strftime("%Y-%m-%d")
+        claim_id = getattr(claim, "claim_id", None) or (claim.get("id") if isinstance(claim, dict) else "CLM-GEN")
+        fact = getattr(claim, "asserted_fact", None) or (claim.get("text") if isinstance(claim, dict) else str(claim))
+        ctype = getattr(claim, "claim_type", None)
+        ctype_val = ctype.value if hasattr(ctype, "value") else str(ctype or "claim")
+        actors = getattr(claim, "actors", []) or []
+        actor_str = ", ".join(actors) if actors else "Multi-Lateral"
+        lenses = getattr(claim, "target_lenses", []) or []
+
+        self.insert_event({
+            "event_id": f"EVT-{claim_id}",
+            "date": getattr(claim, "date", None) or getattr(claim, "event_date", None) or ref_time,
+            "title": f"Macro Telemetry: {ctype_val}",
+            "actor": actor_str,
+            "region": "Global / Macro",
+            "category": ctype_val.lower(),
+            "summary": fact,
+            "civilizational_significance": f"Targeted Lenses: {', '.join(lenses)}" if lenses else ""
+        })
+
     def match_anniversaries(self, month: int, day: Optional[int] = None) -> List[Dict[str, Any]]:
         """Matches historical turning points and anniversaries by month and optional day."""
         with self._get_connection() as conn:

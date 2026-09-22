@@ -145,6 +145,25 @@ class GeoEngineMCPServer:
                 },
                 "required": ["nominal_output", "output_deflator", "nominal_input", "input_deflator"]
             }
+        },
+        {
+            "name": "geo_ingest_media",
+            "description": "Extract captions/transcript and ingest verified claims from a YouTube or media URL.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "description": "YouTube or media stream URL to ingest."
+                    },
+                    "target_lenses": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Optional list of lenses to tag the extracted claims with."
+                    }
+                },
+                "required": ["url"]
+            }
         }
     ]
 
@@ -346,6 +365,17 @@ class GeoEngineMCPServer:
                 output_deflator=output_def,
                 nominal_input=input_nom,
                 input_deflator=input_def
+            )
+            return res
+
+        elif tool_name == "geo_ingest_media":
+            from ..video import AudioStreamConnector
+            url = str(arguments["url"])
+            target_lenses = arguments.get("target_lenses")
+            res = AudioStreamConnector.ingest_media_url(
+                url_or_id=url,
+                store=self.store,
+                target_lenses=target_lenses
             )
             return res
 
