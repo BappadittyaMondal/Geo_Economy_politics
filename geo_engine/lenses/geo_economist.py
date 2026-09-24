@@ -32,7 +32,8 @@ class GeoEconomistLens:
             "New Development Bank (NDB) Constraints: Despite political rhetoric, NDB remains partially reliant on Western debt markets and USD/EUR liquidity for high credit ratings, limiting aggressive non-dollar balance sheet expansion.",
             "Central Bank Gold Repatriation: India, China, Poland, and Turkey collectively acquiring 1000+ tonnes/year in physical gold, representing the single largest de-dollarization signal in sovereign reserve management.",
             "China Bilateral Trade Gap & Customs Divergence: Systematic $17-20 Billion annual discrepancy between Indian DGFT ($101.7B imports) and Chinese GACC ($118.5B exports) reflects duty-evasion under-invoicing, ASEAN transshipment, and unrecorded trade flows.",
-            "Macro Accounting & GDP Discrepancy Risk: Headline GDP growth influenced by statistical discrepancies reaching 2.5-3.8% of GDP alongside single-deflation distortion in real manufacturing GVA."
+            "Macro Accounting & GDP Discrepancy Risk: Headline GDP growth influenced by statistical discrepancies reaching 2.5-3.8% of GDP alongside single-deflation distortion in real manufacturing GVA.",
+            "De-Dollarization Architecture vs. Eurodollar Short-Squeeze Dynamics: While physical gold accumulation (1000+ t/yr) and mBridge multi-CBDC platforms reduce USD transaction reliance in primary commodity trade, the structural overhang of $13+ Trillion in offshore non-bank dollar-denominated liabilities creates recurrent liquidity shortages that temporarily strengthen fiat dollar pricing, making de-dollarization a non-linear structural decay over 2030–2045 rather than an immediate linear collapse."
         ]
 
         metrics = {
@@ -46,7 +47,9 @@ class GeoEconomistLens:
             "sovereign_debt_reinvestment_ratio": 0.65,
             "china_bilateral_trade_gap_usd_b": 18.5,
             "gdp_discrepancy_item_risk_pct": 3.2,
-            "single_deflation_distortion_flag": True
+            "single_deflation_distortion_flag": True,
+            "eurodollar_short_squeeze_resilience": 0.65,
+            "mbridge_multilateral_clearing_status": "Operational MVP (2024); founding central banks operating multi-CBDC rails while Western press periodically recycles BIS phase-out rumors"
         }
 
         alignment = 0.55

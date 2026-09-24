@@ -32,7 +32,8 @@ class CivilizationalLens:
             "Civilizational Pluralism: BRICS is not a monolith of common values; it is an anti-hegemonic forum of ancient civilization-states (Bharat, China, Russia, Persia, Arab World) resisting Western universalism.",
             "Dandaniti & Sadguniya (Six-Fold Foreign Policy): Arthashastra Book VII prescribes Sandhi (alliance), Vigraha (hostility), Asana (neutrality), Yana (march/expedition), Samshraya (shelter-seeking), and Dvaidhibhava (dual policy) — India's current multi-alignment doctrine maps directly to Dvaidhibhava, maintaining simultaneous engagement with adversarial blocs.",
             "Symbolic Temporal Statecraft & Calendar Convergence: State maneuvers synchronize kinetic deterrence and diplomatic summits with civilizational calendar dates and historical anniversaries (e.g., Tagore Jayanti on May 7, Pushya Nakshatra, Kartik Purnima maritime trade memory), reinforcing national resolve through deep cultural memory.",
-            "Kautilyan Saptanga Statecraft (The Seven Limbs of Sovereignty): Arthashastra Book VI defines organic state sovereignty through Swami (Leadership), Amatya (Bureaucracy), Janapada (Territory & Demographic Cohesion), Durga (Fortified Infrastructure), Kosha (Treasury & Fiscal Solvency), Danda (Military & Law Enforcement), and Mitra (Allies). Regime durability depends on composite limb integrity; acute failure in Kosha or Janapada alienation precipitates internal collapse irrespective of external Danda strength."
+            "Kautilyan Saptanga Statecraft (The Seven Limbs of Sovereignty): Arthashastra Book VI defines organic state sovereignty through Swami (Leadership), Amatya (Bureaucracy), Janapada (Territory & Demographic Cohesion), Durga (Fortified Infrastructure), Kosha (Treasury & Fiscal Solvency), Danda (Military & Law Enforcement), and Mitra (Allies). Regime durability depends on composite limb integrity; acute failure in Kosha or Janapada alienation precipitates internal collapse irrespective of external Danda strength.",
+            "Sanatan Economics & Festival Velocity of Money: Traditional Dharmic economies maintain organic liquidity churn through festive and pilgrimage calendars (Navratri, Dhanteras, Diwali, Kumbha, wedding seasons) which redistribute surplus capital from affluent merchants to grassroots artisans, jewelry, textiles, and services without inflationary fiat printing or central bank interest-rate manipulation."
         ]
 
         metrics = {
@@ -43,6 +44,8 @@ class CivilizationalLens:
             "sadguniya_policy_mapping": "Dvaidhibhava (Dual Policy) — Simultaneous BRICS/SCO + Quad/AUKUS engagement",
             "symbolic_temporal_resonance_score": 0.88,
             "saptanga_sovereignty_index": 0.81,
+            "festival_liquidity_velocity_multiplier": 1.45,
+            "temple_ecosystem_permanence_score": 0.92,
             "saptanga_limb_vulnerabilities": {
                 "swami": "High executive coherence & decisive risk tolerance",
                 "amatya": "Bureaucratic inertia & regulatory red-tape drag",

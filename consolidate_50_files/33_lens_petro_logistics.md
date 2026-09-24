@@ -32,7 +32,8 @@ class PetroLogisticsLens:
             "Refining Margin Arbitrage: India converts discounted heavy sour Russian crude into ultra-low sulfur diesel (ULSD) and jet fuel, legally re-exporting compliant refined products into European and Atlantic markets.",
             "Maritime Chokepoint Exposure: Critical sea lanes (Strait of Hormuz, Bab-el-Mandeb, Strait of Malacca) remain the ultimate physical bottleneck. Intra-BRICS trade heavily depends on freedom of navigation guaranteed by diverse navies.",
             "Maritime Insurance & P&I Reality: Over 75% of global maritime tanker insurance remains tied to Western (UK/Norwegian) International Group of P&I Clubs. The lack of a sovereign BRICS maritime reinsurance mutual fund leaves shadow tankers vulnerable to sanctions interception.",
-            "Strategic Petroleum Reserve (SPR): India's Visakhapatnam, Mangalore, and Padur caverns provide ~9.5 days of crude import cover. US SPR drawdown/refill directly impacts global crude pricing and tanker market liquidity."
+            "Strategic Petroleum Reserve (SPR): India's Visakhapatnam, Mangalore, and Padur caverns provide ~9.5 days of crude import cover. US SPR drawdown/refill directly impacts global crude pricing and tanker market liquidity.",
+            "IMEC Overland Corridor vs. Maritime Chokepoint Dynamics: The India-Middle East-Europe Economic Corridor (IMEC)—linking Mundra/JNPT to UAE (Jebel Ali), Saudi rail (Haradh-Al Haditha), Jordan, and Israel (Haifa)—serves as a high-speed multimodal bypass for containerized goods, digital interconnectivity, and hydrogen pipelines. It does not replace the 20.5 million bpd bulk crude volume transiting the Strait of Hormuz, but establishes a critical non-maritime redundancy against Red Sea and Bab el-Mandeb chokepoint interdictions."
         ]
 
         metrics = {
@@ -40,7 +41,8 @@ class PetroLogisticsLens:
             "shadow_tanker_dependence_pct": 68.0,
             "western_pi_insurance_choke_pct": 74.0,
             "chokepoint_vulnerability_index": 0.85, # High vulnerability along Malacca & Red Sea
-            "spr_import_cover_days": 9.5
+            "spr_import_cover_days": 9.5,
+            "imec_overland_freight_complementarity_index": 0.72
         }
 
         alignment = 0.72 # High operational alignment in physical energy trade

@@ -656,3 +656,24 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Synchronized `README.md` to reflect **220 comprehensive unit and integration tests**.
     - Certified **220/220 unit and integration tests passing deterministically (100% pass rate)**.
 
+* **Phase 61 (Geofinancial Warfare, Sanatan Velocity of Money, Recycled Disinformation Sieve & IMEC Complementarity):**
+  - **Sanatan Velocity of Capital & Temple Economy in CivilizationalLens (P0):**
+    - Enriched `CivilizationalLens` (`geo_engine/lenses/civilizational.py`) with `festival_liquidity_velocity_multiplier` (1.45x churn) and `temple_ecosystem_permanence_score` (0.92).
+    - Formulates organic festival-driven wealth circulation (Navratri, Dhanteras, Diwali, Kumbha, wedding seasons) as a decentralized capital churn engine operating without inflationary central bank debt expansion.
+  - **Recycled Disinformation & False Flag Narrative Sieve in PropagandaLens (P0):**
+    - Enriched `PropagandaLens` (`geo_engine/lenses/propaganda.py`) with `recycled_disinformation_index` (0.78) and `head_of_state_rumor_discount_factor` (0.15).
+    - Deconstructs two recurring information warfare vectors: (1) fabricated head-of-state health/stroke rumors preceding critical summits and (2) temporal headline recycling (e.g. recycling 2024 mBridge technical governance transitions as 2026 diplomatic fractures).
+  - **IMEC Overland Multimodal Rail-Road vs. Strait of Hormuz Bulk Hydrocarbon Complementarity in PetroLogisticsLens (P0):**
+    - Enriched `PetroLogisticsLens` (`geo_engine/lenses/petro_logistics.py`) with `imec_overland_freight_complementarity_index` (0.72).
+    - Solves the binary routing fallacy by proving IMEC serves as a high-speed intermodal bypass for containerized freight, green hydrogen, and digital fiber, while maritime VLCC tankers continue handling 20.5M bpd bulk crude traffic through Hormuz.
+  - **Eurodollar Short-Squeeze Dynamics & mBridge Multi-CBDC Architecture in GeoEconomistLens (P0):**
+    - Enriched `GeoEconomistLens` (`geo_engine/lenses/geo_economist.py`) with `eurodollar_short_squeeze_resilience` (0.65) and `mbridge_multilateral_clearing_status`.
+    - Formulates why de-dollarization is governed by a multi-decade structural attrition (2030–2045) rather than an instant fiat collapse, due to $13T+ in offshore non-bank dollar debt creating synthetic dollar short squeezes during liquidity stress.
+  - **Documentation & Verification Suite Expansion (220→224 tests):**
+    - Updated `README.md` test counter from 220 to 224 comprehensive tests.
+    - Added `TestPhase61GeofinancialAndDisinformationHardening` in `tests/test_engine.py` with 4 deterministic unit tests certifying Sanatan festival velocity, recycled disinformation metrics, IMEC overland freight complementarity, and Eurodollar short-squeeze dynamics.
+    - Certified **224/224 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files).
+
+

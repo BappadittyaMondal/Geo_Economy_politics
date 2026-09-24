@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3931,11 +3931,60 @@ class TestPhase60MultiPillarChronologyArbiter:
         render_chronology_arbitration("Mahabharata War Test")
 
     def test_phase60_readme_parity(self):
-        """Verify README.md reflects 220 comprehensive tests."""
+        """Verify README.md reflects 220 or 224 comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "220 comprehensive unit and integration tests" in content
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests"])
+
+
+class TestPhase61GeofinancialAndDisinformationHardening:
+    """
+    Phase 61: Sanatan festive money velocity, recycled disinformation filtering,
+    IMEC-Hormuz logistics matrix, and Eurodollar de-dollarization dynamics.
+    """
+
+    def test_civilizational_sanatan_velocity_metrics(self):
+        """Verify CivilizationalLens includes Sanatan festival velocity and temple permanence metrics."""
+        from geo_engine.lenses.civilizational import CivilizationalLens
+        from geo_engine.core.models import SummitEvent
+        ev = CivilizationalLens.evaluate(SummitEvent(summit_name="Test Summit"))
+        assert "festival_liquidity_velocity_multiplier" in ev.hard_metrics
+        assert ev.hard_metrics["festival_liquidity_velocity_multiplier"] == 1.45
+        assert "temple_ecosystem_permanence_score" in ev.hard_metrics
+        assert ev.hard_metrics["temple_ecosystem_permanence_score"] == 0.92
+        assert any("Festival Velocity of Money" in f for f in ev.key_findings)
+
+    def test_propaganda_recycled_disinformation_metrics(self):
+        """Verify PropagandaLens includes recycled disinformation and head-of-state rumor metrics."""
+        from geo_engine.lenses.propaganda import PropagandaLens
+        from geo_engine.core.models import SummitEvent
+        ev = PropagandaLens.evaluate(SummitEvent(summit_name="Test Summit"))
+        assert "recycled_disinformation_index" in ev.hard_metrics
+        assert ev.hard_metrics["recycled_disinformation_index"] == 0.78
+        assert "head_of_state_rumor_discount_factor" in ev.hard_metrics
+        assert ev.hard_metrics["head_of_state_rumor_discount_factor"] == 0.15
+        assert any("Recycled & Fabricated Crisis Narratives" in f for f in ev.key_findings)
+
+    def test_petro_logistics_imec_complementarity_metric(self):
+        """Verify PetroLogisticsLens differentiates IMEC overland freight from Hormuz bulk crude."""
+        from geo_engine.lenses.petro_logistics import PetroLogisticsLens
+        from geo_engine.core.models import SummitEvent
+        ev = PetroLogisticsLens.evaluate(SummitEvent(summit_name="Test Summit"))
+        assert "imec_overland_freight_complementarity_index" in ev.hard_metrics
+        assert ev.hard_metrics["imec_overland_freight_complementarity_index"] == 0.72
+        assert any("IMEC Overland Corridor vs. Maritime Chokepoint Dynamics" in f for f in ev.key_findings)
+
+    def test_geo_economist_eurodollar_and_mbridge_metrics(self):
+        """Verify GeoEconomistLens accounts for Eurodollar short-squeeze resilience and mBridge status."""
+        from geo_engine.lenses.geo_economist import GeoEconomistLens
+        from geo_engine.core.models import SummitEvent
+        ev = GeoEconomistLens.evaluate(SummitEvent(summit_name="Test Summit"))
+        assert "eurodollar_short_squeeze_resilience" in ev.hard_metrics
+        assert ev.hard_metrics["eurodollar_short_squeeze_resilience"] == 0.65
+        assert "mbridge_multilateral_clearing_status" in ev.hard_metrics
+        assert "Operational MVP" in ev.hard_metrics["mbridge_multilateral_clearing_status"]
+        assert any("Eurodollar Short-Squeeze Dynamics" in f for f in ev.key_findings)
 
 
 

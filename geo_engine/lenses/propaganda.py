@@ -28,7 +28,8 @@ class PropagandaLens:
             "Beijing Narrative (Xinhua): Sells the summit domestically as proof of China's uncontested leadership of the Global South and the historical decline of the West.",
             "Moscow Narrative (RT/TASS): Frames the gathering as total collapse of Western sanctions and proof of a rising Eurasian civilizational fortress.",
             "New Delhi Narrative (DD/MEA): Highlights India's role as the credible 'Vishwa-Bandhu' (universal friend) and voice of the Global South, emphasizing counter-terrorism and reformed multilateralism without anti-Western animus.",
-            "Western Narrative (Atlantic Press): Systematically frames BRICS as a fractured, autocrat-dominated coalition paralyzed by internal contradictions."
+            "Western Narrative (Atlantic Press): Systematically frames BRICS as a fractured, autocrat-dominated coalition paralyzed by internal contradictions.",
+            "Recycled & Fabricated Crisis Narratives: Digital disinformation pipelines routinely weaponize two recurring vectors: (1) Head-of-state mortality/health rumor balloons (e.g., unsubstantiated stroke/coma rumors preceding high-level summits to trigger capital flight or panic) and (2) Temporal headline recycling (re-broadcasting past multilateral developments, such as 2024 mBridge technical transitions, as contemporary diplomatic fractures) to feed algorithmic engagement and dollar-funded narrative bias."
         ]
 
         metrics = {
@@ -38,7 +39,9 @@ class PropagandaLens:
             "behavioral_conditioning_index": 0.76, # Exploitation of fear and guilt conditioning in communications
             "commercial_anxiety_capture_score": 0.82, # Monetization of societal and parental anxieties
             "societal_atomization_pressure": 0.70, # Disruption of collective civilizational networks into atomized consumers
-            "teleological_conspiracy_inflation": 0.65 # Tendency of counter-narratives to exaggerate deliberate top-down coordination
+            "teleological_conspiracy_inflation": 0.65, # Tendency of counter-narratives to exaggerate deliberate top-down coordination
+            "recycled_disinformation_index": 0.78,
+            "head_of_state_rumor_discount_factor": 0.15
         }
 
         alignment = 0.35
