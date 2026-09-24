@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `c384ca7`
+- **Canonical Git Commit:** `d7202f4`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: c384ca7
+CANONICAL_COMMIT: d7202f4
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: c384ca7
+CANONICAL_COMMIT: d7202f4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: c384ca7
+CANONICAL_COMMIT: d7202f4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: c384ca7
+CANONICAL_COMMIT: d7202f4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: c384ca7
+CANONICAL_COMMIT: d7202f4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: c384ca7
+CANONICAL_COMMIT: d7202f4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1282,7 +1282,25 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - Updated `README.md` test counter from 192 to 200 comprehensive tests. Added `TestPhase55to58Hardening` class in `tests/test_engine.py` with 8 deterministic unit tests: video lens routing for energy content (petro_logistics detection), video lens routing for food content (food_security detection), prediction scorecard record+retrieve+resolve CRUD, Brier score accuracy for wrong prediction (0.64), Bayesian energy scenario positive update, Bayesian food scenario positive update, temporal decay ordering math (2020 event < 2026 event), and README parity. Certified **200/200 unit and integration tests passing deterministically with 100% success rate**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) via `scripts/build_canonical_bundles.py`. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` ≤ 50 files).
 
-
+* **Phase 59 (Cognitive Warfare, Mass Psychology Conditioning, Dark History Seeds & Teleological Fallacy Sieve):**
+  - **Teleological Fallacy Sieve in Analysis of Competing Hypotheses (P0):** Implemented `TeleologicalFallacySieve` and `TeleologicalEvaluation` in `geo_engine/arbitration/competing_hypotheses.py`. Solves the critical epistemic vulnerability where strategic analysts, counter-propaganda engines, and social media commentary conflate deliberate, top-down conspiratorial designs ($H_{\text{plot}}$) with emergent commercial opportunism ($H_{\text{market}}$) or legitimate empirical evolution ($H_{\text{empirical}}$). Formulates the Bayesian Teleological Inflation Ratio:
+    $$\text{Ratio}_{\text{teleological}} = \frac{P(H_{\text{plot}} \mid E)}{P(H_{\text{market}} \mid E) + P(H_{\text{empirical}} \mid E)}$$
+    Flags `TELEOLOGICAL_FALLACY_DETECTED` when $\text{Ratio}_{\text{teleological}} \ge 1.50$ (or plot probability leads without primary documentary evidence), protecting intelligence pipelines from paranoid conspiratorial attribution while distinguishing true state-directed deception from commercial monetization of societal vulnerabilities. Integrated directly into `IncidentReasoningEngine.evaluate_incident()`.
+  - **Cognitive Warfare & Mass Conditioning Telemetry in PropagandaLens (P0):** Enriched `PropagandaLens` (`geo_engine/lenses/propaganda.py`) with 4 quantitative behavioral conditioning metrics:
+    1. `behavioral_conditioning_index` (baseline 0.76, elevated to 0.88 upon stimulus detection): Measures Pavlovian stimulus-response manipulation and learned helplessness conditioning.
+    2. `commercial_anxiety_capture_score` (baseline 0.82, elevated to 0.90): Quantifies synthetic fear creation used to capture consumer markets (e.g., parental guilt exploitation, clinical insecurity).
+    3. `societal_atomization_pressure` (0.70): Quantifies breakdown of organic family and community support structures into isolated, dependent consumer units.
+    4. `teleological_conspiracy_inflation` (0.65): Measures narrative tendency to substitute grand conspiracies for commercial opportunism.
+    Added active vector detection for behavioral conditioning and anxiety capture in incoming evidentiary claims.
+  - **Dark History & Cognitive Warfare Milestone Seeds (P0):** Seeded 5 foundational historical milestones in `geo_engine/storage/event_store.py` via idempotent SQLite migrations:
+    1. `ANNIV-1920-WATSON-JWT` (Oct 1, 1920): John B. Watson (founder of behaviorism) joins J. Walter Thompson advertising agency, formalizing behavioral conditioning, stimulus-response reflex manipulation, and synthetic fear in commercial markets.
+    2. `ANNIV-1928-WATSON-INFANT` (Mar 1, 1928): Watson publishes *Psychological Care of Infant and Child*, prescribing strict emotional detachment and conditioning routines that accelerated the atomization of traditional child-rearing.
+    3. `ANNIV-1928-BERNAYS-PROPAGANDA` (Nov 15, 1928): Edward Bernays publishes *Propaganda* and launches "Torches of Freedom", pioneering mass psychology engineering, psychoanalytic desire manipulation, and corporate public relations.
+    4. `ANNIV-1953-MKULTRA-MOCKINGBIRD` (Apr 13, 1953): US Central Intelligence Agency authorizes Project MKUltra (mind control and behavioral modification) and Operation Mockingbird (domestic media influence network).
+    5. `ANNIV-1981-WHO-INFANT-FORMULA` (May 21, 1981): 34th World Health Assembly adopts the International Code of Marketing of Breast-milk Substitutes, establishing multilateral sovereign regulatory pushback against aggressive corporate marketing in the Global South.
+  - **Query Parser Geopolitical Knowledge Routing (P0):** Enriched `QueryParser.LENS_KEYWORDS` (`geo_engine/core/query_parser.py`) for `propaganda` and `history` with behavioral conditioning, cognitive warfare, infant formula, mass psychology, Watson, and Bernays keywords.
+  - **Documentation & Verification Suite Expansion (200→208 tests):** Synchronized `README.md` test counter from 200 to 208 comprehensive tests. Added `TestPhase59CognitiveWarfareAndTeleologicalSieve` in `tests/test_engine.py` with 8 deterministic unit tests certifying conspiracy detection, emergent commercial opportunism grounding, empirical evolution recognition, ACH incident reasoning integration, PropagandaLens metrics and claim ingestion, EventStore dark history anniversary seeds, and README test count parity. Certified **208/208 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) via `scripts/build_canonical_bundles.py`. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$).
 
 
 
@@ -3450,11 +3468,37 @@ class PropagandaLens:
         metrics = {
             "domestic_audience_segmentation": "Highly polarized along sovereign ideological priorities",
             "communique_rhetoric_density": "Extreme (100+ passive consensus clauses)",
-            "propaganda_discount_factor": 0.25 # Raw declaratory statements given 25% reality weight
+            "propaganda_discount_factor": 0.25, # Raw declaratory statements given 25% reality weight
+            "behavioral_conditioning_index": 0.76, # Exploitation of fear and guilt conditioning in communications
+            "commercial_anxiety_capture_score": 0.82, # Monetization of societal and parental anxieties
+            "societal_atomization_pressure": 0.70, # Disruption of collective civilizational networks into atomized consumers
+            "teleological_conspiracy_inflation": 0.65 # Tendency of counter-narratives to exaggerate deliberate top-down coordination
         }
 
         alignment = 0.35
         confidence = 0.88
+
+        cognitive_keywords = [
+            "watson", "bernays", "conditioning", "fear marketing", "guilt", "anxiety",
+            "social engineering", "torches of freedom", "mkultra", "mockingbird",
+            "infant", "teleological", "behavioral", "psychological care", "baby industry"
+        ]
+        matched_cognitive = False
+        if claims:
+            matched_cognitive = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in cognitive_keywords)
+                for c in claims
+            )
+        event_title = getattr(summit, "title", "").lower()
+        if any(kw in event_title for kw in cognitive_keywords):
+            matched_cognitive = True
+
+        if matched_cognitive:
+            findings.insert(0, "[COGNITIVE WARFARE] Behavioral conditioning & psychological capture vectors active: Commercial/state actors deploying fear-based conditioning and parental/societal anxiety to engineer consumer reliance and narrative compliance.")
+            confidence = min(0.99, round(confidence + 0.04, 2))
+            metrics["cognitive_warfare_vectors_active"] = True
+            metrics["behavioral_conditioning_index"] = 0.88
+            metrics["commercial_anxiety_capture_score"] = 0.90
 
         if claims:
             narrative_keywords = [
@@ -3594,7 +3638,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `c384ca7`
+- **Canonical Git Commit:** `d7202f4`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

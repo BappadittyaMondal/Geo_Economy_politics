@@ -158,6 +158,64 @@ class EventStore:
                     "Neutralized Iran's strategic air defense umbrella, demonstrating conventional technological asymmetry and shifting deterrence calculations across the Persian Gulf."
                 )
             ])
+
+            # Seed Phase 59 Dark History & Cognitive Warfare milestones idempotently
+            cursor.executemany("""
+                INSERT OR IGNORE INTO historical_anniversaries
+                (anniversary_id, month, day, year, event_title, region, historical_summary, strategic_mirror_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "ANNIV-1920-WATSON-JWT",
+                    10,
+                    1,
+                    1920,
+                    "John B. Watson Joins J. Walter Thompson (JWT)",
+                    "Global / USA",
+                    "Behaviorist psychologist John B. Watson joined the J. Walter Thompson advertising agency, formally applying emotional and fear conditioning to commercial advertising and product marketing.",
+                    "Birth of modern commercial psychological warfare, weaponizing infant hygiene, germ fear, and maternal anxiety into consumer demand."
+                ),
+                (
+                    "ANNIV-1928-WATSON-INFANT",
+                    3,
+                    1,
+                    1928,
+                    "Watson Publishes 'Psychological Care of Infant and Child'",
+                    "Global / USA",
+                    "John B. Watson published his seminal parenting manual prescribing rigid emotional detachment, warning mothers against hugging or kissing infants to avoid 'spoiling' them.",
+                    "Institutionalization of cold infant isolation doctrine, replacing maternal bonding with commodified schedules and nursery appliances."
+                ),
+                (
+                    "ANNIV-1928-BERNAYS-PROPAGANDA",
+                    11,
+                    15,
+                    1928,
+                    "Edward Bernays Publishes 'Propaganda' & Torches of Freedom",
+                    "Global / USA",
+                    "Edward Bernays published 'Propaganda', codifying the 'engineering of consent' and later executing the 'Torches of Freedom' campaign linking women's liberation to cigarette consumption.",
+                    "Foundational playbook for modern public relations, psychological manipulation, and manufacturing social consent for corporate cartels."
+                ),
+                (
+                    "ANNIV-1953-MKULTRA-MOCKINGBIRD",
+                    4,
+                    13,
+                    1953,
+                    "CIA Project MKUltra & Operation Mockingbird",
+                    "Global / USA",
+                    "CIA launched Project MKUltra (mind control and behavioral modification experiments) and Operation Mockingbird (subterranean infiltration of domestic and international media organizations).",
+                    "Institutionalization of deep-state psychological operations, weaponized media narratives, and covert cognitive warfare."
+                ),
+                (
+                    "ANNIV-1981-WHO-INFANT-FORMULA",
+                    5,
+                    21,
+                    1981,
+                    "WHO International Code of Marketing of Breast-milk Substitutes",
+                    "Global",
+                    "World Health Assembly adopted landmark International Code (WHA34.22) restricting aggressive marketing of infant formula, following global boycotts against commercial exploitation of maternal anxiety in developing nations.",
+                    "Landmark sovereign multilateral confrontation against transnational corporate capture of infant health and fear-based marketing."
+                )
+            ])
             conn.commit()
 
     def is_initialized(self) -> bool:
@@ -741,6 +799,56 @@ class EventStore:
                     "South Asia",
                     "Prime Minister Narendra Modi and envoys from 17 partner nations inaugurated the resurrected Nalanda University campus in Rajgir, Bihar.",
                     "Physical and symbolic closure of the 830-year intellectual destruction arc, re-establishing Bharat as a global knowledge repository."
+                ),
+                (
+                    "ANNIV-1920-WATSON-JWT",
+                    10,
+                    1,
+                    1920,
+                    "John B. Watson Joins J. Walter Thompson (JWT)",
+                    "Global / USA",
+                    "Behaviorist psychologist John B. Watson joined the J. Walter Thompson advertising agency, formally applying emotional and fear conditioning to commercial advertising and product marketing.",
+                    "Birth of modern commercial psychological warfare, weaponizing infant hygiene, germ fear, and maternal anxiety into consumer demand."
+                ),
+                (
+                    "ANNIV-1928-WATSON-INFANT",
+                    3,
+                    1,
+                    1928,
+                    "Watson Publishes 'Psychological Care of Infant and Child'",
+                    "Global / USA",
+                    "John B. Watson published his seminal parenting manual prescribing rigid emotional detachment, warning mothers against hugging or kissing infants to avoid 'spoiling' them.",
+                    "Institutionalization of cold infant isolation doctrine, replacing maternal bonding with commodified schedules and nursery appliances."
+                ),
+                (
+                    "ANNIV-1928-BERNAYS-PROPAGANDA",
+                    11,
+                    15,
+                    1928,
+                    "Edward Bernays Publishes 'Propaganda' & Torches of Freedom",
+                    "Global / USA",
+                    "Edward Bernays published 'Propaganda', codifying the 'engineering of consent' and later executing the 'Torches of Freedom' campaign linking women's liberation to cigarette consumption.",
+                    "Foundational playbook for modern public relations, psychological manipulation, and manufacturing social consent for corporate cartels."
+                ),
+                (
+                    "ANNIV-1953-MKULTRA-MOCKINGBIRD",
+                    4,
+                    13,
+                    1953,
+                    "CIA Project MKUltra & Operation Mockingbird",
+                    "Global / USA",
+                    "CIA launched Project MKUltra (mind control and behavioral modification experiments) and Operation Mockingbird (subterranean infiltration of domestic and international media organizations).",
+                    "Institutionalization of deep-state psychological operations, weaponized media narratives, and covert cognitive warfare."
+                ),
+                (
+                    "ANNIV-1981-WHO-INFANT-FORMULA",
+                    5,
+                    21,
+                    1981,
+                    "WHO International Code of Marketing of Breast-milk Substitutes",
+                    "Global",
+                    "World Health Assembly adopted landmark International Code (WHA34.22) restricting aggressive marketing of infant formula, following global boycotts against commercial exploitation of maternal anxiety in developing nations.",
+                    "Landmark sovereign multilateral confrontation against transnational corporate capture of infant health and fear-based marketing."
                 )
             ]
 

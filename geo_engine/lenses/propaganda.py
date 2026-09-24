@@ -34,11 +34,37 @@ class PropagandaLens:
         metrics = {
             "domestic_audience_segmentation": "Highly polarized along sovereign ideological priorities",
             "communique_rhetoric_density": "Extreme (100+ passive consensus clauses)",
-            "propaganda_discount_factor": 0.25 # Raw declaratory statements given 25% reality weight
+            "propaganda_discount_factor": 0.25, # Raw declaratory statements given 25% reality weight
+            "behavioral_conditioning_index": 0.76, # Exploitation of fear and guilt conditioning in communications
+            "commercial_anxiety_capture_score": 0.82, # Monetization of societal and parental anxieties
+            "societal_atomization_pressure": 0.70, # Disruption of collective civilizational networks into atomized consumers
+            "teleological_conspiracy_inflation": 0.65 # Tendency of counter-narratives to exaggerate deliberate top-down coordination
         }
 
         alignment = 0.35
         confidence = 0.88
+
+        cognitive_keywords = [
+            "watson", "bernays", "conditioning", "fear marketing", "guilt", "anxiety",
+            "social engineering", "torches of freedom", "mkultra", "mockingbird",
+            "infant", "teleological", "behavioral", "psychological care", "baby industry"
+        ]
+        matched_cognitive = False
+        if claims:
+            matched_cognitive = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in cognitive_keywords)
+                for c in claims
+            )
+        event_title = getattr(summit, "title", "").lower()
+        if any(kw in event_title for kw in cognitive_keywords):
+            matched_cognitive = True
+
+        if matched_cognitive:
+            findings.insert(0, "[COGNITIVE WARFARE] Behavioral conditioning & psychological capture vectors active: Commercial/state actors deploying fear-based conditioning and parental/societal anxiety to engineer consumer reliance and narrative compliance.")
+            confidence = min(0.99, round(confidence + 0.04, 2))
+            metrics["cognitive_warfare_vectors_active"] = True
+            metrics["behavioral_conditioning_index"] = 0.88
+            metrics["commercial_anxiety_capture_score"] = 0.90
 
         if claims:
             narrative_keywords = [

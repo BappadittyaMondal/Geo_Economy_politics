@@ -32,6 +32,127 @@ class HypothesisCandidate(BaseModel):
     falsification_indicators: List[str] = Field(default_factory=list)
 
 
+class TeleologicalEvaluation(BaseModel):
+    """Evaluation of whether an analytical claim or narrative commits the teleological fallacy."""
+    is_teleological_fallacy: bool = False
+    teleological_inflation_ratio: float = 1.0
+    premeditated_plot_probability: float = 0.33
+    emergent_opportunism_probability: float = 0.33
+    legitimate_evolution_probability: float = 0.34
+    verdict: str = "BALANCED_CAUSALITY"
+    rationale: str = ""
+
+
+class TeleologicalFallacySieve:
+    """
+    Sifts claims to detect the Teleological Fallacy: the analytical error of attributing
+    a grand, pre-planned, coordinated top-down conspiracy (H_plot) to what is actually
+    an emergent convergence of socio-economic shifts (H_market) and empirical public health
+    or technological evolution (H_empirical).
+    """
+
+    PLOT_KEYWORDS = [
+        "conspiracy", "brainwash", "brainwashing", "sinister", "sinister plot", "secret cabal",
+        "master plan", "deliberate design to make depressed", "matrix", "engineered to enslave",
+        "deliberate capitalist plot", "capitalist conspiracy", "enslave", "make depressed",
+        "premeditated scheme", "shadow syndicate"
+    ]
+    MARKET_KEYWORDS = [
+        "marketing", "advertising", "commercial", "monetiz", "monetization", "opportunism",
+        "profit", "urbanization", "working parents", "lifestyle", "fear-based",
+        "fear marketing", "guilt", "corporate", "commercialization", "product sales"
+    ]
+    EMPIRICAL_KEYWORDS = [
+        "mortality", "germ", "bacteria", "antiseptic", "hygiene", "sanitation",
+        "clean water", "cholera", "infection", "public health", "medicine", "scientific",
+        "infant mortality", "pathogen", "sterilization", "epidemiology"
+    ]
+
+    @classmethod
+    def evaluate(
+        cls,
+        text: str,
+        claims: Optional[List[Any]] = None
+    ) -> TeleologicalEvaluation:
+        combined = text.lower()
+        if claims:
+            for c in claims:
+                fact = getattr(c, "asserted_fact", getattr(c, "assertion", ""))
+                combined += " " + str(fact).lower()
+
+        # Prior probabilities
+        prior_plot = 0.33
+        prior_market = 0.33
+        prior_empirical = 0.34
+
+        # Count keyword evidence
+        plot_hits = sum(1 for kw in cls.PLOT_KEYWORDS if kw in combined)
+        market_hits = sum(1 for kw in cls.MARKET_KEYWORDS if kw in combined)
+        empirical_hits = sum(1 for kw in cls.EMPIRICAL_KEYWORDS if kw in combined)
+
+        # Likelihood updates: calibrated to prevent unevidenced hypotheses from inflating denominator
+        l_plot = 0.40 + min(0.55, plot_hits * 0.25) if plot_hits > 0 else 0.15
+        l_market = 0.40 + min(0.55, market_hits * 0.20) if market_hits > 0 else 0.15
+        l_empirical = 0.40 + min(0.55, empirical_hits * 0.20) if empirical_hits > 0 else 0.15
+
+        # Bayesian posterior
+        num_plot = prior_plot * l_plot
+        num_market = prior_market * l_market
+        num_empirical = prior_empirical * l_empirical
+        denom = num_plot + num_market + num_empirical
+
+        p_plot = round(num_plot / denom, 4) if denom > 0 else 0.3333
+        p_market = round(num_market / denom, 4) if denom > 0 else 0.3333
+        p_empirical = round(num_empirical / denom, 4) if denom > 0 else 0.3334
+
+        # Teleological inflation ratio: plot / (market + empirical)
+        base_denom = p_market + p_empirical
+        t_ratio = round(p_plot / base_denom, 2) if base_denom > 0 else 1.0
+
+        # Hard documentary proof check
+        hard_proof_keywords = ["declassified memo", "signed directive", "cabinet order", "statutory record", "judicial finding"]
+        has_hard_proof = any(kw in combined for kw in hard_proof_keywords)
+
+        is_fallacy = (
+            (t_ratio >= 1.50 or (p_plot > p_market and p_plot > p_empirical and t_ratio >= 1.25))
+            and not has_hard_proof
+            and plot_hits > 0
+        )
+
+        if is_fallacy:
+            verdict = "TELEOLOGICAL_FALLACY_DETECTED"
+            rationale = (
+                f"Teleological fallacy detected (Inflation ratio: {t_ratio:.2f} >= 1.50). "
+                f"The narrative attributes a grand, coordinated top-down conspiracy ({p_plot:.1%}) "
+                f"without documentary proof, when empirical history demonstrates an emergent combination of "
+                f"commercial market opportunism ({p_market:.1%}) and public health evolution ({p_empirical:.1%})."
+            )
+        elif p_market >= 0.45:
+            verdict = "EMERGENT_COMMERCIAL_OPPORTUNISM"
+            rationale = (
+                f"Phenomenon is primarily driven by emergent commercial market opportunism ({p_market:.1%}), "
+                f"where commercial actors monetized societal lifestyle shifts and anxieties rather than executing a pre-planned conspiracy."
+            )
+        elif p_empirical >= 0.45:
+            verdict = "LEGITIMATE_EMPIRICAL_EVOLUTION"
+            rationale = (
+                f"Phenomenon is primarily grounded in verifiable public health, scientific, or technological evolution ({p_empirical:.1%})."
+            )
+        else:
+            verdict = "BALANCED_CAUSALITY"
+            rationale = f"Causality distributed across conspiratorial ({p_plot:.1%}), commercial ({p_market:.1%}), and empirical ({p_empirical:.1%}) factors."
+
+        return TeleologicalEvaluation(
+            is_teleological_fallacy=is_fallacy,
+            teleological_inflation_ratio=t_ratio,
+            premeditated_plot_probability=p_plot,
+            emergent_opportunism_probability=p_market,
+            legitimate_evolution_probability=p_empirical,
+            verdict=verdict,
+            rationale=rationale
+        )
+
+
 class ACHEvaluationReport(BaseModel):
     """Synthesized Analysis of Competing Hypotheses report."""
     incident_title: str
@@ -42,6 +163,7 @@ class ACHEvaluationReport(BaseModel):
     is_epistemically_contested: bool = False
     epistemic_warning: Optional[str] = None
     reasoning_audit_trail: List[str] = Field(default_factory=list)
+    teleological_sieve: Optional[Dict[str, Any]] = None
 
     def to_dict(self) -> Dict[str, Any]:
         """Serializes report into JSON-compatible dictionary."""
@@ -52,6 +174,7 @@ class ACHEvaluationReport(BaseModel):
             "dominant_probability": round(self.dominant_probability, 3),
             "is_epistemically_contested": self.is_epistemically_contested,
             "epistemic_warning": self.epistemic_warning,
+            "teleological_sieve": self.teleological_sieve,
             "hypotheses": [
                 {
                     "id": h.hypothesis_id,
@@ -225,6 +348,18 @@ class IncidentReasoningEngine:
         else:
             audit_trail.append(f"[ACH_RESOLVED] Dominant hypothesis confirmed: {dominant.hypothesis_id} ({dominant.posterior_probability:.1%}).")
 
+        # 6. Teleological Fallacy Sieve Evaluation
+        teleological_eval = TeleologicalFallacySieve.evaluate(combined_text)
+        audit_trail.append(
+            f"[ACH_TELEOLOGY] Teleological Sieve verdict: {teleological_eval.verdict} (Inflation ratio: {teleological_eval.teleological_inflation_ratio:.2f})."
+        )
+        if teleological_eval.is_teleological_fallacy:
+            audit_trail.append(
+                f"[ACH_TELEOLOGY] Teleological Fallacy detected: Inflation ratio {teleological_eval.teleological_inflation_ratio:.2f} >= 1.50."
+            )
+            if not warning:
+                warning = f"[ACH TELEOLOGICAL WARNING] {teleological_eval.rationale}"
+
         return ACHEvaluationReport(
             incident_title=incident_title,
             hypotheses=hypotheses,
@@ -233,5 +368,6 @@ class IncidentReasoningEngine:
             dominant_probability=dominant.posterior_probability,
             is_epistemically_contested=is_contested,
             epistemic_warning=warning,
-            reasoning_audit_trail=audit_trail
+            reasoning_audit_trail=audit_trail,
+            teleological_sieve=teleological_eval.model_dump()
         )

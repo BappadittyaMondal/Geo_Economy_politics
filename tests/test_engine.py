@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "200 comprehensive unit and integration tests" in content
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3666,9 +3666,136 @@ class TestPhase55to58Hardening:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "200 comprehensive unit and integration tests" in content, (
-            "README must be updated to 200 tests after Phase 55-58"
+        assert "comprehensive unit and integration tests" in content
+
+
+class TestPhase59CognitiveWarfareAndTeleologicalSieve:
+    """Phase 59: Cognitive warfare, behavioral conditioning, dark history seeds, and teleological fallacy sieve."""
+
+    def test_teleological_fallacy_sieve_conspiracy_detected(self):
+        """Teleological Fallacy Sieve flags hyperbolic conspiracy claims when master plot keywords dominate without proof."""
+        from geo_engine.arbitration.competing_hypotheses import TeleologicalFallacySieve
+        text = "The baby industry is a sinister capitalist conspiracy, a master plan engineered to enslave and make depressed consumers."
+        result = TeleologicalFallacySieve.evaluate(text)
+        assert result.is_teleological_fallacy is True
+        assert result.verdict == "TELEOLOGICAL_FALLACY_DETECTED"
+        assert result.teleological_inflation_ratio >= 1.50
+        assert result.premeditated_plot_probability > result.emergent_opportunism_probability
+
+    def test_teleological_fallacy_sieve_market_opportunism_grounding(self):
+        """Teleological Fallacy Sieve attributes causality to emergent market opportunism when commercial keywords dominate."""
+        from geo_engine.arbitration.competing_hypotheses import TeleologicalFallacySieve
+        text = "Corporate advertising and fear marketing monetized working parents lifestyle shifts and urbanization for commercial product sales."
+        result = TeleologicalFallacySieve.evaluate(text)
+        assert result.is_teleological_fallacy is False
+        assert result.verdict == "EMERGENT_COMMERCIAL_OPPORTUNISM"
+        assert result.emergent_opportunism_probability >= 0.45
+        assert "opportunism" in result.rationale.lower()
+
+    def test_teleological_fallacy_sieve_empirical_evolution(self):
+        """Teleological Fallacy Sieve recognizes legitimate empirical public health advances."""
+        from geo_engine.arbitration.competing_hypotheses import TeleologicalFallacySieve
+        text = "Antiseptic hygiene, clean water sanitation, and germ theory drastically reduced catastrophic infant mortality from cholera and bacterial pathogen infection."
+        result = TeleologicalFallacySieve.evaluate(text)
+        assert result.is_teleological_fallacy is False
+        assert result.verdict == "LEGITIMATE_EMPIRICAL_EVOLUTION"
+        assert result.legitimate_evolution_probability >= 0.45
+        assert "public health" in result.rationale.lower()
+
+    def test_ach_incident_reasoning_teleological_sieve_integration(self):
+        """IncidentReasoningEngine evaluates incident and integrates teleological sieve dictionary."""
+        from geo_engine.arbitration.competing_hypotheses import IncidentReasoningEngine
+        report = IncidentReasoningEngine.evaluate_incident(
+            incident_title="Baby Industry Fear Marketing and Alleged Capitalist Conspiracy"
         )
+        assert report.teleological_sieve is not None
+        assert "teleological_inflation_ratio" in report.teleological_sieve
+        assert "verdict" in report.teleological_sieve
+        assert any("Teleological" in line for line in report.reasoning_audit_trail)
+        data = report.to_dict()
+        assert "teleological_sieve" in data
+
+    def test_propaganda_lens_cognitive_warfare_metrics_defaults(self):
+        """PropagandaLens outputs quantitative behavioral conditioning and anxiety capture metrics."""
+        from geo_engine.lenses.propaganda import PropagandaLens
+        from geo_engine.core.models import SummitEvent
+        summit = SummitEvent(
+            summit_name="General Summit", year=2026,
+            host_country="India", location="New Delhi",
+            member_countries=["India", "USA"]
+        )
+        evaluation = PropagandaLens.evaluate(summit)
+        metrics = evaluation.hard_metrics
+        assert "behavioral_conditioning_index" in metrics
+        assert metrics["behavioral_conditioning_index"] == 0.76
+        assert "commercial_anxiety_capture_score" in metrics
+        assert metrics["commercial_anxiety_capture_score"] == 0.82
+        assert "societal_atomization_pressure" in metrics
+        assert metrics["societal_atomization_pressure"] == 0.70
+        assert "teleological_conspiracy_inflation" in metrics
+        assert metrics["teleological_conspiracy_inflation"] == 0.65
+
+    def test_propaganda_lens_cognitive_warfare_claims_telemetry(self):
+        """PropagandaLens detects cognitive warfare claims and updates metrics and confidence."""
+        from geo_engine.lenses.propaganda import PropagandaLens
+        from geo_engine.core.models import SummitEvent, EpistemicTier
+        from geo_engine.ingestion.models import ClaimItem, ClaimType
+        summit = SummitEvent(
+            summit_name="Consumer Psychology Summit", year=2026,
+            host_country="USA", location="New York",
+            member_countries=["USA"]
+        )
+        claim = ClaimItem(
+            claim_id="CL-COG-01",
+            source_evidence_id="SRC-COG-01",
+            asserted_fact="Watson behavioral conditioning and Edward Bernays fear marketing exploited parental anxiety to engineer consumer dependence",
+            claim_type=ClaimType.RHETORICAL_POSTURE,
+            epistemic_tier=EpistemicTier.TIER_5_COMMUNIQUE_PR,
+            reliability_weight=0.90,
+            target_lenses=["propaganda"]
+        )
+        evaluation = PropagandaLens.evaluate(summit, claims=[claim])
+        assert evaluation.hard_metrics.get("cognitive_warfare_vectors_active") is True
+        assert evaluation.hard_metrics["behavioral_conditioning_index"] == 0.88
+        assert evaluation.hard_metrics["commercial_anxiety_capture_score"] == 0.90
+        assert any("[COGNITIVE WARFARE]" in f for f in evaluation.key_findings)
+
+    def test_event_store_phase59_dark_history_anniversary_seeds(self):
+        """EventStore contains the 5 Phase 59 dark history & cognitive warfare anniversary seeds."""
+        from geo_engine.storage.event_store import EventStore
+        import tempfile
+        import os
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            temp_db = tf.name
+        try:
+            store = EventStore(temp_db)
+            anniversaries = store.match_anniversaries(month=10, day=1) # Watson joins JWT
+            watson_jwt = next((a for a in anniversaries if "ANNIV-1920-WATSON-JWT" in a.get("anniversary_id", "")), None)
+            assert watson_jwt is not None, "ANNIV-1920-WATSON-JWT must exist"
+
+            anniv_infant = store.match_anniversaries(month=3, day=1) # Watson infant care
+            watson_infant = next((a for a in anniv_infant if "ANNIV-1928-WATSON-INFANT" in a.get("anniversary_id", "")), None)
+            assert watson_infant is not None, "ANNIV-1928-WATSON-INFANT must exist"
+
+            anniv_who = store.match_anniversaries(month=5, day=21) # WHO infant formula
+            who_code = next((a for a in anniv_who if "ANNIV-1981-WHO-INFANT-FORMULA" in a.get("anniversary_id", "")), None)
+            assert who_code is not None, "ANNIV-1981-WHO-INFANT-FORMULA must exist"
+        finally:
+            if os.path.exists(temp_db):
+                try:
+                    os.remove(temp_db)
+                except Exception:
+                    pass
+
+    def test_phase59_readme_parity(self):
+        """Verify README.md is updated to reflect 208 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "208 comprehensive unit and integration tests" in content, (
+            "README must be updated to 208 tests after Phase 59"
+        )
+
 
 
 
