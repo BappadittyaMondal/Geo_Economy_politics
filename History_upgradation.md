@@ -647,3 +647,12 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Updated `README.md` test counter from 208 to 216 comprehensive tests. Added `TestPhase60MultiPillarChronologyArbiter` in `tests/test_engine.py` with 8 deterministic unit tests certifying pillar score calculation, degeneracy dampening, material culture collision penalty, full arbitration ranking (Achar 3067 BCE dominant, Oak 5561 BCE penalized), custom hypothesis arbitration, EventStore chronology anchors retrieval, MCP JSON-RPC tool dispatch, and README test count parity. Certified **216/216 unit and integration tests passing deterministically (100% pass rate)**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Canonical distribution bundles recompiled via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates passing at 100% (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files).
+  - **Phase 60 Post-Audit Hardening & Verification Suite Expansion (216→220 tests):**
+    - Added defensive candidate fallback guard to `MultiPillarChronologyArbiter.arbitrate()` preventing index errors on empty input candidates.
+    - Exported `TeleologicalFallacySieve` and `TeleologicalEvaluation` in `geo_engine/arbitration/__init__.py`.
+    - Added `requires_chronology_arbitration` flag detection to `StrategicQuery` and `QueryParser.parse()`.
+    - Implemented `render_chronology_arbitration()` and registered the `chronology` CLI subcommand in `geo_engine/cli.py` for direct terminal execution.
+    - Added 4 unit tests in `TestPhase60MultiPillarChronologyArbiter` covering empty list fallback, teleological arbitration exports, query parser flag detection, and CLI chronology execution.
+    - Synchronized `README.md` to reflect **220 comprehensive unit and integration tests**.
+    - Certified **220/220 unit and integration tests passing deterministically (100% pass rate)**.
+

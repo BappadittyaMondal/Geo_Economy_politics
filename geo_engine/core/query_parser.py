@@ -28,6 +28,7 @@ class StrategicQuery(BaseModel):
     requires_demographic_audit: bool = False
     requires_minerals_audit: bool = False
     requires_lawfare_audit: bool = False
+    requires_chronology_arbitration: bool = False
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
 
@@ -208,6 +209,14 @@ class QueryParser:
         req_demographic = "demographic_infiltration" in active_lenses or event_type == "BORDER_SECURITY"
         req_minerals = "critical_minerals" in active_lenses
         req_lawfare = "institutional_lawfare" in active_lenses or event_type == "HYBRID_WARFARE"
+        req_chronology = (
+            any(kw in text_lower for kw in [
+                "chronology", "timeline dispute", "nilesh oak", "5561 bce", "3067 bce",
+                "3102 bce", "arundhati vasistha", "mahabharata date", "ramayana date",
+                "bori critical edition", "historical timeline"
+            ]) or
+            ("timeline" in text_lower and any(w in text_lower for w in ["mahabharat", "ramayan", "ancient", "epic", "dating", "dispute", "verdict"]))
+        )
 
         return StrategicQuery(
             raw_prompt=prompt,
@@ -227,6 +236,7 @@ class QueryParser:
             requires_demographic_audit=req_demographic,
             requires_minerals_audit=req_minerals,
             requires_lawfare_audit=req_lawfare,
+            requires_chronology_arbitration=req_chronology,
             confidence_threshold=0.80
         )
 

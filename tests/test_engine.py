@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3904,12 +3904,38 @@ class TestPhase60MultiPillarChronologyArbiter:
         assert "dominant_candidate_id" in result
         assert len(result["ranked_candidates"]) >= 4
 
+    def test_mpca_empty_candidate_safe_fallback(self):
+        """Verify passing empty candidate list safely defaults to benchmark candidates without index error."""
+        from geo_engine.arbitration.historical_arbiter import MultiPillarChronologyArbiter
+        report = MultiPillarChronologyArbiter.arbitrate(event_name="Empty Candidates Test", candidates=[])
+        assert report.dominant_candidate_id != ""
+        assert len(report.ranked_candidates) == 4
+        assert report.dominant_coherence_score > 0.70
+
+    def test_arbitration_teleological_exports(self):
+        """Verify TeleologicalFallacySieve and TeleologicalEvaluation are cleanly exported from geo_engine.arbitration."""
+        from geo_engine.arbitration import TeleologicalFallacySieve, TeleologicalEvaluation
+        assert TeleologicalFallacySieve is not None
+        assert TeleologicalEvaluation is not None
+
+    def test_query_parser_chronology_flag_detection(self):
+        """Verify QueryParser extracts requires_chronology_arbitration flag on ancient dating queries."""
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse("What is the truth behind Nilesh Oak 5561 BCE vs 3067 BCE Mahabharata timeline dispute?")
+        assert q.requires_chronology_arbitration is True
+        assert "history" in q.prioritized_lenses or "civilizational" in q.prioritized_lenses
+
+    def test_cli_chronology_rendering(self):
+        """Verify CLI chronology function executes and renders table without exception."""
+        from geo_engine.cli import render_chronology_arbitration
+        render_chronology_arbitration("Mahabharata War Test")
+
     def test_phase60_readme_parity(self):
-        """Verify README.md reflects 216 comprehensive tests."""
+        """Verify README.md reflects 220 comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "216 comprehensive unit and integration tests" in content
+        assert "220 comprehensive unit and integration tests" in content
 
 
 

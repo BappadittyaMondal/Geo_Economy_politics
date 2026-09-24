@@ -199,7 +199,7 @@ class MultiPillarChronologyArbiter:
         Executes multi-pillar cross-disciplinary arbitration across historical candidates.
         Ranks candidates by composite Bayesian coherence score and flags single-optic distortions.
         """
-        eval_candidates = candidates if candidates is not None else cls.get_benchmark_candidates()
+        eval_candidates = candidates if candidates else cls.get_benchmark_candidates()
         audit_trail: List[str] = [
             f"[MPCA_INIT] Initiating Multi-Pillar Chronology Arbitration for '{event_name}' across {len(eval_candidates)} candidates.",
             "[MPCA_WEIGHTS] Applied Epistemic Pillar Weights: Archaeology (0.35), Astronomy (0.25), Hydro-Geology (0.20), Textual Provenance (0.20)."

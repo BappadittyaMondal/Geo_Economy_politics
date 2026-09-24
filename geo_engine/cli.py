@@ -352,6 +352,10 @@ def render_query_pipeline(prompt: str, persona: str = "neutral"):
         except Exception:
             pass
 
+    # 1C. Multi-Pillar Historical Chronology Arbitration (if detected)
+    if getattr(query, "requires_chronology_arbitration", False):
+        render_chronology_arbitration(query.raw_prompt)
+
     # 2. Ingest Sovereign Evidence & GDELT Telemetry
     console.print("\n[bold yellow]=== 2. INGESTING OPEN SOVEREIGN EVIDENCE & GLOBAL TELEMETRY ===[/bold yellow]")
     evidence_items = GDELTClient.query_events(query.target_summit, max_records=2) + SovereignRSSClient.fetch_primary_statements()
@@ -634,6 +638,53 @@ def render_audit_ingestion(audit_path: str):
     console.print(f"\n[bold green]✓ Successfully normalized {len(claims)} audit findings and persisted {ingested_count} verified events into SQLite EventStore![/bold green]\n")
 
 
+def render_chronology_arbitration(event_name: str = "Mahabharata War Chronology"):
+    """Executes multi-pillar cross-disciplinary chronology arbitration and renders terminal table."""
+    from .arbitration import MultiPillarChronologyArbiter
+    report = MultiPillarChronologyArbiter.arbitrate(event_name=event_name)
+
+    console.print(f"\n[bold cyan]=== MULTI-PILLAR HISTORICAL CHRONOLOGY ARBITRATION (MPCA) ===[/bold cyan]")
+    console.print(f"[dim]Disputed Event: {report.event_name} | Epistemic Sieve: 4 Orthogonal Evidentiary Pillars[/dim]\n")
+
+    tbl = Table(box=box.ROUNDED, show_header=True, header_style="bold magenta")
+    tbl.add_column("Rank", justify="center", width=6)
+    tbl.add_column("Epoch (BCE)", justify="center", style="bold cyan", width=12)
+    tbl.add_column("Model / Hypothesis", style="white", width=34)
+    tbl.add_column("Astro (Degeneracy)", justify="center", width=18)
+    tbl.add_column("Arch / C14", justify="center", width=12)
+    tbl.add_column("Hydro-Geo", justify="center", width=12)
+    tbl.add_column("BORI Text", justify="center", width=12)
+    tbl.add_column("Coherence", justify="center", style="bold green", width=12)
+    tbl.add_column("Collision", justify="center", width=14)
+
+    for i, c in enumerate(report.ranked_candidates, 1):
+        coll_str = "[bold red]YES (0.25x)[/bold red]" if c.has_material_culture_collision else "[green]No[/green]"
+        coh_color = "bold green" if c.composite_coherence_score > 0.70 else "yellow" if c.composite_coherence_score > 0.40 else "red"
+        astro_str = f"{c.pillar_scores.astronomy_score:.2f} (d={c.pillar_scores.astronomy_degeneracy_factor:.2f})"
+        tbl.add_row(
+            str(i),
+            f"{c.proposed_year_bce} BCE",
+            c.label,
+            astro_str,
+            f"{c.pillar_scores.archaeology_score:.2f}",
+            f"{c.pillar_scores.hydro_geology_score:.2f}",
+            f"{c.pillar_scores.textual_provenance_score:.2f}",
+            f"[{coh_color}]{c.composite_coherence_score:.4f}[/{coh_color}]",
+            coll_str
+        )
+
+    console.print(tbl)
+
+    res_box = (
+        f"[bold green]Dominant Consensus Candidate:[/bold green] {report.dominant_candidate_label}\n"
+        f"[bold yellow]Composite Coherence Score:[/bold yellow] {report.dominant_coherence_score:.4f}\n"
+    )
+    if report.epistemic_warning:
+        res_box += f"\n[bold magenta]Epistemic Warning / Guardrail:[/bold magenta]\n{report.epistemic_warning}\n"
+
+    console.print(Panel(res_box, title="[bold white on blue] MPCA ARBITRATION CONSENSUS VERDICT [/bold white on blue]", border_style="cyan"))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -682,6 +733,10 @@ def main():
     rt_parser.add_argument("--persist", action="store_true", help="Persist wargame campaign session and turns into EventStore SQLite")
     rt_parser.add_argument("--session-id", default=None, help="Custom identifier for persistent wargame campaign")
 
+    # Command: chronology
+    chrono_parser = subparsers.add_parser("chronology", help="Arbitrate disputed ancient historical and civilizational timelines")
+    chrono_parser.add_argument("--event", default="Mahabharata War Chronology", help="Historical event or dispute name to arbitrate")
+
     # Command: ingest-audit
     ingest_parser = subparsers.add_parser("ingest-audit", help="Ingest forensic audit markdown findings into SQLite EventStore")
     ingest_parser.add_argument("path", nargs="?", default="FORENSIC_AUDIT_INDIA_1991_2026.md", help="Path to forensic audit markdown file")
@@ -698,6 +753,9 @@ def main():
         elif args.command == "query":
             persona = getattr(args, "persona", "neutral")
             render_query_pipeline(args.prompt, persona=persona)
+        elif args.command == "chronology":
+            event_name = getattr(args, "event", "Mahabharata War Chronology")
+            render_chronology_arbitration(event_name)
         elif args.command == "forecasts":
             render_forecast_ledger(status=args.status, resolve_id=args.resolve, outcome=args.outcome)
         elif args.command == "video":

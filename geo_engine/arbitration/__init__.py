@@ -11,6 +11,8 @@ from .competing_hypotheses import (
     HypothesisCandidate,
     ACHEvaluationReport,
     IncidentReasoningEngine,
+    TeleologicalEvaluation,
+    TeleologicalFallacySieve,
 )
 from .historical_arbiter import (
     ChronologyPillarScore,
@@ -27,6 +29,8 @@ __all__ = [
     "HypothesisCandidate",
     "ACHEvaluationReport",
     "IncidentReasoningEngine",
+    "TeleologicalEvaluation",
+    "TeleologicalFallacySieve",
     "ChronologyPillarScore",
     "HistoricalHypothesisCandidate",
     "ChronologyEvaluationReport",
