@@ -164,6 +164,20 @@ class GeoEngineMCPServer:
                 },
                 "required": ["url"]
             }
+        },
+        {
+            "name": "geo_arbitrate_chronology",
+            "description": "Arbitrate conflicting ancient historical timelines and civilizational claims across 4 orthogonal pillars (Astronomy, Archaeology/C-14, Hydro-Geology/Saraswati, Textual/BORI).",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "event_name": {
+                        "type": "string",
+                        "default": "Mahabharata War Chronology",
+                        "description": "Historical event to arbitrate (e.g., 'Mahabharata War Chronology', 'Ramayana Epoch')."
+                    }
+                }
+            }
         }
     ]
 
@@ -378,6 +392,12 @@ class GeoEngineMCPServer:
                 target_lenses=target_lenses
             )
             return res
+
+        elif tool_name == "geo_arbitrate_chronology":
+            from ..arbitration.historical_arbiter import MultiPillarChronologyArbiter
+            event_name = arguments.get("event_name", "Mahabharata War Chronology")
+            report = MultiPillarChronologyArbiter.arbitrate(event_name=event_name)
+            return report.to_dict()
 
         else:
             raise ValueError(f"Unknown tool: {tool_name}")

@@ -617,3 +617,33 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Query Parser Geopolitical Knowledge Routing (P0):** Enriched `QueryParser.LENS_KEYWORDS` (`geo_engine/core/query_parser.py`) for `propaganda` and `history` with behavioral conditioning, cognitive warfare, infant formula, mass psychology, Watson, and Bernays keywords.
   - **Documentation & Verification Suite Expansion (200→208 tests):** Synchronized `README.md` test counter from 200 to 208 comprehensive tests. Added `TestPhase59CognitiveWarfareAndTeleologicalSieve` in `tests/test_engine.py` with 8 deterministic unit tests certifying conspiracy detection, emergent commercial opportunism grounding, empirical evolution recognition, ACH incident reasoning integration, PropagandaLens metrics and claim ingestion, EventStore dark history anniversary seeds, and README test count parity. Certified **208/208 unit and integration tests passing deterministically (100% pass rate)**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) via `scripts/build_canonical_bundles.py`. Certified all **10/10 Anti-Drift Quality Gates at 100% compliance** with hard platform ceilings strictly preserved (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$).
+
+* **Phase 60 (Historical Multi-Pillar Chronology Arbiter (MPCA) & Degeneracy-Calibrated Epistemic Sieve):**
+  - **Verified Epistemic Problem:** Civilizational dating and historical chronology disputes (such as Nilesh Oak's 5561 BCE / 12,209 BCE vs. Dr. Narahari Achar's 3067 BCE vs. Traditional Aryabhata / Aihole Inscription 3102 BCE vs. ASI Painted Grey Ware 1000 BCE) frequently suffer from single-lens vulnerability, astronomical retro-calculation degeneracy (where planetary conjunctions and precessional alignments recur across millenary cycles), uncritical textual cherry-picking, or material culture blindspots (e.g. asserting Bronze Age metallurgy, high-speed spoked chariots, and urbanized kingdoms in the Mesolithic 6th millennium BCE without stratigraphical backing).
+  - **Multi-Pillar Chronology Arbiter (MPCA) Architecture (`geo_engine/arbitration/historical_arbiter.py`):**
+    - `ChronologyPillarScore`: Evaluates 4 orthogonal, non-negotiable evidentiary pillars:
+      1. *Astronomy* ($S_{\text{astro}}$) with explicit Degeneracy Dampening Factor ($\delta \in [0.05, 1.0]$): Degeneracy accounts for recurrence periodicity in retro-calculations. Effective astronomical score is calculated as:
+         $$S_{\text{astro, eff}} = S_{\text{astro}} \times (1 - 0.70 \times (1 - \delta))$$
+      2. *Archaeology / Stratigraphy* ($S_{\text{arch}}$): Physical material culture, radiometric C14/AMS dating, and excavation strata (e.g., PGW, OCP, Harappan urban phase).
+      3. *Hydro-Geology* ($S_{\text{hydro}}$): Paleoclimatic and fluvial constraints (e.g., Saraswati/Ghaggar-Hakra perennial glacier-fed flow prior to 2600-1900 BCE desiccation).
+      4. *Textual / Epigraphic Provenance* ($S_{\text{text}}$): BORI Critical Edition common archetype weighting, penalizing reliance on late regional interpolations or uncorroborated recensions.
+    - **Material Culture Collision Sieve:** Enforces physical falsification boundaries. If a hypothesis proposes a date prior to 4000 BCE (e.g. 5561 BCE) without archaeological or stratigraphical corroboration ($S_{\text{arch}} < 0.30$), it trips an irreversible `MATERIAL_CULTURE_COLLISION_FLAG` which applies an exponential epistemic penalty ($0.25\times$), preventing astronomical retro-calculation degeneracy from masquerading as historical certainty.
+    - **Composite Epistemic Coherence Math:**
+      $$S_{\text{comp}} = w_{\text{arch}} S_{\text{arch}} + w_{\text{hydro}} S_{\text{hydro}} + w_{\text{text}} S_{\text{text}} + w_{\text{astro}} S_{\text{astro, eff}}$$
+      Default weights: $\mathbf{w} = [0.35, 0.25, 0.20, 0.20]$. When collision is triggered, $S_{\text{comp, final}} = S_{\text{comp}} \times 0.25$.
+    - `MultiPillarChronologyArbiter.evaluate_chronology_dispute()`: Evaluates and ranks all candidates, calculates pairwise delta metrics, determines the dominant consensus candidate, and compiles a machine-verifiable `ChronologyEvaluationReport`.
+  - **Benchmark Chronology Anchors in EventStore (`geo_engine/storage/event_store.py`):**
+    - Seeded 4 benchmark chronology anchors via both `_ensure_migrations()` and `initialize_schema_and_seed()` for zero-dependency persistence:
+      1. `CHRONO-5561BCE-OAK`: Nilesh Oak 5561 BCE Timeline (Arundhati-Vasistha Model, high astronomical degeneracy, material culture collision).
+      2. `CHRONO-3067BCE-ACHAR`: Dr. Narahari Achar 3067 BCE Timeline (Saturn-Rohini BORI Model, high cross-pillar alignment with Early Bronze Age).
+      3. `CHRONO-3102BCE-ARYABHATA`: Traditional Aryabhata & Aihole Inscription 3102 BCE Kali Yuga Epoch (epigraphically corroborated civilizational baseline).
+      4. `CHRONO-1000BCE-PGW`: ASI Painted Grey Ware 1000 BCE Model (stratigraphically grounded Iron Age model; hydro-geological desiccation divergence).
+    - Added `EventStore.get_chronology_anchors()` method.
+  - **MCP Protocol Tool Registration (`geo_engine/mcp/server.py`):**
+    - Registered `geo_arbitrate_chronology` in the MCP tools manifest and implemented JSON-RPC 2.0 dispatch handler for external LLM and agentic consumption.
+  - **Query Parser Keyword Matrix Enrichment (`geo_engine/core/query_parser.py`):**
+    - Added chronology, dating, astronomical retro-calculation, BORI, Arundhati, and archeological dating terms to `history` and `civilizational` keyword sets.
+  - **Documentation & Verification Suite Expansion (208→216 tests):**
+    - Updated `README.md` test counter from 208 to 216 comprehensive tests. Added `TestPhase60MultiPillarChronologyArbiter` in `tests/test_engine.py` with 8 deterministic unit tests certifying pillar score calculation, degeneracy dampening, material culture collision penalty, full arbitration ranking (Achar 3067 BCE dominant, Oak 5561 BCE penalized), custom hypothesis arbitration, EventStore chronology anchors retrieval, MCP JSON-RPC tool dispatch, and README test count parity. Certified **216/216 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Canonical distribution bundles recompiled via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates passing at 100% (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files).

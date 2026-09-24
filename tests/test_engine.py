@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3788,13 +3788,128 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
                     pass
 
     def test_phase59_readme_parity(self):
-        """Verify README.md is updated to reflect 208 comprehensive tests."""
+        """Verify README.md reflects test count parity."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "208 comprehensive unit and integration tests" in content, (
-            "README must be updated to 208 tests after Phase 59"
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests"])
+
+
+class TestPhase60MultiPillarChronologyArbiter:
+    """
+    Phase 60: Historical Multi-Pillar Chronology Arbiter (MPCA).
+    Evaluates conflicting historical timeline claims (Nilesh Oak 5561 BCE vs. Narahari Achar 3067 BCE vs. ASI PGW 1000 BCE).
+    """
+
+    def test_oak_5561bce_astronomy_high_archaeology_collision(self):
+        """Oak 5561 BCE candidate exhibits high astronomy fit but triggers material culture collision penalty."""
+        from geo_engine.arbitration.historical_arbiter import MultiPillarChronologyArbiter
+        report = MultiPillarChronologyArbiter.arbitrate(event_name="Mahabharata War Chronology")
+        oak = next(c for c in report.candidates if c.hypothesis_id == "CHRONO_OAK_5561_BCE")
+        assert oak.pillar_scores.astronomy_score >= 0.85
+        assert oak.pillar_scores.astronomy_degeneracy_factor >= 0.70
+        assert oak.has_material_culture_collision is True
+        assert "MATERIAL CULTURE COLLISION" in oak.collision_rationale
+        assert oak.composite_coherence_score <= 0.25
+
+    def test_achar_3067bce_multi_pillar_balanced_coherence(self):
+        """Achar 3067 BCE achieves the highest balanced multi-pillar coherence score without collision."""
+        from geo_engine.arbitration.historical_arbiter import MultiPillarChronologyArbiter
+        report = MultiPillarChronologyArbiter.arbitrate(event_name="Mahabharata War Chronology")
+        achar = next(c for c in report.candidates if c.hypothesis_id == "CHRONO_ACHAR_3067_BCE")
+        assert achar.has_material_culture_collision is False
+        assert achar.composite_coherence_score >= 0.75
+        assert report.dominant_candidate_id in ["CHRONO_ACHAR_3067_BCE", "CHRONO_ARYABHATA_3102_BCE"]
+
+    def test_pgw_1000bce_archaeology_high_saraswati_penalty(self):
+        """Lal PGW 1000 BCE has high archaeology but low hydro-geological coherence due to prior Saraswati desiccation."""
+        from geo_engine.arbitration.historical_arbiter import MultiPillarChronologyArbiter
+        report = MultiPillarChronologyArbiter.arbitrate(event_name="Mahabharata War Chronology")
+        lal = next(c for c in report.candidates if c.hypothesis_id == "CHRONO_LAL_PGW_1000_BCE")
+        assert lal.pillar_scores.archaeology_score >= 0.90
+        assert lal.pillar_scores.hydro_geology_score <= 0.30
+        assert lal.composite_coherence_score < 0.65
+
+    def test_astronomical_degeneracy_calculation(self):
+        """Astronomical degeneracy factor dampens unadjusted astronomy score for periodic recurring configurations."""
+        from geo_engine.arbitration.historical_arbiter import MultiPillarChronologyArbiter, ChronologyPillarScore
+        score_unique = ChronologyPillarScore(
+            astronomy_score=0.90, astronomy_degeneracy_factor=0.0,
+            archaeology_score=0.80, hydro_geology_score=0.80, textual_provenance_score=0.80
         )
+        score_degenerate = ChronologyPillarScore(
+            astronomy_score=0.90, astronomy_degeneracy_factor=0.80,
+            archaeology_score=0.80, hydro_geology_score=0.80, textual_provenance_score=0.80
+        )
+        c_unique, _, _ = MultiPillarChronologyArbiter.calculate_composite_coherence(score_unique, proposed_year_bce=3000)
+        c_degen, _, _ = MultiPillarChronologyArbiter.calculate_composite_coherence(score_degenerate, proposed_year_bce=3000)
+        assert c_unique > c_degen
+
+    def test_material_culture_hard_penalty_override(self):
+        """Pre-4500 BCE dates with low archaeology scores suffer severe 75% epistemic penalty."""
+        from geo_engine.arbitration.historical_arbiter import MultiPillarChronologyArbiter, ChronologyPillarScore
+        scores = ChronologyPillarScore(
+            astronomy_score=0.95, astronomy_degeneracy_factor=0.20,
+            archaeology_score=0.10, hydro_geology_score=0.80, textual_provenance_score=0.80
+        )
+        composite, has_coll, rationale = MultiPillarChronologyArbiter.calculate_composite_coherence(scores, proposed_year_bce=5000)
+        assert has_coll is True
+        assert rationale is not None
+        assert composite <= 0.25
+
+    def test_event_store_chronology_anchors(self):
+        """EventStore contains the 4 benchmark chronology anchors."""
+        import os
+        import tempfile
+        from geo_engine.storage.event_store import EventStore
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            temp_db = tf.name
+        try:
+            store = EventStore(temp_db)
+            anchors = store.get_chronology_anchors()
+            assert len(anchors) >= 4
+            ids = [a["anniversary_id"] for a in anchors]
+            assert "CHRONO-5561BCE-OAK" in ids
+            assert "CHRONO-3067BCE-ACHAR" in ids
+            assert "CHRONO-3102BCE-ARYABHATA" in ids
+            assert "CHRONO-1000BCE-PGW" in ids
+        finally:
+            if os.path.exists(temp_db):
+                try:
+                    os.remove(temp_db)
+                except Exception:
+                    pass
+
+    def test_mcp_geo_arbitrate_chronology_tool(self):
+        """MCP Server exposes and executes geo_arbitrate_chronology tool over JSON-RPC 2.0."""
+        import json
+        from geo_engine.mcp.server import GeoEngineMCPServer
+        server = GeoEngineMCPServer()
+        req = {
+            "jsonrpc": "2.0",
+            "id": 99,
+            "method": "tools/call",
+            "params": {
+                "name": "geo_arbitrate_chronology",
+                "arguments": {
+                    "event_name": "Mahabharata War Chronology"
+                }
+            }
+        }
+        resp = server.handle_request(req)
+        assert "result" in resp
+        content_txt = resp["result"]["content"][0]["text"]
+        result = json.loads(content_txt)
+        assert result["event_name"] == "Mahabharata War Chronology"
+        assert "dominant_candidate_id" in result
+        assert len(result["ranked_candidates"]) >= 4
+
+    def test_phase60_readme_parity(self):
+        """Verify README.md reflects 216 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "216 comprehensive unit and integration tests" in content
 
 
 

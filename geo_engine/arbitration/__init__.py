@@ -12,6 +12,12 @@ from .competing_hypotheses import (
     ACHEvaluationReport,
     IncidentReasoningEngine,
 )
+from .historical_arbiter import (
+    ChronologyPillarScore,
+    HistoricalHypothesisCandidate,
+    ChronologyEvaluationReport,
+    MultiPillarChronologyArbiter,
+)
 
 __all__ = [
     "NegativeSpaceDiffEngine",
@@ -21,4 +27,8 @@ __all__ = [
     "HypothesisCandidate",
     "ACHEvaluationReport",
     "IncidentReasoningEngine",
+    "ChronologyPillarScore",
+    "HistoricalHypothesisCandidate",
+    "ChronologyEvaluationReport",
+    "MultiPillarChronologyArbiter",
 ]

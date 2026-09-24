@@ -216,6 +216,54 @@ class EventStore:
                     "Landmark sovereign multilateral confrontation against transnational corporate capture of infant health and fear-based marketing."
                 )
             ])
+
+            # Seed Phase 60 Chronology Anchors idempotently
+            cursor.executemany("""
+                INSERT OR IGNORE INTO historical_anniversaries
+                (anniversary_id, month, day, year, event_title, region, historical_summary, strategic_mirror_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "CHRONO-5561BCE-OAK",
+                    10,
+                    16,
+                    -5561,
+                    "Nilesh Oak 5561 BCE Timeline (Arundhati-Vasistha Model)",
+                    "Ancient Bharat",
+                    "Dates the Mahabharata War to 5561 BCE based on the Arundhati walking ahead of Vasistha (Mizar-Alcor) observation in Bhishma Parva, calculating an epoch window between 11,091 BCE and 4508 BCE.",
+                    "Benchmark astronomical retro-calculation hypothesis; subject to material culture collision with Mesolithic/early Neolithic lithic archaeological strata."
+                ),
+                (
+                    "CHRONO-3067BCE-ACHAR",
+                    11,
+                    22,
+                    -3067,
+                    "Dr. Narahari Achar 3067 BCE Timeline (Saturn-Rohini BORI Model)",
+                    "Ancient Bharat",
+                    "Dates the Mahabharata War to 3067 BCE based on the BORI Critical Edition common archetype, Saturn at Rohini, Jupiter at Vishakha, and twin eclipses within 13 days.",
+                    "Multi-pillar benchmark exhibiting low astronomical degeneracy and high congruence with Saraswati perennial flow and Early Bronze Age urban transitions."
+                ),
+                (
+                    "CHRONO-3102BCE-ARYABHATA",
+                    2,
+                    18,
+                    -3102,
+                    "Traditional Aryabhata & Aihole Inscription 3102 BCE Kali Yuga Epoch",
+                    "Ancient Bharat",
+                    "Traditional civilizational anchor calculating the start of Kali Yuga at 3102 BCE, epigraphically corroborated by the Aihole Inscription of Pulakeshin II (634 CE) referencing 3735 elapsed years.",
+                    "Civilizational baseline anchor uniting Puranic dynastic chronologies with planetary mean-motion calculations."
+                ),
+                (
+                    "CHRONO-1000BCE-PGW",
+                    1,
+                    1,
+                    -1000,
+                    "Archaeological Survey of India Painted Grey Ware (PGW) 1000 BCE Model",
+                    "Ancient Bharat",
+                    "Dates the epic to the 10th-9th century BCE based on Painted Grey Ware (PGW) strata, early iron arrowheads at Hastinapur/Kurukshetra, and the flood layer described in Puranic texts.",
+                    "Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE."
+                )
+            ])
             conn.commit()
 
     def is_initialized(self) -> bool:
@@ -849,6 +897,46 @@ class EventStore:
                     "Global",
                     "World Health Assembly adopted landmark International Code (WHA34.22) restricting aggressive marketing of infant formula, following global boycotts against commercial exploitation of maternal anxiety in developing nations.",
                     "Landmark sovereign multilateral confrontation against transnational corporate capture of infant health and fear-based marketing."
+                ),
+                (
+                    "CHRONO-5561BCE-OAK",
+                    10,
+                    16,
+                    -5561,
+                    "Nilesh Oak 5561 BCE Timeline (Arundhati-Vasistha Model)",
+                    "Ancient Bharat",
+                    "Dates the Mahabharata War to 5561 BCE based on the Arundhati walking ahead of Vasistha (Mizar-Alcor) observation in Bhishma Parva, calculating an epoch window between 11,091 BCE and 4508 BCE.",
+                    "Benchmark astronomical retro-calculation hypothesis; subject to material culture collision with Mesolithic/early Neolithic lithic archaeological strata."
+                ),
+                (
+                    "CHRONO-3067BCE-ACHAR",
+                    11,
+                    22,
+                    -3067,
+                    "Dr. Narahari Achar 3067 BCE Timeline (Saturn-Rohini BORI Model)",
+                    "Ancient Bharat",
+                    "Dates the Mahabharata War to 3067 BCE based on the BORI Critical Edition common archetype, Saturn at Rohini, Jupiter at Vishakha, and twin eclipses within 13 days.",
+                    "Multi-pillar benchmark exhibiting low astronomical degeneracy and high congruence with Saraswati perennial flow and Early Bronze Age urban transitions."
+                ),
+                (
+                    "CHRONO-3102BCE-ARYABHATA",
+                    2,
+                    18,
+                    -3102,
+                    "Traditional Aryabhata & Aihole Inscription 3102 BCE Kali Yuga Epoch",
+                    "Ancient Bharat",
+                    "Traditional civilizational anchor calculating the start of Kali Yuga at 3102 BCE, epigraphically corroborated by the Aihole Inscription of Pulakeshin II (634 CE) referencing 3735 elapsed years.",
+                    "Civilizational baseline anchor uniting Puranic dynastic chronologies with planetary mean-motion calculations."
+                ),
+                (
+                    "CHRONO-1000BCE-PGW",
+                    1,
+                    1,
+                    -1000,
+                    "Archaeological Survey of India Painted Grey Ware (PGW) 1000 BCE Model",
+                    "Ancient Bharat",
+                    "Dates the epic to the 10th-9th century BCE based on Painted Grey Ware (PGW) strata, early iron arrowheads at Hastinapur/Kurukshetra, and the flood layer described in Puranic texts.",
+                    "Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE."
                 )
             ]
 
@@ -1285,6 +1373,22 @@ class EventStore:
                     "SELECT * FROM prediction_scorecard WHERE status = ? ORDER BY created_at DESC LIMIT ?",
                     (status.upper(), limit)
                 )
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
+
+    def get_chronology_anchors(self) -> List[Dict[str, Any]]:
+        """
+        Retrieves benchmark historical and civilizational chronology anchors
+        used by the Multi-Pillar Chronology Arbiter (MPCA).
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT anniversary_id, year, event_title, region, historical_summary, strategic_mirror_significance
+                FROM historical_anniversaries
+                WHERE anniversary_id LIKE 'CHRONO-%'
+                ORDER BY year ASC
+            """)
             rows = cursor.fetchall()
             return [dict(r) for r in rows]
 
