@@ -293,6 +293,31 @@ class SummitSynthesizer:
                         f"[INTER_LENS_CONTRADICTION] Tier 5 PR rhetoric ({new_align:.2f}) contradicted by Tier 2 CapEx haircut ({haircut_pct:.1f}%). PR confidence capped at 0.40."
                     )
 
+            # Rule 3: Sparse Dynamical Matrix Coupling A: Petro-Logistics -> Macro-Economic Shock
+            def _parse_val(v):
+                if isinstance(v, (int, float)):
+                    return float(v)
+                if isinstance(v, str):
+                    import re
+                    m = re.search(r"([\d\.]+)\s*([mMkK]?)", v.replace(",", "").strip())
+                    if m:
+                        n = float(m.group(1))
+                        u = m.group(2).upper()
+                        return n * 1_000_000 if u == "M" else (n * 1_000 if u == "K" else n)
+                return 0.0
+
+            crude_rerouted = _parse_val(hard_money_audit.get("physical_crude_re_routed_bpd", 0.0))
+            shadow_tankers = _parse_val(hard_money_audit.get("shadow_tanker_fleet_pct", 0.0))
+
+            if crude_rerouted >= 1_500_000 or shadow_tankers >= 35.0:
+                if any(k in lname for k in ["geo-econom", "geoeconom", "cash flow", "cashflow"]):
+                    # Chokepoint risk increases freight and insurance spreads, dampening alignment
+                    new_align = max(-0.80, round(new_align - 0.08, 2))
+                    arbitration_log.append(
+                        f"[CROSS_LENS_COUPLING_MATRIX] PetroLogistics shock (rerouted={crude_rerouted/1e6:.1f}M bpd, shadow_tankers={shadow_tankers:.1f}%) "
+                        f"coupled into '{le.lens_name}' alignment ({new_align:+.2f})."
+                    )
+
             coupled_evals.append(LensEvaluation(
                 lens_name=le.lens_name,
                 alignment_score=new_align,

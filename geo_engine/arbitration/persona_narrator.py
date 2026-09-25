@@ -105,6 +105,58 @@ class PersonaNarrator:
                 "judged strictly by their ability to protect sovereign balance sheets from SWIFT de-platforming."
             )
         },
+        "modi": {
+            "name": "Civilizational Scale & Execution Velocity Realist (PM Narendra Modi Tradition)",
+            "doctrinal_axis": "Gati Shakti Multi-Modal Logistics, Institutional Delivery & Viksit Bharat 2047",
+            "lens_weights": {
+                "GeoEconomistLens": 1.7,
+                "CivilizationalLens": 1.5,
+                "DeepTechLens": 1.4,
+                "PetroLogisticsLens": 1.3,
+                "DigitalSovereigntyLens": 1.5,
+                "FoodSecurityLens": 1.4
+            },
+            "conceptual_framing": (
+                "A grand-scale execution and statecraft framework: civilizational self-confidence (Aatmanirbharta) must "
+                "be translated into physical logistics turnaround velocity, massive manufacturing capacity, and institutional "
+                "delivery at unprecedented demographic scale (Viksit Bharat 2047). Multilateral engagement must anchor India as "
+                "a global growth engine and Vishwa-Bandhu without sacrificing domestic developmental sovereignty."
+            )
+        },
+        "sai_deepak": {
+            "name": "Constitutional Decoloniality & Epigraphic Sovereignty Realist (J. Sai Deepak Tradition)",
+            "doctrinal_axis": "Civilizational Jurisprudence, Sacred Geography & Deconstruction of Colonial Institutional Lawfare",
+            "lens_weights": {
+                "InstitutionalLawfareLens": 1.8,
+                "CivilizationalLens": 1.7,
+                "HistoryLens": 1.5,
+                "DemographicInfiltrationLens": 1.4,
+                "PropagandaLens": 1.3
+            },
+            "conceptual_framing": (
+                "A rigorous decolonial legal and constitutional jurisprudence framework: statecraft and diplomacy must be audited "
+                "against civilizational permanence, epigraphic and inscriptional evidence, and the systematic dismantling of "
+                "asymmetrical statutory regimes (Waqf Act, Places of Worship Act, state temple expropriation). Rejects post-colonial "
+                "institutional mimicry and Western-dominated human rights lawfare designed to hollow out native sovereignty."
+            )
+        },
+        "rizwan_ahmed": {
+            "name": "Forensic Courtroom Cross-Examiner & Criminal Law Realist (Dr. Syed Rizwan Ahmed Tradition)",
+            "doctrinal_axis": "Adversarial Evidentiary Cross-Examination, Statutory Due Process & Criminal Procedure Demolition",
+            "lens_weights": {
+                "InstitutionalLawfareLens": 2.0,
+                "PropagandaLens": 1.7,
+                "CivilizationalLens": 1.4,
+                "DemographicInfiltrationLens": 1.3
+            },
+            "conceptual_framing": (
+                "An uncompromising courtroom adversarial cross-examination framework: every political claim and allegation "
+                "is scrutinized under the strict rules of evidence (Indian Evidence Act / Bharatiya Sakshya Adhiniyam) and procedural "
+                "codes (CrPC / Bharatiya Nagarik Suraksha Sanhita). Demolishes legal terminology hijacking (such as using 'turn approver' "
+                "or 'criminal conspiracy' without an FIR, chargesheet, or judicial finding) and audits whether the accuser exhausted "
+                "statutory remedies (Booth Level Agent objections, Section 24 appeals, Section 80 Election Petitions) before staging a media circus."
+            )
+        },
         "neutral": {
             "name": "Neutral Epistemic Baseline",
             "doctrinal_axis": "Deterministic Epistemic Truth Hierarchy (Physical > Cash > Redlines > Kinesics > PR)",
@@ -199,6 +251,50 @@ class PersonaNarrator:
                 "Secure direct sovereign ownership of upstream critical mineral refining and hydrocarbon processing corridors."
             ]
 
+        elif key == "modi":
+            takeaway = (
+                "From the perspective of grand-scale civilizational execution and logistics velocity (Gati Shakti), diplomatic "
+                "summits and treaties are tools to drive national transformation toward Viksit Bharat 2047. Global partnerships "
+                "must translate into tangible manufacturing ecosystems, renewable and nuclear energy infrastructure, semiconductor "
+                "fabrication clusters, and digital public goods (UPI/ONDC). We approach the world not as a petitioner, but as "
+                "Vishwa-Bandhu—a confident, self-reliant civilizational pillar transforming demographic weight into sovereign capability."
+            )
+            recommendations = [
+                "Benchmark multilateral commitments against domestic capital expenditure and industrial turnaround speed.",
+                "Leverage India's scale to position domestic standards and digital public infrastructure across Global South corridors.",
+                "Enforce uncompromising national self-reliance (Aatmanirbharta) in critical defense technologies and maritime logistics."
+            ]
+
+        elif key == "sai_deepak":
+            takeaway = (
+                "Through the lens of constitutional decoloniality and civilizational jurisprudence, statecraft cannot be decoupled "
+                "from historical memory and sacred geography. Multilateral treaties and domestic statutory frameworks must be audited "
+                "to dismantle asymmetrical colonial-era legislation (Waqf Act, Places of Worship Act, state control of Hindu temples) "
+                "that undermine native sovereignty. Bharat must assert its status as an indigenous civilization-state, anchoring its "
+                "legal positions in primary epigraphic records and rejecting foreign judicial imperialism."
+            )
+            recommendations = [
+                "Deconstruct colonial statutory and treaty traps that compromise native cultural sovereignty or sacred geography.",
+                "Anchor national legal standing in primary inscriptional, archaeological, and epigraphic historical evidence.",
+                "Resist transnational human rights lawfare mechanisms designed to weaponize domestic fault lines."
+            ]
+
+        elif key == "rizwan_ahmed":
+            takeaway = (
+                "Through the lens of adversarial criminal jurisprudence and statutory due process, political outrage is not evidence. "
+                "Under Sections 101–103 of the Evidence Act (and BSA), the burden of proof lies entirely on the accuser. Casual use of "
+                "courtroom terminology—such as demanding a constitutional officer 'turn approver' without an FIR or trial under Section 306 CrPC / "
+                "Section 343 BNSS—is legally illiterate political theater. In electoral matters, the law provides mandatory statutory remedies: "
+                "party Booth Level Agents (BLAs) have the legal right to challenge draft rolls under Rules 21A/22 of the Registration of Electors "
+                "Rules 1960 and file appeals under Section 24 of RPA 1950. Bypassing these statutory avenues to stage inflammatory press "
+                "conferences demonstrates an absence of admissible evidence."
+            )
+            recommendations = [
+                "Enforce strict burden of proof: reject verbal allegations unbacked by sworn affidavits or primary documents.",
+                "Dismantle legal terminology hijacking: call out unauthorized deployment of criminal law terms in political narratives.",
+                "Audit statutory compliance: verify whether claimants exhausted administrative remedies (BLA objections, Sec 80 Election Petitions)."
+            ]
+
         else:
             takeaway = (
                 f"Neutral arbitration confirms overall epistemic confidence at {report.overall_confidence_score * 100:.1f}%. "
@@ -220,6 +316,17 @@ class PersonaNarrator:
             "lens_weights": profile["lens_weights"],
             "disclaimer": "[Analytical modeling of doctrinal tradition — not a statement by or attributable to the named individual]"
         }
+
+    @classmethod
+    def apply_all_personas(cls, report: SummitAnalysisReport) -> Dict[str, Dict[str, Any]]:
+        """
+        Executes concurrent synthesis across the complete 7-archetype Strategic Heptarchy.
+        Returns a dictionary mapping archetype keys to their structured evaluations.
+        """
+        results = {}
+        for key in cls.ARCHETYPES:
+            results[key] = cls.apply_persona(report, key)
+        return results
 
     @classmethod
     def narrate(cls, report: SummitAnalysisReport, persona_key: str = "neutral") -> str:
@@ -262,70 +369,143 @@ class CivilizationalCouncil:
         reality_pct = tensor.get("reality_percentage", 20.0)
         propaganda_pct = tensor.get("propaganda_percentage", 80.0)
 
-        perspectives = {
-            "pandit": {
-                "role": "Paṇḍit (Śāstric & Grammatical Precision)",
-                "guiding_maxim": "Śāstre pramāṇam kim? (Where is the primary textual authority?)",
-                "verdict": (
-                    f"Textual audit confirms the claim '{topic_or_claim[:80]}' lacks canonical foundation. "
-                    "In classical Mīmāṃsā epistemology, uncorroborated modern bazaar pamphlets cannot override "
-                    "canonical Śruti and Smṛti treatises. Furthermore, modern Gregorian years (e.g. 2032) have zero locus "
-                    "in classical Sanskrit/Odia chronometry, which reckons strictly by Vikrama, Śaka, and Aṅka regnal cycles."
-                )
-            },
-            "acharya": {
-                "role": "Ācārya (Lineage & Pedagogical Integrity)",
-                "guiding_maxim": "Preserve the sacred dignity of our saints and lineages.",
-                "verdict": (
-                    "Rejects the degradation of sublime Bhakti saints (such as Mahāpuruṣa Achyutānanda and the Pañcasakhā) "
-                    "into sensationalist street-fortune tellers. The true purpose of vernacular Bhakti literature was "
-                    "inner purification, Nirguṇa Bhakti, and social cohesion—not manufactured geopolitical doomsday panics."
-                )
-            },
-            "rishi": {
-                "role": "Ṛṣi (Vision of Ṛta & Consciousness)",
-                "guiding_maxim": "Yuga is a state of Cetanā (consciousness), not an external calendar clock.",
-                "verdict": (
-                    "When the human mind is submerged in fear, greed, and panic, it dwells in Kali Yuga right now. "
-                    "When the mind rests in truth, purity, and meditation, it abides in Satya Yuga. Chasing external apocalyptic "
-                    "deadlines is a distraction from self-realization in the present moment."
-                )
-            },
-            "guru": {
-                "role": "Guru (Compassion, Mental Health & Anti-Fear)",
-                "guiding_maxim": "Abhaya (Fearlessness) is the first divine endowment (Bhagavad Gītā 16.1).",
-                "verdict": (
-                    "Cautions strongly against apocalyptic alarmism that induces clinical anxiety, depression, and defeatist "
-                    "fatalism among youth and families. Authentic Dharma empowers the seeker with steadfast calm, "
-                    "fortitude, and moral duty, never psychological paralysis."
-                )
-            },
-            "tech_analyst": {
-                "role": "Modern Tech & Information Warfare Analyst",
-                "guiding_maxim": "Analyze the algorithmic incentive structure and attention monetization.",
-                "verdict": (
-                    "Social media and video recommendation algorithms aggressively reward existential dread and catastrophic "
-                    "claims. The fusion of 'Ancient Mystery' + 'Specific Year' + 'WW3' is an engineered commercial formula "
-                    "for high watch-time, viral comment engagement, and book/course sales."
-                )
-            },
-            "seeker": {
-                "role": "Seeker / Pragmatist (Karma Yoga)",
-                "guiding_maxim": "Kṣudraṃ hṛdayadaurbalyaṃ tyaktvottiṣṭha parantapa (Bhagavad Gītā 2.3).",
-                "verdict": (
-                    "Disregards disempowering fatalism and redirects energy toward daily duty, professional mastery, "
-                    "family responsibility, and national resilience. One's duty is purposeful action in the world (*Karma Yoga*), "
-                    "not passive surrender to unverified apocalyptic narratives."
-                )
-            }
-        }
-
-        guidance = [
-            "Do not succumb to fear-driven millenarianism; anchor yourself in primary canon (Surya Siddhanta, Mahabharata).",
-            "Separate authentic Bhakti spiritual literature from post-1970s commercial chapbook interpolations.",
-            "Recognize the algorithmic business model: apocalyptic titles monetize human anxiety for viral retention.",
-            "Practice Purushartha and Karma Yoga: focus on education, character, and strategic deterrence over fatalistic doom."
+        # Determine if topic is apocalyptic/millenarian vs. sovereign geopolitical/economic
+        apocalyptic_triggers = [
+            "2032", "apocalypse", "malika", "doomsday", "nostradamus", "end of world",
+            "kalki", "pralaya", "ww3", "world war 3", "shroud", "brain yoga", "midbrain",
+            "prophecy", "yuga collapse"
         ]
+        is_apocalyptic = any(k in topic_or_claim.lower() for k in apocalyptic_triggers)
+
+        if not is_apocalyptic:
+            # Sovereign Civilizational Statecraft & Rajdharma Perspectives
+            perspectives = {
+                "pandit": {
+                    "role": "Paṇḍit (Śāstric & Epistemic Precision)",
+                    "guiding_maxim": "Śāstre pramāṇam kim? (Where is the primary textual authority?)",
+                    "verdict": (
+                        f"Śāstric analysis of '{topic_or_claim[:80]}' invokes Kautilya's Arthaśāstra (Book VII) and the Ṣaḍguṇya doctrine. "
+                        "A civilization-state must calibrate its diplomatic stance between Sandhi (peace alliance), Vigraha (hostility), "
+                        "and Dvaidhibhāva (dual policy). Pure verbal declarations without binding physical and financial commitments "
+                        "are ungrounded according to classical Nyāya-Mīmāṃsā epistemology."
+                    )
+                },
+                "acharya": {
+                    "role": "Ācārya (Dharmic Governance & Pedagogical Integrity)",
+                    "guiding_maxim": "Preserve the civilizational realm and the Yogakṣema of the people.",
+                    "verdict": (
+                        "True statecraft (Rājadharma) prioritizes the welfare, caloric security (Dhānya Rakṣā), and sovereignty of 1.4 billion citizens. "
+                        "Multilateral partnerships must be evaluated strictly by their concrete contribution to domestic self-reliance (Ātmanirbhatā), "
+                        "never by superficial foreign praise or ceremonial joint communiqués."
+                    )
+                },
+                "rishi": {
+                    "role": "Ṛṣi (Vision of Ṛta & Polycentric Order)",
+                    "guiding_maxim": "Ṛta is the eternal cosmic balance; multi-polarity reflects divine equilibrium.",
+                    "verdict": (
+                        "Global power shifts represent the cyclical re-balancing of cosmic order (Ṛta). The 21st-century transition away from "
+                        "unilateral hegemony toward a polycentric world order is natural and inevitable. Bharat must stand as an independent pole, "
+                        "anchoring global equilibrium through moral clarity and strategic self-possession."
+                    )
+                },
+                "guru": {
+                    "role": "Guru (Abhaya & Civilizational Self-Confidence)",
+                    "guiding_maxim": "Abhaya (Fearlessness) is the first divine endowment (Bhagavad Gītā 16.1).",
+                    "verdict": (
+                        "Urges absolute eradication of post-colonial self-doubt and fear of external coercion or secondary sanctions. "
+                        "A nation of 1.4 billion people with 5,000 years of living civilizational continuity must approach global statecraft "
+                        "with fearlessness, poise, and purposeful duty (Karma Yoga)."
+                    )
+                },
+                "tech_analyst": {
+                    "role": "Modern Deep-Tech & Compute Sovereignty Analyst",
+                    "guiding_maxim": "Master the physical and algorithmic stack of the 21st century.",
+                    "verdict": (
+                        "Modern geopolitical sovereignty is won or lost in the semiconductor fabrication facility, the subsea fiber corridor, "
+                        "and the sovereign AI compute cluster. Strategic autonomy requires indigenous technological parity, secure supply chains, "
+                        "and digital public goods insulation against extraterritorial de-platforming."
+                    )
+                },
+                "seeker": {
+                    "role": "Seeker / Pragmatist (Karma Yoga)",
+                    "guiding_maxim": "Kṣudraṃ hṛdayadaurbalyaṃ tyaktvottiṣṭha parantapa (Bhagavad Gītā 2.3).",
+                    "verdict": (
+                        "Translates high-level civilizational ideals into relentless ground-level execution: manufacturing turnaround velocity, "
+                        "border infrastructure completion, agricultural self-sufficiency, and disciplined national productivity."
+                    )
+                }
+            }
+            guidance = [
+                "Ground all foreign policy in Kautilya's Ṣaḍguṇya and multi-vector strategic autonomy.",
+                "Prioritize domestic physical self-reliance (energy, critical minerals, chips) over paper treaties.",
+                "Maintain Abhaya: resist extraterritorial coercive sanctions through bilateral currency clearing.",
+                "Execute relentlessly: translate civilizational confidence into industrial turnaround velocity."
+            ]
+        else:
+            # Apocalyptic / Millenarian / Pseudoscience Deconstruction Perspectives
+            perspectives = {
+                "pandit": {
+                    "role": "Paṇḍit (Śāstric & Grammatical Precision)",
+                    "guiding_maxim": "Śāstre pramāṇam kim? (Where is the primary textual authority?)",
+                    "verdict": (
+                        f"Textual audit confirms the claim '{topic_or_claim[:80]}' lacks canonical foundation. "
+                        "In classical Mīmāṃsā epistemology, uncorroborated modern bazaar pamphlets cannot override "
+                        "canonical Śruti and Smṛti treatises. Furthermore, modern Gregorian years (e.g. 2032) have zero locus "
+                        "in classical Sanskrit/Odia chronometry, which reckons strictly by Vikrama, Śaka, and Aṅka regnal cycles."
+                    )
+                },
+                "acharya": {
+                    "role": "Ācārya (Lineage & Pedagogical Integrity)",
+                    "guiding_maxim": "Preserve the sacred dignity of our saints and lineages.",
+                    "verdict": (
+                        "Rejects the degradation of sublime Bhakti saints (such as Mahāpuruṣa Achyutānanda and the Pañcasakhā) "
+                        "into sensationalist street-fortune tellers. The true purpose of vernacular Bhakti literature was "
+                        "inner purification, Nirguṇa Bhakti, and social cohesion—not manufactured geopolitical doomsday panics."
+                    )
+                },
+                "rishi": {
+                    "role": "Ṛṣi (Vision of Ṛta & Consciousness)",
+                    "guiding_maxim": "Yuga is a state of Cetanā (consciousness), not an external calendar clock.",
+                    "verdict": (
+                        "When the human mind is submerged in fear, greed, and panic, it dwells in Kali Yuga right now. "
+                        "When the mind rests in truth, purity, and meditation, it abides in Satya Yuga. Chasing external apocalyptic "
+                        "deadlines is a distraction from self-realization in the present moment."
+                    )
+                },
+                "guru": {
+                    "role": "Guru (Compassion, Mental Health & Anti-Fear)",
+                    "guiding_maxim": "Abhaya (Fearlessness) is the first divine endowment (Bhagavad Gītā 16.1).",
+                    "verdict": (
+                        "Cautions strongly against apocalyptic alarmism that induces clinical anxiety, depression, and defeatist "
+                        "fatalism among youth and families. Authentic Dharma empowers the seeker with steadfast calm, "
+                        "fortitude, and moral duty, never psychological paralysis."
+                    )
+                },
+                "tech_analyst": {
+                    "role": "Modern Tech & Information Warfare Analyst",
+                    "guiding_maxim": "Analyze the algorithmic incentive structure and attention monetization.",
+                    "verdict": (
+                        "Social media and video recommendation algorithms aggressively reward existential dread and catastrophic "
+                        "claims. The fusion of 'Ancient Mystery' + 'Specific Year' + 'WW3' is an engineered commercial formula "
+                        "for high watch-time, viral comment engagement, and book/course sales."
+                    )
+                },
+                "seeker": {
+                    "role": "Seeker / Pragmatist (Karma Yoga)",
+                    "guiding_maxim": "Kṣudraṃ hṛdayadaurbalyaṃ tyaktvottiṣṭha parantapa (Bhagavad Gītā 2.3).",
+                    "verdict": (
+                        "Disregards disempowering fatalism and redirects energy toward daily duty, professional mastery, "
+                        "family responsibility, and national resilience. One's duty is purposeful action in the world (*Karma Yoga*), "
+                        "not passive surrender to unverified apocalyptic narratives."
+                    )
+                }
+            }
+            guidance = [
+                "Do not succumb to fear-driven millenarianism; anchor yourself in primary canon (Surya Siddhanta, Mahabharata).",
+                "Separate authentic Bhakti spiritual literature from post-1970s commercial chapbook interpolations.",
+                "Recognize the algorithmic business model: apocalyptic titles monetize human anxiety for viral retention.",
+                "Practice Purushartha and Karma Yoga: focus on education, character, and strategic deterrence over fatalistic doom."
+            ]
 
         return {
             "topic": topic_or_claim,

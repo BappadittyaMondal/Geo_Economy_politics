@@ -88,6 +88,9 @@ class KinesicObservation(BaseModel):
     torso_angle_degrees: float = Field(default=0.0, description="0 = directly facing, 90 = angled away towards exit")
     residual_tension_score: float = Field(default=0.0, ge=0.0, le=1.0, description="0.0=relaxed/natural, 1.0=extreme rigid tension")
     micro_expression_flag: str = Field(default="neutral_resting", description="'duchenne_smile', 'jaw_clench', 'gaze_avoidance', 'neutral_resting'")
+    sartorial_colour_code: str = Field(default="neutral_charcoal", description="'saffron_civilizational', 'midnight_institutional', 'olive_tactical', 'neutral_charcoal'")
+    prosodic_pause_index: float = Field(default=0.0, ge=0.0, le=1.0, description="Pause latency before key sovereign nouns: 0.0=fluid, 1.0=severe hesitation")
+    proxemic_distance_tier: str = Field(default="bilateral_parity", description="'intimate_embrace', 'bilateral_parity', 'asymmetric_distant'")
     notes: Optional[str] = None
 
     @computed_field
@@ -96,6 +99,7 @@ class KinesicObservation(BaseModel):
         """
         Calculates residual warmth after protocol baseline subtraction.
         If mandated by protocol, high warmth is heavily discounted.
+        Integrates prosodic pause latency and spatial proxemic distance.
         """
         if self.protocol_mandated:
             # Protocol discount: Staged posture cannot be assumed as genuine affinity
@@ -107,6 +111,13 @@ class KinesicObservation(BaseModel):
             raw_warmth *= 0.6
         if self.micro_expression_flag == "jaw_clench" or self.micro_expression_flag == "gaze_avoidance":
             raw_warmth *= 0.3
+        if self.prosodic_pause_index > 0.6:
+            raw_warmth *= (1.0 - (self.prosodic_pause_index - 0.6) * 0.5)
+        if self.proxemic_distance_tier == "intimate_embrace":
+            raw_warmth = min(1.0, raw_warmth * 1.15)
+        elif self.proxemic_distance_tier == "asymmetric_distant":
+            raw_warmth *= 0.75
+
         return round(max(0.0, min(1.0, raw_warmth)), 3)
 
 

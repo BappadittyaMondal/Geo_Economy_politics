@@ -5,6 +5,7 @@ competing causal hypotheses for anomalous kinetic, maritime, and border incident
 before leaping to strategic or civilizational 'inner meaning' conclusions.
 """
 
+import re
 from enum import Enum
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
@@ -149,6 +150,128 @@ class TeleologicalFallacySieve:
             emergent_opportunism_probability=p_market,
             legitimate_evolution_probability=p_empirical,
             verdict=verdict,
+            rationale=rationale
+        )
+
+
+class DecomposedClaim(BaseModel):
+    """
+    Decomposition of compound political/rhetorical claims into atomic premises and causal attributions.
+    Specifically isolates 'Poisoned Tail' misinformation where factual premises (e.g. 70%) are paired
+    with unevidenced or conspiratorial causal leaps (e.g. 30%).
+    """
+    raw_text: str
+    factual_premises: List[str] = Field(default_factory=list)
+    causal_assertions: List[str] = Field(default_factory=list)
+    conjunction_detected: Optional[str] = None
+    is_poisoned_tail_detected: bool = False
+    premise_veracity_score: float = Field(default=1.0, ge=0.0, le=1.0)
+    inference_veracity_score: float = Field(default=1.0, ge=0.0, le=1.0)
+    poisoned_tail_ratio: float = Field(default=0.0, ge=0.0)
+    epistemic_classification: str = "VALID_COHERENT_CLAIM"
+    rationale: str = ""
+
+
+class ClaimDecomposer:
+    """
+    Atomic Claim-Decomposition Token Splitter.
+    Deconstructs compound rhetorical narratives across causal inflection points
+    to isolate true premises from weaponized, ungrounded causal conclusions.
+    """
+    CAUSAL_CONNECTORS = [
+        " therefore ", " hence ", " consequently ", " thus ", " which proves that ",
+        " leading to ", " revealing that ", " showing that ", " which means that ",
+        " isliye ", " kyunki ", " jisse saabit hota hai ki ", " indicating that "
+    ]
+
+    CONSPIRACY_LEAP_KEYWORDS = [
+        "vote chori", "stolen election", "rigged", "vote theft", "conspiracy", "traitor",
+        "deshdrohi", "turn approver", "sabotage", "subversion", "captured", "criminal plot",
+        "secret plot", "sold out", "collusion", "colluding"
+    ]
+
+    FACTUAL_INDICATORS = [
+        "revision", "special intensive revision", "sir", "electoral roll", "election commission",
+        "dissent", "objection", "recorded", "meeting", "gazette", "notification", "query",
+        "deleted", "added", "verified", "form 7", "form 8", "eci", "official", "deliberation"
+    ]
+
+    @classmethod
+    def decompose(cls, claim_text: str) -> DecomposedClaim:
+        text_clean = claim_text.strip()
+        text_lower = text_clean.lower()
+
+        # Find causal inflection point
+        connector_found = None
+        split_idx = -1
+        for conn in cls.CAUSAL_CONNECTORS:
+            if conn in text_lower:
+                idx = text_lower.find(conn)
+                if idx != -1:
+                    connector_found = conn.strip()
+                    split_idx = idx
+                    break
+
+        if split_idx != -1:
+            premise_part = text_clean[:split_idx].strip()
+            inference_part = text_clean[split_idx + len(connector_found) + 2:].strip()
+            premises = [p.strip() for p in premise_part.split(";") if p.strip()] or [premise_part]
+            inferences = [i.strip() for i in inference_part.split(";") if i.strip()] or [inference_part]
+        else:
+            # Fallback: check for multi-sentence structure
+            sentences = [s.strip() for s in re.split(r"[.\n]+", text_clean) if s.strip()]
+            if len(sentences) >= 2:
+                premises = sentences[:-1]
+                inferences = [sentences[-1]]
+                connector_found = "sentence_boundary"
+            else:
+                premises = [text_clean]
+                inferences = []
+
+        prem_str = " ".join(premises).lower()
+        inf_str = " ".join(inferences).lower()
+
+        # Score premise veracity (presence of factual administrative/statutory terminology)
+        factual_premise_hits = sum(1 for kw in cls.FACTUAL_INDICATORS if kw in prem_str)
+        premise_veracity = min(1.0, 0.50 + factual_premise_hits * 0.15) if premises else 0.50
+
+        # Score inference veracity and leap
+        conspiracy_hits = sum(1 for kw in cls.CONSPIRACY_LEAP_KEYWORDS if kw in inf_str)
+        if inferences:
+            if conspiracy_hits > 0:
+                inference_veracity = max(0.10, 0.40 - conspiracy_hits * 0.15)
+            else:
+                inference_veracity = 0.70
+        else:
+            inference_veracity = 1.0
+
+        poisoned_ratio = round(premise_veracity / max(0.05, inference_veracity), 2)
+        is_poisoned = bool(inferences and conspiracy_hits > 0 and premise_veracity >= 0.60 and poisoned_ratio >= 1.50)
+
+        if is_poisoned:
+            classification = "POISONED_TAIL_MISINFORMATION_DETECTED"
+            rationale = (
+                f"Poisoned Tail Misinformation Detected: Factual premise(s) have empirical administrative grounding "
+                f"({premise_veracity:.1%}), but the concluding causal attribution leaps to unproven conspiracy "
+                f"({inference_veracity:.1%}) with a distortion ratio of {poisoned_ratio:.2f}."
+            )
+        elif inferences:
+            classification = "COMPOUND_ARGUMENT_EVALUATED"
+            rationale = f"Compound claim decomposed into {len(premises)} premise(s) and {len(inferences)} inference(s)."
+        else:
+            classification = "ATOMIC_CLAIM"
+            rationale = "Claim does not contain compound causal conjunctions."
+
+        return DecomposedClaim(
+            raw_text=claim_text,
+            factual_premises=premises,
+            causal_assertions=inferences,
+            conjunction_detected=connector_found,
+            is_poisoned_tail_detected=is_poisoned,
+            premise_veracity_score=round(premise_veracity, 2),
+            inference_veracity_score=round(inference_veracity, 2),
+            poisoned_tail_ratio=poisoned_ratio,
+            epistemic_classification=classification,
             rationale=rationale
         )
 

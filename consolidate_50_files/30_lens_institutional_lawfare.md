@@ -40,7 +40,9 @@ class InstitutionalLawfareLens:
             "extraterritorial_compliance_penalty_pct": 28.5,
             "dollar_clearing_vulnerability_index": 0.72,
             "institutional_neutrality_erosion_score": 0.88,
-            "bilateral_maritime_accord_compliance_score": 0.25
+            "bilateral_maritime_accord_compliance_score": 0.25,
+            "statutory_remedy_bypass_index": 0.0,
+            "legal_terminology_hijack_detected": False
         }
 
         alignment = -0.50  # Indicates elevated legal, regulatory, and sanctions friction
@@ -86,6 +88,37 @@ class InstitutionalLawfareLens:
                 alignment = min(alignment, -0.70)
                 metrics["bilateral_maritime_accord_compliance_score"] = 0.15
                 metrics["maritime_treaty_breach_severity"] = 0.85
+
+            electoral_keywords = [
+                "rpa", "representation of the people", "booth level agent", "bla",
+                "special intensive revision", "sir", "electoral roll", "vote chori",
+                "vote theft", "turn approver", "election commission", "form 7", "form 8",
+                "form 17c", "voter deletion", "election petition"
+            ]
+            electoral_lawfare_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in electoral_keywords)
+                for c in claims
+            )
+            if electoral_lawfare_detected:
+                has_courtroom_jargon = any(
+                    any(j in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for j in ["turn approver", "approver", "conspiracy", "deshdrohi", "treason"])
+                    for c in claims
+                )
+                has_formal_petition = any(
+                    any(p in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for p in ["election petition", "section 80", "section 24", "affidavit under oath", "high court petition"])
+                    for c in claims
+                )
+                remedy_bypass_score = 0.88 if not has_formal_petition else 0.15
+                findings.insert(0, (
+                    "[GROUNDED TELEMETRY] Domestic Electoral Statutory Audit: Allegations of electoral roll fraud evaluated against "
+                    "Representation of the People Act 1950 (Sections 21, 22, 24), RPA 1951 (Section 80), and Registration of Electors Rules 1960. "
+                    "Mandatory statutory remedies (Booth Level Agent scrutiny, Section 24 statutory appeals, High Court election petitions) "
+                    "were bypassed in favor of extra-judicial political press narratives."
+                ))
+                alignment = min(alignment, -0.65)
+                metrics["statutory_remedy_bypass_index"] = remedy_bypass_score
+                metrics["electoral_jurisprudence_compliance_score"] = 0.30 if not has_formal_petition else 0.85
+                metrics["legal_terminology_hijack_detected"] = bool(has_courtroom_jargon and not has_formal_petition)
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,

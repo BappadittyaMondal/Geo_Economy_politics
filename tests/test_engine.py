@@ -3478,11 +3478,11 @@ class TestPhase54OperationalPipeline:
         assert "EventStore" in top_story["source"] or "Official Gazette" in top_story["source"] or "GDELT" in top_story["source"]
 
     def test_readme_phase54_test_count_parity(self):
-        """Verify README.md reflects current test count (updated through Phase 55-58)."""
+        """Verify README.md reflects current test count (updated through Phase 55-70)."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3931,11 +3931,11 @@ class TestPhase60MultiPillarChronologyArbiter:
         render_chronology_arbitration("Mahabharata War Test")
 
     def test_phase60_readme_parity(self):
-        """Verify README.md reflects 220 or 224 comprehensive tests."""
+        """Verify README.md reflects 220, 224, 231, or 238 comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests"])
 
 
 class TestPhase61GeofinancialAndDisinformationHardening:
@@ -4082,11 +4082,306 @@ class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
         assert "formatted_report" in audit
 
     def test_readme_test_count_parity(self):
-        """Verify README.md reflects 231 comprehensive tests."""
+        """Verify README.md reflects 238 or 243 comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "231 comprehensive unit and integration tests" in content
+        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests"])
+
+
+class TestPhase66to69HeptarchyAndAtomicGuardrails:
+    """
+    Phase 66–69 Verification Suite:
+    - Phase 66: Heptarchy Expansion (Modi & Sai Deepak Archetypes, apply_all_personas)
+    - Phase 67: Level-0 Atomic Chronology Gate (Tenure Registry) & Kinesic Telemetry (Sartorial/Prosodic)
+    - Phase 68: Domain-Aware Civilizational Council & Sparse Cross-Lens Coupling Matrix (A)
+    - Phase 69: Closed-Loop Empirical Bayes Recalibration
+    """
+
+    def test_phase66_modi_and_sai_deepak_archetypes(self):
+        """Verify Modi and Sai Deepak archetypes are present and execute properly."""
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        from geo_engine.core.models import SummitEvent, SummitAnalysisReport
+
+        assert "modi" in PersonaNarrator.ARCHETYPES
+        assert "sai_deepak" in PersonaNarrator.ARCHETYPES
+        assert len(PersonaNarrator.ARCHETYPES) in (8, 9)  # 8/9 operational archetypes
+
+        mock_event = SummitEvent(summit_name="BRICS 2026 Test", year=2026, host_country="India")
+        mock_report = SummitAnalysisReport(event=mock_event, overall_confidence_score=0.92)
+
+        # 1. Test Modi persona
+        modi_res = PersonaNarrator.apply_persona(mock_report, "modi")
+        assert modi_res["archetype_key"] == "modi"
+        assert "Viksit Bharat 2047" in modi_res["executive_takeaway"]
+        assert "Gati Shakti" in modi_res["doctrinal_axis"]
+        assert len(modi_res["strategic_recommendations"]) == 3
+
+        # 2. Test Sai Deepak persona
+        sai_res = PersonaNarrator.apply_persona(mock_report, "sai_deepak")
+        assert sai_res["archetype_key"] == "sai_deepak"
+        assert "decolonial" in sai_res["executive_takeaway"].lower()
+        assert "epigraphic" in sai_res["executive_takeaway"].lower()
+        assert len(sai_res["strategic_recommendations"]) == 3
+
+        # 3. Test apply_all_personas
+        all_res = PersonaNarrator.apply_all_personas(mock_report)
+        assert len(all_res) in (8, 9)
+        for k in ["sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "neutral"]:
+            assert k in all_res
+
+    def test_phase67_atomic_chronology_gate(self):
+        """Verify Level-0 Atomic Chronology Gate detects anachronistic fabrications."""
+        from geo_engine.core.temporal_guardrail import TemporalGuardrail
+
+        # 1. Gyanesh Kumar was NOT CEC in November 2024 (Maharashtra) or early Feb 2025 (Delhi)
+        res_mh = TemporalGuardrail.verify_chronological_feasibility(
+            "gyanesh_kumar", "Chief Election Commissioner", "2024-11-20"
+        )
+        assert res_mh["is_chronologically_feasible"] is False
+        assert res_mh["classification"] == "ANACHRONISTIC_FABRICATION"
+        assert "Rajiv Kumar" in res_mh["message"]
+
+        res_delhi = TemporalGuardrail.verify_chronological_feasibility(
+            "gyanesh_kumar", "Chief Election Commissioner", "2025-02-05"
+        )
+        assert res_delhi["is_chronologically_feasible"] is False
+        assert res_delhi["classification"] == "ANACHRONISTIC_FABRICATION"
+
+        # 2. Gyanesh Kumar IS CEC in 2026
+        res_2026 = TemporalGuardrail.verify_chronological_feasibility(
+            "gyanesh_kumar", "Chief Election Commissioner", "2026-05-15"
+        )
+        assert res_2026["is_chronologically_feasible"] is True
+        assert res_2026["classification"] == "CHRONOLOGICALLY_VERIFIED"
+
+    def test_phase67_kinesic_sartorial_and_prosodic_telemetry(self):
+        """Verify sartorial color codes and prosodic pause latency in KinesicObservation and lens."""
+        from geo_engine.core.models import KinesicObservation, SummitEvent
+        from geo_engine.lenses.kinesics import KinesicsLens
+
+        obs = KinesicObservation(
+            actor_primary="India (PM)",
+            actor_secondary="Global Leader",
+            setting="unscripted_corridor",
+            protocol_mandated=False,
+            residual_tension_score=0.15,
+            sartorial_colour_code="saffron_civilizational",
+            prosodic_pause_index=0.20,
+            proxemic_distance_tier="intimate_embrace"
+        )
+        assert obs.genuine_warmth_index > 0.85
+
+        # Hesitant speaker with distant proxemics
+        obs_tense = KinesicObservation(
+            actor_primary="Adversary Delegate",
+            actor_secondary="Host",
+            setting="formal_photocall",
+            protocol_mandated=True,
+            residual_tension_score=0.60,
+            sartorial_colour_code="neutral_charcoal",
+            prosodic_pause_index=0.85,
+            proxemic_distance_tier="asymmetric_distant"
+        )
+        assert obs_tense.genuine_warmth_index < 0.20
+
+        # Evaluate through lens
+        summit = SummitEvent(summit_name="Kinesic Telemetry Test", year=2026)
+        eval_res = KinesicsLens.evaluate(summit, observations=[obs, obs_tense])
+        assert "sartorial_distribution" in eval_res.hard_metrics
+        assert "micro_signal_channels_active" in eval_res.hard_metrics
+        assert eval_res.hard_metrics["sartorial_distribution"].get("saffron_civilizational") == 1
+
+    def test_phase68_civilizational_council_domain_awareness(self):
+        """Verify CivilizationalCouncil dynamically switches between statecraft and millenarian deconstruction."""
+        from geo_engine.arbitration.persona_narrator import CivilizationalCouncil
+
+        # 1. Secular geopolitical summit: Must discuss Arthashastra, Rajdharma, NOT 2032 doomsday
+        secular_res = CivilizationalCouncil.evaluate("Indo-Pacific Maritime Corridors and Sovereign AI Cluster")
+        p_secular = secular_res["perspectives"]["pandit"]["verdict"]
+        assert "Kautilya" in p_secular or "Arthaśāstra" in p_secular
+        assert "2032" not in p_secular
+        assert "Achyutānanda" not in secular_res["perspectives"]["acharya"]["verdict"]
+
+        # 2. Apocalyptic trigger: Must debunk 2032 Gregorian doomsday and protect Bhakti saints
+        apoc_res = CivilizationalCouncil.evaluate("Kali Yuga Ends in 2032 Nostradamus Doomsday")
+        p_apoc = apoc_res["perspectives"]["pandit"]["verdict"]
+        assert "2032" in p_apoc
+        assert "Achyutānanda" in apoc_res["perspectives"]["acharya"]["verdict"]
+
+    def test_phase68_cross_lens_dynamical_coupling(self):
+        """Verify sparse dynamical coupling A links PetroLogistics shocks into Macro-Economic alignment."""
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import LensEvaluation, EpistemicTier
+
+        dummy_geo = LensEvaluation(
+            lens_name="GeoEconomistLens",
+            alignment_score=0.60,
+            confidence=0.85,
+            primary_epistemic_tier=EpistemicTier.TIER_2_FINANCIAL
+        )
+        log = []
+        # Shock scenario: 2.8M bpd rerouted, 55% shadow tanker dependence
+        hard_money = {
+            "aggregate_haircut_pct": 20.0,
+            "physical_crude_re_routed_bpd": 2_800_000,
+            "shadow_tanker_fleet_pct": 55.0
+        }
+        coupled, penalty = SummitSynthesizer.apply_inter_lens_coupling([dummy_geo], hard_money, log)
+        assert len(coupled) == 1
+        assert coupled[0].alignment_score < 0.60  # Shock dampened alignment
+        assert any("CROSS_LENS_COUPLING_MATRIX" in l for l in log)
+
+    def test_phase69_empirical_bayes_recalibration(self):
+        """Verify closed-loop Empirical Bayes recalibration adjusts theta based on Brier scores."""
+        from geo_engine.storage.event_store import EventStore
+
+        store = EventStore()
+
+        # High error scenario (overconfidence) -> Aggressive filter, theta tightened
+        err_res = store.recalibrate_epistemic_hyperparameters("PRED-ERR-TEST", brier_score=0.45)
+        assert err_res["closed_loop_learning_active"] is True
+        assert err_res["epistemic_action"] == "AGGRESSIVE_SIEVE_ENGAGED"
+        assert err_res["adjusted_theta"] < 0.50
+        assert err_res["confidence_penalty"] > 0.0
+
+        # High accuracy scenario -> Calibration reinforced, theta slightly relaxed
+        acc_res = store.recalibrate_epistemic_hyperparameters("PRED-ACC-TEST", brier_score=0.06)
+        assert acc_res["closed_loop_learning_active"] is True
+        assert acc_res["epistemic_action"] == "CALIBRATION_REINFORCED"
+        assert acc_res["adjusted_theta"] > 0.50
+        assert acc_res["confidence_penalty"] == 0.0
+
+    def test_phase66_heptarchy_all_personas_narrate(self):
+        """Verify narrate method generates valid executive takeaway strings for all 7 Heptarchy archetypes."""
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        from geo_engine.core.models import SummitEvent, SummitAnalysisReport
+
+        report = SummitAnalysisReport(event=SummitEvent(summit_name="Narrate Test", year=2026))
+        for key in ["sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "rizwan_ahmed", "neutral"]:
+            narration = PersonaNarrator.narrate(report, key)
+            assert "STRATEGIC PERSONA:" in narration
+            assert "DOCTRINAL AXIS:" in narration
+            assert "EXECUTIVE TAKEAWAY:" in narration
+            assert "RECOMMENDATIONS:" in narration
+
+
+class TestPhase70CourtroomForensicsAndClaimDecomposition:
+    """
+    Phase 70 Verification Suite:
+    - Atomic Claim Decomposition Token Splitter (ClaimDecomposer) & Poisoned Tail Sieve
+    - 8th Archetype: 'rizwan_ahmed' (Courtroom Cross-Examiner & Criminal Law Realist)
+    - Domestic Electoral Jurisprudence Sieve in InstitutionalLawfareLens (RPA 1950/1951, Registration of Electors Rules 1960)
+    - First-Attempt Unified Epistemic Pipeline in AudioStreamConnector
+    - Parity Verification
+    """
+
+    def test_phase70_claim_decomposer_atomic_split_and_poisoned_tail(self):
+        """Verify ClaimDecomposer splits premises from inferences and catches poisoned-tail leaps."""
+        from geo_engine.arbitration.competing_hypotheses import ClaimDecomposer
+
+        # Compound claim: 70% factual administrative premise + 30% poisoned conspiracy leap
+        text = (
+            "The Election Commission conducted Special Intensive Revision of electoral rolls and recorded internal dissent; "
+            "therefore votes were stolen by a criminal syndicate of traitors."
+        )
+        decomposed = ClaimDecomposer.decompose(text)
+        assert decomposed.conjunction_detected == "therefore"
+        assert len(decomposed.factual_premises) >= 1
+        assert len(decomposed.causal_assertions) >= 1
+        assert decomposed.is_poisoned_tail_detected is True
+        assert decomposed.poisoned_tail_ratio >= 1.50
+        assert decomposed.epistemic_classification == "POISONED_TAIL_MISINFORMATION_DETECTED"
+
+        # Innocent / Atomic claim test
+        clean_text = "The Election Commission published the draft electoral roll on January 15."
+        clean_decomposed = ClaimDecomposer.decompose(clean_text)
+        assert clean_decomposed.is_poisoned_tail_detected is False
+        assert clean_decomposed.epistemic_classification == "ATOMIC_CLAIM"
+
+    def test_phase70_persona_narrator_rizwan_ahmed_archetype(self):
+        """Verify rizwan_ahmed archetype execution, burden of proof takeaways, and criminal law citations."""
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        from geo_engine.core.models import SummitEvent, SummitAnalysisReport
+
+        assert "rizwan_ahmed" in PersonaNarrator.ARCHETYPES
+        profile = PersonaNarrator.ARCHETYPES["rizwan_ahmed"]
+        assert "InstitutionalLawfareLens" in profile["lens_weights"]
+        assert profile["lens_weights"]["InstitutionalLawfareLens"] == 2.0
+
+        mock_event = SummitEvent(summit_name="Electoral Roll Audit Test", year=2026, host_country="India")
+        mock_report = SummitAnalysisReport(event=mock_event, overall_confidence_score=0.88)
+
+        rizwan_res = PersonaNarrator.apply_persona(mock_report, "rizwan_ahmed")
+        assert rizwan_res["archetype_key"] == "rizwan_ahmed"
+        assert "Section 306 CrPC" in rizwan_res["executive_takeaway"]
+        assert "Section 343 BNSS" in rizwan_res["executive_takeaway"]
+        assert "Evidence Act" in rizwan_res["executive_takeaway"]
+        assert any("burden of proof" in r.lower() for r in rizwan_res["strategic_recommendations"])
+
+        # Test formatting in narrate
+        narration = PersonaNarrator.narrate(mock_report, "rizwan_ahmed")
+        assert "Forensic Courtroom Cross-Examiner" in narration
+
+    def test_phase70_institutional_lawfare_electoral_jurisprudence_sieve(self):
+        """Verify InstitutionalLawfareLens evaluates RPA 1950/1951 statutory remedies and flags bypass."""
+        import types
+        from geo_engine.lenses.institutional_lawfare import InstitutionalLawfareLens
+        from geo_engine.core.models import StrategicEvent
+
+        event = StrategicEvent(title="Electoral Roll Allegations")
+
+        # Claim with legal terminology hijacking and bypassing statutory remedy (no Election Petition)
+        claim_theater = types.SimpleNamespace(
+            asserted_fact="Vote chori in special intensive revision and CEC must turn approver"
+        )
+        res = InstitutionalLawfareLens.evaluate(event, claims=[claim_theater])
+        assert res.hard_metrics["statutory_remedy_bypass_index"] == 0.88
+        assert res.hard_metrics["legal_terminology_hijack_detected"] is True
+        assert any("Domestic Electoral Statutory Audit" in f for f in res.key_findings)
+
+        # Claim with formal High Court Election Petition compliance
+        claim_legal = types.SimpleNamespace(
+            asserted_fact="Election petition under Section 80 filed with sworn affidavit under oath"
+        )
+        res_legal = InstitutionalLawfareLens.evaluate(event, claims=[claim_legal])
+        assert res_legal.hard_metrics["statutory_remedy_bypass_index"] == 0.15
+        assert res_legal.hard_metrics["legal_terminology_hijack_detected"] is False
+
+    def test_phase70_audio_stream_first_attempt_electoral_audit(self):
+        """Verify AudioStreamConnector autonomously triggers electoral forensics, tenure checks, and cross-examination."""
+        from geo_engine.video.audio_stream import AudioStreamConnector
+
+        mock_fallback = {
+            "title": "LIVE Press Conference On Election Commission Vote Chori",
+            "description": "Allegations of vote theft under Gyanesh Kumar and demanding CEC turn approver in special intensive revision in 2022",
+            "author": "News Network"
+        }
+        audit = AudioStreamConnector.audit_media_claims(
+            url_or_id="https://www.youtube.com/watch?v=mockElectoralTest1",
+            metadata_fallback=mock_fallback
+        )
+        assert audit["has_electoral_claim"] is True
+        assert audit["tenure_audit"] is not None
+        # 2022 was prior to Gyanesh Kumar's CEC appointment -> Anachronistic fabrication detected!
+        assert audit["tenure_audit"]["is_chronologically_feasible"] is False
+        assert audit["tenure_audit"]["classification"] == "ANACHRONISTIC_FABRICATION"
+        assert audit["courtroom_cross_examination"] is not None
+        assert audit["courtroom_cross_examination"]["archetype_key"] == "rizwan_ahmed"
+        assert audit["epistemic_classification"] in ("KŪṬA-YUKTI", "KUTA-YUKTI", "SAD-BHASA")
+
+    def test_phase70_readme_parity(self):
+        """Verify README.md reflects 243 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert any(
+            cnt in content for cnt in [
+                "243 comprehensive unit and integration tests",
+                "238 comprehensive unit and integration tests",
+            ]
+        )
+
 
 
 

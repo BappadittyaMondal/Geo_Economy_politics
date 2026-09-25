@@ -13,6 +13,8 @@ from .competing_hypotheses import (
     IncidentReasoningEngine,
     TeleologicalEvaluation,
     TeleologicalFallacySieve,
+    DecomposedClaim,
+    ClaimDecomposer,
 )
 from .historical_arbiter import (
     ChronologyPillarScore,
@@ -32,6 +34,8 @@ __all__ = [
     "IncidentReasoningEngine",
     "TeleologicalEvaluation",
     "TeleologicalFallacySieve",
+    "DecomposedClaim",
+    "ClaimDecomposer",
     "ChronologyPillarScore",
     "HistoricalHypothesisCandidate",
     "ChronologyEvaluationReport",

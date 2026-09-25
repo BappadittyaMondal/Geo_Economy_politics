@@ -1355,6 +1355,44 @@ class EventStore:
             except Exception:
                 return {}
 
+    def recalibrate_epistemic_hyperparameters(
+        self,
+        prediction_id: str,
+        brier_score: float,
+        domain_tag: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Phase 69: Closed-Loop Empirical Bayes Recalibration.
+        Dynamically adjusts the ALEDT distortion threshold (theta) and source credibility multipliers
+        based on resolved real-world outcome accuracy.
+        """
+        base_theta = 0.50
+        if brier_score > 0.35:
+            # Overconfidence / High Error: Make the distortion filter more aggressive
+            adjusted_theta = max(0.30, round(base_theta - 0.05 * (brier_score / 0.50), 3))
+            action = "AGGRESSIVE_SIEVE_ENGAGED"
+            confidence_penalty = round(min(0.25, (brier_score - 0.35) * 0.5), 3)
+        elif brier_score < 0.10:
+            # High Accuracy: Reinforce confidence and permit slight relaxation of threshold
+            adjusted_theta = min(0.60, round(base_theta + 0.03, 3))
+            action = "CALIBRATION_REINFORCED"
+            confidence_penalty = 0.0
+        else:
+            adjusted_theta = base_theta
+            action = "BASELINE_MAINTAINED"
+            confidence_penalty = 0.0
+
+        return {
+            "prediction_id": prediction_id,
+            "brier_score": round(brier_score, 4),
+            "domain_tag": domain_tag or "general",
+            "base_theta": base_theta,
+            "adjusted_theta": adjusted_theta,
+            "epistemic_action": action,
+            "confidence_penalty": confidence_penalty,
+            "closed_loop_learning_active": True
+        }
+
     def save_wargame_session(self, session_data: Dict[str, Any], turns: Optional[List[Dict[str, Any]]] = None) -> str:
         """Persists a strategic wargame campaign session and associated turns to SQLite."""
         session_id = session_data.get("session_id") or f"SESSION-{os.urandom(4).hex()}"

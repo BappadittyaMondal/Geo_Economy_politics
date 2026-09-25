@@ -73,12 +73,19 @@ class KinesicsLens:
             ]
 
         findings = []
+        sartorial_counts: Dict[str, int] = {}
         for obs in observations:
             setting_type = "Scripted" if obs.protocol_mandated else "Spontaneous"
+            sart_code = getattr(obs, "sartorial_colour_code", "neutral_charcoal")
+            pause_idx = getattr(obs, "prosodic_pause_index", 0.0)
+            prox_tier = getattr(obs, "proxemic_distance_tier", "bilateral_parity")
+            sartorial_counts[sart_code] = sartorial_counts.get(sart_code, 0) + 1
+
             findings.append(
                 f"Interaction [{obs.actor_primary} <-> {obs.actor_secondary}] ({setting_type} - {obs.setting}): "
                 f"Residual Warmth Index: {obs.genuine_warmth_index:.2f}, Handshake Vector: {obs.handshake_torque_vector}, "
-                f"Tension Score: {obs.residual_tension_score:.2f}. ({obs.notes})"
+                f"Tension Score: {obs.residual_tension_score:.2f}, Sartorial: {sart_code}, "
+                f"Prosodic Pause: {pause_idx:.2f}, Proxemics: {prox_tier}. ({obs.notes})"
             )
 
         avg_warmth = sum(o.genuine_warmth_index for o in observations) / len(observations)
@@ -87,7 +94,9 @@ class KinesicsLens:
             "protocol_discount_applied": True,
             "mean_residual_warmth_index": round(avg_warmth, 2),
             "scripted_vs_spontaneous_delta": 0.45,
-            "bilateral_warmth_divergence": "High warmth in India-Russia corridors; strict protocol discipline in India-China interactions."
+            "bilateral_warmth_divergence": "High warmth in India-Russia corridors; strict protocol discipline in India-China interactions.",
+            "sartorial_distribution": sartorial_counts,
+            "micro_signal_channels_active": ["handshake_torque", "facial_micro_expression", "sartorial_semiotics", "prosodic_latency"]
         }
 
         return LensEvaluation(

@@ -238,24 +238,68 @@ class AudioStreamConnector:
         physical_keywords = ["cyclone", "fani", "covid", "locust", "tree", "flag", "temple", "rock", "stone", "wheel", "storm"]
         matched_physical = [kw for kw in physical_keywords if kw in full_text]
 
-        # 3. Detect Millenarian / Apocalyptic Distortion Vectors
+        # 3. Detect Millenarian / Apocalyptic Distortion Vectors & Electoral Fraud Claims
         apocalyptic_terms = ["2032", "kali yuga", "apocalypse", "doomsday", "kalki", "ww3", "pralaya", "end of world"]
         has_apocalyptic = any(term in full_text for term in apocalyptic_terms)
+
+        electoral_terms = [
+            "vote chori", "vote theft", "electoral roll", "special intensive revision", "sir",
+            "turn approver", "approver", "gyanesh kumar", "voter deletion", "election commission",
+            "rigged", "stolen election"
+        ]
+        has_electoral_claim = any(term in full_text for term in electoral_terms)
+
+        # Level-0 Atomic Temporal Guardrail Check on Incumbency/Tenure
+        from ..core.temporal_guardrail import TemporalGuardrail
+        tenure_audit = None
+        if "gyanesh kumar" in full_text or "gyanesh" in full_text:
+            for yr in ["2021", "2022", "2023"]:
+                if yr in full_text:
+                    tenure_audit = TemporalGuardrail.verify_chronological_feasibility(
+                        person_key="gyanesh_kumar",
+                        office_keyword="Chief Election Commissioner",
+                        event_date_str=f"{yr}-06-15"
+                    )
+                    break
+            if not tenure_audit:
+                tenure_audit = TemporalGuardrail.verify_chronological_feasibility(
+                    person_key="gyanesh_kumar",
+                    office_keyword="Chief Election Commissioner",
+                    event_date_str="2026-09-24"
+                )
+
+        # Atomic Claim Decomposition & Poisoned Tail Detection
+        from ..arbitration.competing_hypotheses import ClaimDecomposer
+        decomposed_claim = ClaimDecomposer.decompose(transcript.full_text[:500] if transcript.full_text else "")
+
+        # Forensic Courtroom Cross-Examination Archetype Takeaway
+        from ..arbitration.persona_narrator import PersonaNarrator
+        from ..core.models import SummitEvent, SummitAnalysisReport
+        dummy_event = SummitEvent(summit_name=f"Media Stream Audit ({transcript.media_id})", year=2026)
+        dummy_report = SummitAnalysisReport(event=dummy_event)
+        rizwan_cross_exam = PersonaNarrator.apply_persona(dummy_report, "rizwan_ahmed")
 
         if has_apocalyptic:
             empirical_support = 0.20 if matched_physical else 0.10
             phi_theological = 0.65
             phi_pseudoscience = 0.85 if detected_hoaxes else 0.70
+            phi_ideological = 0.15
+        elif has_electoral_claim:
+            empirical_support = 0.25 if not (tenure_audit and not tenure_audit.get("is_chronologically_feasible")) else 0.10
+            phi_theological = 0.05
+            phi_ideological = 0.85 if decomposed_claim.is_poisoned_tail_detected else 0.65
+            phi_pseudoscience = 0.75 if any(t in full_text for t in ["turn approver", "deshdrohi", "vote chori"]) else 0.40
         else:
             empirical_support = 0.60 if matched_physical else 0.40
             phi_theological = 0.20
             phi_pseudoscience = 0.30 if detected_hoaxes else 0.15
+            phi_ideological = 0.15
 
         # 4. Compute closed-form Evidence-Distortion Tensor
         tensor = PropagandaLens.calculate_evidence_distortion_tensor(
             empirical_support=empirical_support,
             phi_colonial=0.10,
-            phi_ideological=0.15,
+            phi_ideological=phi_ideological,
             phi_theological=phi_theological,
             phi_pseudoscience=phi_pseudoscience
         )
@@ -283,6 +327,10 @@ class AudioStreamConnector:
             "claims_generated": len(claims),
             "detected_hoaxes": detected_hoaxes,
             "matched_physical_keywords": matched_physical,
+            "has_electoral_claim": has_electoral_claim,
+            "tenure_audit": tenure_audit,
+            "decomposed_claim": decomposed_claim.model_dump() if decomposed_claim else None,
+            "courtroom_cross_examination": rizwan_cross_exam,
             "tensor": tensor,
             "reality_percentage": tensor["reality_percentage"],
             "propaganda_percentage": tensor["propaganda_percentage"],
