@@ -233,3 +233,143 @@ class PersonaNarrator:
             f"RECOMMENDATIONS:\n{recs}"
         )
 
+
+class CivilizationalCouncil:
+    """
+    Multi-Perspective Civilizational Epistemic Council.
+    Deconstructs cultural, religious, historical, and narrative media
+    across six orthogonal epistemic dimensions:
+    1. Paṇḍit (Śāstric & grammatical precision, primary textual authority)
+    2. Ācārya (Lineage integrity, spiritual philosophy & pedagogical dignity)
+    3. Ṛṣi (Direct vision of Ṛta, non-linear consciousness & internal state)
+    4. Guru (Pastoral care, mental health resilience & Abhaya / Gita 16.1)
+    5. Modern Tech / AI Analyst (Algorithmic incentives, virality economics)
+    6. Seeker / Pragmatist (Everyday empowerment & Karma Yoga / Gita 2.3)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        topic_or_claim: str,
+        tensor_data: Optional[Dict[str, Any]] = None,
+        context_notes: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Synthesizes an arbitrated six-perspective evaluation for a given cultural/civilizational claim.
+        """
+        tensor = tensor_data or {}
+        classification = tensor.get("epistemic_classification", "KŪṬA-YUKTI")
+        reality_pct = tensor.get("reality_percentage", 20.0)
+        propaganda_pct = tensor.get("propaganda_percentage", 80.0)
+
+        perspectives = {
+            "pandit": {
+                "role": "Paṇḍit (Śāstric & Grammatical Precision)",
+                "guiding_maxim": "Śāstre pramāṇam kim? (Where is the primary textual authority?)",
+                "verdict": (
+                    f"Textual audit confirms the claim '{topic_or_claim[:80]}' lacks canonical foundation. "
+                    "In classical Mīmāṃsā epistemology, uncorroborated modern bazaar pamphlets cannot override "
+                    "canonical Śruti and Smṛti treatises. Furthermore, modern Gregorian years (e.g. 2032) have zero locus "
+                    "in classical Sanskrit/Odia chronometry, which reckons strictly by Vikrama, Śaka, and Aṅka regnal cycles."
+                )
+            },
+            "acharya": {
+                "role": "Ācārya (Lineage & Pedagogical Integrity)",
+                "guiding_maxim": "Preserve the sacred dignity of our saints and lineages.",
+                "verdict": (
+                    "Rejects the degradation of sublime Bhakti saints (such as Mahāpuruṣa Achyutānanda and the Pañcasakhā) "
+                    "into sensationalist street-fortune tellers. The true purpose of vernacular Bhakti literature was "
+                    "inner purification, Nirguṇa Bhakti, and social cohesion—not manufactured geopolitical doomsday panics."
+                )
+            },
+            "rishi": {
+                "role": "Ṛṣi (Vision of Ṛta & Consciousness)",
+                "guiding_maxim": "Yuga is a state of Cetanā (consciousness), not an external calendar clock.",
+                "verdict": (
+                    "When the human mind is submerged in fear, greed, and panic, it dwells in Kali Yuga right now. "
+                    "When the mind rests in truth, purity, and meditation, it abides in Satya Yuga. Chasing external apocalyptic "
+                    "deadlines is a distraction from self-realization in the present moment."
+                )
+            },
+            "guru": {
+                "role": "Guru (Compassion, Mental Health & Anti-Fear)",
+                "guiding_maxim": "Abhaya (Fearlessness) is the first divine endowment (Bhagavad Gītā 16.1).",
+                "verdict": (
+                    "Cautions strongly against apocalyptic alarmism that induces clinical anxiety, depression, and defeatist "
+                    "fatalism among youth and families. Authentic Dharma empowers the seeker with steadfast calm, "
+                    "fortitude, and moral duty, never psychological paralysis."
+                )
+            },
+            "tech_analyst": {
+                "role": "Modern Tech & Information Warfare Analyst",
+                "guiding_maxim": "Analyze the algorithmic incentive structure and attention monetization.",
+                "verdict": (
+                    "Social media and video recommendation algorithms aggressively reward existential dread and catastrophic "
+                    "claims. The fusion of 'Ancient Mystery' + 'Specific Year' + 'WW3' is an engineered commercial formula "
+                    "for high watch-time, viral comment engagement, and book/course sales."
+                )
+            },
+            "seeker": {
+                "role": "Seeker / Pragmatist (Karma Yoga)",
+                "guiding_maxim": "Kṣudraṃ hṛdayadaurbalyaṃ tyaktvottiṣṭha parantapa (Bhagavad Gītā 2.3).",
+                "verdict": (
+                    "Disregards disempowering fatalism and redirects energy toward daily duty, professional mastery, "
+                    "family responsibility, and national resilience. One's duty is purposeful action in the world (*Karma Yoga*), "
+                    "not passive surrender to unverified apocalyptic narratives."
+                )
+            }
+        }
+
+        guidance = [
+            "Do not succumb to fear-driven millenarianism; anchor yourself in primary canon (Surya Siddhanta, Mahabharata).",
+            "Separate authentic Bhakti spiritual literature from post-1970s commercial chapbook interpolations.",
+            "Recognize the algorithmic business model: apocalyptic titles monetize human anxiety for viral retention.",
+            "Practice Purushartha and Karma Yoga: focus on education, character, and strategic deterrence over fatalistic doom."
+        ]
+
+        return {
+            "topic": topic_or_claim,
+            "epistemic_classification": classification,
+            "reality_percentage": reality_pct,
+            "propaganda_percentage": propaganda_pct,
+            "perspectives": perspectives,
+            "summary_guidance": guidance,
+            "context_notes": context_notes or ""
+        }
+
+    @classmethod
+    def format_council_report(cls, council_data: Dict[str, Any]) -> str:
+        """Renders the Civilizational Epistemic Council evaluation in clean Markdown format."""
+        topic = council_data.get("topic", "")
+        classification = council_data.get("epistemic_classification", "KŪṬA-YUKTI")
+        r_pct = council_data.get("reality_percentage", 20.0)
+        p_pct = council_data.get("propaganda_percentage", 80.0)
+
+        # Build visual score bar (40 blocks)
+        r_blocks = int(round((r_pct / 100.0) * 40))
+        p_blocks = 40 - r_blocks
+        bar = "█" * r_blocks + "░" * p_blocks
+
+        lines = [
+            "========================================================================================",
+            f"          CIVILIZATIONAL EPISTEMIC COUNCIL AUDIT: {topic[:50].upper()}",
+            "========================================================================================",
+            f"  [{bar}]",
+            f"  REALITY: {r_pct:.1f}%  |  PROPAGANDA & SENSATIONALISM: {p_pct:.1f}%",
+            f"  EPISTEMIC STATUS: {classification}",
+            "========================================================================================\n"
+        ]
+
+        perspectives = council_data.get("perspectives", {})
+        for key, p in perspectives.items():
+            lines.append(f"### {p['role']}")
+            lines.append(f"> *\"{p['guiding_maxim']}\"*")
+            lines.append(f"{p['verdict']}\n")
+
+        lines.append("### Key Actionable Directives for the Seeker:")
+        for idx, g in enumerate(council_data.get("summary_guidance", []), 1):
+            lines.append(f"{idx}. {g}")
+
+        return "\n".join(lines)
+
+

@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3935,7 +3935,7 @@ class TestPhase60MultiPillarChronologyArbiter:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests"])
 
 
 class TestPhase61GeofinancialAndDisinformationHardening:
@@ -3985,6 +3985,109 @@ class TestPhase61GeofinancialAndDisinformationHardening:
         assert "mbridge_multilateral_clearing_status" in ev.hard_metrics
         assert "Operational MVP" in ev.hard_metrics["mbridge_multilateral_clearing_status"]
         assert any("Eurodollar Short-Squeeze Dynamics" in f for f in ev.key_findings)
+
+
+class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
+    """
+    Phases 62-65: Evidence-Distortion Tensor (ALEDT), Cosmic Chronology Anchors,
+    Debunk Registry, 6-Perspective Civilizational Council, and Automated Video Auditing.
+    """
+
+    def test_evidence_distortion_tensor_formula(self):
+        """Verify closed-form ALEDT formula and KŪṬA-YUKTI classification."""
+        from geo_engine.lenses.propaganda import PropagandaLens
+        tensor = PropagandaLens.calculate_evidence_distortion_tensor(
+            empirical_support=0.20,
+            phi_colonial=0.10,
+            phi_ideological=0.10,
+            phi_theological=0.65,
+            phi_pseudoscience=0.85
+        )
+        assert tensor["l_infinity_norm"] == 0.85
+        assert tensor["distortion_penalty"] > 15.0
+        assert tensor["reality_score"] < 0.05
+        assert tensor["propaganda_score"] > 0.95
+        assert tensor["epistemic_classification"] == "KŪṬA-YUKTI"
+        assert tensor["epistemic_classification_ascii"] == "KUTA-YUKTI"
+
+    def test_propaganda_lens_apocalyptic_trigger(self):
+        """Verify apocalyptic event titles trigger severe evidence distortion in PropagandaLens."""
+        from geo_engine.lenses.propaganda import PropagandaLens
+        from geo_engine.core.models import SummitEvent
+        ev = PropagandaLens.evaluate(SummitEvent(summit_name="2032 Kali Yuga Apocalypse & Malika Prophecy"))
+        assert "evidence_distortion_tensor" in ev.hard_metrics
+        assert ev.hard_metrics["epistemic_classification"] == "KŪṬA-YUKTI"
+        assert ev.hard_metrics["reality_percentage"] < 10.0
+        assert ev.hard_metrics["propaganda_percentage"] > 90.0
+        assert any("KŪṬA-YUKTI detected" in f for f in ev.key_findings)
+
+    def test_cosmic_chronology_benchmarks_event_store(self):
+        """Verify EventStore retrieves canonical cosmic epoch constants and citations."""
+        from geo_engine.storage.event_store import EventStore
+        store = EventStore()
+        anchors = store.get_cosmic_chronology_anchors()
+        assert len(anchors) >= 5
+        kali = next((a for a in anchors if a["benchmark_id"] == "COSMIC-KALIYUGA-CANONICAL"), None)
+        assert kali is not None
+        assert kali["duration_years"] == 432000.0
+        assert "Surya Siddhanta" in kali["canonical_source"]
+        assert "Aryabhatiya" in kali["primary_citation"]
+
+        aihole = next((a for a in anchors if a["benchmark_id"] == "EPIGRAPH-634CE-AIHOLE"), None)
+        assert aihole is not None
+        assert aihole["duration_years"] == 3735.0
+
+    def test_debunk_registry_retrieval(self):
+        """Verify EventStore retrieves documented hoaxes (Nostradamus 9/11 and Kashinath pamphlets)."""
+        from geo_engine.storage.event_store import EventStore
+        store = EventStore()
+        debunks = store.get_debunk_registry()
+        assert len(debunks) >= 2
+        ids = [d["benchmark_id"] for d in debunks]
+        assert "DEBUNK-1997-NOSTRADAMUS-TWINTOWERS" in ids
+        assert "DEBUNK-1970-MALIKA-KASHINATH" in ids
+
+    def test_civilizational_council_evaluation_and_formatting(self):
+        """Verify CivilizationalCouncil evaluates all 6 perspectives and formats report."""
+        from geo_engine.arbitration import CivilizationalCouncil
+        res = CivilizationalCouncil.evaluate("Kali Yuga Ends in 2032")
+        perspectives = res["perspectives"]
+        assert len(perspectives) == 6
+        assert "pandit" in perspectives
+        assert "acharya" in perspectives
+        assert "rishi" in perspectives
+        assert "guru" in perspectives
+        assert "tech_analyst" in perspectives
+        assert "seeker" in perspectives
+        assert len(res["summary_guidance"]) == 4
+
+        formatted = CivilizationalCouncil.format_council_report(res)
+        assert "CIVILIZATIONAL EPISTEMIC COUNCIL AUDIT" in formatted
+        assert "REALITY:" in formatted
+        assert "PROPAGANDA" in formatted
+
+    def test_audio_stream_connector_audit_media_claims(self):
+        """Verify AudioStreamConnector.audit_media_claims pipeline against test metadata."""
+        from geo_engine.video.audio_stream import AudioStreamConnector
+        audit = AudioStreamConnector.audit_media_claims(
+            "mock_video_test",
+            metadata_fallback={"title": "2032 Kali Yuga Nostradamus Apocalypse Prediction"}
+        )
+        assert "reality_percentage" in audit
+        assert "propaganda_percentage" in audit
+        assert audit["epistemic_classification"] == "KŪṬA-YUKTI"
+        assert audit["reality_percentage"] < 15.0
+        assert audit["propaganda_percentage"] > 85.0
+        assert len(audit["detected_hoaxes"]) >= 1
+        assert "formatted_report" in audit
+
+    def test_readme_test_count_parity(self):
+        """Verify README.md reflects 231 comprehensive tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "231 comprehensive unit and integration tests" in content
+
 
 
 

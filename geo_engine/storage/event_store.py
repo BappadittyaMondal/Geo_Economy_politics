@@ -264,6 +264,76 @@ class EventStore:
                     "Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE."
                 )
             ])
+
+            # Seed Phase 63 Cosmic Chronology & Canonical Scriptural Benchmarks idempotently
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS cosmic_chronology_benchmarks (
+                    benchmark_id TEXT PRIMARY KEY,
+                    category TEXT,
+                    canonical_source TEXT,
+                    primary_citation TEXT,
+                    temporal_epoch TEXT,
+                    duration_years REAL,
+                    physical_basis TEXT,
+                    debunk_notes TEXT
+                )
+            """)
+            cursor.executemany("""
+                INSERT OR IGNORE INTO cosmic_chronology_benchmarks
+                (benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "COSMIC-KALIYUGA-CANONICAL",
+                    "yuga_cycle",
+                    "Surya Siddhanta & Classical Puranic Corpus",
+                    "Surya Siddhanta (1.15-17), Aryabhatiya (Kalakriyapada), Vishnu Purana (1.3), Bhagavata Purana (12.2), Mahabharata (Vana Parva 188)",
+                    "3102-02-18 BCE",
+                    432000.0,
+                    "Planetary conjunction at Mesha (Aries 0 deg) and solar mean motion.",
+                    "Directly refutes modern 5,000-year truncation claims; in 2026 CE only ~5,127 years have elapsed (~1.19%), leaving 426,873 years remaining."
+                ),
+                (
+                    "EPIGRAPH-634CE-AIHOLE",
+                    "epigraphic_anchor",
+                    "Aihole Inscription of Pulakeshin II",
+                    "Meguti Jain Temple Inscription, Aihole (composed by Ravikirti, Saka 556)",
+                    "634 CE",
+                    3735.0,
+                    "Epigraphic stone inscription recording 3,735 elapsed years since the Bharata War.",
+                    "Provides immutable epigraphic confirmation anchoring the Kali Yuga commencement to February 3102 BCE."
+                ),
+                (
+                    "TEMPLE-1150CE-PURI-JAGANNATH",
+                    "temple_chronicle",
+                    "Puri Jagannath Temple Madala Panji & ASI Records",
+                    "Madala Panji Temple Chronicles & Archaeological Survey of India Conservation Records",
+                    "1150 CE",
+                    875.0,
+                    "214-ft Khondalite sandstone tower exposed to severe marine saline air, humid expansion, and Category 4/5 tropical cyclones.",
+                    "Structural stone displacements documented since 1842 are natural coastal conservation issues, not supernatural apocalypses."
+                ),
+                (
+                    "DEBUNK-1997-NOSTRADAMUS-TWINTOWERS",
+                    "hoax_registry",
+                    "Neil Marshall Hoax & French Philological Analysis",
+                    "Neil Marshall (Brock University 1997 Essay); Nostradamus Les Propheties (1555)",
+                    "1997 CE",
+                    0.0,
+                    "Internet chain letter authored by a Canadian student in 1997 demonstrating confirmation bias, falsely attributed to Nostradamus after 9/11.",
+                    "Nostradamus never wrote 'birds of iron' or 'two brothers'. The quatrain 'Hister' refers to the Latin name for the Lower Danube River (Ister), not Adolf Hitler."
+                ),
+                (
+                    "DEBUNK-1970-MALIKA-KASHINATH",
+                    "hoax_registry",
+                    "Modern Commercial Chapbook Press",
+                    "Pandit Kashinath Mishra Bazaar Pamphlets (Cuttack/Puri); Odisha State Museum Palm-Leaf Archives",
+                    "1970-1999 CE",
+                    0.0,
+                    "Late 20th-century commercial bazaar pamphlet interpolations printed in regional press.",
+                    "Pre-1947 palm-leaf manuscripts at Odisha State Museum and Prachi Valley contain zero references to modern political figures, Pakistan partition, or Vajpayee's 13-day rule."
+                )
+            ])
             conn.commit()
 
     def is_initialized(self) -> bool:
@@ -412,6 +482,20 @@ class EventStore:
                     outcome_binary INTEGER,
                     brier_score REAL,
                     status TEXT DEFAULT 'PENDING'
+                )
+            """)
+
+            # 7. Cosmic Chronology & Canonical Scriptural Benchmarks Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS cosmic_chronology_benchmarks (
+                    benchmark_id TEXT PRIMARY KEY,
+                    category TEXT,
+                    canonical_source TEXT,
+                    primary_citation TEXT,
+                    temporal_epoch TEXT,
+                    duration_years REAL,
+                    physical_basis TEXT,
+                    debunk_notes TEXT
                 )
             """)
 
@@ -946,6 +1030,65 @@ class EventStore:
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, anniversaries_seed)
 
+            cosmic_benchmarks_seed = [
+                (
+                    "COSMIC-KALIYUGA-CANONICAL",
+                    "yuga_cycle",
+                    "Surya Siddhanta & Classical Puranic Corpus",
+                    "Surya Siddhanta (1.15-17), Aryabhatiya (Kalakriyapada), Vishnu Purana (1.3), Bhagavata Purana (12.2), Mahabharata (Vana Parva 188)",
+                    "3102-02-18 BCE",
+                    432000.0,
+                    "Planetary conjunction at Mesha (Aries 0 deg) and solar mean motion.",
+                    "Directly refutes modern 5,000-year truncation claims; in 2026 CE only ~5,127 years have elapsed (~1.19%), leaving 426,873 years remaining."
+                ),
+                (
+                    "EPIGRAPH-634CE-AIHOLE",
+                    "epigraphic_anchor",
+                    "Aihole Inscription of Pulakeshin II",
+                    "Meguti Jain Temple Inscription, Aihole (composed by Ravikirti, Saka 556)",
+                    "634 CE",
+                    3735.0,
+                    "Epigraphic stone inscription recording 3,735 elapsed years since the Bharata War.",
+                    "Provides immutable epigraphic confirmation anchoring the Kali Yuga commencement to February 3102 BCE."
+                ),
+                (
+                    "TEMPLE-1150CE-PURI-JAGANNATH",
+                    "temple_chronicle",
+                    "Puri Jagannath Temple Madala Panji & ASI Records",
+                    "Madala Panji Temple Chronicles & Archaeological Survey of India Conservation Records",
+                    "1150 CE",
+                    875.0,
+                    "214-ft Khondalite sandstone tower exposed to severe marine saline air, humid expansion, and Category 4/5 tropical cyclones.",
+                    "Structural stone displacements documented since 1842 are natural coastal conservation issues, not supernatural apocalypses."
+                ),
+                (
+                    "DEBUNK-1997-NOSTRADAMUS-TWINTOWERS",
+                    "hoax_registry",
+                    "Neil Marshall Hoax & French Philological Analysis",
+                    "Neil Marshall (Brock University 1997 Essay); Nostradamus Les Propheties (1555)",
+                    "1997 CE",
+                    0.0,
+                    "Internet chain letter authored by a Canadian student in 1997 demonstrating confirmation bias, falsely attributed to Nostradamus after 9/11.",
+                    "Nostradamus never wrote 'birds of iron' or 'two brothers'. The quatrain 'Hister' refers to the Latin name for the Lower Danube River (Ister), not Adolf Hitler."
+                ),
+                (
+                    "DEBUNK-1970-MALIKA-KASHINATH",
+                    "hoax_registry",
+                    "Modern Commercial Chapbook Press",
+                    "Pandit Kashinath Mishra Bazaar Pamphlets (Cuttack/Puri); Odisha State Museum Palm-Leaf Archives",
+                    "1970-1999 CE",
+                    0.0,
+                    "Late 20th-century commercial bazaar pamphlet interpolations printed in regional press.",
+                    "Pre-1947 palm-leaf manuscripts at Odisha State Museum and Prachi Valley contain zero references to modern political figures, Pakistan partition, or Vajpayee's 13-day rule."
+                )
+            ]
+
+            cursor.executemany("""
+                INSERT OR IGNORE INTO cosmic_chronology_benchmarks
+                (benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, cosmic_benchmarks_seed)
+
             conn.commit()
 
 
@@ -1391,4 +1534,34 @@ class EventStore:
             """)
             rows = cursor.fetchall()
             return [dict(r) for r in rows]
+
+    def get_cosmic_chronology_anchors(self, category: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Retrieves canonical cosmic, astronomical, and epigraphic benchmarks
+        from the cosmic_chronology_benchmarks table.
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if category:
+                cursor.execute("""
+                    SELECT benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes
+                    FROM cosmic_chronology_benchmarks
+                    WHERE category = ?
+                    ORDER BY benchmark_id ASC
+                """, (category,))
+            else:
+                cursor.execute("""
+                    SELECT benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes
+                    FROM cosmic_chronology_benchmarks
+                    ORDER BY benchmark_id ASC
+                """)
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
+
+    def get_debunk_registry(self) -> List[Dict[str, Any]]:
+        """
+        Retrieves documented pseudo-historical, millenarian, and narrative warfare hoaxes.
+        """
+        return self.get_cosmic_chronology_anchors(category="hoax_registry")
+
 

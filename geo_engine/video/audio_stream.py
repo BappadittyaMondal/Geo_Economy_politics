@@ -190,3 +190,106 @@ class AudioStreamConnector:
             "claims_generated": len(claims),
             "claims_ingested": ingested_count
         }
+
+    @classmethod
+    def audit_media_claims(
+        cls,
+        url_or_id: str,
+        store: Optional[EventStore] = None,
+        metadata_fallback: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Forensic Epistemic Audit Pipeline for audio/video media.
+        Extracts transcript, maps claims against canonical cosmic anchors and hoax registries,
+        computes the Evidence-Distortion Tensor (ALEDT), and synthesizes a 6-perspective
+        Civilizational Council evaluation.
+        """
+        from ..lenses.propaganda import PropagandaLens
+        from ..arbitration.persona_narrator import CivilizationalCouncil
+
+        target_store = store or EventStore()
+        transcript = cls.fetch_stream_transcript(url_or_id, metadata_fallback=metadata_fallback)
+        claims = cls.transcript_to_claims(transcript)
+
+        full_text = (transcript.full_text or "").lower()
+
+        # 1. Match against known hoax & debunk registries
+        debunks = target_store.get_debunk_registry()
+        detected_hoaxes = []
+        for d in debunks:
+            b_id = d.get("benchmark_id", "")
+            notes = d.get("debunk_notes", "")
+            if "nostradamus" in b_id.lower() or "nostradamus" in notes.lower():
+                if any(w in full_text for w in ["nostradamus", "twin tower", "hister", "two brother", "iron bird"]):
+                    detected_hoaxes.append({
+                        "id": b_id,
+                        "canonical_source": d.get("canonical_source"),
+                        "debunk_notes": notes
+                    })
+            if "kashinath" in b_id.lower() or "malika" in notes.lower():
+                if any(w in full_text for w in ["malika", "kashinath", "achyutananda", "panchasakha", "2032"]):
+                    detected_hoaxes.append({
+                        "id": b_id,
+                        "canonical_source": d.get("canonical_source"),
+                        "debunk_notes": notes
+                    })
+
+        # 2. Check for physical anchors mentioned
+        physical_keywords = ["cyclone", "fani", "covid", "locust", "tree", "flag", "temple", "rock", "stone", "wheel", "storm"]
+        matched_physical = [kw for kw in physical_keywords if kw in full_text]
+
+        # 3. Detect Millenarian / Apocalyptic Distortion Vectors
+        apocalyptic_terms = ["2032", "kali yuga", "apocalypse", "doomsday", "kalki", "ww3", "pralaya", "end of world"]
+        has_apocalyptic = any(term in full_text for term in apocalyptic_terms)
+
+        if has_apocalyptic:
+            empirical_support = 0.20 if matched_physical else 0.10
+            phi_theological = 0.65
+            phi_pseudoscience = 0.85 if detected_hoaxes else 0.70
+        else:
+            empirical_support = 0.60 if matched_physical else 0.40
+            phi_theological = 0.20
+            phi_pseudoscience = 0.30 if detected_hoaxes else 0.15
+
+        # 4. Compute closed-form Evidence-Distortion Tensor
+        tensor = PropagandaLens.calculate_evidence_distortion_tensor(
+            empirical_support=empirical_support,
+            phi_colonial=0.10,
+            phi_ideological=0.15,
+            phi_theological=phi_theological,
+            phi_pseudoscience=phi_pseudoscience
+        )
+
+        # 5. Synthesize Civilizational Council Perspectives
+        council_data = CivilizationalCouncil.evaluate(
+            topic_or_claim=f"Media Stream Audit ({transcript.media_id})",
+            tensor_data=tensor,
+            context_notes=f"Extraction: {transcript.extraction_method}, Language: {transcript.language}, Segments: {len(transcript.segments)}"
+        )
+
+        formatted_report = CivilizationalCouncil.format_council_report(council_data)
+
+        # Build visual score bar (40 blocks)
+        r_blocks = int(round((tensor["reality_percentage"] / 100.0) * 40))
+        p_blocks = 40 - r_blocks
+        bar = "█" * r_blocks + "░" * p_blocks
+
+        return {
+            "media_id": transcript.media_id,
+            "language": transcript.language,
+            "extraction_method": transcript.extraction_method,
+            "is_degraded": transcript.is_degraded,
+            "total_segments": len(transcript.segments),
+            "claims_generated": len(claims),
+            "detected_hoaxes": detected_hoaxes,
+            "matched_physical_keywords": matched_physical,
+            "tensor": tensor,
+            "reality_percentage": tensor["reality_percentage"],
+            "propaganda_percentage": tensor["propaganda_percentage"],
+            "epistemic_classification": tensor["epistemic_classification"],
+            "epistemic_classification_ascii": tensor["epistemic_classification_ascii"],
+            "visual_gauge": bar,
+            "council_evaluation": council_data,
+            "formatted_report": formatted_report
+        }
+

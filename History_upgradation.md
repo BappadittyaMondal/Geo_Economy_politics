@@ -676,4 +676,38 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files).
 
+* **Phase 62–65 (Evidence-Distortion Tensor, Cosmic Chronology Anchors, 6-Perspective Civilizational Council & Automated Video Auditing):**
+  - **Closed-Form Evidence-Distortion Tensor (ALEDT) in PropagandaLens (P0):**
+    - Implemented `calculate_evidence_distortion_tensor()` in `geo_engine/lenses/propaganda.py`.
+    - Formalizes multi-dimensional distortion vectors $\mathbf{\Phi} = [\Phi_{\text{colonial}}, \Phi_{\text{ideological}}, \Phi_{\text{theological}}, \Phi_{\text{pseudoscience}}]$ with $L_\infty$ norm $\|\mathbf{\Phi}\|_\infty$.
+    - Computes logistic distortion penalty $\mathcal{D} = 1.0 + \exp(\gamma \cdot [\|\mathbf{\Phi}\|_\infty - \theta])$, deterministic `reality_score` ($\mathcal{R}$), and `propaganda_score` ($\mathcal{P} = 1.0 - \mathcal{R}$).
+    - Outputs machine-verifiable percentages and classical epistemic classifications: `PRAMĀṆIKA` ($\ge 0.70$), `SAD-BHĀSA` ($0.30 - 0.70$), or `KŪṬA-YUKTI` ($< 0.30$), with ASCII fallbacks for zero-crash Windows console rendering. Automatically detects apocalyptic/millenarian triggers in claims.
+  - **Canonical Cosmic Chronology & Epigraphic Anchors in EventStore (P0):**
+    - Created `cosmic_chronology_benchmarks` table in `geo_engine/storage/event_store.py` across both `_ensure_migrations()` and `initialize_schema_and_seed()` for idempotent zero-dependency persistence.
+    - Seeded canonical cosmological constants: 432,000-year Kali Yuga (*Sūrya Siddhānta* 1.15–17, *Āryabhaṭīya*, *Viṣṇu Purāṇa* 1.3, *Mahābhārata* Vana Parva 188) anchored to 3102-02-18 BCE epoch (~5,127 years elapsed, 426,873 years remaining).
+    - Seeded epigraphic confirmation: Aihole Inscription of Pulakeśin II / Ravikirti (634 CE / Śaka 556) recording 3,735 elapsed years since the Bhārata War.
+    - Seeded structural temple conservation baselines: Puri Jagannath Temple (1150 CE, 214-ft khondalite sandstone tower coastal weathering profile & *Mādaḷā Pāñji* chronicles).
+    - Seeded documented hoax & debunk registry: Neil Marshall 1997 Nostradamus 9/11 college essay hoax (and Latin Danube river *Hister* translation) and Pandit Kashinath Mishra’s post-1970s commercial Odia/Hindi chapbook interpolations.
+    - Added `EventStore.get_cosmic_chronology_anchors()` and `EventStore.get_debunk_registry()` query methods.
+  - **6-Perspective Civilizational Epistemic Council in PersonaNarrator (P0):**
+    - Implemented `CivilizationalCouncil` in `geo_engine/arbitration/persona_narrator.py` and exported in `geo_engine/arbitration/__init__.py`.
+    - Synthesizes 6 orthogonal perspectives for cultural and narrative media:
+      1. *Paṇḍit* (Śāstric & grammatical precision, Mīmāṃsā, primary textual authority)
+      2. *Ācārya* (Pedagogical lineage dignity, defense of Bhakti saints against street-fortune-teller trivialization)
+      3. *Ṛṣi* (Consciousness & non-linear *Ṛta*, internal state of Cetanā vs. calendar anxiety)
+      4. *Guru* (Pastoral mental health, anti-fatalism & *Abhaya*, Bhagavad Gītā 16.1)
+      5. *Modern Tech/AI Analyst* (Algorithmic incentives, virality economics, clickbait monetization)
+      6. *Seeker/Pragmatist* (Everyday empowerment & *Karma Yoga*, Bhagavad Gītā 2.3)
+    - Added `format_council_report()` rendering visual score gauges (`[████░░░░]`) and actionable directives.
+  - **Automated Video Epistemic Auditing Pipeline (P0):**
+    - Implemented `AudioStreamConnector.audit_media_claims()` in `geo_engine/video/audio_stream.py`.
+    - Connects transcript extraction directly to `EventStore` hoax/anchor lookups, computes the ALEDT tensor, derives deterministic `Reality % vs. Propaganda %`, and formats complete civilizational council reports.
+  - **Documentation & Verification Suite Expansion (224→231 tests):**
+    - Updated `README.md` test counter from 224 to 231 comprehensive tests.
+    - Added `TestPhase62to65EpistemicTensorAndCivilizationalCouncil` in `tests/test_engine.py` with 7 deterministic unit tests certifying ALEDT formula math, apocalyptic triggers, EventStore cosmic benchmarks, debunk registry retrieval, Civilizational Council 6-perspective evaluation, audio stream media claim audit pipeline, and test count parity.
+    - Certified **231/231 unit and integration tests passing deterministically (100% pass rate in 32.50s)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+
+
 
