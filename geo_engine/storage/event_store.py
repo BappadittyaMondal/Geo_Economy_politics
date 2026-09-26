@@ -350,6 +350,8 @@ class EventStore:
                 )
             ])
             conn.commit()
+        # Idempotently ensure all foundational anniversary, clause, and event seeds are present
+        self.initialize_schema_and_seed()
 
     def is_initialized(self) -> bool:
         """Checks if the SQLite database is already initialized with essential baseline tables."""
