@@ -85,6 +85,21 @@ class EventStore:
                     status TEXT DEFAULT 'PENDING'
                 )
             """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS diagnostic_longitudinal_records (
+                    encounter_id TEXT PRIMARY KEY,
+                    session_id TEXT,
+                    entity_or_subject TEXT NOT NULL,
+                    query_text TEXT,
+                    primary_epistemic_tier TEXT,
+                    confidence REAL,
+                    reality_ratio REAL,
+                    propaganda_ratio REAL,
+                    anomalies_detected TEXT,
+                    brier_score REAL,
+                    diagnostic_timestamp TEXT NOT NULL
+                )
+            """)
 
             # Seed Phase 53 baseline statutory clauses idempotently
             cursor.executemany("""
@@ -482,6 +497,21 @@ class EventStore:
                     outcome_binary INTEGER,
                     brier_score REAL,
                     status TEXT DEFAULT 'PENDING'
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS diagnostic_longitudinal_records (
+                    encounter_id TEXT PRIMARY KEY,
+                    session_id TEXT,
+                    entity_or_subject TEXT NOT NULL,
+                    query_text TEXT,
+                    primary_epistemic_tier TEXT,
+                    confidence REAL,
+                    reality_ratio REAL,
+                    propaganda_ratio REAL,
+                    anomalies_detected TEXT,
+                    brier_score REAL,
+                    diagnostic_timestamp TEXT NOT NULL
                 )
             """)
 
@@ -1601,5 +1631,130 @@ class EventStore:
         Retrieves documented pseudo-historical, millenarian, and narrative warfare hoaxes.
         """
         return self.get_cosmic_chronology_anchors(category="hoax_registry")
+
+    def record_diagnostic_encounter(
+        self,
+        entity_or_subject: str,
+        query_text: str,
+        primary_epistemic_tier: str,
+        confidence: float,
+        reality_ratio: float,
+        propaganda_ratio: float,
+        anomalies_detected: Optional[List[str]] = None,
+        session_id: Optional[str] = None,
+        brier_score: Optional[float] = None
+    ) -> str:
+        """
+        Phase 71A: Longitudinal Diagnostic Memory.
+        Records an epistemic diagnostic encounter for a subject, country, or leader,
+        building an immutable clinical audit trail across multiple chat turns or sessions.
+        """
+        import hashlib, json
+        from datetime import datetime, timezone
+        now_str = datetime.now(timezone.utc).isoformat()
+        enc_id = "ENC-" + hashlib.sha256(
+            f"{entity_or_subject}{query_text}{now_str}".encode("utf-8")
+        ).hexdigest()[:10].upper()
+        anomalies_json = json.dumps(anomalies_detected or [])
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR IGNORE INTO diagnostic_longitudinal_records
+                (encounter_id, session_id, entity_or_subject, query_text,
+                 primary_epistemic_tier, confidence, reality_ratio, propaganda_ratio,
+                 anomalies_detected, brier_score, diagnostic_timestamp)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                enc_id, session_id or "default_session", entity_or_subject.strip(), query_text.strip(),
+                str(primary_epistemic_tier), round(float(confidence), 4),
+                round(float(reality_ratio), 4), round(float(propaganda_ratio), 4),
+                anomalies_json, round(float(brier_score), 4) if brier_score is not None else None,
+                now_str
+            ))
+            conn.commit()
+        return enc_id
+
+    def get_longitudinal_diagnostic_chart(
+        self,
+        entity_or_subject: str,
+        limit: int = 20
+    ) -> Dict[str, Any]:
+        """
+        Phase 71A: Aggregates longitudinal diagnostic history for an entity/subject.
+        Computes diagnostic stability, recurrent pathology flags, mean reality ratios,
+        and estimates the risk of missed/incorrect diagnosis.
+        """
+        import json
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM diagnostic_longitudinal_records
+                WHERE LOWER(entity_or_subject) = LOWER(?)
+                ORDER BY diagnostic_timestamp DESC
+                LIMIT ?
+            """, (entity_or_subject.strip(), limit))
+            rows = [dict(r) for r in cursor.fetchall()]
+
+        if not rows:
+            return {
+                "entity_or_subject": entity_or_subject,
+                "total_encounters": 0,
+                "status": "NO_LONGITUDINAL_HISTORY",
+                "misdiagnosis_risk_tier": "UNKNOWN",
+                "diagnostic_stability_index": 0.0,
+                "mean_reality_ratio": 0.0,
+                "mean_confidence": 0.0,
+                "chronic_anomalies": [],
+                "encounters": []
+            }
+
+        total = len(rows)
+        realities = [float(r["reality_ratio"]) for r in rows if r["reality_ratio"] is not None]
+        confidences = [float(r["confidence"]) for r in rows if r["confidence"] is not None]
+        mean_real = round(sum(realities) / len(realities), 4) if realities else 0.0
+        mean_conf = round(sum(confidences) / len(confidences), 4) if confidences else 0.0
+
+        # Calculate confidence variance / stability
+        if len(confidences) > 1:
+            var = sum((c - mean_conf) ** 2 for c in confidences) / len(confidences)
+            stability = round(max(0.0, 1.0 - (var ** 0.5)), 4)
+        else:
+            stability = 1.0
+
+        # Extract chronic anomalies
+        anomaly_counts: Dict[str, int] = {}
+        for r in rows:
+            try:
+                anoms = json.loads(r.get("anomalies_detected") or "[]")
+                for a in anoms:
+                    anomaly_counts[a] = anomaly_counts.get(a, 0) + 1
+            except Exception:
+                pass
+
+        chronic = [k for k, v in anomaly_counts.items() if v >= 2 or (total == 1 and v >= 1)]
+
+        # Estimate misdiagnosis risk
+        if stability >= 0.85 and mean_conf >= 0.80:
+            risk_tier = "LOW"
+            misdiag_prob = 0.04
+        elif stability >= 0.65:
+            risk_tier = "MODERATE"
+            misdiag_prob = 0.15
+        else:
+            risk_tier = "HIGH"
+            misdiag_prob = 0.35
+
+        return {
+            "entity_or_subject": entity_or_subject,
+            "total_encounters": total,
+            "status": "LONGITUDINAL_CHART_ACTIVE",
+            "mean_reality_ratio": mean_real,
+            "mean_confidence": mean_conf,
+            "diagnostic_stability_index": stability,
+            "misdiagnosis_risk_tier": risk_tier,
+            "estimated_misdiagnosis_probability": misdiag_prob,
+            "chronic_anomalies": chronic,
+            "recent_encounters": rows
+        }
 
 

@@ -318,6 +318,19 @@ class SummitSynthesizer:
                         f"coupled into '{le.lens_name}' alignment ({new_align:+.2f})."
                     )
 
+            # Rule 4: Dynamic Adversary Retaliatory Reaction Elasticity Matrix (Phase 71D)
+            # High import dependence in critical mineral supply chains or strategic technology
+            # triggers adversary retaliatory embargo elasticity, dampening deep-tech alignment.
+            minerals_chokepoint = _parse_val(hard_money_audit.get("critical_minerals_import_dependency_pct", 0.0))
+            if minerals_chokepoint >= 70.0:
+                if any(k in lname for k in ["deep-tech", "deeptech", "critical mineral", "mineral"]):
+                    retaliatory_risk = round(min(1.0, minerals_chokepoint / 100.0), 2)
+                    new_align = max(-0.85, round(new_align - 0.05, 2))
+                    arbitration_log.append(
+                        f"[ADVERSARY_REACTION_ELASTICITY] Critical minerals import dependency ({minerals_chokepoint:.1f}%) "
+                        f"elevates adversary retaliatory embargo risk (E={retaliatory_risk}). Applied counter-move dampening on '{le.lens_name}'."
+                    )
+
             coupled_evals.append(LensEvaluation(
                 lens_name=le.lens_name,
                 alignment_score=new_align,
@@ -437,6 +450,12 @@ class SummitSynthesizer:
         cash_eval = CashFlowLens.evaluate(summit, flows=financial_flows, fixture_mode=fixture_mode)
         petro_eval = PetroLogisticsLens.evaluate(summit)
         geo_economist_eval = GeoEconomistLens.evaluate(summit, claims=claims)
+        minerals_eval_entry = next((e for e in lens_evals if "critical mineral" in e.lens_name.lower()), None)
+        minerals_dep = (
+            minerals_eval_entry.hard_metrics.get("heavy_rare_earth_processing_dependency", 0.90) * 100.0
+            if minerals_eval_entry
+            else 85.0
+        )
         hard_money_audit = {
             "total_nominal_announced_usd": cash_eval.hard_metrics.get("total_nominal_announced_usd", 0.0),
             "total_effective_capex_usd": cash_eval.hard_metrics.get("total_effective_capex_usd", 0.0),
@@ -448,7 +467,8 @@ class SummitSynthesizer:
             "western_pi_maritime_insurance_chokepoint_pct": petro_eval.hard_metrics.get("western_pi_insurance_choke_pct", 0.0),
             "vostro_balance_trapped_usd_b": geo_economist_eval.hard_metrics.get("vostro_balance_trapped_usd_b", 42.0),
             "vostro_capital_recycling_velocity": geo_economist_eval.hard_metrics.get("vostro_capital_recycling_velocity", 0.38),
-            "sovereign_debt_reinvestment_ratio": geo_economist_eval.hard_metrics.get("sovereign_debt_reinvestment_ratio", 0.65)
+            "sovereign_debt_reinvestment_ratio": geo_economist_eval.hard_metrics.get("sovereign_debt_reinvestment_ratio", 0.65),
+            "critical_minerals_import_dependency_pct": minerals_dep
         }
 
         # Tier 5: Civilizational & Geopolitical Synthesis

@@ -787,3 +787,34 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Certified **243/243 unit and integration tests passing deterministically (100% pass rate in 34.37s)**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files <= 50, 0 subdirectories).
+
+* **Phase 71 (Longitudinal Diagnostic Clinical Memory, Multimodal Micro-Signal Grounding, Cultural Grayzone Sieve & Adversary Reaction Physics):**
+  - **Phase 71A: Longitudinal Session Context & Clinical Diagnostic Memory (`EventStore` in `geo_engine/storage/event_store.py`):**
+    - Added `diagnostic_longitudinal_records` table to both schema initialization and migration pipelines in `EventStore`.
+    - Implemented `EventStore.record_diagnostic_encounter()`: stores immutable session records including encounter ID, entity/subject, query text, epistemic tier, confidence score, reality ratio, propaganda ratio, anomalies detected, and Brier calibration scores.
+    - Implemented `EventStore.get_longitudinal_diagnostic_chart()`: computes longitudinal diagnostic stability index, tracks chronic recurrent anomalies, and calculates misdiagnosis risk tiers ("LOW", "MODERATE", "HIGH") with estimated misdiagnosis probability bounds.
+  - **Phase 71B: Multimodal Micro-Signal Physical Telemetry Extractor (`MicroSignalExtractor` & `KinesicsLens` in `geo_engine/lenses/kinesics.py`, `geo_engine/core/models.py`):**
+    - Extended `KinesicObservation` model with `facs_action_units: Dict[str, float]`, directly integrating FACS features into `genuine_warmth_index` (discounting social masks with AU12/AU06 disparity and penalizing concealed antagonism with AU24 lip pressor / masseter tension).
+    - Created `MicroSignalExtractor` supporting FACS action units (AU4, AU6, AU12, AU24), acoustic prosody latency (high cognitive load flagging when pause latency >= 1.2s), and sartorial semiotics (mapping color hues to civilizational, institutional, and tactical authority).
+    - Upgraded `KinesicsLens.evaluate()` to extract and audit micro-signal telemetry, populating `social_masks_detected` and `concealed_antagonisms_detected` hard metrics with forensic findings.
+  - **Phase 71C: Cultural & Religious Grayzone Sieve (`CulturalGrayzoneSieve` & `CivilizationalLens` in `geo_engine/lenses/civilizational.py`):**
+    - Created `CulturalGrayzoneSieve` implementing Paṇḍit/Mīmāṃsā scriptural stratigraphy and decolonial jurisprudence.
+    - Deconstructs asymmetric secular lawfare (temple control under HRCE vs. minority protection under Articles 26/30), textual stratigraphy violations (Śruti ontological invariants overriding temporal Smṛti interpolations), and academic narrative laundering.
+    - Integrated seamlessly into `CivilizationalLens.evaluate()`, populating `cultural_grayzone_vulnerability_index`, `asymmetric_secular_lawfare_detected`, and `textual_stratigraphy_violation_detected` in hard metrics.
+  - **Phase 71D: Dynamic Adversary Retaliatory Reaction Elasticity Matrix (`SummitSynthesizer` in `geo_engine/arbitration/synthesizer.py`):**
+    - Implemented Rule 4 in `SummitSynthesizer.apply_inter_lens_coupling()`: evaluates adversary retaliatory reaction elasticity when supply chains exhibit critical mineral or strategic technology import dependency (>= 70%).
+    - Dampens deep-tech alignment scores by dynamic elasticity margins and logs explicit `[ADVERSARY_REACTION_ELASTICITY]` arbitration entries to prevent illusory self-reliance assumptions.
+    - Added `critical_minerals_import_dependency_pct` to `hard_money_audit` in `synthesize_report()`.
+  - **Phase 71E: Verification Suite Expansion (243->248 tests):**
+    - Updated `README.md` test counter from 243 to 248 comprehensive unit and integration tests.
+    - Added `TestPhase71DiagnosticMemoryAndMicroSignalSieve` in `tests/test_engine.py` with 5 deterministic unit tests:
+      1. `test_phase71_diagnostic_longitudinal_memory`: EventStore clinical audit trail, stability index, and misdiagnosis risk tiers.
+      2. `test_phase71_micro_signal_extractor`: MicroSignalExtractor FACS social mask, concealed antagonism, cognitive load, and sartorial semiotics.
+      3. `test_phase71_kinesics_observation_facs_integration`: KinesicObservation warmth index discount and KinesicsLens detection reporting.
+      4. `test_phase71_cultural_grayzone_sieve`: CulturalGrayzoneSieve asymmetric secular lawfare and scriptural stratigraphy detection.
+      5. `test_phase71_adversary_reaction_elasticity_and_readme_parity`: SummitSynthesizer Rule 4 adversary elasticity and README parity.
+    - Updated all historical test count assertions (Lines 3485, 3795, 3938, 4089, 4378) to include 248 tests.
+    - Certified **248/248 unit and integration tests passing deterministically (100% pass rate in 36.31s)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files <= 50, 0 subdirectories).
+

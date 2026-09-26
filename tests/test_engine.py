@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3935,7 +3935,7 @@ class TestPhase60MultiPillarChronologyArbiter:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests"])
 
 
 class TestPhase61GeofinancialAndDisinformationHardening:
@@ -4086,7 +4086,7 @@ class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests"])
+        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests"])
 
 
 class TestPhase66to69HeptarchyAndAtomicGuardrails:
@@ -4371,16 +4371,197 @@ class TestPhase70CourtroomForensicsAndClaimDecomposition:
         assert audit["epistemic_classification"] in ("KŪṬA-YUKTI", "KUTA-YUKTI", "SAD-BHASA")
 
     def test_phase70_readme_parity(self):
-        """Verify README.md reflects 243 comprehensive tests."""
+        """Verify README.md reflects 243 or 248 comprehensive tests."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
         assert any(
             cnt in content for cnt in [
+                "248 comprehensive unit and integration tests",
                 "243 comprehensive unit and integration tests",
                 "238 comprehensive unit and integration tests",
             ]
         )
+
+
+class TestPhase71DiagnosticMemoryAndMicroSignalSieve:
+    """
+    Phase 71 Verification Suite:
+    - Phase 71A: Longitudinal Session Context & Clinical Diagnostic Memory in EventStore
+    - Phase 71B: Multimodal Micro-Signal Physical Telemetry Extractor (FACS Action Units AU4/AU6/AU12/AU24)
+    - Phase 71C: Cultural & Religious Grayzone Sieve (Paṇḍit/Mīmāṃsā Śruti-Smṛti Stratigraphy & Asymmetric Lawfare)
+    - Phase 71D: Dynamic Adversary Retaliatory Reaction Elasticity Matrix in SummitSynthesizer
+    - Phase 71E: README Test Count Parity (248 tests)
+    """
+
+    def test_phase71_diagnostic_longitudinal_memory(self):
+        """Verify EventStore longitudinal clinical diagnostic memory, stability index, and misdiagnosis risk tiers."""
+        import os
+        import tempfile
+        from geo_engine.storage.event_store import EventStore
+
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as tf:
+            temp_db = tf.name
+
+        try:
+            store = EventStore(db_path=temp_db)
+
+            # Record multiple diagnostic encounters for entity
+            subject = "Entity_Alpha_101"
+            enc1 = store.record_diagnostic_encounter(
+                entity_or_subject=subject,
+                query_text="Initial presentation: severe trade deficit and supply disruption",
+                primary_epistemic_tier="TIER_1_PHYSICAL",
+                confidence=0.88,
+                reality_ratio=0.82,
+                propaganda_ratio=0.18,
+                anomalies_detected=["unilateral_chokepoint_pressure", "foreign_exchange_drag"],
+                session_id="session_001"
+            )
+            assert enc1.startswith("ENC-")
+
+            enc2 = store.record_diagnostic_encounter(
+                entity_or_subject=subject,
+                query_text="Follow-up diagnostic evolution: persistent bilateral clearing friction",
+                primary_epistemic_tier="TIER_2_FINANCIAL",
+                confidence=0.85,
+                reality_ratio=0.79,
+                propaganda_ratio=0.21,
+                anomalies_detected=["unilateral_chokepoint_pressure", "vostro_currency_trap"],
+                session_id="session_001"
+            )
+            assert enc2.startswith("ENC-")
+
+            chart = store.get_longitudinal_diagnostic_chart(subject)
+            assert chart["entity_or_subject"] == subject
+            assert chart["total_encounters"] == 2
+            assert len(chart["recent_encounters"]) == 2
+            assert chart["diagnostic_stability_index"] >= 0.85
+            assert "unilateral_chokepoint_pressure" in chart["chronic_anomalies"]
+            assert chart["misdiagnosis_risk_tier"] in ("LOW", "MODERATE", "HIGH")
+            assert chart["status"] == "LONGITUDINAL_CHART_ACTIVE"
+        finally:
+            if os.path.exists(temp_db):
+                try:
+                    os.unlink(temp_db)
+                except Exception:
+                    pass
+
+    def test_phase71_micro_signal_extractor(self):
+        """Verify MicroSignalExtractor prosodic latency, FACS social mask, and sartorial semiotics."""
+        from geo_engine.lenses.kinesics import MicroSignalExtractor
+
+        # Test A: Social Mask (AU12 smile without AU6 orbicularis oculi contraction)
+        features_mask = MicroSignalExtractor.derive_micro_signal_features(
+            prosodic_pause_latency_s=0.6,
+            facs_action_units={"AU12": 0.85, "AU06": 0.15, "AU04": 0.05, "AU24": 0.10},
+            sartorial_hue="navy_blue"
+        )
+        assert features_mask["is_social_mask"] is True
+        assert features_mask["is_concealed_antagonism"] is False
+        assert features_mask["high_cognitive_load"] is False
+        assert features_mask["sartorial_semiotic_meaning"] == "sovereign_stability_and_formal_authority"
+
+        # Test B: Concealed Antagonism (AU24 lip pressor / masseter tension) + high cognitive load
+        features_antag = MicroSignalExtractor.derive_micro_signal_features(
+            prosodic_pause_latency_s=1.8,
+            facs_action_units={"AU12": 0.20, "AU06": 0.10, "AU04": 0.70, "AU24": 0.75},
+            sartorial_hue="saffron"
+        )
+        assert features_antag["is_concealed_antagonism"] is True
+        assert features_antag["high_cognitive_load"] is True
+        assert features_antag["sartorial_semiotic_meaning"] == "civilizational_heritage_and_dharmic_sovereignty"
+
+    def test_phase71_kinesics_observation_facs_integration(self):
+        """Verify KinesicObservation FACS integration and KinesicsLens detection reporting."""
+        from geo_engine.core.models import KinesicObservation, SummitEvent
+        from geo_engine.lenses.kinesics import KinesicsLens
+
+        obs_masked = KinesicObservation(
+            actor_primary="Diplomat A",
+            actor_secondary="Diplomat B",
+            setting="bilateral_room",
+            protocol_mandated=True,
+            handshake_torque_vector="neutral_vertical",
+            torso_angle_degrees=15.0,
+            residual_tension_score=0.70,
+            micro_expression_flag="neutral_resting",
+            facs_action_units={"AU12": 0.80, "AU06": 0.10, "AU24": 0.60}
+        )
+        # AU24 tension and AU12-AU6 disparity reduce warmth
+        assert obs_masked.genuine_warmth_index < 0.45
+
+        event = SummitEvent(event_name="Bilateral Protocol Summit", host_country="India")
+        eval_result = KinesicsLens.evaluate(event, observations=[obs_masked])
+        assert "social_masks_detected" in eval_result.hard_metrics
+        assert eval_result.hard_metrics["social_masks_detected"] >= 1
+        assert eval_result.hard_metrics["concealed_antagonisms_detected"] >= 1
+        assert any("Micro-Signal Telemetry Audit" in f for f in eval_result.key_findings)
+
+    def test_phase71_cultural_grayzone_sieve(self):
+        """Verify CulturalGrayzoneSieve detection of asymmetric secular lawfare and scriptural stratigraphy."""
+        import types
+        from geo_engine.core.models import SummitEvent
+        from geo_engine.lenses.civilizational import CulturalGrayzoneSieve, CivilizationalLens
+
+        # Test direct sieve audit
+        audit_res = CulturalGrayzoneSieve.audit_cultural_grayzone(
+            narrative_text="State regulation of Hindu temple endowments under HRCE while minority institutions retain full autonomy under Article 30."
+        )
+        assert audit_res["asymmetric_secular_lawfare_detected"] is True
+        assert audit_res["lawfare_index"] >= 0.40
+        assert audit_res["sieve_status"] == "SUSPICIOUS_ASYMMETRIC_OR_STRATIGRAPHIC_DISTORTION"
+
+        # Test scriptural stratigraphy audit
+        strat_res = CulturalGrayzoneSieve.audit_cultural_grayzone(
+            narrative_text="Selective quotation of temporal Manusmriti interpolations to discredit foundational Upanishadic and Vedic Sruti ethics."
+        )
+        assert strat_res["scriptural_stratigraphy_violation"] is True
+        assert any("Textual Stratigraphy Violation" in v for v in strat_res["violations"])
+
+        # Test integration via CivilizationalLens
+        claim = types.SimpleNamespace(asserted_fact="HRCE state control over Hindu temple properties and selective Smriti quote weaponization")
+        event = SummitEvent(event_name="Dharmic Statecraft Summit", host_country="India")
+        civ_eval = CivilizationalLens.evaluate(event, claims=[claim])
+        assert "cultural_grayzone_vulnerability_index" in civ_eval.hard_metrics
+        assert civ_eval.hard_metrics["cultural_grayzone_vulnerability_index"] >= 0.70
+        assert any("CULTURAL_GRAYZONE_SIEVE" in f for f in civ_eval.key_findings)
+
+    def test_phase71_adversary_reaction_elasticity_and_readme_parity(self):
+        """Verify SummitSynthesizer Rule 4 (Adversary Retaliatory Elasticity) and README test parity."""
+        import pathlib
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import LensEvaluation, EpistemicTier
+
+        # Test SummitSynthesizer Rule 4
+        dummy_deeptech = LensEvaluation(
+            lens_name="Deep-Tech & Semiconductor Autonomy",
+            alignment_score=0.40,
+            confidence=0.80,
+            primary_epistemic_tier=EpistemicTier.TIER_1_PHYSICAL,
+            key_findings=["Critical mineral supply chain assessment."],
+            hard_metrics={}
+        )
+        hard_money = {
+            "aggregate_haircut_pct": 10.0,
+            "critical_minerals_import_dependency_pct": 88.0
+        }
+        log = []
+        coupled, penalty = SummitSynthesizer.apply_inter_lens_coupling(
+            lens_evals=[dummy_deeptech],
+            hard_money_audit=hard_money,
+            arbitration_log=log
+        )
+        assert len(coupled) == 1
+        # Alignment dampened by 0.05 due to adversary retaliatory risk
+        assert coupled[0].alignment_score == 0.35
+        assert any("[ADVERSARY_REACTION_ELASTICITY]" in entry for entry in log)
+
+        # Test README parity
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "248 comprehensive unit and integration tests" in content
+
 
 
 

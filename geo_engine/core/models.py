@@ -91,6 +91,7 @@ class KinesicObservation(BaseModel):
     sartorial_colour_code: str = Field(default="neutral_charcoal", description="'saffron_civilizational', 'midnight_institutional', 'olive_tactical', 'neutral_charcoal'")
     prosodic_pause_index: float = Field(default=0.0, ge=0.0, le=1.0, description="Pause latency before key sovereign nouns: 0.0=fluid, 1.0=severe hesitation")
     proxemic_distance_tier: str = Field(default="bilateral_parity", description="'intimate_embrace', 'bilateral_parity', 'asymmetric_distant'")
+    facs_action_units: Dict[str, float] = Field(default_factory=dict, description="Facial Action Coding System Action Units e.g. AU04, AU06, AU12, AU24 (0.0 to 1.0)")
     notes: Optional[str] = None
 
     @computed_field
@@ -117,6 +118,15 @@ class KinesicObservation(BaseModel):
             raw_warmth = min(1.0, raw_warmth * 1.15)
         elif self.proxemic_distance_tier == "asymmetric_distant":
             raw_warmth *= 0.75
+
+        if self.facs_action_units:
+            au24 = self.facs_action_units.get("AU24", 0.0)
+            if au24 > 0.5:
+                raw_warmth *= (1.0 - au24 * 0.5)
+            au12 = self.facs_action_units.get("AU12", 0.0)
+            au06 = self.facs_action_units.get("AU06", 0.0)
+            if au12 > 0.6 and au06 < 0.25:
+                raw_warmth *= 0.50
 
         return round(max(0.0, min(1.0, raw_warmth)), 3)
 
