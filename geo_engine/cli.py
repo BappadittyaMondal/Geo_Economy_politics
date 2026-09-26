@@ -58,7 +58,9 @@ def render_full_report(
     target_event: Optional[Union[SummitEvent, StrategicEvent]] = None,
     claims: Optional[List[Any]] = None,
     evidence_items: Optional[List[Any]] = None,
-    prioritized_lenses: Optional[List[str]] = None
+    prioritized_lenses: Optional[List[str]] = None,
+    export: Optional[str] = None,
+    output_dir: str = "reports"
 ):
     """Generates and renders the complete 5-tier report using rich terminal formatting."""
     if target_event is not None:
@@ -254,6 +256,32 @@ def render_full_report(
         console.print(Panel(p_box, title=f"[bold white on red] STRATEGIC PERSONA PROJECTION: {p_data['archetype_key'].upper()} [/bold white on red]", border_style="red"))
         console.print()
 
+    if export:
+        try:
+            from .visualization import export_report
+            exported = export_report(
+                report,
+                formats=export,
+                output_dir=output_dir,
+                persona=persona
+            )
+            if exported:
+                export_lines = []
+                for fmt, path in exported.items():
+                    if fmt == "pdf_error":
+                        export_lines.append(f"[bold yellow][!][/bold yellow] [yellow]PDF Notice:[/yellow] {path}")
+                    else:
+                        export_lines.append(f"[bold green][+][/bold green] [bold cyan]{fmt.upper()}:[/bold cyan] [underline]{path}[/underline]")
+                console.print(Panel(
+                    "\n".join(export_lines),
+                    title="[bold white on green] SOVEREIGN DASHBOARD & MULTI-FORMAT EXPORTS (PHASE 72) [/bold white on green]",
+                    border_style="green"
+                ))
+        except Exception as ex:
+            console.print(f"[bold yellow][!][/bold yellow] [yellow]Export notice:[/yellow] {ex}")
+
+    return report
+
 
 def render_lenses_summary(summit_name: str = "BRICS 2026 Summit", persona: str = "neutral"):
     """Displays alignment scores and key findings from all registered lenses, optionally weighted by persona."""
@@ -308,7 +336,7 @@ def render_lenses_summary(summit_name: str = "BRICS 2026 Summit", persona: str =
         ))
 
 
-def render_query_pipeline(prompt: str, persona: str = "neutral"):
+def render_query_pipeline(prompt: str, persona: str = "neutral", export: Optional[str] = None, output_dir: str = "reports"):
     """Dynamically parses arbitrary user prompts, ingests open evidence, and executes calibrated forecasting."""
     # 1. Dynamic Query Deconstruction
     query = QueryParser.parse(prompt)
@@ -422,7 +450,9 @@ def render_query_pipeline(prompt: str, persona: str = "neutral"):
         target_event=event_obj,
         claims=all_claims,
         evidence_items=evidence_items,
-        prioritized_lenses=query.prioritized_lenses
+        prioritized_lenses=query.prioritized_lenses,
+        export=export,
+        output_dir=output_dir
     )
 
 
@@ -694,6 +724,16 @@ def main():
     audit_parser.add_argument("--summit", default="BRICS 2026 Summit", help="Summit title")
     audit_parser.add_argument("--year", type=int, default=2026, help="Summit year")
     audit_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
+    audit_parser.add_argument("--export", choices=["html", "pdf", "md", "all"], default=None, help="Export format for sovereign intelligence report")
+    audit_parser.add_argument("--output-dir", default="reports", help="Directory to save exported files")
+
+    # Command: dashboard
+    dash_parser = subparsers.add_parser("dashboard", help="Generate and export interactive sovereign intelligence dashboard")
+    dash_parser.add_argument("--summit", default="BRICS 2026 Summit", help="Summit title or strategic event name")
+    dash_parser.add_argument("--year", type=int, default=2026, help="Event year")
+    dash_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
+    dash_parser.add_argument("--export", choices=["html", "pdf", "md", "all"], default="all", help="Export formats for dashboard")
+    dash_parser.add_argument("--output-dir", default="reports", help="Directory to save exported files")
 
     # Command: lenses
     lens_parser = subparsers.add_parser("lenses", help="Display evaluation across all registered lenses")
@@ -704,6 +744,8 @@ def main():
     query_parser = subparsers.add_parser("query", help="Run natural-language query routing through dynamic lens activation")
     query_parser.add_argument("prompt", type=str, help="Analytical question or scenario prompt")
     query_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
+    query_parser.add_argument("--export", choices=["html", "pdf", "md", "all"], default=None, help="Export format for sovereign intelligence report")
+    query_parser.add_argument("--output-dir", default="reports", help="Directory to save exported files")
 
     # Command: forecasts
     fc_parser = subparsers.add_parser("forecasts", help="Inspect and resolve calibrated strategic forecasts")
@@ -747,12 +789,21 @@ def main():
     try:
         args = parser.parse_args()
 
-        if args.command == "lenses":
+        if args.command == "dashboard":
+            summit_title = getattr(args, "summit", "BRICS 2026 Summit")
+            year = getattr(args, "year", 2026)
+            persona = getattr(args, "persona", "neutral")
+            export_fmt = getattr(args, "export", "all")
+            out_dir = getattr(args, "output_dir", "reports")
+            render_full_report(summit_title, year, persona=persona, export=export_fmt, output_dir=out_dir)
+        elif args.command == "lenses":
             persona = getattr(args, "persona", "neutral")
             render_lenses_summary(args.summit, persona=persona)
         elif args.command == "query":
             persona = getattr(args, "persona", "neutral")
-            render_query_pipeline(args.prompt, persona=persona)
+            export_fmt = getattr(args, "export", None)
+            out_dir = getattr(args, "output_dir", "reports")
+            render_query_pipeline(args.prompt, persona=persona, export=export_fmt, output_dir=out_dir)
         elif args.command == "chronology":
             event_name = getattr(args, "event", "Mahabharata War Chronology")
             render_chronology_arbitration(event_name)
@@ -782,7 +833,9 @@ def main():
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)
             persona = getattr(args, "persona", "neutral")
-            render_full_report(summit_title, year, persona=persona)
+            export_fmt = getattr(args, "export", None)
+            out_dir = getattr(args, "output_dir", "reports")
+            render_full_report(summit_title, year, persona=persona, export=export_fmt, output_dir=out_dir)
     except Exception as e:
         console.print(f"[bold red][ERROR][/bold red] CLI Execution Failed: {e}", file=sys.stderr)
         sys.exit(1)

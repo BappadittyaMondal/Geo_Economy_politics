@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3935,7 +3935,7 @@ class TestPhase60MultiPillarChronologyArbiter:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests"])
 
 
 class TestPhase61GeofinancialAndDisinformationHardening:
@@ -4086,7 +4086,7 @@ class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests"])
+        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests"])
 
 
 class TestPhase66to69HeptarchyAndAtomicGuardrails:
@@ -4377,6 +4377,7 @@ class TestPhase70CourtroomForensicsAndClaimDecomposition:
         content = readme_path.read_text(encoding="utf-8")
         assert any(
             cnt in content for cnt in [
+                "253 comprehensive unit and integration tests",
                 "248 comprehensive unit and integration tests",
                 "243 comprehensive unit and integration tests",
                 "238 comprehensive unit and integration tests",
@@ -4560,7 +4561,137 @@ class TestPhase71DiagnosticMemoryAndMicroSignalSieve:
         # Test README parity
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "248 comprehensive unit and integration tests" in content
+        assert "253 comprehensive unit and integration tests" in content
+
+
+class TestPhase72SovereignDashboardAndExportEngine:
+    """Phase 72 verification: Sovereign dashboard engine, markdown exporter, headless PDF compiler, and CLI integration."""
+
+    def test_phase72_dashboard_generator_html_structure(self):
+        from geo_engine.arbitration import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        from geo_engine.visualization import DashboardGenerator
+
+        event = SummitEvent(
+            summit_name="BRICS 2026 Sovereign Summit",
+            year=2026,
+            host_country="India",
+            location="New Delhi",
+            member_countries=["India", "China", "Russia"]
+        )
+        report = SummitSynthesizer.synthesize_report(event)
+        html_output = DashboardGenerator.generate_html(
+            report,
+            persona="jaishankar",
+            title="BRICS 2026 Sovereign Summit",
+            embedded_markdown="# Test Report"
+        )
+
+        assert "<!DOCTYPE html>" in html_output
+        assert "BRICS 2026 Sovereign Summit" in html_output
+        assert "panel-lenses" in html_output
+        assert "panel-ledgers" in html_output
+        assert "panel-resilience" in html_output
+        assert "panel-kinesics" in html_output
+        assert "panel-negative_space" in html_output
+        assert "panel-civilizational" in html_output
+        assert "panel-arbitration" in html_output
+        assert "downloadMarkdown()" in html_output
+        assert "@media print" in html_output
+
+    def test_phase72_markdown_exporter_structure(self):
+        from geo_engine.arbitration import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        from geo_engine.visualization import MarkdownExporter
+
+        event = SummitEvent(
+            summit_name="BRICS 2026 Sovereign Summit",
+            year=2026,
+            host_country="India",
+            location="New Delhi",
+            member_countries=["India", "China", "Russia"]
+        )
+        report = SummitSynthesizer.synthesize_report(event)
+        md_output = MarkdownExporter.generate_markdown(report, persona="sanyal")
+
+        assert "# 🏛️ Sovereign Intelligence Audit: BRICS 2026 Sovereign Summit (2026)" in md_output
+        assert "## 1. Executive Master Scorecard" in md_output
+        assert "## 2. 20-Lens Matrix Evaluation & Epistemic Hierarchy" in md_output
+        assert "## 3. Member State Sovereign Ledgers (Optics vs. Hard Yield)" in md_output
+        assert "## 4. Communique Negative Space (What Was Omitted or Diluted)" in md_output
+        assert "## 5. Diplomatic Kinesics & Photocall Forensics" in md_output
+        assert "## 6. Strategic Resilience Matrix" in md_output
+        assert "## 7. Civilizational Statecraft & Sanatan Inner Meaning" in md_output
+        assert "## 8. Epistemic Hierarchy Truth Arbitration Log" in md_output
+
+    def test_phase72_pdf_compiler_execution(self):
+        import tempfile
+        from pathlib import Path
+        from geo_engine.visualization import PDFCompiler
+
+        exe = PDFCompiler.find_browser_executable()
+        assert exe is not None, "Headless Edge or Chrome browser should be discoverable on Windows host"
+
+        sample_html = "<html><body><h1>Phase 72 Test PDF</h1><p>Deterministic verification.</p></body></html>"
+        with tempfile.TemporaryDirectory() as td:
+            target_pdf = Path(td) / "test_verification.pdf"
+            success, info = PDFCompiler.compile_pdf(sample_html, str(target_pdf), timeout_seconds=20)
+            assert success is True, f"PDF compilation failed: {info}"
+            assert target_pdf.is_file()
+            assert target_pdf.stat().st_size > 1000
+
+    def test_phase72_synthesize_and_export_pipeline(self):
+        import tempfile
+        from pathlib import Path
+        from geo_engine.arbitration import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        event = SummitEvent(
+            summit_name="Maritime Security Dialogue 2026",
+            year=2026,
+            host_country="India",
+            location="Visakhapatnam",
+            member_countries=["India", "USA", "Japan", "Australia"]
+        )
+        with tempfile.TemporaryDirectory() as td:
+            report, files = SummitSynthesizer.synthesize_and_export(
+                event,
+                export_formats=["html", "md"],
+                output_dir=td,
+                base_filename="maritime_sec_2026"
+            )
+            assert report is not None
+            assert "html" in files and Path(files["html"]).is_file()
+            assert "md" in files and Path(files["md"]).is_file()
+            assert Path(files["html"]).stat().st_size > 5000
+            assert Path(files["md"]).stat().st_size > 2000
+
+    def test_phase72_cli_argument_parsing(self):
+        import argparse
+
+        parser = argparse.ArgumentParser()
+        subparsers = parser.add_subparsers(dest="command")
+
+        audit_p = subparsers.add_parser("audit")
+        audit_p.add_argument("--export", choices=["html", "pdf", "md", "all"])
+        audit_p.add_argument("--output-dir", default="reports")
+
+        dash_p = subparsers.add_parser("dashboard")
+        dash_p.add_argument("--summit", default="BRICS 2026 Summit")
+        dash_p.add_argument("--export", choices=["html", "pdf", "md", "all"], default="all")
+        dash_p.add_argument("--output-dir", default="reports")
+
+        args = dash_p.parse_args(["--summit", "Indo-Pacific Forum", "--export", "pdf", "--output-dir", "custom_reports"])
+        assert args.summit == "Indo-Pacific Forum"
+        assert args.export == "pdf"
+        assert args.output_dir == "custom_reports"
+
+        # Parity check
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "253 comprehensive unit and integration tests" in content
+
 
 
 

@@ -702,3 +702,36 @@ class SummitSynthesizer:
             overall_confidence_score=overall_confidence,
             epistemic_arbitration_log=arbitration_log
         )
+
+    @classmethod
+    def synthesize_and_export(
+        cls,
+        summit: Union[SummitEvent, StrategicEvent],
+        claims: Optional[List[Any]] = None,
+        evidence_items: Optional[List[Any]] = None,
+        prioritized_lenses: Optional[List[str]] = None,
+        export_formats: Optional[Union[str, List[str]]] = None,
+        output_dir: str = "reports",
+        base_filename: Optional[str] = None,
+        persona: str = "neutral"
+    ) -> Tuple[SummitAnalysisReport, Dict[str, str]]:
+        """
+        Synthesizes the 5-Tier SummitAnalysisReport and automatically exports it into
+        interactive HTML dashboard, Markdown audit, and publication-grade PDF documents.
+        """
+        report = cls.synthesize_report(
+            summit,
+            claims=claims,
+            evidence_items=evidence_items,
+            prioritized_lenses=prioritized_lenses
+        )
+        from ..visualization import export_report
+        files = export_report(
+            report,
+            formats=export_formats or ["html", "md", "pdf"],
+            output_dir=output_dir,
+            base_filename=base_filename,
+            persona=persona
+        )
+        return report, files
+
