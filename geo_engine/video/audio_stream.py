@@ -6,7 +6,7 @@ providing headless transcript extraction, timestamped parsing, and automated Cla
 
 import hashlib
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel, Field
 
 from .transcript_engine import TranscriptResult, TranscriptSegment, VideoTranscriptEngine
@@ -46,6 +46,19 @@ class AudioStreamConnector:
     by extracting caption tracks, headless metadata, or streaming transcript segments,
     and transforming them into verified ClaimItem records for the multi-lens engine.
     """
+
+    @classmethod
+    def extract_acoustic_telemetry(
+        cls,
+        data_or_path: Union[bytes, str],
+        sample_rate: Optional[int] = None
+    ) -> Dict[str, Any]:
+        """
+        Processes raw audio buffer or WAV file path through native AcousticDSPWorker,
+        extracting fundamental frequency, jitter, and pause latency features.
+        """
+        from .acoustic_dsp import AcousticDSPWorker
+        return AcousticDSPWorker.analyze_audio(data_or_path, sample_rate=sample_rate)
 
     @classmethod
     def extract_media_id(cls, url_or_id: str) -> str:

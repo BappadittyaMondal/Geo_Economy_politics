@@ -628,6 +628,76 @@ def render_game_theoretic_simulation(
         console.print(f"\n[bold green]✓ Campaign session persisted to EventStore:[/bold green] [cyan]{res.simulation_id}[/cyan]")
 
 
+def render_mcmc_simulation(
+    initiator: str = "India",
+    target: str = "China",
+    initial_state: str = "S1_GREY_ZONE_FRICTION",
+    horizon_months: int = 24,
+    num_simulations: int = 1000
+):
+    """Executes and renders an Indefinite-Horizon MCMC stochastic conflict simulation."""
+    from .simulation import MCMCGeopoliticalWargamer, MCMCScenarioConfig, ConflictState
+
+    try:
+        state_enum = getattr(ConflictState, initial_state.upper())
+    except Exception:
+        state_enum = ConflictState.S1_GREY_ZONE_FRICTION
+
+    config = MCMCScenarioConfig(
+        initiator_name=initiator,
+        target_name=target,
+        initial_state=state_enum,
+        horizon_months=horizon_months,
+        num_simulations=num_simulations
+    )
+
+    res = MCMCGeopoliticalWargamer.simulate_campaign(config)
+
+    console.print(Panel(
+        f"[bold white]{res.simulation_id}: Indefinite-Horizon MCMC Wargaming Campaign[/bold white]\n"
+        f"[cyan]Initiator:[/cyan] {res.initiator} vs [cyan]Target:[/cyan] {res.target}\n"
+        f"[cyan]Horizon:[/cyan] {res.horizon_months} Months | [cyan]Monte Carlo Iterations:[/cyan] {res.num_simulations}\n"
+        f"[cyan]Negotiated Settlement Probability:[/cyan] [bold green]{res.settlement_probability * 100:.1f}%[/bold green] | "
+        f"[cyan]High-Intensity Escalation Risk:[/cyan] [bold red]{res.high_intensity_escalation_probability * 100:.1f}%[/bold red]\n"
+        f"[cyan]Strategic Verdict:[/cyan] [bold yellow]{res.resilience_verdict}[/bold yellow]",
+        title="[bold yellow]MCMC STOCHASTIC WARGAMING & ATTRITION SIMULATION[/bold yellow]",
+        border_style="yellow"
+    ))
+
+    tbl = Table(title=f"MCMC Trajectory Milestones ({res.horizon_months} Months)", show_lines=True)
+    tbl.add_column("Month", justify="center", width=8, style="bold cyan")
+    tbl.add_column("Dominant State", justify="center", width=28, style="bold white")
+    tbl.add_column("Deterrence", justify="center", width=12)
+    tbl.add_column("Grey-Zone", justify="center", width=12)
+    tbl.add_column("Economic", justify="center", width=12)
+    tbl.add_column("Localized", justify="center", width=12)
+    tbl.add_column("Escalated", justify="center", width=12)
+    tbl.add_column("Settlement", justify="center", width=12)
+
+    sample_months = sorted(list(set([0, max(1, res.horizon_months // 4), max(2, res.horizon_months // 2), max(3, (res.horizon_months * 3) // 4), res.horizon_months])))
+
+    for m in sample_months:
+        if m < len(res.trajectories):
+            traj = res.trajectories[m]
+            d = traj.distribution
+            tbl.add_row(
+                f"M{traj.month:02d}",
+                traj.dominant_state.name,
+                f"{d.get(ConflictState.S0_DETERRENCE_EQUILIBRIUM, 0.0)*100:.1f}%",
+                f"{d.get(ConflictState.S1_GREY_ZONE_FRICTION, 0.0)*100:.1f}%",
+                f"{d.get(ConflictState.S2_ECONOMIC_ATTRITION, 0.0)*100:.1f}%",
+                f"{d.get(ConflictState.S3_LOCALIZED_KINETIC, 0.0)*100:.1f}%",
+                f"{d.get(ConflictState.S4_HIGH_INTENSITY_ESCALATION, 0.0)*100:.1f}%",
+                f"{d.get(ConflictState.S5_NEGOTIATED_SETTLEMENT, 0.0)*100:.1f}%",
+            )
+    console.print(tbl)
+
+    console.print("\n[bold green]Expected Cumulative Economic Loss:[/bold green]")
+    for actor_name, loss in res.expected_economic_loss_usd_b.items():
+        console.print(f" • {actor_name}: [bold red]${loss:.2f} Billion USD[/bold red]")
+    console.print(f"\n[italic]{res.summary}[/italic]")
+
+
 def render_audit_ingestion(audit_path: str):
     """Parses a forensic audit markdown document and persists normalized claims into EventStore SQLite."""
     import os
@@ -774,6 +844,10 @@ def main():
     rt_parser.add_argument("--intent", default="", help="Declared intent of initiating move")
     rt_parser.add_argument("--persist", action="store_true", help="Persist wargame campaign session and turns into EventStore SQLite")
     rt_parser.add_argument("--session-id", default=None, help="Custom identifier for persistent wargame campaign")
+    rt_parser.add_argument("--mcmc", action="store_true", help="Execute Indefinite-Horizon MCMC stochastic simulation across months")
+    rt_parser.add_argument("--horizon-months", type=int, default=24, help="Horizon in months for MCMC simulation")
+    rt_parser.add_argument("--simulations", type=int, default=1000, help="Number of Monte Carlo trajectories")
+    rt_parser.add_argument("--initial-state", default="S1_GREY_ZONE_FRICTION", help="Initial conflict state for MCMC simulation")
 
     # Command: chronology
     chrono_parser = subparsers.add_parser("chronology", help="Arbitrate disputed ancient historical and civilizational timelines")
@@ -814,16 +888,25 @@ def main():
         elif args.command == "simulate":
             render_cascading_simulation(args.domain, severity=args.severity, description=args.description)
         elif args.command == "red-team":
-            render_game_theoretic_simulation(
-                initiator=args.initiator,
-                target=args.target,
-                domain=args.domain,
-                severity=args.severity,
-                action=args.action,
-                intent=args.intent,
-                persist=getattr(args, "persist", False),
-                session_id=getattr(args, "session_id", None)
-            )
+            if getattr(args, "mcmc", False):
+                render_mcmc_simulation(
+                    initiator=args.initiator,
+                    target=args.target,
+                    initial_state=getattr(args, "initial_state", "S1_GREY_ZONE_FRICTION"),
+                    horizon_months=getattr(args, "horizon_months", 24),
+                    num_simulations=getattr(args, "simulations", 1000)
+                )
+            else:
+                render_game_theoretic_simulation(
+                    initiator=args.initiator,
+                    target=args.target,
+                    domain=args.domain,
+                    severity=args.severity,
+                    action=args.action,
+                    intent=args.intent,
+                    persist=getattr(args, "persist", False),
+                    session_id=getattr(args, "session_id", None)
+                )
         elif args.command == "ingest-audit":
             render_audit_ingestion(args.path)
         elif args.command == "mcp":

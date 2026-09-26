@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3935,7 +3935,7 @@ class TestPhase60MultiPillarChronologyArbiter:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests"])
 
 
 class TestPhase61GeofinancialAndDisinformationHardening:
@@ -4086,7 +4086,7 @@ class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests"])
+        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests"])
 
 
 class TestPhase66to69HeptarchyAndAtomicGuardrails:
@@ -4377,6 +4377,7 @@ class TestPhase70CourtroomForensicsAndClaimDecomposition:
         content = readme_path.read_text(encoding="utf-8")
         assert any(
             cnt in content for cnt in [
+                "257 comprehensive unit and integration tests",
                 "253 comprehensive unit and integration tests",
                 "248 comprehensive unit and integration tests",
                 "243 comprehensive unit and integration tests",
@@ -4561,7 +4562,7 @@ class TestPhase71DiagnosticMemoryAndMicroSignalSieve:
         # Test README parity
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "253 comprehensive unit and integration tests" in content
+        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests"])
 
 
 class TestPhase72SovereignDashboardAndExportEngine:
@@ -4690,7 +4691,98 @@ class TestPhase72SovereignDashboardAndExportEngine:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "253 comprehensive unit and integration tests" in content
+        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests"])
+
+
+class TestPhase73to75DeepTechHardening:
+    """
+    Phase 73-75 Verification Suite:
+    - Phase 73: Native Acoustic DSP Worker (Autocorrelation F0, Local Pitch Jitter, VAD Pause Latency)
+    - Phase 74: Indefinite-Horizon Markov Chain Monte Carlo (MCMC) Geopolitical Wargaming Engine
+    - Phase 75: Hybrid Semantic & Colloquial Query Router in QueryParser
+    """
+
+    def test_phase73_acoustic_dsp_pitch_and_jitter(self):
+        """Verify WAVAudioReader and AcousticDSPWorker pitch tracking, local jitter, and VAD pause metrics."""
+        from geo_engine.video.acoustic_dsp import AcousticDSPWorker, WAVAudioReader
+        from geo_engine.video.audio_stream import AudioStreamConnector
+
+        # 1. Synthesize 200 Hz tone with 0.5s pause
+        tone_wav = WAVAudioReader.synthesize_test_tone(
+            frequency_hz=200.0,
+            duration_s=1.0,
+            sample_rate=16000,
+            pause_duration_s=0.5
+        )
+        assert len(tone_wav) > 1000
+
+        # 2. Extract telemetry via AcousticDSPWorker
+        metrics = AcousticDSPWorker.analyze_audio(tone_wav)
+        assert abs(metrics["mean_f0_hz"] - 200.0) < 5.0
+        assert metrics["mean_pause_duration_seconds"] >= 0.40
+        assert 0.0 <= metrics["pitch_jitter_local"] <= 0.10
+        assert 0.0 <= metrics["prosodic_pause_index"] <= 1.0
+
+        # 3. Direct pipeline integration via AudioStreamConnector
+        conn_metrics = AudioStreamConnector.extract_acoustic_telemetry(tone_wav)
+        assert conn_metrics["mean_f0_hz"] > 180.0
+        assert conn_metrics["mean_pause_duration_seconds"] >= 0.40
+
+    def test_phase74_mcmc_geopolitical_wargamer(self):
+        """Verify MCMCGeopoliticalWargamer multi-year stochastic conflict attrition modeling."""
+        from geo_engine.simulation.mcmc_wargamer import (
+            ConflictState,
+            MCMCGeopoliticalWargamer,
+            MCMCScenarioConfig,
+        )
+
+        config = MCMCScenarioConfig(
+            initiator_name="India",
+            target_name="China",
+            initial_state=ConflictState.S1_GREY_ZONE_FRICTION,
+            horizon_months=12,
+            num_simulations=500,
+            initiator_wwr_days=30.0,
+            target_wwr_days=25.0
+        )
+
+        res = MCMCGeopoliticalWargamer.simulate_campaign(config)
+        assert res.simulation_id.startswith("MCMC-")
+        assert len(res.trajectories) == 13  # Month 0 to Month 12
+        assert 0.0 <= res.settlement_probability <= 1.0
+        assert 0.0 <= res.high_intensity_escalation_probability <= 1.0
+        assert res.expected_economic_loss_usd_b["India"] > 0.0
+        assert res.expected_economic_loss_usd_b["China"] > 0.0
+
+        md = res.to_markdown()
+        assert "MCMC Wargaming Campaign" in md
+        assert "Trajectory Milestones" in md
+
+    def test_phase75_query_parser_colloquial_routing(self):
+        """Verify QueryParser hybrid colloquial/Hinglish n-gram expansion to specialized lenses."""
+        from geo_engine.core.query_parser import QueryParser
+
+        # Food & Military Hindi/colloquial terms
+        q_food_mil = QueryParser.parse("Bharat kisan fasal khana peena aur fauji hathiyar")
+        assert "food_security" in q_food_mil.prioritized_lenses
+        assert "military_readiness" in q_food_mil.prioritized_lenses
+
+        # Geo-economy & Subsea cables
+        q_econ_sub = QueryParser.parse("dhandha vyapar paisa aur sagar cable samundari tar")
+        assert "geo_economist" in q_econ_sub.prioritized_lenses
+        assert "subsea_cables" in q_econ_sub.prioritized_lenses
+
+        # Lawfare & Space
+        q_law_space = QueryParser.parse("kacheri adalat mudda aur antriksh graha")
+        assert "institutional_lawfare" in q_law_space.prioritized_lenses
+        assert "astro_politics" in q_law_space.prioritized_lenses
+
+    def test_phase75_readme_parity(self):
+        """Verify README.md reflects 257 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "257 comprehensive unit and integration tests" in content
 
 
 

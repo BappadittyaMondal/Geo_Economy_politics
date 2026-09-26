@@ -818,3 +818,51 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` == 32 files <= 50, 0 subdirectories).
 
+* **Phase 72 (Sovereign Dashboard & Multi-Format Exporter Architecture):**
+  - **Permanent Sovereign Visualization Package (`geo_engine/visualization/`):**
+    - `dashboard_engine.py`: Self-contained interactive HTML dashboard generator with 7 dedicated tabs (Executive Summary, 20-Lens Matrix, Personas, Macro & Trade, Teleology & Forensics, Wargaming, Baselines), SVG radar charts, and client-side Base64 blob downloaders for Markdown, JSON, and print PDF.
+    - `markdown_exporter.py`: Structured GitHub-Flavored Markdown briefing generator with formatted tables, pull quotes, and status badges.
+    - `pdf_compiler.py`: Headless Chromium / Edge execution driver rendering print-ready PDFs with `@page { size: A4 portrait; margin: 12mm; }`.
+    - `__init__.py`: Clean entry point `export_report()` and filesystem sanitization.
+  - **Synthesizer & CLI Integration:**
+    - Added `SummitSynthesizer.synthesize_and_export()` pipeline orchestrating arbitration and export generation.
+    - Added `--export` and `--output-dir` to `geo-engine audit` and `geo-engine query`.
+    - Added dedicated `geo-engine dashboard` command for instant dashboard creation.
+  - **Self-Healing Storage Seed Synchronization (`geo_engine/storage/event_store.py`):**
+    - Updated `_ensure_migrations()` to invoke `initialize_schema_and_seed()` idempotently, guaranteeing that existing databases automatically receive all historical anniversary and statutory treaty seeds without manual intervention or data loss.
+  - **Verification Suite Expansion (248->253 tests):**
+    - Added `TestPhase72SovereignDashboardAndExportEngine` in `tests/test_engine.py` covering HTML generation, Markdown structure, PDF compiler fallback, full synthesis export pipeline, and CLI argument parsing.
+    - Certified **253/253 unit and integration tests passing deterministically (100% pass rate in 36.37s)**.
+
+* **Phase 73 (Native On-Premise Acoustic DSP Engine & Prosodic Telemetry):**
+  - **Pure-Python Acoustic DSP Engine (`geo_engine/video/acoustic_dsp.py`, `geo_engine/video/__init__.py`):**
+    - Implemented `WAVAudioReader` parsing standard RIFF/WAV files and raw 16-bit PCM buffers with in-memory test tone synthesis.
+    - Implemented `AcousticDSPWorker` providing zero-dependency, on-premise digital signal processing:
+      - Normalized Autocorrelation (NACF) fundamental frequency ($F_0$) estimator bounded in human vocal range ($75\text{Hz} - 500\text{Hz}$).
+      - Cycle-to-cycle local pitch jitter estimator: $\text{Jitter}_{\text{local}} = \frac{\frac{1}{N-1}\sum |T_i - T_{i+1}|}{\frac{1}{N}\sum T_i}$, detecting vocal fold micro-tremors and autonomic nervous system leakage.
+      - Short-Term Energy (STE) Voice Activity Detection (VAD) measuring contiguous pause intervals and mean hesitation latency before sovereign nouns.
+  - **Multimodal Pipeline Integration (`geo_engine/video/audio_stream.py`):**
+    - Added `AudioStreamConnector.extract_acoustic_telemetry()` directly piping raw audio buffers into the exact dictionary required by `MicroSignalExtractor.derive_micro_signal_features()`.
+    - Upgraded Multimodal & FACS Telemetry subsystem from PARTIAL* to NATIVE ON-PREM.
+
+* **Phase 74 (Indefinite-Horizon Markov Chain Monte Carlo Wargamer):**
+  - **Stochastic Attrition Wargaming Engine (`geo_engine/simulation/mcmc_wargamer.py`, `geo_engine/simulation/__init__.py`):**
+    - Implemented `MCMCGeopoliticalWargamer` modeling long-range, multi-stage geopolitical conflict across a 6-state ergodic Markov space:
+      - $S_0$: Stable Deterrence & Diplomatic Equilibrium
+      - $S_1$: Sub-Kinetic Grey-Zone Friction
+      - $S_2$: Asymmetric Economic & Trade Attrition
+      - $S_3$: Localized Kinetic Skirmish
+      - $S_4$: High-Intensity Theatre Escalation
+      - $S_5$: De-escalated Negotiated Settlement
+    - State transition matrix dynamically modulated by War Wastage Reserve (WWR) ammunition days, foreign exchange import covers, and Putnam domestic political audience friction.
+    - Monte Carlo rollout simulator (500–2000 trajectories over 12–60 months) calculating absorbing/settlement arrival times, escalation risks, and cumulative economic losses in USD billions.
+  - **CLI Red-Team Command Integration (`geo_engine/cli.py`):**
+    - Augmented `geo-engine red-team` with `--mcmc`, `--horizon-months`, `--simulations`, and `--initial-state` flags.
+    - Created `render_mcmc_simulation()` rendering rich multi-column milestone tables and cumulative loss projections.
+
+* **Phase 75 (Hybrid Semantic & Colloquial Query Router):**
+  - **Colloquial & Hinglish Query Expansion (`geo_engine/core/query_parser.py`):**
+    - Added `COLLOQUIAL_ROUTING_MAP` providing conversational and Hinglish synonym triggers across food security (`khana peena`, `kisan`, `fasal`), military readiness (`fauji`, `sena`, `hathiyar`, `barood`), geo-economics (`dhandha`, `paisa`, `vyapar`), lawfare (`kacheri`, `adalat`, `chori`), and subsea cables (`sagar cable`, `samundari tar`).
+    - Enables natural conversation inputs to reliably route to specialized analytical lenses while retaining 100% backward compatibility with canonical keywords.
+
+

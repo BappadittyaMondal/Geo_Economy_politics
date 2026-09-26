@@ -99,6 +99,19 @@ class QueryParser:
         "asylum", "demographic", "andalucia", "schengen", "border fence", "human trafficking"
     ]
 
+    COLLOQUIAL_ROUTING_MAP: Dict[str, List[str]] = {
+        "food_security": ["khana peena", "roti", "kisan", "annadata", "fasal", "gehun", "chawal", "anaj"],
+        "military_readiness": ["fauji", "sena", "goli", "barood", "hathiyar", "fouj", "topkhana", "jang"],
+        "geo_economist": ["dhandha", "paisa", "rupaya", "kamai", "vyapar", "karz", "byaj"],
+        "cash_flow": ["munafe", "kharcha", "jama", "nikasi", "hundi"],
+        "propaganda": ["afwah", "dhokhadhadi", "farzi khabar", "bhatkana", "propoganda"],
+        "institutional_lawfare": ["kacheri", "adalat", "vakil", "mudda", "chori", "dharna"],
+        "petro_logistics": ["tel", "petrol", "diesel", "jahaz", "tatt", "samundar", "sagar"],
+        "subsea_cables": ["samundari tar", "subsea tar", "sagar cable"],
+        "astro_politics": ["antriksh", "graha", "upagraha"],
+        "civilizational": ["itihaas", "purana", "puratan", "parampara", "sanskriti"]
+    }
+
     LENS_KEYWORDS: Dict[str, List[str]] = {
         "deep_tech": ["ai", "deep tech", "quantum", "compute", "algorithm", "frontier tech", "supercomputer", "synthetic", "biotech"],
         "history": ["treaty", "precedent", "historical", "panchsheel", "1962", "1971", "1993", "cold war", "bretton woods", "bandung", "partition", "kargil", "balakot", "galwan", "pokhran", "sindoor", "sykes-picot", "1947", "1998", "1999", "somnath", "nalanda", "tarain", "chola", "srivijaya", "shivaji", "swarajya", "reversal", "millennial", "1000 year", "watson", "bernays", "mkultra", "mockingbird", "who code", "1920", "1928", "1953", "1981", "nilesh oak", "arundhati vasistha", "5561 bce", "3067 bce", "3102 bce", "bori critical edition", "sanauli chariot", "saraswati desiccation", "chronology arbitration", "historical timeline"],
@@ -197,7 +210,9 @@ class QueryParser:
         # 5. Extract Prioritized Lenses
         active_lenses = []
         for lens_name, keywords in cls.LENS_KEYWORDS.items():
-            if any(kw in text_lower for kw in keywords):
+            colloquial = cls.COLLOQUIAL_ROUTING_MAP.get(lens_name, [])
+            all_kw = keywords + colloquial
+            if any(kw in text_lower for kw in all_kw):
                 active_lenses.append(lens_name)
 
         # Boolean flags
