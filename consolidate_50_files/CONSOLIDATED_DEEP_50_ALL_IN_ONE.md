@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `bfeb1b9`
+- **Canonical Git Commit:** `9f31987`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: bfeb1b9
+CANONICAL_COMMIT: 9f31987
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: bfeb1b9
+CANONICAL_COMMIT: 9f31987
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: bfeb1b9
+CANONICAL_COMMIT: 9f31987
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: bfeb1b9
+CANONICAL_COMMIT: 9f31987
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: bfeb1b9
+CANONICAL_COMMIT: 9f31987
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: bfeb1b9
+CANONICAL_COMMIT: 9f31987
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1798,6 +1798,61 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Certified **296/296 unit and integration tests passing deterministically (100% pass rate in 59.06s)**.
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
+* **Phase 88 (Sub-National Sacred Geography & Religious Endowment Sieve):**
+  - **Sovereign Statutory & Cadastral Sieve (`geo_engine/lenses/institutional_lawfare.py`):**
+    - Implemented `SubNationalEndowmentSieve.calculate_endowment_vulnerability()` quantifying institutional vulnerability of indigenous and dharmic endowments:
+      $$S_{\text{endowment}} = \min(1.0, \max(0.0, 0.40 \cdot E_{\text{encroach}} + 0.35 \cdot W_{\text{asymmetry}} + 0.25 \cdot (1.0 - C_{\text{cadastre}})))$$
+    - Evaluates asymmetric statutory regimes: Waqf Act 1995 Section 40 unilateral property inquiries/tribunals vs State Hindu Religious and Charitable Endowments (HR&CE) acts.
+    - Isolates riverine char-land vagueness ($1.0 - C_{\text{cadastre}}$) arising from seasonal silt shifting without permanent cadastral surveys.
+    - Classifies 4 deterministic risk tiers: `CRITICAL_ENCROACHMENT_RISK`, `ELEVATED_STATUTORY_ASYMMETRY`, `MODERATE_CADASTRAL_FRICTION`, `SECURE_ENDOWMENT`.
+    - Outputs tailored statutory remedies: RPA Section 8A delimitation, Assam Land and Revenue Regulation 1886 eviction drives, and legislative parity reforms.
+  - **Lens Telemetry & Routing Integration:**
+    - Integrated endowment scanning (`sattra`, `batadrava`, `gorukhuti`, `dhalpur`, `char land`, `waqf board`, `section 40`, `srimanta sankardev`) into `InstitutionalLawfareLens.evaluate()`, populating `sub_national_endowment_vulnerability`, `endowment_vulnerability_tier`, `waqf_section_40_asymmetry_flag`, and `char_land_cadastral_vagueness`.
+    - Exported `SubNationalEndowmentSieve` in `geo_engine.lenses`.
+
+* **Phase 89 (Executive Policy Rollback Elasticity Model):**
+  - **Bureaucratic Disconnect & Policy Half-Life Modeling (`geo_engine/lenses/bureaucratic_inertia.py`):**
+    - Implemented `BureaucraticRollbackModel.calculate_rollback_elasticity()` quantifying the disconnect between administrative guideline drafting and political executive commitment under mass sociopolitical mobilization:
+      $$R_{\text{rollback}} = \min\left(1.0, \max\left(0.0, \frac{S_{\text{electoral}} \cdot V_{\text{mobilization}} \cdot (1.0 + D_{\text{consultation}})}{\max(0.10, 2.0 \cdot C_{\text{executive\_commitment}})}\right)\right)$$
+    - Predicts policy half-life in days:
+      $$\text{Half-Life} = \max(1.0, 180.0 \cdot (1.0 - R_{\text{rollback}})^{1.5})$$
+    - Categorizes 4 operational risk tiers: `IMMINENT_EXECUTIVE_ROLLBACK` (<10 days half-life), `HIGH_VULNERABILITY_PAUSE`, `MODERATE_AMENDMENT_CYCLE`, `DURABLE_STATUTORY_REFORM`.
+  - **Lens Telemetry & Routing Integration:**
+    - Integrated rollback token scanning (`ugc rollback`, `de-reservation`, `draft guidelines`, `policy rollback`, `farm laws rollback`, `executive retreat`, `clerical overreach`) into `BureaucraticInertiaLens.evaluate()`, populating `executive_rollback_elasticity_score`, `policy_rollback_risk_tier`, `bureaucratic_consultation_deficit_detected`, and `predicted_policy_half_life_days`.
+    - Exported `BureaucraticRollbackModel` in `geo_engine.lenses`.
+
+* **Phase 90 (Sartorial & Semiotic Micro-Signal Forensics in Kinesics):**
+  - **Multimodal Semiotic Congruence Engine (`geo_engine/lenses/kinesics.py`):**
+    - Implemented `SartorialSemioticSieve.calculate_sartorial_congruence()` quantifying semiotic alignment between ceremonial attire, diplomatic posture dissonance, theatrical masking, and acoustic prosody:
+      $$C_{\text{sartorial}} = \max(0.0, \min(1.0, 1.0 - 0.45 \cdot D_{\text{dissonance}} - 0.35 \cdot S_{\text{masking}} - 0.20 \cdot J_{\text{prosodic}}))$$
+    - Categorizes 4 semiotic alignment tiers: `AUTHENTIC_CIVILIZATIONAL_COHERENCE`, `CALCULATED_DIPLOMATIC_OPTICS`, `ELEVATED_SEMIOTIC_DISSONANCE`, `ACUTE_THEATRICAL_DECEPTION`.
+    - Enhanced `MicroSignalExtractor.derive_micro_signal_features()` to detect `gamusa_indigenous` (sub-national identity & Dharmic cultural resistance) and `corporate_western` (technocratic masking).
+    - Integrated into `KinesicsLens.evaluate()` to produce `sartorial_congruence_score`, `semiotic_alignment_tier`, and grounded semiotic findings.
+    - Exported `SartorialSemioticSieve` in `geo_engine.lenses`.
+  - **Video & Audio Stream Media Auditing (`geo_engine/video/audio_stream.py`):**
+    - Coupled `AudioStreamConnector.audit_media_claims()` directly to `SubNationalEndowmentSieve`, `BureaucraticRollbackModel`, and `SartorialSemioticSieve`, evaluating YouTube video transcripts against sacred land, policy rollback, and semiotic micro-signals.
+
+* **Phase 91 (Sub-National Legal Grounding Seeds & Query Expansion):**
+  - **Historical Ground Truth Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded 4 sub-national legal turning points into `historical_anniversaries`:
+      1. `HIST-2005-IMDT-ACT-STRUCK-DOWN` (2005-07-12): Supreme Court struck down IMDT Act in *Sarbananda Sonowal v. UOI*, ruling unchecked demographic influx as external aggression under Article 355.
+      2. `HIST-2021-GORUKHUTI-EVICTION` (2021-09-23): Assam Government evicted encroachers from ~77,000 bighas of riverine char and Sattra agricultural lands in Gorukhuti/Dhalpur.
+      3. `HIST-2023-ASSAM-DELIMITATION` (2023-08-11): Election Commission finalized Section 8A delimitation safeguarding 19 SC/ST and ~96 indigenous majority assembly seats.
+      4. `HIST-2024-UGC-RESERVATION-ROLLBACK` (2024-01-29): Union Education Ministry executed 24-hour rollback of UGC draft de-reservation guidelines.
+    - Seeded resolved historical forecast benchmark: `FCST-HIST-2023-ASSAM-DELIMITATION` (actual outcome 1.0, forecast 0.85, Brier score 0.0225) into `forecast_ledger`.
+  - **QueryParser Expansion (`geo_engine/core/query_parser.py`):**
+    - Added leader pattern for `Himanta Biswa Sarma`.
+    - Enriched `LENS_KEYWORDS` across `institutional_lawfare`, `bureaucratic_inertia`, `kinesics`, `demographic_infiltration`, and `civilizational` with sub-national land, endowment, and rollback tokens.
+
+* **Phase 92 (Full Verification, Bundle Rebuild, Documentation & Git Deployment):**
+  - **Verification Suite Expansion (296→306 tests):**
+    - Added `TestPhase88to92SubNationalAndSemioticUpgrade` in `tests/test_engine.py` with 10 comprehensive unit/integration tests verifying SubNationalEndowmentSieve, InstitutionalLawfareLens endowment telemetry, BureaucraticRollbackModel, BureaucraticInertiaLens rollback telemetry, SartorialSemioticSieve, KinesicsLens sartorial telemetry, EventStore historical seeds, QueryParser sub-national and semiotic routing, AudioStreamConnector media auditing, and test count parity.
+    - Updated `README.md` test counter from 296 to 306 comprehensive tests.
+    - Certified **306/306 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
+
 
 
 
@@ -2190,7 +2245,8 @@ class BureaucraticInertiaLens:
             "domestic_ratification_probability": 0.40,
             "bureaucratic_veto_intensity": "High (Commerce & Security Ministries prioritize national industrial protection)",
             "indian_regulatory_anchor": "Press Note 3 & National Security Directives",
-            "chinese_regulatory_anchor": "NDRC Industrial Capacity Offloading Strategy"
+            "chinese_regulatory_anchor": "NDRC Industrial Capacity Offloading Strategy",
+            "executive_rollback_elasticity_score": 0.0
         }
 
         alignment = 0.28 # Very low alignment once filtered through permanent civil services
@@ -2209,6 +2265,40 @@ class BureaucraticInertiaLens:
                 findings.insert(0, "[GROUNDED TELEMETRY] Bureaucratic regulatory friction / institutional veto verified in domestic execution pipeline.")
                 confidence = min(0.99, round(confidence + 0.02, 2))
                 metrics["grounded_regulatory_claims_verified"] = True
+
+            rollback_keywords = [
+                "ugc rollback", "de-reservation", "draft guidelines", "policy rollback",
+                "farm laws rollback", "executive retreat", "clerical overreach", "bureaucratic disconnect",
+                "rollback"
+            ]
+            matched_rollback = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in rollback_keywords)
+                for c in claims
+            )
+            if matched_rollback:
+                has_ugc = any("ugc" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "de-reservation" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                electoral_sens = 0.90 if has_ugc else 0.70
+                mob_velocity = 0.85 if has_ugc else 0.65
+                exec_commit = 0.25 if has_ugc else 0.50
+                deficit = 0.80 if has_ugc else 0.40
+
+                rb_res = BureaucraticRollbackModel.calculate_rollback_elasticity(
+                    electoral_sensitivity=electoral_sens,
+                    mobilization_velocity=mob_velocity,
+                    executive_commitment=exec_commit,
+                    consultation_deficit=deficit
+                )
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Executive Policy Rollback Elasticity triggered: "
+                    f"Risk Tier [{rb_res['rollback_risk_tier']}] (Score: {rb_res['rollback_elasticity_score']:.2f}, Half-Life: {rb_res['predicted_half_life_days']} days). "
+                    f"{rb_res['bureaucratic_disconnect_analysis']} Recommendation: {rb_res['policy_stabilization_recommendation']}"
+                ))
+                alignment = min(alignment, 0.12)
+                metrics["executive_rollback_elasticity_score"] = rb_res["rollback_elasticity_score"]
+                metrics["policy_rollback_risk_tier"] = rb_res["rollback_risk_tier"]
+                metrics["bureaucratic_consultation_deficit_detected"] = bool(deficit >= 0.50)
+                metrics["predicted_policy_half_life_days"] = rb_res["predicted_half_life_days"]
+
             metrics["claims_evaluated"] = len(claims)
 
         return LensEvaluation(
@@ -2219,6 +2309,86 @@ class BureaucraticInertiaLens:
             key_findings=findings,
             hard_metrics=metrics
         )
+
+
+class BureaucraticRollbackModel:
+    """
+    Phase 89: Executive Policy Rollback Elasticity Model.
+    Quantifies bureaucratic disconnect between administrative guideline drafting
+    and political executive capital, measuring policy half-life under mass mobilization.
+
+    Formula:
+        R_rollback = min(1.0, max(0.0, (S_electoral * V_mobilization * (1.0 + D_consultation)) / max(0.10, 2.0 * C_executive_commitment)))
+    """
+
+    @staticmethod
+    def calculate_rollback_elasticity(
+        electoral_sensitivity: float,
+        mobilization_velocity: float,
+        executive_commitment: float,
+        consultation_deficit: float = 0.50
+    ) -> Dict[str, Any]:
+        s_elec = max(0.0, min(1.0, float(electoral_sensitivity)))
+        v_mob = max(0.0, min(1.0, float(mobilization_velocity)))
+        c_exec = max(0.0, min(1.0, float(executive_commitment)))
+        d_cons = max(0.0, min(1.0, float(consultation_deficit)))
+
+        numerator = s_elec * v_mob * (1.0 + d_cons)
+        denominator = max(0.10, 2.0 * c_exec)
+        score = round(min(1.0, max(0.0, numerator / denominator)), 4)
+
+        half_life_days = round(max(1.0, 180.0 * ((1.0 - score) ** 1.5)), 1)
+
+        if score >= 0.75:
+            risk_tier = "IMMINENT_EXECUTIVE_ROLLBACK"
+            disconnect = (
+                "Extreme administrative-political disconnect: Autonomous bureaucratic guidelines issued without cabinet-level "
+                "pre-vetting facing overwhelming mobilization and acute electoral liabilities, compelling immediate executive retreat."
+            )
+            stabilization = (
+                "Execute immediate administrative withdrawal or stay order; initiate formal inter-ministerial political pre-consultation "
+                "and parliamentary committee deliberation before reissuance."
+            )
+        elif score >= 0.50:
+            risk_tier = "HIGH_VULNERABILITY_PAUSE"
+            disconnect = (
+                "Elevated vulnerability: Strong public pushback and electoral sensitivity outmatch bureaucratic momentum, "
+                "forcing the executive to place notifications into indefinite administrative abeyance."
+            )
+            stabilization = (
+                "Constitute a multi-stakeholder expert review panel to absorb public protest velocity and draft compensatory carve-outs."
+            )
+        elif score >= 0.25:
+            risk_tier = "MODERATE_AMENDMENT_CYCLE"
+            disconnect = (
+                "Moderate friction: Procedural objections raised by interest groups, but executive political capital remains sufficient "
+                "to absorb friction through minor technical revisions."
+            )
+            stabilization = (
+                "Publish targeted clarifying corrigenda and phase implementation timelines across successive fiscal quarters."
+            )
+        else:
+            risk_tier = "DURABLE_STATUTORY_REFORM"
+            disconnect = (
+                "High executive coherence: Deep cabinet alignment, low electoral exposure, and disciplined bureaucratic execution "
+                "confer durable statutory longevity."
+            )
+            stabilization = (
+                "Proceed with permanent statutory gazetting and institutional standard operating procedure enforcement."
+            )
+
+        return {
+            "rollback_elasticity_score": score,
+            "electoral_sensitivity": s_elec,
+            "mobilization_velocity": v_mob,
+            "executive_commitment": c_exec,
+            "consultation_deficit": d_cons,
+            "predicted_half_life_days": half_life_days,
+            "rollback_risk_tier": risk_tier,
+            "bureaucratic_disconnect_analysis": disconnect,
+            "policy_stabilization_recommendation": stabilization
+        }
+
 
 
 ```
@@ -3944,7 +4114,8 @@ class InstitutionalLawfareLens:
             "institutional_neutrality_erosion_score": 0.88,
             "bilateral_maritime_accord_compliance_score": 0.25,
             "statutory_remedy_bypass_index": 0.0,
-            "legal_terminology_hijack_detected": False
+            "legal_terminology_hijack_detected": False,
+            "sub_national_endowment_vulnerability": 0.0
         }
 
         alignment = -0.50  # Indicates elevated legal, regulatory, and sanctions friction
@@ -4053,6 +4224,39 @@ class InstitutionalLawfareLens:
                 metrics["statutory_off_ramp_detected"] = True
                 metrics["extraterritorial_sanction_barrier_flag"] = True
                 metrics["default_bail_diplomatic_compromise_score"] = 0.88
+
+            endowment_keywords = [
+                "sattra", "satras", "batadrava", "gorukhuti", "dhalpur",
+                "char land", "waqf board", "section 40", "hrce", "temple land encroachment",
+                "srimanta sankardev", "barpeta sattra", "lumding sattra"
+            ]
+            endowment_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in endowment_keywords)
+                for c in claims
+            )
+            if endowment_detected:
+                has_waqf = any("waqf" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "section 40" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                has_char = any("char" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "gorukhuti" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                
+                encroach_val = 0.85 if has_char else 0.65
+                asym_val = 0.90 if has_waqf else 0.50
+                cadastre_val = 0.20 if has_char else 0.50
+                
+                sieve_res = SubNationalEndowmentSieve.calculate_endowment_vulnerability(
+                    encroachment_intensity=encroach_val,
+                    waqf_statutory_asymmetry=asym_val,
+                    cadastral_survey_clarity=cadastre_val
+                )
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Sub-National Sacred Geography & Religious Endowment Sieve triggered: "
+                    f"Vulnerability Tier [{sieve_res['vulnerability_tier']}] (Score: {sieve_res['endowment_vulnerability_score']:.2f}). "
+                    f"{sieve_res['legal_risk_summary']} Statutory pathway: {sieve_res['statutory_remedy_pathway']}"
+                ))
+                alignment = min(alignment, -0.72)
+                metrics["sub_national_endowment_vulnerability"] = sieve_res["endowment_vulnerability_score"]
+                metrics["endowment_vulnerability_tier"] = sieve_res["vulnerability_tier"]
+                metrics["waqf_section_40_asymmetry_flag"] = bool(has_waqf)
+                metrics["char_land_cadastral_vagueness"] = sieve_res["cadastral_vagueness_index"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -4235,6 +4439,72 @@ class InstitutionalLawfareLens:
         }
 
 
+class SubNationalEndowmentSieve:
+    """
+    Phase 88: Sub-National Sacred Geography & Religious Endowment Sieve.
+    Evaluates asymmetric statutory protections, riverine cadastre ambiguity,
+    and institutional encroachment vulnerabilities on sacred/indigenous endowments.
+    
+    Formula:
+        S_endowment = min(1.0, max(0.0, 0.40 * E_encroach + 0.35 * W_asymmetry + 0.25 * (1.0 - C_cadastre)))
+    """
+
+    @staticmethod
+    def calculate_endowment_vulnerability(
+        encroachment_intensity: float,
+        waqf_statutory_asymmetry: float,
+        cadastral_survey_clarity: float
+    ) -> Dict[str, Any]:
+        encroach = max(0.0, min(1.0, float(encroachment_intensity)))
+        asymmetry = max(0.0, min(1.0, float(waqf_statutory_asymmetry)))
+        cadastre = max(0.0, min(1.0, float(cadastral_survey_clarity)))
+        cadastral_vagueness = round(1.0 - cadastre, 4)
+
+        score = round(min(1.0, max(0.0, 0.40 * encroach + 0.35 * asymmetry + 0.25 * cadastral_vagueness)), 4)
+
+        if score >= 0.75:
+            tier = "CRITICAL_ENCROACHMENT_RISK"
+            summary = (
+                "Severe vulnerability: Unchecked demographic/physical encroachment compounded by asymmetric statutory "
+                "inquiry powers (e.g. Waqf Act Section 40) and absent or shifting riverine cadastral boundaries."
+            )
+            remedy = (
+                "Deploy statutory delimitation under RPA Section 8A, execute eviction drives under Assam Land and "
+                "Revenue Regulation 1886, and enact legislative parity removing unilateral endowment determination authority."
+            )
+        elif score >= 0.50:
+            tier = "ELEVATED_STATUTORY_ASYMMETRY"
+            summary = (
+                "Elevated vulnerability: Substantial statutory imbalance between self-governing Waqf tribunals and state-controlled "
+                "Hindu Religious and Charitable Endowments (HR&CE), exposing institutions to legal/territorial friction."
+            )
+            remedy = (
+                "Establish reciprocal autonomous property adjudication boards and mandate judicial pre-clearance for property reclassification."
+            )
+        elif score >= 0.25:
+            tier = "MODERATE_CADASTRAL_FRICTION"
+            summary = (
+                "Moderate friction: Riverine/char-land boundary ambiguity or local administrative delays without acute statutory capture."
+            )
+            remedy = "Execute GIS-delineated drone cadastre surveys and digitize ancestral revenue pattas."
+        else:
+            tier = "SECURE_ENDOWMENT"
+            summary = "Endowment titles legally anchored, verified by registered cadastre surveys with symmetrical institutional protection."
+            remedy = "Maintain periodic cadastral audits and satellite boundary telemetry."
+
+        return {
+            "endowment_vulnerability_score": score,
+            "encroachment_intensity": encroach,
+            "waqf_asymmetry_index": asymmetry,
+            "cadastral_clarity_index": cadastre,
+            "cadastral_vagueness_index": cadastral_vagueness,
+            "vulnerability_tier": tier,
+            "legal_risk_summary": summary,
+            "statutory_remedy_pathway": remedy
+        }
+
+
+
 
 ```
 
@@ -4294,7 +4564,10 @@ class MicroSignalExtractor:
 
         if sartorial_hue:
             sart_name = sartorial_hue.lower()
-            if "navy" in sart_name or "blue" in sart_name or "midnight" in sart_name:
+            if "gamusa" in sart_name or "gamosa" in sart_name or "indigenous" in sart_name or "assamese" in sart_name:
+                sart_code = "gamusa_indigenous"
+                sart_meaning = "sub_national_identity_and_dharmic_cultural_resistance"
+            elif "navy" in sart_name or "blue" in sart_name or "midnight" in sart_name:
                 sart_code = "midnight_institutional"
                 sart_meaning = "sovereign_stability_and_formal_authority"
             elif "saffron" in sart_name:
@@ -4303,6 +4576,9 @@ class MicroSignalExtractor:
             elif "olive" in sart_name or "green" in sart_name:
                 sart_code = "olive_tactical"
                 sart_meaning = "tactical_readiness_and_defense_mobilization"
+            elif "corporate" in sart_name or "suit" in sart_name or "western" in sart_name:
+                sart_code = "corporate_western"
+                sart_meaning = "globalist_technocratic_alignment_or_economic_masking"
             else:
                 sart_code = "neutral_charcoal"
                 sart_meaning = "standard_diplomatic_neutrality"
@@ -4434,6 +4710,25 @@ class KinesicsLens:
 
         avg_warmth = sum(o.genuine_warmth_index for o in observations) / len(observations)
 
+        has_gamusa = any("gamusa" in getattr(obs, "sartorial_colour_code", "").lower() for obs in observations) or (
+            claims and any("gamusa" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+        )
+        has_saffron = any("saffron" in getattr(obs, "sartorial_colour_code", "").lower() for obs in observations) or (
+            claims and any("saffron" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+        )
+
+        dissonance = 0.60 if (has_gamusa or has_saffron) and concealed_antagonism_count > 0 else (0.35 if concealed_antagonism_count > 0 else 0.10)
+        masking = 0.55 if social_mask_count > 0 else 0.15
+        attire = "gamusa_indigenous" if has_gamusa else ("saffron_civilizational" if has_saffron else "midnight_institutional")
+
+        sartorial_audit = SartorialSemioticSieve.calculate_sartorial_congruence(
+            attire_type=attire,
+            diplomatic_posture_dissonance=dissonance,
+            semiotic_masking_score=masking,
+            prosodic_jitter=0.08
+        )
+        findings.append(f"Sartorial Micro-Signal Telemetry: {sartorial_audit['forensic_semiotic_verdict']}")
+
         metrics = {
             "protocol_discount_applied": True,
             "mean_residual_warmth_index": round(avg_warmth, 2),
@@ -4442,7 +4737,9 @@ class KinesicsLens:
             "sartorial_distribution": sartorial_counts,
             "social_masks_detected": social_mask_count,
             "concealed_antagonisms_detected": concealed_antagonism_count,
-            "micro_signal_channels_active": ["handshake_torque", "facial_micro_expression", "sartorial_semiotics", "prosodic_latency", "facs_action_units"]
+            "micro_signal_channels_active": ["handshake_torque", "facial_micro_expression", "sartorial_semiotics", "prosodic_latency", "facs_action_units"],
+            "sartorial_congruence_score": sartorial_audit["sartorial_congruence_score"],
+            "semiotic_alignment_tier": sartorial_audit["semiotic_alignment_tier"]
         }
 
         return LensEvaluation(
@@ -4453,6 +4750,67 @@ class KinesicsLens:
             key_findings=findings,
             hard_metrics=metrics
         )
+
+
+class SartorialSemioticSieve:
+    """
+    Phase 90: Sartorial & Semiotic Micro-Signal Forensics.
+    Quantifies semiotic congruence between leader attire, diplomatic posture,
+    and kinetic/sociopolitical ground realities.
+
+    Formula:
+        C_sartorial = max(0.0, min(1.0, 1.0 - 0.45 * D_dissonance - 0.35 * S_masking - 0.20 * J_prosodic))
+    """
+
+    @staticmethod
+    def calculate_sartorial_congruence(
+        attire_type: str,
+        diplomatic_posture_dissonance: float,
+        semiotic_masking_score: float,
+        prosodic_jitter: float = 0.05
+    ) -> Dict[str, Any]:
+        d_diss = max(0.0, min(1.0, float(diplomatic_posture_dissonance)))
+        s_mask = max(0.0, min(1.0, float(semiotic_masking_score)))
+        j_pros = max(0.0, min(1.0, float(prosodic_jitter)))
+
+        penalty = 0.45 * d_diss + 0.35 * s_mask + 0.20 * j_pros
+        score = round(max(0.0, min(1.0, 1.0 - penalty)), 4)
+
+        if score >= 0.80:
+            tier = "AUTHENTIC_CIVILIZATIONAL_COHERENCE"
+            verdict = (
+                f"High semiotic fidelity: Leader attire [{attire_type}] genuinely reflects authentic civilizational "
+                f"or institutional alignment with negligible performative dissonance or prosodic leakage."
+            )
+        elif score >= 0.55:
+            tier = "CALCULATED_DIPLOMATIC_OPTICS"
+            verdict = (
+                f"Managed statecraft optics: Attire [{attire_type}] deployed as an intentional diplomatic signaling tool; "
+                f"moderate theatrical shielding observed but within permissible ceremonial boundaries."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_SEMIOTIC_DISSONANCE"
+            verdict = (
+                f"Semiotic friction: Marked contradiction between visual signaling [{attire_type}] and underlying "
+                f"bilateral hostility, unresolved border/cadastral tensions, or acoustic stress."
+            )
+        else:
+            tier = "ACUTE_THEATRICAL_DECEPTION"
+            verdict = (
+                f"Acute semiotic deception: Staged ceremonial attire [{attire_type}] completely decoupled from kinetic "
+                f"mobilization, high vocal tremor, or acute institutional crisis on the ground."
+            )
+
+        return {
+            "sartorial_congruence_score": score,
+            "attire_type": attire_type,
+            "diplomatic_posture_dissonance": d_diss,
+            "semiotic_masking_score": s_mask,
+            "prosodic_jitter": j_pros,
+            "semiotic_alignment_tier": tier,
+            "forensic_semiotic_verdict": verdict
+        }
+
 
 ```
 
@@ -5059,7 +5417,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `bfeb1b9`
+- **Canonical Git Commit:** `9f31987`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

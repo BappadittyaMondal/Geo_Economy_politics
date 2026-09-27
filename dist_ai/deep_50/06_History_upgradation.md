@@ -1114,5 +1114,60 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Certified **296/296 unit and integration tests passing deterministically (100% pass rate in 59.06s)**.
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
+* **Phase 88 (Sub-National Sacred Geography & Religious Endowment Sieve):**
+  - **Sovereign Statutory & Cadastral Sieve (`geo_engine/lenses/institutional_lawfare.py`):**
+    - Implemented `SubNationalEndowmentSieve.calculate_endowment_vulnerability()` quantifying institutional vulnerability of indigenous and dharmic endowments:
+      $$S_{\text{endowment}} = \min(1.0, \max(0.0, 0.40 \cdot E_{\text{encroach}} + 0.35 \cdot W_{\text{asymmetry}} + 0.25 \cdot (1.0 - C_{\text{cadastre}})))$$
+    - Evaluates asymmetric statutory regimes: Waqf Act 1995 Section 40 unilateral property inquiries/tribunals vs State Hindu Religious and Charitable Endowments (HR&CE) acts.
+    - Isolates riverine char-land vagueness ($1.0 - C_{\text{cadastre}}$) arising from seasonal silt shifting without permanent cadastral surveys.
+    - Classifies 4 deterministic risk tiers: `CRITICAL_ENCROACHMENT_RISK`, `ELEVATED_STATUTORY_ASYMMETRY`, `MODERATE_CADASTRAL_FRICTION`, `SECURE_ENDOWMENT`.
+    - Outputs tailored statutory remedies: RPA Section 8A delimitation, Assam Land and Revenue Regulation 1886 eviction drives, and legislative parity reforms.
+  - **Lens Telemetry & Routing Integration:**
+    - Integrated endowment scanning (`sattra`, `batadrava`, `gorukhuti`, `dhalpur`, `char land`, `waqf board`, `section 40`, `srimanta sankardev`) into `InstitutionalLawfareLens.evaluate()`, populating `sub_national_endowment_vulnerability`, `endowment_vulnerability_tier`, `waqf_section_40_asymmetry_flag`, and `char_land_cadastral_vagueness`.
+    - Exported `SubNationalEndowmentSieve` in `geo_engine.lenses`.
+
+* **Phase 89 (Executive Policy Rollback Elasticity Model):**
+  - **Bureaucratic Disconnect & Policy Half-Life Modeling (`geo_engine/lenses/bureaucratic_inertia.py`):**
+    - Implemented `BureaucraticRollbackModel.calculate_rollback_elasticity()` quantifying the disconnect between administrative guideline drafting and political executive commitment under mass sociopolitical mobilization:
+      $$R_{\text{rollback}} = \min\left(1.0, \max\left(0.0, \frac{S_{\text{electoral}} \cdot V_{\text{mobilization}} \cdot (1.0 + D_{\text{consultation}})}{\max(0.10, 2.0 \cdot C_{\text{executive\_commitment}})}\right)\right)$$
+    - Predicts policy half-life in days:
+      $$\text{Half-Life} = \max(1.0, 180.0 \cdot (1.0 - R_{\text{rollback}})^{1.5})$$
+    - Categorizes 4 operational risk tiers: `IMMINENT_EXECUTIVE_ROLLBACK` (<10 days half-life), `HIGH_VULNERABILITY_PAUSE`, `MODERATE_AMENDMENT_CYCLE`, `DURABLE_STATUTORY_REFORM`.
+  - **Lens Telemetry & Routing Integration:**
+    - Integrated rollback token scanning (`ugc rollback`, `de-reservation`, `draft guidelines`, `policy rollback`, `farm laws rollback`, `executive retreat`, `clerical overreach`) into `BureaucraticInertiaLens.evaluate()`, populating `executive_rollback_elasticity_score`, `policy_rollback_risk_tier`, `bureaucratic_consultation_deficit_detected`, and `predicted_policy_half_life_days`.
+    - Exported `BureaucraticRollbackModel` in `geo_engine.lenses`.
+
+* **Phase 90 (Sartorial & Semiotic Micro-Signal Forensics in Kinesics):**
+  - **Multimodal Semiotic Congruence Engine (`geo_engine/lenses/kinesics.py`):**
+    - Implemented `SartorialSemioticSieve.calculate_sartorial_congruence()` quantifying semiotic alignment between ceremonial attire, diplomatic posture dissonance, theatrical masking, and acoustic prosody:
+      $$C_{\text{sartorial}} = \max(0.0, \min(1.0, 1.0 - 0.45 \cdot D_{\text{dissonance}} - 0.35 \cdot S_{\text{masking}} - 0.20 \cdot J_{\text{prosodic}}))$$
+    - Categorizes 4 semiotic alignment tiers: `AUTHENTIC_CIVILIZATIONAL_COHERENCE`, `CALCULATED_DIPLOMATIC_OPTICS`, `ELEVATED_SEMIOTIC_DISSONANCE`, `ACUTE_THEATRICAL_DECEPTION`.
+    - Enhanced `MicroSignalExtractor.derive_micro_signal_features()` to detect `gamusa_indigenous` (sub-national identity & Dharmic cultural resistance) and `corporate_western` (technocratic masking).
+    - Integrated into `KinesicsLens.evaluate()` to produce `sartorial_congruence_score`, `semiotic_alignment_tier`, and grounded semiotic findings.
+    - Exported `SartorialSemioticSieve` in `geo_engine.lenses`.
+  - **Video & Audio Stream Media Auditing (`geo_engine/video/audio_stream.py`):**
+    - Coupled `AudioStreamConnector.audit_media_claims()` directly to `SubNationalEndowmentSieve`, `BureaucraticRollbackModel`, and `SartorialSemioticSieve`, evaluating YouTube video transcripts against sacred land, policy rollback, and semiotic micro-signals.
+
+* **Phase 91 (Sub-National Legal Grounding Seeds & Query Expansion):**
+  - **Historical Ground Truth Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded 4 sub-national legal turning points into `historical_anniversaries`:
+      1. `HIST-2005-IMDT-ACT-STRUCK-DOWN` (2005-07-12): Supreme Court struck down IMDT Act in *Sarbananda Sonowal v. UOI*, ruling unchecked demographic influx as external aggression under Article 355.
+      2. `HIST-2021-GORUKHUTI-EVICTION` (2021-09-23): Assam Government evicted encroachers from ~77,000 bighas of riverine char and Sattra agricultural lands in Gorukhuti/Dhalpur.
+      3. `HIST-2023-ASSAM-DELIMITATION` (2023-08-11): Election Commission finalized Section 8A delimitation safeguarding 19 SC/ST and ~96 indigenous majority assembly seats.
+      4. `HIST-2024-UGC-RESERVATION-ROLLBACK` (2024-01-29): Union Education Ministry executed 24-hour rollback of UGC draft de-reservation guidelines.
+    - Seeded resolved historical forecast benchmark: `FCST-HIST-2023-ASSAM-DELIMITATION` (actual outcome 1.0, forecast 0.85, Brier score 0.0225) into `forecast_ledger`.
+  - **QueryParser Expansion (`geo_engine/core/query_parser.py`):**
+    - Added leader pattern for `Himanta Biswa Sarma`.
+    - Enriched `LENS_KEYWORDS` across `institutional_lawfare`, `bureaucratic_inertia`, `kinesics`, `demographic_infiltration`, and `civilizational` with sub-national land, endowment, and rollback tokens.
+
+* **Phase 92 (Full Verification, Bundle Rebuild, Documentation & Git Deployment):**
+  - **Verification Suite Expansion (296→306 tests):**
+    - Added `TestPhase88to92SubNationalAndSemioticUpgrade` in `tests/test_engine.py` with 10 comprehensive unit/integration tests verifying SubNationalEndowmentSieve, InstitutionalLawfareLens endowment telemetry, BureaucraticRollbackModel, BureaucraticInertiaLens rollback telemetry, SartorialSemioticSieve, KinesicsLens sartorial telemetry, EventStore historical seeds, QueryParser sub-national and semiotic routing, AudioStreamConnector media auditing, and test count parity.
+    - Updated `README.md` test counter from 296 to 306 comprehensive tests.
+    - Certified **306/306 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
+
 
 

@@ -207,7 +207,7 @@ class AudioStreamConnector:
     @classmethod
     def audit_media_claims(
         cls,
-        url_or_id: str,
+        url_or_id: Union[str, AudioTranscript],
         store: Optional[EventStore] = None,
         metadata_fallback: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
@@ -221,7 +221,10 @@ class AudioStreamConnector:
         from ..arbitration.persona_narrator import CivilizationalCouncil
 
         target_store = store or EventStore()
-        transcript = cls.fetch_stream_transcript(url_or_id, metadata_fallback=metadata_fallback)
+        if isinstance(url_or_id, AudioTranscript):
+            transcript = url_or_id
+        else:
+            transcript = cls.fetch_stream_transcript(url_or_id, metadata_fallback=metadata_fallback)
         claims = cls.transcript_to_claims(transcript)
 
         full_text = (transcript.full_text or "").lower()
@@ -323,6 +326,55 @@ class AudioStreamConnector:
                 logistics_redundancy_count=1
             )
 
+        # Phase 88: Sub-National Sacred Geography & Religious Endowment Sieve
+        from ..lenses.institutional_lawfare import SubNationalEndowmentSieve
+        endowment_terms = ["sattra", "satras", "batadrava", "gorukhuti", "dhalpur", "char land", "waqf", "section 40", "hrce"]
+        has_endowment_claim = any(term in full_text for term in endowment_terms)
+        endowment_audit = None
+        if has_endowment_claim:
+            encroach = 0.85 if ("gorukhuti" in full_text or "char" in full_text or "batadrava" in full_text) else 0.60
+            asym = 0.90 if ("waqf" in full_text or "section 40" in full_text or "sattra" in full_text or "batadrava" in full_text) else 0.50
+            cadastre = 0.20 if ("char" in full_text or "batadrava" in full_text) else 0.50
+            endowment_audit = SubNationalEndowmentSieve.calculate_endowment_vulnerability(
+                encroachment_intensity=encroach,
+                waqf_statutory_asymmetry=asym,
+                cadastral_survey_clarity=cadastre
+            )
+
+        # Phase 89: Executive Policy Rollback Elasticity Model
+        from ..lenses.bureaucratic_inertia import BureaucraticRollbackModel
+        rollback_terms = ["rollback", "de-reservation", "draft guidelines", "ugc", "policy rollback", "executive retreat"]
+        has_rollback_claim = any(term in full_text for term in rollback_terms)
+        rollback_audit = None
+        if has_rollback_claim:
+            has_ugc = "ugc" in full_text or "de-reservation" in full_text
+            electoral_sens = 0.90 if has_ugc else 0.70
+            mob_vel = 0.85 if has_ugc else 0.65
+            exec_comm = 0.25 if has_ugc else 0.50
+            deficit = 0.80 if has_ugc else 0.40
+            rollback_audit = BureaucraticRollbackModel.calculate_rollback_elasticity(
+                electoral_sensitivity=electoral_sens,
+                mobilization_velocity=mob_vel,
+                executive_commitment=exec_comm,
+                consultation_deficit=deficit
+            )
+
+        # Phase 90: Sartorial & Semiotic Micro-Signal Forensics
+        from ..lenses.kinesics import SartorialSemioticSieve
+        sartorial_terms = ["gamusa", "saffron", "corporate attire", "sartorial", "semiotic"]
+        has_sartorial_claim = any(term in full_text for term in sartorial_terms)
+        sartorial_audit = None
+        if has_sartorial_claim:
+            attire = "gamusa_indigenous" if "gamusa" in full_text else ("saffron_civilizational" if "saffron" in full_text else "corporate_western")
+            dissonance = 0.55 if ("war" in full_text or "conflict" in full_text) else 0.20
+            masking = 0.50 if ("peace" in full_text or "protocol" in full_text) else 0.20
+            sartorial_audit = SartorialSemioticSieve.calculate_sartorial_congruence(
+                attire_type=attire,
+                diplomatic_posture_dissonance=dissonance,
+                semiotic_masking_score=masking,
+                prosodic_jitter=0.06
+            )
+
         # Level-0 Atomic Temporal Guardrail Check on Incumbency/Tenure
         from ..core.temporal_guardrail import TemporalGuardrail
         tenure_audit = None
@@ -382,6 +434,12 @@ class AudioStreamConnector:
             phi_colonial = 0.15
             phi_ideological = 0.35 if ("bangladesh" in full_text or "regime" in full_text) else 0.20
             phi_pseudoscience = 0.05
+        elif has_endowment_claim or has_rollback_claim:
+            empirical_support = 0.78 if (endowment_audit or rollback_audit) else 0.50
+            phi_theological = 0.30 if has_endowment_claim else 0.05
+            phi_colonial = 0.12
+            phi_ideological = 0.35 if has_rollback_claim else 0.25
+            phi_pseudoscience = 0.05
         else:
             empirical_support = 0.60 if matched_physical else 0.40
             phi_theological = 0.20
@@ -424,8 +482,14 @@ class AudioStreamConnector:
             "has_chronological_claim": has_chronological_claim,
             "has_defense_claim": has_defense_claim,
             "has_chokepoint_claim": has_chokepoint_claim,
+            "has_endowment_claim": has_endowment_claim,
+            "has_rollback_claim": has_rollback_claim,
+            "has_sartorial_claim": has_sartorial_claim,
             "avionics_sovereignty_audit": avionics_audit,
             "chokepoint_audit": chokepoint_audit,
+            "endowment_audit": endowment_audit,
+            "rollback_audit": rollback_audit,
+            "sartorial_audit": sartorial_audit,
             "chronology_audit": chronology_audit,
             "tenure_audit": tenure_audit,
             "decomposed_claim": decomposed_claim.model_dump() if decomposed_claim else None,

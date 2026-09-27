@@ -1367,6 +1367,46 @@ class EventStore:
                     "New Delhi / Moscow",
                     "India and Russia negotiated mechanisms to recycle an estimated ₹20,000+ crore in trapped Russian rupee balances accumulated via discounted Urals crude purchases into Indian government securities (G-Secs), equity, and infrastructure investments.",
                     "Demonstrates the practical financial plumbing bottlenecks of bilateral de-dollarization and the necessity of capital account recycling."
+                ),
+                (
+                    "HIST-2005-IMDT-ACT-STRUCK-DOWN",
+                    7,
+                    12,
+                    2005,
+                    "Supreme Court Strikes Down IMDT Act (Sarbananda Sonowal v. UOI)",
+                    "South Asia / Assam",
+                    "Supreme Court struck down the Illegal Migrants (Determination by Tribunals) Act 1983 as unconstitutional in Sarbananda Sonowal v. Union of India, declaring unchecked demographic influx as external aggression under Article 355.",
+                    "Constitutional recognition of demographic infiltration as an existential security threat, restoring the Foreigners Act 1946 reverse burden of proof."
+                ),
+                (
+                    "HIST-2021-GORUKHUTI-EVICTION",
+                    9,
+                    23,
+                    2021,
+                    "Gorukhuti & Dhalpur Riverine Agricultural Eviction Drive",
+                    "Assam / Brahmaputra Valley",
+                    "Assam Government executed eviction operations across Gorukhuti and Dhalpur in Darrang district, reclaiming ~77,000 bighas of riverine char and Sattra agricultural lands encroached by non-indigenous populations.",
+                    "Operational statecraft enforcing the Assam Land and Revenue Regulation 1886 to recover encroached sacred and ecological commons in riverine floodplains."
+                ),
+                (
+                    "HIST-2023-ASSAM-DELIMITATION",
+                    8,
+                    11,
+                    2023,
+                    "Election Commission Notifies Assam Delimitation under RPA Section 8A",
+                    "South Asia / Assam",
+                    "Election Commission of India published the final delimitation order for 126 Assembly and 14 Parliamentary constituencies in Assam under Section 8A of RPA 1950, preserving 19 assembly seats for SC/ST and securing indigenous majority in ~96 assembly seats.",
+                    "Statutory demarcation anchoring sub-national indigenous political representation against rapid demographic transformation and district-level gerrymandering."
+                ),
+                (
+                    "HIST-2024-UGC-RESERVATION-ROLLBACK",
+                    1,
+                    29,
+                    2024,
+                    "Union Education Ministry 24-Hour Rollback of UGC De-Reservation Draft",
+                    "National / New Delhi",
+                    "Following immediate widespread public outrage and political mobilization, the Ministry of Education ordered UGC to withdraw its Draft Guidelines for De-reservation in Higher Education Institutions within 24 hours.",
+                    "Archetypal manifestation of high rollback elasticity where bureaucratic guideline formulation without political calibration triggered immediate executive retreat."
                 )
             ]
 
@@ -1419,6 +1459,12 @@ class EventStore:
                     "Unanimous 100% consensus achieved on New Delhi Declaration including Ukraine paragraphs",
                     0.80, 0.65, 0.92, "Emerging market quad (India, Brazil, South Africa, Indonesia) coordination",
                     1, 0.0400, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2023-ASSAM-DELIMITATION", "2023-01-15", "2023-08-11", "Assam ECI Delimitation Finalization",
+                    "Election Commission notifies Section 8A delimitation safeguarding indigenous seat representation",
+                    0.85, 0.72, 0.94, "RPA Section 8A statutory notification, district consultation rounds, and ECI bench orders",
+                    1, 0.0225, "RESOLVED"
                 ),
                 (
                     "FCST-HIST-2024-CHABAHAR-10YR", "2024-02-10", "2024-05-13", "Chabahar Port Long-Term Accord",

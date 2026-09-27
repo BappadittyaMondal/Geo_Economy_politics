@@ -39,7 +39,8 @@ class InstitutionalLawfareLens:
             "institutional_neutrality_erosion_score": 0.88,
             "bilateral_maritime_accord_compliance_score": 0.25,
             "statutory_remedy_bypass_index": 0.0,
-            "legal_terminology_hijack_detected": False
+            "legal_terminology_hijack_detected": False,
+            "sub_national_endowment_vulnerability": 0.0
         }
 
         alignment = -0.50  # Indicates elevated legal, regulatory, and sanctions friction
@@ -148,6 +149,39 @@ class InstitutionalLawfareLens:
                 metrics["statutory_off_ramp_detected"] = True
                 metrics["extraterritorial_sanction_barrier_flag"] = True
                 metrics["default_bail_diplomatic_compromise_score"] = 0.88
+
+            endowment_keywords = [
+                "sattra", "satras", "batadrava", "gorukhuti", "dhalpur",
+                "char land", "waqf board", "section 40", "hrce", "temple land encroachment",
+                "srimanta sankardev", "barpeta sattra", "lumding sattra"
+            ]
+            endowment_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in endowment_keywords)
+                for c in claims
+            )
+            if endowment_detected:
+                has_waqf = any("waqf" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "section 40" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                has_char = any("char" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "gorukhuti" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                
+                encroach_val = 0.85 if has_char else 0.65
+                asym_val = 0.90 if has_waqf else 0.50
+                cadastre_val = 0.20 if has_char else 0.50
+                
+                sieve_res = SubNationalEndowmentSieve.calculate_endowment_vulnerability(
+                    encroachment_intensity=encroach_val,
+                    waqf_statutory_asymmetry=asym_val,
+                    cadastral_survey_clarity=cadastre_val
+                )
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Sub-National Sacred Geography & Religious Endowment Sieve triggered: "
+                    f"Vulnerability Tier [{sieve_res['vulnerability_tier']}] (Score: {sieve_res['endowment_vulnerability_score']:.2f}). "
+                    f"{sieve_res['legal_risk_summary']} Statutory pathway: {sieve_res['statutory_remedy_pathway']}"
+                ))
+                alignment = min(alignment, -0.72)
+                metrics["sub_national_endowment_vulnerability"] = sieve_res["endowment_vulnerability_score"]
+                metrics["endowment_vulnerability_tier"] = sieve_res["vulnerability_tier"]
+                metrics["waqf_section_40_asymmetry_flag"] = bool(has_waqf)
+                metrics["char_land_cadastral_vagueness"] = sieve_res["cadastral_vagueness_index"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -328,5 +362,71 @@ class InstitutionalLawfareLens:
             "legal_basis": legal_basis,
             "maritime_jurisdiction_score": compliance_score
         }
+
+
+class SubNationalEndowmentSieve:
+    """
+    Phase 88: Sub-National Sacred Geography & Religious Endowment Sieve.
+    Evaluates asymmetric statutory protections, riverine cadastre ambiguity,
+    and institutional encroachment vulnerabilities on sacred/indigenous endowments.
+    
+    Formula:
+        S_endowment = min(1.0, max(0.0, 0.40 * E_encroach + 0.35 * W_asymmetry + 0.25 * (1.0 - C_cadastre)))
+    """
+
+    @staticmethod
+    def calculate_endowment_vulnerability(
+        encroachment_intensity: float,
+        waqf_statutory_asymmetry: float,
+        cadastral_survey_clarity: float
+    ) -> Dict[str, Any]:
+        encroach = max(0.0, min(1.0, float(encroachment_intensity)))
+        asymmetry = max(0.0, min(1.0, float(waqf_statutory_asymmetry)))
+        cadastre = max(0.0, min(1.0, float(cadastral_survey_clarity)))
+        cadastral_vagueness = round(1.0 - cadastre, 4)
+
+        score = round(min(1.0, max(0.0, 0.40 * encroach + 0.35 * asymmetry + 0.25 * cadastral_vagueness)), 4)
+
+        if score >= 0.75:
+            tier = "CRITICAL_ENCROACHMENT_RISK"
+            summary = (
+                "Severe vulnerability: Unchecked demographic/physical encroachment compounded by asymmetric statutory "
+                "inquiry powers (e.g. Waqf Act Section 40) and absent or shifting riverine cadastral boundaries."
+            )
+            remedy = (
+                "Deploy statutory delimitation under RPA Section 8A, execute eviction drives under Assam Land and "
+                "Revenue Regulation 1886, and enact legislative parity removing unilateral endowment determination authority."
+            )
+        elif score >= 0.50:
+            tier = "ELEVATED_STATUTORY_ASYMMETRY"
+            summary = (
+                "Elevated vulnerability: Substantial statutory imbalance between self-governing Waqf tribunals and state-controlled "
+                "Hindu Religious and Charitable Endowments (HR&CE), exposing institutions to legal/territorial friction."
+            )
+            remedy = (
+                "Establish reciprocal autonomous property adjudication boards and mandate judicial pre-clearance for property reclassification."
+            )
+        elif score >= 0.25:
+            tier = "MODERATE_CADASTRAL_FRICTION"
+            summary = (
+                "Moderate friction: Riverine/char-land boundary ambiguity or local administrative delays without acute statutory capture."
+            )
+            remedy = "Execute GIS-delineated drone cadastre surveys and digitize ancestral revenue pattas."
+        else:
+            tier = "SECURE_ENDOWMENT"
+            summary = "Endowment titles legally anchored, verified by registered cadastre surveys with symmetrical institutional protection."
+            remedy = "Maintain periodic cadastral audits and satellite boundary telemetry."
+
+        return {
+            "endowment_vulnerability_score": score,
+            "encroachment_intensity": encroach,
+            "waqf_asymmetry_index": asymmetry,
+            "cadastral_clarity_index": cadastre,
+            "cadastral_vagueness_index": cadastral_vagueness,
+            "vulnerability_tier": tier,
+            "legal_risk_summary": summary,
+            "statutory_remedy_pathway": remedy
+        }
+
 
 

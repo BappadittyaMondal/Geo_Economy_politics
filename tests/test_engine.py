@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3935,7 +3935,7 @@ class TestPhase60MultiPillarChronologyArbiter:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase61GeofinancialAndDisinformationHardening:
@@ -4086,7 +4086,7 @@ class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase66to69HeptarchyAndAtomicGuardrails:
@@ -4377,7 +4377,7 @@ class TestPhase70CourtroomForensicsAndClaimDecomposition:
         content = readme_path.read_text(encoding="utf-8")
         assert any(
             cnt in content for cnt in [
-                "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests",
+                "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests",
                 "264 comprehensive unit and integration tests",
                 "257 comprehensive unit and integration tests",
                 "253 comprehensive unit and integration tests",
@@ -4564,7 +4564,7 @@ class TestPhase71DiagnosticMemoryAndMicroSignalSieve:
         # Test README parity
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase72SovereignDashboardAndExportEngine:
@@ -4693,7 +4693,7 @@ class TestPhase72SovereignDashboardAndExportEngine:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase73to75DeepTechHardening:
@@ -4784,7 +4784,7 @@ class TestPhase73to75DeepTechHardening:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase76UniversalReportAndVisualizationEngine:
@@ -5354,7 +5354,7 @@ class TestPhase78SubNationalParadiplomacyAndMercenaryDiffusion:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase79and80HistoriographyAndChatDistillation:
@@ -5522,7 +5522,7 @@ class TestPhase79and80HistoriographyAndChatDistillation:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests", "306 comprehensive unit and integration tests"])
 
 
 class TestPhase81and82ChokepointAndAvionicsSovereignty:
@@ -5923,6 +5923,251 @@ class TestPhase83to87ComprehensiveSovereignUpgrade:
         captured_fc = capsys.readouterr()
         assert "LONGITUDINAL FORECAST BRIER CALIBRATION AUDIT" in captured_fc.out
         assert "WORLD_CLASS_EXEMPLARY" in captured_fc.out
+
+
+class TestPhase88to92SubNationalAndSemioticUpgrade:
+    """
+    Phase 88–92 Verification Suite:
+    - Phase 88: Sub-National Sacred Geography & Religious Endowment Sieve (SubNationalEndowmentSieve)
+    - Phase 89: Executive Policy Rollback Elasticity Model (BureaucraticRollbackModel)
+    - Phase 90: Sartorial & Semiotic Micro-Signal Forensics (SartorialSemioticSieve)
+    - Phase 91: Sub-National Legal Grounding Seeds & Query Expansion
+    - Phase 92: Full Verification, Bundle Rebuild & Documentation
+    """
+
+    def test_phase88_subnational_endowment_sieve_closed_form(self):
+        """Verify SubNationalEndowmentSieve closed-form vulnerability S_endowment across risk tiers."""
+        from geo_engine.lenses.institutional_lawfare import SubNationalEndowmentSieve
+
+        # 1. Critical risk: High encroachment (0.85), high asymmetry (0.90), low cadastre clarity (0.20)
+        res_crit = SubNationalEndowmentSieve.calculate_endowment_vulnerability(
+            encroachment_intensity=0.85,
+            waqf_statutory_asymmetry=0.90,
+            cadastral_survey_clarity=0.20
+        )
+        assert 0.0 <= res_crit["endowment_vulnerability_score"] <= 1.0
+        assert res_crit["endowment_vulnerability_score"] >= 0.75
+        assert res_crit["vulnerability_tier"] == "CRITICAL_ENCROACHMENT_RISK"
+        assert res_crit["cadastral_vagueness_index"] == 0.80
+        assert "Section 40" in res_crit["legal_risk_summary"]
+        assert "RPA Section 8A" in res_crit["statutory_remedy_pathway"]
+
+        # 2. Elevated asymmetry: moderate encroachment (0.40), high asymmetry (0.85), moderate cadastre (0.60)
+        res_elev = SubNationalEndowmentSieve.calculate_endowment_vulnerability(
+            encroachment_intensity=0.40,
+            waqf_statutory_asymmetry=0.85,
+            cadastral_survey_clarity=0.60
+        )
+        assert res_elev["vulnerability_tier"] == "ELEVATED_STATUTORY_ASYMMETRY"
+
+        # 3. Moderate cadastral friction: low encroachment (0.20), low asymmetry (0.20), low cadastre (0.10)
+        res_mod = SubNationalEndowmentSieve.calculate_endowment_vulnerability(
+            encroachment_intensity=0.20,
+            waqf_statutory_asymmetry=0.20,
+            cadastral_survey_clarity=0.10
+        )
+        assert res_mod["vulnerability_tier"] == "MODERATE_CADASTRAL_FRICTION"
+
+        # 4. Secure endowment: zero encroachment, zero asymmetry, perfect cadastre (1.0)
+        res_sec = SubNationalEndowmentSieve.calculate_endowment_vulnerability(
+            encroachment_intensity=0.0,
+            waqf_statutory_asymmetry=0.0,
+            cadastral_survey_clarity=1.0
+        )
+        assert res_sec["endowment_vulnerability_score"] == 0.0
+        assert res_sec["vulnerability_tier"] == "SECURE_ENDOWMENT"
+
+    def test_phase88_institutional_lawfare_lens_endowment_telemetry(self):
+        """Verify InstitutionalLawfareLens dynamically triggers SubNationalEndowmentSieve on endowment claims."""
+        import types
+        from geo_engine.lenses.institutional_lawfare import InstitutionalLawfareLens
+        from geo_engine.core.models import StrategicEvent
+
+        event = StrategicEvent(title="Assam Char Land & Sattra Legal Review")
+        claims = [
+            types.SimpleNamespace(asserted_fact="Waqf Board invoked Section 40 claim over riverine char land near Batadrava Sattra"),
+            types.SimpleNamespace(asserted_fact="Gorukhuti eviction orders executed to reclaim encroached agricultural lands")
+        ]
+        evaluation = InstitutionalLawfareLens.evaluate(event, claims=claims)
+        assert evaluation.hard_metrics["sub_national_endowment_vulnerability"] >= 0.70
+        assert evaluation.hard_metrics["endowment_vulnerability_tier"] == "CRITICAL_ENCROACHMENT_RISK"
+        assert evaluation.hard_metrics["waqf_section_40_asymmetry_flag"] is True
+        assert evaluation.hard_metrics["char_land_cadastral_vagueness"] >= 0.50
+        assert any("Sub-National Sacred Geography" in f for f in evaluation.key_findings)
+
+    def test_phase89_bureaucratic_rollback_elasticity_closed_form(self):
+        """Verify BureaucraticRollbackModel closed-form R_rollback and policy half-life calculations."""
+        from geo_engine.lenses.bureaucratic_inertia import BureaucraticRollbackModel
+
+        # 1. Imminent Rollback: high electoral sensitivity (0.90), high mobilization (0.85), low commitment (0.25), high deficit (0.80)
+        res_imm = BureaucraticRollbackModel.calculate_rollback_elasticity(
+            electoral_sensitivity=0.90,
+            mobilization_velocity=0.85,
+            executive_commitment=0.25,
+            consultation_deficit=0.80
+        )
+        assert 0.0 <= res_imm["rollback_elasticity_score"] <= 1.0
+        assert res_imm["rollback_elasticity_score"] >= 0.75
+        assert res_imm["rollback_risk_tier"] == "IMMINENT_EXECUTIVE_ROLLBACK"
+        assert res_imm["predicted_half_life_days"] <= 10.0
+        assert "pre-vetting" in res_imm["bureaucratic_disconnect_analysis"]
+
+        # 2. Durable Reform: low electoral sensitivity (0.20), low mobilization (0.20), high executive commitment (0.90)
+        res_dur = BureaucraticRollbackModel.calculate_rollback_elasticity(
+            electoral_sensitivity=0.20,
+            mobilization_velocity=0.20,
+            executive_commitment=0.90,
+            consultation_deficit=0.20
+        )
+        assert res_dur["rollback_elasticity_score"] < 0.25
+        assert res_dur["rollback_risk_tier"] == "DURABLE_STATUTORY_REFORM"
+        assert res_dur["predicted_half_life_days"] >= 100.0
+
+    def test_phase89_bureaucratic_inertia_lens_rollback_telemetry(self):
+        """Verify BureaucraticInertiaLens triggers BureaucraticRollbackModel on de-reservation claims."""
+        import types
+        from geo_engine.lenses.bureaucratic_inertia import BureaucraticInertiaLens
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(summit_name="Domestic Policy Coordination Review", year=2024)
+        claims = [
+            types.SimpleNamespace(asserted_fact="UGC draft guidelines proposing de-reservation faced nationwide backlash forcing executive rollback")
+        ]
+        evaluation = BureaucraticInertiaLens.evaluate(summit, claims=claims)
+        assert evaluation.hard_metrics["executive_rollback_elasticity_score"] >= 0.75
+        assert evaluation.hard_metrics["policy_rollback_risk_tier"] == "IMMINENT_EXECUTIVE_ROLLBACK"
+        assert evaluation.hard_metrics["bureaucratic_consultation_deficit_detected"] is True
+        assert evaluation.hard_metrics["predicted_policy_half_life_days"] <= 10.0
+        assert any("Executive Policy Rollback Elasticity" in f for f in evaluation.key_findings)
+
+    def test_phase90_sartorial_semiotic_sieve_closed_form(self):
+        """Verify SartorialSemioticSieve closed-form congruence C_sartorial across attire and dissonance levels."""
+        from geo_engine.lenses.kinesics import SartorialSemioticSieve
+
+        # 1. Authentic civilizational coherence: low dissonance (0.05), low masking (0.05), low jitter (0.02)
+        res_auth = SartorialSemioticSieve.calculate_sartorial_congruence(
+            attire_type="gamusa_indigenous",
+            diplomatic_posture_dissonance=0.05,
+            semiotic_masking_score=0.05,
+            prosodic_jitter=0.02
+        )
+        assert 0.0 <= res_auth["sartorial_congruence_score"] <= 1.0
+        assert res_auth["sartorial_congruence_score"] >= 0.80
+        assert res_auth["semiotic_alignment_tier"] == "AUTHENTIC_CIVILIZATIONAL_COHERENCE"
+        assert "gamusa_indigenous" in res_auth["forensic_semiotic_verdict"]
+
+        # 2. Acute theatrical deception: high dissonance (0.90), high masking (0.85), high jitter (0.25)
+        res_dec = SartorialSemioticSieve.calculate_sartorial_congruence(
+            attire_type="corporate_western",
+            diplomatic_posture_dissonance=0.90,
+            semiotic_masking_score=0.85,
+            prosodic_jitter=0.25
+        )
+        assert res_dec["sartorial_congruence_score"] < 0.35
+        assert res_dec["semiotic_alignment_tier"] == "ACUTE_THEATRICAL_DECEPTION"
+
+    def test_phase90_kinesics_lens_sartorial_telemetry(self):
+        """Verify KinesicsLens and MicroSignalExtractor parse gamusa and evaluate semiotic alignment."""
+        from geo_engine.lenses.kinesics import KinesicsLens, MicroSignalExtractor
+        from geo_engine.core.models import KinesicObservation, SummitEvent
+
+        # 1. MicroSignalExtractor gamusa recognition
+        feat = MicroSignalExtractor.derive_micro_signal_features(sartorial_hue="Assamese Red-Border Gamusa")
+        assert feat["sartorial_colour_code"] == "gamusa_indigenous"
+        assert "sub_national_identity" in feat["sartorial_semiotic_meaning"]
+
+        # 2. KinesicsLens evaluation with gamusa observation
+        obs = [
+            KinesicObservation(
+                actor_primary="Assam (CM)",
+                actor_secondary="Civil Delegation",
+                setting="public_rally",
+                protocol_mandated=False,
+                sartorial_colour_code="gamusa_indigenous",
+                residual_tension_score=0.25,
+                micro_expression_flag="duchenne_smile",
+                facs_action_units={"AU12": 0.70, "AU06": 0.65}
+            )
+        ]
+        summit = SummitEvent(summit_name="Sub-National Cultural Review", year=2024)
+        evaluation = KinesicsLens.evaluate(summit, observations=obs)
+        assert "sartorial_congruence_score" in evaluation.hard_metrics
+        assert "semiotic_alignment_tier" in evaluation.hard_metrics
+        assert evaluation.hard_metrics["sartorial_congruence_score"] >= 0.70
+        assert any("Sartorial Micro-Signal Telemetry" in f for f in evaluation.key_findings)
+
+    def test_phase91_event_store_subnational_and_rollback_seeds(self):
+        """Verify EventStore seeds IMDT, Gorukhuti, Assam delimitation, and UGC rollback records."""
+        from geo_engine.storage.event_store import EventStore
+
+        store = EventStore()
+        annivs = store.get_historical_anniversaries()
+        anniv_ids = {a["anniversary_id"] for a in annivs}
+
+        assert "HIST-2005-IMDT-ACT-STRUCK-DOWN" in anniv_ids
+        assert "HIST-2021-GORUKHUTI-EVICTION" in anniv_ids
+        assert "HIST-2023-ASSAM-DELIMITATION" in anniv_ids
+        assert "HIST-2024-UGC-RESERVATION-ROLLBACK" in anniv_ids
+
+        # Check forecast ledger for Assam Delimitation benchmark
+        ledger = store.get_forecast_ledger(status="RESOLVED")
+        ledger_ids = {r["forecast_id"] for r in ledger}
+        assert "FCST-HIST-2023-ASSAM-DELIMITATION" in ledger_ids
+
+    def test_phase91_query_parser_subnational_and_semiotic_expansion(self):
+        """Verify QueryParser extracts Himanta Biswa Sarma and routes sub-national land & rollback tokens."""
+        from geo_engine.core.query_parser import QueryParser
+
+        # 1. Sub-national land & leader parsing
+        q1 = QueryParser.parse("Himanta Biswa Sarma ordered eviction of char land near Batadrava Sattra")
+        assert "Himanta Biswa Sarma" in q1.target_leaders
+        assert "institutional_lawfare" in q1.prioritized_lenses
+        assert "demographic_infiltration" in q1.prioritized_lenses
+        assert "civilizational" in q1.prioritized_lenses
+
+        # 2. Rollback parsing
+        q2 = QueryParser.parse("Massive student protest against UGC rollback of de-reservation draft guidelines")
+        assert "bureaucratic_inertia" in q2.prioritized_lenses
+
+        # 3. Sartorial micro-signal parsing
+        q3 = QueryParser.parse("Leader speech wearing gamusa with visible sartorial dissonance")
+        assert "kinesics" in q3.prioritized_lenses
+
+    def test_phase88_90_audio_stream_media_audit(self):
+        """Verify AudioStreamConnector.audit_media_claims performs endowment, rollback, and sartorial audits."""
+        from geo_engine.video.audio_stream import AudioStreamConnector, AudioTranscript
+        from geo_engine.video.transcript_engine import TranscriptSegment
+
+        segments = [
+            TranscriptSegment(text="The government ordered immediate eviction from Batadrava Sattra and char land.", start=0.0, duration=15.0),
+            TranscriptSegment(text="Meanwhile the ministry announced a complete UGC rollback on de-reservation guidelines.", start=15.0, duration=20.0),
+            TranscriptSegment(text="The minister addressed the press wearing a traditional gamusa.", start=35.0, duration=15.0)
+        ]
+        transcript = AudioTranscript(
+            media_id="MEDIA-TEST-PHASE88-92",
+            language="en",
+            full_text="The government ordered immediate eviction from Batadrava Sattra and char land. Meanwhile the ministry announced a complete UGC rollback on de-reservation guidelines. The minister addressed the press wearing a traditional gamusa.",
+            segments=segments
+        )
+        audit = AudioStreamConnector.audit_media_claims(transcript)
+        assert audit["has_endowment_claim"] is True
+        assert audit["has_rollback_claim"] is True
+        assert audit["has_sartorial_claim"] is True
+        assert audit["endowment_audit"] is not None
+        assert audit["endowment_audit"]["vulnerability_tier"] == "CRITICAL_ENCROACHMENT_RISK"
+        assert audit["rollback_audit"] is not None
+        assert audit["rollback_audit"]["rollback_risk_tier"] == "IMMINENT_EXECUTIVE_ROLLBACK"
+        assert audit["sartorial_audit"] is not None
+        assert audit["sartorial_audit"]["attire_type"] == "gamusa_indigenous"
+        assert audit["reality_percentage"] > 70.0
+
+    def test_phase92_readme_parity(self):
+        """Verify README.md reflects 306 comprehensive unit and integration tests parity."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "306 comprehensive unit and integration tests" in content
+
 
 
 

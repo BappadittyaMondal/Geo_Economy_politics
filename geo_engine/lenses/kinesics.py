@@ -46,7 +46,10 @@ class MicroSignalExtractor:
 
         if sartorial_hue:
             sart_name = sartorial_hue.lower()
-            if "navy" in sart_name or "blue" in sart_name or "midnight" in sart_name:
+            if "gamusa" in sart_name or "gamosa" in sart_name or "indigenous" in sart_name or "assamese" in sart_name:
+                sart_code = "gamusa_indigenous"
+                sart_meaning = "sub_national_identity_and_dharmic_cultural_resistance"
+            elif "navy" in sart_name or "blue" in sart_name or "midnight" in sart_name:
                 sart_code = "midnight_institutional"
                 sart_meaning = "sovereign_stability_and_formal_authority"
             elif "saffron" in sart_name:
@@ -55,6 +58,9 @@ class MicroSignalExtractor:
             elif "olive" in sart_name or "green" in sart_name:
                 sart_code = "olive_tactical"
                 sart_meaning = "tactical_readiness_and_defense_mobilization"
+            elif "corporate" in sart_name or "suit" in sart_name or "western" in sart_name:
+                sart_code = "corporate_western"
+                sart_meaning = "globalist_technocratic_alignment_or_economic_masking"
             else:
                 sart_code = "neutral_charcoal"
                 sart_meaning = "standard_diplomatic_neutrality"
@@ -186,6 +192,25 @@ class KinesicsLens:
 
         avg_warmth = sum(o.genuine_warmth_index for o in observations) / len(observations)
 
+        has_gamusa = any("gamusa" in getattr(obs, "sartorial_colour_code", "").lower() for obs in observations) or (
+            claims and any("gamusa" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+        )
+        has_saffron = any("saffron" in getattr(obs, "sartorial_colour_code", "").lower() for obs in observations) or (
+            claims and any("saffron" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+        )
+
+        dissonance = 0.60 if (has_gamusa or has_saffron) and concealed_antagonism_count > 0 else (0.35 if concealed_antagonism_count > 0 else 0.10)
+        masking = 0.55 if social_mask_count > 0 else 0.15
+        attire = "gamusa_indigenous" if has_gamusa else ("saffron_civilizational" if has_saffron else "midnight_institutional")
+
+        sartorial_audit = SartorialSemioticSieve.calculate_sartorial_congruence(
+            attire_type=attire,
+            diplomatic_posture_dissonance=dissonance,
+            semiotic_masking_score=masking,
+            prosodic_jitter=0.08
+        )
+        findings.append(f"Sartorial Micro-Signal Telemetry: {sartorial_audit['forensic_semiotic_verdict']}")
+
         metrics = {
             "protocol_discount_applied": True,
             "mean_residual_warmth_index": round(avg_warmth, 2),
@@ -194,7 +219,9 @@ class KinesicsLens:
             "sartorial_distribution": sartorial_counts,
             "social_masks_detected": social_mask_count,
             "concealed_antagonisms_detected": concealed_antagonism_count,
-            "micro_signal_channels_active": ["handshake_torque", "facial_micro_expression", "sartorial_semiotics", "prosodic_latency", "facs_action_units"]
+            "micro_signal_channels_active": ["handshake_torque", "facial_micro_expression", "sartorial_semiotics", "prosodic_latency", "facs_action_units"],
+            "sartorial_congruence_score": sartorial_audit["sartorial_congruence_score"],
+            "semiotic_alignment_tier": sartorial_audit["semiotic_alignment_tier"]
         }
 
         return LensEvaluation(
@@ -205,3 +232,64 @@ class KinesicsLens:
             key_findings=findings,
             hard_metrics=metrics
         )
+
+
+class SartorialSemioticSieve:
+    """
+    Phase 90: Sartorial & Semiotic Micro-Signal Forensics.
+    Quantifies semiotic congruence between leader attire, diplomatic posture,
+    and kinetic/sociopolitical ground realities.
+
+    Formula:
+        C_sartorial = max(0.0, min(1.0, 1.0 - 0.45 * D_dissonance - 0.35 * S_masking - 0.20 * J_prosodic))
+    """
+
+    @staticmethod
+    def calculate_sartorial_congruence(
+        attire_type: str,
+        diplomatic_posture_dissonance: float,
+        semiotic_masking_score: float,
+        prosodic_jitter: float = 0.05
+    ) -> Dict[str, Any]:
+        d_diss = max(0.0, min(1.0, float(diplomatic_posture_dissonance)))
+        s_mask = max(0.0, min(1.0, float(semiotic_masking_score)))
+        j_pros = max(0.0, min(1.0, float(prosodic_jitter)))
+
+        penalty = 0.45 * d_diss + 0.35 * s_mask + 0.20 * j_pros
+        score = round(max(0.0, min(1.0, 1.0 - penalty)), 4)
+
+        if score >= 0.80:
+            tier = "AUTHENTIC_CIVILIZATIONAL_COHERENCE"
+            verdict = (
+                f"High semiotic fidelity: Leader attire [{attire_type}] genuinely reflects authentic civilizational "
+                f"or institutional alignment with negligible performative dissonance or prosodic leakage."
+            )
+        elif score >= 0.55:
+            tier = "CALCULATED_DIPLOMATIC_OPTICS"
+            verdict = (
+                f"Managed statecraft optics: Attire [{attire_type}] deployed as an intentional diplomatic signaling tool; "
+                f"moderate theatrical shielding observed but within permissible ceremonial boundaries."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_SEMIOTIC_DISSONANCE"
+            verdict = (
+                f"Semiotic friction: Marked contradiction between visual signaling [{attire_type}] and underlying "
+                f"bilateral hostility, unresolved border/cadastral tensions, or acoustic stress."
+            )
+        else:
+            tier = "ACUTE_THEATRICAL_DECEPTION"
+            verdict = (
+                f"Acute semiotic deception: Staged ceremonial attire [{attire_type}] completely decoupled from kinetic "
+                f"mobilization, high vocal tremor, or acute institutional crisis on the ground."
+            )
+
+        return {
+            "sartorial_congruence_score": score,
+            "attire_type": attire_type,
+            "diplomatic_posture_dissonance": d_diss,
+            "semiotic_masking_score": s_mask,
+            "prosodic_jitter": j_pros,
+            "semiotic_alignment_tier": tier,
+            "forensic_semiotic_verdict": verdict
+        }
+
