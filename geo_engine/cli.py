@@ -547,6 +547,20 @@ def render_forecast_ledger(status: Optional[str] = None, resolve_id: Optional[st
         )
     console.print(table)
 
+    try:
+        from .forecasting.calibration import ForecastingEngine
+        brier_report = ForecastingEngine.compute_longitudinal_brier_from_store(event_store=store)
+        if brier_report.get("status") == "LONGITUDINAL_CALIBRATED":
+            console.print(Panel(
+                f"[bold green]Longitudinal Brier Score (BS):[/bold green] [bold yellow]{brier_report['longitudinal_brier_score']:.4f}[/bold yellow] | "
+                f"[bold green]Calibration Grade:[/bold green] [bold cyan]{brier_report['epistemic_calibration_grade']}[/bold cyan]\n"
+                f"[dim]Backtested across {brier_report['total_resolved_forecasts']} resolved historical crises in SQLite forecast_ledger[/dim]",
+                title="[bold yellow]LONGITUDINAL FORECAST BRIER CALIBRATION AUDIT[/bold yellow]",
+                border_style="green"
+            ))
+    except Exception:
+        pass
+
 
 def render_video_intelligence(video_url: str, query: str):
     """Executes question-first video intelligence and prints timestamp citations and synthesis."""
@@ -686,23 +700,42 @@ def render_mcmc_simulation(
     target: str = "China",
     initial_state: str = "S1_GREY_ZONE_FRICTION",
     horizon_months: int = 24,
-    num_simulations: int = 1000
+    num_simulations: int = 1000,
+    seed_summit: Optional[str] = None
 ):
     """Executes and renders an Indefinite-Horizon MCMC stochastic conflict simulation."""
     from .simulation import MCMCGeopoliticalWargamer, MCMCScenarioConfig, ConflictState
+    from .core.models import SummitEvent
+    from .lenses import LENS_REGISTRY
 
-    try:
-        state_enum = getattr(ConflictState, initial_state.upper())
-    except Exception:
-        state_enum = ConflictState.S1_GREY_ZONE_FRICTION
+    if seed_summit:
+        event = SummitEvent(
+            summit_name=seed_summit,
+            year=2026,
+            member_countries=[initiator, target]
+        )
+        evals = [lens_cls.evaluate(event) for lens_cls in LENS_REGISTRY]
+        config = MCMCGeopoliticalWargamer.seed_from_lens_evaluations(
+            evaluations=evals,
+            initiator=initiator,
+            target=target,
+            horizon_months=horizon_months,
+            num_simulations=num_simulations
+        )
+        console.print(f"[bold cyan][LENS_COUPLING][/bold cyan] Seeded MCMC parameters from 20-lens evaluation of '{seed_summit}'. Initial State: [bold yellow]{config.initial_state.name}[/bold yellow]")
+    else:
+        try:
+            state_enum = getattr(ConflictState, initial_state.upper())
+        except Exception:
+            state_enum = ConflictState.S1_GREY_ZONE_FRICTION
 
-    config = MCMCScenarioConfig(
-        initiator_name=initiator,
-        target_name=target,
-        initial_state=state_enum,
-        horizon_months=horizon_months,
-        num_simulations=num_simulations
-    )
+        config = MCMCScenarioConfig(
+            initiator_name=initiator,
+            target_name=target,
+            initial_state=state_enum,
+            horizon_months=horizon_months,
+            num_simulations=num_simulations
+        )
 
     res = MCMCGeopoliticalWargamer.simulate_campaign(config)
 
@@ -944,6 +977,7 @@ def main():
     rt_parser.add_argument("--horizon-months", type=int, default=24, help="Horizon in months for MCMC simulation")
     rt_parser.add_argument("--simulations", type=int, default=1000, help="Number of Monte Carlo trajectories")
     rt_parser.add_argument("--initial-state", default="S1_GREY_ZONE_FRICTION", help="Initial conflict state for MCMC simulation")
+    rt_parser.add_argument("--seed-summit", default=None, help="Summit name or strategic event to dynamically seed MCMC parameters via 20-lens outputs")
 
     # Command: chronology
     chrono_parser = subparsers.add_parser("chronology", help="Arbitrate disputed ancient historical and civilizational timelines")
@@ -990,7 +1024,8 @@ def main():
                     target=args.target,
                     initial_state=getattr(args, "initial_state", "S1_GREY_ZONE_FRICTION"),
                     horizon_months=getattr(args, "horizon_months", 24),
-                    num_simulations=getattr(args, "simulations", 1000)
+                    num_simulations=getattr(args, "simulations", 1000),
+                    seed_summit=getattr(args, "seed_summit", None)
                 )
             else:
                 render_game_theoretic_simulation(

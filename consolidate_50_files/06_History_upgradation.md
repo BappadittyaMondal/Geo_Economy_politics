@@ -1105,5 +1105,14 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
+  - **Phase 87 CLI Integration Hardening & Certification Expansion (295→296 tests):**
+    - Integrated `--seed-summit` into `geo_engine.cli` `red-team --mcmc` subcommand, allowing operators to dynamically seed MCMC conflict configurations directly from 20-lens outputs of any summit or crisis event.
+    - Embedded empirical longitudinal Brier score audit panel directly in `geo_engine.cli forecasts` output, reporting backtested Brier scores, calibration grade (`WORLD_CLASS_EXEMPLARY`), and resolved crisis count in real-time.
+    - Added defensive spatial clamping ($d \ge 0.0\text{ NM}$) to `InstitutionalLawfareLens.calculate_maritime_jurisdiction_compliance()`.
+    - Added `test_phase87_cli_mcmc_lens_seeding_and_brier_audit` to `TestPhase83to87ComprehensiveSovereignUpgrade` in `tests/test_engine.py`, expanding the test suite to 296 tests.
+    - Updated `README.md` test counter to **296 comprehensive unit and integration tests**.
+    - Certified **296/296 unit and integration tests passing deterministically (100% pass rate in 59.06s)**.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
 
 

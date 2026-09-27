@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3935,7 +3935,7 @@ class TestPhase60MultiPillarChronologyArbiter:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase61GeofinancialAndDisinformationHardening:
@@ -4086,7 +4086,7 @@ class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase66to69HeptarchyAndAtomicGuardrails:
@@ -4377,7 +4377,7 @@ class TestPhase70CourtroomForensicsAndClaimDecomposition:
         content = readme_path.read_text(encoding="utf-8")
         assert any(
             cnt in content for cnt in [
-                "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests",
+                "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests",
                 "264 comprehensive unit and integration tests",
                 "257 comprehensive unit and integration tests",
                 "253 comprehensive unit and integration tests",
@@ -4564,7 +4564,7 @@ class TestPhase71DiagnosticMemoryAndMicroSignalSieve:
         # Test README parity
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase72SovereignDashboardAndExportEngine:
@@ -4693,7 +4693,7 @@ class TestPhase72SovereignDashboardAndExportEngine:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase73to75DeepTechHardening:
@@ -4784,7 +4784,7 @@ class TestPhase73to75DeepTechHardening:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase76UniversalReportAndVisualizationEngine:
@@ -5354,7 +5354,7 @@ class TestPhase78SubNationalParadiplomacyAndMercenaryDiffusion:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase79and80HistoriographyAndChatDistillation:
@@ -5522,7 +5522,7 @@ class TestPhase79and80HistoriographyAndChatDistillation:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests", "295 comprehensive unit and integration tests", "296 comprehensive unit and integration tests"])
 
 
 class TestPhase81and82ChokepointAndAvionicsSovereignty:
@@ -5901,6 +5901,28 @@ class TestPhase83to87ComprehensiveSovereignUpgrade:
         assert "FCST-HIST-1999-KARGIL-LOITER" in ledger_ids
         assert "FCST-HIST-2020-GALWAN-DISENGAGE" in ledger_ids
         assert "FCST-HIST-2024-CHABAHAR-10YR" in ledger_ids
+
+    def test_phase87_cli_mcmc_lens_seeding_and_brier_audit(self, capsys):
+        """Verify CLI red-team MCMC dynamically couples to 20 lenses and forecasts displays longitudinal Brier."""
+        from geo_engine.cli import render_mcmc_simulation, render_forecast_ledger
+
+        # 1. Test CLI MCMC with seed_summit
+        render_mcmc_simulation(
+            initiator="India",
+            target="China",
+            horizon_months=6,
+            num_simulations=50,
+            seed_summit="Galwan Standoff 2020"
+        )
+        captured = capsys.readouterr()
+        assert "[LENS_COUPLING]" in captured.out
+        assert "MCMC STOCHASTIC WARGAMING" in captured.out
+
+        # 2. Test CLI forecast ledger with longitudinal Brier panel
+        render_forecast_ledger(status="RESOLVED")
+        captured_fc = capsys.readouterr()
+        assert "LONGITUDINAL FORECAST BRIER CALIBRATION AUDIT" in captured_fc.out
+        assert "WORLD_CLASS_EXEMPLARY" in captured_fc.out
 
 
 

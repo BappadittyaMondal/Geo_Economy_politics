@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `3b29c9f`
+- **Canonical Git Commit:** `bfeb1b9`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 3b29c9f
+CANONICAL_COMMIT: bfeb1b9
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 3b29c9f
+CANONICAL_COMMIT: bfeb1b9
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 3b29c9f
+CANONICAL_COMMIT: bfeb1b9
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 3b29c9f
+CANONICAL_COMMIT: bfeb1b9
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 3b29c9f
+CANONICAL_COMMIT: bfeb1b9
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 3b29c9f
+CANONICAL_COMMIT: bfeb1b9
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1787,6 +1787,15 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Updated `README.md` test counter from 288 to 295 comprehensive tests.
     - Certified **295/295 unit and integration tests passing deterministically (100% pass rate)**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
+  - **Phase 87 CLI Integration Hardening & Certification Expansion (295→296 tests):**
+    - Integrated `--seed-summit` into `geo_engine.cli` `red-team --mcmc` subcommand, allowing operators to dynamically seed MCMC conflict configurations directly from 20-lens outputs of any summit or crisis event.
+    - Embedded empirical longitudinal Brier score audit panel directly in `geo_engine.cli forecasts` output, reporting backtested Brier scores, calibration grade (`WORLD_CLASS_EXEMPLARY`), and resolved crisis count in real-time.
+    - Added defensive spatial clamping ($d \ge 0.0\text{ NM}$) to `InstitutionalLawfareLens.calculate_maritime_jurisdiction_compliance()`.
+    - Added `test_phase87_cli_mcmc_lens_seeding_and_brier_audit` to `TestPhase83to87ComprehensiveSovereignUpgrade` in `tests/test_engine.py`, expanding the test suite to 296 tests.
+    - Updated `README.md` test counter to **296 comprehensive unit and integration tests**.
+    - Certified **296/296 unit and integration tests passing deterministically (100% pass rate in 59.06s)**.
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
 
@@ -4174,7 +4183,7 @@ class InstitutionalLawfareLens:
         - COLREGs 1972: Rules 8, 14, 15 liability for grayzone shouldering/ramming
         - Maritime Anti-Piracy Act, 2022: High-seas universal jurisdiction enforcement
         """
-        zone_nm = float(zone_nm)
+        zone_nm = max(0.0, float(zone_nm))
         if zone_nm <= 12.0:
             zone_type = "TERRITORIAL_WATERS"
             act_section = "Act 80/1976 Section 3"
@@ -5050,7 +5059,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `3b29c9f`
+- **Canonical Git Commit:** `bfeb1b9`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

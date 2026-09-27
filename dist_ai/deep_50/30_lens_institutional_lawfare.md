@@ -281,7 +281,7 @@ class InstitutionalLawfareLens:
         - COLREGs 1972: Rules 8, 14, 15 liability for grayzone shouldering/ramming
         - Maritime Anti-Piracy Act, 2022: High-seas universal jurisdiction enforcement
         """
-        zone_nm = float(zone_nm)
+        zone_nm = max(0.0, float(zone_nm))
         if zone_nm <= 12.0:
             zone_type = "TERRITORIAL_WATERS"
             act_section = "Act 80/1976 Section 3"
