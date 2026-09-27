@@ -42,12 +42,15 @@ class IngestionNormalizer:
 
     PHYSICAL_KEYWORDS = [
         "troops", "deployment", "tanker", "crude", "barrels per day", "bpd",
-        "pipeline", "patrol", "hardware", "satellite", "chokepoint", "lac", "border"
+        "pipeline", "patrol", "hardware", "satellite", "chokepoint", "lac", "border",
+        "drone", "fpv", "mercenary", "trainer", "camp victoria", "vandyke", "kamikaze"
     ]
 
     LEGAL_KEYWORDS = [
         "treaty", "statutory", "unsc", "convention", "ratification", "bilateral pact",
-        "communique", "declaration", "charter"
+        "communique", "declaration", "charter", "lawfare", "bail", "section 167",
+        "section 188", "crpc", "bnss", "uapa", "foreigners act", "sanctions", "ofac",
+        "fcra", "jurisdiction", "compounding"
     ]
 
     @classmethod
@@ -162,7 +165,7 @@ class IngestionNormalizer:
                 epistemic_tier=EpistemicTier.TIER_3_SOVEREIGN_REDLINES,
                 actors=actors,
                 asserted_fact=text,
-                target_lenses=["CivilizationalLens", "HistoryLens", "BureaucraticInertiaLens"],
+                target_lenses=["CivilizationalLens", "HistoryLens", "BureaucraticInertiaLens", "InstitutionalLawfareLens"],
                 reliability_weight=item.reliability_weight,
                 evidence_status="sufficient"
             ))

@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `278a4cc`
+- **Canonical Git Commit:** `9449d38`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 278a4cc
+CANONICAL_COMMIT: 9449d38
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 278a4cc
+CANONICAL_COMMIT: 9449d38
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 278a4cc
+CANONICAL_COMMIT: 9449d38
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 278a4cc
+CANONICAL_COMMIT: 9449d38
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 278a4cc
+CANONICAL_COMMIT: 9449d38
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 278a4cc
+CANONICAL_COMMIT: 9449d38
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1605,7 +1605,71 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
+* **Phase 78 (Sub-National Paradiplomacy, Mercenary FPV Tech Proliferation, Transnational Faith-Based Humanitarian Cover & Statutory Extraterritorial Off-Ramps):**
+  - **Sub-National Paradiplomacy & Transnational Faith-Based Irregular Warfare Covers in CulturalGrayzoneSieve (`geo_engine/lenses/civilizational.py`):**
+    - Upgraded `CulturalGrayzoneSieve` and `CivilizationalLens` to detect:
+      1. `transnational_theological_cover_detected`: Identifies faith-based 501(c)(3) entities, missionary corridors, or "persecuted minority relief" fronts (such as Sons of Liberty International - SOLI, Free Burma Rangers) facilitating irregular warfare, tactical volunteer deployment, or non-state logistics under humanitarian cover.
+      2. `sub_national_paradiplomacy_friction_detected`: Identifies federal/sovereign friction where borderland state governments, local civil society (e.g. Young Mizo Association - YMA), and church bodies diverge from Central Ministry of External Affairs / Home Affairs policy, extending cross-border sanctuary along ethnic-religious kinship corridors (e.g. Chin-Kuki-Zo continuum).
+    - Augmented `cultural_grayzone_vulnerability_index` with theological cover and paradiplomacy indicators while preserving 100% backward compatibility for baseline asymmetric secular lawfare and scriptural stratigraphy.
+  - **Mercenary Tactical Tech Proliferation Model in HybridCovertLens (`geo_engine/lenses/hybrid_covert.py`):**
+    - Implemented `HybridCovertLens.calculate_mercenary_tech_diffusion(foreign_trainers_count, combat_theater_veterancy, tactical_asymmetry_level)`:
+      $$\text{Diffusion Risk} = \min\left(1.0, \frac{\text{Trainers}}{10.0} \times 0.40 + \text{Veterancy} \times 0.35 + \text{Asymmetry} \times 0.25\right)$$
+    - Upgraded `HybridCovertLens.evaluate()` to ingest foreign combatant, mercenary trainer, and FPV drone proliferation claims (e.g., Ukrainian drone technicians operating along the Mizoram-Myanmar border at Camp Victoria). Populates `foreign_mercenary_presence_verified = True`, `mercenary_tech_diffusion_index = 0.88`, and `fpv_tactical_proliferation_score = 0.92`.
+  - **Forensic Statutory Off-Ramp Analytics in InstitutionalLawfareLens (`geo_engine/lenses/institutional_lawfare.py`):**
+    - Implemented `InstitutionalLawfareLens.calculate_statutory_off_ramp(days_in_custody, uapa_chargesheet_filed, crpc_188_sanction_present, foreigners_act_compounded)`:
+      - Models the procedural jurisprudence where the state utilizes statutory custody deadlines (Section 167(2) CrPC / Section 43D(2) UAPA 180-day threshold without terror charges) and Foreigners Act compounding (Sections 21/23) as a managed diplomatic off-ramp, navigating Section 188 CrPC extraterritorial evidentiary sanction barriers.
+    - Upgraded `InstitutionalLawfareLens.evaluate()` to detect default bail, piecemeal chargesheets, and Section 188 CrPC sanction bottlenecks, populating `statutory_off_ramp_detected = True`, `extraterritorial_sanction_barrier_flag = True`, and `default_bail_diplomatic_compromise_score = 0.88`.
+  - **Foundational Historical Knowledge & Statutory Baseline Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded seminal 2026 intelligence milestone and statutory jurisdiction baseline into SQLite schema and migrations:
+      1. `HIST-2026-VANDYKE-CHIN-DRONE` (2026-09-18): Mizoram-Myanmar Border PMC Infiltration & Default Bail Off-Ramp — Detention of American irregular contractor Matthew VanDyke and 6 Ukrainian drone trainers in Mizoram, cross-border FPV drone training at Camp Victoria for Chin anti-Junta rebels, and subsequent Section 167(2) default bail release after 180-day UAPA expiry.
+      2. `CLAUSE-CRPC-188-EXTRATERRITORIAL` (1973): Code of Criminal Procedure Section 188 / BNSS Section 208 — Mandatory previous sanction of the Central Government for inquiring into or trying extraterritorial offences committed outside India.
+  - **QueryParser Routing Matrix Expansion (`geo_engine/core/query_parser.py`):**
+    - Enriched `LENS_KEYWORDS` across `civilizational` (`paradiplomacy`, `sub-national paradiplomacy`, `mizo-chin`, `chin refugee`, `yma`, `soli`, `sons of liberty`, `faith-based contractor`), `hybrid_covert` (`vandyke`, `van dyke`, `matthew vandyke`, `camp victoria`, `ukrainian drone`, `mercenary trainer`, `fpv proliferation`, `chin national army`, `cna`), `institutional_lawfare` (`default bail`, `section 167`, `section 188`, `foreigners act compounding`, `piecemeal chargesheet`, `statutory off-ramp`), and `india_timeline` (`mizoram`, `manipur`, `chin state`, `indo-myanmar`, `zokhawthar`, `champhai`).
+  - **Verification Suite Expansion (271→276 tests):**
+    - Updated `README.md` test counter from 271 to 276 comprehensive unit and integration tests.
+    - Added `TestPhase78SubNationalParadiplomacyAndMercenaryDiffusion` in `tests/test_engine.py` with 5 comprehensive unit tests certifying paradiplomacy and theological cover detection in CulturalGrayzoneSieve, mercenary tech diffusion calculation and telemetry matching, statutory off-ramp calculation and claim detection, EventStore SQLite seeds for VanDyke event and CrPC 188 clause, QueryParser multi-lens routing parity, and test count parity.
+    - Certified **276/276 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+  - **Dynamic IngestionNormalizer & CLI Strategic Prompt Pipeline Integration (`geo_engine/ingestion/normalizer.py`, `geo_engine/cli.py`):**
+    - Expanded `IngestionNormalizer` keyword vocabulary to dynamically recognize covert tactical terms (`drone`, `fpv`, `mercenary`, `trainer`, `vandyke`, `camp victoria`) and statutory jurisprudence terms (`lawfare`, `bail`, `section 167`, `section 188`, `crpc`, `bnss`, `uapa`, `foreigners act`, `sanctions`, `ofac`, `fcra`, `compounding`), actively tagging `InstitutionalLawfareLens` and `HybridCovertLens`.
+    - Integrated dynamic query prompt ingestion and automated `EventStore` token-matching in `geo_engine/cli.py` (`render_query_pipeline`), bridging arbitrary user queries with persistent historical SQLite ground truth seeds.
+    - Added dedicated `=== GROUNDED FORENSIC TELEMETRY & SUB-SIEVE AUDIT SIGNALS ===` output rendering in `render_full_report`, immediately exposing sub-sieve detections to analysts.
 
+* **Phase 79 (Multi-Pillar Chronology Arbiter Paleogenomics Pillar, Bronze Age Chariot Forensic Candidate & Archaeological Media Auditing):**
+  - **Multi-Pillar Chronology Arbiter Paleogenomics Expansion (`geo_engine/arbitration/historical_arbiter.py`):**
+    - Integrated an explicit 5th evidentiary pillar into the Bayesian coherence engine: `paleogenomics_score` (default 0.50, range 0.0 to 1.0) within `ChronologyPillarScore`, quantifying ancient DNA (aDNA) continuity, uniparental haplogroups (Y-DNA R1a-Z93 vs. L1a/H, mtDNA), and Steppe pastoralist vs. Indus Periphery (AASI/Iranian agriculturalist) demographic drift.
+    - Calibrated orthogonal 5-pillar weighting model summing strictly to 1.00:
+      $$\text{Base} = 0.20 \cdot S_{\text{astro\_adj}} + 0.30 \cdot S_{\text{arch}} + 0.15 \cdot S_{\text{paleogen}} + 0.15 \cdot S_{\text{geo}} + 0.20 \cdot S_{\text{text}}$$
+    - Added canonical benchmark candidate `CHRONO_SINAULI_OCP_2000_BCE` ("2000 BCE Sinauli OCP / Copper Hoard Martial Culture", proponent: ASI / BSIP Radiocarbon), incorporating excavated solid-disk wheel chariots, copper antennae swords, composite helms, and warrior burial stratigraphy ($S_{\text{arch}} = 0.95, S_{\text{paleogen}} = 0.75$, composite coherence = 0.7615).
+  - **Automated Chronology Media Auditing in AudioStreamConnector (`geo_engine/video/audio_stream.py`):**
+    - Upgraded `AudioStreamConnector.audit_media_claims()` to autonomously detect ancient chronological, archaeological, and paleogenomic claims across media titles, descriptions, and transcripts (`sinauli`, `rakhigarhi`, `chariot`, `copper hoard`, `ocp`, `pgw`, `adna`, `paleogenomics`).
+    - Dispatches detected media directly through `MultiPillarChronologyArbiter.arbitrate()`, generating structured `chronology_audit` reporting dominant hypotheses and candidate rankings directly within the media intelligence pipeline.
+  - **Empirical Ground Truth Archaeological Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded seminal Bronze Age and Iron Age material culture milestones into the SQLite database schema and migration routines:
+      1. `HIST-2000BCE-SINAULI-OCP` (-2000): Sinauli Archaeological Discovery & Bronze Age Martial Culture — Excavation of 3 intact wooden chariots with copper inlay solid-disk wheels, copper antennae swords, shields, and anthropomorphic coffins dating to 2000–1800 BCE.
+      2. `HIST-2500BCE-RAKHIGARHI-ADNA` (-2500): Rakhigarhi IVC Ancient DNA (aDNA) Sequencing — Autosomal DNA from IVC skeleton I6113 demonstrating absence of Steppe pastoralist ancestry in mature Harappan phase and continuity with modern South Asian populations.
+      3. `HIST-1000BCE-HASTINAPUR-PGW` (-1000): Hastinapur Painted Grey Ware (PGW) Stratigraphy — B.B. Lal excavation demonstrating PGW iron-age transition, flood horizon matching epic deluge, and Saraswati-Ganga cultural continuity.
+    - Registered corresponding chronology anchors in `historical_anniversaries` (`CHRONO-2000BCE-SINAULI`, `CHRONO-2500BCE-RAKHIGARHI`).
+  - **QueryParser Chronology Keyword Routing (`geo_engine/core/query_parser.py`):**
+    - Enriched `LENS_KEYWORDS` under `history` and `civilizational` with archaeological and archaeogenetic tokens (`sinauli`, `rakhigarhi`, `copper hoard`, `ocp`, `pgw`, `antennae sword`, `paleogenomics`, `adna`).
+
+* **Phase 80 (Autonomous Conversational Self-Learning & Claim Distillation Engine):**
+  - **Autonomous Knowledge Distillation Engine (`geo_engine/ingestion/chat_distiller.py`, `geo_engine/ingestion/__init__.py`):**
+    - Implemented `ChatConversationDistiller` translating high-signal conversational exchanges, user-agent analytical interactions, and forensic findings into structured, epistemically tiered `ClaimItem` records.
+    - Operates `distill_conversation()` with automatic chunking across paragraphs, numbered bullets, and speaker turns (`User:`, `Assistant:`, `Speaker:`).
+    - Classifies claims dynamically into the 5-Tier Epistemic Truth Hierarchy (`TIER_1_PHYSICAL`, `TIER_2_FINANCIAL`, `TIER_3_SOVEREIGN_REDLINES`, `TIER_4_KINESICS`, `TIER_5_COMMUNIQUE_PR`) and maps them to appropriate analytical lenses via QueryParser.
+    - Implemented `distill_and_persist()`: Ingests claims directly into the SQLite `EventStore` via `MacroTelemetryAdapter.ingest_to_event_store()`, logs longitudinal diagnostic encounters via `EventStore.record_diagnostic_encounter()`, and updates the engine's long-term memory without manual code rewrites.
+  - **Model Context Protocol (MCP) Tool Integration (`geo_engine/mcp/server.py`):**
+    - Implemented and exposed `geo_learn_conversation` tool in `GeoEngineMCPServer` manifest and JSON-RPC 2.0 dispatch handler, enabling external AI agents and frontend interfaces to programmatically feed conversational intelligence and persist distilled knowledge.
+  - **Interactive CLI Subcommand Integration (`geo_engine/cli.py`):**
+    - Implemented `render_conversation_learning()` and registered the `learn` subcommand in the CLI, supporting direct interactive text distillation or file ingestion (`python -m geo_engine.cli learn "..." --persist`).
+  - **Verification Suite Expansion (276→282 tests):**
+    - Updated `README.md` test counter from 276 to 282 comprehensive unit and integration tests.
+    - Added `TestPhase79and80HistoriographyAndChatDistillation` in `tests/test_engine.py` with 6 comprehensive unit tests verifying the 5-pillar MPCA paleogenomics model and Sinauli candidate, audio stream media chronology auditing, EventStore Bronze Age seeds and query routing parity, conversational claim distillation and SQLite persistence, MCP `geo_learn_conversation` JSON-RPC dispatch, and test count parity.
+    - Certified **282/282 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
 
 
@@ -2431,11 +2495,15 @@ class CivilizationalLens:
             metrics["asymmetric_secular_lawfare_detected"] = gz_res["asymmetric_secular_lawfare_detected"]
             metrics["textual_stratigraphy_violation_detected"] = gz_res["textual_stratigraphy_violation_detected"]
             metrics["narrative_laundering_detected"] = gz_res["narrative_laundering_detected"]
+            metrics["transnational_theological_cover_detected"] = gz_res.get("transnational_theological_cover_detected", False)
+            metrics["sub_national_paradiplomacy_friction_detected"] = gz_res.get("sub_national_paradiplomacy_friction_detected", False)
 
             metrics["claims_evaluated"] = len(claims)
         else:
             metrics["cultural_grayzone_vulnerability_index"] = 0.15
             metrics["asymmetric_secular_lawfare_detected"] = False
+            metrics["transnational_theological_cover_detected"] = False
+            metrics["sub_national_paradiplomacy_friction_detected"] = False
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -2449,10 +2517,11 @@ class CivilizationalLens:
 
 class CulturalGrayzoneSieve:
     """
-    Phase 71C: Cultural & Religious Grayzone Sieve.
-    Applies Paṇḍit/Mīmāṃsā textual stratigraphy and Decolonial jurisprudence (J. Sai Deepak)
-    to deconstruct asymmetric secular lawfare, Smṛti interpolation weaponization,
-    and academic narrative laundering against Sanatan civilizational institutions.
+    Phase 71C & Phase 78: Cultural & Religious Grayzone Sieve.
+    Applies Paṇḍit/Mīmāṃsā textual stratigraphy, Decolonial jurisprudence (J. Sai Deepak),
+    and sub-national paradiplomacy analysis to deconstruct asymmetric secular lawfare,
+    Smṛti interpolation weaponization, transnational faith-based irregular warfare covers,
+    and borderland paradiplomacy friction against sovereign statecraft.
     """
 
     @classmethod
@@ -2463,6 +2532,8 @@ class CulturalGrayzoneSieve:
             "asymmetric_secular_lawfare_detected": res["asymmetric_secular_lawfare_detected"],
             "lawfare_index": res["cultural_grayzone_vulnerability_index"],
             "scriptural_stratigraphy_violation": res["textual_stratigraphy_violation_detected"],
+            "transnational_theological_cover_detected": res.get("transnational_theological_cover_detected", False),
+            "sub_national_paradiplomacy_friction_detected": res.get("sub_national_paradiplomacy_friction_detected", False),
             "violations": res["grayzone_findings"],
             "sieve_status": "SUSPICIOUS_ASYMMETRIC_OR_STRATIGRAPHIC_DISTORTION" if res["cultural_grayzone_vulnerability_index"] > 0 else "CLEAN_CIVILIZATIONAL_BASELINE"
         }
@@ -2472,11 +2543,22 @@ class CulturalGrayzoneSieve:
         asymmetric_secular_signals = 0
         textual_stratigraphy_signals = 0
         narrative_laundering_signals = 0
+        theological_cover_signals = 0
+        paradiplomacy_signals = 0
         findings = []
 
         asym_keywords = ["temple control", "hrce", "places of worship act", "waqf", "endowment", "denominational rights", "article 26", "article 30"]
         smrti_keywords = ["manusmriti", "caste oppression", "regressive sloka", "scriptural sanction", "puranic literalism", "smriti", "sruti", "śruti", "smṛti"]
         laundering_keywords = ["majoritarian", "hindu nationalism", "anti-conversion", "saffron terror", "fascism", "demographic shift"]
+        theological_cover_keywords = [
+            "soli", "sons of liberty", "humanitarian military", "persecuted minority relief",
+            "faith-based contractor", "evangelical corridor", "cross-border church",
+            "diaspora church fund", "free burma rangers"
+        ]
+        paradiplomacy_keywords = [
+            "paradiplomacy", "sub-national paradiplomacy", "mizo-chin", "chin refugee sanctuary",
+            "yma", "cross-border ethnic sanctuary", "tribal kinship corridor", "borderland kinship"
+        ]
 
         for c in claims:
             txt = (c if isinstance(c, str) else getattr(c, "asserted_fact", getattr(c, "assertion", ""))).lower()
@@ -2486,11 +2568,17 @@ class CulturalGrayzoneSieve:
                 textual_stratigraphy_signals += 1
             if any(k in txt for k in laundering_keywords):
                 narrative_laundering_signals += 1
+            if any(k in txt for k in theological_cover_keywords):
+                theological_cover_signals += 1
+            if any(k in txt for k in paradiplomacy_keywords):
+                paradiplomacy_signals += 1
 
         vulnerability_index = min(1.0, round(
             0.40 * (1 if asymmetric_secular_signals > 0 else 0) +
             0.35 * (1 if textual_stratigraphy_signals > 0 else 0) +
-            0.25 * (1 if narrative_laundering_signals > 0 else 0),
+            0.25 * (1 if narrative_laundering_signals > 0 else 0) +
+            0.30 * (1 if theological_cover_signals > 0 else 0) +
+            0.25 * (1 if paradiplomacy_signals > 0 else 0),
             2
         ))
 
@@ -2506,12 +2594,22 @@ class CulturalGrayzoneSieve:
             findings.append(
                 "Academic Narrative Laundering Detected: Legitimate civilizational sovereignty, border defense, and cultural preservation linguistically inverted into 'majoritarian aggression'."
             )
+        if theological_cover_signals > 0:
+            findings.append(
+                "Transnational Theological Irregular Warfare Cover Detected: Faith-based 501(c)(3) or missionary relief pipelines identified facilitating irregular warfare or non-state combatant logistics under humanitarian cover."
+            )
+        if paradiplomacy_signals > 0:
+            findings.append(
+                "Sub-National Paradiplomacy Friction Detected: Borderland state/tribal authorities diverging from sovereign central foreign policy, extending sanctuary along ethnic-religious kinship corridors."
+            )
 
         return {
             "cultural_grayzone_vulnerability_index": vulnerability_index,
             "asymmetric_secular_lawfare_detected": asymmetric_secular_signals > 0,
             "textual_stratigraphy_violation_detected": textual_stratigraphy_signals > 0,
             "narrative_laundering_detected": narrative_laundering_signals > 0,
+            "transnational_theological_cover_detected": theological_cover_signals > 0,
+            "sub_national_paradiplomacy_friction_detected": paradiplomacy_signals > 0,
             "grayzone_findings": findings
         }
 
@@ -3332,6 +3430,21 @@ class HybridCovertLens:
                 metrics["extraterritorial_neutralization_index"] = 0.94
                 metrics["sanctuary_friction_score"] = 0.91
 
+            mercenary_keywords = [
+                "vandyke", "van dyke", "ukrainian drone", "mercenary trainer", "foreign combatant",
+                "fpv kamikaze", "counter-jamming", "rf-hopping", "camp victoria", "sons of liberty",
+                "soli", "irregular warfare contractor", "cna drone", "cdf drone"
+            ]
+            matched_mercenary = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in mercenary_keywords)
+                for c in claims
+            )
+            if matched_mercenary:
+                findings.insert(0, "[MERCENARY TECH TELEMETRY] Foreign combatant / Ukrainian tactical FPV drone proliferation detected: Asymmetric tech transfer directly altering non-state actor strike thresholds along sovereign borderlands.")
+                metrics["foreign_mercenary_presence_verified"] = True
+                metrics["mercenary_tech_diffusion_index"] = 0.88
+                metrics["fpv_tactical_proliferation_score"] = 0.92
+
             metrics["claims_evaluated"] = len(claims)
 
         return LensEvaluation(
@@ -3342,6 +3455,38 @@ class HybridCovertLens:
             key_findings=findings,
             hard_metrics=metrics
         )
+
+    @staticmethod
+    def calculate_mercenary_tech_diffusion(
+        foreign_trainers_count: int,
+        combat_theater_veterancy: float,
+        tactical_asymmetry_level: float
+    ) -> Dict[str, Any]:
+        """
+        Phase 78: Mathematically models foreign mercenary tech diffusion and asymmetric proliferation:
+            diffusion_risk = min(1.0, round(
+                (foreign_trainers_count / 10.0) * 0.40 +
+                combat_theater_veterancy * 0.35 +
+                tactical_asymmetry_level * 0.25,
+                4
+            ))
+        """
+        trainers = max(0, int(foreign_trainers_count))
+        veterancy = max(0.0, min(1.0, float(combat_theater_veterancy)))
+        asymmetry = max(0.0, min(1.0, float(tactical_asymmetry_level)))
+
+        trainer_score = min(1.0, trainers / 10.0)
+        diffusion_index = min(1.0, round(trainer_score * 0.40 + veterancy * 0.35 + asymmetry * 0.25, 4))
+        threat_level = "CRITICAL_PROLIFERATION" if diffusion_index >= 0.70 else "LOCALIZED_ASYMMETRY" if diffusion_index >= 0.40 else "NEGLIGIBLE_RISK"
+
+        return {
+            "foreign_trainers_count": trainers,
+            "combat_theater_veterancy": veterancy,
+            "tactical_asymmetry_level": asymmetry,
+            "mercenary_tech_diffusion_index": diffusion_index,
+            "threat_classification": threat_level,
+            "tactical_proliferation_active": diffusion_index >= 0.40
+        }
 
     @staticmethod
     def calculate_state_resistance_threshold(
@@ -3638,6 +3783,25 @@ class InstitutionalLawfareLens:
                 metrics["electoral_jurisprudence_compliance_score"] = 0.30 if not has_formal_petition else 0.85
                 metrics["legal_terminology_hijack_detected"] = bool(has_courtroom_jargon and not has_formal_petition)
 
+            off_ramp_keywords = [
+                "default bail", "section 167", "180 days", "section 188", "piecemeal chargesheet",
+                "foreigners act compounding", "compounding fee", "frro compounding", "van dyke bail",
+                "vandyke bail", "statutory off-ramp", "managed off-ramp"
+            ]
+            off_ramp_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in off_ramp_keywords)
+                for c in claims
+            )
+            if off_ramp_detected:
+                findings.insert(0, (
+                    "[STATUTORY OFF-RAMP TELEMETRY] Forensic Statutory Exit Identified: Investigation against foreign nationals "
+                    "utilized Section 167(2) default bail and Foreigners Act compounding (Sections 21/23) as a managed diplomatic off-ramp, "
+                    "navigating Section 188 CrPC extraterritorial evidentiary sanction barriers."
+                ))
+                metrics["statutory_off_ramp_detected"] = True
+                metrics["extraterritorial_sanction_barrier_flag"] = True
+                metrics["default_bail_diplomatic_compromise_score"] = 0.88
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -3647,6 +3811,54 @@ class InstitutionalLawfareLens:
             hard_metrics=metrics,
             evidence_status="sufficient"
         )
+
+    @staticmethod
+    def calculate_statutory_off_ramp(
+        days_in_custody: int,
+        uapa_chargesheet_filed: bool,
+        crpc_188_sanction_present: bool,
+        foreigners_act_compounded: bool
+    ) -> Dict[str, Any]:
+        """
+        Phase 78: Mathematically models statutory legal off-ramps under Indian criminal jurisprudence:
+            If days_in_custody >= 180 and not uapa_chargesheet_filed:
+                Default bail is mandatory under Section 167(2) CrPC / Section 43D(2) UAPA.
+            If not crpc_188_sanction_present:
+                Extraterritorial offences face mandatory statutory bar on cognizance without Central Sanction.
+            If foreigners_act_compounded:
+                Administrative exit permitted via FRRO compounding fee settlement.
+        """
+        custody = max(0, int(days_in_custody))
+        is_default_entitlement = custody >= 180 and not uapa_chargesheet_filed
+        sanction_barrier = not crpc_188_sanction_present
+        compounded = bool(foreigners_act_compounded)
+
+        compromise_score = round(
+            (0.45 if is_default_entitlement else 0.10) +
+            (0.35 if sanction_barrier else 0.0) +
+            (0.20 if compounded else 0.0),
+            4
+        )
+
+        if is_default_entitlement and sanction_barrier:
+            exit_type = "MANAGED_DIPLOMATIC_STATUTORY_EXIT"
+            verdict = "State utilized statutory procedural expiration to permit foreign national departure without executive pardon fallout."
+        elif is_default_entitlement:
+            exit_type = "STATUTORY_DEFAULT_BAIL"
+            verdict = "Procedural timeline lapse under CrPC Section 167(2) compelled judicial release."
+        else:
+            exit_type = "STANDARD_INVESTIGATION_CONTINUING"
+            verdict = "Statutory custody window active; trial/investigation within regular jurisdictional limits."
+
+        return {
+            "days_in_custody": custody,
+            "default_bail_statutory_entitlement": is_default_entitlement,
+            "extraterritorial_sanction_barrier": sanction_barrier,
+            "foreigners_act_compounded": compounded,
+            "diplomatic_compromise_score": compromise_score,
+            "statutory_exit_classification": exit_type,
+            "legal_verdict": verdict
+        }
 
     @staticmethod
     def calculate_pundit_credibility(
@@ -4397,6 +4609,7 @@ class SubseaCablesLens:
 | CLAUSE-1951-HRCE | statutory_asymmetry | State statutory oversight mechanisms authorizing executive officers to manage Hindu temple administrations and surplus treasury funds, whereas minority religious institutions are constitutionally protected under Article 30. | Structural financial asymmetry and state appropriation of indigenous religious endowments without reciprocal minority institution regulation. |
 | CLAUSE-1991-INDO-PAK-NAV-ART10 | maritime_deconfliction | Article 10: Naval vessels and submarines of the two countries shall not approach within 3 nautical miles of each other's territorial waters and shall maintain safe buffer distance during maneuvers in international waters. | Breach of 3 nautical mile buffer distance and deliberate bow crossing constitutes maritime grey-zone provocation and sub-kinetic escalation below UN Charter Article 51 threshold. |
 | CLAUSE-2022-RBI-SRVA | monetary_clearing | A.P. (DIR Series) Circular No. 10: Authorized Dealer Category-I banks are permitted to open Special Non-Resident Rupee (SNRR) and Special Rupee Vostro Accounts (SRVA) for partner country correspondent banks, permitting invoicing, payment, and settlement in INR, with surplus balances permitted for reinvestment in Government Securities and sovereign infrastructure. | Statutory baseline establishing the legal mechanism for recycling bilateral non-convertible trade surpluses into domestic sovereign debt and equities. |
+| CLAUSE-CRPC-188-EXTRATERRITORIAL | extraterritorial_jurisdiction | Offences committed outside India: When an offence is committed outside India by a citizen of India or by a foreign national, no such offence shall be inquired into or tried in India without the previous sanction of the Central Government. | Statutory barrier requiring Central Government sanction for extraterritorial offences, serving as a legal and diplomatic gatekeeper for sovereign prosecutions of foreign nationals. |
 
 ## Historical Turning Points & Anniversaries
 
@@ -4413,7 +4626,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `278a4cc`
+- **Canonical Git Commit:** `9449d38`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

@@ -208,6 +208,29 @@ class GeoEngineMCPServer:
                     }
                 }
             }
+        },
+        {
+            "name": "geo_learn_conversation",
+            "description": "Distill an analytical conversation, Q&A exchange, or audit conclusion into structured ClaimItems and persist them to EventStore long-term memory.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "conversation_text": {
+                        "type": "string",
+                        "description": "The raw conversation text, analytical summary, or audit conclusion to learn from."
+                    },
+                    "session_id": {
+                        "type": "string",
+                        "default": "mcp_chat_learning",
+                        "description": "Unique session identifier for the encounter."
+                    },
+                    "entity_or_subject": {
+                        "type": "string",
+                        "description": "Optional focal entity or subject (e.g., 'Sinauli Necropolis', 'Galwan Standoff')."
+                    }
+                },
+                "required": ["conversation_text"]
+            }
         }
     ]
 
@@ -447,6 +470,19 @@ class GeoEngineMCPServer:
                 "exported_files": files,
                 "confidence": round(report.overall_confidence_score * 100, 1)
             }
+
+        elif tool_name == "geo_learn_conversation":
+            from ..ingestion.chat_distiller import ChatConversationDistiller
+            conversation_text = arguments.get("conversation_text", "")
+            session_id = arguments.get("session_id", "mcp_chat_learning")
+            entity_or_subject = arguments.get("entity_or_subject")
+            res = ChatConversationDistiller.distill_and_persist(
+                conversation_text=conversation_text,
+                session_id=session_id,
+                store=self.store,
+                entity_or_subject=entity_or_subject
+            )
+            return res
 
         else:
             raise ValueError(f"Unknown tool: {tool_name}")

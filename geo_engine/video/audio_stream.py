@@ -225,6 +225,10 @@ class AudioStreamConnector:
         claims = cls.transcript_to_claims(transcript)
 
         full_text = (transcript.full_text or "").lower()
+        if metadata_fallback:
+            fb_title = metadata_fallback.get("title", "")
+            fb_desc = metadata_fallback.get("description", "")
+            full_text = f"{full_text} {fb_title} {fb_desc}".lower()
 
         # 1. Match against known hoax & debunk registries
         debunks = target_store.get_debunk_registry()
@@ -261,6 +265,20 @@ class AudioStreamConnector:
             "rigged", "stolen election"
         ]
         has_electoral_claim = any(term in full_text for term in electoral_terms)
+
+        # Check for Archaeological / Ancient Chronology Claims
+        from ..arbitration.historical_arbiter import MultiPillarChronologyArbiter
+        chronological_terms = [
+            "sinauli", "sanauli", "rakhigarhi", "harappan", "vedic age", "chariot",
+            "copper hoard", "pgw", "ocp", "aryabhata", "aihole", "dating", "5561", "3067",
+            "1000 bce", "bronze age", "antennae sword", "paleogenomics", "adna"
+        ]
+        has_chronological_claim = any(term in full_text for term in chronological_terms)
+        chronology_audit = None
+        if has_chronological_claim:
+            event_title = f"Media Stream Chronology Audit ({transcript.media_id})"
+            chronology_report = MultiPillarChronologyArbiter.arbitrate(event_name=event_title)
+            chronology_audit = chronology_report.to_dict()
 
         # Level-0 Atomic Temporal Guardrail Check on Incumbency/Tenure
         from ..core.temporal_guardrail import TemporalGuardrail
@@ -302,6 +320,13 @@ class AudioStreamConnector:
             phi_theological = 0.05
             phi_ideological = 0.85 if decomposed_claim.is_poisoned_tail_detected else 0.65
             phi_pseudoscience = 0.75 if any(t in full_text for t in ["turn approver", "deshdrohi", "vote chori"]) else 0.40
+        elif has_chronological_claim:
+            has_archaeological_material = any(w in full_text for w in ["c14", "radiocarbon", "coffin", "sword", "shield", "copper", "cart", "burial", "bsip", "excavation", "asi"])
+            empirical_support = 0.75 if has_archaeological_material else 0.45
+            phi_colonial = 0.25 if any(w in full_text for w in ["aryan invasion", "ait", "colonial", "max muller"]) else 0.10
+            phi_theological = 0.15
+            phi_ideological = 0.35 if any(w in full_text for w in ["conspiracy", "hidden", "stopped excavation", "secret"]) else 0.20
+            phi_pseudoscience = 0.30 if any(w in full_text for w in ["alien", "vimana", "nuclear war"]) else 0.10
         else:
             empirical_support = 0.60 if matched_physical else 0.40
             phi_theological = 0.20
@@ -341,6 +366,8 @@ class AudioStreamConnector:
             "detected_hoaxes": detected_hoaxes,
             "matched_physical_keywords": matched_physical,
             "has_electoral_claim": has_electoral_claim,
+            "has_chronological_claim": has_chronological_claim,
+            "chronology_audit": chronology_audit,
             "tenure_audit": tenure_audit,
             "decomposed_claim": decomposed_claim.model_dump() if decomposed_claim else None,
             "courtroom_cross_examination": rizwan_cross_exam,

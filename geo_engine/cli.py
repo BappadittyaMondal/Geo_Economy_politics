@@ -16,7 +16,7 @@ from rich import box
 
 from .core.models import SummitEvent, StrategicEvent, TemporalMode
 from .core.query_parser import QueryParser, StrategicQuery
-from .ingestion import GDELTClient, SovereignRSSClient, IngestionNormalizer
+from .ingestion import GDELTClient, SovereignRSSClient, IngestionNormalizer, EvidenceItem, ClaimType
 from .forecasting import ForecastingEngine, BrierScorer
 from .arbitration import SummitSynthesizer, PersonaNarrator
 from .storage.event_store import EventStore
@@ -97,6 +97,18 @@ def render_full_report(
         title="[bold white on blue] GEO-ECONOMIC & GEOPOLITICAL INTELLIGENCE REPORT [/bold white on blue]",
         border_style="cyan"
     ))
+
+    # Grounded Prioritized Lens Telemetry & Forensic Findings
+    if getattr(report, "lens_evaluations", None):
+        active_findings = []
+        for le in report.lens_evaluations:
+            for f in le.key_findings:
+                if any(tag in f for tag in ["[MERCENARY", "[STATUTORY", "[CULTURAL_GRAYZONE", "[GROUNDED", "[COVERT"]):
+                    active_findings.append((le.lens_name, f))
+        if active_findings:
+            console.print("\n[bold yellow]=== GROUNDED FORENSIC TELEMETRY & SUB-SIEVE AUDIT SIGNALS ===[/bold yellow]")
+            for lname, finding in active_findings:
+                console.print(f" [bold cyan][{lname}][/bold cyan] {finding}")
 
     # TIER 1: Negative Space & Communique Diff
     console.print("\n[bold yellow]=== TIER 1: COMMUNIQUE DECONSTRUCTION & NEGATIVE SPACE (WHAT WAS DROPPED) ===[/bold yellow]")
@@ -389,6 +401,47 @@ def render_query_pipeline(prompt: str, persona: str = "neutral", export: Optiona
     evidence_items = GDELTClient.query_events(query.target_summit, max_records=2) + SovereignRSSClient.fetch_primary_statements()
     for ev in evidence_items:
         console.print(f" [bold green][+][/bold green] [cyan]{ev.source_name}[/cyan] ({ev.source_type} - {ev.timestamp[:10]}): [dim]{ev.raw_text[:120]}...[/dim]")
+
+    # Ingest user strategic query prompt as primary analytical claim
+    import hashlib
+    prompt_evidence = EvidenceItem(
+        evidence_id=f"PROMPT-{hashlib.md5(query.raw_prompt.encode()).hexdigest()[:8]}",
+        source_name="StrategicPromptInquiry",
+        source_type="PRIMARY_USER_PROMPT",
+        timestamp=f"{query.year}-01-01",
+        raw_text=query.raw_prompt,
+        reliability_weight=0.95,
+        claim_type=ClaimType.GENERAL_INTEL
+    )
+    evidence_items.insert(0, prompt_evidence)
+
+    # Ingest matching historical ground truth events from EventStore
+    try:
+        store = EventStore()
+        prompt_tokens = [t for t in re.findall(r"[A-Za-z0-9_-]+", query.raw_prompt) if len(t) > 3]
+        matched_events = []
+        seen_event_ids = set()
+        for tok in prompt_tokens:
+            evs = store.query_events(tok)
+            for ev in evs:
+                eid = ev.get("event_id")
+                if eid and eid not in seen_event_ids:
+                    seen_event_ids.add(eid)
+                    matched_events.append(ev)
+        for me in matched_events:
+            ev_item = EvidenceItem(
+                evidence_id=me.get("event_id", "HIST-EVENT"),
+                source_name=f"EventStore:{me.get('event_id')}",
+                source_type="official_gazette",
+                timestamp=me.get("event_date", f"{query.year}-01-01"),
+                raw_text=f"{me.get('title', '')}: {me.get('summary', '')}",
+                reliability_weight=0.98,
+                claim_type=ClaimType.PHYSICAL_PRESENCE
+            )
+            evidence_items.append(ev_item)
+            console.print(f" [bold green][+][/bold green] [magenta]EventStore Ground Truth Seed[/magenta] ([yellow]{me.get('event_id')}[/yellow]): [dim]{me.get('title', '')}[/dim]")
+    except Exception:
+        pass
 
     # Normalize into structured claims with batch SHA-256 wire deduplication
     all_claims = IngestionNormalizer.normalize_evidence_batch(evidence_items)
@@ -785,6 +838,43 @@ def render_chronology_arbitration(event_name: str = "Mahabharata War Chronology"
     console.print(Panel(res_box, title="[bold white on blue] MPCA ARBITRATION CONSENSUS VERDICT [/bold white on blue]", border_style="cyan"))
 
 
+def render_conversation_learning(text_or_path: str, subject: Optional[str] = None, session_id: Optional[str] = None) -> None:
+    """Renders autonomous conversation self-learning and distillation results."""
+    from .ingestion.chat_distiller import ChatConversationDistiller
+    import pathlib
+
+    content = text_or_path
+    p = pathlib.Path(text_or_path)
+    if p.exists() and p.is_file():
+        content = p.read_text(encoding="utf-8")
+
+    console.print(Panel(
+        f"[bold cyan]Initiating Closed-Loop Conversation Self-Learning & Epistemic Distillation[/bold cyan]\n"
+        f"[dim]Input Length: {len(content)} characters | Target Subject: {subject or 'Auto-Detect'}[/dim]",
+        border_style="cyan"
+    ))
+
+    result = ChatConversationDistiller.distill_and_persist(
+        conversation_text=content,
+        session_id=session_id,
+        entity_or_subject=subject
+    )
+
+    t = Table(title="Autonomous Epistemic Distillation Summary", border_style="green", box=box.ROUNDED)
+    t.add_column("Attribute", style="bold white", width=26)
+    t.add_column("Value / Forensic State", style="cyan")
+
+    t.add_row("Status", f"[bold green]{result['status']}[/bold green]")
+    t.add_row("Encounter ID", result["encounter_id"])
+    t.add_row("Focal Subject / Entity", result["entity_or_subject"])
+    t.add_row("Claims Extracted", str(result["claims_extracted"]))
+    t.add_row("Claims Persisted to EventStore", f"[bold green]{result['claims_persisted']}[/bold green]")
+    t.add_row("Primary Epistemic Tier", result["primary_epistemic_tier"])
+    t.add_row("Longitudinal Memory Updated", "[bold green]YES (SQLite events.db)[/bold green]")
+
+    console.print(t)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -796,6 +886,12 @@ def main():
     audit_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
     audit_parser.add_argument("--export", choices=["html", "pdf", "md", "all"], default=None, help="Export format for sovereign intelligence report")
     audit_parser.add_argument("--output-dir", default="reports", help="Directory to save exported files")
+
+    # Command: learn
+    learn_parser = subparsers.add_parser("learn", help="Autonomous self-learning: distill conversation/text into ClaimItems & persist to EventStore")
+    learn_parser.add_argument("text", type=str, help="Conversation text or file path (.md / .txt) to distill and learn from")
+    learn_parser.add_argument("--subject", default=None, help="Optional subject/entity label for diagnostic logging")
+    learn_parser.add_argument("--session-id", default=None, help="Optional session ID for tracking")
 
     # Command: dashboard
     dash_parser = subparsers.add_parser("dashboard", help="Generate and export interactive sovereign intelligence dashboard")
@@ -909,6 +1005,8 @@ def main():
                 )
         elif args.command == "ingest-audit":
             render_audit_ingestion(args.path)
+        elif args.command == "learn":
+            render_conversation_learning(args.text, subject=getattr(args, "subject", None), session_id=getattr(args, "session_id", None))
         elif args.command == "mcp":
             from .mcp import run_stdio_server
             run_stdio_server()

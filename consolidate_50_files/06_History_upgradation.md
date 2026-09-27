@@ -921,6 +921,70 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
+* **Phase 78 (Sub-National Paradiplomacy, Mercenary FPV Tech Proliferation, Transnational Faith-Based Humanitarian Cover & Statutory Extraterritorial Off-Ramps):**
+  - **Sub-National Paradiplomacy & Transnational Faith-Based Irregular Warfare Covers in CulturalGrayzoneSieve (`geo_engine/lenses/civilizational.py`):**
+    - Upgraded `CulturalGrayzoneSieve` and `CivilizationalLens` to detect:
+      1. `transnational_theological_cover_detected`: Identifies faith-based 501(c)(3) entities, missionary corridors, or "persecuted minority relief" fronts (such as Sons of Liberty International - SOLI, Free Burma Rangers) facilitating irregular warfare, tactical volunteer deployment, or non-state logistics under humanitarian cover.
+      2. `sub_national_paradiplomacy_friction_detected`: Identifies federal/sovereign friction where borderland state governments, local civil society (e.g. Young Mizo Association - YMA), and church bodies diverge from Central Ministry of External Affairs / Home Affairs policy, extending cross-border sanctuary along ethnic-religious kinship corridors (e.g. Chin-Kuki-Zo continuum).
+    - Augmented `cultural_grayzone_vulnerability_index` with theological cover and paradiplomacy indicators while preserving 100% backward compatibility for baseline asymmetric secular lawfare and scriptural stratigraphy.
+  - **Mercenary Tactical Tech Proliferation Model in HybridCovertLens (`geo_engine/lenses/hybrid_covert.py`):**
+    - Implemented `HybridCovertLens.calculate_mercenary_tech_diffusion(foreign_trainers_count, combat_theater_veterancy, tactical_asymmetry_level)`:
+      $$\text{Diffusion Risk} = \min\left(1.0, \frac{\text{Trainers}}{10.0} \times 0.40 + \text{Veterancy} \times 0.35 + \text{Asymmetry} \times 0.25\right)$$
+    - Upgraded `HybridCovertLens.evaluate()` to ingest foreign combatant, mercenary trainer, and FPV drone proliferation claims (e.g., Ukrainian drone technicians operating along the Mizoram-Myanmar border at Camp Victoria). Populates `foreign_mercenary_presence_verified = True`, `mercenary_tech_diffusion_index = 0.88`, and `fpv_tactical_proliferation_score = 0.92`.
+  - **Forensic Statutory Off-Ramp Analytics in InstitutionalLawfareLens (`geo_engine/lenses/institutional_lawfare.py`):**
+    - Implemented `InstitutionalLawfareLens.calculate_statutory_off_ramp(days_in_custody, uapa_chargesheet_filed, crpc_188_sanction_present, foreigners_act_compounded)`:
+      - Models the procedural jurisprudence where the state utilizes statutory custody deadlines (Section 167(2) CrPC / Section 43D(2) UAPA 180-day threshold without terror charges) and Foreigners Act compounding (Sections 21/23) as a managed diplomatic off-ramp, navigating Section 188 CrPC extraterritorial evidentiary sanction barriers.
+    - Upgraded `InstitutionalLawfareLens.evaluate()` to detect default bail, piecemeal chargesheets, and Section 188 CrPC sanction bottlenecks, populating `statutory_off_ramp_detected = True`, `extraterritorial_sanction_barrier_flag = True`, and `default_bail_diplomatic_compromise_score = 0.88`.
+  - **Foundational Historical Knowledge & Statutory Baseline Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded seminal 2026 intelligence milestone and statutory jurisdiction baseline into SQLite schema and migrations:
+      1. `HIST-2026-VANDYKE-CHIN-DRONE` (2026-09-18): Mizoram-Myanmar Border PMC Infiltration & Default Bail Off-Ramp — Detention of American irregular contractor Matthew VanDyke and 6 Ukrainian drone trainers in Mizoram, cross-border FPV drone training at Camp Victoria for Chin anti-Junta rebels, and subsequent Section 167(2) default bail release after 180-day UAPA expiry.
+      2. `CLAUSE-CRPC-188-EXTRATERRITORIAL` (1973): Code of Criminal Procedure Section 188 / BNSS Section 208 — Mandatory previous sanction of the Central Government for inquiring into or trying extraterritorial offences committed outside India.
+  - **QueryParser Routing Matrix Expansion (`geo_engine/core/query_parser.py`):**
+    - Enriched `LENS_KEYWORDS` across `civilizational` (`paradiplomacy`, `sub-national paradiplomacy`, `mizo-chin`, `chin refugee`, `yma`, `soli`, `sons of liberty`, `faith-based contractor`), `hybrid_covert` (`vandyke`, `van dyke`, `matthew vandyke`, `camp victoria`, `ukrainian drone`, `mercenary trainer`, `fpv proliferation`, `chin national army`, `cna`), `institutional_lawfare` (`default bail`, `section 167`, `section 188`, `foreigners act compounding`, `piecemeal chargesheet`, `statutory off-ramp`), and `india_timeline` (`mizoram`, `manipur`, `chin state`, `indo-myanmar`, `zokhawthar`, `champhai`).
+  - **Verification Suite Expansion (271→276 tests):**
+    - Updated `README.md` test counter from 271 to 276 comprehensive unit and integration tests.
+    - Added `TestPhase78SubNationalParadiplomacyAndMercenaryDiffusion` in `tests/test_engine.py` with 5 comprehensive unit tests certifying paradiplomacy and theological cover detection in CulturalGrayzoneSieve, mercenary tech diffusion calculation and telemetry matching, statutory off-ramp calculation and claim detection, EventStore SQLite seeds for VanDyke event and CrPC 188 clause, QueryParser multi-lens routing parity, and test count parity.
+    - Certified **276/276 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+  - **Dynamic IngestionNormalizer & CLI Strategic Prompt Pipeline Integration (`geo_engine/ingestion/normalizer.py`, `geo_engine/cli.py`):**
+    - Expanded `IngestionNormalizer` keyword vocabulary to dynamically recognize covert tactical terms (`drone`, `fpv`, `mercenary`, `trainer`, `vandyke`, `camp victoria`) and statutory jurisprudence terms (`lawfare`, `bail`, `section 167`, `section 188`, `crpc`, `bnss`, `uapa`, `foreigners act`, `sanctions`, `ofac`, `fcra`, `compounding`), actively tagging `InstitutionalLawfareLens` and `HybridCovertLens`.
+    - Integrated dynamic query prompt ingestion and automated `EventStore` token-matching in `geo_engine/cli.py` (`render_query_pipeline`), bridging arbitrary user queries with persistent historical SQLite ground truth seeds.
+    - Added dedicated `=== GROUNDED FORENSIC TELEMETRY & SUB-SIEVE AUDIT SIGNALS ===` output rendering in `render_full_report`, immediately exposing sub-sieve detections to analysts.
 
+* **Phase 79 (Multi-Pillar Chronology Arbiter Paleogenomics Pillar, Bronze Age Chariot Forensic Candidate & Archaeological Media Auditing):**
+  - **Multi-Pillar Chronology Arbiter Paleogenomics Expansion (`geo_engine/arbitration/historical_arbiter.py`):**
+    - Integrated an explicit 5th evidentiary pillar into the Bayesian coherence engine: `paleogenomics_score` (default 0.50, range 0.0 to 1.0) within `ChronologyPillarScore`, quantifying ancient DNA (aDNA) continuity, uniparental haplogroups (Y-DNA R1a-Z93 vs. L1a/H, mtDNA), and Steppe pastoralist vs. Indus Periphery (AASI/Iranian agriculturalist) demographic drift.
+    - Calibrated orthogonal 5-pillar weighting model summing strictly to 1.00:
+      $$\text{Base} = 0.20 \cdot S_{\text{astro\_adj}} + 0.30 \cdot S_{\text{arch}} + 0.15 \cdot S_{\text{paleogen}} + 0.15 \cdot S_{\text{geo}} + 0.20 \cdot S_{\text{text}}$$
+    - Added canonical benchmark candidate `CHRONO_SINAULI_OCP_2000_BCE` ("2000 BCE Sinauli OCP / Copper Hoard Martial Culture", proponent: ASI / BSIP Radiocarbon), incorporating excavated solid-disk wheel chariots, copper antennae swords, composite helms, and warrior burial stratigraphy ($S_{\text{arch}} = 0.95, S_{\text{paleogen}} = 0.75$, composite coherence = 0.7615).
+  - **Automated Chronology Media Auditing in AudioStreamConnector (`geo_engine/video/audio_stream.py`):**
+    - Upgraded `AudioStreamConnector.audit_media_claims()` to autonomously detect ancient chronological, archaeological, and paleogenomic claims across media titles, descriptions, and transcripts (`sinauli`, `rakhigarhi`, `chariot`, `copper hoard`, `ocp`, `pgw`, `adna`, `paleogenomics`).
+    - Dispatches detected media directly through `MultiPillarChronologyArbiter.arbitrate()`, generating structured `chronology_audit` reporting dominant hypotheses and candidate rankings directly within the media intelligence pipeline.
+  - **Empirical Ground Truth Archaeological Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded seminal Bronze Age and Iron Age material culture milestones into the SQLite database schema and migration routines:
+      1. `HIST-2000BCE-SINAULI-OCP` (-2000): Sinauli Archaeological Discovery & Bronze Age Martial Culture — Excavation of 3 intact wooden chariots with copper inlay solid-disk wheels, copper antennae swords, shields, and anthropomorphic coffins dating to 2000–1800 BCE.
+      2. `HIST-2500BCE-RAKHIGARHI-ADNA` (-2500): Rakhigarhi IVC Ancient DNA (aDNA) Sequencing — Autosomal DNA from IVC skeleton I6113 demonstrating absence of Steppe pastoralist ancestry in mature Harappan phase and continuity with modern South Asian populations.
+      3. `HIST-1000BCE-HASTINAPUR-PGW` (-1000): Hastinapur Painted Grey Ware (PGW) Stratigraphy — B.B. Lal excavation demonstrating PGW iron-age transition, flood horizon matching epic deluge, and Saraswati-Ganga cultural continuity.
+    - Registered corresponding chronology anchors in `historical_anniversaries` (`CHRONO-2000BCE-SINAULI`, `CHRONO-2500BCE-RAKHIGARHI`).
+  - **QueryParser Chronology Keyword Routing (`geo_engine/core/query_parser.py`):**
+    - Enriched `LENS_KEYWORDS` under `history` and `civilizational` with archaeological and archaeogenetic tokens (`sinauli`, `rakhigarhi`, `copper hoard`, `ocp`, `pgw`, `antennae sword`, `paleogenomics`, `adna`).
+
+* **Phase 80 (Autonomous Conversational Self-Learning & Claim Distillation Engine):**
+  - **Autonomous Knowledge Distillation Engine (`geo_engine/ingestion/chat_distiller.py`, `geo_engine/ingestion/__init__.py`):**
+    - Implemented `ChatConversationDistiller` translating high-signal conversational exchanges, user-agent analytical interactions, and forensic findings into structured, epistemically tiered `ClaimItem` records.
+    - Operates `distill_conversation()` with automatic chunking across paragraphs, numbered bullets, and speaker turns (`User:`, `Assistant:`, `Speaker:`).
+    - Classifies claims dynamically into the 5-Tier Epistemic Truth Hierarchy (`TIER_1_PHYSICAL`, `TIER_2_FINANCIAL`, `TIER_3_SOVEREIGN_REDLINES`, `TIER_4_KINESICS`, `TIER_5_COMMUNIQUE_PR`) and maps them to appropriate analytical lenses via QueryParser.
+    - Implemented `distill_and_persist()`: Ingests claims directly into the SQLite `EventStore` via `MacroTelemetryAdapter.ingest_to_event_store()`, logs longitudinal diagnostic encounters via `EventStore.record_diagnostic_encounter()`, and updates the engine's long-term memory without manual code rewrites.
+  - **Model Context Protocol (MCP) Tool Integration (`geo_engine/mcp/server.py`):**
+    - Implemented and exposed `geo_learn_conversation` tool in `GeoEngineMCPServer` manifest and JSON-RPC 2.0 dispatch handler, enabling external AI agents and frontend interfaces to programmatically feed conversational intelligence and persist distilled knowledge.
+  - **Interactive CLI Subcommand Integration (`geo_engine/cli.py`):**
+    - Implemented `render_conversation_learning()` and registered the `learn` subcommand in the CLI, supporting direct interactive text distillation or file ingestion (`python -m geo_engine.cli learn "..." --persist`).
+  - **Verification Suite Expansion (276→282 tests):**
+    - Updated `README.md` test counter from 276 to 282 comprehensive unit and integration tests.
+    - Added `TestPhase79and80HistoriographyAndChatDistillation` in `tests/test_engine.py` with 6 comprehensive unit tests verifying the 5-pillar MPCA paleogenomics model and Sinauli candidate, audio stream media chronology auditing, EventStore Bronze Age seeds and query routing parity, conversational claim distillation and SQLite persistence, MCP `geo_learn_conversation` JSON-RPC dispatch, and test count parity.
+    - Certified **282/282 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
 

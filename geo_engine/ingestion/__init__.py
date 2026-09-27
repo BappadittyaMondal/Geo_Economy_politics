@@ -10,6 +10,7 @@ from .document_loader import DocumentLoader
 from .normalizer import IngestionNormalizer, RhetoricDeflator
 from .telemetry_adapter import MacroTelemetryAdapter
 from .macro_connectors import SovereignMacroConnectors
+from .chat_distiller import ChatConversationDistiller
 
 __all__ = [
     "ClaimType",
@@ -22,4 +23,5 @@ __all__ = [
     "RhetoricDeflator",
     "MacroTelemetryAdapter",
     "SovereignMacroConnectors",
+    "ChatConversationDistiller",
 ]

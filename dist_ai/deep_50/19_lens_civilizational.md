@@ -112,11 +112,15 @@ class CivilizationalLens:
             metrics["asymmetric_secular_lawfare_detected"] = gz_res["asymmetric_secular_lawfare_detected"]
             metrics["textual_stratigraphy_violation_detected"] = gz_res["textual_stratigraphy_violation_detected"]
             metrics["narrative_laundering_detected"] = gz_res["narrative_laundering_detected"]
+            metrics["transnational_theological_cover_detected"] = gz_res.get("transnational_theological_cover_detected", False)
+            metrics["sub_national_paradiplomacy_friction_detected"] = gz_res.get("sub_national_paradiplomacy_friction_detected", False)
 
             metrics["claims_evaluated"] = len(claims)
         else:
             metrics["cultural_grayzone_vulnerability_index"] = 0.15
             metrics["asymmetric_secular_lawfare_detected"] = False
+            metrics["transnational_theological_cover_detected"] = False
+            metrics["sub_national_paradiplomacy_friction_detected"] = False
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -130,10 +134,11 @@ class CivilizationalLens:
 
 class CulturalGrayzoneSieve:
     """
-    Phase 71C: Cultural & Religious Grayzone Sieve.
-    Applies Paṇḍit/Mīmāṃsā textual stratigraphy and Decolonial jurisprudence (J. Sai Deepak)
-    to deconstruct asymmetric secular lawfare, Smṛti interpolation weaponization,
-    and academic narrative laundering against Sanatan civilizational institutions.
+    Phase 71C & Phase 78: Cultural & Religious Grayzone Sieve.
+    Applies Paṇḍit/Mīmāṃsā textual stratigraphy, Decolonial jurisprudence (J. Sai Deepak),
+    and sub-national paradiplomacy analysis to deconstruct asymmetric secular lawfare,
+    Smṛti interpolation weaponization, transnational faith-based irregular warfare covers,
+    and borderland paradiplomacy friction against sovereign statecraft.
     """
 
     @classmethod
@@ -144,6 +149,8 @@ class CulturalGrayzoneSieve:
             "asymmetric_secular_lawfare_detected": res["asymmetric_secular_lawfare_detected"],
             "lawfare_index": res["cultural_grayzone_vulnerability_index"],
             "scriptural_stratigraphy_violation": res["textual_stratigraphy_violation_detected"],
+            "transnational_theological_cover_detected": res.get("transnational_theological_cover_detected", False),
+            "sub_national_paradiplomacy_friction_detected": res.get("sub_national_paradiplomacy_friction_detected", False),
             "violations": res["grayzone_findings"],
             "sieve_status": "SUSPICIOUS_ASYMMETRIC_OR_STRATIGRAPHIC_DISTORTION" if res["cultural_grayzone_vulnerability_index"] > 0 else "CLEAN_CIVILIZATIONAL_BASELINE"
         }
@@ -153,11 +160,22 @@ class CulturalGrayzoneSieve:
         asymmetric_secular_signals = 0
         textual_stratigraphy_signals = 0
         narrative_laundering_signals = 0
+        theological_cover_signals = 0
+        paradiplomacy_signals = 0
         findings = []
 
         asym_keywords = ["temple control", "hrce", "places of worship act", "waqf", "endowment", "denominational rights", "article 26", "article 30"]
         smrti_keywords = ["manusmriti", "caste oppression", "regressive sloka", "scriptural sanction", "puranic literalism", "smriti", "sruti", "śruti", "smṛti"]
         laundering_keywords = ["majoritarian", "hindu nationalism", "anti-conversion", "saffron terror", "fascism", "demographic shift"]
+        theological_cover_keywords = [
+            "soli", "sons of liberty", "humanitarian military", "persecuted minority relief",
+            "faith-based contractor", "evangelical corridor", "cross-border church",
+            "diaspora church fund", "free burma rangers"
+        ]
+        paradiplomacy_keywords = [
+            "paradiplomacy", "sub-national paradiplomacy", "mizo-chin", "chin refugee sanctuary",
+            "yma", "cross-border ethnic sanctuary", "tribal kinship corridor", "borderland kinship"
+        ]
 
         for c in claims:
             txt = (c if isinstance(c, str) else getattr(c, "asserted_fact", getattr(c, "assertion", ""))).lower()
@@ -167,11 +185,17 @@ class CulturalGrayzoneSieve:
                 textual_stratigraphy_signals += 1
             if any(k in txt for k in laundering_keywords):
                 narrative_laundering_signals += 1
+            if any(k in txt for k in theological_cover_keywords):
+                theological_cover_signals += 1
+            if any(k in txt for k in paradiplomacy_keywords):
+                paradiplomacy_signals += 1
 
         vulnerability_index = min(1.0, round(
             0.40 * (1 if asymmetric_secular_signals > 0 else 0) +
             0.35 * (1 if textual_stratigraphy_signals > 0 else 0) +
-            0.25 * (1 if narrative_laundering_signals > 0 else 0),
+            0.25 * (1 if narrative_laundering_signals > 0 else 0) +
+            0.30 * (1 if theological_cover_signals > 0 else 0) +
+            0.25 * (1 if paradiplomacy_signals > 0 else 0),
             2
         ))
 
@@ -187,12 +211,22 @@ class CulturalGrayzoneSieve:
             findings.append(
                 "Academic Narrative Laundering Detected: Legitimate civilizational sovereignty, border defense, and cultural preservation linguistically inverted into 'majoritarian aggression'."
             )
+        if theological_cover_signals > 0:
+            findings.append(
+                "Transnational Theological Irregular Warfare Cover Detected: Faith-based 501(c)(3) or missionary relief pipelines identified facilitating irregular warfare or non-state combatant logistics under humanitarian cover."
+            )
+        if paradiplomacy_signals > 0:
+            findings.append(
+                "Sub-National Paradiplomacy Friction Detected: Borderland state/tribal authorities diverging from sovereign central foreign policy, extending sanctuary along ethnic-religious kinship corridors."
+            )
 
         return {
             "cultural_grayzone_vulnerability_index": vulnerability_index,
             "asymmetric_secular_lawfare_detected": asymmetric_secular_signals > 0,
             "textual_stratigraphy_violation_detected": textual_stratigraphy_signals > 0,
             "narrative_laundering_detected": narrative_laundering_signals > 0,
+            "transnational_theological_cover_detected": theological_cover_signals > 0,
+            "sub_national_paradiplomacy_friction_detected": paradiplomacy_signals > 0,
             "grayzone_findings": findings
         }
 

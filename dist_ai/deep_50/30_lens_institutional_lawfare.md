@@ -120,6 +120,25 @@ class InstitutionalLawfareLens:
                 metrics["electoral_jurisprudence_compliance_score"] = 0.30 if not has_formal_petition else 0.85
                 metrics["legal_terminology_hijack_detected"] = bool(has_courtroom_jargon and not has_formal_petition)
 
+            off_ramp_keywords = [
+                "default bail", "section 167", "180 days", "section 188", "piecemeal chargesheet",
+                "foreigners act compounding", "compounding fee", "frro compounding", "van dyke bail",
+                "vandyke bail", "statutory off-ramp", "managed off-ramp"
+            ]
+            off_ramp_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in off_ramp_keywords)
+                for c in claims
+            )
+            if off_ramp_detected:
+                findings.insert(0, (
+                    "[STATUTORY OFF-RAMP TELEMETRY] Forensic Statutory Exit Identified: Investigation against foreign nationals "
+                    "utilized Section 167(2) default bail and Foreigners Act compounding (Sections 21/23) as a managed diplomatic off-ramp, "
+                    "navigating Section 188 CrPC extraterritorial evidentiary sanction barriers."
+                ))
+                metrics["statutory_off_ramp_detected"] = True
+                metrics["extraterritorial_sanction_barrier_flag"] = True
+                metrics["default_bail_diplomatic_compromise_score"] = 0.88
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -129,6 +148,54 @@ class InstitutionalLawfareLens:
             hard_metrics=metrics,
             evidence_status="sufficient"
         )
+
+    @staticmethod
+    def calculate_statutory_off_ramp(
+        days_in_custody: int,
+        uapa_chargesheet_filed: bool,
+        crpc_188_sanction_present: bool,
+        foreigners_act_compounded: bool
+    ) -> Dict[str, Any]:
+        """
+        Phase 78: Mathematically models statutory legal off-ramps under Indian criminal jurisprudence:
+            If days_in_custody >= 180 and not uapa_chargesheet_filed:
+                Default bail is mandatory under Section 167(2) CrPC / Section 43D(2) UAPA.
+            If not crpc_188_sanction_present:
+                Extraterritorial offences face mandatory statutory bar on cognizance without Central Sanction.
+            If foreigners_act_compounded:
+                Administrative exit permitted via FRRO compounding fee settlement.
+        """
+        custody = max(0, int(days_in_custody))
+        is_default_entitlement = custody >= 180 and not uapa_chargesheet_filed
+        sanction_barrier = not crpc_188_sanction_present
+        compounded = bool(foreigners_act_compounded)
+
+        compromise_score = round(
+            (0.45 if is_default_entitlement else 0.10) +
+            (0.35 if sanction_barrier else 0.0) +
+            (0.20 if compounded else 0.0),
+            4
+        )
+
+        if is_default_entitlement and sanction_barrier:
+            exit_type = "MANAGED_DIPLOMATIC_STATUTORY_EXIT"
+            verdict = "State utilized statutory procedural expiration to permit foreign national departure without executive pardon fallout."
+        elif is_default_entitlement:
+            exit_type = "STATUTORY_DEFAULT_BAIL"
+            verdict = "Procedural timeline lapse under CrPC Section 167(2) compelled judicial release."
+        else:
+            exit_type = "STANDARD_INVESTIGATION_CONTINUING"
+            verdict = "Statutory custody window active; trial/investigation within regular jurisdictional limits."
+
+        return {
+            "days_in_custody": custody,
+            "default_bail_statutory_entitlement": is_default_entitlement,
+            "extraterritorial_sanction_barrier": sanction_barrier,
+            "foreigners_act_compounded": compounded,
+            "diplomatic_compromise_score": compromise_score,
+            "statutory_exit_classification": exit_type,
+            "legal_verdict": verdict
+        }
 
     @staticmethod
     def calculate_pundit_credibility(

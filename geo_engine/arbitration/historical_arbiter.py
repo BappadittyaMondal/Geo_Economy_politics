@@ -14,12 +14,13 @@ from pydantic import BaseModel, Field
 
 
 class ChronologyPillarScore(BaseModel):
-    """Normalized scoring (0.0 to 1.0) across the four orthogonal evidentiary pillars."""
+    """Normalized scoring (0.0 to 1.0) across the five orthogonal evidentiary pillars."""
     astronomy_score: float = Field(..., ge=0.0, le=1.0, description="Fit with planetary/constellation observations in text")
     astronomy_degeneracy_factor: float = Field(default=0.30, ge=0.0, le=1.0, description="1.0 = highly recurring/degenerate periodic alignment; 0.0 = unique")
     archaeology_score: float = Field(..., ge=0.0, le=1.0, description="Fit with excavated strata, C-14, metallurgy, and material culture")
     hydro_geology_score: float = Field(..., ge=0.0, le=1.0, description="Fit with river Saraswati flow state, monsoon curves, marine sea-levels")
     textual_provenance_score: float = Field(..., ge=0.0, le=1.0, description="Manuscript weight (1.0 = BORI common archetype, 0.2 = late regional variant)")
+    paleogenomics_score: float = Field(default=0.50, ge=0.0, le=1.0, description="Fit with ancient DNA (aDNA), uniparental haplogroups, and Steppe vs. AASI cline demographic drift")
 
 
 class HistoricalHypothesisCandidate(BaseModel):
@@ -78,11 +79,20 @@ class MultiPillarChronologyArbiter:
     ignore physical stratigraphy, or where archaeological models ignore celestial and hydrological records.
     """
 
-    # Pillar Weights in Composite Bayesian Coherence
-    WEIGHT_ASTRONOMY = 0.25
-    WEIGHT_ARCHAEOLOGY = 0.35
-    WEIGHT_HYDRO_GEOLOGY = 0.20
+    # Pillar Weights in Composite Bayesian Coherence (Sum = 1.00)
+    WEIGHT_ASTRONOMY = 0.20
+    WEIGHT_ARCHAEOLOGY = 0.30
+    WEIGHT_PALEOGENOMICS = 0.15
+    WEIGHT_HYDRO_GEOLOGY = 0.15
     WEIGHT_TEXTUAL_PROVENANCE = 0.20
+
+    PILLAR_WEIGHTS = {
+        "astronomy": WEIGHT_ASTRONOMY,
+        "archaeology": WEIGHT_ARCHAEOLOGY,
+        "paleogenomics": WEIGHT_PALEOGENOMICS,
+        "hydro_geology": WEIGHT_HYDRO_GEOLOGY,
+        "textual_provenance": WEIGHT_TEXTUAL_PROVENANCE,
+    }
 
     @classmethod
     def calculate_composite_coherence(
@@ -91,10 +101,10 @@ class MultiPillarChronologyArbiter:
         proposed_year_bce: int
     ) -> Tuple[float, bool, Optional[str]]:
         """
-        Computes composite coherence score with degeneracy dampening and material culture collision flags.
+        Computes composite coherence score with degeneracy dampening, paleogenomics, and material culture collision flags.
         Formula:
           S_astro_adj = S_astro * (1.0 - 0.5 * Degeneracy)
-          Base = 0.25 * S_astro_adj + 0.35 * S_arch + 0.20 * S_geo + 0.20 * S_text
+          Base = 0.20 * S_astro_adj + 0.30 * S_arch + 0.15 * S_paleogen + 0.15 * S_geo + 0.20 * S_text
           If S_arch < 0.15: Apply 75% material culture collision penalty (haircut).
         """
         # 1. Adjust astronomy for periodic recurrence degeneracy
@@ -104,6 +114,7 @@ class MultiPillarChronologyArbiter:
         base_score = (
             cls.WEIGHT_ASTRONOMY * adj_astronomy +
             cls.WEIGHT_ARCHAEOLOGY * scores.archaeology_score +
+            cls.WEIGHT_PALEOGENOMICS * scores.paleogenomics_score +
             cls.WEIGHT_HYDRO_GEOLOGY * scores.hydro_geology_score +
             cls.WEIGHT_TEXTUAL_PROVENANCE * scores.textual_provenance_score
         )
@@ -133,7 +144,7 @@ class MultiPillarChronologyArbiter:
 
     @classmethod
     def get_benchmark_candidates(cls) -> List[HistoricalHypothesisCandidate]:
-        """Returns standard benchmark scholarly and traditional timeline candidates for the Mahabharata."""
+        """Returns standard benchmark scholarly and traditional timeline candidates for the Mahabharata and Bronze Age."""
         return [
             HistoricalHypothesisCandidate(
                 hypothesis_id="CHRONO_OAK_5561_BCE",
@@ -145,7 +156,8 @@ class MultiPillarChronologyArbiter:
                     astronomy_degeneracy_factor=0.75,  # 6,500-year precession window (11,091 BCE to 4508 BCE)
                     archaeology_score=0.08,           # Mesolithic/Neolithic Mehrgarh I (stone tools, zero iron/chariots)
                     hydro_geology_score=0.45,         # Perennial glacial melt; does not match Vinashana desiccation
-                    textual_provenance_score=0.70     # Interprets AV omen literally as an astronomical precession coordinate
+                    textual_provenance_score=0.70,    # Interprets AV omen literally as an astronomical precession coordinate
+                    paleogenomics_score=0.10          # Paleogenomic disconnect with Bronze/Iron age epic descriptions
                 )
             ),
             HistoricalHypothesisCandidate(
@@ -158,7 +170,8 @@ class MultiPillarChronologyArbiter:
                     astronomy_degeneracy_factor=0.25,  # High specificity: twin eclipse in 13 days + Saturn-Rohini + Jupiter-Vishakha
                     archaeology_score=0.78,           # Early Harappan / Sanauli chariot horizon (~2000-1900 BCE copper-sheathed carts)
                     hydro_geology_score=0.88,         # Matches Saraswati perennial-to-dry transition before 1900 BCE desiccation
-                    textual_provenance_score=0.85     # Conforms strictly to BORI Critical Edition common archetype
+                    textual_provenance_score=0.85,    # Conforms strictly to BORI Critical Edition common archetype
+                    paleogenomics_score=0.82          # Congruent with indigenous South Asian cline
                 )
             ),
             HistoricalHypothesisCandidate(
@@ -171,7 +184,22 @@ class MultiPillarChronologyArbiter:
                     astronomy_degeneracy_factor=0.35,  # Conjunction of all planets at 0 degrees Aries at Kali Yuga start
                     archaeology_score=0.75,           # Pre-Harappan / Early Bronze Age transition
                     hydro_geology_score=0.86,         # Saraswati flowing perennially to Rann of Kutch
-                    textual_provenance_score=0.82     # Universal consensus across Puranic king lists and classical epigraphs
+                    textual_provenance_score=0.82,    # Universal consensus across Puranic king lists and classical epigraphs
+                    paleogenomics_score=0.80          # Pre-Steppe South Asian cline continuity
+                )
+            ),
+            HistoricalHypothesisCandidate(
+                hypothesis_id="CHRONO_SINAULI_OCP_2000_BCE",
+                label="2000 BCE (Sinauli OCP / Copper Hoard Martial Culture)",
+                proposed_year_bce=2000,
+                proponent="Archaeological Survey of India (ASI) / BSIP Radiocarbon",
+                pillar_scores=ChronologyPillarScore(
+                    astronomy_score=0.50,             # Textual-celestial markers neutral (funerary archaeology)
+                    astronomy_degeneracy_factor=0.30,
+                    archaeology_score=0.95,           # Direct C14 dated strata (2000-1800 BCE), copper carts, antennae swords, coffins
+                    hydro_geology_score=0.82,         # Active Yamuna-Hindon perennial fluvial drainage
+                    textual_provenance_score=0.78,    # Direct concordance with Rigveda 10.18 inhumation & weapon placement
+                    paleogenomics_score=0.75          # Late Harappan / Copper Hoard indigenous transition without high Steppe pulse
                 )
             ),
             HistoricalHypothesisCandidate(
@@ -184,7 +212,8 @@ class MultiPillarChronologyArbiter:
                     astronomy_degeneracy_factor=0.50,
                     archaeology_score=0.92,           # Hastinapur, Kurukshetra, Indraprastha PGW layers with iron weapons & flood stratum
                     hydro_geology_score=0.25,         # Severe mismatch: Saraswati completely dried up by 1900 BCE; dry by 1000 BCE
-                    textual_provenance_score=0.65     # Treats epic as late first-millennium BCE compilation
+                    textual_provenance_score=0.65,    # Treats epic as late first-millennium BCE compilation
+                    paleogenomics_score=0.85          # Post-Steppe pulse Early Iron Age horizon
                 )
             ),
         ]
@@ -202,7 +231,7 @@ class MultiPillarChronologyArbiter:
         eval_candidates = candidates if candidates else cls.get_benchmark_candidates()
         audit_trail: List[str] = [
             f"[MPCA_INIT] Initiating Multi-Pillar Chronology Arbitration for '{event_name}' across {len(eval_candidates)} candidates.",
-            "[MPCA_WEIGHTS] Applied Epistemic Pillar Weights: Archaeology (0.35), Astronomy (0.25), Hydro-Geology (0.20), Textual Provenance (0.20)."
+            "[MPCA_WEIGHTS] Applied Epistemic Pillar Weights: Archaeology (0.30), Astronomy (0.20), Paleogenomics (0.15), Hydro-Geology (0.15), Textual Provenance (0.20)."
         ]
 
         # Calculate composite score for each candidate
@@ -215,8 +244,8 @@ class MultiPillarChronologyArbiter:
             audit_trail.append(
                 f"[MPCA_EVAL] {c.hypothesis_id} ({c.proposed_year_bce} BCE): "
                 f"Astro={c.pillar_scores.astronomy_score:.2f} (Degeneracy={c.pillar_scores.astronomy_degeneracy_factor:.2f}), "
-                f"Arch={c.pillar_scores.archaeology_score:.2f}, Geo={c.pillar_scores.hydro_geology_score:.2f}, "
-                f"Text={c.pillar_scores.textual_provenance_score:.2f} -> Composite={score:.4f}"
+                f"Arch={c.pillar_scores.archaeology_score:.2f}, Paleogen={c.pillar_scores.paleogenomics_score:.2f}, "
+                f"Geo={c.pillar_scores.hydro_geology_score:.2f}, Text={c.pillar_scores.textual_provenance_score:.2f} -> Composite={score:.4f}"
             )
             if has_coll:
                 audit_trail.append(f"[MPCA_PENALTY] {c.hypothesis_id} penalized: {rationale}")

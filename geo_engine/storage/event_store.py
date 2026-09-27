@@ -171,8 +171,33 @@ class EventStore:
                     "kinetic_counter_air",
                     "IAF executed long-range precision strikes destroying Iran's remaining Russian-supplied S-300 strategic surface-to-air missile batteries and solid-fuel mixing facilities, establishing conventional air dominance over Iranian airspace.",
                     "Neutralized Iran's strategic air defense umbrella, demonstrating conventional technological asymmetry and shifting deterrence calculations across the Persian Gulf."
+                ),
+                (
+                    "HIST-2026-VANDYKE-CHIN-DRONE",
+                    "2026-09-18",
+                    "Mizoram-Myanmar Border PMC Infiltration & Default Bail Off-Ramp",
+                    "Matthew VanDyke (SOLI), Ukrainian Nationals, NIA, Chin National Army",
+                    "Northeast India / Myanmar Chin State",
+                    "hybrid_warfare",
+                    "Arrest of American PMC operator Matthew VanDyke and 6 Ukrainian drone trainers in Mizoram for cross-border FPV drone training to Chin anti-Junta rebels; granted Section 167(2) default bail after 180-day UAPA deadline lapsed and Foreigners Act compounding (Sections 21/23).",
+                    "Demonstrates the intersection of transnational mercenary drone tech proliferation, sub-national tribal kinship corridors, and managed judicial off-ramps under Section 188 CrPC extraterritorial limits."
                 )
             ])
+
+            # Seed Phase 78 Extraterritorial Jurisdiction clause idempotently
+            cursor.execute("""
+                INSERT OR IGNORE INTO historical_treaty_clauses
+                (clause_id, treaty_name, year, category, clause_text, is_mandatory_baseline, omission_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (
+                "CLAUSE-CRPC-188-EXTRATERRITORIAL",
+                "Code of Criminal Procedure 1973 Section 188 / BNSS Section 208",
+                1973,
+                "extraterritorial_jurisdiction",
+                "Offences committed outside India: When an offence is committed outside India by a citizen of India or by a foreign national, no such offence shall be inquired into or tried in India without the previous sanction of the Central Government.",
+                1,
+                "Statutory barrier requiring Central Government sanction for extraterritorial offences, serving as a legal and diplomatic gatekeeper for sovereign prosecutions of foreign nationals."
+            ))
 
             # Seed Phase 59 Dark History & Cognitive Warfare milestones idempotently
             cursor.executemany("""
@@ -277,6 +302,26 @@ class EventStore:
                     "Ancient Bharat",
                     "Dates the epic to the 10th-9th century BCE based on Painted Grey Ware (PGW) strata, early iron arrowheads at Hastinapur/Kurukshetra, and the flood layer described in Puranic texts.",
                     "Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE."
+                ),
+                (
+                    "CHRONO-2000BCE-SINAULI",
+                    1,
+                    1,
+                    -2000,
+                    "Sinauli Bronze Age Necropolis (OCP / Copper Hoard Culture)",
+                    "Ancient Bharat / Ganga-Yamuna Doab",
+                    "Excavations at Sinauli (Baghpat, UP) revealed elite warrior burials with copper-inlaid solid-disk wheeled carts, antennae swords, shields, and four-legged coffins dating to 2000-1800 BCE via calibrated C14.",
+                    "Stratigraphical and material culture anchor establishing indigenous Bronze Age wheeled transport and warrior aristocracy in northern India; concordant with Rigveda 10.18 inhumation rites."
+                ),
+                (
+                    "CHRONO-2500BCE-RAKHIGARHI",
+                    1,
+                    1,
+                    -2500,
+                    "Rakhigarhi Mature Harappan Paleogenomic Anchor",
+                    "Ancient Bharat / Ghaggar-Hakra Basin",
+                    "Ancient DNA from Mature IVC female skeleton demonstrating absence of Central Asian Steppe pastoralist ancestry (R1a-Z93) and presence of Iranian farmer-related and Ancient Ancestral South Indian (AASI) lineage.",
+                    "Crucial paleogenomic baseline establishing genetic continuity in South Asia and disproving catastrophic population replacement models."
                 )
             ])
 
@@ -633,6 +678,46 @@ class EventStore:
                     "kinetic_counter_air",
                     "IAF executed long-range precision strikes destroying Iran's remaining Russian-supplied S-300 strategic surface-to-air missile batteries and solid-fuel mixing facilities, establishing conventional air dominance over Iranian airspace.",
                     "Neutralized Iran's strategic air defense umbrella, demonstrating conventional technological asymmetry and shifting deterrence calculations across the Persian Gulf."
+                ),
+                (
+                    "HIST-2026-VANDYKE-CHIN-DRONE",
+                    "2026-09-18",
+                    "Mizoram-Myanmar Border PMC Infiltration & Default Bail Off-Ramp",
+                    "Matthew VanDyke (SOLI), Ukrainian Nationals, NIA, Chin National Army",
+                    "Northeast India / Myanmar Chin State",
+                    "hybrid_warfare",
+                    "Arrest of American PMC operator Matthew VanDyke and 6 Ukrainian drone trainers in Mizoram for cross-border FPV drone training to Chin anti-Junta rebels; granted Section 167(2) default bail after 180-day UAPA deadline lapsed and Foreigners Act compounding (Sections 21/23).",
+                    "Demonstrates the intersection of transnational mercenary drone tech proliferation, sub-national tribal kinship corridors, and managed judicial off-ramps under Section 188 CrPC extraterritorial limits."
+                ),
+                (
+                    "HIST-2000BCE-SINAULI-OCP",
+                    "-2000-01-01",
+                    "Sinauli Bronze Age Necropolis & Martial Culture (2000-1800 BCE)",
+                    "Archaeological Survey of India (ASI), BSIP Radiocarbon",
+                    "Ganga-Yamuna Doab / Western UP",
+                    "archaeological_milestone",
+                    "Excavation in Baghpat yielded 3 copper-inlaid solid-disk wheeled carts, 8 four-legged anthropomorphic coffins, antennae swords, shields, and warrior burials dating to 2000-1800 BCE via calibrated C14.",
+                    "Material proof of an organized indigenous elite warrior society with copper metallurgy and wheeled transports in northern India prior to conventional Steppe pastoralist horizons; concordant with Rigveda 10.18 inhumation."
+                ),
+                (
+                    "HIST-2500BCE-RAKHIGARHI-ADNA",
+                    "-2500-01-01",
+                    "Rakhigarhi Mature Harappan Paleogenomic Baseline (c. 2500 BCE)",
+                    "Cell 2019 / Prof. Vasant Shinde, David Reich et al.",
+                    "Ghaggar-Hakra Basin / Haryana",
+                    "paleogenomics_milestone",
+                    "Ancient DNA analysis of Mature IVC female skeleton from Rakhigarhi demonstrating complete absence of Central Asian Steppe pastoralist ancestry (R1a-Z93) and presence of Iranian farmer-related and Ancient Ancestral South Indian (AASI) lineage.",
+                    "Foundational paleogenomic baseline establishing genetic continuity in South Asia and disproving catastrophic population replacement."
+                ),
+                (
+                    "HIST-1000BCE-HASTINAPUR-PGW",
+                    "-1000-01-01",
+                    "Hastinapur Painted Grey Ware (PGW) Stratigraphic Horizon (c. 1000-800 BCE)",
+                    "Prof. B.B. Lal / Archaeological Survey of India",
+                    "Upper Ganga Basin / Western UP",
+                    "stratigraphy_milestone",
+                    "Excavation by Prof. B.B. Lal establishing PGW strata with iron metallurgy, horse remains, and river flood layer coinciding with the Puranic transfer of the Kuru capital from Hastinapur to Kaushambi under King Nichakshu.",
+                    "Key stratigraphical anchor linking Early Iron Age material culture with traditional Mahabharata geographic topography."
                 )
             ]
 
@@ -724,6 +809,15 @@ class EventStore:
                     "State statutory oversight mechanisms authorizing executive officers to manage Hindu temple administrations and surplus treasury funds, whereas minority religious institutions are constitutionally protected under Article 30.",
                     1,
                     "Structural financial asymmetry and state appropriation of indigenous religious endowments without reciprocal minority institution regulation."
+                ),
+                (
+                    "CLAUSE-CRPC-188-EXTRATERRITORIAL",
+                    "Code of Criminal Procedure 1973 Section 188 / BNSS Section 208",
+                    1973,
+                    "extraterritorial_jurisdiction",
+                    "Offences committed outside India: When an offence is committed outside India by a citizen of India or by a foreign national, no such offence shall be inquired into or tried in India without the previous sanction of the Central Government.",
+                    1,
+                    "Statutory barrier requiring Central Government sanction for extraterritorial offences, serving as a legal and diplomatic gatekeeper for sovereign prosecutions of foreign nationals."
                 )
             ]
 
@@ -1053,6 +1147,26 @@ class EventStore:
                     "Ancient Bharat",
                     "Dates the epic to the 10th-9th century BCE based on Painted Grey Ware (PGW) strata, early iron arrowheads at Hastinapur/Kurukshetra, and the flood layer described in Puranic texts.",
                     "Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE."
+                ),
+                (
+                    "CHRONO-2000BCE-SINAULI",
+                    1,
+                    1,
+                    -2000,
+                    "Sinauli Bronze Age Necropolis (OCP / Copper Hoard Culture)",
+                    "Ancient Bharat / Ganga-Yamuna Doab",
+                    "Excavations at Sinauli (Baghpat, UP) revealed elite warrior burials with copper-inlaid solid-disk wheeled carts, antennae swords, shields, and four-legged coffins dating to 2000-1800 BCE via calibrated C14.",
+                    "Stratigraphical and material culture anchor establishing indigenous Bronze Age wheeled transport and warrior aristocracy in northern India; concordant with Rigveda 10.18 inhumation rites."
+                ),
+                (
+                    "CHRONO-2500BCE-RAKHIGARHI",
+                    1,
+                    1,
+                    -2500,
+                    "Rakhigarhi Mature Harappan Paleogenomic Anchor",
+                    "Ancient Bharat / Ghaggar-Hakra Basin",
+                    "Ancient DNA from Mature IVC female skeleton demonstrating absence of Central Asian Steppe pastoralist ancestry (R1a-Z93) and presence of Iranian farmer-related and Ancient Ancestral South Indian (AASI) lineage.",
+                    "Crucial paleogenomic baseline establishing genetic continuity in South Asia and disproving catastrophic population replacement models."
                 ),
                 (
                     "ANNIV-1978-KAHUTA-LEAK",
