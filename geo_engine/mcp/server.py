@@ -178,6 +178,36 @@ class GeoEngineMCPServer:
                     }
                 }
             }
+        },
+        {
+            "name": "geo_export_report",
+            "description": "Export an intelligence report into interactive HTML dashboard, forensic Markdown, and publication-grade PDF with multilingual audio controls.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "event_name": {
+                        "type": "string",
+                        "default": "BRICS 2026 Summit",
+                        "description": "Strategic event or summit to synthesize and export."
+                    },
+                    "formats": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "default": ["html", "md", "pdf"],
+                        "description": "Formats to export ('html', 'md', 'pdf')."
+                    },
+                    "persona": {
+                        "type": "string",
+                        "default": "neutral",
+                        "description": "Strategic persona projection tradition."
+                    },
+                    "output_dir": {
+                        "type": "string",
+                        "default": "reports",
+                        "description": "Directory where exported files will be written."
+                    }
+                }
+            }
         }
     ]
 
@@ -398,6 +428,25 @@ class GeoEngineMCPServer:
             event_name = arguments.get("event_name", "Mahabharata War Chronology")
             report = MultiPillarChronologyArbiter.arbitrate(event_name=event_name)
             return report.to_dict()
+
+        elif tool_name == "geo_export_report":
+            event_name = arguments.get("event_name", "BRICS 2026 Summit")
+            formats = arguments.get("formats", ["html", "md", "pdf"])
+            persona = arguments.get("persona", "neutral")
+            output_dir = arguments.get("output_dir", "reports")
+            summit = SummitEvent(summit_name=event_name, year=2026)
+            report, files = SummitSynthesizer.synthesize_and_export(
+                summit,
+                export_formats=formats,
+                output_dir=output_dir,
+                persona=persona
+            )
+            return {
+                "status": "SUCCESS",
+                "event_name": event_name,
+                "exported_files": files,
+                "confidence": round(report.overall_confidence_score * 100, 1)
+            }
 
         else:
             raise ValueError(f"Unknown tool: {tool_name}")

@@ -79,6 +79,7 @@ class PDFCompiler:
                 "--headless=new",
                 "--no-pdf-header-footer",
                 "--run-all-compositor-stages-before-draw",
+                "--virtual-time-budget=2000",
                 f"--print-to-pdf={str(out_path)}",
                 str(temp_html)
             ]

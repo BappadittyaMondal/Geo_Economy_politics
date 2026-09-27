@@ -22,6 +22,12 @@ from .historical_arbiter import (
     ChronologyEvaluationReport,
     MultiPillarChronologyArbiter,
 )
+from .asset_fragility import (
+    AssetFragilityModel,
+    AssetDecayReport,
+    VIPSecurityReport,
+    SanctuaryViabilityReport,
+)
 
 __all__ = [
     "NegativeSpaceDiffEngine",
@@ -40,4 +46,8 @@ __all__ = [
     "HistoricalHypothesisCandidate",
     "ChronologyEvaluationReport",
     "MultiPillarChronologyArbiter",
+    "AssetFragilityModel",
+    "AssetDecayReport",
+    "VIPSecurityReport",
+    "SanctuaryViabilityReport",
 ]

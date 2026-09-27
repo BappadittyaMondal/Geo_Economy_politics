@@ -1,25 +1,109 @@
 """
-Markdown Exporter (Phase 72).
-Exports de-sanitized multilateral summit and strategic event reports
+Markdown Exporter (Phase 76).
+Exports de-sanitized multilateral summit, media intelligence, and strategic event reports
 into GitHub-Flavored Markdown (GFM) documents with structured tables,
 epistemic hierarchy tags, and strategic paradox scorecards.
 """
 
-from typing import Optional
+from typing import Optional, Union
 from ..core.models import SummitAnalysisReport
+from .adapter import UniversalReportPayload, ReportAdapter
 
 
 class MarkdownExporter:
-    """Exports SummitAnalysisReport into clean GitHub Flavored Markdown."""
+    """Exports UniversalReportPayload or SummitAnalysisReport into clean GitHub Flavored Markdown."""
 
     @classmethod
     def generate_markdown(
+        cls,
+        report: Union[UniversalReportPayload, SummitAnalysisReport],
+        persona: str = "neutral",
+        title: Optional[str] = None
+    ) -> str:
+        """Generates comprehensive markdown text from UniversalReportPayload or SummitAnalysisReport."""
+        if isinstance(report, SummitAnalysisReport):
+            return cls._generate_summit_markdown(report, persona=persona, title=title)
+        
+        if not isinstance(report, UniversalReportPayload):
+            report = ReportAdapter.to_universal(report, persona=persona, title=title)
+
+        meta = report.metadata
+        event_title = title or meta.title
+        conf_pct = meta.overall_confidence_pct
+
+        lines = [
+            f"# 🏛️ Sovereign Intelligence Audit: {event_title}",
+            "",
+            f"**Geographic Horizon:** {meta.primary_region} | **Temporal Mode:** `{meta.temporal_mode}` | **Epistemic Confidence:** `{conf_pct}%` | **Persona Projection:** `{persona}`",
+            "",
+            "> **Analytical Standard:** Zero Hallucination | Zero PR Laundering | Deep-Tech Realism | Hard Balance-Sheet Accounting  ",
+            "> **Operational Framework:** 20-Lens Sovereign Matrix & 5-Tier Truth Arbitration Protocol.",
+            "",
+            "---",
+            "",
+            "## 1. Executive Master Scorecard",
+            "",
+            "| Macro Indicator | Value | Unit | Analytical Significance |",
+            "| :--- | :--- | :--- | :--- |"
+        ]
+
+        for k in report.kpis:
+            lines.append(f"| **{k.label}** | `{k.value}` | {k.unit or '-'} | {k.description} |")
+
+        for sec in report.sections:
+            lines.extend([
+                "",
+                "---",
+                "",
+                f"## {sec.title}",
+                ""
+            ])
+            if sec.subtitle:
+                lines.append(f"> *{sec.subtitle}*")
+                lines.append("")
+            for it in sec.items:
+                ts_info = f" `[{it.timestamp_str}]`" if it.timestamp_str else ""
+                lines.append(f"### {it.title}{ts_info}")
+                if it.subtitle:
+                    lines.append(f"**Status:** `{it.evidence_status.upper()}` | **Telemetry:** {it.subtitle}")
+                lines.append(it.text)
+                if it.metrics:
+                    lines.append("- **Metrics:** " + ", ".join([f"`{k}: {v}`" for k, v in it.metrics.items()]))
+                lines.append("")
+
+        if report.council_quotes:
+            lines.extend([
+                "---",
+                "",
+                "## Civilizational & Strategic Perspectives",
+                ""
+            ])
+            for q in report.council_quotes:
+                lines.append(f"### {q.author} ({q.role_or_tradition})")
+                lines.append(f"> \"{q.quote_text}\"")
+                lines.append("")
+
+        if report.audit_log:
+            lines.extend([
+                "---",
+                "",
+                "## Epistemic Truth Arbitration Audit Log",
+                ""
+            ])
+            for entry in report.audit_log:
+                lines.append(f"- `{entry}`")
+            lines.append("")
+
+        return "\n".join(lines)
+
+    @classmethod
+    def _generate_summit_markdown(
         cls,
         report: SummitAnalysisReport,
         persona: str = "neutral",
         title: Optional[str] = None
     ) -> str:
-        """Generates comprehensive markdown text from SummitAnalysisReport."""
+        """Legacy SummitAnalysisReport Markdown generator preserving Phase 72 contract."""
         event_title = title or getattr(report.event, "summit_name", "") or getattr(report.event, "title", "Strategic Event")
         event_year = getattr(report.event, "year", 2026)
         event_region = getattr(report.event, "host_country", getattr(report.event, "primary_region", "Global"))
@@ -105,14 +189,8 @@ class MarkdownExporter:
             "## 4. Communique Negative Space (What Was Omitted or Diluted)",
             ""
         ])
-
-        for item in report.negative_space_synopsis:
-            if "[CRITICAL OMISSION]" in item:
-                lines.append(f"- ❌ **Critical Omission:** {item.replace('[CRITICAL OMISSION]', '').strip()}")
-            elif "[DILUTION DETECTED]" in item:
-                lines.append(f"- ⚠️ **Dilution Detected:** {item.replace('[DILUTION DETECTED]', '').strip()}")
-            else:
-                lines.append(f"- ✅ **Retained:** {item}")
+        for ns in report.negative_space_synopsis:
+            lines.append(f"- {ns}")
 
         lines.extend([
             "",
@@ -120,51 +198,49 @@ class MarkdownExporter:
             "",
             "## 5. Diplomatic Kinesics & Photocall Forensics",
             "",
-            "| Actors | Setting | Residual Warmth | Tension Score | Handshake Vector | Forensic Observation |",
+            "| Primary <-> Secondary | Setting | Warmth | Tension | Handshake Torque | Notes |",
             "| :--- | :--- | :--- | :--- | :--- | :--- |",
         ])
 
         for k in report.kinesic_forensics:
-            actors_str = f"{k.actor_primary} <-> {k.actor_secondary}"
-            warmth_val = f"{getattr(k, 'genuine_warmth_index', 0.5)*100:.0f}%"
-            tension_val = f"{getattr(k, 'residual_tension_score', 0.0)*100:.0f}%"
-            handshake_val = getattr(k, 'handshake_torque_vector', 'neutral_vertical')
-            notes_val = getattr(k, 'notes', '') or ''
-            lines.append(f"| **{actors_str}** | {k.setting} | `{warmth_val}` | `{tension_val}` | `{handshake_val}` | {notes_val} |")
+            lines.append(f"| {k.actor_primary} <-> {k.actor_secondary} | {k.setting} | `{k.genuine_warmth_index:.2f}` | `{k.residual_tension_score:.2f}` | `{k.handshake_torque_vector}` | {k.notes or ''} |")
 
-        lines.extend([
-            "",
-            "---",
-            "",
-            "## 6. Strategic Resilience Matrix",
-            ""
-        ])
+        if report.strategic_resilience_matrix:
+            lines.extend([
+                "",
+                "---",
+                "",
+                "## 6. Strategic Resilience Matrix",
+                ""
+            ])
+            for rk, rv in report.strategic_resilience_matrix.items():
+                lines.append(f"- **{rk.replace('_', ' ').title()}:** `{rv}`")
 
-        for k, v in (report.strategic_resilience_matrix or {}).items():
-            lines.append(f"- **{k.replace('_', ' ').title()}:** `{v}`")
+        if report.civilizational_synthesis:
+            lines.extend([
+                "",
+                "---",
+                "",
+                "## 7. Civilizational Statecraft & Sanatan Inner Meaning",
+                ""
+            ])
+            for ck, cv in report.civilizational_synthesis.items():
+                lines.append(f"### {ck.replace('_', ' ').title()}")
+                lines.append(cv)
+                lines.append("")
 
-        lines.extend([
-            "",
-            "---",
-            "",
-            "## 7. Civilizational Statecraft & Sanatan Inner Meaning",
-            ""
-        ])
-
-        for k, v in (report.civilizational_synthesis or {}).items():
-            lines.append(f"### {k.replace('_', ' ').title()}")
-            lines.append(f"{v}")
+        if report.epistemic_arbitration_log:
+            lines.extend([
+                "---",
+                "",
+                "## 8. Epistemic Hierarchy Truth Arbitration Log",
+                ""
+            ])
+            for entry in report.epistemic_arbitration_log:
+                lines.append(f"- `{entry}`")
             lines.append("")
 
-        lines.extend([
-            "---",
-            "",
-            "## 8. Epistemic Hierarchy Truth Arbitration Log",
-            ""
-        ])
-
-        for entry in report.epistemic_arbitration_log:
-            lines.append(f"- `{entry}`")
-
-        lines.append("")
         return "\n".join(lines)
+
+
+__all__ = ["MarkdownExporter"]

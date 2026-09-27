@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sitharaman vs Ranganathan (PLF 2026) Interactive Forensic Dashboard</title>
+  <style>
+    @page {
+      size: 1300px 920px;
+      margin: 12px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      padding: 24px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header */
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 18px;
+    }
+    .badge-epoch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      background-color: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      margin-bottom: 8px;
+    }
+    .dot-green {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #10b981;
+    }
+    .main-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+    .sub-title {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .header-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .btn-blue { background-color: #2563eb; color: #ffffff; }
+    .btn-indigo { background-color: #4f46e5; color: #ffffff; }
+    .btn-emerald { background-color: #059669; color: #ffffff; }
+    .btn-white { background-color: #ffffff; color: #334155; border: 1px solid #cbd5e1; }
+
+    /* KPI Row */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .card-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+    }
+    .pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+    .pill-green { background-color: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .pill-orange { background-color: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+    .pill-purple { background-color: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+    .pill-blue { background-color: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .card-value {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+    .card-unit {
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+      margin-left: 4px;
+    }
+    .card-desc {
+      font-size: 11.5px;
+      color: #64748b;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* Dual Deep-Dive Row */
+    .dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .deep-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .deep-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .deep-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .deep-sub {
+      font-size: 11.5px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+
+    /* Segmented Bar */
+    .segmented-bar {
+      display: flex;
+      height: 22px;
+      width: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid #e2e8f0;
+    }
+    .seg-green { background-color: #10b981; width: 44%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 700; }
+    .seg-blue { background-color: #2563eb; width: 25%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 700; }
+    .seg-indigo { background-color: #4f46e5; width: 16%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 700; }
+    .seg-rose { background-color: #e11d48; width: 15%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 700; }
+
+    /* 2x2 Legend Grid */
+    .legend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+      font-size: 11.5px;
+      margin-bottom: 16px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .dot-sq {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .legend-title {
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .legend-desc {
+      color: #64748b;
+      display: block;
+      font-size: 11px;
+    }
+
+    /* Progress Escalator */
+    .escalator-row {
+      margin-bottom: 10px;
+    }
+    .esc-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      margin-bottom: 4px;
+    }
+    .esc-name { color: #64748b; }
+    .esc-val { font-weight: 700; color: #0f172a; }
+    .esc-track {
+      width: 100%;
+      height: 10px;
+      background-color: #f1f5f9;
+      border-radius: 9999px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+    .esc-fill {
+      height: 100%;
+      border-radius: 9999px;
+    }
+
+    /* Callout Boxes */
+    .callout-yellow {
+      background-color: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-left: 3px solid #f59e0b;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      color: #78350f;
+      line-height: 1.45;
+    }
+    .callout-red {
+      background-color: #fff1f2;
+      border: 1px solid #ffe4e6;
+      border-left: 3px solid #e11d48;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      color: #881337;
+      line-height: 1.45;
+    }
+
+    /* Tabs Bottom Card */
+    .tabs-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .tabs-nav {
+      display: flex;
+      gap: 20px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    .tab-link {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #64748b;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+    }
+    .tab-link.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+    }
+
+    .tab-content-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .tab-kpi {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .tab-kpi-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .tab-kpi-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 2px;
+    }
+    .tab-kpi-sub {
+      font-size: 10.5px;
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .tab-para {
+      font-size: 11.5px;
+      color: #334155;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .tab-choke {
+      font-size: 11.5px;
+      color: #b91c1c;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header-row">
+      <div>
+        <div class="badge-epoch">
+          <span class="dot-green"></span>
+          Forensic Epistemic & Policy Audit: PLF Keynote (Video 8f82WQYEeh4)
+        </div>
+        <div class="main-title">Nirmala Sitharaman in Conversation with Anand Ranganathan</div>
+        <div class="sub-title">Forensic Epistemic & Macroeconomic Dashboard: Empirical Reality vs. Component Sovereignty (68m 18s)</div>
+      </div>
+      <div class="header-buttons">
+        <a class="btn btn-blue" href="video_8f82WQYEeh4_comprehensive_audit_and_data_visualization.md" download>Download Report (.md)</a>
+        <a class="btn btn-indigo" href="video_8f82WQYEeh4_audit_report.pdf" download>Download Audit PDF</a>
+        <a class="btn btn-emerald" href="video_8f82WQYEeh4_dashboard.pdf" download>Download Dashboard PDF</a>
+        <button class="btn btn-white" onclick="window.print()">Print / PDF</button>
+      </div>
+    </div>
+
+    <!-- Row 1: Master 4 KPI Cards -->
+    <div class="kpi-grid">
+      <div class="card">
+        <div class="card-top">
+          <span class="card-label">Empirical Agreement</span>
+          <span class="pill pill-green">+78.4% Fact</span>
+        </div>
+        <div class="card-value">78.4% <span class="card-unit">($726B Forex)</span></div>
+        <div class="card-desc">Forex ($726B), exports ($850B), GST ($270B), and China non-tariff barriers empirically verified.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="card-label">Political Agenda / Spin</span>
+          <span class="pill pill-orange">22.8% Spin</span>
+        </div>
+        <div class="card-value">22.8% <span class="card-unit">(Partisan Shield)</span></div>
+        <div class="card-desc">Opposition labeled 'lazy'; farm law election timing denied; capital gains tax hikes omitted.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="card-label">Structural Gray Area</span>
+          <span class="pill pill-purple">24.5% Ambiguity</span>
+        </div>
+        <div class="card-value">24.5% <span class="card-unit">(Unresolved)</span></div>
+        <div class="card-desc">250M farm labor trap, zero-MDR fintech crisis, and Entry 46 State List agri-tax lock.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="card-label">Epistemic Verdict</span>
+          <span class="pill pill-blue">PRAMANIKA</span>
+        </div>
+        <div class="card-value" style="font-size: 22px; color: #059669;">SAD-BHĀṢA <span class="card-unit">(सद्-भाषा)</span></div>
+        <div class="card-desc">Substantive, data-grounded policy cross-examination; far superior to typical political rallies.</div>
+      </div>
+    </div>
+
+    <!-- Row 2: Dual Deep-Dive (Value Capture vs China Deficit) -->
+    <div class="dual-grid">
+      <!-- Left Card -->
+      <div class="deep-card">
+        <div>
+          <div class="deep-header">
+            <span class="deep-title">The Structural Labor Trap: Workforce vs. GDP</span>
+            <span class="pill pill-orange">44% in Agriculture</span>
+          </div>
+          <div class="deep-sub">Audited breakdown of Indian workforce distribution vs sector GDP contribution.</div>
+
+          <div class="segmented-bar">
+            <div class="seg-green">44% Agri</div>
+            <div class="seg-blue">25% Mfg</div>
+            <div class="seg-indigo">16% Trade</div>
+            <div class="seg-rose">15% Non-Farm</div>
+          </div>
+
+          <div class="legend-grid">
+            <div class="legend-item">
+              <span class="dot-sq" style="background-color: #10b981;"></span>
+              <div>
+                <span class="legend-title">Farm Workforce (44.0%):</span>
+                <span class="legend-desc">Generates only 14% of national GDP</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <span class="dot-sq" style="background-color: #2563eb;"></span>
+              <div>
+                <span class="legend-title">Manufacturing (25.0%):</span>
+                <span class="legend-desc">Contributes 28% of GDP; capital-intensive</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <span class="dot-sq" style="background-color: #4f46e5;"></span>
+              <div>
+                <span class="legend-title">Services Sector (31.0%):</span>
+                <span class="legend-desc">Generates 58% of GDP; low labor absorption</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <span class="dot-sq" style="background-color: #e11d48;"></span>
+              <div>
+                <span class="legend-title">Unskilled Pool (75.0%):</span>
+                <span class="legend-desc">Level 1-2 skills; high automation risk</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-yellow">
+          <strong>Key Finding:</strong> 44% of Indian citizens remain tied to low-yield agriculture generating only 14% of national wealth. The FM's push for rural agro-processing absorbs ~5-10M workers, leaving 150M+ farm laborers in structural under-employment.
+        </div>
+      </div>
+
+      <!-- Right Card -->
+      <div class="deep-card">
+        <div>
+          <div class="deep-header">
+            <span class="deep-title">The China Trade Deficit Dilemma ($ Billion)</span>
+            <span class="pill" style="background-color: #ffe4e6; color: #be123c; border: 1px solid #fecdd3;">Record $130B Deficit</span>
+          </div>
+          <div class="deep-sub">Intermediate component imports replaced finished consumer goods.</div>
+
+          <div class="escalator-row">
+            <div class="esc-labels"><span class="esc-name">2004 Baseline (UPA-1)</span><span class="esc-val">$1.3 Billion</span></div>
+            <div class="esc-track"><div class="esc-fill" style="width: 4%; background-color: #3b82f6;"></div></div>
+          </div>
+          <div class="escalator-row">
+            <div class="esc-labels"><span class="esc-name">2014 Baseline (UPA-2)</span><span class="esc-val">$37.0 Billion</span></div>
+            <div class="esc-track"><div class="esc-fill" style="width: 28%; background-color: #6366f1;"></div></div>
+          </div>
+          <div class="escalator-row">
+            <div class="esc-labels"><span class="esc-name">2019 Pre-Pandemic</span><span class="esc-val">$53.5 Billion</span></div>
+            <div class="esc-track"><div class="esc-fill" style="width: 41%; background-color: #f59e0b;"></div></div>
+          </div>
+          <div class="escalator-row">
+            <div class="esc-labels"><span class="esc-name" style="color: #be123c; font-weight: 700;">2026 Ground Truth (PLF)</span><span class="esc-val" style="color: #be123c;">$130.0 Billion</span></div>
+            <div class="esc-track"><div class="esc-fill" style="width: 100%; background-color: #e11d48;"></div></div>
+          </div>
+        </div>
+
+        <div class="callout-red">
+          <strong>The Component Paradox:</strong> Local factories assembled more smartphones and solar panels, but they imported record volumes of Chinese solar wafers, lithium cells, PCBs, and active pharmaceutical ingredients under HS Chapters 84, 85, and 29.
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Tabbed Bottom Card (Matching Active Tab Layout) -->
+    <div class="tabs-card">
+      <div class="tabs-nav">
+        <span class="tab-link active">🛡️ Farm Laws & Security</span>
+        <span class="tab-link">⚡ China Deficit & Usha Paradox</span>
+        <span class="tab-link">💰 Freebies vs Capex</span>
+        <span class="tab-link">🏛️ Middle-Class Tax & UPI</span>
+      </div>
+
+      <div class="tab-content-grid">
+        <div class="tab-kpi">
+          <div class="tab-kpi-lbl">Protest Duration</div>
+          <div class="tab-kpi-val">378 Days</div>
+          <div class="tab-kpi-sub">Nov 2020 – Dec 2021</div>
+        </div>
+        <div class="tab-kpi">
+          <div class="tab-kpi-lbl">Security Risk Index</div>
+          <div class="tab-kpi-val">Critical</div>
+          <div class="tab-kpi-sub">Khalistan / SFJ Penetration</div>
+        </div>
+        <div class="tab-kpi">
+          <div class="tab-kpi-lbl">Repeal Resolution</div>
+          <div class="tab-kpi-val">Nov 19, 2021</div>
+          <div class="tab-kpi-sub">Gurpurab Tactical Retreat</div>
+        </div>
+      </div>
+
+      <p class="tab-para">
+        <strong>The Ground Reality:</strong> The Finance Minister confirmed what intelligence officials flagged: the farm law protests had mutated into an asymmetric hybrid warfare campaign. Hostile foreign diaspora networks funded border blockades, and the Jan 26 Red Fort incident raised alarms of communal escalation. The retreat was a tactical statecraft maneuver to preserve internal peace along the Punjab border.
+      </p>
+      <p class="tab-choke">
+        <strong>The Remaining Strategic Chokepoint:</strong> By retreating in the face of street agitations, the state set a perilous precedent. Can India ever implement essential agricultural modernization, land consolidation, or labor reforms if radicalized groups can reliably force legislative retreats?
+      </p>
+    </div>
+
+  </div>
+
+</body>
+</html>

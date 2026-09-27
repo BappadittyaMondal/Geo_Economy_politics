@@ -865,4 +865,62 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Added `COLLOQUIAL_ROUTING_MAP` providing conversational and Hinglish synonym triggers across food security (`khana peena`, `kisan`, `fasal`), military readiness (`fauji`, `sena`, `hathiyar`, `barood`), geo-economics (`dhandha`, `paisa`, `vyapar`), lawfare (`kacheri`, `adalat`, `chori`), and subsea cables (`sagar cable`, `samundari tar`).
     - Enables natural conversation inputs to reliably route to specialized analytical lenses while retaining 100% backward compatibility with canonical keywords.
 
+* **Phase 76 (Universal Report & Visualization Output Engine & Multilingual Web Speech Narration):**
+  - **Universal Intelligence Contract & Adapter Layer (`geo_engine/visualization/adapter.py`, `geo_engine/visualization/__init__.py`):**
+    - Created `UniversalReportPayload` Data Transfer Object (DTO) normalizing metadata, 4 master KPI cards, domain sections, truthful visual blocks (segmented proportion bars, deficit tracks), civilizational council consensus quotes, and epistemic audit logs.
+    - Implemented `ReportAdapter` with polymorphic adapters: `from_summit()`, `from_video()`, and `from_generic()`, permanently decoupling the visualization engine from single-domain `SummitAnalysisReport` and enabling unified export across summits, video forensics, and macro audits.
+  - **Multilingual Audio Narration Engine (`geo_engine/visualization/audio_engine.py`):**
+    - Implemented `AudioNarrationEngine` generating synchronized, speech-optimized executive briefings in English (`en`), Devanagari Hindi (`hi`), and Bengali (`bn`).
+    - Embedded client-side HTML5 Web Speech API (`window.speechSynthesis`) into the dashboard template with Top and Bottom audio controls (`[Play]`, `[Pause]`, `[Stop]`, Language Selector: `English`, `हिन्दी`, `বাংলা`). Default state strictly MUTED/OFF with zero server latency or cloud billing overhead.
+  - **Topic-Aware Infographic Dashboard & Single-Page Print Calibration (`geo_engine/visualization/dashboard_engine.py`, `geo_engine/visualization/pdf_compiler.py`):**
+    - Upgraded `DashboardGenerator` to render the Light-Slate Executive Infographic aesthetic (`#f8fafc` canvas, 16px white cards, `#e2e8f0` borders, master 4-KPI banner, segmented proportion bars, and dual-column deep-dive layout).
+    - Enforced CSS `@page { size: 1300px 920px; margin: 12px; }` and `-webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;` guaranteeing single-page landscape PDF compilation without page-wrapping or stripped colored badges.
+    - Hardened `PDFCompiler.compile_pdf()` passing `--virtual-time-budget=2000` for DOM stabilization.
+  - **Universal Markdown Briefing Exporter (`geo_engine/visualization/markdown_exporter.py`):**
+    - Upgraded `MarkdownExporter.generate_markdown()` with polymorphic support for both `UniversalReportPayload` and `SummitAnalysisReport`, preserving all epistemic tiers and formatted tables.
+  - **MCP & CLI Pipeline Integration (`geo_engine/mcp/server.py`, `geo_engine/cli.py`):**
+    - Registered `geo_export_report` tool in `GeoEngineMCPServer.TOOLS_MANIFEST` and `execute_tool()` supporting multi-format JSON-RPC exports (`html`, `md`, `pdf`).
+  - **Verification Suite Expansion (257→264 tests):**
+    - Updated `README.md` test counter from 257 to 264 comprehensive unit and integration tests.
+    - Added `TestPhase76UniversalReportAndVisualizationEngine` in `tests/test_engine.py` with 7 deterministic unit tests certifying summit adapter, video adapter, multilingual audio script generation, infographic dashboard HTML structure, universal markdown briefing, MCP tool execution, and test count parity.
+    - Certified **264/264 unit and integration tests passing deterministically (100% pass rate in 46.29s)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
+* **Phase 77 (Covert Kinetic Deterrence, Extraterritorial Asymmetric Levers, Hawala Network Disruption & Intelligence Asset Fragility Engine):**
+  - **Foundational Historical Intelligence Seeds (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded 5 seminal intelligence and counter-terror milestones into `historical_anniversaries` SQLite schema:
+      1. `ANNIV-1978-KAHUTA-LEAK` (1978-01-15): Operation Kahuta Intelligence Compromise — R&AW human intelligence network penetration into Khan Research Laboratories (KRL) and its collapse following political inadvertent disclosure.
+      2. `ANNIV-1985-KANISHKA-AIR-INDIA-182` (1985-06-23): Kanishka Bombing & Canadian Sanctuary Milestone — Babbar Khalsa bombing of Air India Flight 182 and Western diaspora vote-bank sanctuary shielding.
+      3. `ANNIV-1991-RAJIV-GANDHI-SRIPERUMBUDUR` (1991-05-21): Assassination of Rajiv Gandhi & SPG Cover Withdrawal — Vulnerability multiplication when elite proximate protection (SPG) was withdrawn under domestic political rivalry.
+      4. `ANNIV-1993-MUMBAI-BLASTS-D-COMPANY` (1993-03-12): 1993 Mumbai Serial Blasts & D-Company Karachi Haven — Institutionalization of state-sponsored crime-terror nexus, combining transnational narcotics and hawala networks with sovereign intelligence protection in Clifton, Karachi.
+      5. `ANNIV-1999-IC-814-KANDAHAR` (1999-12-24): IC-814 Kandahar Hijack & Strategic Negotiation Crisis — Watershed shaping India's modern counter-terror crisis response, hostage negotiation doctrine, and the transition toward the Doval Offensive-Defense preemption doctrine.
+  - **Hybrid Covert Lens Kinetic Deterrence Telemetry (`geo_engine/lenses/hybrid_covert.py`):**
+    - Upgraded `HybridCovertLens` with:
+      - `deterrence_doctrine_mode`: Dynamic posture classification (`OFFENSIVE_DEFENSIVE` vs. `PASSIVE_DEFENSIVE`).
+      - `extraterritorial_neutralization_index`: Hard metric quantifying cross-border operational disruption of hostile proxy logistics.
+      - `sanctuary_friction_score`: Quantitative index measuring the breakdown of foreign diplomatic/political impunity.
+      - Implemented `HybridCovertLens.calculate_covert_deterrence_elasticity()`: Quantitative elasticity model balancing preemption capability, dossier fatigue, and sanctuary protection levels.
+  - **Cash Flow Lens Hawala Disruption & Illicit Squeeze (`geo_engine/lenses/cash_flow.py`):**
+    - Upgraded `CashFlowLens.evaluate()` to audit transnational crime-terror financial linkages across empty and populated capex flows:
+      - Added `illicit_crime_terror_hawala_index` (0.88) and `transnational_syndicate_asset_freeze_leverage` (0.85).
+      - Populates `hawala_nexus_disrupted = True` and detailed forensic audit telemetry when claims cite D-Company, hawala conduits, or Gulf asset freezes.
+      - Implemented `CashFlowLens.calculate_hawala_disruption_leverage()`: Quantifies grey-market liquidity suppression percentage and syndicate risk tiering under bilateral Gulf extradition/asset-freeze accords.
+  - **Intelligence Asset Fragility & Sanctuary Viability Modeling (`geo_engine/arbitration/asset_fragility.py`, `geo_engine/arbitration/__init__.py`):**
+    - Implemented `AssetFragilityModel` in the arbitration package:
+      - `simulate_network_decay()`: Exponential hazard model $S(t) = S_0 \cdot \exp(-(\lambda_{\text{op}} + \lambda_{\text{political\_leak}}) \cdot t)$ capturing HUMINT network survival, half-life, and status transitions under political exposure.
+      - `calculate_vip_security_degradation()`: Assesses VIP assassination vulnerability when dedicated proximate protection (SPG) is diluted or withdrawn, demonstrating asymmetric outer perimeter ingress opportunities.
+      - `evaluate_sanctuary_viability()`: Evaluates foreign safe-haven resilience against extraterritorial covert action, balancing diaspora vote-bank leverage, rule of law, and diplomatic shielding.
+  - **QueryParser Intelligence Keyword Enrichment (`geo_engine/core/query_parser.py`):**
+    - Added `"Ajit Doval"` to `LEADER_PATTERNS`.
+    - Enriched `LENS_KEYWORDS` with intelligence terms across `hybrid_covert` (`unknown gunmen`, `doval`, `offensive-defense`, `kahuta`, `spg`, `sriperumbudur`, `ic 814`, `kandahar`, `d-company`, `ripudaman`, `nijjar`, `sanctuary`), `history` (`kanishka`, `air india 182`, `1993 mumbai blasts`), and `cash_flow` (`hawala`, `illicit finance`, `crime-terror nexus`, `syndicate liquidity`).
+  - **Verification Suite Expansion (264→271 tests):**
+    - Updated `README.md` test counter from 264 to 271 comprehensive unit and integration tests.
+    - Added `TestPhase77CovertKineticDeterrenceAndAssetFragility` in `tests/test_engine.py` with 7 comprehensive unit tests certifying historical intelligence seeds in SQLite, kinetic deterrence telemetry, covert elasticity modeling, hawala disruption metrics, asset network exponential decay, VIP security degradation under SPG withdrawal, and query routing parity.
+    - Certified **271/271 unit and integration tests passing deterministically (100% pass rate in 42.88s)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
+
+
 

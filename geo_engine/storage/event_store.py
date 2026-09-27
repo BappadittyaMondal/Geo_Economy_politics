@@ -1053,6 +1053,56 @@ class EventStore:
                     "Ancient Bharat",
                     "Dates the epic to the 10th-9th century BCE based on Painted Grey Ware (PGW) strata, early iron arrowheads at Hastinapur/Kurukshetra, and the flood layer described in Puranic texts.",
                     "Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE."
+                ),
+                (
+                    "ANNIV-1978-KAHUTA-LEAK",
+                    1,
+                    15,
+                    1978,
+                    "Operation Kahuta Intelligence Compromise",
+                    "South Asia / Pakistan",
+                    "R&AW established deep human penetration of Khan Research Laboratories in Kahuta, confirming uranium enrichment via physical samples. Subsequent political inadvertent disclosure alerted Islamabad, triggering an ISI counter-sweep that decapitated India's operational network inside the facility.",
+                    "Demonstrates the extreme vulnerability of high-yield HUMINT networks to political indiscretion and civilian oversight disconnects."
+                ),
+                (
+                    "ANNIV-1985-KANISHKA-AIR-INDIA-182",
+                    6,
+                    23,
+                    1985,
+                    "Kanishka Bombing & Canadian Sanctuary Milestone",
+                    "Transnational / Canada / Atlantic",
+                    "Babbar Khalsa operatives in Canada orchestrated the mid-air bombing of Air India Flight 182 off the coast of Ireland, killing 329 people in the deadliest terrorist act in Canadian history.",
+                    "Foundational baseline for Western diaspora vote-bank sanctuary politics and intelligence blind spots regarding extraterritorial secessionist networks."
+                ),
+                (
+                    "ANNIV-1991-RAJIV-GANDHI-SRIPERUMBUDUR",
+                    5,
+                    21,
+                    1991,
+                    "Assassination of Rajiv Gandhi & SPG Cover Withdrawal",
+                    "South Asia / Sri Lanka",
+                    "Former Prime Minister Rajiv Gandhi was assassinated at Sriperumbudur by an LTTE suicide bomber following the withdrawal of Special Protection Group (SPG) security under domestic political rivalry.",
+                    "Exposes the catastrophic risk window opened when domestic partisan hostility compromises institutional executive security protocols."
+                ),
+                (
+                    "ANNIV-1993-MUMBAI-BLASTS-D-COMPANY",
+                    3,
+                    12,
+                    1993,
+                    "1993 Mumbai Serial Blasts & D-Company Karachi Haven",
+                    "South Asia / Mumbai / Karachi",
+                    "Coordinated serial RDX explosions struck 12 targets across Mumbai, orchestrated by Dawood Ibrahim's D-Company with Pakistani ISI logistics and safe passage, establishing the syndicate's permanent haven in Clifton, Karachi.",
+                    "Institutionalized the state-sponsored crime-terror nexus, combining transnational narcotics and hawala networks with sovereign intelligence protection."
+                ),
+                (
+                    "ANNIV-1999-IC-814-KANDAHAR",
+                    12,
+                    24,
+                    1999,
+                    "IC-814 Kandahar Hijack & Strategic Negotiation Crisis",
+                    "South Asia / Afghanistan",
+                    "Harkat-ul-Mujahideen terrorists hijacked Indian Airlines Flight IC-814 from Kathmandu to Kandahar under Taliban control, forcing the release of three terror commanders including Masood Azhar.",
+                    "Critical watershed shaping India's modern counter-terror crisis response, hostage negotiation doctrine, and the transition toward the Doval Offensive-Defense preemption doctrine."
                 )
             ]
 

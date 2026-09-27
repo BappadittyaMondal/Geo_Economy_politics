@@ -29,14 +29,19 @@ class HybridCovertLens:
             "Asymmetric Bilateral Pressure: Behind public diplomatic smiles, member states exercise non-kinetic pressure (e.g., China withholding transboundary hydrological data on the Brahmaputra/Yarlung Tsangpo; selective visa issuance and trade technical barriers).",
             "Lawfare & Jurisdictional Arbitrage: Use of sovereign immunity doctrines to shield central bank assets against extraterritorial asset seizures in Atlantic jurisdictions.",
             "Information Operation Shielding: State intelligence agencies run counter-disinformation operations to insulate domestic populations from foreign narrative attacks during summit cycles.",
-            "Maritime Grey-Zone Coercion & Sub-Kinetic Probing: Asymmetric naval tactics including bow-crossing, shouldering, and intentional collisions (e.g., PNS Hunain incident in North Arabian Sea) mirror South China Sea maritime militia doctrine, testing adversary rules of engagement (ROE) below the kinetic threshold."
+            "Maritime Grey-Zone Coercion & Sub-Kinetic Probing: Asymmetric naval tactics including bow-crossing, shouldering, and intentional collisions (e.g., PNS Hunain incident in North Arabian Sea) mirror South China Sea maritime militia doctrine, testing adversary rules of engagement (ROE) below the kinetic threshold.",
+            "Covert Kinetic Deterrence & Counter-Proxy Preemption: Transition from passive 'Dossier Diplomacy' to active 'Offensive-Defense' (Doval Doctrine), leveraging asymmetric deniable neutralization ('Unknown Gunmen') against hostile cross-border leadership and terror safe-havens.",
+            "Sanctuary Asymmetry & Diaspora Leverage: Exploitation of Western host-nation legal safeguards and domestic electoral coalitions (e.g., Canadian minority government pandering) to harbor secessionist networks, prompting retaliatory diplomatic friction, intelligence expulsions, and bilateral trade freezes."
         ]
 
         metrics = {
             "external_regulatory_pressure_index": 0.88, # Intense Western regulatory pressure
             "intra_bloc_asymmetric_friction": 0.65,
             "lawfare_resilience_score": 0.52,
-            "maritime_grey_zone_coercion_score": 0.82
+            "maritime_grey_zone_coercion_score": 0.82,
+            "deterrence_doctrine_mode": "OFFENSIVE_DEFENSIVE",
+            "extraterritorial_neutralization_index": 0.84,
+            "sanctuary_friction_score": 0.79
         }
 
         alignment = 0.38
@@ -46,7 +51,9 @@ class HybridCovertLens:
             hybrid_keywords = [
                 "fatf", "ofac", "sanction", "sabotage", "covert", "intelligence",
                 "grey list", "lawfare", "asymmetric", "leverage", "espionage", "subversion",
-                "ramming", "shouldering", "bow crossing", "hunain", "pns", "grey zone", "sub-kinetic"
+                "ramming", "shouldering", "bow crossing", "hunain", "pns", "grey zone", "sub-kinetic",
+                "unknown gunmen", "offensive-defense", "doval", "sanctuary", "diaspora leverage",
+                "kahuta", "spg", "nijjar", "ripudaman", "d-company", "clifton", "preemption", "proxy neutralization"
             ]
             matched_hybrid = any(
                 any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in hybrid_keywords)
@@ -57,6 +64,18 @@ class HybridCovertLens:
                 confidence = min(0.99, round(confidence + 0.02, 2))
                 metrics["grounded_hybrid_claims_verified"] = True
                 metrics["maritime_grey_zone_coercion_score"] = 0.92
+
+            kinetic_keywords = ["unknown gunmen", "offensive-defense", "sanctuary", "nijjar", "doval", "kahuta", "proxy neutralization"]
+            matched_kinetic = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in kinetic_keywords)
+                for c in claims
+            )
+            if matched_kinetic:
+                findings.insert(0, "[COVERT TELEMETRY] Extraterritorial kinetic deterrence / counter-proxy offensive-defense operation identified.")
+                metrics["covert_kinetic_deterrence_verified"] = True
+                metrics["extraterritorial_neutralization_index"] = 0.94
+                metrics["sanctuary_friction_score"] = 0.91
+
             metrics["claims_evaluated"] = len(claims)
 
         return LensEvaluation(
@@ -117,6 +136,48 @@ class HybridCovertLens:
             "threshold_gap": threshold_gap,
             "capitulation_probability": capitulation_prob,
             "state_posture": posture,
+            "strategic_verdict": verdict
+        }
+
+    @staticmethod
+    def calculate_covert_deterrence_elasticity(
+        dossier_fatigue: float,
+        sanctuary_protection_level: float,
+        preemption_capability: float
+    ) -> Dict[str, Any]:
+        """
+        Mathematically models covert deterrence elasticity and offensive-defense preemption:
+            deterrence_ratio = (preemption_capability * (1.0 + 0.6 * dossier_fatigue)) / max(0.10, 1.0 - 0.4 * sanctuary_protection_level)
+        """
+        fatigue = max(0.0, min(1.0, float(dossier_fatigue)))
+        sanctuary = max(0.0, min(1.0, float(sanctuary_protection_level)))
+        preemption = max(0.0, min(1.0, float(preemption_capability)))
+
+        effective_push = preemption * (1.0 + 0.6 * fatigue)
+        shielding_divisor = max(0.10, 1.0 - 0.4 * sanctuary)
+
+        ratio = round(effective_push / shielding_divisor, 4)
+        preemption_prob = min(0.98, max(0.05, round(0.35 * ratio, 4)))
+        backlash_risk = min(0.95, max(0.05, round(sanctuary * 0.70 + 0.15 * preemption, 4)))
+
+        if ratio >= 1.25:
+            doctrine = "OFFENSIVE_DEFENSIVE_DOMINANT"
+            verdict = "Passive diplomacy exhausted; high probability of deniable extraterritorial counter-proxy neutralization."
+        elif ratio >= 0.75:
+            doctrine = "HYBRID_CONTESTED_DETERRENCE"
+            verdict = "Calibrated equilibrium between covert pushback and diplomatic sanctuary shielding."
+        else:
+            doctrine = "PASSIVE_DOSSIER_CONSTRAINED"
+            verdict = "State constrained by host-nation legal safeguards and diplomatic insulation."
+
+        return {
+            "dossier_fatigue": fatigue,
+            "sanctuary_protection_level": sanctuary,
+            "preemption_capability": preemption,
+            "covert_deterrence_ratio": ratio,
+            "kinetic_preemption_probability": preemption_prob,
+            "diplomatic_backlash_risk": backlash_risk,
+            "operational_doctrine": doctrine,
             "strategic_verdict": verdict
         }
 
