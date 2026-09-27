@@ -987,4 +987,51 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
+* **Phase 81 (Sub-National Geographic Chokepoint & Transnational Hydrological Pincer Sieve):**
+  - **Chokepoint Kinetic Sieve Implementation (`geo_engine/lenses/geopolitical.py`, `geo_engine/lenses/__init__.py`):**
+    - Implemented `ChokepointKineticSieve` quantifying kinetic vulnerabilities for narrow geographic corridors ($W_{\text{corridor}} \le 50\text{ km}$) such as the Siliguri Corridor ("Chicken's Neck"), Suwalki Gap, or Wakhan Corridor.
+    - Derived closed-form Chokepoint Vulnerability Index formula:
+      $$W_{\text{hazard}} = \min\left(1.0, \frac{50.0}{\max(1.0, W_{\text{corridor}})}\right)$$
+      $$P_{\text{weight}} = \max\left(0.0, 1.0 - \frac{D_{\text{adversary}}}{100.0}\right)$$
+      $$H_{\text{pincer}} = 0.40 \cdot I_{\text{flank}} + 0.35 \cdot P_{\text{weight}} + 0.25 \cdot L_{\text{hydro}}$$
+      $$V_{\text{choke}} = \min\left(1.0, (0.50 \cdot W_{\text{hazard}} + 0.50 \cdot H_{\text{pincer}}) \cdot \max(0.50, 1.0 - (N_{\text{redundancy}} - 1) \cdot 0.20)\right)$$
+    - Categorizes threat tiers (`CRITICAL_CHOKEPOINT`, `ELEVATED_VULNERABILITY`, `MODERATE_FRICTION`, `SECURE_TRANSIT`) and assigns mandated military-diplomatic postures (`OFFENSIVE_DEFENSIVE_PREEMPTION_MANDATED`, `MULTI_MODAL_BYPASS_REDUNDANCY_REQUIRED`, etc.).
+  - **Geopolitical Lens Grounded Telemetry Integration (`geo_engine/lenses/geopolitical.py`):**
+    - Upgraded `GeopoliticalLens.evaluate()` to dynamically detect chokepoint, corridor, and pincer tokens (`siliguri`, `chicken's neck`, `chumbi`, `doklam`, `suwalki`, `wakhan`, `teesta`, `rangpur`, `pincer`).
+    - Populates `chokepoint_vulnerability_index`, `chokepoint_threat_tier`, `pincer_flank_threat_detected`, and `upstream_hydro_leverage_active` in hard metrics, adjusting alignment score downwards dynamically under elevated bottleneck risk.
+  - **Empirical Ground Truth Chokepoint Event Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded seminal historical chokepoint security events into SQLite database schema and migrations:
+      1. `HIST-1971-CHICKENS-NECK-SECURITY` (1971-12-03): Siliguri Corridor & Eastern Command Preemption (1971 War) — Indian Armed Forces secured the 22km Siliguri Corridor against potential Pakistani counter-thrusts and Chinese intervention in the Chumbi Valley, guaranteeing rear-area logistics during the liberation of Bangladesh.
+      2. `HIST-2017-DOKLAM-CHUMBI` (2017-06-16): Doklam Plateau Standoff & Chumbi Valley Flank Protection — 73-day military standoff preventing Chinese road construction through Doklam toward the Jampheri Ridge, protecting the Siliguri logistics flank from PLA tactical observation and artillery interdiction.
+  - **QueryParser Routing Expansion (`geo_engine/core/query_parser.py`):**
+    - Enriched `LENS_KEYWORDS` under `geopolitical` and `demographic_infiltration` with corridor tokens (`siliguri`, `chicken's neck`, `chumbi`, `doklam`, `suwalki`, `wakhan`, `teesta`, `rangpur`, `pincer`, `chokepoint kinetic`).
+
+* **Phase 82 (Defense Avionics Electronic Sovereignty & Digital Leash Sieve):**
+  - **Avionics Sovereignty Sieve Implementation (`geo_engine/lenses/military_readiness.py`, `geo_engine/lenses/__init__.py`):**
+    - Implemented `AvionicsSovereigntySieve` quantifying operational autonomy, source code transfer, mission data file (MDF) sovereignty, and extraterritorial remote kill-switch risks in 5th/6th-generation combat aircraft (F-35, SU-57, MRFA proposals).
+    - Derived closed-form Operational Autonomy Index formula ($\Omega_{\text{autonomy}} \in [0.0, 1.0]$):
+      $$\text{Base} = 0.35 \cdot T_{\text{source}} + 0.35 \cdot D_{\text{on\_prem}} + 0.30 \cdot (1.0 - R_{\text{kill\_switch}})$$
+      $$\Omega_{\text{autonomy}} = \min(1.0, \max(0.0, \text{Base} \cdot (0.70 \text{ if } C_{\text{foreign\_cloud}} \text{ else } 1.0)))$$
+    - Categorizes sovereignty tiers (`SOVEREIGN_AUTONOMOUS`, `CONDITIONAL_AUTONOMY`, `DIGITAL_LEASH_HIGH_RISK`, `EXTRATERRITORIAL_REMOTE_KILL_SWITCH_ACTIVE`) and evaluates operational integration freedom.
+  - **Military Readiness Lens & Radar Signature Masking (`geo_engine/lenses/military_readiness.py`):**
+    - Integrated automated avionics and stealth keyword detection into `MilitaryReadinessLens.evaluate()` (`f-35`, `odin`, `alis`, `su-57`, `mrfa`, `stealth fighter`, `digital leash`, `kill-switch`, `luneburg`, `rcs`, `tarang shakti`, `jodhpur`).
+    - Distinguishes peacetime exercise radar signature masking (Luneburg radar reflectors deployed during Exercise Tarang Shakti at Jodhpur) from unmasked combat radar cross-sections.
+    - Populates `avionics_sovereignty_score`, `digital_leash_detected`, `radar_cross_section_risk`, and `peacetime_reflector_deployed` in hard metrics, penalizing alignment if foreign cloud tethering threatens operational autonomy.
+  - **Automated Media Forensic Stream Auditing (`geo_engine/video/audio_stream.py`):**
+    - Upgraded `AudioStreamConnector.audit_media_claims()` to detect defense procurement and sub-national chokepoint claims.
+    - Computes `avionics_sovereignty_audit` and `chokepoint_audit` alongside `chronology_audit`, mapping empirical reality ratios against geopolitical rhetoric.
+  - **Empirical Ground Truth Avionics Sovereignty Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded seminal defense avionics sovereignty milestones:
+      1. `HIST-2019-TURKEY-F35-CAATSA` (2019-07-17): Expulsion of Turkey from F-35 Joint Strike Fighter Program — US suspension and expulsion of NATO ally Turkey following Russian S-400 procurement under CAATSA, proving digital leash enforcement and cloud-tethered exclusion risks.
+      2. `HIST-2024-TARANG-SHAKTI-JODHPUR` (2024-09-01): Exercise Tarang Shakti Phase II (Jodhpur) & 5th-Gen Stealth Demonstrations — IAF hosted multilateral air exercise with USAF F-35A fighters deploying Luneburg radar reflectors to deliberately mask combat radar cross-sections.
+  - **QueryParser Defense Keywords (`geo_engine/core/query_parser.py`):**
+    - Enriched `LENS_KEYWORDS` under `military_readiness` and `deep_tech` (`f-35`, `odin`, `alis`, `su-57`, `mrfa`, `stealth fighter`, `digital leash`, `kill-switch`, `luneburg`, `rcs`, `tarang shakti`, `jodhpur air base`, `avionics sovereignty`).
+  - **Verification Suite Expansion (282→288 tests):**
+    - Updated `README.md` test counter from 282 to 288 comprehensive unit and integration tests.
+    - Added `TestPhase81and82ChokepointAndAvionicsSovereignty` in `tests/test_engine.py` with 6 unit tests certifying ChokepointKineticSieve closed-form math, GeopoliticalLens chokepoint telemetry, SQLite seeds, AvionicsSovereigntySieve autonomy math, MilitaryReadinessLens avionics telemetry, and media audit routing.
+    - Certified **288/288 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
+
 

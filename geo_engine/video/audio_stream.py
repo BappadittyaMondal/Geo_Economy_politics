@@ -280,6 +280,49 @@ class AudioStreamConnector:
             chronology_report = MultiPillarChronologyArbiter.arbitrate(event_name=event_title)
             chronology_audit = chronology_report.to_dict()
 
+        # Check for Defense Avionics & 5th-Gen Procurement Claims
+        from ..lenses.military_readiness import AvionicsSovereigntySieve
+        defense_avionics_terms = [
+            "f-35", "f35", "su-57", "su57", "mrfa", "stealth fighter",
+            "digital leash", "kill switch", "kill-switch", "luneburg", "jodhpur",
+            "tarang shakti", "lockheed", "avionics"
+        ]
+        has_defense_claim = any(term in full_text for term in defense_avionics_terms)
+        avionics_audit = None
+        if has_defense_claim:
+            is_f35 = ("f-35" in full_text or "f35" in full_text or "lockheed" in full_text or "alis" in full_text or "odin" in full_text)
+            source_transfer = False if is_f35 else ("su-57" in full_text or "mrfa" in full_text)
+            on_prem = False if is_f35 else True
+            cloud_tether = True if is_f35 else False
+            kill_switch = 0.85 if is_f35 else 0.45
+            avionics_audit = AvionicsSovereigntySieve.calculate_operational_autonomy(
+                source_code_transfer=source_transfer,
+                on_prem_mission_data=on_prem,
+                foreign_cloud_tether=cloud_tether,
+                proprietary_kill_switch_risk=kill_switch
+            )
+
+        # Check for Sub-National Chokepoint & Pincer Claims
+        from ..lenses.geopolitical import ChokepointKineticSieve
+        chokepoint_terms = [
+            "siliguri", "chicken's neck", "chickens neck", "doklam", "chumbi",
+            "suwalki", "wakhan", "teesta", "rangpur", "pincer"
+        ]
+        has_chokepoint_claim = any(term in full_text for term in chokepoint_terms)
+        chokepoint_audit = None
+        if has_chokepoint_claim:
+            width = 22.0 if ("siliguri" in full_text or "chicken" in full_text) else 40.0
+            prox = 30.0 if "chumbi" in full_text or "doklam" in full_text else 45.0
+            flank = 0.85 if "bangladesh" in full_text or "rangpur" in full_text else 0.60
+            hydro = 0.75 if "teesta" in full_text else 0.40
+            chokepoint_audit = ChokepointKineticSieve.calculate_chokepoint_vulnerability(
+                corridor_width_km=width,
+                adversary_proximity_km=prox,
+                hostile_flank_index=flank,
+                upstream_hydro_leverage=hydro,
+                logistics_redundancy_count=1
+            )
+
         # Level-0 Atomic Temporal Guardrail Check on Incumbency/Tenure
         from ..core.temporal_guardrail import TemporalGuardrail
         tenure_audit = None
@@ -327,6 +370,18 @@ class AudioStreamConnector:
             phi_theological = 0.15
             phi_ideological = 0.35 if any(w in full_text for w in ["conspiracy", "hidden", "stopped excavation", "secret"]) else 0.20
             phi_pseudoscience = 0.30 if any(w in full_text for w in ["alien", "vimana", "nuclear war"]) else 0.10
+        elif has_defense_claim:
+            empirical_support = 0.70
+            phi_theological = 0.05
+            phi_colonial = 0.20 if ("usaf" in full_text or "lockheed" in full_text or "america" in full_text) else 0.10
+            phi_ideological = 0.45 if ("f-35" in full_text or "f35" in full_text) else 0.25
+            phi_pseudoscience = 0.10
+        elif has_chokepoint_claim:
+            empirical_support = 0.80
+            phi_theological = 0.05
+            phi_colonial = 0.15
+            phi_ideological = 0.35 if ("bangladesh" in full_text or "regime" in full_text) else 0.20
+            phi_pseudoscience = 0.05
         else:
             empirical_support = 0.60 if matched_physical else 0.40
             phi_theological = 0.20
@@ -367,6 +422,10 @@ class AudioStreamConnector:
             "matched_physical_keywords": matched_physical,
             "has_electoral_claim": has_electoral_claim,
             "has_chronological_claim": has_chronological_claim,
+            "has_defense_claim": has_defense_claim,
+            "has_chokepoint_claim": has_chokepoint_claim,
+            "avionics_sovereignty_audit": avionics_audit,
+            "chokepoint_audit": chokepoint_audit,
             "chronology_audit": chronology_audit,
             "tenure_audit": tenure_audit,
             "decomposed_claim": decomposed_claim.model_dump() if decomposed_claim else None,

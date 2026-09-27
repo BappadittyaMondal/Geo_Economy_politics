@@ -181,6 +181,46 @@ class EventStore:
                     "hybrid_warfare",
                     "Arrest of American PMC operator Matthew VanDyke and 6 Ukrainian drone trainers in Mizoram for cross-border FPV drone training to Chin anti-Junta rebels; granted Section 167(2) default bail after 180-day UAPA deadline lapsed and Foreigners Act compounding (Sections 21/23).",
                     "Demonstrates the intersection of transnational mercenary drone tech proliferation, sub-national tribal kinship corridors, and managed judicial off-ramps under Section 188 CrPC extraterritorial limits."
+                ),
+                (
+                    "HIST-1971-CHICKENS-NECK-SECURITY",
+                    "1971-12-03",
+                    "Siliguri Corridor & Eastern Command Preemption (1971 War)",
+                    "Indian Army (Eastern Command)",
+                    "Siliguri Corridor / Eastern Sector",
+                    "chokepoint_security",
+                    "Indian Armed Forces secured the 22km Siliguri Corridor ('Chicken's Neck') against potential Pakistani counter-thrusts and Chinese intervention in the Chumbi Valley, guaranteeing rear-area logistics during the liberation of Bangladesh.",
+                    "Demonstrated the strategic doctrine of offensive-defensive preemption to neutralize geographic bottleneck vulnerabilities."
+                ),
+                (
+                    "HIST-2017-DOKLAM-CHUMBI",
+                    "2017-06-16",
+                    "Doklam Plateau Standoff & Chumbi Valley Flank Protection",
+                    "Indian Army, PLA",
+                    "Doklam / Bhutan / Chumbi Valley",
+                    "chokepoint_security",
+                    "73-day military standoff preventing Chinese road construction through Doklam toward the Jampheri Ridge, which directly overlooked India's narrow Siliguri Corridor.",
+                    "Asserted sovereign commitment to neighbor defense pacts and protected the Siliguri vulnerable logistics flank from PLA tactical observation and artillery interdiction."
+                ),
+                (
+                    "HIST-2019-TURKEY-F35-CAATSA",
+                    "2019-07-17",
+                    "Expulsion of Turkey from F-35 Joint Strike Fighter Program",
+                    "US Department of Defense, Republic of Turkey",
+                    "Global / NATO",
+                    "avionics_sovereignty",
+                    "US formally suspended and expelled NATO ally Turkey from the F-35 fighter program following its procurement of the Russian S-400 Triumf missile system under CAATSA, citing risks of Russian radar data exploitation of F-35 stealth profiles.",
+                    "Archetypal evidence of digital leash enforcement, sovereign exclusion, and cloud-tethered supply chain interdiction in 5th-generation combat avionics."
+                ),
+                (
+                    "HIST-2024-TARANG-SHAKTI-JODHPUR",
+                    "2024-09-01",
+                    "Exercise Tarang Shakti Phase II (Jodhpur) & 5th-Gen Stealth Demonstrations",
+                    "Indian Air Force, US Air Force, Allied Air Forces",
+                    "Jodhpur / Indo-Pacific",
+                    "military_readiness",
+                    "IAF hosted its largest multilateral air exercise with USAF F-35A fighters and allied jets operating at Jodhpur Air Base; 5th-generation stealth fighters deployed Luneburg radar reflectors to deliberately mask authentic combat radar cross-sections.",
+                    "Highlighted electronic warfare sovereignty, mission computer data segregation, and tactical interoperability without compromising indigenous radar and stealth telemetry."
                 )
             ])
 
@@ -718,6 +758,46 @@ class EventStore:
                     "stratigraphy_milestone",
                     "Excavation by Prof. B.B. Lal establishing PGW strata with iron metallurgy, horse remains, and river flood layer coinciding with the Puranic transfer of the Kuru capital from Hastinapur to Kaushambi under King Nichakshu.",
                     "Key stratigraphical anchor linking Early Iron Age material culture with traditional Mahabharata geographic topography."
+                ),
+                (
+                    "HIST-1971-CHICKENS-NECK-SECURITY",
+                    "1971-12-03",
+                    "Siliguri Corridor & Eastern Command Preemption (1971 War)",
+                    "Indian Army (Eastern Command)",
+                    "Siliguri Corridor / Eastern Sector",
+                    "chokepoint_security",
+                    "Indian Armed Forces secured the 22km Siliguri Corridor ('Chicken's Neck') against potential Pakistani counter-thrusts and Chinese intervention in the Chumbi Valley, guaranteeing rear-area logistics during the liberation of Bangladesh.",
+                    "Demonstrated the strategic doctrine of offensive-defensive preemption to neutralize geographic bottleneck vulnerabilities."
+                ),
+                (
+                    "HIST-2017-DOKLAM-CHUMBI",
+                    "2017-06-16",
+                    "Doklam Plateau Standoff & Chumbi Valley Flank Protection",
+                    "Indian Army, PLA",
+                    "Doklam / Bhutan / Chumbi Valley",
+                    "chokepoint_security",
+                    "73-day military standoff preventing Chinese road construction through Doklam toward the Jampheri Ridge, which directly overlooked India's narrow Siliguri Corridor.",
+                    "Asserted sovereign commitment to neighbor defense pacts and protected the Siliguri vulnerable logistics flank from PLA tactical observation and artillery interdiction."
+                ),
+                (
+                    "HIST-2019-TURKEY-F35-CAATSA",
+                    "2019-07-17",
+                    "Expulsion of Turkey from F-35 Joint Strike Fighter Program",
+                    "US Department of Defense, Republic of Turkey",
+                    "Global / NATO",
+                    "avionics_sovereignty",
+                    "US formally suspended and expelled NATO ally Turkey from the F-35 fighter program following its procurement of the Russian S-400 Triumf missile system under CAATSA, citing risks of Russian radar data exploitation of F-35 stealth profiles.",
+                    "Archetypal evidence of digital leash enforcement, sovereign exclusion, and cloud-tethered supply chain interdiction in 5th-generation combat avionics."
+                ),
+                (
+                    "HIST-2024-TARANG-SHAKTI-JODHPUR",
+                    "2024-09-01",
+                    "Exercise Tarang Shakti Phase II (Jodhpur) & 5th-Gen Stealth Demonstrations",
+                    "Indian Air Force, US Air Force, Allied Air Forces",
+                    "Jodhpur / Indo-Pacific",
+                    "military_readiness",
+                    "IAF hosted its largest multilateral air exercise with USAF F-35A fighters and allied jets operating at Jodhpur Air Base; 5th-generation stealth fighters deployed Luneburg radar reflectors to deliberately mask authentic combat radar cross-sections.",
+                    "Highlighted electronic warfare sovereignty, mission computer data segregation, and tactical interoperability without compromising indigenous radar and stealth telemetry."
                 )
             ]
 

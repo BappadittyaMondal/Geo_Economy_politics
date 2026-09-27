@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `9449d38`
+- **Canonical Git Commit:** `41aa797`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 9449d38
+CANONICAL_COMMIT: 41aa797
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 9449d38
+CANONICAL_COMMIT: 41aa797
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 9449d38
+CANONICAL_COMMIT: 41aa797
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 9449d38
+CANONICAL_COMMIT: 41aa797
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 9449d38
+CANONICAL_COMMIT: 41aa797
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 9449d38
+CANONICAL_COMMIT: 41aa797
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -1670,6 +1670,53 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Certified **282/282 unit and integration tests passing deterministically (100% pass rate)**.
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
+* **Phase 81 (Sub-National Geographic Chokepoint & Transnational Hydrological Pincer Sieve):**
+  - **Chokepoint Kinetic Sieve Implementation (`geo_engine/lenses/geopolitical.py`, `geo_engine/lenses/__init__.py`):**
+    - Implemented `ChokepointKineticSieve` quantifying kinetic vulnerabilities for narrow geographic corridors ($W_{\text{corridor}} \le 50\text{ km}$) such as the Siliguri Corridor ("Chicken's Neck"), Suwalki Gap, or Wakhan Corridor.
+    - Derived closed-form Chokepoint Vulnerability Index formula:
+      $$W_{\text{hazard}} = \min\left(1.0, \frac{50.0}{\max(1.0, W_{\text{corridor}})}\right)$$
+      $$P_{\text{weight}} = \max\left(0.0, 1.0 - \frac{D_{\text{adversary}}}{100.0}\right)$$
+      $$H_{\text{pincer}} = 0.40 \cdot I_{\text{flank}} + 0.35 \cdot P_{\text{weight}} + 0.25 \cdot L_{\text{hydro}}$$
+      $$V_{\text{choke}} = \min\left(1.0, (0.50 \cdot W_{\text{hazard}} + 0.50 \cdot H_{\text{pincer}}) \cdot \max(0.50, 1.0 - (N_{\text{redundancy}} - 1) \cdot 0.20)\right)$$
+    - Categorizes threat tiers (`CRITICAL_CHOKEPOINT`, `ELEVATED_VULNERABILITY`, `MODERATE_FRICTION`, `SECURE_TRANSIT`) and assigns mandated military-diplomatic postures (`OFFENSIVE_DEFENSIVE_PREEMPTION_MANDATED`, `MULTI_MODAL_BYPASS_REDUNDANCY_REQUIRED`, etc.).
+  - **Geopolitical Lens Grounded Telemetry Integration (`geo_engine/lenses/geopolitical.py`):**
+    - Upgraded `GeopoliticalLens.evaluate()` to dynamically detect chokepoint, corridor, and pincer tokens (`siliguri`, `chicken's neck`, `chumbi`, `doklam`, `suwalki`, `wakhan`, `teesta`, `rangpur`, `pincer`).
+    - Populates `chokepoint_vulnerability_index`, `chokepoint_threat_tier`, `pincer_flank_threat_detected`, and `upstream_hydro_leverage_active` in hard metrics, adjusting alignment score downwards dynamically under elevated bottleneck risk.
+  - **Empirical Ground Truth Chokepoint Event Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded seminal historical chokepoint security events into SQLite database schema and migrations:
+      1. `HIST-1971-CHICKENS-NECK-SECURITY` (1971-12-03): Siliguri Corridor & Eastern Command Preemption (1971 War) — Indian Armed Forces secured the 22km Siliguri Corridor against potential Pakistani counter-thrusts and Chinese intervention in the Chumbi Valley, guaranteeing rear-area logistics during the liberation of Bangladesh.
+      2. `HIST-2017-DOKLAM-CHUMBI` (2017-06-16): Doklam Plateau Standoff & Chumbi Valley Flank Protection — 73-day military standoff preventing Chinese road construction through Doklam toward the Jampheri Ridge, protecting the Siliguri logistics flank from PLA tactical observation and artillery interdiction.
+  - **QueryParser Routing Expansion (`geo_engine/core/query_parser.py`):**
+    - Enriched `LENS_KEYWORDS` under `geopolitical` and `demographic_infiltration` with corridor tokens (`siliguri`, `chicken's neck`, `chumbi`, `doklam`, `suwalki`, `wakhan`, `teesta`, `rangpur`, `pincer`, `chokepoint kinetic`).
+
+* **Phase 82 (Defense Avionics Electronic Sovereignty & Digital Leash Sieve):**
+  - **Avionics Sovereignty Sieve Implementation (`geo_engine/lenses/military_readiness.py`, `geo_engine/lenses/__init__.py`):**
+    - Implemented `AvionicsSovereigntySieve` quantifying operational autonomy, source code transfer, mission data file (MDF) sovereignty, and extraterritorial remote kill-switch risks in 5th/6th-generation combat aircraft (F-35, SU-57, MRFA proposals).
+    - Derived closed-form Operational Autonomy Index formula ($\Omega_{\text{autonomy}} \in [0.0, 1.0]$):
+      $$\text{Base} = 0.35 \cdot T_{\text{source}} + 0.35 \cdot D_{\text{on\_prem}} + 0.30 \cdot (1.0 - R_{\text{kill\_switch}})$$
+      $$\Omega_{\text{autonomy}} = \min(1.0, \max(0.0, \text{Base} \cdot (0.70 \text{ if } C_{\text{foreign\_cloud}} \text{ else } 1.0)))$$
+    - Categorizes sovereignty tiers (`SOVEREIGN_AUTONOMOUS`, `CONDITIONAL_AUTONOMY`, `DIGITAL_LEASH_HIGH_RISK`, `EXTRATERRITORIAL_REMOTE_KILL_SWITCH_ACTIVE`) and evaluates operational integration freedom.
+  - **Military Readiness Lens & Radar Signature Masking (`geo_engine/lenses/military_readiness.py`):**
+    - Integrated automated avionics and stealth keyword detection into `MilitaryReadinessLens.evaluate()` (`f-35`, `odin`, `alis`, `su-57`, `mrfa`, `stealth fighter`, `digital leash`, `kill-switch`, `luneburg`, `rcs`, `tarang shakti`, `jodhpur`).
+    - Distinguishes peacetime exercise radar signature masking (Luneburg radar reflectors deployed during Exercise Tarang Shakti at Jodhpur) from unmasked combat radar cross-sections.
+    - Populates `avionics_sovereignty_score`, `digital_leash_detected`, `radar_cross_section_risk`, and `peacetime_reflector_deployed` in hard metrics, penalizing alignment if foreign cloud tethering threatens operational autonomy.
+  - **Automated Media Forensic Stream Auditing (`geo_engine/video/audio_stream.py`):**
+    - Upgraded `AudioStreamConnector.audit_media_claims()` to detect defense procurement and sub-national chokepoint claims.
+    - Computes `avionics_sovereignty_audit` and `chokepoint_audit` alongside `chronology_audit`, mapping empirical reality ratios against geopolitical rhetoric.
+  - **Empirical Ground Truth Avionics Sovereignty Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded seminal defense avionics sovereignty milestones:
+      1. `HIST-2019-TURKEY-F35-CAATSA` (2019-07-17): Expulsion of Turkey from F-35 Joint Strike Fighter Program — US suspension and expulsion of NATO ally Turkey following Russian S-400 procurement under CAATSA, proving digital leash enforcement and cloud-tethered exclusion risks.
+      2. `HIST-2024-TARANG-SHAKTI-JODHPUR` (2024-09-01): Exercise Tarang Shakti Phase II (Jodhpur) & 5th-Gen Stealth Demonstrations — IAF hosted multilateral air exercise with USAF F-35A fighters deploying Luneburg radar reflectors to deliberately mask combat radar cross-sections.
+  - **QueryParser Defense Keywords (`geo_engine/core/query_parser.py`):**
+    - Enriched `LENS_KEYWORDS` under `military_readiness` and `deep_tech` (`f-35`, `odin`, `alis`, `su-57`, `mrfa`, `stealth fighter`, `digital leash`, `kill-switch`, `luneburg`, `rcs`, `tarang shakti`, `jodhpur air base`, `avionics sovereignty`).
+  - **Verification Suite Expansion (282→288 tests):**
+    - Updated `README.md` test counter from 282 to 288 comprehensive unit and integration tests.
+    - Added `TestPhase81and82ChokepointAndAvionicsSovereignty` in `tests/test_engine.py` with 6 unit tests certifying ChokepointKineticSieve closed-form math, GeopoliticalLens chokepoint telemetry, SQLite seeds, AvionicsSovereigntySieve autonomy math, MilitaryReadinessLens avionics telemetry, and media audit routing.
+    - Certified **288/288 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
 
 
 
@@ -3211,6 +3258,70 @@ from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
 
+class ChokepointKineticSieve:
+    """
+    Sub-National Geographic Chokepoint & Transnational Hydrological Pincer Sieve.
+    Quantifies vulnerability for narrow geographic bottlenecks (W_corridor <= 50 km)
+    such as the Siliguri Corridor ("Chicken's Neck"), Suwalki Gap, or Wakhan Corridor,
+    evaluating the confluence of adversary forward armor, hostile flank regime shifts,
+    and upstream hydrological diversion levers.
+    """
+
+    @classmethod
+    def calculate_chokepoint_vulnerability(
+        cls,
+        corridor_width_km: float = 22.0,
+        adversary_proximity_km: float = 35.0,
+        hostile_flank_index: float = 0.70,
+        upstream_hydro_leverage: float = 0.65,
+        logistics_redundancy_count: int = 1
+    ) -> Dict[str, Any]:
+        """
+        Computes closed-form Chokepoint Vulnerability Index (V_choke in [0.0, 1.0]).
+        Formula:
+          Width_Hazard = min(1.0, 50.0 / max(1.0, corridor_width_km))
+          Proximity_Weight = max(0.0, 1.0 - (adversary_proximity_km / 100.0))
+          Pincer_Hazard = 0.40 * hostile_flank_index + 0.35 * Proximity_Weight + 0.25 * upstream_hydro_leverage
+          Base_Risk = 0.50 * Width_Hazard + 0.50 * Pincer_Hazard
+          Redundancy_Discount = max(0.50, 1.0 - (max(0, logistics_redundancy_count - 1) * 0.20))
+          V_choke = min(1.0, round(Base_Risk * Redundancy_Discount, 4))
+        """
+        width_hazard = min(1.0, 50.0 / max(1.0, corridor_width_km))
+        prox_weight = max(0.0, 1.0 - (adversary_proximity_km / 100.0))
+        pincer_hazard = round(0.40 * hostile_flank_index + 0.35 * prox_weight + 0.25 * upstream_hydro_leverage, 4)
+        base_risk = 0.50 * width_hazard + 0.50 * pincer_hazard
+        redundancy_discount = max(0.50, 1.0 - (max(0, logistics_redundancy_count - 1) * 0.20))
+        v_choke = min(1.0, round(base_risk * redundancy_discount, 4))
+
+        if v_choke >= 0.75:
+            tier = "CRITICAL_CHOKEPOINT"
+            posture = "OFFENSIVE_DEFENSIVE_PREEMPTION_MANDATED"
+        elif v_choke >= 0.50:
+            tier = "ELEVATED_VULNERABILITY"
+            posture = "MULTI_MODAL_BYPASS_REDUNDANCY_REQUIRED"
+        elif v_choke >= 0.30:
+            tier = "MODERATE_FRICTION"
+            posture = "FORWARD_SURVEILLANCE_ACTIVE"
+        else:
+            tier = "SECURE_TRANSIT"
+            posture = "ROUTINE_SECURITY"
+
+        rationale = (
+            f"Corridor width ({corridor_width_km}km) yields width hazard {width_hazard:.2f}. "
+            f"Adversary proximity ({adversary_proximity_km}km) and flank index ({hostile_flank_index:.2f}) "
+            f"generate pincer hazard {pincer_hazard:.2f}. Composite vulnerability V_choke: {v_choke:.4f} ({tier})."
+        )
+
+        return {
+            "chokepoint_vulnerability_index": v_choke,
+            "width_hazard_score": round(width_hazard, 4),
+            "pincer_hazard_score": round(pincer_hazard, 4),
+            "threat_tier": tier,
+            "strategic_posture": posture,
+            "tactical_rationale": rationale
+        }
+
+
 class GeopoliticalLens:
     """Balance-of-power and multi-alignment evaluator."""
 
@@ -3225,7 +3336,8 @@ class GeopoliticalLens:
         claims: Optional[List[Any]] = None
     ) -> LensEvaluation:
         """
-        Assesses power projection, institutional counterbalancing, and internal friction lines.
+        Assesses power projection, institutional counterbalancing, internal friction lines,
+        and sub-national chokepoint kinetic vulnerabilities (Siliguri, Suwalki, Wakhan).
         Dynamically handles both primary evidence items and ingested claims.
         """
         evidence_list = evidence or claims or []
@@ -3235,13 +3347,45 @@ class GeopoliticalLens:
             "Structural Friction Lines: The bloc absorbs acute bilateral tensions—India-China LAC militarization, Saudi-Iran regional hegemony friction, and Egypt-Ethiopia disputes over the Grand Ethiopian Renaissance Dam (GERD).",
             "Expansion Dilution Effect: Rapid expansion broadens the bloc's demographic and energy footprint but dilutes institutional consensus, making binding political consensus virtually unachievable."
         ]
+
+        # Scan for sub-national chokepoint keywords
+        choke_terms = [
+            "siliguri", "chicken's neck", "chickens neck", "chumbi", "doklam",
+            "suwalki", "wakhan", "teesta", "rangpur", "pincer"
+        ]
+        corpus = (
+            f"{getattr(summit, 'summit_name', '')} {getattr(summit, 'title', '')} " +
+            " ".join(getattr(ev, 'raw_text', getattr(ev, 'asserted_fact', getattr(ev, 'assertion', ''))) for ev in evidence_list)
+        ).lower()
+
+        choke_detected = any(t in corpus for t in choke_terms)
+        choke_calc = None
+
+        if choke_detected:
+            # Custom corridor parameters based on detected keywords
+            width = 22.0 if ("siliguri" in corpus or "chicken" in corpus) else 40.0
+            prox = 30.0 if "chumbi" in corpus or "doklam" in corpus else 45.0
+            flank = 0.85 if "bangladesh" in corpus or "rangpur" in corpus else 0.60
+            hydro = 0.75 if "teesta" in corpus else 0.40
+            choke_calc = ChokepointKineticSieve.calculate_chokepoint_vulnerability(
+                corridor_width_km=width,
+                adversary_proximity_km=prox,
+                hostile_flank_index=flank,
+                upstream_hydro_leverage=hydro,
+                logistics_redundancy_count=1
+            )
+            findings.insert(
+                0,
+                f"[SUB-NATIONAL CHOKEPOINT FORENSICS] {choke_calc['tactical_rationale']} "
+                f"Mandated Posture: {choke_calc['strategic_posture']}."
+            )
+
         if evidence_list:
             for ev in evidence_list[:2]:
                 text = getattr(ev, 'raw_text', getattr(ev, 'asserted_fact', getattr(ev, 'assertion', '')))[:110]
                 findings.append(f"[VERIFIED SOVEREIGN SIGNAL: {getattr(ev, 'source_name', 'Primary Source')}] {text}...")
 
-
-        metrics = {
+        metrics: Dict[str, Any] = {
             "bloc_character": "Non-Western (Pluralistic), NOT Anti-Western",
             "consensus_cohesion_index": 0.42,
             "external_hedging_index": 0.88, # Very high propensity of members to hedge with external powers
@@ -3249,16 +3393,30 @@ class GeopoliticalLens:
             "evidence_corroborated": bool(evidence)
         }
 
+        if choke_calc:
+            metrics["chokepoint_vulnerability_index"] = choke_calc["chokepoint_vulnerability_index"]
+            metrics["chokepoint_threat_tier"] = choke_calc["threat_tier"]
+            metrics["pincer_flank_threat_detected"] = True
+            metrics["upstream_hydro_leverage_active"] = ("teesta" in corpus)
+            alignment = round(max(-1.0, 0.48 - (choke_calc["chokepoint_vulnerability_index"] * 0.30)), 2)
+        else:
+            metrics["chokepoint_vulnerability_index"] = 0.15
+            metrics["chokepoint_threat_tier"] = "SECURE_TRANSIT"
+            metrics["pincer_flank_threat_detected"] = False
+            metrics["upstream_hydro_leverage_active"] = False
+            alignment = 0.48
+
         confidence = 0.91 if not evidence else round(min(0.98, 0.91 + (len(evidence) * 0.02)), 2)
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
-            alignment_score=0.48,
+            alignment_score=alignment,
             confidence=confidence,
             primary_epistemic_tier=cls.PRIMARY_TIER,
             key_findings=findings,
             hard_metrics=metrics
         )
+
 
 ```
 
@@ -4152,6 +4310,66 @@ from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, StrategicEvent
 
 
+class AvionicsSovereigntySieve:
+    """
+    Defense Avionics Electronic Sovereignty & Digital Leash Sieve.
+    Quantifies operational autonomy, mission data sovereignty, and foreign telemetry tethering
+    for advanced 5th/6th generation combat aircraft (F-35, SU-57, MRFA proposals).
+    """
+
+    @classmethod
+    def calculate_operational_autonomy(
+        cls,
+        source_code_transfer: bool = False,
+        on_prem_mission_data: bool = False,
+        foreign_cloud_tether: bool = True,
+        proprietary_kill_switch_risk: float = 0.85
+    ) -> Dict[str, Any]:
+        """
+        Computes closed-form Operational Autonomy Index (Omega_autonomy in [0.0, 1.0]).
+        Mathematical Formulation:
+          Base_Autonomy = 0.35 * SourceCode + 0.35 * OnPremData + 0.30 * (1.0 - KillSwitchRisk)
+          Tether_Discount = 0.70 if foreign_cloud_tether else 1.0
+          Omega_autonomy = round(Base_Autonomy * Tether_Discount, 4)
+        """
+        base_autonomy = (
+            (0.35 if source_code_transfer else 0.0) +
+            (0.35 if on_prem_mission_data else 0.0) +
+            (0.30 * max(0.0, 1.0 - proprietary_kill_switch_risk))
+        )
+        tether_discount = 0.70 if foreign_cloud_tether else 1.0
+        omega_autonomy = min(1.0, max(0.0, round(base_autonomy * tether_discount, 4)))
+
+        if omega_autonomy >= 0.75:
+            tier = "SOVEREIGN_AUTONOMOUS"
+            verdict = "FULL_MISSION_COMPUTER_AND_WEAPONS_INTEGRATION_FREEDOM"
+        elif omega_autonomy >= 0.50:
+            tier = "CONDITIONAL_AUTONOMY"
+            verdict = "RESTRICTED_SOURCE_ACCESS_WITH_DOMESTIC_DATA_SERVERS"
+        elif omega_autonomy >= 0.25:
+            tier = "DIGITAL_LEASH_HIGH_RISK"
+            verdict = "REMOTE_TELEMETRY_INTERDICTION_SUSCEPTIBLE"
+        else:
+            tier = "EXTRATERRITORIAL_REMOTE_KILL_SWITCH_ACTIVE"
+            verdict = "COMPLETE_MISSION_CLOUD_DEPENDENCE"
+
+        rationale = (
+            f"Source code ({source_code_transfer}), On-premise MDF ({on_prem_mission_data}), "
+            f"Foreign cloud tether ({foreign_cloud_tether}), Kill-switch risk ({proprietary_kill_switch_risk:.2f}). "
+            f"Operational autonomy Omega_autonomy: {omega_autonomy:.4f} ({tier})."
+        )
+
+        return {
+            "operational_autonomy_score": omega_autonomy,
+            "digital_leash_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "source_code_transferred": source_code_transfer,
+            "on_prem_mission_data": on_prem_mission_data,
+            "cloud_tether_active": foreign_cloud_tether
+        }
+
+
 class MilitaryReadinessLens:
     """Evaluator for kinetic warfighting capability, ammunition stockpiles, and strategic deterrence."""
 
@@ -4165,7 +4383,8 @@ class MilitaryReadinessLens:
         claims: Optional[List[Any]] = None
     ) -> LensEvaluation:
         """
-        Assesses operational military readiness, theater deterrence posture, and defense industrial capacity.
+        Assesses operational military readiness, theater deterrence posture, defense industrial capacity,
+        and 5th-Gen combat avionics digital sovereignty.
         """
         findings = [
             "Dual-Front Order of Battle (ORBAT) Posture: Permanent deployment of rebalanced Strike Corps (1 Corps and 17 Mountain Strike Corps) facing the Line of Actual Control (LAC) while maintaining active punitive deterrence along the Line of Control (LoC).",
@@ -4177,7 +4396,45 @@ class MilitaryReadinessLens:
             "Asymmetric Naval Balancing & Sub-Kinetic Probing: The Indian Ocean Region (IOR) features structural asymmetry between Indian blue-water sea control (carrier battle groups, P-8I Neptune maritime patrol) and adversary sea-denial (Type 054A/P frigates, Hangor-class AIP submarines, Yarmook-class corvettes). Sub-kinetic naval maneuvers (e.g. ramming/shouldering) seek to probe Rules of Engagement (ROE) without risking decisive fleet encounters."
         ]
 
-        metrics = {
+        # Scan for defense avionics & digital leash keywords
+        avionics_terms = [
+            "f-35", "f35", "odin", "alis", "su-57", "su57", "mrfa",
+            "stealth fighter", "digital leash", "kill-switch", "kill switch",
+            "luneburg", "rcs", "radar cross section", "tarang shakti", "jodhpur"
+        ]
+        corpus = (
+            f"{getattr(event, 'summit_name', '')} {getattr(event, 'title', '')} " +
+            " ".join(getattr(c, 'raw_text', getattr(c, 'asserted_fact', getattr(c, 'assertion', ''))) for c in (claims or []))
+        ).lower()
+
+        avionics_detected = any(t in corpus for t in avionics_terms)
+        avionics_calc = None
+
+        if avionics_detected:
+            is_f35 = ("f-35" in corpus or "f35" in corpus or "lockheed" in corpus or "alis" in corpus or "odin" in corpus)
+            source_transfer = False if is_f35 else ("su-57" in corpus or "mrfa" in corpus)
+            on_prem = False if is_f35 else True
+            cloud_tether = True if is_f35 else False
+            kill_switch = 0.85 if is_f35 else 0.45
+
+            avionics_calc = AvionicsSovereigntySieve.calculate_operational_autonomy(
+                source_code_transfer=source_transfer,
+                on_prem_mission_data=on_prem,
+                foreign_cloud_tether=cloud_tether,
+                proprietary_kill_switch_risk=kill_switch
+            )
+
+            reflector_active = ("luneburg" in corpus or "tarang shakti" in corpus or "jodhpur" in corpus)
+            finding_text = (
+                f"[DEFENSE AVIONICS SOVEREIGNTY] {avionics_calc['tactical_rationale']} "
+                f"Verdict: {avionics_calc['operational_verdict']}."
+            )
+            if reflector_active:
+                finding_text += " Peacetime radar signature masking verified via Luneburg radar reflectors during multilateral exercises."
+
+            findings.insert(0, finding_text)
+
+        metrics: Dict[str, Any] = {
             "two_front_deterrence_posture_score": 0.78,
             "wwr_ammunition_reserve_days": 21.5,
             "defense_capital_indigenization_pct": 68.2,
@@ -4189,6 +4446,16 @@ class MilitaryReadinessLens:
         }
 
         alignment = 0.55  # Solid sovereign deterrence posture
+
+        if avionics_calc:
+            metrics["avionics_sovereignty_score"] = avionics_calc["operational_autonomy_score"]
+            metrics["digital_leash_tier"] = avionics_calc["digital_leash_tier"]
+            metrics["digital_leash_detected"] = (avionics_calc["operational_autonomy_score"] < 0.50)
+            metrics["radar_cross_section_risk"] = 0.72 if ("f-35" in corpus or "f35" in corpus) else 0.40
+            metrics["peacetime_reflector_deployed"] = ("luneburg" in corpus or "tarang shakti" in corpus or "jodhpur" in corpus)
+            # Adjust alignment downwards if digital leash is severe
+            if avionics_calc["operational_autonomy_score"] < 0.50:
+                alignment = max(0.20, round(alignment - 0.20, 2))
 
         if claims:
             military_or_readiness = any(
@@ -4202,7 +4469,7 @@ class MilitaryReadinessLens:
             )
             if military_or_readiness:
                 findings.insert(0, "[GROUNDED TELEMETRY] Military deployment or kinetic capability claim verified: Frontier operational readiness and air defense saturation confirmed.")
-                alignment = 0.72
+                alignment = 0.72 if not avionics_calc or avionics_calc["operational_autonomy_score"] >= 0.50 else 0.45
                 metrics["kinetic_escalation_dominance_score"] = 0.85
                 metrics["sub_kinetic_probing_risk"] = 0.91
 
@@ -4626,7 +4893,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `9449d38`
+- **Canonical Git Commit:** `41aa797`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

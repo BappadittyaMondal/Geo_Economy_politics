@@ -13,7 +13,7 @@ from .deep_tech import DeepTechLens
 from .history import HistoryLens
 from .civilizational import CivilizationalLens
 from .geo_economist import GeoEconomistLens
-from .geopolitical import GeopoliticalLens
+from .geopolitical import GeopoliticalLens, ChokepointKineticSieve
 from .kinesics import KinesicsLens
 from .cash_flow import CashFlowLens
 from .propaganda import PropagandaLens
@@ -26,7 +26,7 @@ from .demographic_infiltration import DemographicInfiltrationLens
 from .critical_minerals import CriticalMineralsLens
 from .institutional_lawfare import InstitutionalLawfareLens
 from .food_security import FoodSecurityLens
-from .military_readiness import MilitaryReadinessLens
+from .military_readiness import MilitaryReadinessLens, AvionicsSovereigntySieve
 from .subsea_cables import SubseaCablesLens
 from .astro_politics import AstroPoliticsLens
 
@@ -75,6 +75,8 @@ __all__ = [
     "MilitaryReadinessLens",
     "SubseaCablesLens",
     "AstroPoliticsLens",
+    "ChokepointKineticSieve",
+    "AvionicsSovereigntySieve",
 ]
 
 

@@ -3482,7 +3482,7 @@ class TestPhase54OperationalPipeline:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["200 comprehensive unit and integration tests", "208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
 
 
 class TestPhase55to58Hardening:
@@ -3792,7 +3792,7 @@ class TestPhase59CognitiveWarfareAndTeleologicalSieve:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["208 comprehensive unit and integration tests", "216 comprehensive unit and integration tests", "220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
 
 
 class TestPhase60MultiPillarChronologyArbiter:
@@ -3935,7 +3935,7 @@ class TestPhase60MultiPillarChronologyArbiter:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["220 comprehensive unit and integration tests", "224 comprehensive unit and integration tests", "231 comprehensive unit and integration tests", "238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
 
 
 class TestPhase61GeofinancialAndDisinformationHardening:
@@ -4086,7 +4086,7 @@ class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests"])
+        assert any(cnt in content for cnt in ["238 comprehensive unit and integration tests", "243 comprehensive unit and integration tests", "248 comprehensive unit and integration tests", "253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
 
 
 class TestPhase66to69HeptarchyAndAtomicGuardrails:
@@ -4377,7 +4377,7 @@ class TestPhase70CourtroomForensicsAndClaimDecomposition:
         content = readme_path.read_text(encoding="utf-8")
         assert any(
             cnt in content for cnt in [
-                "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests",
+                "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests",
                 "264 comprehensive unit and integration tests",
                 "257 comprehensive unit and integration tests",
                 "253 comprehensive unit and integration tests",
@@ -4564,7 +4564,7 @@ class TestPhase71DiagnosticMemoryAndMicroSignalSieve:
         # Test README parity
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
 
 
 class TestPhase72SovereignDashboardAndExportEngine:
@@ -4693,7 +4693,7 @@ class TestPhase72SovereignDashboardAndExportEngine:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["253 comprehensive unit and integration tests", "257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
 
 
 class TestPhase73to75DeepTechHardening:
@@ -4784,7 +4784,7 @@ class TestPhase73to75DeepTechHardening:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["257 comprehensive unit and integration tests", "264 comprehensive unit and integration tests", "271 comprehensive unit and integration tests", "276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
 
 
 class TestPhase76UniversalReportAndVisualizationEngine:
@@ -5354,7 +5354,7 @@ class TestPhase78SubNationalParadiplomacyAndMercenaryDiffusion:
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert any(c in content for c in ["276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests"])
+        assert any(c in content for c in ["276 comprehensive unit and integration tests", "282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
 
 
 class TestPhase79and80HistoriographyAndChatDistillation:
@@ -5518,10 +5518,175 @@ class TestPhase79and80HistoriographyAndChatDistillation:
         assert len(data["claims"]) >= 2
 
     def test_phase80_readme_and_test_count_parity(self):
-        """Verify README.md reflects updated 282 test count parity."""
+        """Verify README.md reflects updated 282 or 288 test count parity."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
-        assert "282 comprehensive unit and integration tests" in content
+        assert any(c in content for c in ["282 comprehensive unit and integration tests", "288 comprehensive unit and integration tests"])
+
+
+class TestPhase81and82ChokepointAndAvionicsSovereignty:
+    """
+    Phase 81 & Phase 82 Verification Suite:
+    - Phase 81: Sub-National Geographic Chokepoint & Transnational Hydrological Pincer Sieve (ChokepointKineticSieve)
+    - Phase 82: Defense Avionics Electronic Sovereignty & Digital Leash Sieve (AvionicsSovereigntySieve)
+    """
+
+    def test_phase81_chokepoint_kinetic_sieve_closed_form(self):
+        """Verify ChokepointKineticSieve closed-form vulnerability index V_choke calculations."""
+        from geo_engine.lenses.geopolitical import ChokepointKineticSieve
+
+        # Siliguri corridor scenario: narrow (22km), close adversary (35km), high flank (0.70), high hydro (0.65)
+        res = ChokepointKineticSieve.calculate_chokepoint_vulnerability(
+            corridor_width_km=22.0,
+            adversary_proximity_km=35.0,
+            hostile_flank_index=0.70,
+            upstream_hydro_leverage=0.65,
+            logistics_redundancy_count=1
+        )
+        assert 0.0 <= res["chokepoint_vulnerability_index"] <= 1.0
+        assert res["chokepoint_vulnerability_index"] >= 0.75
+        assert res["threat_tier"] == "CRITICAL_CHOKEPOINT"
+        assert res["strategic_posture"] == "OFFENSIVE_DEFENSIVE_PREEMPTION_MANDATED"
+        assert "width hazard" in res["tactical_rationale"].lower()
+
+        # Wide / low hazard scenario with logistics redundancy
+        res_safe = ChokepointKineticSieve.calculate_chokepoint_vulnerability(
+            corridor_width_km=150.0,
+            adversary_proximity_km=120.0,
+            hostile_flank_index=0.10,
+            upstream_hydro_leverage=0.10,
+            logistics_redundancy_count=3
+        )
+        assert res_safe["chokepoint_vulnerability_index"] < 0.30
+        assert res_safe["threat_tier"] == "SECURE_TRANSIT"
+        assert res_safe["strategic_posture"] == "ROUTINE_SECURITY"
+
+    def test_phase81_geopolitical_lens_chokepoint_telemetry(self):
+        """Verify GeopoliticalLens dynamically evaluates sub-national chokepoints and adjusts alignment."""
+        import types
+        from geo_engine.lenses.geopolitical import GeopoliticalLens
+        from geo_engine.core.models import SummitEvent
+
+        event = SummitEvent(summit_name="Eastern Border Security Assessment", year=2026)
+        baseline = GeopoliticalLens.evaluate(event)
+        assert baseline.hard_metrics["chokepoint_threat_tier"] == "SECURE_TRANSIT"
+        assert baseline.hard_metrics["pincer_flank_threat_detected"] is False
+
+        # Telemetry with Siliguri Corridor, Doklam, Teesta, and Bangladesh pincer
+        claim = types.SimpleNamespace(asserted_fact="PLA buildup near Doklam threatens the Siliguri chicken's neck corridor alongside Teesta water leverage from Bangladesh")
+        telemetry = GeopoliticalLens.evaluate(event, claims=[claim])
+        assert telemetry.hard_metrics["chokepoint_threat_tier"] in ("CRITICAL_CHOKEPOINT", "ELEVATED_VULNERABILITY")
+        assert telemetry.hard_metrics["pincer_flank_threat_detected"] is True
+        assert telemetry.hard_metrics["upstream_hydro_leverage_active"] is True
+        assert telemetry.alignment_score < baseline.alignment_score
+        assert any("[SUB-NATIONAL CHOKEPOINT FORENSICS]" in f for f in telemetry.key_findings)
+
+    def test_phase81_and_82_sqlite_event_seeds(self):
+        """Verify EventStore seeds chokepoint and avionics sovereignty historical events."""
+        import tempfile, os
+        from geo_engine.storage.event_store import EventStore
+
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+            tmp_db = f.name
+
+        try:
+            store = EventStore(db_path=tmp_db)
+            with store._get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM events")
+                events = {row["event_id"]: dict(row) for row in cursor.fetchall()}
+            assert "HIST-1971-CHICKENS-NECK-SECURITY" in events
+            assert "HIST-2017-DOKLAM-CHUMBI" in events
+            assert "HIST-2019-TURKEY-F35-CAATSA" in events
+            assert "HIST-2024-TARANG-SHAKTI-JODHPUR" in events
+
+            choke_ev = events["HIST-1971-CHICKENS-NECK-SECURITY"]
+            assert choke_ev["category"] == "chokepoint_security"
+            assert "Siliguri" in choke_ev["title"]
+
+            avionics_ev = events["HIST-2019-TURKEY-F35-CAATSA"]
+            assert avionics_ev["category"] == "avionics_sovereignty"
+            assert "Turkey" in avionics_ev["title"]
+            assert "CAATSA" in avionics_ev["summary"]
+        finally:
+            del store
+            try:
+                if os.path.exists(tmp_db):
+                    os.remove(tmp_db)
+            except Exception:
+                pass
+
+    def test_phase82_avionics_sovereignty_sieve_operational_autonomy(self):
+        """Verify AvionicsSovereigntySieve calculates Omega_autonomy and digital leash tiers."""
+        from geo_engine.lenses.military_readiness import AvionicsSovereigntySieve
+
+        # F-35 scenario: no source code, no on-prem data, foreign cloud tether, high kill-switch risk
+        res_f35 = AvionicsSovereigntySieve.calculate_operational_autonomy(
+            source_code_transfer=False,
+            on_prem_mission_data=False,
+            foreign_cloud_tether=True,
+            proprietary_kill_switch_risk=0.85
+        )
+        assert 0.0 <= res_f35["operational_autonomy_score"] <= 1.0
+        assert res_f35["operational_autonomy_score"] < 0.25
+        assert res_f35["digital_leash_tier"] == "EXTRATERRITORIAL_REMOTE_KILL_SWITCH_ACTIVE"
+        assert res_f35["cloud_tether_active"] is True
+        assert "kill-switch" in res_f35["tactical_rationale"].lower()
+
+        # Sovereign platform scenario: full source code, on-prem data, no cloud tether, low kill-switch risk
+        res_sovereign = AvionicsSovereigntySieve.calculate_operational_autonomy(
+            source_code_transfer=True,
+            on_prem_mission_data=True,
+            foreign_cloud_tether=False,
+            proprietary_kill_switch_risk=0.10
+        )
+        assert res_sovereign["operational_autonomy_score"] >= 0.75
+        assert res_sovereign["digital_leash_tier"] == "SOVEREIGN_AUTONOMOUS"
+        assert res_sovereign["operational_verdict"] == "FULL_MISSION_COMPUTER_AND_WEAPONS_INTEGRATION_FREEDOM"
+
+    def test_phase82_military_readiness_lens_avionics_telemetry(self):
+        """Verify MilitaryReadinessLens evaluates defense avionics sovereignty and Luneburg reflectors."""
+        import types
+        from geo_engine.lenses.military_readiness import MilitaryReadinessLens
+        from geo_engine.core.models import StrategicEvent
+
+        event = StrategicEvent(title="5th-Gen Combat Aircraft Procurement Evaluation")
+        baseline = MilitaryReadinessLens.evaluate(event)
+        assert "avionics_sovereignty_score" not in baseline.hard_metrics
+
+        # Telemetry with F-35, ODIN/ALIS, Luneburg reflector, and Tarang Shakti Jodhpur
+        claim = types.SimpleNamespace(asserted_fact="USAF F-35 deployment at Tarang Shakti Jodhpur used Luneburg radar reflectors while tethered to ODIN mission cloud with digital leash risks")
+        telemetry = MilitaryReadinessLens.evaluate(event, claims=[claim])
+        assert "avionics_sovereignty_score" in telemetry.hard_metrics
+        assert telemetry.hard_metrics["digital_leash_detected"] is True
+        assert telemetry.hard_metrics["peacetime_reflector_deployed"] is True
+        assert telemetry.hard_metrics["radar_cross_section_risk"] == 0.72
+        assert any("[DEFENSE AVIONICS SOVEREIGNTY]" in f for f in telemetry.key_findings)
+        assert any("Luneburg radar reflectors" in f for f in telemetry.key_findings)
+
+    def test_phase81_82_media_audit_routing_and_readme_parity(self):
+        """Verify AudioStreamConnector forensic audit routes defense avionics & chokepoints, and checks README parity."""
+        import pathlib
+        from geo_engine.video.audio_stream import AudioStreamConnector
+
+        # Mock media claim audit with defense avionics and Siliguri corridor text
+        mock_meta = {
+            "title": "US F-35 at Jodhpur Air Base and Siliguri Corridor Vulnerability Analysis",
+            "description": "Assessing Luneburg radar reflector masking on F-35, ALIS cloud digital leash, and PLA pincer movements near the Siliguri corridor"
+        }
+        res = AudioStreamConnector.audit_media_claims("MED-DEFENSE-CHOKE", metadata_fallback=mock_meta)
+        assert res["has_defense_claim"] is True
+        assert res["has_chokepoint_claim"] is True
+        assert res["avionics_sovereignty_audit"] is not None
+        assert res["chokepoint_audit"] is not None
+        assert res["avionics_sovereignty_audit"]["operational_autonomy_score"] < 0.50
+        assert res["chokepoint_audit"]["chokepoint_vulnerability_index"] >= 0.50
+
+        # README parity verification
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "288 comprehensive unit and integration tests" in content
+
 
 
