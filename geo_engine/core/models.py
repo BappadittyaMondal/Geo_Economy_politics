@@ -221,6 +221,7 @@ class SummitAnalysisReport(BaseModel):
     strategic_resilience_matrix: Dict[str, Any] = Field(default_factory=dict)
     ach_evaluation: Optional[Dict[str, Any]] = None
     overall_confidence_score: float = Field(default=0.8)
+    diagnostic_encounter_id: Optional[str] = None
     epistemic_arbitration_log: List[str] = Field(default_factory=list)
 
     @model_validator(mode="before")

@@ -689,6 +689,32 @@ class SummitSynthesizer:
         raw_conf = weighted_conf_sum / max(total_tier_weight, 1e-6)
         overall_confidence = max(0.10, round(raw_conf - contradiction_penalty, 2))
 
+        # Record longitudinal diagnostic encounter in EventStore if available
+        enc_id = None
+        try:
+            from ..storage.event_store import EventStore
+            es = EventStore()
+            entity_name = getattr(summit, "summit_name", getattr(summit, "event_name", getattr(summit, "title", "Strategic Event")))
+            query_repr = f"Synthesis of {entity_name} ({mode.value}) across {len(lens_evals)} lenses"
+            anomalies = []
+            if contradiction_penalty > 0:
+                anomalies.append(f"Contradiction penalty: {contradiction_penalty:.2f}")
+            if ach_report and ach_report.is_epistemically_contested:
+                anomalies.append("ACH Contested causal hypotheses")
+            enc_id = es.record_diagnostic_encounter(
+                entity_or_subject=entity_name,
+                query_text=query_repr,
+                primary_epistemic_tier="TIER_1_PHYSICAL",
+                confidence=overall_confidence,
+                reality_ratio=round(1.0 - contradiction_penalty, 2),
+                propaganda_ratio=round(contradiction_penalty, 2),
+                anomalies_detected=anomalies,
+                session_id=getattr(summit, "event_id", "summit_synthesis")
+            )
+            arbitration_log.append(f"[LONGITUDINAL_ENCOUNTER] Registered diagnostic encounter {enc_id} in EventStore.")
+        except Exception:
+            pass
+
         return SummitAnalysisReport(
             event=summit,
             lens_evaluations=lens_evals,
@@ -700,6 +726,7 @@ class SummitSynthesizer:
             strategic_resilience_matrix=strategic_resilience_matrix,
             ach_evaluation=ach_report.to_dict() if ach_report else None,
             overall_confidence_score=overall_confidence,
+            diagnostic_encounter_id=enc_id,
             epistemic_arbitration_log=arbitration_log
         )
 
@@ -734,4 +761,7 @@ class SummitSynthesizer:
             persona=persona
         )
         return report, files
+
+    # Alias for synthesize_report
+    synthesize = synthesize_report
 

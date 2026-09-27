@@ -350,3 +350,78 @@ class MCMCGeopoliticalWargamer:
             resilience_verdict=verdict,
             summary=summary
         )
+
+    @classmethod
+    def seed_from_lens_evaluations(
+        cls,
+        evaluations: List[Any],
+        initiator: str = "India",
+        target: str = "China",
+        horizon_months: int = 24,
+        num_simulations: int = 1000
+    ) -> MCMCScenarioConfig:
+        """
+        Phase 85: Dynamic Lens-Coupled MCMC Configuration Generator.
+        Bridges the isolated Markov Chain Monte Carlo simulator directly to the outputs of LENS_REGISTRY.
+        Extracts:
+        - MilitaryReadinessLens: WWR days and deterrence posture
+        - CashFlowLens & GeoEconomistLens: FX cover and effective CapEx
+        - GeopoliticalLens & ChokepointKineticSieve: Initial conflict state (S0 to S4)
+        - BureaucraticInertiaLens & PropagandaLens: Domestic friction factor
+        """
+        eval_map = {}
+        for ev in evaluations:
+            name = getattr(ev, "lens_name", "")
+            eval_map[name] = ev
+
+        geo_eval = None
+        mil_eval = None
+        cash_eval = None
+        bureau_eval = None
+
+        for k, v in eval_map.items():
+            k_lower = k.lower()
+            if "geopolitical" in k_lower or "chokepoint" in k_lower:
+                geo_eval = v
+            elif "military" in k_lower or "avionics" in k_lower:
+                mil_eval = v
+            elif "cash" in k_lower or "geo-economist" in k_lower or "geoeconomic" in k_lower:
+                cash_eval = v
+            elif "bureaucratic" in k_lower or "propaganda" in k_lower:
+                bureau_eval = v
+
+        geo_score = getattr(geo_eval, "alignment_score", 0.0) if geo_eval else 0.0
+        v_choke = getattr(geo_eval, "hard_metrics", {}).get("chokepoint_vulnerability_index", 0.0) if geo_eval else 0.0
+
+        if v_choke >= 0.75 or geo_score <= -0.70:
+            init_state = ConflictState.S3_LOCALIZED_KINETIC
+        elif v_choke >= 0.50 or geo_score <= -0.40:
+            init_state = ConflictState.S1_GREY_ZONE_FRICTION
+        elif v_choke >= 0.30 or geo_score < 0.0:
+            init_state = ConflictState.S2_ECONOMIC_ATTRITION
+        else:
+            init_state = ConflictState.S0_DETERRENCE_EQUILIBRIUM
+
+        mil_metrics = getattr(mil_eval, "hard_metrics", {}) if mil_eval else {}
+        initiator_wwr = float(mil_metrics.get("wwr_ammunition_reserve_days", 20.0))
+
+        cash_metrics = getattr(cash_eval, "hard_metrics", {}) if cash_eval else {}
+        fx_cover = float(cash_metrics.get("fx_import_cover_months", 11.5))
+
+        bureau_metrics = getattr(bureau_eval, "hard_metrics", {}) if bureau_eval else {}
+        domestic_friction = float(bureau_metrics.get("bureaucratic_delay_index", 0.35))
+        domestic_friction = max(0.05, min(0.95, domestic_friction))
+
+        return MCMCScenarioConfig(
+            initiator_name=initiator,
+            target_name=target,
+            initial_state=init_state,
+            horizon_months=horizon_months,
+            num_simulations=num_simulations,
+            initiator_wwr_days=initiator_wwr,
+            target_wwr_days=25.0,
+            initiator_fx_cover_months=fx_cover,
+            target_fx_cover_months=14.0,
+            domestic_friction_factor=domestic_friction
+        )
+

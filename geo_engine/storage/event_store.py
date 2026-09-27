@@ -1297,6 +1297,76 @@ class EventStore:
                     "South Asia / Afghanistan",
                     "Harkat-ul-Mujahideen terrorists hijacked Indian Airlines Flight IC-814 from Kathmandu to Kandahar under Taliban control, forcing the release of three terror commanders including Masood Azhar.",
                     "Critical watershed shaping India's modern counter-terror crisis response, hostage negotiation doctrine, and the transition toward the Doval Offensive-Defense preemption doctrine."
+                ),
+                (
+                    "HIST-1976-MARITIME-ZONES-ACT",
+                    8,
+                    25,
+                    1976,
+                    "Territorial Waters, Continental Shelf, EEZ and Other Maritime Zones Act (Act 80 of 1976)",
+                    "Indian Ocean / New Delhi",
+                    "Codified India's sovereign maritime baselines: 12 NM territorial waters, 24 NM contiguous zone, and 200 NM Exclusive Economic Zone (EEZ) encompassing over 2.3 million square kilometers.",
+                    "Foundational domestic statute asserting resource sovereignty and requiring prior notification for foreign warship entry."
+                ),
+                (
+                    "HIST-2021-US-FONOP-LAKSHADWEEP",
+                    4,
+                    7,
+                    2021,
+                    "USS John Paul Jones FONOP West of Lakshadweep Islands",
+                    "Arabian Sea / Lakshadweep",
+                    "US 7th Fleet destroyer USS John Paul Jones conducted Freedom of Navigation Operation (FONOP) within India's EEZ without prior consent, publicly challenging India's maritime claims under Act 80/1976.",
+                    "Highlights the enduring statutory divergence between US customary high-seas navigation interpretations and Indian domestic security consent mandates in the EEZ."
+                ),
+                (
+                    "HIST-2022-MARITIME-ANTI-PIRACY",
+                    12,
+                    21,
+                    2022,
+                    "Maritime Anti-Piracy Act 2022 High-Seas Codification",
+                    "Indian Ocean / Gulf of Aden / New Delhi",
+                    "Parliament enacted the Maritime Anti-Piracy Act, codifying universal jurisdiction over high-seas piracy and empowering the Indian Navy and Coast Guard to intercept, arrest, and prosecute transnational pirates in domestic special courts.",
+                    "Enabled the Indian Navy's forward security posture in the Arabian Sea and Gulf of Aden, executing boarding and recapture operations."
+                ),
+                (
+                    "HIST-2020-FCRA-CRACKDOWN",
+                    9,
+                    29,
+                    2020,
+                    "Foreign Contribution Regulation Amendment Act & NGO Surveillance",
+                    "National / New Delhi",
+                    "Parliament enacted the FCRA Amendment Act 2020, mandating centralized SBI New Delhi accounts, banning sub-granting, and initiating cancellations of foreign-funded advocacy licenses (Amnesty, Oxford Policy Management).",
+                    "Dismantled transnational funding corridors weaponized for sub-national lawfare and proxy economic litigation."
+                ),
+                (
+                    "HIST-2024-WAQF-AMENDMENT-BILL",
+                    8,
+                    8,
+                    2024,
+                    "Waqf (Amendment) Bill 2024 Legislative Introduction",
+                    "National / Parliament of India",
+                    "Government introduced the Waqf (Amendment) Bill, reforming the 1995 Act by stripping Waqf Boards of unilateral survey powers under Section 40, transferring dispute jurisdiction to District Collectors/Civil Courts, and mandating non-Muslim and female representation.",
+                    "Major institutional lawfare recalibration addressing statutory asymmetries and parallel land dispute jurisdictions."
+                ),
+                (
+                    "HIST-2023-IMEC-G20-NEW-DELHI",
+                    9,
+                    9,
+                    2023,
+                    "India-Middle East-Europe Economic Corridor (IMEC) Declaration",
+                    "New Delhi / Global",
+                    "India, US, UAE, Saudi Arabia, France, Germany, Italy, and EU signed the IMEC MOU at the New Delhi G20 Summit, designing a multi-modal ship-to-rail transit network connecting India to Europe via the Arabian Gulf.",
+                    "Strategic counter-BRI logistics corridor bypassing maritime chokepoints and integrating West Asian energy with Indian manufacturing."
+                ),
+                (
+                    "HIST-2024-TRAPPED-RUPEE-VOSTRO",
+                    5,
+                    15,
+                    2024,
+                    "Special Rupee Vostro Account (SRVA) Capital Recycling Accord",
+                    "New Delhi / Moscow",
+                    "India and Russia negotiated mechanisms to recycle an estimated ₹20,000+ crore in trapped Russian rupee balances accumulated via discounted Urals crude purchases into Indian government securities (G-Secs), equity, and infrastructure investments.",
+                    "Demonstrates the practical financial plumbing bottlenecks of bilateral de-dollarization and the necessity of capital account recycling."
                 )
             ]
 
@@ -1305,6 +1375,64 @@ class EventStore:
                 (anniversary_id, month, day, year, event_title, region, historical_summary, strategic_mirror_significance)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, anniversaries_seed)
+
+            # Phase 86: Seed Historical Resolved Forecast Calibrations (1974-2024 benchmarks)
+            historical_forecasts_seed = [
+                (
+                    "FCST-HIST-1974-POKHRAN-I", "1974-01-10", "1974-05-18", "Smiling Buddha",
+                    "India conducts peaceful nuclear explosive test under BARC/AEC leadership",
+                    0.85, 0.70, 0.95, "BARC seismic preparations and plutonium metallurgy verification",
+                    1, 0.0225, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-1998-POKHRAN-II", "1998-03-20", "1998-05-11", "Operation Shakti",
+                    "India detonates thermonuclear and fission warheads evading US satellite overflights",
+                    0.88, 0.75, 0.96, "58 Armoured Engineer Regiment camouflage protocol and solar tracking",
+                    1, 0.0144, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-1999-KARGIL-LOITER", "1999-05-10", "1999-07-26", "Operation Vijay",
+                    "Indian military evicts Northern Light Infantry intrusions across LoC ridgelines",
+                    0.90, 0.80, 0.98, "Artillery massing (Bofors FH77B) and precision laser-guided strikes (Mirage 2000)",
+                    1, 0.0100, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2017-DOKLAM-STANDOFF", "2017-06-25", "2017-08-28", "Doklam Plateau Standoff",
+                    "India-China bilateral disengagement achieved without Chinese road completion at Doka La",
+                    0.82, 0.68, 0.92, "Mutual verification protocols and Chumbi valley flank exposure",
+                    1, 0.0324, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2020-GALWAN-DISENGAGE", "2020-06-20", "2021-02-15", "Galwan & Pangong Tso Standoff",
+                    "Disengagement achieved at Finger 4-8 with permanent Indian ITBP/Army forward bases",
+                    0.78, 0.65, 0.89, "Armor positioning on Kailash Range and winter stocking parity",
+                    1, 0.0484, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2022-RUS-CRUDE-DISCOUNT", "2022-03-05", "2022-12-31", "Urals Crude Procurement",
+                    "India increases Russian crude import share from <2% to >30% resisting secondary sanctions",
+                    0.86, 0.75, 0.94, "Refinery cracking economics, Urals $25-35 discount, and shadow tanker logistics",
+                    1, 0.0196, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2023-G20-CONSENSUS", "2023-08-15", "2023-09-10", "New Delhi G20 Leaders Summit",
+                    "Unanimous 100% consensus achieved on New Delhi Declaration including Ukraine paragraphs",
+                    0.80, 0.65, 0.92, "Emerging market quad (India, Brazil, South Africa, Indonesia) coordination",
+                    1, 0.0400, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2024-CHABAHAR-10YR", "2024-02-10", "2024-05-13", "Chabahar Port Long-Term Accord",
+                    "India Signs 10-Year Long-Term Contract with Iran for Shahid Beheshti Terminal",
+                    0.85, 0.72, 0.93, "IPGL negotiations and OFAC humanitarian carve-out validation",
+                    1, 0.0225, "RESOLVED"
+                )
+            ]
+            cursor.executemany("""
+                INSERT OR IGNORE INTO forecast_ledger
+                (forecast_id, created_at, target_date, event_name, hypothesis, predicted_probability,
+                 confidence_interval_low, confidence_interval_high, epistemic_basis, actual_outcome, brier_score, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, historical_forecasts_seed)
 
             cosmic_benchmarks_seed = [
                 (
@@ -1526,6 +1654,18 @@ class EventStore:
                     WHERE month = ?
                     ORDER BY day ASC
                 """, (month,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+    def get_historical_anniversaries(self, limit: int = 500) -> List[Dict[str, Any]]:
+        """Returns all historical turning points and sovereign anniversaries."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM historical_anniversaries
+                ORDER BY anniversary_id ASC
+                LIMIT ?
+            """, (limit,))
             rows = cursor.fetchall()
             return [dict(row) for row in rows]
 

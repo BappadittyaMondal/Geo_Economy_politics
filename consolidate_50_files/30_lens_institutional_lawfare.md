@@ -77,14 +77,27 @@ class InstitutionalLawfareLens:
 
             maritime_keywords = [
                 "1991 agreement", "colregs", "article 10", "buffer distance",
-                "maritime accord", "bow crossing", "ramming", "naval standoff"
+                "maritime accord", "bow crossing", "ramming", "naval standoff",
+                "unclos", "act 80", "eez", "maritime zone", "innocent passage",
+                "transit passage", "fonop", "freedom of navigation", "anti-piracy act",
+                "contiguous zone", "lakshadweep fonop"
             ]
             maritime_lawfare_detected = any(
                 any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in maritime_keywords)
                 for c in claims
             )
             if maritime_lawfare_detected:
-                findings.insert(0, "[GROUNDED TELEMETRY] Bilateral maritime accord breach identified: Violation of 1991 Agreement Article 10 (3 NM buffer) and COLREGs Rule 8 safe navigation rules in international waters.")
+                has_fonop = any("fonop" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "freedom of navigation" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                has_anti_piracy = any("anti-piracy" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                if has_fonop:
+                    findings.insert(0, "[GROUNDED TELEMETRY] Maritime EEZ Sovereignty Challenge: Foreign warship executed Freedom of Navigation Operation (FONOP) inside Indian 200 NM EEZ without prior consent, contesting Indian Maritime Zones Act 1976 (Act 80) and UNCLOS Article 56 declaration.")
+                    metrics["eez_sovereignty_challenge_severity"] = 0.88
+                    metrics["maritime_jurisdiction_friction"] = 0.82
+                elif has_anti_piracy:
+                    findings.insert(0, "[GROUNDED TELEMETRY] High-Seas Universal Maritime Jurisdiction: Indian naval boarding and interdiction executed under Maritime Anti-Piracy Act 2022 and UNCLOS Articles 100-107.")
+                    metrics["anti_piracy_statutory_authority_score"] = 0.95
+                else:
+                    findings.insert(0, "[GROUNDED TELEMETRY] Bilateral maritime accord breach identified: Violation of 1991 Agreement Article 10 (3 NM buffer) and COLREGs Rule 8 safe navigation rules in international waters.")
                 alignment = min(alignment, -0.70)
                 metrics["bilateral_maritime_accord_compliance_score"] = 0.15
                 metrics["maritime_treaty_breach_severity"] = 0.85
@@ -247,6 +260,78 @@ class InstitutionalLawfareLens:
             "execution_guidance": guidance,
             "statutory_execution_barrier_identified": feas < 0.50
         }
+
+    @staticmethod
+    def calculate_maritime_jurisdiction_compliance(
+        zone_nm: float,
+        is_warship: bool = True,
+        prior_consent_declared: bool = False,
+        conducting_military_maneuver: bool = False,
+        anti_piracy_interception: bool = False
+    ) -> Dict[str, Any]:
+        """
+        Phase 84: Evaluates maritime domain sovereignty across:
+        - Indian Maritime Zones Act 1976 (Act 80 of 1976):
+          * Section 3: 12 NM Territorial Waters (Sovereign baseline, warships require prior notification)
+          * Section 5: 24 NM Contiguous Zone (Customs, fiscal, immigration, sanitation)
+          * Section 7: 200 NM Exclusive Economic Zone (EEZ sovereign rights for resource exploitation)
+        - UNCLOS 1982:
+          * Articles 17-26: Innocent Passage regime
+          * Articles 56 & 58: EEZ jurisdiction vs foreign military activities (US FONOPs friction)
+        - COLREGs 1972: Rules 8, 14, 15 liability for grayzone shouldering/ramming
+        - Maritime Anti-Piracy Act, 2022: High-seas universal jurisdiction enforcement
+        """
+        zone_nm = float(zone_nm)
+        if zone_nm <= 12.0:
+            zone_type = "TERRITORIAL_WATERS"
+            act_section = "Act 80/1976 Section 3"
+            unclos_regime = "UNCLOS Articles 17-26 (Innocent Passage)"
+            sovereignty_tier = "SOVEREIGN_TERRITORY"
+            is_infringement = bool(is_warship and not prior_consent_declared)
+        elif zone_nm <= 24.0:
+            zone_type = "CONTIGUOUS_ZONE"
+            act_section = "Act 80/1976 Section 5"
+            unclos_regime = "UNCLOS Article 33"
+            sovereignty_tier = "ENFORCEMENT_JURISDICTION"
+            is_infringement = bool(is_warship and conducting_military_maneuver and not prior_consent_declared)
+        elif zone_nm <= 200.0:
+            zone_type = "EXCLUSIVE_ECONOMIC_ZONE"
+            act_section = "Act 80/1976 Section 7"
+            unclos_regime = "UNCLOS Articles 56 & 58 (Resource Sovereign Rights vs Navigation)"
+            sovereignty_tier = "SOVEREIGN_ECONOMIC_RIGHTS"
+            is_infringement = bool(conducting_military_maneuver and not prior_consent_declared)
+        else:
+            zone_type = "HIGH_SEAS"
+            act_section = "Maritime Anti-Piracy Act 2022 / Universal Jurisdiction"
+            unclos_regime = "UNCLOS Article 87 (Freedom of the High Seas)"
+            sovereignty_tier = "GLOBAL_COMMONS"
+            is_infringement = False
+
+        if anti_piracy_interception:
+            legality = "AUTHORIZED_UNIVERSAL_JURISDICTION"
+            legal_basis = "Maritime Anti-Piracy Act 2022 / UNCLOS Art. 100-107"
+            compliance_score = 0.95
+        elif is_infringement:
+            legality = "SOVEREIGN_EEZ_CHALLENGE_OR_FONOP"
+            legal_basis = f"Violation of {act_section} and Indian declaration under UNCLOS Art. 56"
+            compliance_score = 0.20
+        else:
+            legality = "COMPLIANT_PASSAGE"
+            legal_basis = f"Authorized under {act_section} and {unclos_regime}"
+            compliance_score = 0.85
+
+        return {
+            "zone_distance_nm": zone_nm,
+            "maritime_zone_classification": zone_type,
+            "statutory_act": act_section,
+            "unclos_regime": unclos_regime,
+            "sovereignty_tier": sovereignty_tier,
+            "is_sovereignty_infringement": is_infringement,
+            "legality_assessment": legality,
+            "legal_basis": legal_basis,
+            "maritime_jurisdiction_score": compliance_score
+        }
+
 
 
 ```

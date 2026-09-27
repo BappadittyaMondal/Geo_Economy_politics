@@ -165,6 +165,8 @@ class DecomposedClaim(BaseModel):
     causal_assertions: List[str] = Field(default_factory=list)
     conjunction_detected: Optional[str] = None
     is_poisoned_tail_detected: bool = False
+    is_proximity_framing_detected: bool = False
+    proximity_framing_indicators: List[str] = Field(default_factory=list)
     premise_veracity_score: float = Field(default=1.0, ge=0.0, le=1.0)
     inference_veracity_score: float = Field(default=1.0, ge=0.0, le=1.0)
     poisoned_tail_ratio: float = Field(default=0.0, ge=0.0)
@@ -177,6 +179,7 @@ class ClaimDecomposer:
     Atomic Claim-Decomposition Token Splitter.
     Deconstructs compound rhetorical narratives across causal inflection points
     to isolate true premises from weaponized, ungrounded causal conclusions.
+    Includes temporal proximity framing forensics for juxtaposed unevidenced leaps.
     """
     CAUSAL_CONNECTORS = [
         " therefore ", " hence ", " consequently ", " thus ", " which proves that ",
@@ -187,13 +190,23 @@ class ClaimDecomposer:
     CONSPIRACY_LEAP_KEYWORDS = [
         "vote chori", "stolen election", "rigged", "vote theft", "conspiracy", "traitor",
         "deshdrohi", "turn approver", "sabotage", "subversion", "captured", "criminal plot",
-        "secret plot", "sold out", "collusion", "colluding"
+        "secret plot", "sold out", "collusion", "colluding", "act of war", "surrendered sovereignty",
+        "puppet state", "puppet government", "axis against", "illegal annexation",
+        "violating sanctions", "backchannel surrender", "hostile axis", "secret pact", "foreign agent"
+    ]
+
+    TEMPORAL_PROXIMITY_MARKERS = [
+        "hours later", "the following day", "the next day", "the following morning",
+        "immediately following", "shortly after", "days later", "shortly thereafter",
+        "on the same day", "at the same time", "within 24 hours", "within 48 hours",
+        "subsequently", "the next morning", "a day later", "following the meeting"
     ]
 
     FACTUAL_INDICATORS = [
         "revision", "special intensive revision", "sir", "electoral roll", "election commission",
         "dissent", "objection", "recorded", "meeting", "gazette", "notification", "query",
-        "deleted", "added", "verified", "form 7", "form 8", "eci", "official", "deliberation"
+        "deleted", "added", "verified", "form 7", "form 8", "eci", "official", "deliberation",
+        "agreement", "bilateral", "treaty", "port", "trade", "procurement", "mou"
     ]
 
     @classmethod
@@ -231,6 +244,14 @@ class ClaimDecomposer:
         prem_str = " ".join(premises).lower()
         inf_str = " ".join(inferences).lower()
 
+        # Check for temporal proximity framing markers
+        proximity_hits = [m for m in cls.TEMPORAL_PROXIMITY_MARKERS if m in text_lower]
+        days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        day_mentions = [d for d in days if f"on {d}" in text_lower]
+        if len(day_mentions) >= 2:
+            proximity_hits.append(f"successive_days({day_mentions[0]}->{day_mentions[1]})")
+        is_proximity_framed = bool(proximity_hits and len(premises) >= 1 and inferences)
+
         # Score premise veracity (presence of factual administrative/statutory terminology)
         factual_premise_hits = sum(1 for kw in cls.FACTUAL_INDICATORS if kw in prem_str)
         premise_veracity = min(1.0, 0.50 + factual_premise_hits * 0.15) if premises else 0.50
@@ -240,6 +261,8 @@ class ClaimDecomposer:
         if inferences:
             if conspiracy_hits > 0:
                 inference_veracity = max(0.10, 0.40 - conspiracy_hits * 0.15)
+            elif is_proximity_framed:
+                inference_veracity = 0.45
             else:
                 inference_veracity = 0.70
         else:
@@ -255,6 +278,12 @@ class ClaimDecomposer:
                 f"({premise_veracity:.1%}), but the concluding causal attribution leaps to unproven conspiracy "
                 f"({inference_veracity:.1%}) with a distortion ratio of {poisoned_ratio:.2f}."
             )
+        elif is_proximity_framed:
+            classification = "PROXIMITY_FRAMING_MISINFORMATION_DETECTED"
+            rationale = (
+                f"Proximity-Framing Misinformation Detected: Disparate events juxtaposed across temporal proximity "
+                f"markers ({', '.join(proximity_hits[:2])}) without verified statutory/evidentiary causality (distortion ratio: {poisoned_ratio:.2f})."
+            )
         elif inferences:
             classification = "COMPOUND_ARGUMENT_EVALUATED"
             rationale = f"Compound claim decomposed into {len(premises)} premise(s) and {len(inferences)} inference(s)."
@@ -268,6 +297,8 @@ class ClaimDecomposer:
             causal_assertions=inferences,
             conjunction_detected=connector_found,
             is_poisoned_tail_detected=is_poisoned,
+            is_proximity_framing_detected=is_proximity_framed,
+            proximity_framing_indicators=proximity_hits,
             premise_veracity_score=round(premise_veracity, 2),
             inference_veracity_score=round(inference_veracity, 2),
             poisoned_tail_ratio=poisoned_ratio,

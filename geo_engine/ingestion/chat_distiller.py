@@ -73,11 +73,11 @@ class ChatConversationDistiller:
             if not matched_lenses:
                 matched_lenses = ["CivilizationalLens", "GeopoliticalLens"]
 
-            # Classify Epistemic Tier
-            # Tier 1: Physical, Archaeological, Kinetic, C14, Excavations
+            # Tier 1: Physical, Archaeological, Kinetic, C14, Excavations, Strategic Infrastructure
             if any(w in text_lower for w in [
                 "c14", "radiocarbon", "excavation", "bsip", "coffin", "sword", "shield",
-                "chariot", "cart", "strata", "archaeology", "troops", "drone", "fpv", "missile", "orbat"
+                "chariot", "cart", "strata", "archaeology", "troops", "drone", "fpv", "missile", "orbat",
+                "port", "terminal", "chokepoint", "pipeline", "tanker"
             ]):
                 tier = EpistemicTier.TIER_1_PHYSICAL
                 claim_type = ClaimType.PHYSICAL_PRESENCE
@@ -90,10 +90,11 @@ class ChatConversationDistiller:
                 tier = EpistemicTier.TIER_2_FINANCIAL
                 claim_type = ClaimType.FINANCIAL_CAPEX
                 reliability = 0.90
-            # Tier 3: Sovereign Redlines, Treaties, Statutory Lawfare, Constitution
+            # Tier 3: Sovereign Redlines, Treaties, Statutory Lawfare, Constitution, Bilateral Contracts
             elif any(w in text_lower for w in [
                 "treaty", "bpta", "cbm", "crpc", "uapa", "bnss", "hrce", "section 167", "section 188",
-                "sovereign redline", "unclos", "statutory", "mandate", "article"
+                "sovereign redline", "unclos", "statutory", "mandate", "article", "contract", "agreement",
+                "bilateral", "accord", "pact", "act 80"
             ]):
                 tier = EpistemicTier.TIER_3_SOVEREIGN_REDLINES
                 claim_type = ClaimType.LEGAL_COMMITMENT
@@ -137,12 +138,14 @@ class ChatConversationDistiller:
         session_id: Optional[str] = None,
         store: Optional[EventStore] = None,
         entity_or_subject: Optional[str] = None,
-        event_store: Optional[EventStore] = None
+        event_store: Optional[EventStore] = None,
+        parent_encounter_id: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Full distillation and learning pipeline:
         Extracts claims, persists them to SQLite EventStore, logs longitudinal
         diagnostic encounter, and updates the engine's long-term memory.
+        Supports parent_encounter_id for multi-turn longitudinal encounter chaining.
         """
         target_store = store or event_store or EventStore()
         claims = cls.distill_conversation(conversation_text, session_id=session_id)
@@ -155,7 +158,7 @@ class ChatConversationDistiller:
         if not entity_or_subject and claims:
             # Check for prominent entity mentions in first few claims
             full_corpus = " ".join(c.asserted_fact for c in claims[:3]).lower()
-            for cand in ["Sinauli", "Rakhigarhi", "Hastinapur", "Galwan", "Red Sea", "Vostro", "VanDyke", "BRICS"]:
+            for cand in ["Sinauli", "Rakhigarhi", "Hastinapur", "Galwan", "Red Sea", "Vostro", "VanDyke", "BRICS", "Chabahar", "Suwalki", "Siliguri"]:
                 if cand.lower() in full_corpus:
                     subject = cand
                     break
@@ -172,6 +175,10 @@ class ChatConversationDistiller:
 
         primary_tier = max(tier_counts.items(), key=lambda x: x[1])[0] if tier_counts else "TIER_1_PHYSICAL"
 
+        anomalies = [f"Distilled {len(claims)} conversational claims into EventStore"]
+        if parent_encounter_id:
+            anomalies.append(f"Linked to parent encounter {parent_encounter_id}")
+
         # Log longitudinal diagnostic encounter
         encounter_id = target_store.record_diagnostic_encounter(
             entity_or_subject=subject,
@@ -180,7 +187,7 @@ class ChatConversationDistiller:
             confidence=avg_confidence,
             reality_ratio=0.85,
             propaganda_ratio=0.15,
-            anomalies_detected=[f"Distilled {len(claims)} conversational claims into EventStore"],
+            anomalies_detected=anomalies,
             session_id=session_id or "chat_self_learning"
         )
 
@@ -195,6 +202,7 @@ class ChatConversationDistiller:
             "primary_epistemic_tier": primary_tier,
             "encounter_id": encounter_id,
             "diagnostic_encounter_id": encounter_id,
+            "parent_encounter_id": parent_encounter_id,
             "claims": [
                 {
                     "claim_id": c.claim_id,

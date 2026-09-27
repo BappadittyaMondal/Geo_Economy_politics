@@ -227,6 +227,10 @@ class GeoEngineMCPServer:
                     "entity_or_subject": {
                         "type": "string",
                         "description": "Optional focal entity or subject (e.g., 'Sinauli Necropolis', 'Galwan Standoff')."
+                    },
+                    "parent_encounter_id": {
+                        "type": "string",
+                        "description": "Optional parent encounter ID (e.g., 'ENC-...') for multi-turn longitudinal encounter chaining."
                     }
                 },
                 "required": ["conversation_text"]
@@ -476,11 +480,13 @@ class GeoEngineMCPServer:
             conversation_text = arguments.get("conversation_text", "")
             session_id = arguments.get("session_id", "mcp_chat_learning")
             entity_or_subject = arguments.get("entity_or_subject")
+            parent_encounter_id = arguments.get("parent_encounter_id")
             res = ChatConversationDistiller.distill_and_persist(
                 conversation_text=conversation_text,
                 session_id=session_id,
                 store=self.store,
-                entity_or_subject=entity_or_subject
+                entity_or_subject=entity_or_subject,
+                parent_encounter_id=parent_encounter_id
             )
             return res
 

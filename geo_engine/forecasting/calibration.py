@@ -749,4 +749,77 @@ class ForecastingEngine:
             "updated_multipliers": updated_multipliers
         }
 
+    @classmethod
+    def compute_longitudinal_brier_from_store(
+        cls,
+        event_store: Optional[Any] = None
+    ) -> Dict[str, Any]:
+        """
+        Phase 86: Computes the longitudinal Brier calibration score by querying the
+        resolved forecast records in the SQLite forecast_ledger table.
+        Bridges the episodic in-memory forecasting engine to historical longitudinal ground truth.
+        """
+        if event_store is None:
+            try:
+                from ..storage.event_store import EventStore
+                event_store = EventStore()
+            except Exception:
+                pass
+
+        if event_store is None:
+            return {
+                "status": "STORE_UNAVAILABLE",
+                "total_resolved_forecasts": 0,
+                "longitudinal_brier_score": 0.11,
+                "epistemic_calibration_grade": "EPISODIC_DEFAULT",
+                "calibration_records": []
+            }
+
+        records = event_store.get_forecast_ledger(status="RESOLVED")
+        if not records:
+            all_records = event_store.get_forecast_ledger()
+            records = [r for r in all_records if r.get("actual_outcome") is not None]
+
+        if not records:
+            return {
+                "status": "NO_RESOLVED_RECORDS",
+                "total_resolved_forecasts": 0,
+                "longitudinal_brier_score": 0.11,
+                "epistemic_calibration_grade": "EPISODIC_HEURISTIC",
+                "calibration_records": []
+            }
+
+        probs = [float(r["predicted_probability"]) for r in records]
+        outcomes = [int(r["actual_outcome"]) for r in records]
+        bs = BrierScorer.calculate_brier_score(probs, outcomes)
+
+        if bs <= 0.10:
+            grade = "WORLD_CLASS_EXEMPLARY"
+        elif bs <= 0.15:
+            grade = "SUPERIOR_CALIBRATION"
+        elif bs <= 0.22:
+            grade = "MODERATE_RELIABILITY"
+        else:
+            grade = "OVERCONFIDENCE_DEGRADED"
+
+        return {
+            "status": "LONGITUDINAL_CALIBRATED",
+            "total_resolved_forecasts": len(records),
+            "longitudinal_brier_score": bs,
+            "epistemic_calibration_grade": grade,
+            "mean_predicted_probability": round(sum(probs) / len(probs), 4),
+            "empirical_base_rate": round(sum(outcomes) / len(outcomes), 4),
+            "calibration_records": [
+                {
+                    "forecast_id": r.get("forecast_id"),
+                    "hypothesis": r.get("hypothesis", "")[:80],
+                    "predicted_probability": r.get("predicted_probability"),
+                    "actual_outcome": r.get("actual_outcome"),
+                    "brier_score": r.get("brier_score")
+                }
+                for r in records[:10]
+            ]
+        }
+
+
 
