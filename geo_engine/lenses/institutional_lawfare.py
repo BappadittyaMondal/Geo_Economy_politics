@@ -183,6 +183,39 @@ class InstitutionalLawfareLens:
                 metrics["waqf_section_40_asymmetry_flag"] = bool(has_waqf)
                 metrics["char_land_cadastral_vagueness"] = sieve_res["cadastral_vagueness_index"]
 
+            faultline_keywords = [
+                "sc st act", "section 18a", "kashinath mahajan", "subhash kashinath",
+                "anticipatory bail denial", "hisab chukta", "ancestral sin", "general category",
+                "caste faultline", "caste polarization", "creamy layer exclusion", "due process erosion"
+            ]
+            faultline_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in faultline_keywords)
+                for c in claims
+            )
+            if faultline_detected:
+                has_18a = any("section 18a" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "kashinath" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "anticipatory bail" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                has_guilt = any("ancestral sin" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "hisab chukta" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims)
+                
+                asym_input = 0.90 if has_18a else 0.65
+                guilt_input = 0.85 if has_guilt else 0.45
+                merit_input = 0.35 if has_18a else 0.60
+                
+                fault_res = IntraCivilizationalFaultlineSieve.calculate_faultline_vulnerability(
+                    statutory_due_process_asymmetry=asym_input,
+                    historical_guilt_narrative_intensity=guilt_input,
+                    meritocratic_preservation_index=merit_input
+                )
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Intra-Civilizational Faultline & Statutory Asymmetry Sieve triggered: "
+                    f"Threat Tier [{fault_res['fracture_threat_tier']}] (Score: {fault_res['intra_civilizational_fracture_score']:.2f}). "
+                    f"{fault_res['civilizational_risk_summary']} Statutory pathway: {fault_res['jurisprudential_remedy_pathway']}"
+                ))
+                alignment = min(alignment, -0.75)
+                metrics["intra_civilizational_fracture_score"] = fault_res["intra_civilizational_fracture_score"]
+                metrics["fracture_threat_tier"] = fault_res["fracture_threat_tier"]
+                metrics["statutory_due_process_deficit_flag"] = bool(has_18a)
+                metrics["meritocratic_erosion_risk"] = fault_res["meritocratic_erosion_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -426,6 +459,79 @@ class SubNationalEndowmentSieve:
             "vulnerability_tier": tier,
             "legal_risk_summary": summary,
             "statutory_remedy_pathway": remedy
+        }
+
+
+class IntraCivilizationalFaultlineSieve:
+    """
+    Phase 93: Intra-Civilizational Faultline & Statutory Asymmetry Sieve.
+    Quantifies civilizational polarization, due process erosion, and meritocratic friction
+    induced by competitive electoral clientelism, strict liability statutory amendments (e.g. Section 18A SC/ST Act),
+    and state-internalized collective historical guilt narratives.
+
+    Formula:
+        F_fracture = min(1.0, max(0.0, 0.40 * S_asymmetry + 0.35 * G_grievance + 0.25 * (1.0 - M_merit)))
+    """
+
+    @staticmethod
+    def calculate_faultline_vulnerability(
+        statutory_due_process_asymmetry: float,
+        historical_guilt_narrative_intensity: float,
+        meritocratic_preservation_index: float
+    ) -> Dict[str, Any]:
+        asymmetry = max(0.0, min(1.0, float(statutory_due_process_asymmetry)))
+        guilt = max(0.0, min(1.0, float(historical_guilt_narrative_intensity)))
+        merit = max(0.0, min(1.0, float(meritocratic_preservation_index)))
+        merit_deficit = round(1.0 - merit, 4)
+
+        score = round(min(1.0, max(0.0, 0.40 * asymmetry + 0.35 * guilt + 0.25 * merit_deficit)), 4)
+
+        if score >= 0.75:
+            tier = "CRITICAL_CIVILIZATIONAL_FRACTURE"
+            summary = (
+                "Severe faultline risk: Complete removal of judicial due process safeguards (e.g. denial of anticipatory "
+                "bail and preliminary inquiry), coupled with aggressive state-promoted collective historical guilt narratives "
+                "and severe erosion of meritocratic administrative advancement."
+            )
+            remedy = (
+                "Restore procedural due process safeguards (mandatory preliminary inquiry per Kashinath Mahajan), "
+                "de-escalate competitive caste-based statutory weaponization, and anchor civilizational discourse in "
+                "dharmic consensus and universal equal protection under Article 14."
+            )
+        elif score >= 0.50:
+            tier = "ELEVATED_POLARIZATION"
+            summary = (
+                "Elevated polarization: Legislative override of judicial safeguards creates asymmetric legal exposure, "
+                "fostering inter-community alienation and risk of capital/human talent flight among unreserved categories."
+            )
+            remedy = (
+                "Mandate judicial scrutiny for vexatious complaints, introduce economic-creamy-layer filters across all "
+                "affirmative action categories, and institutionalize objective arbitration boards."
+            )
+        elif score >= 0.25:
+            tier = "MODERATE_COMMUNAL_FRICTION"
+            summary = (
+                "Moderate friction: Political campaign rhetoric invoking historical grievance or regional identity quotas "
+                "without systemic legislative due process dismantlement."
+            )
+            remedy = "Enforce strict judicial limits on sub-quota fragmentation and maintain administrative merit baselines."
+        else:
+            tier = "COHESIVE_DHARMIC_EQUILIBRIUM"
+            summary = (
+                "Harmonious civilizational statecraft: Balanced social empowerment aligned with universal constitutional "
+                "equality, merit preservation, and shared civilizational heritage."
+            )
+            remedy = "Maintain institutional parity, objective rule of law, and transparent merit-based public appointments."
+
+        return {
+            "intra_civilizational_fracture_score": score,
+            "statutory_due_process_asymmetry": asymmetry,
+            "historical_guilt_narrative_intensity": guilt,
+            "meritocratic_preservation_index": merit,
+            "meritocratic_erosion_index": merit_deficit,
+            "fracture_threat_tier": tier,
+            "civilizational_risk_summary": summary,
+            "jurisprudential_remedy_pathway": remedy
         }
 
 

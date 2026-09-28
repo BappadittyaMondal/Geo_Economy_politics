@@ -141,6 +141,35 @@ class PropagandaLens:
                 metrics["grounded_narrative_claims_verified"] = True
             metrics["claims_evaluated"] = len(claims)
 
+        # Detect antithetical rhetorical priming (Phase 95)
+        antithetical_keywords = [
+            "hisab chukta", "hisaab chukta", "hisab karega", "settle scores",
+            "karega ki nahi", "antithetical priming", "oratorical priming",
+            "retributive premise", "grievance priming"
+        ]
+        matched_antithetical = False
+        if claims:
+            matched_antithetical = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in antithetical_keywords)
+                for c in claims
+            )
+        if any(kw in event_title for kw in antithetical_keywords):
+            matched_antithetical = True
+
+        if matched_antithetical:
+            anti_res = AntitheticalRhetoricSieve.calculate_antithetical_priming(
+                premise_activation_intensity=0.85,
+                crowd_validation_factor=0.90,
+                restraint_claim_credibility=0.40
+            )
+            findings.insert(0, (
+                f"[GROUNDED TELEMETRY] Antithetical Rhetorical Forensics Sieve triggered: "
+                f"Threat Tier [{anti_res['rhetorical_threat_tier']}] (Score: {anti_res['antithetical_priming_score']:.2f}). "
+                f"{anti_res['oratorical_risk_summary']} Rebuttal: {anti_res['forensic_rebuttal_pathway']}"
+            ))
+            metrics["antithetical_priming_score"] = anti_res["antithetical_priming_score"]
+            metrics["rhetorical_threat_tier"] = anti_res["rhetorical_threat_tier"]
+
         # Detect apocalyptic, millenarian, or pseudoscientific narrative distortion
         apocalyptic_keywords = [
             "2032", "kali yuga", "apocalypse", "doomsday", "malika", "nostradamus",
@@ -197,5 +226,66 @@ class PropagandaLens:
             key_findings=findings,
             hard_metrics=metrics
         )
+
+
+class AntitheticalRhetoricSieve:
+    """
+    Phase 95: Antithetical Rhetorical Forensics Sieve.
+    Quantifies dual-track cognitive manipulation where an orator explicitly validates and implants
+    a destructive premise or historical grievance (e.g., 'Aise vyakti ko mauka mile to hisab chukta karega ki nahi? Karega!')
+    while simultaneously preaching magnanimity or restraint to maintain superficial deniability.
+
+    Formula:
+        W_antithesis = min(1.0, max(0.0, 0.50 * P_premise + 0.30 * V_crowd - 0.20 * R_restraint))
+    """
+
+    @staticmethod
+    def calculate_antithetical_priming(
+        premise_activation_intensity: float,
+        crowd_validation_factor: float,
+        restraint_claim_credibility: float
+    ) -> Dict[str, Any]:
+        premise = max(0.0, min(1.0, float(premise_activation_intensity)))
+        crowd = max(0.0, min(1.0, float(crowd_validation_factor)))
+        restraint = max(0.0, min(1.0, float(restraint_claim_credibility)))
+
+        score = round(min(1.0, max(0.0, 0.50 * premise + 0.30 * crowd - 0.20 * restraint)), 4)
+
+        if score >= 0.75:
+            tier = "ACUTE_ANTITHETICAL_PRIMING"
+            summary = (
+                "Acute oratorical priming: Speaker explicitly activates and validates a historical grievance or "
+                "retributive premise with crowd affirmation, embedding grievance into collective memory despite "
+                "nominal calls for harmony."
+            )
+            rebuttal = (
+                "Deconstruct oratorical framing: Expose the antithesis mechanism, challenge the historical accuracy "
+                "of collective grievance premises, and restore objective institutional due process over rhetorical moralizing."
+            )
+        elif score >= 0.50:
+            tier = "ELEVATED_RHETORICAL_AMBIGUITY"
+            summary = (
+                "Elevated rhetorical tension: Evocative grievance imagery juxtaposed against conciliation, creating "
+                "cognitive dissonance and dual-channel audience signaling."
+            )
+            rebuttal = "Anchor public policy in empirical legal statutes rather than ambiguous moral rhetoric."
+        elif score >= 0.25:
+            tier = "MODERATE_ORATORICAL_STAGING"
+            summary = "Standard political rhetoric utilizing rhetorical questions or illustrative parables with minimal grievance reinforcement."
+            rebuttal = "Contextualize political framing against historical and administrative facts."
+        else:
+            tier = "AUTHENTIC_CONSENSUS_DISCOURSE"
+            summary = "Constructive discourse emphasizing mutual civilizational cohesion without covert grievance priming."
+            rebuttal = "Reinforce unified civilizational identity and shared civic duties."
+
+        return {
+            "antithetical_priming_score": score,
+            "premise_activation_intensity": premise,
+            "crowd_validation_factor": crowd,
+            "restraint_claim_credibility": restraint,
+            "rhetorical_threat_tier": tier,
+            "oratorical_risk_summary": summary,
+            "forensic_rebuttal_pathway": rebuttal
+        }
 
 

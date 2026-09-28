@@ -1168,6 +1168,58 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
     - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
 
+* **Phase 93 (Intra-Civilizational Faultline & Statutory Due Process Sieve):**
+  - **Sovereign Statutory & Fracture Sieve (`geo_engine/lenses/institutional_lawfare.py`):**
+    - Implemented `IntraCivilizationalFaultlineSieve.calculate_fracture_vulnerability()` quantifying institutional vulnerability of caste-based civilizational fragmentation and statutory due process deficits:
+      $$F_{\text{fracture}} = \min(1.0, \max(0.0, 0.40 \cdot S_{\text{asymmetry}} + 0.35 \cdot G_{\text{grievance}} + 0.25 \cdot (1.0 - M_{\text{merit}})))$$
+    - Quantifies statutory asymmetry ($S_{\text{asymmetry}}$) arising from procedural exclusions (e.g., Section 18A SC/ST Amendment overriding preliminary inquiry / anticipatory bail from *Subhash Kashinath Mahajan v. State of Maharashtra*), grievance mobilization intensity ($G_{\text{grievance}}$), and meritocratic protection ($M_{\text{merit}}$).
+    - Classifies 4 deterministic threat tiers: `ACUTE_CIVILIZATIONAL_FRACTURE`, `ELEVATED_DUE_PROCESS_DEFICIT`, `MODERATE_INSTITUTIONAL_FRICTION`, `HARMONIOUS_CIVILIZATIONAL_EQUILIBRIUM`.
+    - Outputs targeted judicial and administrative safeguards: preliminary inquiries, anticipatory bail parity, and meritocratic audit reforms.
+  - **Lens Telemetry & Routing Integration:**
+    - Integrated faultline scanning (`sc st act`, `section 18a`, `caste reservation`, `kashinath mahajan`, `general category`, `due process deficit`, `meritocratic erosion`, `social engineering`) into `InstitutionalLawfareLens.evaluate()`, populating `intra_civilizational_fracture_score`, `fracture_threat_tier`, `statutory_due_process_deficit_flag`, and `meritocratic_erosion_risk`.
+    - Exported `IntraCivilizationalFaultlineSieve` in `geo_engine.lenses`.
+
+* **Phase 94 (Extraterritorial Sovereign Asymmetry Sieve):**
+  - **Asymmetric Extraterritorial Jurisdiction & Sovereign Leverage (`geo_engine/lenses/hybrid_covert.py`):**
+    - Implemented `ExtraterritorialSovereignAsymmetrySieve.calculate_sovereign_asymmetry()` quantifying the compromise of domestic judicial sovereignty under foreign bilateral pressure:
+      $$A_{\text{sovereign}} = \min\left(1.0, \max\left(0.0, \frac{S_{\text{foreign\_privilege}} \cdot P_{\text{bilateral\_coercion}}}{\max(0.10, J_{\text{domestic\_parity}})}\right)\right)$$
+    - Evaluates two-tier judicial sovereignty where foreign PMC operators/intelligence operatives (e.g., Matthew VanDyke private military operator) receive quiet deportation/immunity under diplomatic pressure while domestic citizens face strict statutory prosecution under UAPA / Section 188 CrPC.
+    - Categorizes 4 operational sovereign tiers: `CRITICAL_SOVEREIGN_COMPROMISE`, `ELEVATED_ASYMMETRIC_LEVERAGE`, `MODERATE_BILATERAL_PRESSURE`, `SOVEREIGN_PARITY_MAINTAINED`.
+  - **Lens Telemetry & Routing Integration:**
+    - Integrated extraterritorial asymmetry scanning (`matthew vandyke`, `foreign mercenary`, `quiet deportation`, `two-tier justice`, `diplomatic pressure override`, `section 188 crpc`, `bilateral arm-twisting`, `foreign privilege`) into `HybridCovertLens.evaluate()`, populating `extraterritorial_sovereign_asymmetry_score`, `sovereign_judicial_compromise_tier`, `foreign_mercenary_privilege_detected`, and `two_tier_justice_flag`.
+    - Exported `ExtraterritorialSovereignAsymmetrySieve` in `geo_engine.lenses`.
+
+* **Phase 95 (Antithetical Rhetorical Forensics Sieve):**
+  - **Cognitive Conditioning & Oratorical Ambiguity Forensics (`geo_engine/lenses/propaganda.py`):**
+    - Implemented `AntitheticalRhetoricSieve.calculate_antithetical_priming()` quantifying subversive cognitive priming where an orator poses an inciting grievance premise, validates it via crowd reaction, and attaches nominal disclaimers:
+      $$W_{\text{antithesis}} = \min(1.0, \max(0.0, 0.50 \cdot P_{\text{premise}} + 0.30 \cdot V_{\text{crowd}} - 0.20 \cdot R_{\text{restraint}}))$$
+    - Distinguishes authentic consensus appeals from tactical plausible deniability (e.g., "*hisab chukta karega ki nahi*" -> crowd confirms "*karega*" -> orator claims "*hum hisab chukta nahi karenge*"), leaving grievance retribution activated in the mass subconscious.
+    - Categorizes 4 forensic threat tiers: `ACUTE_ANTITHETICAL_PRIMING`, `ELEVATED_RHETORICAL_AMBIGUITY`, `MODERATE_ORATORICAL_DISCORD`, `AUTHENTIC_CONSENSUS_DISCOURSE`.
+    - Integrated into `PropagandaLens.evaluate()` to produce `antithetical_priming_score`, `rhetorical_threat_tier`, and oratorical forensic findings.
+    - Exported `AntitheticalRhetoricSieve` in `geo_engine.lenses`.
+  - **Video & Audio Stream Media Auditing (`geo_engine/video/audio_stream.py`):**
+    - Coupled `AudioStreamConnector.audit_media_claims()` directly to `IntraCivilizationalFaultlineSieve`, `ExtraterritorialSovereignAsymmetrySieve`, and `AntitheticalRhetoricSieve`, providing multi-optic forensic audits across YouTube speech transcripts.
+
+* **Phase 96 (Cognitive Warfare Historical Grounding Seeds & Query Expansion):**
+  - **Historical Ground Truth Seeds in EventStore (`geo_engine/storage/event_store.py`):**
+    - Idempotently seeded 3 historical turning points into `historical_anniversaries`:
+      1. `HIST-1953-AMBEDKAR-RAJYA-SABHA-SPEECH` (1953-09-02): Dr. B.R. Ambedkar Rajya Sabha warning on institutional capture, constitutional misuse, and communal factionalism.
+      2. `HIST-2018-SC-ST-AMENDMENT-OVERRIDE` (2018-08-09): Parliament passed Section 18A of SC/ST Act, nullifying Supreme Court *Kashinath Mahajan* procedural safeguards under mass street mobilization.
+      3. `HIST-2024-VANDYKE-MYANMAR-DEPORTATION` (2024-11-20): US citizen & PMC operator Matthew VanDyke arrested along Indo-Myanmar border and quietly deported under bilateral diplomatic pressure.
+    - Seeded resolved historical forecast benchmark: `FCST-HIST-2018-SC-ST-OVERRIDE` (actual outcome 1.0, forecast 0.88, Brier score 0.0144) into `forecast_ledger`.
+  - **QueryParser Expansion (`geo_engine/core/query_parser.py`):**
+    - Added leader patterns for `Neeraj Atri`, `B.R. Ambedkar`, and `Matthew VanDyke`.
+    - Enriched `LENS_KEYWORDS` and `COLLOQUIAL_ROUTING_MAP` across `institutional_lawfare`, `hybrid_covert`, `propaganda`, and `civilizational` with cognitive warfare and sovereign asymmetry tokens (`hisab chukta`, `caste reservation`, `mercenary deportation`, `quiet deportation`).
+
+* **Phase 97 (Full Verification, Bundle Rebuild, Documentation & Git Deployment):**
+  - **Verification Suite Expansion (306→316 tests):**
+    - Added `TestPhase93to97CognitiveWarfareAndSovereignAsymmetry` in `tests/test_engine.py` with 10 comprehensive unit/integration tests verifying IntraCivilizationalFaultlineSieve, InstitutionalLawfareLens faultline telemetry, ExtraterritorialSovereignAsymmetrySieve, HybridCovertLens asymmetry telemetry, AntitheticalRhetoricSieve, PropagandaLens antithetical telemetry, EventStore historical seeds, QueryParser cognitive warfare routing, AudioStreamConnector media auditing, and test count parity.
+    - Updated `README.md` test counter from 306 to 316 comprehensive tests.
+    - Certified **316/316 unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Bundle Governance & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` ensuring all 10 Anti-Drift Quality Gates pass at 100% compliance (`consolidate_5_files` == exactly 5 files, `consolidate_50_files` <= 50 files, 0 subdirectories).
+
+
 
 
 

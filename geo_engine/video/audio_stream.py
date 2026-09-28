@@ -375,6 +375,45 @@ class AudioStreamConnector:
                 prosodic_jitter=0.06
             )
 
+        # Phase 93: Intra-Civilizational Faultline & Statutory Asymmetry Forensics
+        from ..lenses.institutional_lawfare import IntraCivilizationalFaultlineSieve
+        faultline_terms = ["sc st act", "section 18a", "kashinath mahajan", "anticipatory bail", "caste faultline", "general category", "ancestral sin"]
+        has_faultline_claim = any(term in full_text for term in faultline_terms)
+        faultline_audit = None
+        if has_faultline_claim:
+            has_18a = "section 18a" in full_text or "kashinath" in full_text or "anticipatory bail" in full_text
+            has_sin = "ancestral sin" in full_text or "hisab chukta" in full_text
+            faultline_audit = IntraCivilizationalFaultlineSieve.calculate_faultline_vulnerability(
+                statutory_due_process_asymmetry=0.90 if has_18a else 0.60,
+                historical_guilt_narrative_intensity=0.85 if has_sin else 0.40,
+                meritocratic_preservation_index=0.35 if has_18a else 0.65
+            )
+
+        # Phase 94: Extraterritorial Sovereign Asymmetry Forensics
+        from ..lenses.hybrid_covert import ExtraterritorialSovereignAsymmetrySieve
+        sovereign_asym_terms = ["vandyke", "van dyke", "quattrocchi", "warren anderson", "enrica lexie", "italian marines", "mercenary trainer", "sons of liberty"]
+        has_sovereign_asym_claim = any(term in full_text for term in sovereign_asym_terms)
+        sovereign_asym_audit = None
+        if has_sovereign_asym_claim:
+            has_vd = "vandyke" in full_text or "van dyke" in full_text
+            sovereign_asym_audit = ExtraterritorialSovereignAsymmetrySieve.calculate_sovereign_asymmetry(
+                foreign_privilege_intensity=0.90 if has_vd else 0.70,
+                bilateral_coercion_pressure=0.85,
+                domestic_parity_enforcement=0.30
+            )
+
+        # Phase 95: Antithetical Rhetoric & Oratorical Priming Forensics
+        from ..lenses.propaganda import AntitheticalRhetoricSieve
+        antithetical_terms = ["hisab chukta", "hisaab chukta", "hisab karega", "settle scores", "karega ki nahi", "antithetical priming"]
+        has_antithetical_claim = any(term in full_text for term in antithetical_terms)
+        antithetical_audit = None
+        if has_antithetical_claim:
+            antithetical_audit = AntitheticalRhetoricSieve.calculate_antithetical_priming(
+                premise_activation_intensity=0.85,
+                crowd_validation_factor=0.90,
+                restraint_claim_credibility=0.40
+            )
+
         # Level-0 Atomic Temporal Guardrail Check on Incumbency/Tenure
         from ..core.temporal_guardrail import TemporalGuardrail
         tenure_audit = None
@@ -440,6 +479,12 @@ class AudioStreamConnector:
             phi_colonial = 0.12
             phi_ideological = 0.35 if has_rollback_claim else 0.25
             phi_pseudoscience = 0.05
+        elif has_faultline_claim or has_antithetical_claim or has_sovereign_asym_claim:
+            empirical_support = 0.82 if (faultline_audit or antithetical_audit or sovereign_asym_audit) else 0.55
+            phi_theological = 0.25 if has_faultline_claim else 0.10
+            phi_colonial = 0.35 if (has_sovereign_asym_claim or "ancestral sin" in full_text) else 0.15
+            phi_ideological = 0.40 if has_antithetical_claim else 0.25
+            phi_pseudoscience = 0.05
         else:
             empirical_support = 0.60 if matched_physical else 0.40
             phi_theological = 0.20
@@ -485,11 +530,17 @@ class AudioStreamConnector:
             "has_endowment_claim": has_endowment_claim,
             "has_rollback_claim": has_rollback_claim,
             "has_sartorial_claim": has_sartorial_claim,
+            "has_faultline_claim": has_faultline_claim,
+            "has_sovereign_asymmetry_claim": has_sovereign_asym_claim,
+            "has_antithetical_claim": has_antithetical_claim,
             "avionics_sovereignty_audit": avionics_audit,
             "chokepoint_audit": chokepoint_audit,
             "endowment_audit": endowment_audit,
             "rollback_audit": rollback_audit,
             "sartorial_audit": sartorial_audit,
+            "faultline_audit": faultline_audit,
+            "sovereign_asymmetry_audit": sovereign_asym_audit,
+            "antithetical_audit": antithetical_audit,
             "chronology_audit": chronology_audit,
             "tenure_audit": tenure_audit,
             "decomposed_claim": decomposed_claim.model_dump() if decomposed_claim else None,

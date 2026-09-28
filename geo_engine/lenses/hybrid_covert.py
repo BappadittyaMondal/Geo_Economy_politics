@@ -91,6 +91,32 @@ class HybridCovertLens:
                 metrics["mercenary_tech_diffusion_index"] = 0.88
                 metrics["fpv_tactical_proliferation_score"] = 0.92
 
+            sovereign_asymmetry_keywords = [
+                "vandyke", "van dyke", "quattrocchi", "warren anderson", "anderson",
+                "enrica lexie", "italian marines", "mercenary off-ramp", "sovereign compromise",
+                "diplomatic deportation", "asymmetric immunity"
+            ]
+            matched_sovereign_asymmetry = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in sovereign_asymmetry_keywords)
+                for c in claims
+            )
+            if matched_sovereign_asymmetry or matched_mercenary:
+                priv_val = 0.90 if any("vandyke" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "van dyke" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims) else 0.70
+                coerc_val = 0.85
+                parity_val = 0.30
+                asym_res = ExtraterritorialSovereignAsymmetrySieve.calculate_sovereign_asymmetry(
+                    foreign_privilege_intensity=priv_val,
+                    bilateral_coercion_pressure=coerc_val,
+                    domestic_parity_enforcement=parity_val
+                )
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Extraterritorial Sovereign Asymmetry Sieve triggered: "
+                    f"Tier [{asym_res['sovereign_compromise_tier']}] (Score: {asym_res['extraterritorial_sovereign_asymmetry_score']:.2f}). "
+                    f"{asym_res['judicial_sovereignty_summary']} Remedy: {asym_res['sovereign_remedy_pathway']}"
+                ))
+                metrics["extraterritorial_sovereign_asymmetry_score"] = asym_res["extraterritorial_sovereign_asymmetry_score"]
+                metrics["sovereign_judicial_compromise_tier"] = asym_res["sovereign_compromise_tier"]
+
             metrics["claims_evaluated"] = len(claims)
 
         return LensEvaluation(
@@ -226,6 +252,71 @@ class HybridCovertLens:
             "diplomatic_backlash_risk": backlash_risk,
             "operational_doctrine": doctrine,
             "strategic_verdict": verdict
+        }
+
+
+class ExtraterritorialSovereignAsymmetrySieve:
+    """
+    Phase 94: Extraterritorial Sovereign Asymmetry Sieve.
+    Quantifies the degradation of domestic judicial authority and sovereign equality
+    when foreign contractors or intelligence operatives (e.g. Matthew VanDyke, Enrica Lexie, Warren Anderson)
+    receive managed legal off-ramps, diplomatic deportation, or default bail under external bilateral coercion.
+
+    Formula:
+        A_sovereign = min(1.0, max(0.0, (S_foreign_privilege * P_bilateral_coercion) / max(0.10, J_domestic_parity)))
+    """
+
+    @staticmethod
+    def calculate_sovereign_asymmetry(
+        foreign_privilege_intensity: float,
+        bilateral_coercion_pressure: float,
+        domestic_parity_enforcement: float
+    ) -> Dict[str, Any]:
+        privilege = max(0.0, min(1.0, float(foreign_privilege_intensity)))
+        coercion = max(0.0, min(1.0, float(bilateral_coercion_pressure)))
+        parity = max(0.0, min(1.0, float(domestic_parity_enforcement)))
+
+        divisor = max(0.10, parity)
+        score = round(min(1.0, max(0.0, (privilege * coercion) / divisor)), 4)
+
+        if score >= 0.75:
+            tier = "ACUTE_SOVEREIGN_COMPROMISE"
+            summary = (
+                "Acute sovereign compromise: Severe bilateral coercion forces domestic authorities to concede "
+                "statutory off-ramps (compounding, default bail, non-prosecution) to foreign state-backed combatants "
+                "or mercenaries, severely eroding domestic judicial equality."
+            )
+            remedy = (
+                "Enact non-derogable statutory prosecution bars for borderland mercenary activity under UAPA, "
+                "condition diplomatic concessions on reciprocal extradition, and reject managed statutory off-ramps."
+            )
+        elif score >= 0.50:
+            tier = "ELEVATED_DIPLOMATIC_PRESSURE"
+            summary = (
+                "Elevated pressure: External diplomatic leverage induces tactical delay or administrative compounding, "
+                "balancing bilateral trade/security dependencies against domestic judicial enforcement."
+            )
+            remedy = "Maintain transparent judicial trial records while compartmentalizing bilateral commercial negotiations."
+        elif score >= 0.25:
+            tier = "CONTROLLED_RECIPROCAL_PAWN"
+            summary = (
+                "Calibrated leverage: Detained foreign personnel utilized as strategic bargaining pawns to secure "
+                "concessions or protect overseas sovereign assets without fully subordinating domestic law."
+            )
+            remedy = "Extract verified reciprocal consular or intelligence concessions prior to deportation."
+        else:
+            tier = "UNCOMPROMISED_JUDICIAL_SOVEREIGNTY"
+            summary = "Uncompromised sovereign parity: Equal application of municipal penal statutes without foreign immunity or executive interference."
+            remedy = "Continue institutionalized rule of law and standard consular notification protocols."
+
+        return {
+            "extraterritorial_sovereign_asymmetry_score": score,
+            "foreign_privilege_intensity": privilege,
+            "bilateral_coercion_pressure": coercion,
+            "domestic_parity_enforcement": parity,
+            "sovereign_compromise_tier": tier,
+            "judicial_sovereignty_summary": summary,
+            "sovereign_remedy_pathway": remedy
         }
 
 

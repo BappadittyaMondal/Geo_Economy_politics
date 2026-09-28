@@ -16,15 +16,15 @@ from .geo_economist import GeoEconomistLens
 from .geopolitical import GeopoliticalLens, ChokepointKineticSieve
 from .kinesics import KinesicsLens, SartorialSemioticSieve
 from .cash_flow import CashFlowLens
-from .propaganda import PropagandaLens
+from .propaganda import PropagandaLens, AntitheticalRhetoricSieve
 from .petro_logistics import PetroLogisticsLens
 from .bureaucratic_inertia import BureaucraticInertiaLens, BureaucraticRollbackModel
 from .digital_sovereignty import DigitalSovereigntyLens
-from .hybrid_covert import HybridCovertLens
+from .hybrid_covert import HybridCovertLens, ExtraterritorialSovereignAsymmetrySieve
 from .india_timeline import IndiaTimelineLens
 from .demographic_infiltration import DemographicInfiltrationLens
 from .critical_minerals import CriticalMineralsLens
-from .institutional_lawfare import InstitutionalLawfareLens, SubNationalEndowmentSieve
+from .institutional_lawfare import InstitutionalLawfareLens, SubNationalEndowmentSieve, IntraCivilizationalFaultlineSieve
 from .food_security import FoodSecurityLens
 from .military_readiness import MilitaryReadinessLens, AvionicsSovereigntySieve
 from .subsea_cables import SubseaCablesLens
@@ -80,6 +80,9 @@ __all__ = [
     "SubNationalEndowmentSieve",
     "BureaucraticRollbackModel",
     "SartorialSemioticSieve",
+    "IntraCivilizationalFaultlineSieve",
+    "ExtraterritorialSovereignAsymmetrySieve",
+    "AntitheticalRhetoricSieve",
 ]
 
 

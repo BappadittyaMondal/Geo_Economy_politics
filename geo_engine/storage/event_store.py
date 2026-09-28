@@ -1407,6 +1407,36 @@ class EventStore:
                     "National / New Delhi",
                     "Following immediate widespread public outrage and political mobilization, the Ministry of Education ordered UGC to withdraw its Draft Guidelines for De-reservation in Higher Education Institutions within 24 hours.",
                     "Archetypal manifestation of high rollback elasticity where bureaucratic guideline formulation without political calibration triggered immediate executive retreat."
+                ),
+                (
+                    "HIST-1953-AMBEDKAR-RAJYA-SABHA-SPEECH",
+                    9,
+                    2,
+                    1953,
+                    "Dr. B.R. Ambedkar Rajya Sabha Address on Constitutional Drafting Constraints",
+                    "National / New Delhi",
+                    "Dr. B.R. Ambedkar addressed the Rajya Sabha on constitutional amendments, stating: 'I was a hack. What I was got to do, I did much against my will... I am quite ready to say that I would be the first person to burn it out.'",
+                    "Historical parliamentary record documenting that the Indian Constitution was the collective product of the 299-member Constituent Assembly and Drafting Committee, not the unilateral fiat of a single author."
+                ),
+                (
+                    "HIST-2018-SC-ST-AMENDMENT-OVERRIDE",
+                    8,
+                    17,
+                    2018,
+                    "Parliament Enacts SC/ST Amendment Act 2018 (Section 18A Legislative Override)",
+                    "National / New Delhi",
+                    "Parliament inserted Section 18A into the SC/ST (Prevention of Atrocities) Act 1989, explicitly overriding the Supreme Court's Subhash Kashinath Mahajan judgment to bar preliminary inquiries and prohibit anticipatory bail under Section 438 CrPC.",
+                    "Archetypal manifestation of competitive electoral clientelism overriding judicial due process safeguards, creating acute statutory asymmetry and intra-civilizational polarization."
+                ),
+                (
+                    "HIST-2024-VANDYKE-MYANMAR-DEPORTATION",
+                    3,
+                    12,
+                    2024,
+                    "Managed Diplomatic Deportation of US Security Contractor Matthew VanDyke",
+                    "Northeast / Assam / Myanmar Border",
+                    "US private military contractor Matthew VanDyke (founder of Sons of Liberty International), detained near the Assam-Myanmar border for unauthorized entry and tactical drone training of anti-junta militias under UAPA/Foreigners Act, was quietly granted default bail and deported under US diplomatic pressure.",
+                    "Benchmark of extraterritorial sovereign asymmetry: domestic criminal-statutory parity subordinated to bilateral diplomatic leverage, contrasting severe domestic enforcement with foreign contractor immunity."
                 )
             ]
 
@@ -1471,6 +1501,12 @@ class EventStore:
                     "India Signs 10-Year Long-Term Contract with Iran for Shahid Beheshti Terminal",
                     0.85, 0.72, 0.93, "IPGL negotiations and OFAC humanitarian carve-out validation",
                     1, 0.0225, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2018-SC-ST-OVERRIDE", "2018-04-10", "2018-08-17", "SC/ST Act Section 18A Override",
+                    "Parliament enacts legislative override of Supreme Court Kashinath Mahajan procedural safeguards under mass electoral pressure",
+                    0.88, 0.76, 0.95, "Bipartisan electoral convergence and street mobilization pressure following April 2 Bharat Bandh",
+                    1, 0.0144, "RESOLVED"
                 )
             ]
             cursor.executemany("""
