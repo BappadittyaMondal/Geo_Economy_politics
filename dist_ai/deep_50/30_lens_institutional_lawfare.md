@@ -43,8 +43,10 @@ class InstitutionalLawfareLens:
             "bilateral_maritime_accord_compliance_score": 0.25,
             "statutory_remedy_bypass_index": 0.0,
             "legal_terminology_hijack_detected": False,
-            "sub_national_endowment_vulnerability": 0.0
+            "sub_national_endowment_vulnerability": 0.0,
+            "grayzone_fracture_index": 0.0
         }
+
 
         alignment = -0.50  # Indicates elevated legal, regulatory, and sanctions friction
 
@@ -219,7 +221,37 @@ class InstitutionalLawfareLens:
                 metrics["statutory_due_process_deficit_flag"] = bool(has_18a)
                 metrics["meritocratic_erosion_risk"] = fault_res["meritocratic_erosion_index"]
 
+            grayzone_keywords = [
+                "jizya", "middle class tax", "taxpayer burden", "base rebellion", "grayzone",
+                "blunder called modi", "taxpayer squeeze", "merit denial", "electoral welfarism"
+            ]
+            grayzone_detected = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in grayzone_keywords)
+                for c in claims
+            )
+            if grayzone_detected:
+                has_tax_fatigue = any(any(k in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for k in ["jizya", "middle class", "taxpayer", "tax"]) for c in claims)
+                has_strict_law = any(any(k in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for k in ["section 18a", "sc st", "bail", "merit"]) for c in claims)
+
+                gz_res = CulturalReligiousGrayzoneSieve.calculate_grayzone_fracture(
+                    direct_tax_burden_ratio=0.85 if has_tax_fatigue else 0.50,
+                    middle_class_benefit_ratio=0.08,
+                    presumption_of_guilt=0.90 if has_strict_law else 0.40,
+                    bail_exclusion_severity=0.85 if has_strict_law else 0.35,
+                    ecosystem_shield_strength=0.20
+                )
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Cultural & Religious Grayzone Sieve triggered: "
+                    f"Fracture Tier [{gz_res['fracture_tier']}] (Index: {gz_res['grayzone_fracture_index']:.2f}). "
+                    f"Electoral Risk: {gz_res['electoral_alienation_risk']}. {gz_res['structural_summary']}"
+                ))
+                alignment = min(alignment, -0.78)
+                metrics["grayzone_fracture_index"] = gz_res["grayzone_fracture_index"]
+                metrics["grayzone_fracture_tier"] = gz_res["fracture_tier"]
+                metrics["electoral_alienation_risk"] = gz_res["electoral_alienation_risk"]
+
         return LensEvaluation(
+
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
             confidence=0.90,
@@ -536,6 +568,82 @@ class IntraCivilizationalFaultlineSieve:
             "civilizational_risk_summary": summary,
             "jurisprudential_remedy_pathway": remedy
         }
+
+
+class CulturalReligiousGrayzoneSieve:
+    """
+    Phase 110: Cultural & Religious Grayzone Sieve (Intra-Civilizational Base Fracturing).
+    Quantifies the subterranean fracture within a ruling coalition or civilizational core
+    induced by asymmetric middle-class direct tax burden vs populist welfare distribution,
+    strict statutory liability weaponization, and lack of independent intellectual ecosystem shields.
+
+    Formula:
+        Tax_Grievance = min(1.0, direct_tax_burden_ratio / max(0.10, middle_class_benefit_ratio * 10.0))
+        Lawfare_Severity = 0.50 * presumption_of_guilt + 0.50 * bail_exclusion_severity
+        Fracture_Index = min(1.0, max(0.0, 0.40 * Tax_Grievance + 0.35 * Lawfare_Severity + 0.25 * (1.0 - ecosystem_shield)))
+    """
+
+    @staticmethod
+    def calculate_grayzone_fracture(
+        direct_tax_burden_ratio: float,
+        middle_class_benefit_ratio: float,
+        presumption_of_guilt: float,
+        bail_exclusion_severity: float,
+        ecosystem_shield_strength: float
+    ) -> Dict[str, Any]:
+        tax_ratio = max(0.0, float(direct_tax_burden_ratio))
+        benefit_ratio = max(0.01, float(middle_class_benefit_ratio))
+        guilt = max(0.0, min(1.0, float(presumption_of_guilt)))
+        bail = max(0.0, min(1.0, float(bail_exclusion_severity)))
+        shield = max(0.0, min(1.0, float(ecosystem_shield_strength)))
+
+        # Tax grievance normalized with division guard
+        tax_grievance = round(min(1.0, tax_ratio / max(0.10, benefit_ratio * 10.0)), 4)
+        lawfare_sev = round(0.50 * guilt + 0.50 * bail, 4)
+        shield_deficit = round(1.0 - shield, 4)
+
+        fracture_idx = round(min(1.0, max(0.0, 0.40 * tax_grievance + 0.35 * lawfare_sev + 0.25 * shield_deficit)), 4)
+
+        if fracture_idx >= 0.75:
+            tier = "CRITICAL_BASE_REBELLION"
+            summary = (
+                "Acute base alienation: Disproportionate direct tax extraction without social security nets, combined with "
+                "statutory presumption of guilt and absence of ecosystem protection, triggering active voter apathy, third-party "
+                "protest votes, and severe intra-coalition fracturing."
+            )
+            electoral_risk = "HIGH_APATHY_AND_PARLIAMENTARY_SEAT_LOSS"
+        elif fracture_idx >= 0.50:
+            tier = "ACUTE_INTRA_COALITION_FRICTION"
+            summary = (
+                "Elevated intra-bloc tension: Public intellectual rebellion and growing resentment among core taxpayers and "
+                "unreserved communities over perceived one-sided welfarism and statutory double standards."
+            )
+            electoral_risk = "MODERATE_MARGINAL_SWING_VULNERABILITY"
+        elif fracture_idx >= 0.25:
+            tier = "MANAGEABLE_TACTICAL_TENSION"
+            summary = (
+                "Manageable friction: Localized middle-class complaints absorbed by national security or civilizational "
+                "symbolic resonance."
+            )
+            electoral_risk = "LOW_IMPACT_ELECTORAL_NOISE"
+        else:
+            tier = "COHESIVE_CIVILIZATIONAL_EQUILIBRIUM"
+            summary = (
+                "Harmonious civilizational statecraft: Equitable fiscal burden, due process integrity, and strong institutional "
+                "support across all demographic strata."
+            )
+            electoral_risk = "STABLE_HEGEMONIC_COALITION"
+
+        return {
+            "grayzone_fracture_index": fracture_idx,
+            "tax_grievance_score": tax_grievance,
+            "lawfare_severity_score": lawfare_sev,
+            "ecosystem_shield_deficit": shield_deficit,
+            "fracture_tier": tier,
+            "electoral_alienation_risk": electoral_risk,
+            "structural_summary": summary
+        }
+
 
 
 

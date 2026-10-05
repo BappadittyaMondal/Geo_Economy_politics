@@ -4,9 +4,11 @@ Provides zero-dependency persistent storage for historical events, bilateral tre
 border agreements, and multilateral baseline communique clauses for negative-space diffing.
 """
 
+import contextlib
 import os
 import sqlite3
-from typing import Any, Dict, List, Optional
+import time
+from typing import Any, Dict, Generator, List, Optional
 
 
 class EventStore:
@@ -98,6 +100,34 @@ class EventStore:
                     anomalies_detected TEXT,
                     brier_score REAL,
                     diagnostic_timestamp TEXT NOT NULL
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS media_audit_jobs (
+                    job_id TEXT PRIMARY KEY,
+                    source_url TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    progress_pct REAL DEFAULT 0.0,
+                    result_json TEXT,
+                    error_message TEXT,
+                    created_at TEXT NOT NULL,
+                    completed_at TEXT
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS claim_distillations (
+                    claim_id TEXT PRIMARY KEY,
+                    source_speaker TEXT,
+                    raw_statement TEXT NOT NULL,
+                    proposition TEXT NOT NULL,
+                    epistemic_tier TEXT NOT NULL,
+                    verification_status TEXT NOT NULL,
+                    confidence REAL NOT NULL,
+                    statutory_citation TEXT,
+                    fiscal_metric TEXT,
+                    causal_relation TEXT,
+                    recommended_action TEXT,
+                    created_at TEXT NOT NULL
                 )
             """)
 
@@ -454,15 +484,44 @@ class EventStore:
             return False
 
     def _get_connection(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.db_path, timeout=10.0)
+        conn = sqlite3.connect(self.db_path, timeout=30.0)
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         cursor.execute("PRAGMA journal_mode;")
         current_mode = cursor.fetchone()
         if current_mode and current_mode[0].lower() != "wal":
             conn.execute("PRAGMA journal_mode=WAL;")
-        conn.execute("PRAGMA busy_timeout=5000;")
+        conn.execute("PRAGMA busy_timeout=30000;")
+        conn.execute("PRAGMA synchronous=NORMAL;")
+        conn.execute("PRAGMA cache_size=-64000;")
         return conn
+
+    @contextlib.contextmanager
+    def transaction_scope(self, max_retries: int = 3, retry_delay: float = 0.05) -> Generator[sqlite3.Connection, None, None]:
+        """Provides a thread-safe transaction scope with automatic exponential backoff on database lock."""
+        attempt = 0
+        last_error = None
+        while attempt < max_retries:
+            try:
+                conn = self._get_connection()
+                try:
+                    yield conn
+                    conn.commit()
+                    return
+                except Exception:
+                    conn.rollback()
+                    raise
+                finally:
+                    conn.close()
+            except sqlite3.OperationalError as e:
+                if "locked" in str(e).lower() or "busy" in str(e).lower():
+                    attempt += 1
+                    last_error = e
+                    time.sleep(retry_delay * (2 ** attempt))
+                else:
+                    raise
+        if last_error:
+            raise last_error
 
     def initialize_schema_and_seed(self) -> None:
         """Initializes database tables and seeds foundational historical baselines."""
@@ -613,6 +672,20 @@ class EventStore:
                     duration_years REAL,
                     physical_basis TEXT,
                     debunk_notes TEXT
+                )
+            """)
+
+            # 8. Asynchronous Media Audit Jobs Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS media_audit_jobs (
+                    job_id TEXT PRIMARY KEY,
+                    source_url TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    progress_pct REAL DEFAULT 0.0,
+                    result_json TEXT,
+                    error_message TEXT,
+                    created_at TEXT NOT NULL,
+                    completed_at TEXT
                 )
             """)
 
@@ -1437,6 +1510,76 @@ class EventStore:
                     "Northeast / Assam / Myanmar Border",
                     "US private military contractor Matthew VanDyke (founder of Sons of Liberty International), detained near the Assam-Myanmar border for unauthorized entry and tactical drone training of anti-junta militias under UAPA/Foreigners Act, was quietly granted default bail and deported under US diplomatic pressure.",
                     "Benchmark of extraterritorial sovereign asymmetry: domestic criminal-statutory parity subordinated to bilateral diplomatic leverage, contrasting severe domestic enforcement with foreign contractor immunity."
+                ),
+                (
+                    "HIST-1963-NEHRU-MEA-DIRECTIVE",
+                    12,
+                    15,
+                    1963,
+                    "Jawaharlal Nehru MEA Meeting Remarks on Internal vs External Threats",
+                    "National / New Delhi",
+                    "Prime Minister Jawaharlal Nehru addressed senior MEA officials, famously asserting that the primary danger to India was internal Hindu right-wing communalism rather than external communism, establishing a legacy of internal threat prioritization.",
+                    "Institutional doctrinal precedent shaping diplomatic cadre ideology and counter-intelligence prioritization."
+                ),
+                (
+                    "HIST-1992-TEHRAN-RAW-NETWORK-COMPROMISE",
+                    6,
+                    10,
+                    1992,
+                    "R&AW Persian Gulf & Tehran Station Intelligence Network Compromise",
+                    "Middle East / Iran / Tehran",
+                    "During the ambassadorship of Hamid Ansari in Iran, R&AW intelligence operations and Persian Gulf station operatives faced critical compromise and unauthorized exposure to Iranian intelligence (documented by former R&AW officer N.K. Sood).",
+                    "Historical benchmark of diplomatic-intelligence friction, asset fragility, and counter-espionage vulnerability in strategic West Asian missions."
+                ),
+                (
+                    "HIST-2023-RED-SEA-ASYMMETRIC-ATTRITION",
+                    12,
+                    15,
+                    2023,
+                    "Red Sea Asymmetric Drone Saturation & Western Interceptor Burnout",
+                    "Red Sea / Bab-el-Mandeb",
+                    "Ansar Allah (Houthi) forces launched low-cost loitering drones ($10k-$20k), forcing US Carrier Strike Groups to expend multimillion-dollar Standard Missiles (SM-2, SM-6 at $2M-$4M each), establishing an unsustainable asymmetric economic cost-exchange ratio.",
+                    "Strategic operational watershed demonstrating naval air-defense magazine depletion and the limits of high-end kinetic interceptors against low-cost swarms."
+                ),
+                (
+                    "HIST-2024-TEXAS-HANUMAN-TEMPLE-NATIVIST-BACKLASH",
+                    8,
+                    18,
+                    2024,
+                    "Sugar Land Texas Statue of Union (Hanuman) & Nativist Backlash",
+                    "North America / Texas / Sugar Land",
+                    "Unveiling of the 90-foot Sri Ashtalakshmi Temple Statue of Union in Sugar Land, Texas triggered coordinated far-right nativist attacks, municipal zoning challenges, and xenophobic rhetoric, highlighting host-nation hostility against Dharmic civilizational visibility.",
+                    "Empirical milestone of diaspora vulnerability: high median wealth without political coalition defense creates severe exposure to nativist backlash and progressive caste lawfare."
+                ),
+                (
+                    "HIST-1770-EIC-SALTPETRE-MONOPSONY",
+                    5,
+                    15,
+                    1770,
+                    "British East India Company Saltpetre State Monopsony Accord",
+                    "Bengal Presidency / Bihar",
+                    "EIC established an absolute state monopoly over saltpetre (potassium nitrate) refining across Bihar and Bengal, forcing indigenous Noniya artisans to deliver gunpowder components at below-subsistence fixed rates, triggering guild collapse.",
+                    "Archetypal colonial economic intervention dismantling indigenous artisan guilds through state monopsony pricing, establishing systemic impoverishment."
+                ),
+                (
+                    "HIST-1871-CRIMINAL-TRIBES-ACT",
+                    10,
+                    12,
+                    1871,
+                    "Enactment of Criminal Tribes Act (Act XXVII of 1871)",
+                    "British India",
+                    "Imperial Legislative Council enacted the Criminal Tribes Act, institutionalizing the collective statutory criminalization of over 160 itinerant artisan and nomadic communities without requiring proof of individual criminal conduct.",
+                    "Colonial lawfare converting displaced artisan and nomadic populations into hereditary criminals, laying the foundation for rigid 20th-century social stratification."
+                ),
+                (
+                    "HIST-1991-BOP-GOLD-PLEDGE",
+                    5,
+                    21,
+                    1991,
+                    "Emergency Gold Airlift to Bank of England & 1991 BoP Stabilization",
+                    "National / London / Global",
+                    "Reserve Bank of India airlifted 47 tonnes of sovereign gold to the Bank of England and Union Bank of Switzerland to secure emergency $405M loan, averting sovereign debt default.",
+                    "Sovereign liquidity crisis forcing the dismantling of the License Raj and launching India's structural economic liberalization."
                 )
             ]
 
@@ -1507,6 +1650,24 @@ class EventStore:
                     "Parliament enacts legislative override of Supreme Court Kashinath Mahajan procedural safeguards under mass electoral pressure",
                     0.88, 0.76, 0.95, "Bipartisan electoral convergence and street mobilization pressure following April 2 Bharat Bandh",
                     1, 0.0144, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2023-RED-SEA-ATTRITION", "2023-10-25", "2024-02-15", "Red Sea Drone Attrition",
+                    "Houthi low-cost loitering drones force US Navy to expend multimillion-dollar interceptors exhausting carrier magazine depth",
+                    0.86, 0.74, 0.94, "Naval missile inventory math, Red Sea shipping diversions, and Houthi drone unit economics",
+                    1, 0.0196, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-1991-BOP-REFORMS", "1991-05-25", "1991-07-24", "1991 Balance of Payments & Industrial Policy",
+                    "Emergency sovereign gold pledge averts default, catalyzing abolition of industrial licensing and rupee devaluation",
+                    0.87, 0.75, 0.94, "FX reserve depletion (< 3 weeks imports), IMF structural adjustment conditionalities, and ministerial consensus",
+                    1, 0.0169, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-1871-CRIMINAL-TRIBES", "1871-06-15", "1871-10-12", "Enactment of Criminal Tribes Act 1871",
+                    "Colonial administration enacts statutory collective criminalization of displaced saltpetre noniya and itinerant trade castes",
+                    0.89, 0.78, 0.96, "Imperial police reports on nomadic resistance, EIC mineral monopolies, and British utilitarian administrative dominance",
+                    1, 0.0121, "RESOLVED"
                 )
             ]
             cursor.executemany("""
@@ -2224,5 +2385,135 @@ class EventStore:
             "chronic_anomalies": chronic,
             "recent_encounters": rows
         }
+
+    # =========================================================================
+    # PHASE 105: ASYNCHRONOUS MEDIA AUDIT WORKER JOB TRACKING
+    # =========================================================================
+    def create_media_job(self, job_id: str, source_url: str) -> None:
+        """Initializes a new media audit background job in QUEUED status."""
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO media_audit_jobs
+                (job_id, source_url, status, progress_pct, result_json, error_message, created_at, completed_at)
+                VALUES (?, ?, 'QUEUED', 0.0, NULL, NULL, ?, NULL)
+            """, (job_id, source_url, now))
+
+    def update_media_job(
+        self,
+        job_id: str,
+        status: str,
+        progress_pct: float = 0.0,
+        result_json: Optional[str] = None,
+        error_message: Optional[str] = None
+    ) -> None:
+        """Updates the status, progress, and results of a media audit job."""
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        completed_at = now if status in ("COMPLETED", "FAILED") else None
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE media_audit_jobs
+                SET status = ?,
+                    progress_pct = ?,
+                    result_json = COALESCE(?, result_json),
+                    error_message = COALESCE(?, error_message),
+                    completed_at = COALESCE(?, completed_at)
+                WHERE job_id = ?
+            """, (status, progress_pct, result_json, error_message, completed_at, job_id))
+
+    def get_media_job(self, job_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieves current execution state of a media audit job."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM media_audit_jobs WHERE job_id = ?
+            """, (job_id,))
+            row = cursor.fetchone()
+            return dict(row) if row else None
+
+    def list_media_jobs(self, limit: int = 20) -> List[Dict[str, Any]]:
+        """Lists recent media audit background jobs."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM media_audit_jobs
+                ORDER BY created_at DESC
+                LIMIT ?
+            """, (limit,))
+            return [dict(r) for r in cursor.fetchall()]
+
+    def record_distilled_claim(self, claim_data: Dict[str, Any]) -> bool:
+        """Persists an atomically distilled conversational/media claim into claim_distillations."""
+        from datetime import datetime, timezone
+        import json
+        now = datetime.now(timezone.utc).isoformat()
+        causal_str = json.dumps(claim_data.get("causal_relation")) if claim_data.get("causal_relation") else None
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO claim_distillations
+                (claim_id, source_speaker, raw_statement, proposition, epistemic_tier, verification_status,
+                 confidence, statutory_citation, fiscal_metric, causal_relation, recommended_action, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                claim_data["claim_id"],
+                claim_data.get("source_speaker"),
+                claim_data["raw_statement"],
+                claim_data["proposition"],
+                claim_data["epistemic_tier"],
+                claim_data["verification_status"],
+                float(claim_data["confidence"]),
+                claim_data.get("statutory_citation"),
+                claim_data.get("fiscal_metric"),
+                causal_str,
+                claim_data.get("recommended_action"),
+                now
+            ))
+            return True
+
+    def record_distillation_report(self, report_data: Dict[str, Any]) -> int:
+        """Batch records all actionable claims from a DistillationReport."""
+        claims = report_data.get("claims", [])
+        recorded = 0
+        for c in claims:
+            if self.record_distilled_claim(c):
+                recorded += 1
+        return recorded
+
+    def list_distilled_claims(
+        self,
+        tier: Optional[str] = None,
+        status: Optional[str] = None,
+        limit: int = 50
+    ) -> List[Dict[str, Any]]:
+        """Queries distilled claims with optional filtering by epistemic tier or verification status."""
+        query = "SELECT * FROM claim_distillations WHERE 1=1"
+        params: List[Any] = []
+        if tier:
+            query += " AND epistemic_tier = ?"
+            params.append(tier)
+        if status:
+            query += " AND verification_status = ?"
+            params.append(status)
+        query += " ORDER BY created_at DESC LIMIT ?"
+        params.append(limit)
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            return [dict(r) for r in cursor.fetchall()]
+
+    def get_distilled_claim(self, claim_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieves a single distilled claim by its unique ID."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM claim_distillations WHERE claim_id = ?", (claim_id,))
+            row = cursor.fetchone()
+            return dict(row) if row else None
+
+
 
 

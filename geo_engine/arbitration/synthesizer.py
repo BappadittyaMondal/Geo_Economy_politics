@@ -715,6 +715,46 @@ class SummitSynthesizer:
         except Exception:
             pass
 
+        # Phase 111: Dynamic Causal Graph Shock Propagation Hook
+        causal_shocks: Dict[str, Any] = {}
+        try:
+            from .causal_graph import EpistemicKnowledgeGraph
+            kg = EpistemicKnowledgeGraph.build_canonical_graph()
+            ev_text = (str(getattr(summit, "title", "")) + " " + str(getattr(summit, "summit_name", ""))).lower()
+            if claims:
+                ev_text += " " + " ".join([str(getattr(c, "asserted_fact", getattr(c, "assertion", ""))) for c in claims]).lower()
+
+            active_triggers = {}
+            if any(w in ev_text for w in ["hormuz", "tanker", "crude freight", "chokepoint"]):
+                active_triggers["hormuz_interdiction"] = 0.90
+            if any(w in ev_text for w in ["gallium", "germanium", "export ban", "wafer"]):
+                active_triggers["gallium_germanium_export_controls"] = 0.85
+            if any(w in ev_text for w in ["saltpetre", "criminal tribes", "caste census", "1871"]):
+                active_triggers["eic_saltpetre_monopsony_1770"] = 0.80
+            if any(w in ev_text for w in ["drone", "shahed", "burnout", "interceptor", "swarm"]):
+                active_triggers["low_cost_drone_swarm_saturation"] = 0.90
+            if any(w in ev_text for w in ["caste lawfare", "sb 403", "seattle"]):
+                active_triggers["transnational_caste_lawfare_campaign"] = 0.75
+            if any(w in ev_text for w in ["welfarism", "freebie", "jizya", "taxpayer", "blunder"]):
+                active_triggers["electoral_welfarism_expansion"] = 0.85
+
+            if active_triggers:
+                causal_shocks = kg.propagate_shock(initial_shocks=active_triggers, max_hops=4)
+                arbitration_log.append(
+                    f"[CAUSAL_GRAPH_SHOCK_PROPAGATION] Propagated {len(active_triggers)} shocks across {len(causal_shocks)} nodes in EpistemicKnowledgeGraph."
+                )
+        except Exception:
+            causal_shocks = {}
+
+        # Phase 111: Layman Intuitive Synthesis Layer
+        layman_summary = LaymanSynthesizer.generate_intuitive_summary(
+            event_name=getattr(summit, "summit_name", getattr(summit, "title", "Strategic Event")),
+            hard_money_audit=hard_money_audit,
+            overall_confidence=overall_confidence,
+            contradiction_penalty=contradiction_penalty,
+            claims=claims
+        )
+
         return SummitAnalysisReport(
             event=summit,
             lens_evaluations=lens_evals,
@@ -727,8 +767,11 @@ class SummitSynthesizer:
             ach_evaluation=ach_report.to_dict() if ach_report else None,
             overall_confidence_score=overall_confidence,
             diagnostic_encounter_id=enc_id,
-            epistemic_arbitration_log=arbitration_log
+            epistemic_arbitration_log=arbitration_log,
+            causal_shock_propagation=causal_shocks,
+            layman_intuitive_summary=layman_summary
         )
+
 
     @classmethod
     def synthesize_and_export(
@@ -764,4 +807,55 @@ class SummitSynthesizer:
 
     # Alias for synthesize_report
     synthesize = synthesize_report
+
+
+class LaymanSynthesizer:
+    """
+    Translates complex forensic multi-lens tensors, 5-tier arbitration outputs,
+    and causal shock propagation into intuitive, real-world metaphors and plain-language answers.
+    """
+
+    @staticmethod
+    def generate_intuitive_summary(
+        event_name: str,
+        hard_money_audit: Dict[str, Any],
+        overall_confidence: float,
+        contradiction_penalty: float,
+        claims: Optional[List[Any]] = None
+    ) -> Dict[str, Any]:
+        haircut = hard_money_audit.get("aggregate_haircut_pct", 85.0)
+
+        # Dynamic Metaphor Selection
+        if haircut >= 75.0:
+            metaphor_title = "The Grand Gate & The Leaking Foundation (Ancestral House Metaphor)"
+            metaphor_story = (
+                f"Like an ancestral estate where the management built grand decorative archways and hosted an expensive gala for {event_name}, "
+                f"while the internal rooms and foundation remain neglected. The official communiques claim total victory, "
+                f"but {haircut:.1f}% of the promised capital is speculative paper promises with zero escrow funding."
+            )
+        else:
+            metaphor_title = "The Calibrated Engine in Rough Terrain"
+            metaphor_story = (
+                f"Like a heavy convoy navigating mountainous passes: substantial real fuel and engineering capacity are actively moving, "
+                f"though high friction and geopolitical turbulence require continuous defensive steering."
+            )
+
+        layman_takeaways = [
+            f"Optics vs Ground Truth: The public announcements look impressive, but the hard reality discount is {haircut:.1f}%.",
+            f"Confidence Score: The machine-audited truth confidence is {int(overall_confidence * 100)}% out of 100%.",
+            "Bottom Line: Real geopolitical power is measured in physical pipelines, verified ammunition reserves, and sovereign legal autonomy—never signed declarations."
+        ]
+
+        return {
+            "headline": f"Plain-Language Sovereign Audit: {event_name}",
+            "core_metaphor": {
+                "title": metaphor_title,
+                "narrative": metaphor_story
+            },
+            "layman_takeaways": layman_takeaways,
+            "verdict": (
+                "Always separate the stage performance (Tier 5 Communique PR) from the physical pipelines, cash, and laws (Tiers 1 & 2 Reality)."
+            )
+        }
+
 

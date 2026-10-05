@@ -117,6 +117,35 @@ class HybridCovertLens:
                 metrics["extraterritorial_sovereign_asymmetry_score"] = asym_res["extraterritorial_sovereign_asymmetry_score"]
                 metrics["sovereign_judicial_compromise_tier"] = asym_res["sovereign_compromise_tier"]
 
+            intel_compromise_keywords = [
+                "hamid ansari", "ansari", "tehran raw", "nusrat mirza", "counter-intel vetting",
+                "diplomatic compromise", "diplomatic deep state", "station compromise", "raw network compromise"
+            ]
+            matched_intel_compromise = any(
+                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for kw in intel_compromise_keywords)
+                for c in claims
+            )
+            if matched_intel_compromise:
+                tenure_v = 0.90 if any("tehran" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "ansari" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims) else 0.70
+                assoc_v = 0.85 if any("nusrat" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() or "iamc" in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower() for c in claims) else 0.65
+                vet_v = 0.25
+                fac_v = 0.80
+                intel_res = DiplomaticCounterIntelSieve.calculate_counter_intel_vulnerability(
+                    single_region_tenure_ratio=tenure_v,
+                    transnational_hostile_associations=assoc_v,
+                    counter_intel_vetting_depth=vet_v,
+                    ideological_factional_alignment=fac_v
+                )
+                findings.insert(0, (
+                    f"[DIPLOMATIC COUNTER-INTEL FORENSICS] {intel_res['tactical_rationale']} "
+                    f"Verdict: {intel_res['operational_verdict']}."
+                ))
+                metrics["counter_intel_vulnerability_score"] = intel_res["counter_intel_vulnerability_score"]
+                metrics["intel_exposure_tier"] = intel_res["intel_exposure_tier"]
+                metrics["diplomatic_station_compromise_flag"] = (intel_res["counter_intel_vulnerability_score"] >= 0.50)
+                if intel_res["counter_intel_review_mandated"]:
+                    alignment = max(0.15, round(alignment - 0.15, 2))
+
             metrics["claims_evaluated"] = len(claims)
 
         return LensEvaluation(
@@ -318,5 +347,72 @@ class ExtraterritorialSovereignAsymmetrySieve:
             "judicial_sovereignty_summary": summary,
             "sovereign_remedy_pathway": remedy
         }
+
+
+class DiplomaticCounterIntelSieve:
+    """
+    Phase 100: Diplomatic Counter-Intelligence Screening & Ideological Vulnerability Sieve.
+    Quantifies the risk of intelligence asset exposure, station compromises, and sovereign policy
+    subversion resulting from long-tenure regional diplomatic postings, unvetted transnational
+    associations (e.g. IAMC, PFI fronts, hostile foreign intelligence interfaces), and domestic political bias.
+
+    Mathematical Formulation:
+      Exposure_Factor = (
+          0.35 * single_region_tenure_ratio +
+          0.35 * transnational_hostile_associations +
+          0.30 * ideological_factional_alignment
+      )
+      Vetting_Divisor = max(0.10, counter_intel_vetting_depth)
+      L_intel = min(1.0, max(0.0, round(Exposure_Factor * (0.50 / Vetting_Divisor), 4)))
+    """
+
+    @classmethod
+    def calculate_counter_intel_vulnerability(
+        cls,
+        single_region_tenure_ratio: float = 0.85,
+        transnational_hostile_associations: float = 0.75,
+        counter_intel_vetting_depth: float = 0.30,
+        ideological_factional_alignment: float = 0.80
+    ) -> Dict[str, Any]:
+        tenure = min(1.0, max(0.0, float(single_region_tenure_ratio)))
+        assoc = min(1.0, max(0.0, float(transnational_hostile_associations)))
+        vetting = min(1.0, max(0.0, float(counter_intel_vetting_depth)))
+        faction = min(1.0, max(0.0, float(ideological_factional_alignment)))
+
+        exposure = (0.35 * tenure) + (0.35 * assoc) + (0.30 * faction)
+        divisor = max(0.10, vetting)
+        l_intel = min(1.0, max(0.0, round(exposure * (0.50 / divisor), 4)))
+
+        if l_intel >= 0.75:
+            tier = "CRITICAL_INTEL_EXPOSURE"
+            verdict = "COMPROMISED_HUMINT_STATIONS_HIGH_FOREIGN_PENETRATION_RISK"
+        elif l_intel >= 0.50:
+            tier = "ELEVATED_COUNTER_INTEL_RISK"
+            verdict = "SUBSTANTIAL_FACTIONAL_VULNERABILITY_MANDATORY_VETTING_REVIEW"
+        elif l_intel >= 0.25:
+            tier = "MODERATE_DIPLOMATIC_FRICTION"
+            verdict = "CONVENTIONAL_INSTITUTIONAL_INERTIA_NO_STATION_LEAK"
+        else:
+            tier = "VETTED_INTELLIGENCE_INTEGRITY"
+            verdict = "COUNTER_ESPIONAGE_SAFEGUARDS_INTACT"
+
+        rationale = (
+            f"Regional tenure ({tenure:.2f}), Hostile associations ({assoc:.2f}), "
+            f"Vetting depth ({vetting:.2f}), Factional alignment ({faction:.2f}). "
+            f"Counter-intel vulnerability L_intel: {l_intel:.4f} ({tier})."
+        )
+
+        return {
+            "counter_intel_vulnerability_score": l_intel,
+            "intel_exposure_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "single_region_tenure_ratio": tenure,
+            "transnational_hostile_associations": assoc,
+            "counter_intel_vetting_depth": vetting,
+            "ideological_factional_alignment": faction,
+            "counter_intel_review_mandated": (l_intel >= 0.50)
+        }
+
 
 

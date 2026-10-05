@@ -8,7 +8,17 @@ from geo_engine.video.transcript_engine import TranscriptSegment, TranscriptResu
 from geo_engine.video.indexer import VideoChunk, VideoIndexer
 from geo_engine.video.retriever import VideoRetriever
 from geo_engine.video.synthesizer import VideoIntelligenceReport, VideoSynthesizer
-from geo_engine.video.audio_stream import AudioStreamMetadata, AudioTranscript, AudioStreamConnector
+from geo_engine.video.audio_stream import (
+    AudioStreamMetadata,
+    AudioTranscript,
+    AudioStreamConnector,
+    DiscourseVectorDecomposition,
+    DiscourseDecompositionEngine,
+    StreamingAudioChunk,
+    StreamingDiscourseAlert,
+    ChunkAuditTelemetry,
+    StreamingChunkAuditor,
+)
 from geo_engine.video.acoustic_dsp import WAVAudioReader, AcousticDSPWorker
 
 __all__ = [
@@ -24,6 +34,12 @@ __all__ = [
     "AudioStreamMetadata",
     "AudioTranscript",
     "AudioStreamConnector",
+    "DiscourseVectorDecomposition",
+    "DiscourseDecompositionEngine",
+    "StreamingAudioChunk",
+    "StreamingDiscourseAlert",
+    "ChunkAuditTelemetry",
+    "StreamingChunkAuditor",
     "WAVAudioReader",
     "AcousticDSPWorker",
 ]

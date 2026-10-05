@@ -9,7 +9,7 @@ military readiness, subsea cables, and astro-politics space defense.
 
 from typing import List, Type, Any
 
-from .deep_tech import DeepTechLens
+from .deep_tech import DeepTechLens, STEMCapitalDilutionSieve
 from .history import HistoryLens
 from .civilizational import CivilizationalLens
 from .geo_economist import GeoEconomistLens
@@ -20,13 +20,19 @@ from .propaganda import PropagandaLens, AntitheticalRhetoricSieve
 from .petro_logistics import PetroLogisticsLens
 from .bureaucratic_inertia import BureaucraticInertiaLens, BureaucraticRollbackModel
 from .digital_sovereignty import DigitalSovereigntyLens
-from .hybrid_covert import HybridCovertLens, ExtraterritorialSovereignAsymmetrySieve
+from .hybrid_covert import HybridCovertLens, ExtraterritorialSovereignAsymmetrySieve, DiplomaticCounterIntelSieve
 from .india_timeline import IndiaTimelineLens
-from .demographic_infiltration import DemographicInfiltrationLens
+from .demographic_infiltration import DemographicInfiltrationLens, DiasporaBacklashSieve
 from .critical_minerals import CriticalMineralsLens
-from .institutional_lawfare import InstitutionalLawfareLens, SubNationalEndowmentSieve, IntraCivilizationalFaultlineSieve
+from .institutional_lawfare import (
+    InstitutionalLawfareLens,
+    SubNationalEndowmentSieve,
+    IntraCivilizationalFaultlineSieve,
+    CulturalReligiousGrayzoneSieve,
+)
+
 from .food_security import FoodSecurityLens
-from .military_readiness import MilitaryReadinessLens, AvionicsSovereigntySieve
+from .military_readiness import MilitaryReadinessLens, AvionicsSovereigntySieve, AsymmetricInterceptionSieve
 from .subsea_cables import SubseaCablesLens
 from .astro_politics import AstroPoliticsLens
 
@@ -83,6 +89,12 @@ __all__ = [
     "IntraCivilizationalFaultlineSieve",
     "ExtraterritorialSovereignAsymmetrySieve",
     "AntitheticalRhetoricSieve",
+    "AsymmetricInterceptionSieve",
+    "DiasporaBacklashSieve",
+    "DiplomaticCounterIntelSieve",
+    "STEMCapitalDilutionSieve",
+    "CulturalReligiousGrayzoneSieve",
 ]
+
 
 

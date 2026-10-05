@@ -6,8 +6,80 @@ War Wastage Reserves (WWR) ammunition depth, domestic defense industrial base
 and kinetic escalation ladders.
 """
 
+import math
 from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, StrategicEvent
+
+
+class AsymmetricInterceptionSieve:
+    """
+    Phase 98: Asymmetric Interceptor Cost-Exchange & Saturation Exhaustion Sieve.
+    Quantifies the economic burnout rate and magazine depth depletion of high-end
+    naval/territorial air defense interceptors (SM-2, SM-6, Aster-30, Barak-8)
+    against low-cost saturation threats (Shahed-136, loitering munitions, FPV swarms).
+
+    Mathematical Formulation:
+      Total_Interceptor_Cost = interceptor_count * cost_per_interceptor_usd
+      Total_Threat_Cost = threat_count * cost_per_threat_usd
+      Raw_Ratio = Total_Interceptor_Cost / max(1.0, Total_Threat_Cost)
+      Log_Burnout = min(1.0, max(0.0, math.log10(max(1.0, Raw_Ratio)) / 4.0))
+      Depletion_Penalty = max(0.0, 1.0 - max(0.10, magazine_depth_remaining_ratio))
+      C_burnout = min(1.0, max(0.0, round(0.70 * Log_Burnout + 0.30 * Depletion_Penalty, 4)))
+    """
+
+    @classmethod
+    def calculate_cost_exchange_ratio(
+        cls,
+        interceptor_count: int = 2,
+        cost_per_interceptor_usd: float = 2_500_000.0,
+        threat_count: int = 1,
+        cost_per_threat_usd: float = 20_000.0,
+        magazine_depth_remaining_ratio: float = 0.50
+    ) -> Dict[str, Any]:
+        count_int = max(1, int(interceptor_count))
+        cost_int = max(1000.0, float(cost_per_interceptor_usd))
+        count_thr = max(1, int(threat_count))
+        cost_thr = max(100.0, float(cost_per_threat_usd))
+        mag_rem = min(1.0, max(0.0, float(magazine_depth_remaining_ratio)))
+
+        total_int_cost = count_int * cost_int
+        total_thr_cost = count_thr * cost_thr
+        raw_ratio = total_int_cost / max(1.0, total_thr_cost)
+
+        log_burnout = min(1.0, max(0.0, math.log10(max(1.0, raw_ratio)) / 4.0))
+        depletion_penalty = max(0.0, 1.0 - max(0.10, mag_rem))
+        c_burnout = min(1.0, max(0.0, round(0.70 * log_burnout + 0.30 * depletion_penalty, 4)))
+
+        if c_burnout >= 0.75:
+            tier = "CRITICAL_ECONOMIC_EXHAUSTION"
+            verdict = "UNSUSTAINABLE_INTERCEPTOR_EXPENDITURE_MAGAZINE_DEPLETION_IMMINENT"
+        elif c_burnout >= 0.50:
+            tier = "ELEVATED_ASYMMETRIC_DRAIN"
+            verdict = "SEVERE_COST_EXCHANGE_PENALTY_REQUIRES_DOCTRINE_PIVOT"
+        elif c_burnout >= 0.25:
+            tier = "MODERATE_INTERCEPTION_FRICTION"
+            verdict = "MANAGEABLE_TACTICAL_ATTRITION_WITHIN_WWR_ENVELOPE"
+        else:
+            tier = "SUSTAINABLE_DEFENSE_ENVELOPE"
+            verdict = "NEAR_PARITY_EXCHANGE_OR_DIRECTED_ENERGY_ACTIVE"
+
+        rationale = (
+            f"Interceptors: {count_int}x ${cost_int:,.0f} (${total_int_cost:,.0f}) vs Threats: {count_thr}x ${cost_thr:,.0f} (${total_thr_cost:,.0f}). "
+            f"Raw Cost-Exchange Ratio: {raw_ratio:.1f}:1. Magazine Depth Remaining: {mag_rem*100:.1f}%. "
+            f"Burnout Index C_burnout: {c_burnout:.4f} ({tier})."
+        )
+
+        return {
+            "interceptor_cost_exchange_ratio": raw_ratio,
+            "cost_burnout_index": c_burnout,
+            "burnout_threat_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "total_interceptor_cost_usd": total_int_cost,
+            "total_threat_cost_usd": total_thr_cost,
+            "magazine_depth_remaining_ratio": mag_rem,
+            "asymmetric_attrition_critical": (c_burnout >= 0.75)
+        }
 
 
 class AvionicsSovereigntySieve:
@@ -134,6 +206,31 @@ class MilitaryReadinessLens:
 
             findings.insert(0, finding_text)
 
+        # Scan for asymmetric interceptor burnout terms
+        interceptor_terms = [
+            "drone burnout", "cost-exchange", "cost exchange", "interceptor exhaustion",
+            "sm-2", "sm-6", "shahed", "houthi drone", "red sea", "drone swarm",
+            "asymmetric drone", "loitering munition", "magazine depth"
+        ]
+        burnout_detected = any(t in corpus for t in interceptor_terms)
+        burnout_calc = None
+        if burnout_detected:
+            is_red_sea = ("red sea" in corpus or "sm-2" in corpus or "sm-6" in corpus or "houthi" in corpus)
+            cost_missile = 2_500_000.0 if is_red_sea else 1_200_000.0
+            cost_drone = 20_000.0 if ("shahed" in corpus or "houthi" in corpus) else 35_000.0
+            mag_ratio = 0.35 if ("exhaust" in corpus or "burnout" in corpus or "deplet" in corpus) else 0.55
+            burnout_calc = AsymmetricInterceptionSieve.calculate_cost_exchange_ratio(
+                interceptor_count=2,
+                cost_per_interceptor_usd=cost_missile,
+                threat_count=1,
+                cost_per_threat_usd=cost_drone,
+                magazine_depth_remaining_ratio=mag_ratio
+            )
+            findings.insert(0, (
+                f"[ASYMMETRIC INTERCEPTION FORENSICS] {burnout_calc['tactical_rationale']} "
+                f"Verdict: {burnout_calc['operational_verdict']}."
+            ))
+
         metrics: Dict[str, Any] = {
             "two_front_deterrence_posture_score": 0.78,
             "wwr_ammunition_reserve_days": 21.5,
@@ -156,6 +253,15 @@ class MilitaryReadinessLens:
             # Adjust alignment downwards if digital leash is severe
             if avionics_calc["operational_autonomy_score"] < 0.50:
                 alignment = max(0.20, round(alignment - 0.20, 2))
+
+        if burnout_calc:
+            metrics["interceptor_cost_exchange_ratio"] = burnout_calc["interceptor_cost_exchange_ratio"]
+            metrics["cost_burnout_index"] = burnout_calc["cost_burnout_index"]
+            metrics["burnout_threat_tier"] = burnout_calc["burnout_threat_tier"]
+            metrics["magazine_depletion_risk"] = round(1.0 - burnout_calc["magazine_depth_remaining_ratio"], 2)
+            metrics["asymmetric_attrition_detected"] = (burnout_calc["cost_burnout_index"] >= 0.50)
+            if burnout_calc["cost_burnout_index"] >= 0.50:
+                alignment = max(0.15, round(alignment - 0.15, 2))
 
         if claims:
             military_or_readiness = any(

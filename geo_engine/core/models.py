@@ -223,8 +223,11 @@ class SummitAnalysisReport(BaseModel):
     overall_confidence_score: float = Field(default=0.8)
     diagnostic_encounter_id: Optional[str] = None
     epistemic_arbitration_log: List[str] = Field(default_factory=list)
+    causal_shock_propagation: Dict[str, Any] = Field(default_factory=dict)
+    layman_intuitive_summary: Dict[str, Any] = Field(default_factory=dict)
 
     @model_validator(mode="before")
+
     @classmethod
     def _remap_legacy_tier_fields(cls, data: Any) -> Any:
         if isinstance(data, dict):

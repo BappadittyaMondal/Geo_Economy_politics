@@ -16,6 +16,18 @@ from .models import (
 from .epistemic_hierarchy import EpistemicArbitrator, TruthClaim
 from .temporal_guardrail import TemporalGuardrail
 from .query_parser import QueryParser, StrategicQuery
+from .speaker_profiler import (
+    SpeakerArchetype,
+    SpeakerProfile,
+    EpistemicSpeakerProfiler,
+)
+from .conversation_distiller import (
+    VerificationStatus,
+    DistillationAction,
+    DistilledClaim,
+    DistillationReport,
+    ChatConversationDistiller,
+)
 
 __all__ = [
     "EpistemicTier",
@@ -32,4 +44,13 @@ __all__ = [
     "TemporalGuardrail",
     "QueryParser",
     "StrategicQuery",
+    "SpeakerArchetype",
+    "SpeakerProfile",
+    "EpistemicSpeakerProfiler",
+    "VerificationStatus",
+    "DistillationAction",
+    "DistilledClaim",
+    "DistillationReport",
+    "ChatConversationDistiller",
 ]
+

@@ -40,7 +40,129 @@ class AudioTranscript(BaseModel):
     extraction_method: str = "caption_stream"
 
 
+class DiscourseVectorDecomposition(BaseModel):
+    """Quantitative 4-vector decomposition of a strategic speech or media transcript."""
+    factuality_ratio: float
+    ideology_intensity: float
+    agenda_potency: float
+    omission_penalty: float
+    dominant_ideology: str
+    primary_agenda_type: str
+    identified_factual_anchors: List[str] = Field(default_factory=list)
+    identified_ideological_tokens: List[str] = Field(default_factory=list)
+    identified_actionable_demands: List[str] = Field(default_factory=list)
+    critical_omitted_counterweights: List[str] = Field(default_factory=list)
+    discourse_classification: str = "MIXED_CRITICAL_DISCOURSE"
+
+
+class DiscourseDecompositionEngine:
+    """Decomposes strategic monologues and media transcripts into 4 distinct epistemic vectors."""
+
+    FACTUAL_KEYWORDS: List[str] = [
+        "act", "section", "court", "statute", "amendment", "brier", "crore", "rupee", "dollar",
+        "percent", "%", "1947", "1950", "1953", "1963", "1974", "1987", "1991", "1992", "1998",
+        "2015", "2018", "2021", "2023", "2024", "kashinath", "sarbananda", "bigha", "exam", "marks",
+        "engineer", "vacancy", "gdp", "taxpayer", "subsidy", "budget", "gazette", "notification"
+    ]
+
+    IDEOLOGICAL_KEYWORDS: List[str] = [
+        "merit", "jizya", "appeasement", "caste", "decolonial", "hindutva", "secular", "left",
+        "right", "marxist", "trad", "dharma", "social justice", "savarna", "bahujan", "victimhood",
+        "leech", "bribe", "traitor", "demonic", "blunder", "colonized", "freebies", "free", "welfarism",
+        "general category", "caste reservation", "safeguard"
+    ]
+
+    AGENDA_KEYWORDS: List[str] = [
+        "vote", "boycott", "punish", "elect", "protest", "mobilize", "abuse", "strike",
+        "don't vote", "we will not vote", "strategic vote", "overthrow", "remove from power",
+        "defeat", "hold accountable", "double down"
+    ]
+
+    @classmethod
+    def decompose_discourse(cls, text: str) -> DiscourseVectorDecomposition:
+        if not text:
+            return DiscourseVectorDecomposition(
+                factuality_ratio=0.10,
+                ideology_intensity=0.10,
+                agenda_potency=0.0,
+                omission_penalty=0.0,
+                dominant_ideology="NEUTRAL",
+                primary_agenda_type="INFORMATIONAL",
+                discourse_classification="NEUTRAL_OR_EMPTY"
+            )
+        text_lower = text.lower()
+
+        found_facts = [kw for kw in cls.FACTUAL_KEYWORDS if kw in text_lower]
+        found_ideology = [kw for kw in cls.IDEOLOGICAL_KEYWORDS if kw in text_lower]
+        found_agenda = [kw for kw in cls.AGENDA_KEYWORDS if kw in text_lower]
+
+        fact_ratio = round(min(1.0, max(0.10, len(found_facts) * 0.14)), 2)
+        ideology_int = round(min(1.0, max(0.10, len(found_ideology) * 0.16)), 2)
+        agenda_pot = round(min(1.0, max(0.0, len(found_agenda) * 0.18)), 2)
+
+
+        # Check negative space omissions
+        omitted = []
+        if ("jizya" in text_lower or "subsidy" in text_lower or "80 crore" in text_lower or "free" in text_lower) and not any(w in text_lower for w in ["food security", "famine", "inflation floor", "starvation", "covid relief", "stability floor"]):
+            omitted.append("MACROECONOMIC_FOOD_SECURITY_STABILITY_FLOOR")
+        if ("rollback" in text_lower or "coward" in text_lower or "retracted" in text_lower) and not any(w in text_lower for w in ["two front", "china", "galwan", "foreign ngo", "color revolution"]):
+            omitted.append("EXTERNAL_TWO_FRONT_AND_HYBRID_WARFARE_REALPOLITIK")
+        if ("caste" in text_lower or "sc st" in text_lower or "reservation" in text_lower) and not any(w in text_lower for w in ["historical discrimination", "untouchability", "social integration", "dignity"]):
+            omitted.append("SUBALTERN_HISTORICAL_EXCLUSION_AND_INTEGRATION")
+        if ("infrastructure" in text_lower or "broken" in text_lower) and not any(w in text_lower for w in ["highways", "freight corridor", "nhai", "electrification", "dpi", "capex"]):
+            omitted.append("SYSTEMIC_SUPPLY_SIDE_CAPEX_EXPANSION")
+
+        omission_pen = round(min(1.0, len(omitted) * 0.25), 2)
+
+        # Dominant ideology
+        if any(w in text_lower for w in ["merit", "taxpayer", "savarna", "blunder"]):
+            dom_ideol = "TRADITIONALIST_MERITOCRACY"
+        elif any(w in text_lower for w in ["decolonial", "temple", "places of worship"]):
+            dom_ideol = "INDIC_DECOLONIAL_JURISPRUDENCE"
+        elif any(w in text_lower for w in ["stem", "semi-conductor", "avionics"]):
+            dom_ideol = "DEEP_TECH_NATIONALISM"
+        elif any(w in text_lower for w in ["ambedkar", "annihilation of caste"]):
+            dom_ideol = "SUBALTERN_CONSTITUTIONALISM"
+        else:
+            dom_ideol = "GENERAL_POLITICAL_POLEMIC"
+
+        # Primary agenda type
+        if any(w in text_lower for w in ["boycott", "not vote", "we will not vote"]):
+            agenda_type = "ELECTORAL_BOYCOTT_AND_DISCIPLINARY_PRESSURE"
+        elif any(w in text_lower for w in ["protest", "mobilize", "strike"]):
+            agenda_type = "STREET_MOBILIZATION"
+        elif any(w in text_lower for w in ["statute", "amendment", "bail"]):
+            agenda_type = "STATUTORY_DUE_PROCESS_REFORM"
+        else:
+            agenda_type = "AWARENESS_AND_DISCOURSE_SHIFT"
+
+        # Classification
+        if fact_ratio >= 0.55 and ideology_int >= 0.45:
+            classification = "EVIDENTIARY_POLEMIC"
+        elif fact_ratio >= 0.65 and ideology_int < 0.40:
+            classification = "FORENSIC_OBJECTIVE_AUDIT"
+        elif fact_ratio < 0.35 and agenda_pot >= 0.50:
+            classification = "TACTICAL_POLITICAL_MOBILIZATION"
+        else:
+            classification = "MIXED_CRITICAL_DISCOURSE"
+
+        return DiscourseVectorDecomposition(
+            factuality_ratio=fact_ratio,
+            ideology_intensity=ideology_int,
+            agenda_potency=agenda_pot,
+            omission_penalty=omission_pen,
+            dominant_ideology=dom_ideol,
+            primary_agenda_type=agenda_type,
+            identified_factual_anchors=found_facts,
+            identified_ideological_tokens=found_ideology,
+            identified_actionable_demands=found_agenda,
+            critical_omitted_counterweights=omitted,
+            discourse_classification=classification
+        )
+
+
 class AudioStreamConnector:
+
     """
     Connects to external media URLs, bypassing dynamic client-side JavaScript lockouts
     by extracting caption tracks, headless metadata, or streaming transcript segments,
@@ -209,7 +331,8 @@ class AudioStreamConnector:
         cls,
         url_or_id: Union[str, AudioTranscript],
         store: Optional[EventStore] = None,
-        metadata_fallback: Optional[Dict[str, Any]] = None
+        metadata_fallback: Optional[Dict[str, Any]] = None,
+        preferred_languages: Optional[List[str]] = None
     ) -> Dict[str, Any]:
         """
         Forensic Epistemic Audit Pipeline for audio/video media.
@@ -224,7 +347,11 @@ class AudioStreamConnector:
         if isinstance(url_or_id, AudioTranscript):
             transcript = url_or_id
         else:
-            transcript = cls.fetch_stream_transcript(url_or_id, metadata_fallback=metadata_fallback)
+            transcript = cls.fetch_stream_transcript(
+                url_or_id,
+                preferred_languages=preferred_languages,
+                metadata_fallback=metadata_fallback
+            )
         claims = cls.transcript_to_claims(transcript)
 
         full_text = (transcript.full_text or "").lower()
@@ -414,6 +541,59 @@ class AudioStreamConnector:
                 restraint_claim_credibility=0.40
             )
 
+        # Phase 98: Asymmetric Interceptor Cost-Exchange Forensics
+        from ..lenses.military_readiness import AsymmetricInterceptionSieve
+        burnout_terms = ["drone burnout", "cost-exchange", "interceptor exhaustion", "sm-2", "sm-6", "shahed", "houthi drone", "red sea", "drone swarm"]
+        has_burnout_claim = any(term in full_text for term in burnout_terms)
+        burnout_audit = None
+        if has_burnout_claim:
+            burnout_audit = AsymmetricInterceptionSieve.calculate_cost_exchange_ratio(
+                interceptor_count=2,
+                cost_per_interceptor_usd=2_500_000.0 if ("sm-2" in full_text or "sm-6" in full_text or "red sea" in full_text) else 1_200_000.0,
+                threat_count=1,
+                cost_per_threat_usd=20_000.0 if ("shahed" in full_text or "houthi" in full_text) else 35_000.0,
+                magazine_depth_remaining_ratio=0.35 if ("exhaust" in full_text or "burnout" in full_text) else 0.55
+            )
+
+        # Phase 99: Diaspora Host-Nation Backlash Forensics
+        from ..lenses.demographic_infiltration import DiasporaBacklashSieve
+        diaspora_terms = ["diaspora under siege", "sb 403", "caste lawfare", "texas hanuman", "statue of union", "nativist backlash", "h-1b ban", "diaspora fragility"]
+        has_diaspora_claim = any(term in full_text for term in diaspora_terms)
+        diaspora_audit = None
+        if has_diaspora_claim:
+            diaspora_audit = DiasporaBacklashSieve.calculate_diaspora_vulnerability(
+                nativist_hate_incidents=0.80 if ("temple" in full_text or "hanuman" in full_text) else 0.55,
+                caste_lawfare_activity=0.85 if ("sb 403" in full_text or "caste" in full_text) else 0.45,
+                grassroots_advocacy_strength=0.25,
+                host_country_polarization=0.85
+            )
+
+        # Phase 100: Diplomatic Counter-Intelligence Forensics
+        from ..lenses.hybrid_covert import DiplomaticCounterIntelSieve
+        diplomatic_terms = ["hamid ansari", "ansari", "tehran raw", "nusrat mirza", "counter-intel vetting", "diplomatic compromise"]
+        has_diplomatic_claim = any(term in full_text for term in diplomatic_terms)
+        diplomatic_audit = None
+        if has_diplomatic_claim:
+            diplomatic_audit = DiplomaticCounterIntelSieve.calculate_counter_intel_vulnerability(
+                single_region_tenure_ratio=0.90 if ("tehran" in full_text or "ansari" in full_text) else 0.70,
+                transnational_hostile_associations=0.85 if ("nusrat" in full_text or "iamc" in full_text or "pfi" in full_text) else 0.60,
+                counter_intel_vetting_depth=0.25,
+                ideological_factional_alignment=0.80
+            )
+
+        # Phase 100: STEM Capital Dilution Forensics
+        from ..lenses.deep_tech import STEMCapitalDilutionSieve
+        stem_terms = ["stem dilution", "grievance curricula", "engineering capex", "technological dividend", "demographic dividend liability"]
+        has_stem_claim = any(term in full_text for term in stem_terms)
+        stem_audit = None
+        if has_stem_claim:
+            stem_audit = STEMCapitalDilutionSieve.calculate_stem_dilution(
+                grievance_curricula_budget_share=0.55 if "grievance" in full_text else 0.35,
+                physical_lab_capex_share=0.25 if "dilution" in full_text else 0.40,
+                ideological_administrative_overhead=0.40,
+                meritocratic_faculty_retention=0.55
+            )
+
         # Level-0 Atomic Temporal Guardrail Check on Incumbency/Tenure
         from ..core.temporal_guardrail import TemporalGuardrail
         tenure_audit = None
@@ -514,6 +694,9 @@ class AudioStreamConnector:
         p_blocks = 40 - r_blocks
         bar = "█" * r_blocks + "░" * p_blocks
 
+        # 6. Deconstruct Discourse Vectors (Fact vs Ideology vs Agenda vs Omission)
+        discourse_audit = DiscourseDecompositionEngine.decompose_discourse(full_text)
+
         return {
             "media_id": transcript.media_id,
             "language": transcript.language,
@@ -533,6 +716,14 @@ class AudioStreamConnector:
             "has_faultline_claim": has_faultline_claim,
             "has_sovereign_asymmetry_claim": has_sovereign_asym_claim,
             "has_antithetical_claim": has_antithetical_claim,
+            "has_burnout_claim": has_burnout_claim,
+            "has_diaspora_claim": has_diaspora_claim,
+            "has_diplomatic_claim": has_diplomatic_claim,
+            "has_stem_claim": has_stem_claim,
+            "interceptor_burnout_audit": burnout_audit,
+            "diaspora_backlash_audit": diaspora_audit,
+            "diplomatic_counter_intel_audit": diplomatic_audit,
+            "stem_dilution_audit": stem_audit,
             "avionics_sovereignty_audit": avionics_audit,
             "chokepoint_audit": chokepoint_audit,
             "endowment_audit": endowment_audit,
@@ -544,6 +735,7 @@ class AudioStreamConnector:
             "chronology_audit": chronology_audit,
             "tenure_audit": tenure_audit,
             "decomposed_claim": decomposed_claim.model_dump() if decomposed_claim else None,
+            "discourse_decomposition": discourse_audit.model_dump(),
             "courtroom_cross_examination": rizwan_cross_exam,
             "tensor": tensor,
             "reality_percentage": tensor["reality_percentage"],
@@ -554,4 +746,254 @@ class AudioStreamConnector:
             "council_evaluation": council_data,
             "formatted_report": formatted_report
         }
+
+
+
+class MediaAuditWorkerQueue:
+    """
+    Asynchronous Worker Queue for Media Extraction and Claim Auditing.
+    Decouples heavy multi-hour video/audio ingestion from the synchronous request thread,
+    recording job execution states and progress inside SQLite events.db.
+    """
+    import concurrent.futures
+    _executor: Optional[concurrent.futures.ThreadPoolExecutor] = None
+
+    @classmethod
+    def _get_executor(cls):
+        import concurrent.futures
+        if cls._executor is None:
+            cls._executor = concurrent.futures.ThreadPoolExecutor(max_workers=2, thread_name_prefix="MediaAuditWorker")
+        return cls._executor
+
+    @classmethod
+    def submit_audit_job(
+        cls,
+        url_or_id: str,
+        preferred_languages: Optional[List[str]] = None,
+        metadata_fallback: Optional[Dict[str, Any]] = None,
+        db_path: Optional[str] = None
+    ) -> str:
+        """
+        Dispatches an asynchronous media audit task to the worker pool.
+        Returns unique job_id immediately without blocking the caller.
+        """
+        import uuid
+        job_id = f"JOB-{uuid.uuid4().hex[:12].upper()}"
+        store = EventStore(db_path=db_path)
+        store.create_media_job(job_id=job_id, source_url=str(url_or_id))
+
+        executor = cls._get_executor()
+        executor.submit(
+            cls._execute_worker_task,
+            job_id,
+            url_or_id,
+            preferred_languages,
+            metadata_fallback,
+            db_path
+        )
+        return job_id
+
+    @classmethod
+    def _execute_worker_task(
+        cls,
+        job_id: str,
+        url_or_id: str,
+        preferred_languages: Optional[List[str]],
+        metadata_fallback: Optional[Dict[str, Any]],
+        db_path: Optional[str]
+    ) -> None:
+        """Background thread worker execution body."""
+        import json
+        store = EventStore(db_path=db_path)
+        try:
+            store.update_media_job(job_id, status="PROCESSING", progress_pct=15.0)
+
+            # Step 1: Run complete media audit
+            audit_result = AudioStreamConnector.audit_media_claims(
+                url_or_id=url_or_id,
+                store=store,
+                metadata_fallback=metadata_fallback,
+                preferred_languages=preferred_languages
+            )
+            store.update_media_job(job_id, status="PROCESSING", progress_pct=85.0)
+
+            # Step 2: Serialize result and mark COMPLETED
+            result_str = json.dumps(audit_result, default=str)
+            store.update_media_job(
+                job_id,
+                status="COMPLETED",
+                progress_pct=100.0,
+                result_json=result_str
+            )
+        except Exception as exc:
+            store.update_media_job(
+                job_id,
+                status="FAILED",
+                progress_pct=100.0,
+                error_message=str(exc)
+            )
+
+    @classmethod
+    def get_job_status(cls, job_id: str, db_path: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        """Queries the current status and results of a media audit background job."""
+        import json
+        store = EventStore(db_path=db_path)
+        job = store.get_media_job(job_id)
+        if not job:
+            return None
+        if job.get("result_json"):
+            try:
+                job["result"] = json.loads(job["result_json"])
+            except Exception:
+                job["result"] = None
+        return job
+
+    @classmethod
+    def wait_for_job(
+        cls,
+        job_id: str,
+        timeout_seconds: float = 30.0,
+        poll_interval: float = 0.1,
+        db_path: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Synchronously polls for background job completion up to timeout_seconds."""
+        import time
+        start_t = time.time()
+        while time.time() - start_t < timeout_seconds:
+            status = cls.get_job_status(job_id, db_path=db_path)
+            if status and status.get("status") in ("COMPLETED", "FAILED"):
+                return status
+            time.sleep(poll_interval)
+        return {
+            "job_id": job_id,
+            "status": "TIMEOUT",
+            "error_message": f"Job {job_id} exceeded wait timeout of {timeout_seconds}s"
+        }
+
+
+class StreamingAudioChunk(BaseModel):
+    """A real-time timestamped chunk of speech or transcript text."""
+    chunk_id: str
+    timestamp_start_s: float
+    timestamp_end_s: float
+    raw_text: str
+    speaker_tag: Optional[str] = None
+    signal_quality: float = 1.0
+
+
+class StreamingDiscourseAlert(BaseModel):
+    """Real-time forensic anomaly or threshold alert."""
+    alert_id: str
+    timestamp_s: float
+    alert_type: str  # 'RAPID_AGENDA_ESCALATION', 'HIGH_OMISSION_PENALTY', 'GRAYZONE_FRACTURE_TRIGGER'
+    severity: float  # 0.0 to 1.0
+    trigger_statement: str
+    recommended_countermeasure: str
+
+
+class ChunkAuditTelemetry(BaseModel):
+    """Telemetry produced per streaming chunk evaluation."""
+    chunk_id: str
+    timestamp_s: float
+    window_factuality: float
+    window_ideology: float
+    window_agenda: float
+    window_omission: float
+    dominant_ideology: str
+    active_alerts: List[StreamingDiscourseAlert] = Field(default_factory=list)
+    distilled_claims_count: int = 0
+
+
+class StreamingChunkAuditor:
+    """
+    Stateful rolling auditor for real-time live broadcast streams,
+    podcasts, and conference audio feeds.
+    """
+
+    def __init__(self, window_size: int = 5, alert_threshold: float = 0.65):
+        self.window_size = window_size
+        self.alert_threshold = alert_threshold
+        self.history: List[StreamingAudioChunk] = []
+        self.alerts: List[StreamingDiscourseAlert] = []
+        self._processed_chunks_count: int = 0
+
+    def process_chunk(
+        self,
+        chunk: StreamingAudioChunk,
+        store: Optional[EventStore] = None
+    ) -> ChunkAuditTelemetry:
+        """Processes an incoming real-time audio chunk and evaluates rolling discourse metrics."""
+        self.history.append(chunk)
+        self._processed_chunks_count += 1
+
+        # Keep sliding window
+        active_window = self.history[-self.window_size:]
+        window_text = " ".join(c.raw_text for c in active_window)
+
+        # Run rolling discourse decomposition
+        decomp = DiscourseDecompositionEngine.decompose_discourse(window_text)
+
+        new_alerts: List[StreamingDiscourseAlert] = []
+
+        # 1. Rapid Agenda Escalation: High agenda, low factuality
+        if decomp.agenda_potency >= self.alert_threshold and decomp.factuality_ratio <= 0.35:
+            alert = StreamingDiscourseAlert(
+                alert_id=f"ALT-AGENDA-{hashlib.sha256(chunk.raw_text.encode('utf-8')).hexdigest()[:8].upper()}",
+                timestamp_s=chunk.timestamp_end_s,
+                alert_type="RAPID_AGENDA_ESCALATION",
+                severity=decomp.agenda_potency,
+                trigger_statement=chunk.raw_text[:120],
+                recommended_countermeasure="Enforce Tier 5 Communique PR haircut and request verifiable statutory or fiscal corroboration."
+            )
+            new_alerts.append(alert)
+            self.alerts.append(alert)
+
+        # 2. High Negative-Space Omission Penalty
+        if decomp.omission_penalty >= 0.50:
+            alert = StreamingDiscourseAlert(
+                alert_id=f"ALT-OMISSION-{hashlib.sha256(chunk.raw_text.encode('utf-8')).hexdigest()[:8].upper()}",
+                timestamp_s=chunk.timestamp_end_s,
+                alert_type="HIGH_OMISSION_PENALTY",
+                severity=decomp.omission_penalty,
+                trigger_statement=chunk.raw_text[:120],
+                recommended_countermeasure=f"Query negative space diff: missing counterweights {decomp.critical_omitted_counterweights}."
+            )
+            new_alerts.append(alert)
+            self.alerts.append(alert)
+
+        # 3. Grayzone Fracture Trigger (Direct tax fatigue / due-process dilution)
+        lower_txt = chunk.raw_text.lower()
+        if any(w in lower_txt for w in ["section 18a", "kashinath", "middle class tax", "jizya", "presumption of guilt"]):
+            alert = StreamingDiscourseAlert(
+                alert_id=f"ALT-GRAYZONE-{hashlib.sha256(chunk.raw_text.encode('utf-8')).hexdigest()[:8].upper()}",
+                timestamp_s=chunk.timestamp_end_s,
+                alert_type="GRAYZONE_FRACTURE_TRIGGER",
+                severity=0.85,
+                trigger_statement=chunk.raw_text[:120],
+                recommended_countermeasure="Route to CulturalReligiousGrayzoneSieve and calculate intra-civilizational fracture index."
+            )
+            new_alerts.append(alert)
+            self.alerts.append(alert)
+
+        # Distill claims if store provided
+        distilled_count = 0
+        if store:
+            from ..core.conversation_distiller import ChatConversationDistiller
+            rep = ChatConversationDistiller.distill_text(chunk.raw_text, source_context=f"stream_chunk_{chunk.chunk_id}")
+            if rep.claims:
+                distilled_count = store.record_distillation_report(rep.to_dict())
+
+        return ChunkAuditTelemetry(
+            chunk_id=chunk.chunk_id,
+            timestamp_s=chunk.timestamp_end_s,
+            window_factuality=decomp.factuality_ratio,
+            window_ideology=decomp.ideology_intensity,
+            window_agenda=decomp.agenda_potency,
+            window_omission=decomp.omission_penalty,
+            dominant_ideology=decomp.dominant_ideology,
+            active_alerts=new_alerts,
+            distilled_claims_count=distilled_count
+        )
+
+
 
