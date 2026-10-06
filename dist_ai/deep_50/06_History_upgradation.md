@@ -1614,3 +1614,43 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` $\le 50$ files [32 files], 0 subdirectories).
   - Maintained zero lines deleted in `History_upgradation.md` (append-only update).
   - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 11 architectural sections**.
+
+* **Phase 136 (Horizon-Adaptive Equity & Dynamic Discount Rate Engine — `investment_horizon.py`):**
+  - Implemented `geo_engine/core/investment_horizon.py` with `InvestmentHorizon` enum (`SIP_LONG_TERM`, `TURNAROUND_MULTIBAGGER`, `POSITIONAL_SWING_3_10_30`, `GEOPOLITICAL_EVENT_SHOCK`).
+  - Implemented `HorizonAdaptiveEvaluator` with customized evidence strictness profiles:
+    - `SIP_LONG_TERM`: 10-year clean governance, ROCE > 15%, D/E < 0.5, 70% fundamental weight, strictness against depressed past history, bypassing short-term chart noise.
+    - `TURNAROUND_MULTIBAGGER`: 45% weight on rate-of-change ($\Delta$ debt reduction, operating cash flow inflection, capacity utilization > 75%), allowing depressed 5-year history.
+    - `POSITIONAL_SWING_3_10_30`: 65% weight on technical momentum, requiring stage-2 base breakout confirmation, delivery volume > 200% of 20-day average, 20/50 EMA alignment, and relative strength vs index.
+    - `GEOPOLITICAL_EVENT_SHOCK`: 50% weight on macro inputs (crude/gas elasticity, sovereign sanctions, currency stress test).
+  - Implemented `DynamicDiscountRateCalculator` dynamically coupling geopolitical risk scores to equity DCF cost of capital ($Ke$), with sector sensitivity beta (Paints 1.45, Tyres 1.35, Defense 0.40) and domestic mutual fund SIP liquidity buffering ($\beta_{\text{SIP}} = 0.70$).
+  - Exported classes cleanly in `geo_engine/core/__init__.py`.
+
+* **Phase 137 (Causal Knowledge Graph Section 10 Expansion & Claim Distiller Hardening):**
+  - Expanded `geo_engine/arbitration/causal_graph.py` from 34 to **36 canonical nodes** and added Section 10: *Post-Quantum Cryptography & Sovereign Asset Repatriation*:
+    1. `post_quantum_cryptographic_vulnerability` (Post-Quantum Cryptographic Vulnerability & Shor's Algorithm Decryption Threat, Base Potency 0.95, Epistemic Tier 1, Category: `DEEP_TECH_SOVEREIGNTY`).
+    2. `sovereign_gold_reserve_repatriation` (Sovereign Physical Gold Repatriation & Basel III De-Dollarization Buffer, Base Potency 0.92, Epistemic Tier 1, Category: `GEOECONOMIC`).
+  - Wired bi-directional causal dependencies with mathematical attenuation:
+    - `post_quantum_cryptographic_vulnerability` $\rightarrow$ `foreign_portfolio_capital_flight` ($\text{coupling}=+0.74$, polarity $+1$, public-key crypto breach driving financial panic).
+    - `post_quantum_cryptographic_vulnerability` $\rightarrow$ `sovereign_advocacy_paralysis` ($\text{coupling}=+0.72$, polarity $+1$, HNDL espionage compromise).
+    - `sovereign_gold_reserve_repatriation` $\rightarrow$ `inr_depreciation_pressure` ($\text{coupling}=-0.70$, polarity $-1$, physical bullion liquidity stabilizing sovereign currency).
+    - `sovereign_gold_reserve_repatriation` $\rightarrow$ `foreign_portfolio_capital_flight` ($\text{coupling}=-0.65$, polarity $-1$, asset-backed stability backstopping creditworthiness).
+  - Hardened `ChatConversationDistiller` in `geo_engine/core/conversation_distiller.py`:
+    1. Expanded pattern matchers to detect Post-Quantum Cryptography (`shor's algorithm`, `pqc`, `kyber`, `dilithium`, `hndl`, `quantum supremacy`).
+    2. Added Sovereign Balance Sheet Asset pattern matchers (`gold repatriation`, `physical bullion`, `bank of england vault`, `basel iii tier 1`, `700 chinese banks`).
+    3. Added Equity Horizon Vector pattern matchers (`multibagger`, `turnaround play`, `delivery volume spike`, `200 ema bounce`, `stage-2 breakout`, `sip compounder`).
+
+* **Phase 138 (Verification Suite Expansion & Test Hardening — 380 to 386 tests):**
+  - Added `TestPhase136to139HorizonAdaptiveEquityAndQuantumMacroExpansion` in `tests/test_engine.py` with 6 new unit and integration tests verifying:
+    1. Horizon-adaptive evidence profiles across SIP, Turnaround, and Positional horizons.
+    2. Dynamic discount rate calculation with sector beta sensitivity and DII SIP dampening.
+    3. 36 canonical nodes in `EpistemicKnowledgeGraph` and Section 10 registration.
+    4. Causal paths and net polarity from PQC vulnerability and Gold reserve repatriation.
+    5. Distiller extraction of PQC and Equity Horizon claims.
+    6. Synchronized `README.md` test counter parity at 386 tests.
+  - Certified **386/386 tests passing deterministically in 61.65s (100% pass rate)**. Zero regressions.
+
+* **Phase 139 (Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates):**
+  - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+  - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` $\le 50$ files [32 files], 0 subdirectories).
+  - Maintained zero lines deleted in `History_upgradation.md` (append-only update).
+  - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 11 architectural sections**.

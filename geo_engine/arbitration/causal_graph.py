@@ -719,5 +719,52 @@ class EpistemicKnowledgeGraph:
             mechanism="Contagion fears trigger regional quarantine lockdowns and rapid foreign capital withdrawal."
         ))
 
+        # =========================================================================
+        # 10. POST-QUANTUM CRYPTOGRAPHY & SOVEREIGN ASSET REPATRIATION
+        # =========================================================================
+        graph.add_node(CausalNode(
+            node_id="post_quantum_cryptographic_vulnerability",
+            name="Post-Quantum Cryptographic Vulnerability & Shor's Algorithm Decryption Threat",
+            category="DEEP_TECH_SOVEREIGNTY",
+            epistemic_tier=1,
+            base_potency=0.95
+        ))
+        graph.add_node(CausalNode(
+            node_id="sovereign_gold_reserve_repatriation",
+            name="Sovereign Physical Gold Repatriation & Basel III De-Dollarization Buffer",
+            category="GEOECONOMIC",
+            epistemic_tier=1,
+            base_potency=0.92
+        ))
+
+        graph.add_edge(CausalEdge(
+            source_id="post_quantum_cryptographic_vulnerability",
+            target_id="foreign_portfolio_capital_flight",
+            coupling_weight=0.74,
+            latency_tier="MEDIUM_TERM",
+            mechanism="Compromise of legacy public-key encryption (RSA/ECC) threatens banking and transactional ledger integrity, driving capital flight."
+        ))
+        graph.add_edge(CausalEdge(
+            source_id="post_quantum_cryptographic_vulnerability",
+            target_id="sovereign_advocacy_paralysis",
+            coupling_weight=0.72,
+            latency_tier="STRUCTURAL_LONG_TERM",
+            mechanism="'Harvest Now, Decrypt Later' espionage leaks compromise sovereign strategic decision-making and diplomatic autonomy."
+        ))
+        graph.add_edge(CausalEdge(
+            source_id="sovereign_gold_reserve_repatriation",
+            target_id="inr_depreciation_pressure",
+            coupling_weight=-0.70,
+            latency_tier="STRUCTURAL_LONG_TERM",
+            mechanism="Repatriating unencumbered physical gold bullion establishes an asset-backed sovereign liquidity anchor that dampens currency depreciation."
+        ))
+        graph.add_edge(CausalEdge(
+            source_id="sovereign_gold_reserve_repatriation",
+            target_id="foreign_portfolio_capital_flight",
+            coupling_weight=-0.65,
+            latency_tier="MEDIUM_TERM",
+            mechanism="Physical gold reserves backstop domestic sovereign creditworthiness against speculative foreign capital panics."
+        ))
+
         return graph
 

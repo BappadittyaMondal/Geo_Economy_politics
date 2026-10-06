@@ -105,6 +105,9 @@ class ChatConversationDistiller:
         (r"\b(moplah|swami\s*shraddhanand|noakhali|khilafat\s*movement|unilateral\s*pacifism|ahimsa\s*absolutism)\b", "Pacifist Vulnerability Vector"),
         (r"\b(flydubai|fz1073|cockpit\s*crash\s*axe|hammam\s*al\s*hammami|smit\s*machchhar|kamikaze\s*dive)\b", "Commercial Aviation Counter-Terrorism"),
         (r"\b(yersinia\s*pestis|plague\s*pathogen|biopreparat|vector\s*institute|bsl-4|pneumonia\s*of\s*unknown\s*aetiology)\b", "Dual-Use Biosecurity Vector"),
+        (r"\b(shor(?:'s)?\s*algorithm|post-quantum\s*cryptography|pqc|kyber|dilithium|hndl|harvest\s*now\s*decrypt\s*later|quantum\s*supremacy)\b", "Post-Quantum Cryptography & Deep Tech"),
+        (r"\b(gold\s*repatriation|physical\s*bullion|bank\s*of\s*england\s*vault|basel\s*iii\s*tier\s*1|700\s*(?:chinese\s*)?banks)\b", "Sovereign Balance Sheet Asset"),
+        (r"\b(multibagger|turnaround\s*(?:play|story|stock)|delivery\s*volume\s*spike|200\s*ema\s*bounce|stage-2\s*breakout|sip\s*compounder)\b", "Equity Horizon Vector"),
     ]
 
     FISCAL_PATTERNS = [

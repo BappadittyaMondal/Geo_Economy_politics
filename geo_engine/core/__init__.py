@@ -28,6 +28,12 @@ from .conversation_distiller import (
     DistillationReport,
     ChatConversationDistiller,
 )
+from .investment_horizon import (
+    InvestmentHorizon,
+    HorizonEvidenceProfile,
+    HorizonAdaptiveEvaluator,
+    DynamicDiscountRateCalculator,
+)
 
 __all__ = [
     "EpistemicTier",
@@ -52,5 +58,9 @@ __all__ = [
     "DistilledClaim",
     "DistillationReport",
     "ChatConversationDistiller",
+    "InvestmentHorizon",
+    "HorizonEvidenceProfile",
+    "HorizonAdaptiveEvaluator",
+    "DynamicDiscountRateCalculator",
 ]
 

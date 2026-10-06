@@ -7459,6 +7459,103 @@ class TestPhase132to135AviationSabotageAndBiosecurityExpansion:
         assert "380 comprehensive unit and integration tests" in content
 
 
+class TestPhase136to139HorizonAdaptiveEquityAndQuantumMacroExpansion:
+    """Deterministic verification for Phases 136 to 139."""
+
+    def test_phase136_horizon_evidence_profiles(self):
+        """Verify HorizonAdaptiveEvaluator returns tailored parameters per investment horizon."""
+        from geo_engine.core.investment_horizon import (
+            InvestmentHorizon,
+            HorizonAdaptiveEvaluator,
+        )
+
+        sip_prof = HorizonAdaptiveEvaluator.get_evidence_profile(InvestmentHorizon.SIP_LONG_TERM)
+        assert sip_prof.fundamental_weight == 0.70
+        assert sip_prof.min_historical_years == 10
+        assert sip_prof.allow_depressed_history is False
+        assert sip_prof.min_roce_threshold == 15.0
+
+        turnaround_prof = HorizonAdaptiveEvaluator.get_evidence_profile(InvestmentHorizon.TURNAROUND_MULTIBAGGER)
+        assert turnaround_prof.allow_depressed_history is True
+        assert turnaround_prof.rate_of_change_delta_weight == 0.45
+        assert turnaround_prof.min_historical_years == 2
+
+        swing_prof = HorizonAdaptiveEvaluator.get_evidence_profile(InvestmentHorizon.POSITIONAL_SWING_3_10_30)
+        assert swing_prof.technical_momentum_weight == 0.65
+        assert swing_prof.requires_20_50_ema_alignment is True
+        assert swing_prof.delivery_volume_multiplier_threshold == 2.0
+
+        # Query resolution
+        assert HorizonAdaptiveEvaluator.resolve_horizon_from_text("Looking for a 10 day swing breakout on CDSL") == InvestmentHorizon.POSITIONAL_SWING_3_10_30
+        assert HorizonAdaptiveEvaluator.resolve_horizon_from_text("Deep value turnaround multibagger play") == InvestmentHorizon.TURNAROUND_MULTIBAGGER
+
+    def test_phase136_dynamic_discount_rate_calculator(self):
+        """Verify DynamicDiscountRateCalculator couples geopolitical risk to equity DCF cost of capital."""
+        from geo_engine.core.investment_horizon import DynamicDiscountRateCalculator
+
+        # High vulnerability sector (PAINTS) vs beneficiary (DEFENSE)
+        paint_sens = DynamicDiscountRateCalculator.get_sector_sensitivity("PAINTS")
+        defense_sens = DynamicDiscountRateCalculator.get_sector_sensitivity("DEFENSE")
+        assert paint_sens > 1.30
+        assert defense_sens < 0.50
+
+        # Baseline Ke = 12.0%, GeoRisk = 0.80
+        res = DynamicDiscountRateCalculator.calculate_adjusted_discount_rate(
+            base_ke=12.0,
+            geopolitical_risk_score=0.80,
+            sector_name="PAINTS",
+            dii_sip_buffer_ratio=0.70
+        )
+        assert res["adjusted_ke_percent"] > 12.0
+        assert res["valuation_multiple_compression_factor"] < 1.0
+        assert res["geopolitical_risk_premium_percent"] > 0.0
+
+    def test_phase137_causal_graph_36_nodes_and_section10(self):
+        """Verify EpistemicKnowledgeGraph has exactly 36 canonical nodes with Section 10 registered."""
+        from geo_engine.arbitration.causal_graph import EpistemicKnowledgeGraph
+        graph = EpistemicKnowledgeGraph.build_canonical_graph()
+        assert len(graph.nodes) == 36
+        assert "post_quantum_cryptographic_vulnerability" in graph.nodes
+        assert "sovereign_gold_reserve_repatriation" in graph.nodes
+
+    def test_phase137_causal_path_traversal_pqc_and_gold(self):
+        """Verify causal paths from PQC vulnerability and Gold repatriation."""
+        from geo_engine.arbitration.causal_graph import EpistemicKnowledgeGraph
+        graph = EpistemicKnowledgeGraph.build_canonical_graph()
+
+        pqc_paths = graph.find_causal_paths("post_quantum_cryptographic_vulnerability", "sovereign_advocacy_paralysis")
+        assert len(pqc_paths) >= 1
+        assert pqc_paths[0].net_polarity == 1
+        assert pqc_paths[0].cumulative_impact > 0.0
+
+        gold_paths = graph.find_causal_paths("sovereign_gold_reserve_repatriation", "inr_depreciation_pressure")
+        assert len(gold_paths) >= 1
+        assert gold_paths[0].net_polarity == -1  # Stabilizing / buffering effect
+
+    def test_phase137_distiller_pqc_and_horizon_extraction(self):
+        """Verify ChatConversationDistiller extracts PQC and Equity Horizon claims."""
+        from geo_engine.core.conversation_distiller import ChatConversationDistiller
+        text1 = "Shor's algorithm threatens post-quantum cryptography in sovereign banking and defense communications."
+        report1 = ChatConversationDistiller.distill_text(text1)
+        assert report1.total_extracted >= 1
+        citations1 = [c.statutory_citation for c in report1.claims if c.statutory_citation]
+        assert any("Post-Quantum Cryptography & Deep Tech" in cit for cit in citations1)
+
+        text2 = "This turnaround play shows a delivery volume spike and stage-2 breakout confirming momentum."
+        report2 = ChatConversationDistiller.distill_text(text2)
+        assert report2.total_extracted >= 1
+        citations2 = [c.statutory_citation for c in report2.claims if c.statutory_citation]
+        assert any("Equity Horizon Vector" in cit for cit in citations2)
+
+    def test_phase138_readme_parity_386_tests(self):
+        """Verify README.md reflects 386 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "386 comprehensive unit and integration tests" in content
+
+
+
 
 
 
