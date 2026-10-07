@@ -31,3 +31,4 @@ Thumbs.db
 # Logs & Temporary scratch files
 *.log
 scratch/
+studio_output/

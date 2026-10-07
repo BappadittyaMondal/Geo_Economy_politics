@@ -908,6 +908,76 @@ def render_conversation_learning(text_or_path: str, subject: Optional[str] = Non
     console.print(t)
 
 
+def render_studio_production(
+    prompt: str,
+    mode: str = "faceless",
+    duration_minutes: int = 3,
+    aspect_ratio: str = "16:9",
+    output_dir: Optional[str] = "studio_output",
+) -> None:
+    """Renders autonomous video studio production package and exports execution scripts."""
+    from .studio import AutonomousVideoStudio, VideoPresentationMode, AspectRatio
+
+    pres_mode = VideoPresentationMode.WITH_FACE_AVATAR if mode == "avatar" else VideoPresentationMode.FACELESS_DOCUMENTARY
+    aspect = AspectRatio.PORTRAIT_9_16 if aspect_ratio == "9:16" else (AspectRatio.SQUARE_1_1 if aspect_ratio == "1:1" else AspectRatio.LANDSCAPE_16_9)
+
+    console.print(Panel(
+        f"[bold cyan]AUTONOMOUS SOVEREIGN VIDEO STUDIO PRODUCTION[/bold cyan]\n"
+        f"[dim]Topic: {prompt} | Mode: {pres_mode.value} | Duration: {duration_minutes}m | Aspect: {aspect.value}[/dim]",
+        border_style="cyan"
+    ))
+
+    result = AutonomousVideoStudio.produce_video_package(
+        topic_or_prompt=prompt,
+        presentation_mode=pres_mode,
+        target_duration_minutes=duration_minutes,
+        aspect_ratio=aspect,
+        export_dir=output_dir,
+    )
+
+    t = Table(title=f"Production Package: {result['package_id']}", border_style="green", box=box.ROUNDED)
+    t.add_column("Attribute", style="bold white", width=24)
+    t.add_column("Value / Forensic Detail", style="cyan")
+
+    t.add_row("Status", f"[bold green]{result['status']}[/bold green]")
+    t.add_row("Manifest ID", result["manifest_id"])
+    t.add_row("Title", result["title"])
+    t.add_row("Duration", f"{result['duration_sec']} seconds ({result['duration_minutes']} minutes)")
+    t.add_row("Total Scenes", str(result["total_scenes"]))
+    t.add_row("Languages", ", ".join(result["supported_languages"]).upper())
+    if result.get("export_info"):
+        t.add_row("Export Directory", result["export_info"]["output_dir"])
+        t.add_row("Batch Render Script", result["export_info"]["bat_script"])
+        t.add_row("PowerShell Render Script", result["export_info"]["ps_script"])
+
+    console.print(t)
+
+    # Print first 3 scenes preview
+    scene_table = Table(title="Scene Storyboard Preview (First 3 Scenes)", border_style="blue", box=box.SIMPLE)
+    scene_table.add_column("ID", width=4)
+    scene_table.add_column("Timecode", width=12)
+    scene_table.add_column("English Narrative", width=36)
+    scene_table.add_column("Hindi Narrative", width=36)
+    scene_table.add_column("Visual Prompt", width=32)
+
+    for sc in result["script_package"]["scenes"][:3]:
+        tc = f"{sc['timestamp_start_sec']}s - {sc['timestamp_end_sec']}s"
+        scene_table.add_row(
+            str(sc["scene_id"]),
+            tc,
+            sc["spoken_text"].get("en", "")[:80] + "...",
+            sc["spoken_text"].get("hi", "")[:80] + "...",
+            sc["visual_prompt"][:70] + "..."
+        )
+
+    console.print(scene_table)
+    console.print(Panel(
+        f"[bold yellow]Multi-Audio Mux Recipe (YouTube Native):[/bold yellow]\n[green]{result['render_manifest']['multi_audio_mux_command']}[/green]",
+        title="FFmpeg Command",
+        border_style="yellow"
+    ))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -987,13 +1057,29 @@ def main():
     ingest_parser = subparsers.add_parser("ingest-audit", help="Ingest forensic audit markdown findings into SQLite EventStore")
     ingest_parser.add_argument("path", nargs="?", default="FORENSIC_AUDIT_INDIA_1991_2026.md", help="Path to forensic audit markdown file")
 
+    # Command: studio
+    studio_parser = subparsers.add_parser("studio", help="Autonomous Sovereign Video Studio: Generate multilingual production packages")
+    studio_parser.add_argument("prompt", help="Topic or prompt for video production")
+    studio_parser.add_argument("--mode", choices=["faceless", "avatar"], default="faceless", help="Visual presentation mode")
+    studio_parser.add_argument("--duration", type=int, default=3, help="Duration in minutes (1 to 10)")
+    studio_parser.add_argument("--aspect", choices=["16:9", "9:16", "1:1"], default="16:9", help="Video framing aspect ratio")
+    studio_parser.add_argument("--output-dir", default="studio_output", help="Output directory for generated packages and scripts")
+
     # Command: mcp
     mcp_parser = subparsers.add_parser("mcp", help="Run Model Context Protocol (MCP) JSON-RPC 2.0 stdio server")
 
     try:
         args = parser.parse_args()
 
-        if args.command == "dashboard":
+        if args.command == "studio":
+            render_studio_production(
+                prompt=args.prompt,
+                mode=getattr(args, "mode", "faceless"),
+                duration_minutes=getattr(args, "duration", 3),
+                aspect_ratio=getattr(args, "aspect", "16:9"),
+                output_dir=getattr(args, "output_dir", "studio_output"),
+            )
+        elif args.command == "dashboard":
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)
             persona = getattr(args, "persona", "neutral")

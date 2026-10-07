@@ -7695,10 +7695,60 @@ class TestPhase140to143AutonomousVideoStudio:
         assert VideoLanguage.SANSKRIT.value in subtitles
 
     def test_phase143_readme_parity_392_tests(self):
-        """Verify README.md reflects 392 comprehensive unit and integration tests."""
+        """Verify README.md reflects 392 comprehensive unit and integration tests in scaling history."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
         assert "392 comprehensive unit and integration tests" in content
+
+    def test_phase144_studio_batch_script_export(self):
+        """Verify AutonomousVideoStudio exports batch/PowerShell render scripts and SRT files to disk."""
+        import pathlib
+        import shutil
+        from geo_engine.studio.video_assembler import AutonomousVideoStudio
+        from geo_engine.studio.script_architect import VideoPresentationMode
+        from geo_engine.studio.video_assembler import AspectRatio
+
+        out_path = pathlib.Path(__file__).parent.parent / "data" / "test_tmp_studio"
+        if out_path.exists():
+            shutil.rmtree(out_path, ignore_errors=True)
+
+        res = AutonomousVideoStudio.produce_video_package(
+            topic_or_prompt="Why 700 US Regional Banks Strained and Sovereign Gold Repatriation",
+            presentation_mode=VideoPresentationMode.FACELESS_DOCUMENTARY,
+            target_duration_minutes=1,
+            aspect_ratio=AspectRatio.LANDSCAPE_16_9,
+            export_dir=str(out_path),
+        )
+
+        try:
+            assert res["export_info"] is not None
+            assert (out_path / "render_video.bat").exists()
+            assert (out_path / "render_video.ps1").exists()
+            assert (out_path / "render_manifest.json").exists()
+            assert (out_path / "script_en.txt").exists()
+            assert (out_path / "subtitles_hi.srt").exists()
+        finally:
+            if out_path.exists():
+                shutil.rmtree(out_path, ignore_errors=True)
+
+    def test_phase144_cli_studio_command_execution(self):
+        """Verify CLI studio sub-command executes and produces a valid production package."""
+        from geo_engine.cli import render_studio_production
+        # Should execute cleanly without throwing exceptions
+        render_studio_production(
+            prompt="US Banking Crisis and Gold Repatriation Test",
+            mode="faceless",
+            duration_minutes=1,
+            aspect_ratio="16:9",
+            output_dir=None,
+        )
+
+    def test_phase144_readme_parity_395_tests(self):
+        """Verify README.md reflects 395 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "395 comprehensive unit and integration tests" in content
 
 

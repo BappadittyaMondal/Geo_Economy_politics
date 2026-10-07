@@ -1690,3 +1690,34 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% passed (`consolidate_5_files` == 5 files, `consolidate_50_files` $\le 50$ files [32 files], 0 subdirectories).
   - Maintained zero lines deleted in `History_upgradation.md` (append-only update).
   - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 11 architectural sections**.
+* **Phase 144 (Brain-Coupled Studio Narrative Engine, CLI Studio Command & 395 Certified Tests):**
+  - **Thematic Narrative Beat Engine (`geo_engine/studio/script_architect.py`):**
+    - Enhanced `ScriptArchitect` with `_build_thematic_story_beats` and `_get_localized_topic_label` across 5 core strategic domains (`GEOECONOMIC_WEALTH`, `DEEP_TECH`, `AVIATION_SECURITY`, `CIVILIZATIONAL_ITIHASA`, `GEOPOLITICAL_STRATEGY`).
+    - Replaced generic placeholder loop iterations with progressive multi-cycle forensic story progression:
+      - *Cycle 1 (Scenes 1–8):* Core Crisis & Causal Mechanism (e.g., Unrealized mark-to-market bond losses vs sovereign physical gold repatriation).
+      - *Cycle 2 (Scenes 9–16):* Forensic Telemetry & Mechanistic Deep-Dive (HTM accounting distortions, BTFP expiry, Central Bank gold purchases).
+      - *Cycle 3 (Scenes 17–24+):* Strategic Personas & Sovereign Synthesis (De-dollarization resilience, Basel III Tier 1 reclassification, long-term capital preservation).
+    - Hardened multilingual speech generators in **English, Hindi, Bengali, and Sanskrit** to render authentic, non-interpolated domain terminology without raw English string leakage.
+  - **Production Batch Script Exporter (`geo_engine/studio/video_assembler.py`):**
+    - Implemented `VideoAssembler.generate_execution_scripts()` and wired `export_dir` parameter into `AutonomousVideoStudio.produce_video_package()`.
+    - Automatically exports complete offline render assets to target directory:
+      1. `render_video.bat`: 1-click Windows batch script with prerequisite checks (FFmpeg, Edge-TTS) and automatic audio/video synthesis.
+      2. `render_video.ps1`: Cross-platform PowerShell execution runner with error handling.
+      3. `render_manifest.json`: Complete JSON metadata, scene timings, asset manifests, and filter specifications.
+      4. `script_{lang}.txt`: Standalone plain-text dialogue and voiceover scripts for all 4 supported languages (`en`, `hi`, `bn`, `sa`).
+      5. `subtitles_{lang}.srt`: Synchronized millisecond-accurate SubRip subtitle files for all 4 supported languages.
+  - **CLI Studio Command Interface (`geo_engine/cli.py`):**
+    - Added `studio` subcommand to CLI parser (`python -m geo_engine.cli studio "<topic>" --mode faceless --duration 3 --aspect 16:9`).
+    - Implemented `render_studio_production()` rendering Rich-formatted status panels, package manifest tables, storyboard scene previews, and full FFmpeg multi-audio mux commands.
+  - **Studio Verification Suite Expansion (392 to 395 tests — `tests/test_engine.py`):**
+    - Added `test_phase144_studio_batch_script_export` verifying batch script generation, disk export, and SRT/manifest integrity.
+    - Added `test_phase144_cli_studio_command_execution` verifying end-to-end CLI studio invocation without exceptions.
+    - Added `test_phase144_readme_parity_395_tests` verifying test counter parity at 395 tests.
+    - Replaced pytest `tmp_path` fixture with workspace-isolated `data/test_tmp_studio` directory and `try...finally` cleanup to prevent Windows AppData file permission issues.
+    - Certified **395/395 comprehensive unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` $\le 50$ files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md`.
+    - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 11 architectural sections**.
+

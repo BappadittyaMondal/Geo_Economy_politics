@@ -134,6 +134,106 @@ class VideoAssembler:
             }
         )
 
+    @classmethod
+    def generate_execution_scripts(
+        cls,
+        manifest: RenderJobManifest,
+        script_package: VideoScriptPackage,
+        output_dir: str = "studio_output",
+    ) -> Dict[str, str]:
+        """
+        Generates automated batch and PowerShell execution scripts to run Edge-TTS and FFmpeg.
+        """
+        import os
+        import json
+
+        os.makedirs(output_dir, exist_ok=True)
+
+        # 1. Export language scripts
+        script_files = {}
+        for lang in script_package.supported_languages:
+            l_code = lang.value
+            full_text = "\n".join(
+                s.spoken_text.get(l_code, "") for s in script_package.scenes if s.spoken_text.get(l_code)
+            )
+            script_path = os.path.join(output_dir, f"script_{l_code}.txt")
+            with open(script_path, "w", encoding="utf-8") as f:
+                f.write(full_text)
+            script_files[l_code] = script_path
+
+        # 2. Export SRT files
+        for l_code, srt_content in manifest.subtitles_by_language.items():
+            srt_path = os.path.join(output_dir, f"subtitles_{l_code}.srt")
+            with open(srt_path, "w", encoding="utf-8") as f:
+                f.write(srt_content)
+
+        # 3. Save manifest json
+        manifest_path = os.path.join(output_dir, "render_manifest.json")
+        with open(manifest_path, "w", encoding="utf-8") as f:
+            json.dump(manifest.to_dict(), f, indent=2, ensure_ascii=False)
+
+        # 4. Generate Windows Batch Script (.bat)
+        bat_lines = [
+            "@echo off",
+            "chcp 65001 > nul",
+            f"echo ===================================================================",
+            f"echo SOVEREIGN VIDEO STUDIO: RENDERING {manifest.manifest_id}",
+            f"echo ===================================================================",
+            "",
+            "echo [1/5] Synthesizing English neural voiceover via Edge-TTS...",
+            f"edge-tts --voice en-IN-PrabhatNeural --file script_en.txt --write-media audio_en.mp3",
+            "",
+            "echo [2/5] Synthesizing Hindi neural voiceover via Edge-TTS...",
+            f"edge-tts --voice hi-IN-MadhurNeural --file script_hi.txt --write-media audio_hi.mp3",
+            "",
+            "echo [3/5] Synthesizing Bengali neural voiceover via Edge-TTS...",
+            f"edge-tts --voice bn-IN-BashkarNeural --file script_bn.txt --write-media audio_bn.mp3",
+            "",
+            "echo [4/5] Synthesizing Sanskrit neural voiceover via Edge-TTS...",
+            f"edge-tts --voice hi-IN-MadhurNeural --rate=-8% --file script_sa.txt --write-media audio_sa.mp3",
+            "",
+            "echo [5/5] Executing multi-track audio multiplexing with FFmpeg...",
+            manifest.multi_audio_mux_command,
+            "",
+            f"echo [SUCCESS] Video render completed: output_multiaudio_{manifest.manifest_id}.mp4",
+        ]
+        bat_path = os.path.join(output_dir, "render_video.bat")
+        with open(bat_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(bat_lines))
+
+        # 5. Generate PowerShell Script (.ps1)
+        ps_lines = [
+            "$OutputEncoding = [Console]::OutputEncoding = [Text.Encoding]::UTF8",
+            f"Write-Host '== SOVEREIGN VIDEO STUDIO: RENDERING {manifest.manifest_id} ==' -ForegroundColor Cyan",
+            "",
+            "Write-Host '[1/5] Synthesizing English neural audio...' -ForegroundColor Yellow",
+            "edge-tts --voice en-IN-PrabhatNeural --file script_en.txt --write-media audio_en.mp3",
+            "",
+            "Write-Host '[2/5] Synthesizing Hindi neural audio...' -ForegroundColor Yellow",
+            "edge-tts --voice hi-IN-MadhurNeural --file script_hi.txt --write-media audio_hi.mp3",
+            "",
+            "Write-Host '[3/5] Synthesizing Bengali neural audio...' -ForegroundColor Yellow",
+            "edge-tts --voice bn-IN-BashkarNeural --file script_bn.txt --write-media audio_bn.mp3",
+            "",
+            "Write-Host '[4/5] Synthesizing Sanskrit neural audio...' -ForegroundColor Yellow",
+            "edge-tts --voice hi-IN-MadhurNeural --rate='-8%' --file script_sa.txt --write-media audio_sa.mp3",
+            "",
+            "Write-Host '[5/5] Multiplexing multi-language audio with FFmpeg...' -ForegroundColor Yellow",
+            manifest.multi_audio_mux_command,
+            "",
+            "Write-Host '[SUCCESS] Broadcast package ready!' -ForegroundColor Green",
+        ]
+        ps_path = os.path.join(output_dir, "render_video.ps1")
+        with open(ps_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(ps_lines))
+
+        return {
+            "output_dir": output_dir,
+            "bat_script": bat_path,
+            "ps_script": ps_path,
+            "manifest_json": manifest_path,
+        }
+
 
 class AutonomousVideoStudio:
     """
@@ -149,12 +249,14 @@ class AutonomousVideoStudio:
         target_duration_minutes: int = 3,
         languages: Optional[List[VideoLanguage]] = None,
         aspect_ratio: AspectRatio = AspectRatio.LANDSCAPE_16_9,
+        export_dir: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Executes end-to-end studio pipeline:
         1. Script & Scene Architecture (ScriptArchitect)
         2. Multilingual Voice & Subtitle Synthesis (MultilingualVoiceSynthesizer)
         3. Video Assembly & Multi-Track Audio Multiplexing (VideoAssembler)
+        4. Optional Batch Execution Script Generation
         """
         # Step 1: Script & Storyboarding
         script_package = ScriptArchitect.create_script_package(
@@ -180,6 +282,15 @@ class AutonomousVideoStudio:
             float(script_package.target_duration_sec)
         )
 
+        # Step 5: Optional Disk Export
+        export_info = None
+        if export_dir:
+            export_info = VideoAssembler.generate_execution_scripts(
+                manifest=manifest,
+                script_package=script_package,
+                output_dir=export_dir,
+            )
+
         return {
             "status": "PRODUCTION_READY",
             "package_id": script_package.package_id,
@@ -195,4 +306,6 @@ class AutonomousVideoStudio:
             "script_package": script_package.to_dict(),
             "render_manifest": manifest.to_dict(),
             "ducking_profile": ducking,
+            "export_info": export_info,
         }
+

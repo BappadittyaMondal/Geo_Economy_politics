@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `86c6035`
+- **Canonical Git Commit:** `f9eea76`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 86c6035
+CANONICAL_COMMIT: f9eea76
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 86c6035
+CANONICAL_COMMIT: f9eea76
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 86c6035
+CANONICAL_COMMIT: f9eea76
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 86c6035
+CANONICAL_COMMIT: f9eea76
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 86c6035
+CANONICAL_COMMIT: f9eea76
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 86c6035
+CANONICAL_COMMIT: f9eea76
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -2374,6 +2374,37 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
   - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% passed (`consolidate_5_files` == 5 files, `consolidate_50_files` $\le 50$ files [32 files], 0 subdirectories).
   - Maintained zero lines deleted in `History_upgradation.md` (append-only update).
   - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 11 architectural sections**.
+* **Phase 144 (Brain-Coupled Studio Narrative Engine, CLI Studio Command & 395 Certified Tests):**
+  - **Thematic Narrative Beat Engine (`geo_engine/studio/script_architect.py`):**
+    - Enhanced `ScriptArchitect` with `_build_thematic_story_beats` and `_get_localized_topic_label` across 5 core strategic domains (`GEOECONOMIC_WEALTH`, `DEEP_TECH`, `AVIATION_SECURITY`, `CIVILIZATIONAL_ITIHASA`, `GEOPOLITICAL_STRATEGY`).
+    - Replaced generic placeholder loop iterations with progressive multi-cycle forensic story progression:
+      - *Cycle 1 (Scenes 1–8):* Core Crisis & Causal Mechanism (e.g., Unrealized mark-to-market bond losses vs sovereign physical gold repatriation).
+      - *Cycle 2 (Scenes 9–16):* Forensic Telemetry & Mechanistic Deep-Dive (HTM accounting distortions, BTFP expiry, Central Bank gold purchases).
+      - *Cycle 3 (Scenes 17–24+):* Strategic Personas & Sovereign Synthesis (De-dollarization resilience, Basel III Tier 1 reclassification, long-term capital preservation).
+    - Hardened multilingual speech generators in **English, Hindi, Bengali, and Sanskrit** to render authentic, non-interpolated domain terminology without raw English string leakage.
+  - **Production Batch Script Exporter (`geo_engine/studio/video_assembler.py`):**
+    - Implemented `VideoAssembler.generate_execution_scripts()` and wired `export_dir` parameter into `AutonomousVideoStudio.produce_video_package()`.
+    - Automatically exports complete offline render assets to target directory:
+      1. `render_video.bat`: 1-click Windows batch script with prerequisite checks (FFmpeg, Edge-TTS) and automatic audio/video synthesis.
+      2. `render_video.ps1`: Cross-platform PowerShell execution runner with error handling.
+      3. `render_manifest.json`: Complete JSON metadata, scene timings, asset manifests, and filter specifications.
+      4. `script_{lang}.txt`: Standalone plain-text dialogue and voiceover scripts for all 4 supported languages (`en`, `hi`, `bn`, `sa`).
+      5. `subtitles_{lang}.srt`: Synchronized millisecond-accurate SubRip subtitle files for all 4 supported languages.
+  - **CLI Studio Command Interface (`geo_engine/cli.py`):**
+    - Added `studio` subcommand to CLI parser (`python -m geo_engine.cli studio "<topic>" --mode faceless --duration 3 --aspect 16:9`).
+    - Implemented `render_studio_production()` rendering Rich-formatted status panels, package manifest tables, storyboard scene previews, and full FFmpeg multi-audio mux commands.
+  - **Studio Verification Suite Expansion (392 to 395 tests — `tests/test_engine.py`):**
+    - Added `test_phase144_studio_batch_script_export` verifying batch script generation, disk export, and SRT/manifest integrity.
+    - Added `test_phase144_cli_studio_command_execution` verifying end-to-end CLI studio invocation without exceptions.
+    - Added `test_phase144_readme_parity_395_tests` verifying test counter parity at 395 tests.
+    - Replaced pytest `tmp_path` fixture with workspace-isolated `data/test_tmp_studio` directory and `try...finally` cleanup to prevent Windows AppData file permission issues.
+    - Certified **395/395 comprehensive unit and integration tests passing deterministically (100% pass rate)**.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` $\le 50$ files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md`.
+    - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 11 architectural sections**.
+
 
 
 
@@ -6725,7 +6756,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `86c6035`
+- **Canonical Git Commit:** `f9eea76`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files
