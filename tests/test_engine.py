@@ -7554,14 +7554,151 @@ class TestPhase136to139HorizonAdaptiveEquityAndQuantumMacroExpansion:
         content = readme_path.read_text(encoding="utf-8")
         assert "386 comprehensive unit and integration tests" in content
 
+class TestPhase140to143AutonomousVideoStudio:
+    """Verification suite for Phases 140 to 143: Autonomous Multilingual Sovereign Video Studio Engine."""
 
+    def test_phase140_script_architect_multilingual_scenes(self):
+        """Verify ScriptArchitect produces 4-language script packages and duration-calibrated scenes."""
+        from geo_engine.studio.script_architect import (
+            ScriptArchitect,
+            VideoLanguage,
+            VideoPresentationMode,
+        )
 
+        pkg = ScriptArchitect.create_script_package(
+            topic_or_prompt="De-Dollarization Velocity & Sovereign Gold Repatriation",
+            presentation_mode=VideoPresentationMode.FACELESS_DOCUMENTARY,
+            target_duration_minutes=3,
+        )
 
+        assert pkg.title != ""
+        assert len(pkg.scenes) >= 4
+        assert pkg.target_duration_sec == 180
+        assert VideoLanguage.ENGLISH in pkg.supported_languages
+        assert VideoLanguage.HINDI in pkg.supported_languages
+        assert VideoLanguage.BENGALI in pkg.supported_languages
+        assert VideoLanguage.SANSKRIT in pkg.supported_languages
 
+        # Verify scenes have visual prompts, music prompts, character anchors, and duration
+        for sc in pkg.scenes:
+            assert sc.scene_id >= 1
+            assert (sc.timestamp_end_sec - sc.timestamp_start_sec) > 0
+            assert sc.visual_prompt != ""
+            assert sc.music_mood != ""
+            assert "en" in sc.spoken_text
+            assert "hi" in sc.spoken_text
 
+    def test_phase141_voice_synthesizer_catalogs_and_srt(self):
+        """Verify MultilingualVoiceSynthesizer catalogs for EN, HI, BN, SA and SRT subtitle export."""
+        from geo_engine.studio.voice_synthesizer import (
+            MultilingualVoiceSynthesizer,
+            VideoLanguage,
+            SubtitleCue,
+        )
 
+        # Check catalogs
+        assert len(MultilingualVoiceSynthesizer.VOICE_CATALOG) >= 8
+        en_voice = MultilingualVoiceSynthesizer.get_voice_profile(VideoLanguage.ENGLISH, "MALE")
+        assert en_voice.language == VideoLanguage.ENGLISH
+        hi_voice = MultilingualVoiceSynthesizer.get_voice_profile(VideoLanguage.HINDI, "FEMALE")
+        assert hi_voice.language == VideoLanguage.HINDI
 
+        # Check subtitle formatting
+        cues = [
+            SubtitleCue(
+                index=1,
+                start_time_sec=0.0,
+                end_time_sec=4.5,
+                text="The global monetary architecture is fracturing along sovereign fault lines.",
+            ),
+            SubtitleCue(
+                index=2,
+                start_time_sec=4.5,
+                end_time_sec=9.0,
+                text="Over 700 regional banks faced severe unrealized balance sheet strain.",
+            ),
+        ]
+        srt_content = MultilingualVoiceSynthesizer.export_srt_content(cues)
+        assert "1\n00:00:00,000 --> 00:00:04,500" in srt_content
+        assert "2\n00:00:04,500 --> 00:00:09,000" in srt_content
+        assert "Over 700 regional banks" in srt_content
 
+    def test_phase141_audio_ducking_recipe(self):
+        """Verify dynamic audio ducking sidechain compressor FFmpeg recipe construction."""
+        from geo_engine.studio.voice_synthesizer import (
+            MultilingualVoiceSynthesizer,
+            AudioDuckingProfile,
+        )
 
+        ducking = AudioDuckingProfile(speech_volume_db=2.5, music_volume_db=-22.0)
+        recipe = MultilingualVoiceSynthesizer.calculate_ducked_audio_mix(
+            total_duration_sec=180.0,
+            ducking_profile=ducking,
+        )
+
+        assert recipe["music_volume_db"] == -22.0
+        assert recipe["speech_volume_db"] == 2.5
+        assert "filter_complex_recipe" in recipe
+        assert "volume=-22.0dB" in recipe["filter_complex_recipe"]
+
+    def test_phase142_video_assembler_render_manifest(self):
+        """Verify VideoAssembler multi-track multiplexing and render manifest generation."""
+        from geo_engine.studio.video_assembler import (
+            VideoAssembler,
+            VideoRenderSpec,
+            AspectRatio,
+        )
+        from geo_engine.studio.script_architect import (
+            ScriptArchitect,
+            VideoPresentationMode,
+        )
+
+        pkg = ScriptArchitect.create_script_package(
+            topic_or_prompt="RBI Sovereign Gold Reserve Repatriation",
+            presentation_mode=VideoPresentationMode.WITH_FACE_AVATAR,
+            target_duration_minutes=1,
+        )
+
+        spec = VideoRenderSpec(aspect_ratio=AspectRatio.LANDSCAPE_16_9, fps=30)
+        manifest = VideoAssembler.build_render_manifest(pkg, spec=spec)
+
+        assert manifest.manifest_id.startswith("MNF-")
+        assert manifest.spec.resolution_width == 1920
+        assert manifest.spec.resolution_height == 1080
+        assert len(manifest.audio_track_languages) == 4
+        assert "ffmpeg" in manifest.multi_audio_mux_command
+        assert "-metadata:s:a:0 language=en" in manifest.multi_audio_mux_command
+
+    def test_phase142_autonomous_studio_facade_end_to_end(self):
+        """Verify master AutonomousVideoStudio facade produces complete deployable production manifests."""
+        from geo_engine.studio.video_assembler import AutonomousVideoStudio
+        from geo_engine.studio.script_architect import VideoPresentationMode, VideoLanguage
+        from geo_engine.studio.video_assembler import AspectRatio
+
+        production_pack = AutonomousVideoStudio.produce_video_package(
+            topic_or_prompt="The Fall of SVB and Why 700 US Banks Strained",
+            presentation_mode=VideoPresentationMode.FACELESS_DOCUMENTARY,
+            target_duration_minutes=2,
+            aspect_ratio=AspectRatio.LANDSCAPE_16_9,
+        )
+
+        assert production_pack["status"] == "PRODUCTION_READY"
+        assert production_pack["package_id"].startswith("VID-")
+        assert "script_package" in production_pack
+        assert "render_manifest" in production_pack
+        assert "ducking_profile" in production_pack
+        assert len(production_pack["supported_languages"]) == 4
+        subtitles = production_pack["render_manifest"]["subtitles_by_language"]
+        assert VideoLanguage.ENGLISH.value in subtitles
+        assert VideoLanguage.HINDI.value in subtitles
+        assert VideoLanguage.BENGALI.value in subtitles
+        assert VideoLanguage.SANSKRIT.value in subtitles
+
+    def test_phase143_readme_parity_392_tests(self):
+        """Verify README.md reflects 392 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "392 comprehensive unit and integration tests" in content
 
 
