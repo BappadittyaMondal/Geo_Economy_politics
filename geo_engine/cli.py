@@ -915,6 +915,7 @@ def render_studio_production(
     aspect_ratio: str = "16:9",
     output_dir: Optional[str] = "studio_output",
     cinema: bool = False,
+    render: bool = False,
 ) -> None:
     """Renders autonomous video studio production package or scattered-notes cinema package."""
     from .studio import AutonomousVideoStudio, VideoPresentationMode, AspectRatio
@@ -933,7 +934,7 @@ def render_studio_production(
         console.print(Panel(
             f"[bold magenta]AUTONOMOUS SCATTERED-STORY CINEMA STUDIO PRODUCTION[/bold magenta]\n"
             f"[dim]Mode: {pres_mode.value} | Duration: {duration_minutes}m | Aspect: {aspect.value}[/dim]\n"
-            f"[dim]Input: {len(raw_content)} chars | Pipeline: StoryDistiller + CharacterContinuityEngine[/dim]",
+            f"[dim]Input: {len(raw_content)} chars | Pipeline: StoryDistiller + CharacterContinuityEngine | Render: {render}[/dim]",
             border_style="magenta"
         ))
 
@@ -943,6 +944,7 @@ def render_studio_production(
             presentation_mode=pres_mode,
             aspect_ratio=aspect,
             export_dir=output_dir,
+            render_video=render,
         )
 
         t = Table(title=f"Cinema Production Package: {result['package_id']}", border_style="magenta", box=box.ROUNDED)
@@ -973,6 +975,19 @@ def render_studio_production(
         acts_tbl.add_row("Act III", result["act_structure"]["act_3"])
         console.print(acts_tbl)
 
+        if result.get("render_result"):
+            rr = result["render_result"]
+            r_tbl = Table(title="Local Binary Video Rendering Status (1080p Master)", border_style="bold green", box=box.ROUNDED)
+            r_tbl.add_column("Render Attribute", style="bold white", width=24)
+            r_tbl.add_column("Status & File Output", style="green")
+            r_tbl.add_row("Render Engine Status", f"[bold green]{rr.get('status')}[/bold green]")
+            r_tbl.add_row("Base Video Stream", str(rr.get("video_base_path", "N/A")))
+            r_tbl.add_row("Broadcast Master MP4", f"[bold yellow]{rr.get('final_master_path', 'N/A')}[/bold yellow]")
+            r_tbl.add_row("Clips Generated", str(rr.get("clips_count", 0)))
+            size_mb = rr.get("output_size_bytes", 0) / (1024 * 1024)
+            r_tbl.add_row("File Size", f"{size_mb:.2f} MB")
+            console.print(r_tbl)
+
         console.print(Panel(
             f"[bold yellow]Multi-Audio Mux Recipe (YouTube Native):[/bold yellow]\n[green]{result['render_manifest']['multi_audio_mux_command']}[/green]",
             title="FFmpeg Command",
@@ -992,6 +1007,7 @@ def render_studio_production(
         target_duration_minutes=duration_minutes,
         aspect_ratio=aspect,
         export_dir=output_dir,
+        render_video=render,
     )
 
     t = Table(title=f"Production Package: {result['package_id']}", border_style="green", box=box.ROUNDED)
@@ -1010,6 +1026,19 @@ def render_studio_production(
         t.add_row("PowerShell Render Script", result["export_info"]["ps_script"])
 
     console.print(t)
+
+    if result.get("render_result"):
+        rr = result["render_result"]
+        r_tbl = Table(title="Local Binary Video Rendering Status (1080p Master)", border_style="bold green", box=box.ROUNDED)
+        r_tbl.add_column("Render Attribute", style="bold white", width=24)
+        r_tbl.add_column("Status & File Output", style="green")
+        r_tbl.add_row("Render Engine Status", f"[bold green]{rr.get('status')}[/bold green]")
+        r_tbl.add_row("Base Video Stream", str(rr.get("video_base_path", "N/A")))
+        r_tbl.add_row("Broadcast Master MP4", f"[bold yellow]{rr.get('final_master_path', 'N/A')}[/bold yellow]")
+        r_tbl.add_row("Clips Generated", str(rr.get("clips_count", 0)))
+        size_mb = rr.get("output_size_bytes", 0) / (1024 * 1024)
+        r_tbl.add_row("File Size", f"{size_mb:.2f} MB")
+        console.print(r_tbl)
 
     # Print first 3 scenes preview
     scene_table = Table(title="Scene Storyboard Preview (First 3 Scenes)", border_style="blue", box=box.SIMPLE)
@@ -1124,6 +1153,7 @@ def main():
     studio_parser.add_argument("--aspect", choices=["16:9", "9:16", "1:1"], default="16:9", help="Video framing aspect ratio")
     studio_parser.add_argument("--output-dir", default="studio_output", help="Output directory for generated packages and scripts")
     studio_parser.add_argument("--cinema", action="store_true", help="Enable scattered-notes story distillation and character continuity cinema mode")
+    studio_parser.add_argument("--render", action="store_true", help="Compile and render actual 1080p MP4 broadcast video locally with FFmpeg and Edge-TTS")
 
     # Command: mcp
     mcp_parser = subparsers.add_parser("mcp", help="Run Model Context Protocol (MCP) JSON-RPC 2.0 stdio server")
@@ -1139,6 +1169,7 @@ def main():
                 aspect_ratio=getattr(args, "aspect", "16:9"),
                 output_dir=getattr(args, "output_dir", "studio_output"),
                 cinema=getattr(args, "cinema", False),
+                render=getattr(args, "render", False),
             )
         elif args.command == "dashboard":
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")

@@ -34,6 +34,7 @@ from .story_distiller import (
     DistilledStoryArc,
     StoryDistiller,
 )
+from .frame_renderer import LocalFrameRenderer
 
 __all__ = [
     "VideoLanguage",
@@ -56,4 +57,5 @@ __all__ = [
     "CharacterContinuityEngine",
     "DistilledStoryArc",
     "StoryDistiller",
+    "LocalFrameRenderer",
 ]

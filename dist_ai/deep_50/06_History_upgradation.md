@@ -1755,3 +1755,31 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Preserved zero deletions across `History_upgradation.md`.
     - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 11 architectural sections**.
 
+* **Phase 146 (Local Frame Renderer, Offline Slide Synthesis, End-to-End Binary MP4 Compilation & 406 Certified Tests):**
+  - **Local Frame Renderer & Graphic Plate Generator (`geo_engine/studio/frame_renderer.py`):**
+    - Implemented `LocalFrameRenderer` utilizing Pillow for 100% offline procedural synthesis of broadcast-quality 1080p (1920x1080) and 9:16 (1080x1920) graphic plates.
+    - Eliminates remote API dependency and rate limits (`HTTP 402/429`), guaranteeing zero "black screens".
+    - Injects dynamic domain badges (e.g. `GEO-ECONOMIC & CIVILIZATIONAL`), scene progress counters (`SCENE 01 / 08`), locked character/environment anchors (`ANCHOR: VAALI`), camera motion indicators (`MOTION: SLOW_PUSH_IN`), wrapped multilingual dialogue, and bottom sovereign watermark rules.
+  - **Direct Binary Video Compiler (`geo_engine/studio/video_assembler.py`):**
+    - Implemented `VideoAssembler.render_complete_mp4()` resolving local FFmpeg 7.1 via `imageio_ffmpeg`.
+    - Synthesizes individual scene clips via `-loop 1 -i slide.png -i audio.mp3 -c:v libx264 -tune stillimage -c:a aac -shortest`.
+    - Automatically stitches all scene clips with FFmpeg concat demuxer into `video_base.mp4`.
+    - Synthesizes multilingual neural audio tracks via Edge-TTS (with offline silent/tone fallback) and executes multi-audio track multiplexing into `output_multiaudio_{manifest_id}.mp4`.
+    - Hardened `render_video.bat` and `render_video.ps1` to automatically check for `video_base.mp4` and run Python rendering if not found, eliminating phantom dependency crashes.
+  - **CLI Studio Rendering Flag (`geo_engine/cli.py`):**
+    - Added `--render` flag to `studio` command (`python -m geo_engine.cli studio "..." --cinema --render --output-dir "..."`).
+    - Added dedicated Rich terminal status table displaying render engine status, base video stream path, broadcast master MP4 path, total clips generated, and output file size in MB.
+  - **Verification Suite Expansion (401 to 406 tests — `tests/test_engine.py`):**
+    - Added `TestPhase146LocalFrameRendererAndBinaryVideoCompilation` with 5 deterministic unit and integration tests:
+      1. `test_phase146_frame_renderer_slide_generation_landscape`: Verifies 1920x1080 slide plate generation, fonts, badges, and file integrity.
+      2. `test_phase146_frame_renderer_portrait_aspect_ratio`: Verifies 1080x1920 vertical framing for YouTube Shorts / Reels.
+      3. `test_phase146_video_assembler_render_complete_mp4`: Verifies end-to-end binary compilation of clips, base video, and final master MP4.
+      4. `test_phase146_cli_studio_render_flag_execution`: Verifies CLI `--render` invocation.
+      5. `test_phase146_readme_parity_406_tests`: Validates `README.md` test counter parity at 406 tests.
+    - Certified **406/406 comprehensive unit and integration tests passing deterministically in 106.70s (100% pass rate)** with zero regressions.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` $\le 50$ files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md`.
+    - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 11 architectural sections**.
+

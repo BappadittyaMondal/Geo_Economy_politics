@@ -1,0 +1,34 @@
+{
+  "manifest_id": "MNF-633960d159",
+  "package_id": "pkg_633960d159",
+  "spec": {
+    "aspect_ratio": "16:9",
+    "resolution_width": 1920,
+    "resolution_height": 1080,
+    "fps": 30,
+    "video_codec": "libx264",
+    "audio_codec": "aac",
+    "enable_subtitles": true,
+    "crf": 21
+  },
+  "total_scenes": 4,
+  "duration_sec": 60.0,
+  "audio_track_languages": [
+    "en",
+    "hi",
+    "bn",
+    "sa"
+  ],
+  "subtitles_by_language": {
+    "en": "1\n00:00:00,000 --> 00:00:15,000\nEstablishing core context and historical genesis (Part 1). Historical precedent reveals that systemic shifts begin long before public recognition.\n\n2\n00:00:15,000 --> 00:00:30,000\nForensic escalation: telemetry, strategic tension, and direct collision (Part 2). As pressure mounts, underlying balance sheet contradictions and strategic friction points collide.\n\n3\n00:00:30,000 --> 00:00:45,000\nForensic escalation: telemetry, strategic tension, and direct collision (Part 3). As pressure mounts, underlying balance sheet contradictions and strategic friction points collide.\n\n4\n00:00:45,000 --> 00:01:00,000\nStrategic climax, moral synthesis, and sovereign takeaways (Part 4). True sovereignty and generational preservation demand self-reliance grounded in tangible reality.\n",
+    "hi": "1\n00:00:00,000 --> 00:00:15,000\nऐतिहासिक साक्ष्य प्रमाणित करते हैं कि व्यवस्थागत परिवर्तन जनमानस के संज्ञान से बहुत पहले प्रारंभ हो जाते हैं।\n\n2\n00:00:15,000 --> 00:00:30,000\nजैसे-जैसे दबाव बढ़ता है, आधारभूत वित्तीय अंतर्विरोध और रणनीतिक टकराव प्रत्यक्ष हो जाते हैं।\n\n3\n00:00:30,000 --> 00:00:45,000\nजैसे-जैसे दबाव बढ़ता है, आधारभूत वित्तीय अंतर्विरोध और रणनीतिक टकराव प्रत्यक्ष हो जाते हैं।\n\n4\n00:00:45,000 --> 00:01:00,000\nसच्ची संप्रभुता और पीढ़ीगत संपदा संरक्षण भौतिक यथार्थ और आत्मनिर्भरता पर आधारित है।\n",
+    "bn": "1\n00:00:00,000 --> 00:00:15,000\nঐতিহাসিক প্রমাণ প্রদর্শন করে যে কাঠামোগত পরিবর্তন জনসাধারণের সচেতনতার অনেক পূর্বেই শুরু হয়।\n\n2\n00:00:15,000 --> 00:00:30,000\nচাপ বৃদ্ধি পাওয়ার সাথে সাথে মৌলিক ভারসাম্যহীনতা এবং কৌশলগত সংঘাতের ক্ষেত্রগুলি সংঘর্ষে লিপ্ত হয়।\n\n3\n00:00:30,000 --> 00:00:45,000\nচাপ বৃদ্ধি পাওয়ার সাথে সাথে মৌলিক ভারসাম্যহীনতা এবং কৌশলগত সংঘাতের ক্ষেত্রগুলি সংঘর্ষে লিপ্ত হয়।\n\n4\n00:00:45,000 --> 00:01:00,000\nপ্রকৃত সার্বভৌমত্ব এবং দীর্ঘমেয়াদী সুরক্ষা বস্তুনিষ্ঠ বাস্তবতা এবং আত্মনির্ভরতার উপর প্রতিষ্ঠিত।\n",
+    "sa": "1\n00:00:00,000 --> 00:00:15,000\nऐतिहासिकाधाराः प्रमाणयन्ति यत् व्यवस्थापरिवर्तनं लोकमतेः पूर्वमेव प्रवर्तते।\n\n2\n00:00:15,000 --> 00:00:30,000\nयदा सङ्घर्षः वर्धते, तदा मौलिक-तुलनपत्र-विरोधाः सामरिक-प्रतिरोधाश्च सङ्घर्षन्ते।\n\n3\n00:00:30,000 --> 00:00:45,000\nयदा सङ्घर्षः वर्धते, तदा मौलिक-तुलनपत्र-विरोधाः सामरिक-प्रतिरोधाश्च सङ्घर्षन्ते।\n\n4\n00:00:45,000 --> 00:01:00,000\nसत्या सार्वभौमिकता वंशपरम्परा-संरक्षणं च भौतिक-यथार्थे स्वावलम्बने च प्रतिष्ठितम्।\n"
+  },
+  "multi_audio_mux_command": "ffmpeg -y -i video_base.mp4 -i audio_en.mp3 -i audio_hi.mp3 -i audio_bn.mp3 -i audio_sa.mp3 -map 0:v -map 1:a -map 2:a -map 3:a -map 4:a -c:v copy -c:a aac -metadata:s:a:0 language=en -metadata:s:a:0 title=\"EN\" -metadata:s:a:1 language=hi -metadata:s:a:1 title=\"HI\" -metadata:s:a:2 language=bn -metadata:s:a:2 title=\"BN\" -metadata:s:a:3 language=sa -metadata:s:a:3 title=\"SA\" output_multiaudio_MNF-633960d159.mp4",
+  "metadata": {
+    "title": "Forensic Investigation: The Imperial Debt Cycle and the Global Shift to Tangible Gol",
+    "presentation_mode": "FACELESS_DOCUMENTARY",
+    "domain": "GENERAL"
+  }
+}

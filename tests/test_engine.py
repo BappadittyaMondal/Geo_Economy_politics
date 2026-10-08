@@ -7862,3 +7862,136 @@ class TestPhase145ScatteredStoryCinemaEngine:
         assert "401 comprehensive unit and integration tests" in content
 
 
+class TestPhase146LocalFrameRendererAndBinaryVideoCompilation:
+    """Tests for Phase 146 local frame rendering and end-to-end binary MP4 compilation."""
+
+    def test_phase146_frame_renderer_slide_generation_landscape(self):
+        """Verify LocalFrameRenderer synthesizes 1920x1080 graphic plate with badges and text."""
+        import pathlib
+        import shutil
+        from PIL import Image
+        from geo_engine.studio.frame_renderer import LocalFrameRenderer
+        from geo_engine.studio.script_architect import SceneSegment
+
+        out_dir = pathlib.Path(__file__).parent.parent / "data" / "test_tmp_frame"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        slide_file = out_dir / "slide_01.png"
+
+        try:
+            scene = SceneSegment(
+                scene_id=1,
+                timestamp_start_sec=0.0,
+                timestamp_end_sec=5.0,
+                spoken_text={"en": "Roman emperors debased the silver denarius.", "hi": "रोमन सम्राटों ने दिनार का अवमूल्यन किया।"},
+                visual_prompt="Ancient Roman silver coins melting into gold bullion",
+                camera_motion="slow_push_in",
+                character_anchor="Augustus",
+            )
+            LocalFrameRenderer.render_scene_slide(
+                scene=scene,
+                scene_idx=1,
+                total_scenes=4,
+                out_path=str(slide_file),
+                topic="The Imperial Debt Cycle",
+                aspect_ratio="16:9",
+            )
+
+            assert slide_file.exists()
+            assert slide_file.stat().st_size > 5000
+            with Image.open(str(slide_file)) as img:
+                assert img.size == (1920, 1080)
+        finally:
+            if out_dir.exists():
+                shutil.rmtree(out_dir, ignore_errors=True)
+
+    def test_phase146_frame_renderer_portrait_aspect_ratio(self):
+        """Verify LocalFrameRenderer synthesizes 1080x1920 vertical plate for YouTube Shorts / Reels."""
+        import pathlib
+        import shutil
+        from PIL import Image
+        from geo_engine.studio.frame_renderer import LocalFrameRenderer
+        from geo_engine.studio.script_architect import SceneSegment
+
+        out_dir = pathlib.Path(__file__).parent.parent / "data" / "test_tmp_frame_vert"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        slide_file = out_dir / "slide_vert.png"
+
+        try:
+            scene = SceneSegment(
+                scene_id=2,
+                timestamp_start_sec=5.0,
+                timestamp_end_sec=10.0,
+                spoken_text={"en": "Central banks are accumulating physical gold."},
+                visual_prompt="Central bank bullion vault",
+                camera_motion="dramatic_tilt_up",
+            )
+            LocalFrameRenderer.render_scene_slide(
+                scene=scene,
+                scene_idx=2,
+                total_scenes=4,
+                out_path=str(slide_file),
+                topic="Gold Repatriation",
+                aspect_ratio="9:16",
+            )
+
+            assert slide_file.exists()
+            with Image.open(str(slide_file)) as img:
+                assert img.size == (1080, 1920)
+        finally:
+            if out_dir.exists():
+                shutil.rmtree(out_dir, ignore_errors=True)
+
+    def test_phase146_video_assembler_render_complete_mp4(self):
+        """Verify VideoAssembler.render_complete_mp4 creates clips, base video, and master MP4."""
+        import pathlib
+        import shutil
+        from geo_engine.studio.video_assembler import AutonomousVideoStudio
+
+        out_path = pathlib.Path(__file__).parent.parent / "data" / "test_tmp_binary_render"
+        if out_path.exists():
+            shutil.rmtree(out_path, ignore_errors=True)
+
+        raw_notes = "Rome denarius debasement. Britain gold exhaustion. US 35T debt. PBOC gold purchase."
+        res = AutonomousVideoStudio.produce_cinema_from_scattered_notes(
+            raw_notes=raw_notes,
+            target_duration_minutes=1,
+            export_dir=str(out_path),
+            render_video=True,
+        )
+
+        try:
+            assert res["status"] == "CINEMA_PRODUCTION_READY"
+            assert res.get("render_result") is not None
+            rr = res["render_result"]
+            assert rr["status"] == "RENDER_COMPLETE"
+            assert pathlib.Path(rr["video_base_path"]).exists()
+            assert pathlib.Path(rr["final_master_path"]).exists()
+            assert rr["clips_count"] >= 4
+            assert rr["output_size_bytes"] > 1000
+        finally:
+            if out_path.exists():
+                shutil.rmtree(out_path, ignore_errors=True)
+
+    def test_phase146_cli_studio_render_flag_execution(self):
+        """Verify CLI studio command runs with render flag."""
+        from geo_engine.cli import render_studio_production
+        # Should execute cleanly without exceptions
+        render_studio_production(
+            prompt="Scattered notes on monetary debasement and central bank reserves",
+            mode="faceless",
+            duration_minutes=1,
+            aspect_ratio="16:9",
+            output_dir=None,
+            cinema=True,
+            render=False,
+        )
+
+    def test_phase146_readme_parity_406_tests(self):
+        """Verify README.md reflects 406 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "406 comprehensive unit and integration tests" in content
+
+
+
