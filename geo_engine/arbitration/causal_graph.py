@@ -225,8 +225,10 @@ class EpistemicKnowledgeGraph:
                 cause_text = str(causal_rel[0]).strip()
                 effect_text = str(causal_rel[1]).strip()
                 if len(cause_text) >= 3 and len(effect_text) >= 3:
-                    src_id = f"node_{re.sub(r'[^a-zA-Z0-9]+', '_', cause_text[:30].lower()).strip('_')}"
-                    tgt_id = f"node_{re.sub(r'[^a-zA-Z0-9]+', '_', effect_text[:30].lower()).strip('_')}"
+                    clean_cause = re.sub(r'[^a-zA-Z0-9]+', '_', cause_text[:60].lower()).strip('_')
+                    src_id = clean_cause if clean_cause.startswith("node_") else f"node_{clean_cause}"
+                    clean_effect = re.sub(r'[^a-zA-Z0-9]+', '_', effect_text[:60].lower()).strip('_')
+                    tgt_id = clean_effect if clean_effect.startswith("node_") else f"node_{clean_effect}"
 
                     if src_id not in self.nodes:
                         self.add_node(CausalNode(
