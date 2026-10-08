@@ -327,14 +327,40 @@ class VideoAssembler:
                 ]
                 subprocess.run(fallback_cmd, capture_output=True)
 
-            # 3. Stitch Slide and Audio into Scene Clip
+            # 3. Stitch Slide and Audio into Scene Clip with Dynamic Ken Burns Motion
+            cam = scene.camera_motion.lower()
+            fps = 30
+            num_frames = max(30, int(duration_sec * fps))
+
+            # Select Ken Burns zoompan profile
+            if "push" in cam or "zoom" in cam:
+                vf_filter = (
+                    f"zoompan=z='min(zoom+0.0008,1.15)':d={num_frames}:"
+                    f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1920x1080:fps={fps}"
+                )
+            elif "tilt" in cam or "up" in cam:
+                vf_filter = (
+                    f"zoompan=z=1.12:d={num_frames}:"
+                    f"x='iw/2-(iw/zoom/2)':y='(1-on/{num_frames})*(ih-ih/zoom)':s=1920x1080:fps={fps}"
+                )
+            elif "pan" in cam or "right" in cam:
+                vf_filter = (
+                    f"zoompan=z=1.12:d={num_frames}:"
+                    f"x='(on/{num_frames})*(iw-iw/zoom)':y='ih/2-(ih/zoom/2)':s=1920x1080:fps={fps}"
+                )
+            else:
+                vf_filter = (
+                    f"zoompan=z='min(zoom+0.0005,1.10)':d={num_frames}:"
+                    f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1920x1080:fps={fps}"
+                )
+
             clip_cmd = [
                 ffmpeg_exe, "-y",
                 "-loop", "1",
                 "-i", slide_path,
                 "-i", audio_path,
+                "-vf", vf_filter,
                 "-c:v", "libx264",
-                "-tune", "stillimage",
                 "-c:a", "aac",
                 "-b:a", "192k",
                 "-pix_fmt", "yuv420p",
@@ -367,12 +393,30 @@ class VideoAssembler:
 
         final_master_path = os.path.join(output_dir, f"output_multiaudio_{manifest.manifest_id}.mp4")
 
-        # 5. Synthesize full audio tracks for all supported languages
+        # 5. Synthesize procedural atmospheric soundscape (sub-bass harmonic drone)
+        ambient_path = os.path.join(output_dir, "ambient_soundscape.mp3")
+        try:
+            dur = max(5, int(manifest.duration_sec))
+            drone_cmd = [
+                ffmpeg_exe, "-y",
+                "-f", "lavfi", "-i", f"sine=frequency=55:sample_rate=44100:duration={dur}",
+                "-f", "lavfi", "-i", f"sine=frequency=110:sample_rate=44100:duration={dur}",
+                "-filter_complex", "[0:a][1:a]amix=inputs=2:weights=0.7 0.3,volume=0.08[out]",
+                "-map", "[out]",
+                "-c:a", "libmp3lame",
+                ambient_path
+            ]
+            subprocess.run(drone_cmd, capture_output=True)
+        except Exception:
+            pass
+
+        # Synthesize full audio tracks for all supported languages and mix with ducked ambient soundscape
         for lang in script_package.supported_languages:
             l_code = lang.value
             full_audio_path = os.path.join(output_dir, f"audio_{l_code}.mp3")
             full_text = "\n".join(s.spoken_text.get(l_code, "") for s in scenes if s.spoken_text.get(l_code))
             if not os.path.exists(full_audio_path) or os.path.getsize(full_audio_path) < 100:
+                raw_speech_path = os.path.join(output_dir, f"raw_speech_{l_code}.mp3")
                 try:
                     import edge_tts
                     async def _gen_full():
@@ -380,11 +424,28 @@ class VideoAssembler:
                         if l_code == "bn":
                             voice = "bn-IN-BashkarNeural"
                         comm = edge_tts.Communicate(full_text, voice)
-                        await comm.save(full_audio_path)
+                        await comm.save(raw_speech_path)
                     asyncio.run(_gen_full())
                 except Exception:
                     pass
-                if not (os.path.exists(full_audio_path) and os.path.getsize(full_audio_path) > 100):
+
+                # If speech exists, mix with ducked ambient pad
+                if os.path.exists(raw_speech_path) and os.path.getsize(raw_speech_path) > 100:
+                    if os.path.exists(ambient_path):
+                        mix_cmd = [
+                            ffmpeg_exe, "-y",
+                            "-i", raw_speech_path,
+                            "-i", ambient_path,
+                            "-filter_complex", "[0:a]volume=1.0[v];[1:a]volume=0.07[bg];[v][bg]amix=inputs=2:duration=first[out]",
+                            "-map", "[out]",
+                            "-c:a", "libmp3lame",
+                            full_audio_path
+                        ]
+                        subprocess.run(mix_cmd, capture_output=True)
+                    else:
+                        import shutil
+                        shutil.copy2(raw_speech_path, full_audio_path)
+                else:
                     # Fallback silent audio
                     subprocess.run([
                         ffmpeg_exe, "-y",
@@ -405,6 +466,8 @@ class VideoAssembler:
             "final_master_path": output_file,
             "clips_count": len(clip_paths),
             "output_size_bytes": os.path.getsize(output_file) if os.path.exists(output_file) else 0,
+            "ken_burns_motion": True,
+            "ambient_soundscape_mixed": os.path.exists(ambient_path),
         }
 
 
@@ -571,5 +634,7 @@ class AutonomousVideoStudio:
             "ducking_profile": ducking,
             "export_info": export_info,
             "render_result": render_result,
+            "learned_claims_count": len(story_arc.distilled_claims),
+            "distilled_claims": [c.to_dict() if hasattr(c, "to_dict") else str(c) for c in story_arc.distilled_claims],
         }
 

@@ -960,6 +960,7 @@ def render_studio_production(
         t.add_row("Duration", f"{result['duration_sec']} seconds ({result['duration_minutes']} minutes)")
         t.add_row("Total Scenes", str(result["total_scenes"]))
         t.add_row("Languages", ", ".join(result["supported_languages"]).upper())
+        t.add_row("Learned Claims (EventStore)", f"[bold green]{result.get('learned_claims_count', 0)} claims distilled & persisted[/bold green]")
         if result.get("export_info"):
             t.add_row("Export Directory", result["export_info"]["output_dir"])
             t.add_row("Batch Render Script", result["export_info"]["bat_script"])
@@ -984,6 +985,8 @@ def render_studio_production(
             r_tbl.add_row("Base Video Stream", str(rr.get("video_base_path", "N/A")))
             r_tbl.add_row("Broadcast Master MP4", f"[bold yellow]{rr.get('final_master_path', 'N/A')}[/bold yellow]")
             r_tbl.add_row("Clips Generated", str(rr.get("clips_count", 0)))
+            r_tbl.add_row("Camera Motion Engine", "[cyan]Ken Burns Dynamic Zoom/Pan/Tilt (FFmpeg zoompan)[/cyan]")
+            r_tbl.add_row("Ambient Soundscape", "[cyan]Procedural Sub-Bass Drone Pad (-22dB Ducking)[/cyan]" if rr.get("ambient_soundscape_mixed") else "[dim]Disabled[/dim]")
             size_mb = rr.get("output_size_bytes", 0) / (1024 * 1024)
             r_tbl.add_row("File Size", f"{size_mb:.2f} MB")
             console.print(r_tbl)
