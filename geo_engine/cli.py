@@ -914,12 +914,71 @@ def render_studio_production(
     duration_minutes: int = 3,
     aspect_ratio: str = "16:9",
     output_dir: Optional[str] = "studio_output",
+    cinema: bool = False,
 ) -> None:
-    """Renders autonomous video studio production package and exports execution scripts."""
+    """Renders autonomous video studio production package or scattered-notes cinema package."""
     from .studio import AutonomousVideoStudio, VideoPresentationMode, AspectRatio
+    import pathlib
 
     pres_mode = VideoPresentationMode.WITH_FACE_AVATAR if mode == "avatar" else VideoPresentationMode.FACELESS_DOCUMENTARY
     aspect = AspectRatio.PORTRAIT_9_16 if aspect_ratio == "9:16" else (AspectRatio.SQUARE_1_1 if aspect_ratio == "1:1" else AspectRatio.LANDSCAPE_16_9)
+
+    # Check if prompt points to a file containing scattered text
+    p = pathlib.Path(prompt)
+    raw_content = prompt
+    if p.exists() and p.is_file():
+        raw_content = p.read_text(encoding="utf-8")
+
+    if cinema:
+        console.print(Panel(
+            f"[bold magenta]AUTONOMOUS SCATTERED-STORY CINEMA STUDIO PRODUCTION[/bold magenta]\n"
+            f"[dim]Mode: {pres_mode.value} | Duration: {duration_minutes}m | Aspect: {aspect.value}[/dim]\n"
+            f"[dim]Input: {len(raw_content)} chars | Pipeline: StoryDistiller + CharacterContinuityEngine[/dim]",
+            border_style="magenta"
+        ))
+
+        result = AutonomousVideoStudio.produce_cinema_from_scattered_notes(
+            raw_notes=raw_content,
+            target_duration_minutes=duration_minutes,
+            presentation_mode=pres_mode,
+            aspect_ratio=aspect,
+            export_dir=output_dir,
+        )
+
+        t = Table(title=f"Cinema Production Package: {result['package_id']}", border_style="magenta", box=box.ROUNDED)
+        t.add_column("Attribute", style="bold white", width=24)
+        t.add_column("Value / Forensic Detail", style="cyan")
+
+        t.add_row("Status", f"[bold green]{result['status']}[/bold green]")
+        t.add_row("Manifest ID", result["manifest_id"])
+        t.add_row("Core Thesis", result["core_thesis"])
+        t.add_row("Dramatic Hook", result["dramatic_hook"])
+        t.add_row("Locked Characters", ", ".join(result["identified_characters"]) if result["identified_characters"] else "None")
+        t.add_row("Locked Locations", ", ".join(result["identified_locations"]) if result["identified_locations"] else "None")
+        t.add_row("Duration", f"{result['duration_sec']} seconds ({result['duration_minutes']} minutes)")
+        t.add_row("Total Scenes", str(result["total_scenes"]))
+        t.add_row("Languages", ", ".join(result["supported_languages"]).upper())
+        if result.get("export_info"):
+            t.add_row("Export Directory", result["export_info"]["output_dir"])
+            t.add_row("Batch Render Script", result["export_info"]["bat_script"])
+            t.add_row("PowerShell Render Script", result["export_info"]["ps_script"])
+
+        console.print(t)
+
+        acts_tbl = Table(title="3-Act Dramatic Screenplay Breakdown", border_style="green", box=box.SIMPLE)
+        acts_tbl.add_column("Act", width=10, style="bold yellow")
+        acts_tbl.add_column("Dramatic Beat Narrative", style="white")
+        acts_tbl.add_row("Act I", result["act_structure"]["act_1"])
+        acts_tbl.add_row("Act II", result["act_structure"]["act_2"])
+        acts_tbl.add_row("Act III", result["act_structure"]["act_3"])
+        console.print(acts_tbl)
+
+        console.print(Panel(
+            f"[bold yellow]Multi-Audio Mux Recipe (YouTube Native):[/bold yellow]\n[green]{result['render_manifest']['multi_audio_mux_command']}[/green]",
+            title="FFmpeg Command",
+            border_style="yellow"
+        ))
+        return
 
     console.print(Panel(
         f"[bold cyan]AUTONOMOUS SOVEREIGN VIDEO STUDIO PRODUCTION[/bold cyan]\n"
@@ -1064,6 +1123,7 @@ def main():
     studio_parser.add_argument("--duration", type=int, default=3, help="Duration in minutes (1 to 10)")
     studio_parser.add_argument("--aspect", choices=["16:9", "9:16", "1:1"], default="16:9", help="Video framing aspect ratio")
     studio_parser.add_argument("--output-dir", default="studio_output", help="Output directory for generated packages and scripts")
+    studio_parser.add_argument("--cinema", action="store_true", help="Enable scattered-notes story distillation and character continuity cinema mode")
 
     # Command: mcp
     mcp_parser = subparsers.add_parser("mcp", help="Run Model Context Protocol (MCP) JSON-RPC 2.0 stdio server")
@@ -1078,6 +1138,7 @@ def main():
                 duration_minutes=getattr(args, "duration", 3),
                 aspect_ratio=getattr(args, "aspect", "16:9"),
                 output_dir=getattr(args, "output_dir", "studio_output"),
+                cinema=getattr(args, "cinema", False),
             )
         elif args.command == "dashboard":
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")

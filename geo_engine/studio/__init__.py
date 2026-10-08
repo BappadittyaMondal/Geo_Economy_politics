@@ -25,6 +25,15 @@ from .video_assembler import (
     VideoAssembler,
     AutonomousVideoStudio,
 )
+from .character_continuity import (
+    CharacterAnchor,
+    EnvironmentAnchor,
+    CharacterContinuityEngine,
+)
+from .story_distiller import (
+    DistilledStoryArc,
+    StoryDistiller,
+)
 
 __all__ = [
     "VideoLanguage",
@@ -42,4 +51,9 @@ __all__ = [
     "RenderJobManifest",
     "VideoAssembler",
     "AutonomousVideoStudio",
+    "CharacterAnchor",
+    "EnvironmentAnchor",
+    "CharacterContinuityEngine",
+    "DistilledStoryArc",
+    "StoryDistiller",
 ]

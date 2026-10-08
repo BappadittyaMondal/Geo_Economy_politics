@@ -309,3 +309,72 @@ class AutonomousVideoStudio:
             "export_info": export_info,
         }
 
+    @classmethod
+    def produce_cinema_from_scattered_notes(
+        cls,
+        raw_notes: str,
+        target_duration_minutes: int = 3,
+        presentation_mode: VideoPresentationMode = VideoPresentationMode.FACELESS_DOCUMENTARY,
+        aspect_ratio: AspectRatio = AspectRatio.LANDSCAPE_16_9,
+        export_dir: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """
+        Ingests scattered, unorganized raw text or notes and synthesizes a
+        complete cinema production package with character continuity locking,
+        3-act screenplay, multilingual audio manifests, and export runners.
+        """
+        from .story_distiller import StoryDistiller
+
+        distiller = StoryDistiller()
+        story_arc = distiller.distill_scattered_notes(
+            raw_notes=raw_notes,
+            duration_minutes=target_duration_minutes,
+            presentation_mode=presentation_mode,
+        )
+
+        script_package = story_arc.script_package
+
+        width, height = (1920, 1080) if aspect_ratio == AspectRatio.LANDSCAPE_16_9 else (1080, 1920)
+        spec = VideoRenderSpec(
+            aspect_ratio=aspect_ratio,
+            resolution_width=width,
+            resolution_height=height,
+        )
+
+        manifest = VideoAssembler.build_render_manifest(script_package, spec)
+        ducking = MultilingualVoiceSynthesizer.calculate_ducked_audio_mix(
+            float(script_package.target_duration_sec)
+        )
+
+        export_info = None
+        if export_dir:
+            export_info = VideoAssembler.generate_execution_scripts(
+                manifest=manifest,
+                script_package=script_package,
+                output_dir=export_dir,
+            )
+
+        return {
+            "status": "CINEMA_PRODUCTION_READY",
+            "package_id": script_package.package_id,
+            "manifest_id": manifest.manifest_id,
+            "core_thesis": story_arc.core_thesis,
+            "dramatic_hook": story_arc.dramatic_hook,
+            "identified_characters": story_arc.identified_characters,
+            "identified_locations": story_arc.identified_locations,
+            "epistemic_anchors": story_arc.epistemic_anchors,
+            "contested_flags": story_arc.contested_flags,
+            "act_structure": {
+                "act_1": story_arc.act_1_hook,
+                "act_2": story_arc.act_2_conflict,
+                "act_3": story_arc.act_3_resolution,
+            },
+            "duration_minutes": target_duration_minutes,
+            "duration_sec": script_package.target_duration_sec,
+            "total_scenes": len(script_package.scenes),
+            "supported_languages": [l.value for l in script_package.supported_languages],
+            "render_manifest": manifest.to_dict(),
+            "ducking_profile": ducking,
+            "export_info": export_info,
+        }
+

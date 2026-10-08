@@ -7745,10 +7745,120 @@ class TestPhase140to143AutonomousVideoStudio:
         )
 
     def test_phase144_readme_parity_395_tests(self):
-        """Verify README.md reflects 395 comprehensive unit and integration tests."""
+        """Verify README.md reflects 395 comprehensive unit and integration tests in scaling history."""
         import pathlib
         readme_path = pathlib.Path(__file__).parent.parent / "README.md"
         content = readme_path.read_text(encoding="utf-8")
         assert "395 comprehensive unit and integration tests" in content
+
+
+class TestPhase145ScatteredStoryCinemaEngine:
+    """Certifies Phase 145 Scattered-Story Cinema Pipeline and Character Continuity Engine."""
+
+    def test_phase145_character_continuity_engine_registration_and_locking(self):
+        """Verify CharacterContinuityEngine registers locked characters and environments with immutable seeds."""
+        from geo_engine.studio.character_continuity import CharacterContinuityEngine
+
+        engine = CharacterContinuityEngine()
+        char1 = engine.register_or_derive_character("Vaali", "King of Kishkindha with celestial armor")
+        char2 = engine.register_or_derive_character("Vaali", "Elder brother of Sugriva")
+
+        assert char1.character_id == char2.character_id
+        assert char1.consistency_seed == char2.consistency_seed
+        assert "EPIC_WARRIOR_MONARCH" in char1.archetype
+        assert "shadow" in char1.faceless_representation.lower() or "silhouette" in char1.faceless_representation.lower()
+
+        env = engine.register_or_derive_environment("Kishkindha Caves", "mountain fortress with brass braziers")
+        assert "ancient_citadel" in env.setting_type.lower() or "puranic_citadel" in env.setting_type.lower()
+
+        prompt = engine.lock_scene_prompt("Cosmic clash between titans", ["Vaali"], "Kishkindha Caves")
+        assert "CHAR_VAALI" in prompt
+        assert "ENV_KISHKINDHA_CAVES" in prompt
+        assert "Cinematic 4K scene" in prompt
+
+    def test_phase145_story_distiller_entity_and_fact_anchoring(self):
+        """Verify StoryDistiller extracts entities and anchors historical/economic facts."""
+        from geo_engine.studio.story_distiller import StoryDistiller
+
+        distiller = StoryDistiller()
+        raw_text = (
+            "Ancient Kishkindha king Vaali defeated Ravana easily. "
+            "Meanwhile Rome debased denarius and Britain lost gold reserves. "
+            "US debt is 35 trillion dollars and PBOC is buying gold bullion."
+        )
+        arc = distiller.distill_scattered_notes(raw_text, duration_minutes=2)
+
+        assert "Vaali" in arc.identified_characters or "Ravana" in arc.identified_characters
+        assert len(arc.epistemic_anchors) >= 3
+        anchor_text = " ".join(arc.epistemic_anchors).lower()
+        assert "denarius" in anchor_text or "kishkindha" in anchor_text or "gold" in anchor_text
+
+    def test_phase145_story_distiller_three_act_screenplay_generation(self):
+        """Verify StoryDistiller formats unorganized notes into 3-act narrative with 4 languages."""
+        from geo_engine.studio.story_distiller import StoryDistiller
+        from geo_engine.studio.script_architect import VideoLanguage
+
+        distiller = StoryDistiller()
+        raw_text = "US debt is 35 trillion. Net interest is 1.1T. China Russia buying gold. Bharat has 25000 tonnes household gold."
+        arc = distiller.distill_scattered_notes(raw_text, duration_minutes=3)
+
+        assert "Act I" in arc.act_1_hook
+        assert "Act II" in arc.act_2_conflict
+        assert "Act III" in arc.act_3_resolution
+        assert len(arc.scenes) >= 4
+
+        # Check multi-language localized dialogue
+        first_scene = arc.scenes[0]
+        assert VideoLanguage.ENGLISH.value in first_scene.spoken_text
+        assert VideoLanguage.HINDI.value in first_scene.spoken_text
+        assert VideoLanguage.BENGALI.value in first_scene.spoken_text
+        assert VideoLanguage.SANSKRIT.value in first_scene.spoken_text
+
+    def test_phase145_video_assembler_cinema_from_scattered_notes(self):
+        """Verify AutonomousVideoStudio compiles full cinema package from raw notes."""
+        import pathlib
+        import shutil
+        from geo_engine.studio.video_assembler import AutonomousVideoStudio
+
+        out_path = pathlib.Path(__file__).parent.parent / "data" / "test_tmp_cinema"
+        if out_path.exists():
+            shutil.rmtree(out_path, ignore_errors=True)
+
+        raw_notes = "Crude oil imports >85% through Hormuz. Fertilizer MOP DAP supply chain. China APIs 68%."
+        res = AutonomousVideoStudio.produce_cinema_from_scattered_notes(
+            raw_notes=raw_notes,
+            target_duration_minutes=1,
+            export_dir=str(out_path),
+        )
+
+        try:
+            assert res["status"] == "CINEMA_PRODUCTION_READY"
+            assert "act_structure" in res
+            assert (out_path / "render_video.bat").exists()
+            assert (out_path / "render_video.ps1").exists()
+            assert (out_path / "render_manifest.json").exists()
+        finally:
+            if out_path.exists():
+                shutil.rmtree(out_path, ignore_errors=True)
+
+    def test_phase145_cli_studio_cinema_command_execution(self):
+        """Verify CLI studio command runs in --cinema mode."""
+        from geo_engine.cli import render_studio_production
+        # Should execute cleanly without exceptions
+        render_studio_production(
+            prompt="Scattered raw notes on sovereign debt and gold repatriation",
+            mode="faceless",
+            duration_minutes=1,
+            aspect_ratio="16:9",
+            output_dir=None,
+            cinema=True,
+        )
+
+    def test_phase145_readme_parity_401_tests(self):
+        """Verify README.md reflects 401 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "401 comprehensive unit and integration tests" in content
 
 
