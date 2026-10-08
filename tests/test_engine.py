@@ -8084,5 +8084,139 @@ class TestPhase147CinematicKenBurnsSoundscapeAndSelfLearning:
         assert "411 comprehensive unit and integration tests" in content
 
 
+class TestPhase148MultimodalTelemetryBridgeAndCausalGraphAugmentation:
+    """Comprehensive test suite for Phase 148 Multimodal Micro-Signal Bridge and Dynamic Causal Graph Ingestion."""
+
+    def test_phase148_audio_dsp_to_kinesic_observation_bridge(self):
+        """Verify audio DSP waveform metrics and vision Action Units synthesize into verified KinesicObservation."""
+        from geo_engine.video.telemetry_bridge import MultimodalMicroSignalBridge
+        from geo_engine.video.acoustic_dsp import WAVAudioReader
+
+        tone = WAVAudioReader.synthesize_test_tone(
+            frequency_hz=180.0,
+            duration_s=1.5,
+            sample_rate=16000,
+            add_jitter_ratio=0.08,
+            pause_duration_s=0.6,
+        )
+        obs = MultimodalMicroSignalBridge.bridge_audio_and_vision_to_observation(
+            actor_primary="Speaker Alpha",
+            actor_secondary="Speaker Beta",
+            audio_data_or_path=tone,
+            facs_action_units={"AU24": 0.85, "AU04": 0.70},
+            sartorial_hue="saffron",
+            sartorial_hue_degrees=32.0,
+            setting="formal_bilateral_communique",
+            handshake_torque_vector="aggressive_pronation_inward",
+        )
+        assert obs.actor_primary == "Speaker Alpha"
+        assert obs.micro_expression_flag == "jaw_clench"
+        assert obs.sartorial_colour_code == "saffron_civilizational"
+        assert obs.residual_tension_score > 0.5
+        assert "saffron" in obs.notes or "civilizational" in obs.notes
+
+    def test_phase148_multimodal_kinesic_lens_evaluation(self):
+        """Verify bridged multimodal telemetry executes cleanly through KinesicsLens with empirical rigor."""
+        from geo_engine.video.telemetry_bridge import MultimodalMicroSignalBridge
+        from geo_engine.video.acoustic_dsp import WAVAudioReader
+        from geo_engine.core.models import EpistemicTier
+
+        tone = WAVAudioReader.synthesize_test_tone(
+            frequency_hz=190.0,
+            duration_s=1.2,
+            sample_rate=16000,
+            add_jitter_ratio=0.06,
+            pause_duration_s=0.5,
+        )
+        obs = MultimodalMicroSignalBridge.bridge_audio_and_vision_to_observation(
+            actor_primary="Foreign Minister",
+            actor_secondary="Counterpart Envoy",
+            audio_data_or_path=tone,
+            facs_action_units={"AU24": 0.80, "AU04": 0.65},
+            sartorial_hue="saffron",
+            sartorial_hue_degrees=30.0,
+            setting="formal_bilateral_communique",
+            handshake_torque_vector="aggressive_pronation_inward",
+        )
+        eval_res = MultimodalMicroSignalBridge.evaluate_multimodal_summit(
+            summit_title="Strait Strategic Accord",
+            observations=[obs],
+        )
+        assert "Kinesics" in eval_res.lens_name
+        assert eval_res.alignment_score < 0.0
+        assert eval_res.primary_epistemic_tier == EpistemicTier.TIER_4_KINESICS
+        assert eval_res.hard_metrics.get("concealed_antagonisms_detected", 0) >= 1
+        assert "micro_signal_channels_active" in eval_res.hard_metrics
+
+    def test_phase148_causal_graph_claim_augmentation(self):
+        """Verify dynamic causal graph expansion from atomically distilled propositions."""
+        from geo_engine.arbitration.causal_graph import EpistemicKnowledgeGraph
+
+        graph = EpistemicKnowledgeGraph.build_canonical_graph()
+        initial_nodes = len(graph.nodes)
+        claims = [
+            {
+                "claim_id": "c1",
+                "raw_statement": "Hormuz interdiction triggers crude freight surge",
+                "causal_relation": ["hormuz_strait_closure", "brent_crude_surge"],
+                "confidence": 0.92,
+                "epistemic_tier": 1,
+            },
+            {
+                "claim_id": "c2",
+                "raw_statement": "Brent crude surge drives rupee liquidity pressure",
+                "causal_relation": ["brent_crude_surge", "inr_liquidity_drain"],
+                "confidence": 0.88,
+                "epistemic_tier": 2,
+            },
+        ]
+        added = graph.augment_from_distilled_claims(claims)
+        assert added == 2
+        assert len(graph.nodes) == initial_nodes + 3
+        paths = graph.find_causal_paths("node_hormuz_strait_closure", "node_inr_liquidity_drain")
+        assert len(paths) >= 1
+        assert paths[0].cumulative_impact > 0.5
+
+    def test_phase148_causal_graph_event_store_synchronization(self):
+        """Verify causal graph synchronization with SQLite EventStore claim_distillations."""
+        import tempfile
+        import pathlib
+        from geo_engine.arbitration.causal_graph import EpistemicKnowledgeGraph
+        from geo_engine.storage.event_store import EventStore
+
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmpdir:
+            db_path = pathlib.Path(tmpdir) / "test_events.db"
+            store = EventStore(db_path=str(db_path))
+            store.record_distilled_claim({
+                "claim_id": "claim_test_148",
+                "source_speaker": "Analyst",
+                "raw_statement": "TSMC export restrictions accelerate domestic fab capex",
+                "proposition": "Export controls accelerate semiconductor capex",
+                "epistemic_tier": "TIER_1_EMPIRICAL",
+                "verification_status": "VERIFIED",
+                "confidence": 0.91,
+                "statutory_citation": "Export Administration Regulations",
+                "fiscal_metric": "$50B capex",
+                "causal_relation": ["tsmc_export_control", "domestic_fab_capex"],
+                "recommended_action": "Subsidize packaging facilities",
+            })
+            g2 = EpistemicKnowledgeGraph.build_canonical_graph()
+            n_before = len(g2.nodes)
+            added_from_store = g2.augment_from_event_store(store)
+            assert added_from_store == 1
+            assert len(g2.nodes) == n_before + 2
+            p = g2.find_causal_paths("node_tsmc_export_control", "node_domestic_fab_capex")
+            assert len(p) == 1
+            assert p[0].cumulative_impact > 0.5
+
+    def test_phase148_readme_parity_416_tests(self):
+        """Verify README.md reflects 416 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "416 comprehensive unit and integration tests" in content
+
+
+
 
 

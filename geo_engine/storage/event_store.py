@@ -25,8 +25,7 @@ class EventStore:
         os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
         if not self.is_initialized():
             self.initialize_schema_and_seed()
-        else:
-            self._ensure_migrations()
+        self._ensure_migrations()
 
     def _ensure_migrations(self) -> None:
         """Applies schema migrations for tables added in later phases."""

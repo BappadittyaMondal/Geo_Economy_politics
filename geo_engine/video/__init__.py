@@ -20,6 +20,7 @@ from geo_engine.video.audio_stream import (
     StreamingChunkAuditor,
 )
 from geo_engine.video.acoustic_dsp import WAVAudioReader, AcousticDSPWorker
+from geo_engine.video.telemetry_bridge import MultimodalMicroSignalBridge
 
 __all__ = [
     "YouTubeURLParser",
@@ -42,4 +43,6 @@ __all__ = [
     "StreamingChunkAuditor",
     "WAVAudioReader",
     "AcousticDSPWorker",
+    "MultimodalMicroSignalBridge",
 ]
+

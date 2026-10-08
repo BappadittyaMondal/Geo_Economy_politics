@@ -198,6 +198,75 @@ class EpistemicKnowledgeGraph:
                     cumulative[tgt] = round(1.0 - (1.0 - cumulative[tgt]) * (1.0 - min(1.0, imp)), 4)
         return cumulative
 
+    def augment_from_distilled_claims(self, claims: List[Any]) -> int:
+        """
+        Dynamically augments the causal graph from atomically distilled propositions
+        extracted by ChatConversationDistiller or persisted in EventStore.
+        """
+        import re
+        added_edges = 0
+        for claim in claims:
+            causal_rel = getattr(claim, "causal_relation", None)
+            if not causal_rel and isinstance(claim, dict):
+                causal_rel = claim.get("causal_relation")
+            if isinstance(causal_rel, str) and causal_rel.strip().startswith("["):
+                try:
+                    import json
+                    causal_rel = json.loads(causal_rel)
+                except Exception:
+                    pass
+
+            confidence = float(getattr(claim, "confidence", 0.85) if not isinstance(claim, dict) else claim.get("confidence", 0.85))
+            raw_statement = getattr(claim, "raw_statement", "") if not isinstance(claim, dict) else claim.get("raw_statement", "")
+            tier_val = getattr(claim, "epistemic_tier", 1) if not isinstance(claim, dict) else claim.get("epistemic_tier", 1)
+            tier_int = tier_val.value if hasattr(tier_val, "value") and isinstance(tier_val.value, int) else 1
+
+            if causal_rel and isinstance(causal_rel, (list, tuple)) and len(causal_rel) == 2:
+                cause_text = str(causal_rel[0]).strip()
+                effect_text = str(causal_rel[1]).strip()
+                if len(cause_text) >= 3 and len(effect_text) >= 3:
+                    src_id = f"node_{re.sub(r'[^a-zA-Z0-9]+', '_', cause_text[:30].lower()).strip('_')}"
+                    tgt_id = f"node_{re.sub(r'[^a-zA-Z0-9]+', '_', effect_text[:30].lower()).strip('_')}"
+
+                    if src_id not in self.nodes:
+                        self.add_node(CausalNode(
+                            node_id=src_id,
+                            name=cause_text,
+                            category="DISTILLED_ANTECEDENT",
+                            epistemic_tier=tier_int,
+                            base_potency=round(min(1.0, confidence), 2)
+                        ))
+
+                    if tgt_id not in self.nodes:
+                        self.add_node(CausalNode(
+                            node_id=tgt_id,
+                            name=effect_text,
+                            category="DISTILLED_CONSEQUENCE",
+                            epistemic_tier=tier_int,
+                            base_potency=round(min(1.0, confidence), 2)
+                        ))
+
+                    edge_exists = any(e.target_id == tgt_id for e in self.adjacency.get(src_id, []))
+                    if not edge_exists:
+                        coupling = min(0.95, max(0.40, confidence))
+                        self.add_edge(CausalEdge(
+                            source_id=src_id,
+                            target_id=tgt_id,
+                            coupling_weight=coupling,
+                            latency_tier="MEDIUM_TERM",
+                            mechanism=raw_statement[:120] if raw_statement else f"{cause_text} leads to {effect_text}"
+                        ))
+                        added_edges += 1
+
+        return added_edges
+
+    def augment_from_event_store(self, event_store: Any, limit: int = 50) -> int:
+        """Synchronizes causal graph nodes and edges with persisted claim distillations in SQLite WAL."""
+        if hasattr(event_store, "list_distilled_claims"):
+            claims = event_store.list_distilled_claims(limit=limit)
+            return self.augment_from_distilled_claims(claims)
+        return 0
+
     @classmethod
     def build_canonical_graph(cls) -> "EpistemicKnowledgeGraph":
 
