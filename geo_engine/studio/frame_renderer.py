@@ -20,8 +20,23 @@ class LocalFrameRenderer:
     """
 
     @classmethod
-    def get_system_font(cls, size: int, bold: bool = False) -> ImageFont.ImageFont:
+    def get_system_font(cls, size: int, bold: bool = False, is_indic: bool = False) -> ImageFont.ImageFont:
         """Loads system TrueType font or falls back gracefully to default PIL font."""
+        if is_indic:
+            indic_paths = [
+                "C:/Windows/Fonts/NirmalaB.ttf" if bold else "C:/Windows/Fonts/Nirmala.ttf",
+                "C:/Windows/Fonts/mangal.ttf",
+                "C:/Windows/Fonts/vrinda.ttf",
+                "/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf" if bold else "/usr/share/fonts/truetype/freefont/FreeSerif.ttf",
+                "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+            ]
+            for p in indic_paths:
+                if os.path.exists(p):
+                    try:
+                        return ImageFont.truetype(p, size)
+                    except Exception:
+                        pass
+
         font_paths = [
             "C:/Windows/Fonts/arialbd.ttf" if bold else "C:/Windows/Fonts/arial.ttf",
             "C:/Windows/Fonts/segoeui.ttf",
@@ -113,10 +128,55 @@ class LocalFrameRenderer:
                 draw.text((margin_x, y_cursor), f"> {line}", font=font_text, fill=(255, 255, 255))
                 y_cursor += 36
 
-        hi_text = scene.spoken_text.get("hi", scene.spoken_text.get("sa", ""))
+        hi_text = scene.spoken_text.get("hi", scene.spoken_text.get("bn", scene.spoken_text.get("sa", "")))
         if hi_text:
+            font_indic = cls.get_system_font(24, bold=False, is_indic=True)
             y_cursor += 10
-            draw.text((margin_x, y_cursor), f">> {hi_text[:90]}...", font=font_text, fill=(226, 232, 240))
+            draw.text((margin_x, y_cursor), f">> {hi_text[:90]}...", font=font_indic, fill=(226, 232, 240))
+
+        # 4. Optional Native Telemetry Infographic Overlay (Phase 153)
+        telemetry = getattr(scene, "telemetry_data", None) or (bg_image_path if isinstance(bg_image_path, dict) else None)
+        if isinstance(telemetry, dict) and aspect_ratio == "16:9":
+            info_x = width - margin_x - 500
+            info_y = 120
+            if "gauges" in telemetry and isinstance(telemetry["gauges"], list):
+                for g in telemetry["gauges"][:3]:
+                    cls.render_horizontal_bar_gauge(
+                        draw,
+                        x=info_x,
+                        y=info_y,
+                        width=480,
+                        height=28,
+                        label=g.get("label", "METRIC"),
+                        value=float(g.get("value", 0.0)),
+                        max_value=float(g.get("max_value", 100.0)),
+                        unit=g.get("unit", ""),
+                        color=g.get("color", (245, 158, 11))
+                    )
+                    info_y += 68
+            elif "balance_sheet" in telemetry and isinstance(telemetry["balance_sheet"], dict):
+                bs = telemetry["balance_sheet"]
+                cls.render_balance_sheet_metric_panel(
+                    draw,
+                    x=info_x,
+                    y=info_y,
+                    width=480,
+                    height=160,
+                    announced_usd_b=float(bs.get("announced", 10.0)),
+                    realized_usd_b=float(bs.get("realized", 1.5)),
+                    haircut_pct=float(bs.get("haircut", 85.0))
+                )
+            elif "escalation" in telemetry and isinstance(telemetry["escalation"], dict):
+                esc = telemetry["escalation"]
+                cls.render_escalation_meter(
+                    draw,
+                    x=info_x,
+                    y=info_y,
+                    width=480,
+                    height=45,
+                    provocation_index=float(esc.get("provocation_index", 0.5)),
+                    threat_tier=str(esc.get("threat_tier", "ELEVATED"))
+                )
 
         # Bottom Sovereign Intelligence Watermark
         draw.line([(margin_x, height - 70), (width - margin_x, height - 70)], fill=(71, 85, 105), width=1)
@@ -130,6 +190,108 @@ class LocalFrameRenderer:
         os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
         base.save(out_path)
         return out_path
+
+    @classmethod
+    def render_horizontal_bar_gauge(
+        cls,
+        draw: ImageDraw.ImageDraw,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        label: str,
+        value: float,
+        max_value: float,
+        unit: str = "",
+        color: tuple = (245, 158, 11),
+        bg_color: tuple = (30, 41, 59)
+    ) -> None:
+        """Renders a procedural horizontal progress gauge with label and percentage/value text."""
+        font_label = cls.get_system_font(16, bold=True)
+        font_val = cls.get_system_font(16, bold=True)
+
+        ratio = max(0.0, min(1.0, value / max_value if max_value > 0 else 0.0))
+        fill_w = int(width * ratio)
+
+        # Draw Label & Metric Header
+        unit_str = f" {unit}" if unit else ""
+        metric_str = f"{value:.1f}/{max_value:.1f}{unit_str} ({int(ratio * 100)}%)"
+        draw.text((x, y - 22), label.upper(), font=font_label, fill=(203, 213, 225))
+        draw.text((x + width - 140, y - 22), metric_str, font=font_val, fill=(245, 158, 11))
+
+        # Background Track
+        draw.rectangle([x, y, x + width, y + height], fill=bg_color)
+        # Active Progress Fill
+        if fill_w > 0:
+            draw.rectangle([x, y, x + fill_w, y + height], fill=color)
+        # Border
+        draw.rectangle([x, y, x + width, y + height], outline=(71, 85, 105), width=1)
+
+    @classmethod
+    def render_balance_sheet_metric_panel(
+        cls,
+        draw: ImageDraw.ImageDraw,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        announced_usd_b: float,
+        realized_usd_b: float,
+        haircut_pct: float = 85.0
+    ) -> None:
+        """Renders an epistemic balance sheet panel contrasting announced vs realized CapEx."""
+        font_hdr = cls.get_system_font(18, bold=True)
+        font_metric = cls.get_system_font(24, bold=True)
+        font_sub = cls.get_system_font(14, bold=False)
+
+        # Panel Background
+        draw.rectangle([x, y, x + width, y + height], fill=(15, 23, 42), outline=(71, 85, 105), width=1)
+        # Header
+        draw.rectangle([x, y, x + width, y + 36], fill=(30, 41, 59))
+        draw.text((x + 16, y + 8), "FORENSIC BALANCE SHEET HAIRCUT AUDIT", font=font_hdr, fill=(56, 189, 248))
+
+        # Announced Column
+        draw.text((x + 20, y + 50), "ANNOUNCED MOU", font=font_sub, fill=(148, 163, 184))
+        draw.text((x + 20, y + 74), f"${announced_usd_b:.1f}B", font=font_metric, fill=(239, 68, 68))
+
+        # Realized Column
+        draw.text((x + 260, y + 50), f"REALIZED ({100-haircut_pct:.0f}% CAPEX)", font=font_sub, fill=(148, 163, 184))
+        draw.text((x + 260, y + 74), f"${realized_usd_b:.1f}B", font=font_metric, fill=(34, 197, 94))
+
+        # Bottom Haircut Status Tag
+        draw.line([(x + 16, y + 118), (x + width - 16, y + 118)], fill=(51, 65, 85), width=1)
+        draw.text(
+            (x + 20, y + 128),
+            f"EPISTEMIC RULE: {haircut_pct:.0f}% HAIRCUT APPLIED ON UNFINANCED PR MOUs",
+            font=font_sub,
+            fill=(245, 158, 11)
+        )
+
+    @classmethod
+    def render_escalation_meter(
+        cls,
+        draw: ImageDraw.ImageDraw,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        provocation_index: float,
+        threat_tier: str
+    ) -> None:
+        """Renders a multi-segmented visual threat and escalation index meter."""
+        font_lbl = cls.get_system_font(16, bold=True)
+        draw.text((x, y - 22), f"ESCALATION INDEX: {provocation_index:.2f} [{threat_tier}]", font=font_lbl, fill=(239, 68, 68))
+
+        # 4 Color Segments
+        seg_w = width // 4
+        colors = [(34, 197, 94), (234, 179, 8), (249, 115, 22), (239, 68, 68)]
+        for i, col in enumerate(colors):
+            draw.rectangle([x + i * seg_w, y, x + (i + 1) * seg_w - 4, y + height], fill=(30, 41, 59), outline=(71, 85, 105))
+            if provocation_index >= (i + 1) * 0.25:
+                draw.rectangle([x + i * seg_w, y, x + (i + 1) * seg_w - 4, y + height], fill=col)
+            elif provocation_index > i * 0.25:
+                part_ratio = (provocation_index - i * 0.25) / 0.25
+                draw.rectangle([x + i * seg_w, y, x + i * seg_w + int((seg_w - 4) * part_ratio), y + height], fill=col)
 
     @classmethod
     def _wrap_text(cls, text: str, max_chars: int = 80) -> List[str]:

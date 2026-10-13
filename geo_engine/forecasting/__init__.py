@@ -10,6 +10,7 @@ from .calibration import (
     ForecastingEngine,
     calculate_temporal_decay,
 )
+from .resolution_daemon import ForecastResolutionDaemon
 
 __all__ = [
     "ScenarioBranch",
@@ -18,4 +19,6 @@ __all__ = [
     "BrierScorer",
     "ForecastingEngine",
     "calculate_temporal_decay",
+    "ForecastResolutionDaemon",
 ]
+

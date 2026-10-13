@@ -16,6 +16,8 @@ from .competing_hypotheses import (
     TeleologicalFallacySieve,
     DecomposedClaim,
     ClaimDecomposer,
+    StatisticalManipulationEvaluation,
+    StatisticalManipulationSieve,
 )
 from .historical_arbiter import (
     ChronologyPillarScore,
@@ -63,5 +65,7 @@ __all__ = [
     "CausalPath",
     "EpistemicKnowledgeGraph",
     "LaymanSynthesizer",
+    "StatisticalManipulationEvaluation",
+    "StatisticalManipulationSieve",
 ]
 

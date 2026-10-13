@@ -2513,6 +2513,74 @@ class EventStore:
             row = cursor.fetchone()
             return dict(row) if row else None
 
+    def export_distilled_claims_as_markdown(self, min_confidence: float = 0.70, limit: int = 50) -> str:
+        """
+        Serializes verified distilled claims into structured GitHub-flavored Markdown.
+        Used for autonomous knowledge synchronization into canonical knowledge libraries.
+        """
+        claims = self.list_distilled_claims(limit=limit)
+        filtered = [
+            c for c in claims
+            if c.get("verification_status") in ("VERIFIED_EMPIRICAL", "POLEMICAL_FRAMING")
+            and float(c.get("confidence", 0.0)) >= min_confidence
+        ]
+        if not filtered:
+            return "<!-- NO_DISTILLED_CLAIMS_RECORDED -->\n*No verified distilled propositions in EventStore.*"
+
+        lines = [
+            "### Autonomously Learned Strategic Propositions (EventStore Sync)",
+            "",
+            "| Claim ID | Proposition | Epistemic Tier | Confidence | Statutory/Fiscal Anchor | Status |",
+            "| :--- | :--- | :--- | :--- | :--- | :--- |",
+        ]
+        for c in filtered:
+            cid = c["claim_id"]
+            prop = c["proposition"].replace("|", "\\|")
+            tier = c["epistemic_tier"]
+            conf = f"{float(c['confidence']):.2f}"
+            anchor = (c.get("statutory_citation") or c.get("fiscal_metric") or "—").replace("|", "\\|")
+            stat = c["verification_status"]
+            lines.append(f"| `{cid}` | {prop} | `{tier}` | `{conf}` | {anchor} | `{stat}` |")
+        return "\n".join(lines)
+
+    def register_prospective_forecast(
+        self,
+        forecast_id: str,
+        target_date: str,
+        event_name: str,
+        hypothesis: str,
+        predicted_probability: float,
+        epistemic_basis: str = "PROSPECTIVE_ANALYSIS",
+        confidence_low: float = 0.05,
+        confidence_high: float = 0.95
+    ) -> bool:
+        """
+        Registers an active prospective probabilistic forecast into forecast_ledger with future resolution date.
+        Enables empirical longitudinal Brier score tracking as crises unfold.
+        """
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO forecast_ledger
+                (forecast_id, created_at, target_date, event_name, hypothesis,
+                 predicted_probability, confidence_interval_low, confidence_interval_high,
+                 epistemic_basis, actual_outcome, brier_score, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, 'ACTIVE')
+            """, (
+                forecast_id,
+                now,
+                target_date,
+                event_name,
+                hypothesis,
+                float(predicted_probability),
+                float(confidence_low),
+                float(confidence_high),
+                epistemic_basis
+            ))
+            return True
+
 
 
 

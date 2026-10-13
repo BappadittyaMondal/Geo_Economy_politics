@@ -21,7 +21,7 @@ class CivilizationalLens:
     @classmethod
     def evaluate(
         cls,
-        summit: SummitEvent,
+        summit: Optional[SummitEvent] = None,
         claims: Optional[List[Any]] = None
     ) -> LensEvaluation:
         """
@@ -114,6 +114,9 @@ class CivilizationalLens:
             metrics["narrative_laundering_detected"] = gz_res["narrative_laundering_detected"]
             metrics["transnational_theological_cover_detected"] = gz_res.get("transnational_theological_cover_detected", False)
             metrics["sub_national_paradiplomacy_friction_detected"] = gz_res.get("sub_national_paradiplomacy_friction_detected", False)
+            metrics["sacred_calendar_provocation_detected"] = gz_res.get("sacred_calendar_provocation_detected", False)
+            metrics["sacred_provocation_tier"] = gz_res.get("sacred_provocation_tier", "NEUTRAL_CULTURAL_BASELINE")
+            metrics["sacred_provocation_index"] = gz_res.get("sacred_provocation_index", 0.0)
 
             metrics["claims_evaluated"] = len(claims)
         else:
@@ -121,6 +124,7 @@ class CivilizationalLens:
             metrics["asymmetric_secular_lawfare_detected"] = False
             metrics["transnational_theological_cover_detected"] = False
             metrics["sub_national_paradiplomacy_friction_detected"] = False
+            metrics["sacred_calendar_provocation_detected"] = False
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -220,6 +224,12 @@ class CulturalGrayzoneSieve:
                 "Sub-National Paradiplomacy Friction Detected: Borderland state/tribal authorities diverging from sovereign central foreign policy, extending sanctuary along ethnic-religious kinship corridors."
             )
 
+        # Phase 151: Sacred Calendar Provocation & Contempt Optics Sifting
+        provocation_res = SacredCalendarProvocationSieve.evaluate_provocation_claims(claims)
+        if provocation_res["is_sacred_provocation_detected"]:
+            findings.extend(provocation_res["findings"])
+            vulnerability_index = min(1.0, max(vulnerability_index, provocation_res["provocation_index"]))
+
         return {
             "cultural_grayzone_vulnerability_index": vulnerability_index,
             "asymmetric_secular_lawfare_detected": asymmetric_secular_signals > 0,
@@ -227,8 +237,126 @@ class CulturalGrayzoneSieve:
             "narrative_laundering_detected": narrative_laundering_signals > 0,
             "transnational_theological_cover_detected": theological_cover_signals > 0,
             "sub_national_paradiplomacy_friction_detected": paradiplomacy_signals > 0,
+            "sacred_calendar_provocation_detected": provocation_res["is_sacred_provocation_detected"],
+            "sacred_provocation_tier": provocation_res["provocation_tier"],
+            "sacred_provocation_index": provocation_res["provocation_index"],
             "grayzone_findings": findings
         }
+
+
+class SacredCalendarProvocationSieve:
+    """
+    Phase 151: Sacred Calendar Provocation & Contempt Optics Sieve.
+    Deconstructs deliberate ritual desensitization and theatrical transgressions
+    orchestrated during sacred Sanatan observances (Pitru Paksha, Navratri, Shravan, Kanwar Yatra)
+    designed to bait counter-reactions for second-order narrative weaponization.
+    """
+
+    SACRED_PERIOD_WEIGHTS = {
+        "pitru paksh": 0.95,
+        "pitru paksha": 0.95,
+        "shradh": 0.90,
+        "navratri": 0.90,
+        "shravan": 0.85,
+        "kanwar yatra": 0.85,
+        "durga puja fasting": 0.80,
+        "ekadashi": 0.75,
+    }
+
+    TRANSGRESSION_KEYWORDS = [
+        "chicken roll", "khan chacha", "mutton party", "beef feast",
+        "eating meat in navratri", "eating non-veg", "non-veg flaunt",
+        "provocative feast", "meat during fasting", "ritual mockery",
+    ]
+
+    THEATRICAL_STAGING_KEYWORDS = [
+        "camera crew", "media sting", "live broadcast", "pr video",
+        "social media flaunt", "instagram reel", "viral video",
+        "deliberate photo", "staged photoshoot", "political leader feast"
+    ]
+
+    @classmethod
+    def evaluate_provocation(
+        cls,
+        text: str,
+        is_political_actor: bool = False,
+        media_amplified: bool = False
+    ) -> Dict[str, Any]:
+        text_lower = text.lower()
+        sacred_weight = 0.0
+        matched_period = None
+        for period, weight in cls.SACRED_PERIOD_WEIGHTS.items():
+            if period in text_lower and weight > sacred_weight:
+                sacred_weight = weight
+                matched_period = period
+
+        matched_transgressions = [kw for kw in cls.TRANSGRESSION_KEYWORDS if kw in text_lower]
+        transgression_weight = min(1.0, len(matched_transgressions) * 0.50)
+
+        matched_staging = [kw for kw in cls.THEATRICAL_STAGING_KEYWORDS if kw in text_lower]
+        staging_weight = 0.30
+        if matched_staging:
+            staging_weight += 0.35
+        if is_political_actor:
+            staging_weight += 0.20
+        if media_amplified:
+            staging_weight += 0.15
+        staging_weight = min(1.0, staging_weight)
+
+        if sacred_weight > 0.0 and matched_transgressions:
+            provocation_index = min(1.0, 0.40 * sacred_weight + 0.35 * transgression_weight + 0.25 * staging_weight)
+        else:
+            provocation_index = 0.0
+
+        is_provocation = provocation_index >= 0.50
+
+        if provocation_index >= 0.80:
+            tier = "ACUTE_THEATRICAL_CONTEMPT_OPTICS"
+        elif provocation_index >= 0.50:
+            tier = "ELEVATED_RITUAL_DESENSITIZATION"
+        elif provocation_index > 0.0:
+            tier = "INCIDENTAL_CULTURAL_DISSONANCE"
+        else:
+            tier = "NEUTRAL_CULTURAL_BASELINE"
+
+        findings = []
+        if is_provocation:
+            findings.append(
+                f"Sacred calendar provocation detected during '{matched_period}' with public transgression ({', '.join(matched_transgressions)})."
+            )
+            findings.append(
+                "Second-order narrative weaponization: Orchestrated to bait counter-reactions and manufacture 'majoritarian intolerance' headlines."
+            )
+
+        return {
+            "is_sacred_provocation_detected": is_provocation,
+            "provocation_index": round(provocation_index, 3),
+            "provocation_tier": tier,
+            "matched_period": matched_period,
+            "matched_transgressions": matched_transgressions,
+            "theatrical_staging_detected": bool(matched_staging),
+            "findings": findings
+        }
+
+    @classmethod
+    def evaluate_provocation_claims(cls, claims: List[Any]) -> Dict[str, Any]:
+        max_idx = 0.0
+        dominant_res = {
+            "is_sacred_provocation_detected": False,
+            "provocation_index": 0.0,
+            "provocation_tier": "NEUTRAL_CULTURAL_BASELINE",
+            "matched_period": None,
+            "matched_transgressions": [],
+            "theatrical_staging_detected": False,
+            "findings": []
+        }
+        for c in claims:
+            txt = c if isinstance(c, str) else getattr(c, "asserted_fact", getattr(c, "assertion", ""))
+            res = cls.evaluate_provocation(txt)
+            if res["provocation_index"] > max_idx:
+                max_idx = res["provocation_index"]
+                dominant_res = res
+        return dominant_res
 
 
 ```

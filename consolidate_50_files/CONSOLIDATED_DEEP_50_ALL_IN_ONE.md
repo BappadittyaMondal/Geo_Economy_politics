@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `f917ea4`
+- **Canonical Git Commit:** `8930e3f`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: f917ea4
+CANONICAL_COMMIT: 8930e3f
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: f917ea4
+CANONICAL_COMMIT: 8930e3f
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: f917ea4
+CANONICAL_COMMIT: 8930e3f
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: f917ea4
+CANONICAL_COMMIT: 8930e3f
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: f917ea4
+CANONICAL_COMMIT: 8930e3f
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: f917ea4
+CANONICAL_COMMIT: 8930e3f
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -2528,8 +2528,95 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Preserved zero deletions across `History_upgradation.md`.
     - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 12 architectural sections**.
 
+* **Phase 149 (Studio Typography Indic Font Cascade & Soft Subtitle Multiplexing Engine):**
+  - **Native Indic Font Cascade in LocalFrameRenderer (`geo_engine/studio/frame_renderer.py`):**
+    - Enhanced `LocalFrameRenderer.get_system_font(size, bold=False, is_indic=False)` with an Indic font cascade prioritizing Windows `C:/Windows/Fonts/NirmalaB.ttf` and `Nirmala.ttf` (with fallback to `mangal.ttf`, `vrinda.ttf`, and Linux FreeSerif/DejaVu fonts).
+    - Eliminates glyph rendering failure and tofu boxes (`□□□□`) on Devanagari, Bengali, and Sanskrit preview slides.
+    - Updated `render_scene_slide()` to render Hindi and Bengali scene dialogue using the dedicated Indic font cascade.
+  - **Container Subtitle Multiplexing & Metadata in VideoAssembler (`geo_engine/studio/video_assembler.py`):**
+    - Upgraded `VideoAssembler.build_render_manifest()` to inject soft subtitle streams into the multiplexing pipeline when `render_spec.enable_subtitles` is enabled.
+    - Automatically maps generated `.srt` subtitle files into the container using `-map {idx}:s`, `-c:s mov_text`, `-metadata:s:s:{idx} language={lang}`, and `-metadata:s:s:{idx} title="{LANG}_SUB"`.
+    - Added container-level `-metadata title="{title}"` tagging to generated master video containers.
+    - Hardened `render_complete_mp4()` to use `shlex.split()` for robust cross-platform command tokenization.
+
+* **Phase 150 (Cognitive Self-Learning Loop Closure, Markdown Synchronization & Bundle Serialization):**
+  - **EventStore Markdown Export & Knowledge Base Synchronization (`geo_engine/storage/event_store.py`):**
+    - Implemented `EventStore.export_distilled_claims_as_markdown(min_confidence=0.70, limit=50)` serializing `VERIFIED_EMPIRICAL` and `POLEMICAL_FRAMING` propositions from SQLite `claim_distillations` into clean, structured GitHub-Flavored Markdown tables.
+    - Bridges the gap between SQLite transactional memory and human/AI-readable canonical knowledge libraries, preserving the append-only invariant.
+  - **Active Prospective Forecasting & Time-Bounded Resolution (`geo_engine/storage/event_store.py`):**
+    - Implemented `EventStore.register_prospective_forecast()` allowing forward-looking probabilistic predictions to be recorded in `forecast_ledger` with `status='ACTIVE'`, future target resolution dates, and `actual_outcome=NULL`.
+    - Lays the infrastructure for machine-verifiable prospective Brier calibration as real-world geopolitical crises unfold.
+  - **Canonical Bundle Serialization Expansion (`scripts/build_canonical_bundles.py`):**
+    - Updated `serialize_sqlite_to_markdown()` to automatically serialize distilled claims into `38_spec_historical_treaty_archive.md`, ensuring all learned propositions flow directly into the Deep-50 distribution bundle without exceeding the 50-file ceiling.
+
+* **Phase 151 (Statistical Manipulation Sieve, Sacred Calendar Provocation Sieve & 421 Certified Tests):**
+  - **Statistical Manipulation & Suppressed Denominator Sieve (`geo_engine/arbitration/competing_hypotheses.py`):**
+    - Architected and implemented `StatisticalManipulationSieve` and `StatisticalManipulationEvaluation`.
+    - Detects suppressed denominators: absolute counts (e.g. "3 million deleted") cited without disclosing the total electorate or baseline population.
+    - Detects gross vs. net asymmetry: gross subtractions/losses emphasized while parallel administrative additions or accretions are concealed.
+    - Detects truncated temporal baselines: growth spikes asserted by cherry-picking depressed nadirs rather than normalized multi-period moving averages.
+    - Exported `StatisticalManipulationSieve` and `StatisticalManipulationEvaluation` across `geo_engine.arbitration` and `geo_engine`.
+  - **Sacred Calendar Provocation & Contempt Optics Sieve (`geo_engine/lenses/civilizational.py`):**
+    - Architected and implemented `SacredCalendarProvocationSieve` deconstructing deliberate ritual desensitization and theatrical transgressions during sacred Sanatan periods (Pitru Paksha, Navratri, Shravan, Kanwar Yatra).
+    - Derived closed-form Lipschitz-bounded Provocation Index:
+      $$\text{Index} = \min\left(1.0, 0.40 \cdot C_{\text{period\_sacredness}} + 0.35 \cdot D_{\text{public\_ostentation}} + 0.25 \cdot T_{\text{timing\_staging}}\right)$$
+    - Categorizes 4 operational threat tiers: `ACUTE_THEATRICAL_CONTEMPT_OPTICS`, `ELEVATED_RITUAL_DESENSITIZATION`, `INCIDENTAL_CULTURAL_DISSONANCE`, and `NEUTRAL_CULTURAL_BASELINE`.
+    - Detects second-order narrative weaponization designed to bait counter-reactions for "majoritarian intolerance" media campaigns.
+    - Integrated seamlessly into `CulturalGrayzoneSieve` and `CivilizationalLens.evaluate()`, populating `sacred_calendar_provocation_detected`, `sacred_provocation_tier`, and `sacred_provocation_index`.
+    - Exported `SacredCalendarProvocationSieve` and `CulturalGrayzoneSieve` across `geo_engine.lenses` and `geo_engine`.
+  - **Verification Suite Expansion (416 to 421 tests — `tests/test_engine.py`):**
+    - Added `TestPhase149to151StudioSelfLearningAndStatisticalSieves` with 5 deterministic unit and integration tests:
+      1. `test_phase149_indic_font_cascade_and_subtitle_mux_recipe`: Verifies Nirmala font cascade, Devanagari slide rendering, and subtitle container muxing.
+      2. `test_phase150_event_store_markdown_export_and_prospective_forecast`: Verifies distilled claim markdown export and active prospective forecast registration.
+      3. `test_phase151_statistical_manipulation_sieve_evaluation`: Verifies detection of suppressed denominators and gross turnover distortions.
+      4. `test_phase151_sacred_calendar_provocation_sieve_evaluation`: Verifies detection of deliberate contempt optics during Pitru Paksha and CivilizationalLens integration.
+      5. `test_phase151_readme_parity_421_tests`: Validates `README.md` test counter parity at 421 tests.
+    - Certified **421/421 comprehensive unit and integration tests passing deterministically in 100% pass rate** with zero regressions.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` <= 50 files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (append-only update).
 
 
+
+* **Phase 152 to 155 (Autonomous Forecast Resolution Daemon, Native Infographics, Multi-Source Sovereign RSS & Dynamic Shockwave Cascade Engine — 426 Certified Tests):**
+  - **Automated Prospective Forecast Resolution Daemon (`geo_engine/forecasting/resolution_daemon.py`):**
+    - Architected and implemented `ForecastResolutionDaemon`.
+    - Added `check_elapsed_forecasts()` scanning `forecast_ledger` in `EventStore` against system reference dates (`SYSTEM_REFERENCE_DATE` or ISO clock).
+    - Added `auto_resolve_elapsed()` evaluating prospective forecasts against ground-truth binary outcomes, computing exact Brier calibration scores $(p - o)^2$, and migrating status from `ACTIVE` to `RESOLVED`.
+    - Added `get_ledger_calibration_summary()` aggregating cumulative Brier performance, calibration tiers (`EXCEPTIONAL_CALIBRATION`, `STRONG_PREDICTIVE_CALIBRATION`), and tracking best/worst projections.
+    - Exported `ForecastResolutionDaemon` across `geo_engine.forecasting` and `geo_engine`.
+  - **Native Infographic & Data Chart Slide Renderer in LocalFrameRenderer (`geo_engine/studio/frame_renderer.py`):**
+    - Enhanced `LocalFrameRenderer` with 100% offline procedural data visualization routines using Pillow:
+      - `render_horizontal_bar_gauge()` rendering high-contrast metrics for WWR Ammunition depth (10I to 40I) and Potash/DAP fertilizer dependency.
+      - `render_balance_sheet_metric_panel()` rendering forensic balance sheet comparisons between Announced MOUs vs 85% Realized CapEx.
+      - `render_escalation_meter()` rendering 4-tier visual threat and escalation index meters.
+    - Integrated telemetry overlay detection in `render_scene_slide()` for 16:9 broadcast plates.
+    - Exported `LocalFrameRenderer` across `geo_engine.studio` and `geo_engine`.
+  - **Sovereign Multi-Source News Ingestion Expander (`geo_engine/ingestion/sovereign_rss.py`):**
+    - Expanded `SovereignRSSClient` with an official sovereign feed registry: Press Information Bureau (India PIB), Ministry of External Affairs (India MEA), United Nations Press, US State Department, Russian MFA (TASS/MID), Iranian MFA (IRNA), and Chinese MFA (FMPRC).
+    - Added `fetch_all_sovereign_feeds()` with per-feed timeout guards (2.0s), SHA-256 wire deduplication, and resilient fallback to honest `TIER_0_INSUFFICIENT_EVIDENCE` degraded states during total network outages.
+    - Exported `SovereignRSSClient` across `geo_engine.ingestion` and `geo_engine`.
+  - **Dynamic Multi-Hop Causal Graph Traversal Engine (`geo_engine/arbitration/causal_graph.py`):**
+    - Enhanced `EpistemicKnowledgeGraph` with `traverse_shockwave_cascade()`.
+    - Implemented multi-hop shockwave traversal categorizing downstream impacts into:
+      - Primary Shocks (1-Hop direct linkages)
+      - Secondary Ripples (2-Hop structural transmissions)
+      - Tertiary Shockwaves (3+ Hop long-tail systemic disruptions)
+    - Formatted causal narrative chains (`[k-HOP] Node A -> Node B -> Node C via mechanism`) with hop attenuation $\alpha=0.85$.
+    - Synthesized proactive policy mitigations based on Sanatan *Yogakshema* and Kautilyan statecraft (chokepoints, currency volatility, caloric/fertilizer reserves).
+  - **Verification Suite Expansion (421 to 426 tests — `tests/test_engine.py`):**
+    - Added `TestPhase152to155AutonomousResolutionInfographicsAndShockwave` with 5 deterministic unit and integration tests:
+      1. `test_phase152_forecast_resolution_daemon_lifecycle`: Verifies elapsed forecast detection, ground-truth auto-resolution, and Brier calibration summaries.
+      2. `test_phase153_frame_renderer_infographics_and_telemetry_gauges`: Verifies procedural gauges, balance sheet haircut panels, escalation meters, and slide rendering.
+      3. `test_phase154_sovereign_rss_multi_source_and_aggregation`: Verifies expanded sovereign feed registry and timeout-resilient aggregation.
+      4. `test_phase155_causal_graph_traverse_shockwave_cascade`: Verifies multi-hop cascade traversal, depth grouping, and Kautilyan strategic mitigations.
+      5. `test_phase152_to_155_readme_parity_426_tests`: Validates `README.md` test counter parity at 426 tests.
+    - Certified **426/426 comprehensive unit and integration tests passing deterministically in 101.68s (100% pass rate)** with zero regressions.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` <= 50 files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
 
 
 
@@ -3377,7 +3464,7 @@ class CivilizationalLens:
     @classmethod
     def evaluate(
         cls,
-        summit: SummitEvent,
+        summit: Optional[SummitEvent] = None,
         claims: Optional[List[Any]] = None
     ) -> LensEvaluation:
         """
@@ -3470,6 +3557,9 @@ class CivilizationalLens:
             metrics["narrative_laundering_detected"] = gz_res["narrative_laundering_detected"]
             metrics["transnational_theological_cover_detected"] = gz_res.get("transnational_theological_cover_detected", False)
             metrics["sub_national_paradiplomacy_friction_detected"] = gz_res.get("sub_national_paradiplomacy_friction_detected", False)
+            metrics["sacred_calendar_provocation_detected"] = gz_res.get("sacred_calendar_provocation_detected", False)
+            metrics["sacred_provocation_tier"] = gz_res.get("sacred_provocation_tier", "NEUTRAL_CULTURAL_BASELINE")
+            metrics["sacred_provocation_index"] = gz_res.get("sacred_provocation_index", 0.0)
 
             metrics["claims_evaluated"] = len(claims)
         else:
@@ -3477,6 +3567,7 @@ class CivilizationalLens:
             metrics["asymmetric_secular_lawfare_detected"] = False
             metrics["transnational_theological_cover_detected"] = False
             metrics["sub_national_paradiplomacy_friction_detected"] = False
+            metrics["sacred_calendar_provocation_detected"] = False
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -3576,6 +3667,12 @@ class CulturalGrayzoneSieve:
                 "Sub-National Paradiplomacy Friction Detected: Borderland state/tribal authorities diverging from sovereign central foreign policy, extending sanctuary along ethnic-religious kinship corridors."
             )
 
+        # Phase 151: Sacred Calendar Provocation & Contempt Optics Sifting
+        provocation_res = SacredCalendarProvocationSieve.evaluate_provocation_claims(claims)
+        if provocation_res["is_sacred_provocation_detected"]:
+            findings.extend(provocation_res["findings"])
+            vulnerability_index = min(1.0, max(vulnerability_index, provocation_res["provocation_index"]))
+
         return {
             "cultural_grayzone_vulnerability_index": vulnerability_index,
             "asymmetric_secular_lawfare_detected": asymmetric_secular_signals > 0,
@@ -3583,8 +3680,126 @@ class CulturalGrayzoneSieve:
             "narrative_laundering_detected": narrative_laundering_signals > 0,
             "transnational_theological_cover_detected": theological_cover_signals > 0,
             "sub_national_paradiplomacy_friction_detected": paradiplomacy_signals > 0,
+            "sacred_calendar_provocation_detected": provocation_res["is_sacred_provocation_detected"],
+            "sacred_provocation_tier": provocation_res["provocation_tier"],
+            "sacred_provocation_index": provocation_res["provocation_index"],
             "grayzone_findings": findings
         }
+
+
+class SacredCalendarProvocationSieve:
+    """
+    Phase 151: Sacred Calendar Provocation & Contempt Optics Sieve.
+    Deconstructs deliberate ritual desensitization and theatrical transgressions
+    orchestrated during sacred Sanatan observances (Pitru Paksha, Navratri, Shravan, Kanwar Yatra)
+    designed to bait counter-reactions for second-order narrative weaponization.
+    """
+
+    SACRED_PERIOD_WEIGHTS = {
+        "pitru paksh": 0.95,
+        "pitru paksha": 0.95,
+        "shradh": 0.90,
+        "navratri": 0.90,
+        "shravan": 0.85,
+        "kanwar yatra": 0.85,
+        "durga puja fasting": 0.80,
+        "ekadashi": 0.75,
+    }
+
+    TRANSGRESSION_KEYWORDS = [
+        "chicken roll", "khan chacha", "mutton party", "beef feast",
+        "eating meat in navratri", "eating non-veg", "non-veg flaunt",
+        "provocative feast", "meat during fasting", "ritual mockery",
+    ]
+
+    THEATRICAL_STAGING_KEYWORDS = [
+        "camera crew", "media sting", "live broadcast", "pr video",
+        "social media flaunt", "instagram reel", "viral video",
+        "deliberate photo", "staged photoshoot", "political leader feast"
+    ]
+
+    @classmethod
+    def evaluate_provocation(
+        cls,
+        text: str,
+        is_political_actor: bool = False,
+        media_amplified: bool = False
+    ) -> Dict[str, Any]:
+        text_lower = text.lower()
+        sacred_weight = 0.0
+        matched_period = None
+        for period, weight in cls.SACRED_PERIOD_WEIGHTS.items():
+            if period in text_lower and weight > sacred_weight:
+                sacred_weight = weight
+                matched_period = period
+
+        matched_transgressions = [kw for kw in cls.TRANSGRESSION_KEYWORDS if kw in text_lower]
+        transgression_weight = min(1.0, len(matched_transgressions) * 0.50)
+
+        matched_staging = [kw for kw in cls.THEATRICAL_STAGING_KEYWORDS if kw in text_lower]
+        staging_weight = 0.30
+        if matched_staging:
+            staging_weight += 0.35
+        if is_political_actor:
+            staging_weight += 0.20
+        if media_amplified:
+            staging_weight += 0.15
+        staging_weight = min(1.0, staging_weight)
+
+        if sacred_weight > 0.0 and matched_transgressions:
+            provocation_index = min(1.0, 0.40 * sacred_weight + 0.35 * transgression_weight + 0.25 * staging_weight)
+        else:
+            provocation_index = 0.0
+
+        is_provocation = provocation_index >= 0.50
+
+        if provocation_index >= 0.80:
+            tier = "ACUTE_THEATRICAL_CONTEMPT_OPTICS"
+        elif provocation_index >= 0.50:
+            tier = "ELEVATED_RITUAL_DESENSITIZATION"
+        elif provocation_index > 0.0:
+            tier = "INCIDENTAL_CULTURAL_DISSONANCE"
+        else:
+            tier = "NEUTRAL_CULTURAL_BASELINE"
+
+        findings = []
+        if is_provocation:
+            findings.append(
+                f"Sacred calendar provocation detected during '{matched_period}' with public transgression ({', '.join(matched_transgressions)})."
+            )
+            findings.append(
+                "Second-order narrative weaponization: Orchestrated to bait counter-reactions and manufacture 'majoritarian intolerance' headlines."
+            )
+
+        return {
+            "is_sacred_provocation_detected": is_provocation,
+            "provocation_index": round(provocation_index, 3),
+            "provocation_tier": tier,
+            "matched_period": matched_period,
+            "matched_transgressions": matched_transgressions,
+            "theatrical_staging_detected": bool(matched_staging),
+            "findings": findings
+        }
+
+    @classmethod
+    def evaluate_provocation_claims(cls, claims: List[Any]) -> Dict[str, Any]:
+        max_idx = 0.0
+        dominant_res = {
+            "is_sacred_provocation_detected": False,
+            "provocation_index": 0.0,
+            "provocation_tier": "NEUTRAL_CULTURAL_BASELINE",
+            "matched_period": None,
+            "matched_transgressions": [],
+            "theatrical_staging_detected": False,
+            "findings": []
+        }
+        for c in claims:
+            txt = c if isinstance(c, str) else getattr(c, "asserted_fact", getattr(c, "assertion", ""))
+            res = cls.evaluate_provocation(txt)
+            if res["provocation_index"] > max_idx:
+                max_idx = res["provocation_index"]
+                dominant_res = res
+        return dominant_res
 
 
 ```
@@ -6881,7 +7096,7 @@ class SubseaCablesLens:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `f917ea4`
+- **Canonical Git Commit:** `8930e3f`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

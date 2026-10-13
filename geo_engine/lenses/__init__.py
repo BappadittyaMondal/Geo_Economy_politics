@@ -11,7 +11,7 @@ from typing import List, Type, Any
 
 from .deep_tech import DeepTechLens, STEMCapitalDilutionSieve
 from .history import HistoryLens
-from .civilizational import CivilizationalLens
+from .civilizational import CivilizationalLens, CulturalGrayzoneSieve, SacredCalendarProvocationSieve
 from .geo_economist import GeoEconomistLens
 from .geopolitical import GeopoliticalLens, ChokepointKineticSieve
 from .kinesics import KinesicsLens, SartorialSemioticSieve
@@ -94,6 +94,8 @@ __all__ = [
     "DiplomaticCounterIntelSieve",
     "STEMCapitalDilutionSieve",
     "CulturalReligiousGrayzoneSieve",
+    "CulturalGrayzoneSieve",
+    "SacredCalendarProvocationSieve",
 ]
 
 

@@ -34,6 +34,17 @@ from .core.conversation_distiller import (
     DistillationReport,
     ChatConversationDistiller,
 )
+from .arbitration.competing_hypotheses import (
+    StatisticalManipulationEvaluation,
+    StatisticalManipulationSieve,
+)
+from .lenses.civilizational import (
+    CulturalGrayzoneSieve,
+    SacredCalendarProvocationSieve,
+)
+from .forecasting.resolution_daemon import ForecastResolutionDaemon
+from .studio.frame_renderer import LocalFrameRenderer
+from .ingestion.sovereign_rss import SovereignRSSClient
 
 __all__ = [
     "CausalNode",
@@ -57,7 +68,15 @@ __all__ = [
     "DistilledClaim",
     "DistillationReport",
     "ChatConversationDistiller",
+    "StatisticalManipulationEvaluation",
+    "StatisticalManipulationSieve",
+    "CulturalGrayzoneSieve",
+    "SacredCalendarProvocationSieve",
+    "ForecastResolutionDaemon",
+    "LocalFrameRenderer",
+    "SovereignRSSClient",
 ]
+
 
 
 

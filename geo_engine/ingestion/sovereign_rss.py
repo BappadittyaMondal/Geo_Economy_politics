@@ -17,11 +17,16 @@ class SovereignRSSClient:
 
     SOVEREIGN_FEEDS = {
         "India_MEA": "https://www.mea.gov.in/rss-feed.htm",
+        "India_PIB": "https://pib.gov.in/RssMain.aspx?ModId=1",
         "UN_Press": "https://press.un.org/en/feed.xml",
+        "US_StateDept": "https://www.state.gov/rss-feed/press-releases/feed/",
+        "Russia_MFA": "https://mid.ru/en/rss/",
+        "Iran_IRNA": "https://en.irna.ir/rss",
+        "China_MFA": "https://www.fmprc.gov.cn/eng/xwfw_665399/s2510_665401/rss.xml",
     }
 
     @classmethod
-    def fetch_primary_statements(cls, feed_key: str = "India_MEA") -> List[EvidenceItem]:
+    def fetch_primary_statements(cls, feed_key: str = "India_MEA", timeout: float = 3.0) -> List[EvidenceItem]:
         """Fetches and parses primary sovereign announcements."""
         items = []
         url = cls.SOVEREIGN_FEEDS.get(feed_key)
@@ -30,7 +35,7 @@ class SovereignRSSClient:
 
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "GeoEngine-RSS/1.0"})
-            with urllib.request.urlopen(req, timeout=3) as resp:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
                 if resp.status == 200:
                     tree = ET.fromstring(resp.read())
                     for elem in tree.findall(".//item")[:5]:
@@ -68,3 +73,33 @@ class SovereignRSSClient:
             ]
 
         return items
+
+    @classmethod
+    def fetch_all_sovereign_feeds(
+        cls,
+        feed_keys: Optional[List[str]] = None,
+        timeout_per_feed: float = 2.0
+    ) -> List[EvidenceItem]:
+        """
+        Polls multiple registered sovereign feeds, collapses duplicate wire claims via SHA-256 hashes,
+        and aggregates verified evidence while suppressing redundant offline placeholders when live items exist.
+        """
+        targets = feed_keys or list(cls.SOVEREIGN_FEEDS.keys())
+        all_items = []
+        seen_ids = set()
+        has_live_items = False
+
+        for fk in targets:
+            feed_items = cls.fetch_primary_statements(feed_key=fk, timeout=timeout_per_feed)
+            for it in feed_items:
+                if it.evidence_status != "insufficient" and it.reliability_weight > 0.0:
+                    has_live_items = True
+                if it.evidence_id not in seen_ids:
+                    seen_ids.add(it.evidence_id)
+                    all_items.append(it)
+
+        # If at least one live feed succeeded, filter out individual offline degraded placeholders
+        if has_live_items:
+            all_items = [it for it in all_items if it.evidence_status != "insufficient" and it.reliability_weight > 0.0]
+
+        return all_items

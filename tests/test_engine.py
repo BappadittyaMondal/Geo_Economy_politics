@@ -8217,6 +8217,370 @@ class TestPhase148MultimodalTelemetryBridgeAndCausalGraphAugmentation:
         assert "416 comprehensive unit and integration tests" in content
 
 
+class TestPhase149to151StudioSelfLearningAndStatisticalSieves:
+    """Phase 149-151: Studio Typography, Self-Learning Loop Closure, and Statistical & Sacred Provocation Sieves."""
+
+    def test_phase149_indic_font_cascade_and_subtitle_mux_recipe(self):
+        """Verifies Nirmala font cascade for Indic typography and subtitle container muxing in VideoAssembler."""
+        import os
+        import tempfile
+        from geo_engine.studio.frame_renderer import LocalFrameRenderer
+        from geo_engine.studio.video_assembler import VideoAssembler, VideoRenderSpec
+        from geo_engine.studio.script_architect import VideoScriptPackage, SceneSegment, VideoLanguage, VideoPresentationMode
+        from PIL import Image
+
+        # 1. Indic font loading
+        font_indic = LocalFrameRenderer.get_system_font(24, bold=False, is_indic=True)
+        assert font_indic is not None
+
+        # 2. Render slide with Devanagari Hindi text
+        scene = SceneSegment(
+            scene_id=1,
+            timestamp_start_sec=0.0,
+            timestamp_end_sec=5.0,
+            visual_prompt="Historical map of Indian Ocean",
+            spoken_text={
+                "en": "Strategic autonomy defines Indian civilizational statecraft.",
+                "hi": "रणनीतिक स्वायत्तता भारतीय सभ्यतागत शासन व्यवस्था को परिभाषित करती है।"
+            },
+            camera_motion="slow_push_in",
+            character_anchor="BHARAT"
+        )
+        with tempfile.TemporaryDirectory(prefix="test_phase149_") as tmpdir:
+            out_slide = os.path.join(tmpdir, "slide_01.png")
+            res = LocalFrameRenderer.render_scene_slide(scene, scene_idx=1, total_scenes=1, out_path=out_slide, topic="AUTONOMY")
+            assert os.path.exists(res)
+            with Image.open(res) as img:
+                assert img.size == (1920, 1080)
+
+        # 3. Subtitle mux recipe in VideoAssembler
+        pkg = VideoScriptPackage(
+            package_id="pkg_test149",
+            title="Sovereign Test",
+            topic="STRATEGIC AUTONOMY",
+            presentation_mode=VideoPresentationMode.FACELESS_DOCUMENTARY,
+            target_duration_sec=15,
+            scenes=[scene],
+            supported_languages=[VideoLanguage.ENGLISH, VideoLanguage.HINDI],
+            word_counts={"en": 10, "hi": 10}
+        )
+        spec = VideoRenderSpec(enable_subtitles=True)
+        manifest = VideoAssembler.build_render_manifest(pkg, spec=spec)
+        assert "-c:s mov_text" in manifest.multi_audio_mux_command
+        assert "-map 3:s" in manifest.multi_audio_mux_command
+        assert "language=hi" in manifest.multi_audio_mux_command
+        assert "-metadata title=" in manifest.multi_audio_mux_command
+
+    def test_phase150_event_store_markdown_export_and_prospective_forecast(self):
+        """Verifies EventStore markdown export of distilled claims and prospective forecast registration."""
+        import os
+        import tempfile
+        from geo_engine.storage.event_store import EventStore
+
+        with tempfile.TemporaryDirectory(prefix="test_phase150_", ignore_cleanup_errors=True) as tmpdir:
+            db_path = os.path.join(tmpdir, "test_events.db")
+            store = EventStore(db_path=db_path)
+            claim = {
+                "claim_id": "CLM-P150-TEST",
+                "source_speaker": "Sanjeev Sanyal",
+                "raw_statement": "DII domestic SIP flows reached Rs 25000 crore monthly.",
+                "proposition": "Domestic institutional mutual fund SIP inflows act as macro liquidity shock absorber",
+                "epistemic_tier": "TIER_2_FINANCIAL",
+                "verification_status": "VERIFIED_EMPIRICAL",
+                "confidence": 0.92,
+                "statutory_citation": None,
+                "fiscal_metric": "Rs 25000 Cr/month",
+                "causal_relation": ["sip_inflows", "market_liquidity_cushion"],
+                "recommended_action": "PERSIST_TO_EVENT_STORE"
+            }
+            assert store.record_distilled_claim(claim) is True
+            md_export = store.export_distilled_claims_as_markdown(min_confidence=0.70)
+            assert "CLM-P150-TEST" in md_export
+            assert "TIER_2_FINANCIAL" in md_export
+            assert "Rs 25000 Cr/month" in md_export
+
+            # Prospective forecast registration
+            res_fcst = store.register_prospective_forecast(
+                forecast_id="FCST-2027-HORMUZ-SHOCK",
+                target_date="2027-06-30",
+                event_name="Strait of Hormuz Asymmetric Drone Mining",
+                hypothesis="Regional non-state actors deploy sub-surface sea mines restricting tanker traffic",
+                predicted_probability=0.38,
+                epistemic_basis="ASPEC_CHOKEPOINT_WARGAME"
+            )
+            assert res_fcst is True
+            conn = store._get_connection()
+            try:
+                cur = conn.cursor()
+                cur.execute("SELECT * FROM forecast_ledger WHERE forecast_id = 'FCST-2027-HORMUZ-SHOCK'")
+                row = cur.fetchone()
+                assert row is not None
+                assert row["predicted_probability"] == 0.38
+                assert row["status"] == "ACTIVE"
+                assert row["actual_outcome"] is None
+            finally:
+                conn.close()
+
+    def test_phase151_statistical_manipulation_sieve_evaluation(self):
+        """Verifies StatisticalManipulationSieve detection of suppressed denominators and gross turnover distortions."""
+        from geo_engine.arbitration.competing_hypotheses import StatisticalManipulationSieve
+
+        # 1. Suppressed Denominator and Gross Loss claim
+        claim_suppressed = "3 million voter names were deleted and purged from the electoral roll in a criminal theft"
+        eval_res = StatisticalManipulationSieve.evaluate(claim_suppressed)
+        assert eval_res.is_statistical_manipulation_detected is True
+        assert eval_res.manipulation_type == "SUPPRESSED_DENOMINATOR_AND_GROSS_LOSS_BIAS"
+        assert eval_res.denominator_suppression_score >= 0.80
+        assert eval_res.gross_loss_without_addition_detected is True
+        assert eval_res.verdict == "ACUTE_STATISTICAL_MANIPULATION_DETECTED"
+
+        # 2. Balanced Contextual claim
+        claim_balanced = "Election Commission deleted 3 million deceased records out of 960 million total electorate while 4.2 million newly added through Form 6"
+        eval_bal = StatisticalManipulationSieve.evaluate(claim_balanced)
+        assert eval_bal.is_statistical_manipulation_detected is False
+        assert eval_bal.verdict == "BALANCED_STATISTICAL_REPORTING"
+
+    def test_phase151_sacred_calendar_provocation_sieve_evaluation(self):
+        """Verifies SacredCalendarProvocationSieve detection of deliberate contempt optics during sacred periods."""
+        from geo_engine.lenses.civilizational import SacredCalendarProvocationSieve, CivilizationalLens
+
+        # 1. Sacred calendar provocation during Pitru Paksha
+        text_provocation = "Opposition leader flaunts chicken roll feast from Khan Chacha with camera crew live broadcast during Pitru Paksha"
+        res_prov = SacredCalendarProvocationSieve.evaluate_provocation(text_provocation, is_political_actor=True)
+        assert res_prov["is_sacred_provocation_detected"] is True
+        assert res_prov["provocation_tier"] == "ACUTE_THEATRICAL_CONTEMPT_OPTICS"
+        assert res_prov["provocation_index"] >= 0.80
+        assert "pitru paksh" in res_prov["matched_period"]
+        assert "chicken roll" in res_prov["matched_transgressions"]
+
+        # 2. CivilizationalLens integration
+        eval_lens = CivilizationalLens.evaluate(claims=[text_provocation])
+        assert eval_lens.hard_metrics.get("sacred_calendar_provocation_detected") is True
+        assert eval_lens.hard_metrics.get("sacred_provocation_tier") == "ACUTE_THEATRICAL_CONTEMPT_OPTICS"
+
+        # 3. Neutral baseline text
+        text_neutral = "Civilizational discourse on ancestral reverence and charity during Shradh fortnight"
+        res_neutral = SacredCalendarProvocationSieve.evaluate_provocation(text_neutral)
+        assert res_neutral["is_sacred_provocation_detected"] is False
+        assert res_neutral["provocation_tier"] == "NEUTRAL_CULTURAL_BASELINE"
+
+    def test_phase151_readme_parity_421_tests(self):
+        """Verify README.md reflects 421 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "421 comprehensive unit and integration tests" in content
+
+
+class TestPhase152to155AutonomousResolutionInfographicsAndShockwave:
+    """Comprehensive test harness for Phases 152 to 155."""
+
+    def test_phase152_forecast_resolution_daemon_lifecycle(self):
+        """Verifies ForecastResolutionDaemon elapsed forecast detection, auto-resolution, and calibration summary."""
+        import os
+        import tempfile
+        from geo_engine.storage.event_store import EventStore
+        from geo_engine.forecasting.resolution_daemon import ForecastResolutionDaemon
+
+        test_dir = tempfile.mkdtemp(prefix="test_daemon_")
+        test_db = os.path.join(test_dir, "test_forecast.db")
+        try:
+            store = EventStore(db_path=test_db)
+            store.initialize_schema_and_seed()
+
+            # Register 1 elapsed past forecast (2024) and 1 active future forecast (2030)
+            store.register_prospective_forecast(
+                forecast_id="FCST-TEST-PAST",
+                target_date="2024-01-01",
+                event_name="Red Sea Naval Chokepoint",
+                hypothesis="Houthis close Bab-el-Mandeb to commercial traffic",
+                predicted_probability=0.85
+            )
+            store.register_prospective_forecast(
+                forecast_id="FCST-TEST-FUTURE",
+                target_date="2030-01-01",
+                event_name="Quantum Decryption Horizon",
+                hypothesis="RSA-2048 broken by scalable quantum computer",
+                predicted_probability=0.25
+            )
+
+            # Check elapsed forecasts
+            elapsed = ForecastResolutionDaemon.check_elapsed_forecasts(store, current_date="2026-10-11")
+            assert len(elapsed) == 1
+            assert elapsed[0]["forecast_id"] == "FCST-TEST-PAST"
+
+            # Auto-resolve elapsed forecast with ground-truth outcome 1
+            res = ForecastResolutionDaemon.auto_resolve_elapsed(
+                store,
+                ground_truth_map={"FCST-TEST-PAST": 1},
+                current_date="2026-10-11"
+            )
+            assert res["resolved_count"] == 1
+            assert res["unresolved_count"] == 0
+            assert res["mean_brier_score"] == round((0.85 - 1.0) ** 2, 4) == 0.0225
+
+            # Verify calibration summary
+            summary = ForecastResolutionDaemon.get_ledger_calibration_summary(store)
+            assert summary["resolved_forecasts"] >= 1
+            assert summary["active_forecasts"] >= 1
+            assert summary["calibration_grade"] in ("EXCEPTIONAL_CALIBRATION", "STRONG_PREDICTIVE_CALIBRATION")
+            assert summary["best_forecast"] is not None
+            assert summary["mean_brier_score"] is not None
+        finally:
+            try:
+                import shutil
+                shutil.rmtree(test_dir, ignore_errors=True)
+            except Exception:
+                pass
+
+    def test_phase153_frame_renderer_infographics_and_telemetry_gauges(self):
+        """Verifies procedural data visualizations: horizontal bar gauge, balance sheet panel, and escalation meter."""
+        import os
+        from PIL import Image, ImageDraw
+        from geo_engine.studio.frame_renderer import LocalFrameRenderer
+        from geo_engine.studio.script_architect import SceneSegment
+
+        # 1. Test standalone drawing methods
+        img = Image.new("RGB", (1920, 1080), (10, 15, 28))
+        draw = ImageDraw.Draw(img)
+
+        LocalFrameRenderer.render_horizontal_bar_gauge(
+            draw=draw,
+            x=100,
+            y=100,
+            width=480,
+            height=28,
+            label="WWR Ammunition Reserve",
+            value=25.0,
+            max_value=40.0,
+            unit="Days",
+            color=(56, 189, 248)
+        )
+
+        LocalFrameRenderer.render_balance_sheet_metric_panel(
+            draw=draw,
+            x=100,
+            y=200,
+            width=480,
+            height=160,
+            announced_usd_b=20.0,
+            realized_usd_b=3.0,
+            haircut_pct=85.0
+        )
+
+        LocalFrameRenderer.render_escalation_meter(
+            draw=draw,
+            x=100,
+            y=420,
+            width=480,
+            height=45,
+            provocation_index=0.82,
+            threat_tier="ACUTE_PROVOCATION"
+        )
+
+        # 2. Test slide plate integration with telemetry overlay
+        out_dir = "data/test_tmp_studio"
+        os.makedirs(out_dir, exist_ok=True)
+        out_path = os.path.join(out_dir, "test_infographic_slide.png")
+        try:
+            scene = SceneSegment(
+                scene_id=1,
+                timestamp_start_sec=0.0,
+                timestamp_end_sec=5.0,
+                spoken_text={"en": "Capital deployment verified under 85% haircut rule.", "hi": "सख्त वित्तीय ऑडिट लागू"},
+                visual_prompt="Fiscal and security telemetry audit visualization",
+                camera_motion="slow_push_in"
+            )
+            # Inject telemetry data
+            scene.telemetry_data = {
+                "gauges": [{"label": "POTASH IMPORT DEP", "value": 100.0, "max_value": 100.0, "unit": "%"}],
+                "balance_sheet": {"announced": 25.0, "realized": 3.75, "haircut": 85.0},
+                "escalation": {"provocation_index": 0.75, "threat_tier": "ELEVATED"}
+            }
+
+            rendered = LocalFrameRenderer.render_scene_slide(
+                scene=scene,
+                scene_idx=1,
+                total_scenes=1,
+                out_path=out_path,
+                topic="GEO-ECONOMIC TELEMETRY AUDIT"
+            )
+            assert os.path.exists(rendered)
+            assert os.path.getsize(rendered) > 1000
+        finally:
+            if os.path.exists(out_path):
+                try:
+                    os.remove(out_path)
+                except Exception:
+                    pass
+
+    def test_phase154_sovereign_rss_multi_source_and_aggregation(self):
+        """Verifies expanded sovereign feed registry and multi-source aggregation with timeout resilience."""
+        from geo_engine.ingestion.sovereign_rss import SovereignRSSClient
+
+        # 1. Verify multi-source feed expansion
+        assert "India_MEA" in SovereignRSSClient.SOVEREIGN_FEEDS
+        assert "India_PIB" in SovereignRSSClient.SOVEREIGN_FEEDS
+        assert "UN_Press" in SovereignRSSClient.SOVEREIGN_FEEDS
+        assert "US_StateDept" in SovereignRSSClient.SOVEREIGN_FEEDS
+        assert "Russia_MFA" in SovereignRSSClient.SOVEREIGN_FEEDS
+        assert "Iran_IRNA" in SovereignRSSClient.SOVEREIGN_FEEDS
+        assert "China_MFA" in SovereignRSSClient.SOVEREIGN_FEEDS
+
+        # 2. Verify single feed fetch with timeout returns valid list (live or degraded)
+        items = SovereignRSSClient.fetch_primary_statements(feed_key="India_MEA", timeout=0.01)
+        assert isinstance(items, list)
+        assert len(items) > 0
+
+        # 3. Verify multi-feed aggregation
+        all_items = SovereignRSSClient.fetch_all_sovereign_feeds(
+            feed_keys=["India_MEA", "UN_Press"],
+            timeout_per_feed=0.01
+        )
+        assert isinstance(all_items, list)
+        assert len(all_items) > 0
+
+    def test_phase155_causal_graph_traverse_shockwave_cascade(self):
+        """Verifies multi-hop shockwave cascade traversal, depth grouping, and strategic mitigations."""
+        from geo_engine.arbitration.causal_graph import EpistemicKnowledgeGraph, CausalNode, CausalEdge
+
+        graph = EpistemicKnowledgeGraph()
+        n1 = CausalNode(node_id="root_hormuz", name="Strait of Hormuz Interdiction", category="CHOKEPOINT", epistemic_tier=1, base_potency=1.0)
+        n2 = CausalNode(node_id="mid_freight", name="Crude Freight & Marine Insurance Surge", category="LOGISTICS", epistemic_tier=1, base_potency=0.9)
+        n3 = CausalNode(node_id="mid_fertilizer", name="Fertilizer Feedstock Deficit", category="FERTILIZER", epistemic_tier=1, base_potency=0.85)
+        n4 = CausalNode(node_id="end_food_inflation", name="Domestic Caloric Food Inflation", category="FOOD_SECURITY", epistemic_tier=2, base_potency=0.8)
+
+        graph.add_node(n1)
+        graph.add_node(n2)
+        graph.add_node(n3)
+        graph.add_node(n4)
+
+        graph.add_edge(CausalEdge(source_id="root_hormuz", target_id="mid_freight", coupling_weight=0.95, mechanism="War risk insurance surcharge"))
+        graph.add_edge(CausalEdge(source_id="mid_freight", target_id="mid_fertilizer", coupling_weight=0.85, mechanism="LNG and ammonia delivery bottleneck"))
+        graph.add_edge(CausalEdge(source_id="mid_fertilizer", target_id="end_food_inflation", coupling_weight=0.80, mechanism="Crop yield reduction & subsidy inflation"))
+
+        cascade = graph.traverse_shockwave_cascade(root_id="root_hormuz", max_depth=3, min_cumulative_confidence=0.30)
+        assert cascade["root_node_id"] == "root_hormuz"
+        assert cascade["total_impacted_nodes"] == 3
+        assert len(cascade["primary_shocks"]) == 1
+        assert cascade["primary_shocks"][0]["node_id"] == "mid_freight"
+        assert len(cascade["secondary_ripples"]) == 1
+        assert cascade["secondary_ripples"][0]["node_id"] == "mid_fertilizer"
+        assert len(cascade["tertiary_shockwaves"]) == 1
+        assert cascade["tertiary_shockwaves"][0]["node_id"] == "end_food_inflation"
+        assert cascade["cascade_depth_reached"] == 3
+        assert len(cascade["causal_narrative_chains"]) == 3
+        assert any("Caloric" in m or "Fertilizer" in m for m in cascade["strategic_mitigations"])
+
+    def test_phase152_to_155_readme_parity_426_tests(self):
+        """Verify README.md reflects 426 comprehensive unit and integration tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "426 comprehensive unit and integration tests" in content
+
+
+
 
 
 
