@@ -12,6 +12,166 @@ from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, StrategicEvent
 
 
+class EnergyFertilizerChokepointSieve:
+    """
+    Phase 167: Basal Energy, Caloric & Fertilizer Chokepoint Sensitivity Sieve.
+    Quantifies the macroeconomic and agrarian passthrough of maritime energy and nutrient chokepoint interdictions:
+    1. Crude Oil Macro-Passthrough for India:
+       - Every $10/bbl Brent increase expands Current Account Deficit (CAD) by ~$15.5 Billion.
+       - Every $10/bbl Brent increase adds ~0.48% to Headline Consumer Price Index (CPI).
+       - Every $10/bbl Brent increase imposes ~₹18,200 Crore in Oil Marketing Company (OMC) gross under-recoveries or subsidy pressure.
+    2. Nutrient-Specific Agrarian Vulnerability:
+       - Potash (MOP): 100% import dependency (Russia, Belarus, Canada).
+       - Phosphate (DAP): ~58-65% import dependency (Morocco, Saudi Arabia, Jordan).
+       - Nitrogenous (Urea): Feedstock natural gas dependency (~50% imported LNG).
+       - Chokepoint Vulnerability: Bab-el-Mandeb / Red Sea transit blocks disrupt Mediterranean/North African rock phosphate shipping.
+    """
+
+    @classmethod
+    def calculate_energy_macro_sensitivity(
+        cls,
+        brent_price_shock_usd: float = 20.0,
+        base_cad_gdp_pct: float = 1.2,
+    ) -> Dict[str, Any]:
+        shock = max(0.0, float(brent_price_shock_usd))
+        multiplier = shock / 10.0
+        cad_expansion_usd_b = round(multiplier * 15.5, 2)
+        cpi_inflation_impact_pct = round(multiplier * 0.48, 2)
+        omc_under_recovery_crore_inr = round(multiplier * 18200.0, 2)
+        projected_cad_gdp_pct = round(base_cad_gdp_pct + (multiplier * 0.55), 2)
+
+        if shock >= 30.0:
+            stress_tier = "ACUTE_EXTERNAL_BALANCE_SHOCK"
+            verdict = "EMERGENCY_SPR_RELEASE_AND_NON_DOLLAR_CRUDE_ROUTING_MANDATORY"
+        elif shock >= 15.0:
+            stress_tier = "ELEVATED_INFLATIONARY_PRESSURE"
+            verdict = "FISCAL_EXCISE_DUTY_BUFFERING_AND_OMC_ABSORPTION_REQUIRED"
+        else:
+            stress_tier = "MANAGEABLE_BASELINE_FLUCTUATION"
+            verdict = "STANDARD_MONETARY_POLICY_TRANSMISSION"
+
+        return {
+            "brent_price_shock_usd": shock,
+            "cad_expansion_usd_b": cad_expansion_usd_b,
+            "cpi_inflation_impact_pct": cpi_inflation_impact_pct,
+            "omc_under_recovery_crore_inr": omc_under_recovery_crore_inr,
+            "projected_cad_gdp_pct": projected_cad_gdp_pct,
+            "energy_stress_tier": stress_tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": f"Brent shock +${shock:.1f}/bbl -> CAD +${cad_expansion_usd_b}B, CPI +{cpi_inflation_impact_pct}%."
+        }
+
+    @classmethod
+    def calculate_nutrient_chokepoint_vulnerability(
+        cls,
+        red_sea_bab_el_mandeb_blocked: bool = False,
+        strait_of_hormuz_risk_factor: float = 0.30,
+        domestic_soil_nutrient_buffer_months: float = 2.5,
+    ) -> Dict[str, Any]:
+        r_block = 0.40 if red_sea_bab_el_mandeb_blocked else 0.0
+        h_risk = min(1.0, max(0.0, float(strait_of_hormuz_risk_factor)))
+        buf = max(0.5, float(domestic_soil_nutrient_buffer_months))
+
+        buffer_deficit = max(0.0, (4.0 - buf) / 4.0)
+        chokepoint_vulnerability = min(1.0, max(0.0, round(r_block + (0.35 * h_risk) + (0.35 * buffer_deficit), 4)))
+
+        if chokepoint_vulnerability >= 0.70:
+            tier = "SEVERE_AGRARIAN_SOWING_THREAT"
+            verdict = "EMERGENCY_POTASH_PHOSPHATE_DIVERSIFICATION_AND_NANO_UREA_DEPLOYMENT"
+        elif chokepoint_vulnerability >= 0.40:
+            tier = "MODERATE_INPUT_INFLATION_ALERT"
+            verdict = "EXPAND_BILATERAL_LONG_TERM_FERTILIZER_CONTRACTS"
+        else:
+            tier = "STABLE_SOIL_NUTRIENT_LOGISTICS"
+            verdict = "AGRARIAN_BUFFER_STOCKS_SUFFICIENT"
+
+        return {
+            "red_sea_blocked": red_sea_bab_el_mandeb_blocked,
+            "strait_of_hormuz_risk": h_risk,
+            "buffer_months": buf,
+            "chokepoint_vulnerability_score": chokepoint_vulnerability,
+            "nutrient_security_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": f"Nutrient chokepoint vuln {chokepoint_vulnerability:.4f} (Buffer: {buf} mos, RedSea Block: {red_sea_bab_el_mandeb_blocked})."
+        }
+
+
+class AgrarianWaterCartelSieve:
+    """
+    Phase 175: Sub-National Hydrological Depletion & Agrarian Water-Cartel Sieve.
+    Quantifies crop-water footprint inequality, manufactured drought vulnerability,
+    and civil society watershed resilience versus state bureaucratic leakage.
+    Empirical Baselines (Maharashtra CAG Audit & Naam Foundation):
+    - Sugarcane Footprint: ~4% of cultivable land monopolizing ~71.5% of total irrigation water.
+    - Water Consumption: 20-25 million liters (20,000-25,000 m³) per hectare of sugarcane annually.
+    - State Capex Leakage: ₹70,000 Crore expenditure (1999-2009) resulting in only 0.1% increase in irrigated area.
+    - Civil Society Multiplier: Community river desilting (Naam Foundation: 528 km revived at negligible cost).
+    """
+
+    @classmethod
+    def calculate_crop_water_asymmetry(
+        cls,
+        sugarcane_land_pct: float = 4.0,
+        sugarcane_water_pct: float = 71.5,
+        rain_shadow_deficit_pct: float = 35.0,
+    ) -> Dict[str, Any]:
+        land_pct = max(0.5, float(sugarcane_land_pct))
+        water_pct = min(100.0, max(1.0, float(sugarcane_water_pct)))
+        deficit = min(100.0, max(0.0, float(rain_shadow_deficit_pct)))
+
+        inequality_ratio = round(water_pct / land_pct, 2)
+        manufactured_drought_score = round(
+            min(1.0, (water_pct / 100.0) * 0.60 + (deficit / 100.0) * 0.40), 3
+        )
+
+        if manufactured_drought_score >= 0.65:
+            tier = "CRITICAL_SUGAR_LOBBY_CAPTURE"
+            verdict = "MANDATORY_DRIP_IRRIGATION_AND_CANAL_WATER_METERING_REQUIRED"
+        elif manufactured_drought_score >= 0.40:
+            tier = "HIGH_HYDROLOGICAL_ASYMMETRY"
+            verdict = "CROP_DIVERSIFICATION_TO_MILLETS_AND_PULSES_INCENTIVIZED"
+        else:
+            tier = "BALANCED_WATERSHED_ALLOCATION"
+            verdict = "STANDARD_AGRARIAN_HYDROLOGY"
+
+        return {
+            "sugarcane_land_pct": land_pct,
+            "sugarcane_water_consumption_pct": water_pct,
+            "crop_water_inequality_ratio": inequality_ratio,
+            "rain_shadow_deficit_pct": deficit,
+            "manufactured_drought_vulnerability_score": manufactured_drought_score,
+            "governance_capture_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": f"Sugarcane occupies {land_pct}% land but consumes {water_pct}% water ({inequality_ratio}x asymmetry) in {deficit}% rain-shadow deficit zone."
+        }
+
+    @classmethod
+    def evaluate_watershed_resilience(
+        cls,
+        unexecuted_state_capex_crore: float = 70000.0,
+        irrigated_area_increase_pct: float = 0.1,
+        community_river_rejuvenated_km: float = 528.0,
+    ) -> Dict[str, Any]:
+        capex = max(100.0, float(unexecuted_state_capex_crore))
+        area_inc = max(0.01, float(irrigated_area_increase_pct))
+        km_revived = max(0.0, float(community_river_rejuvenated_km))
+
+        leakage_index = round(min(1.0, max(0.0, 1.0 - (area_inc / 10.0))), 3)
+        community_multiplier = round(min(10.0, 1.0 + (km_revived / 70.0)), 2)
+
+        return {
+            "unexecuted_state_capex_crore": capex,
+            "irrigated_area_increase_pct": area_inc,
+            "fiscal_leakage_index": leakage_index,
+            "community_river_rejuvenated_km": km_revived,
+            "community_resilience_multiplier": community_multiplier,
+            "public_trust_capture_risk": "HIGH_IF_CELEBRITY_SHIELD_ABSENT",
+            "statutory_remedy": "CAG forensic tracing of 10,000 unanswered queries and statutory ringfencing of civil society trusts.",
+            "operational_verdict": f"Naam Foundation model ({km_revived} km revived) demonstrates {community_multiplier}x civil resilience over state bureaucratic leakage ({leakage_index} index).",
+            "tactical_rationale": f"Civil society river rejuvenation ({km_revived} km) achieves {community_multiplier}x higher return than unexecuted state capex of ₹{capex:,.0f} Cr."
+        }
+
+
 class FoodSecurityLens:
     """Evaluator for caloric sovereignty, fertilizer dependencies, and agricultural supply chains."""
 
@@ -56,9 +216,16 @@ class FoodSecurityLens:
 
         alignment = 0.45  # Baseline reflects solid grain buffer stocks tempered by fertilizer input dependency
 
+        def _get_claim_text(c: Any) -> str:
+            if isinstance(c, str):
+                return c
+            if isinstance(c, dict):
+                return str(c.get("asserted_fact") or c.get("raw_text") or c.get("assertion") or "")
+            return str(getattr(c, "asserted_fact", getattr(c, "raw_text", getattr(c, "assertion", ""))))
+
         if claims:
             food_or_fertilizer = any(
-                any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
+                any(kw in _get_claim_text(c).lower()
                     for kw in ["fertilizer", "urea", "dap", "potash", "potassium", "mop", "grain", "wheat", "rice", "famine", "caloric", "fci", "pds", "soil nutrient"])
                 for c in claims
             )
@@ -70,12 +237,53 @@ class FoodSecurityLens:
 
             export_ban_claims = [
                 c for c in claims
-                if any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
+                if any(kw in _get_claim_text(c).lower()
                        for kw in ["export ban", "rice ban", "wheat ban", "onion duty", "price stabilization", "implicit tax", "anti-farmer"])
             ]
             if export_ban_claims:
                 findings.insert(0, "[FORENSIC AUDIT] Agricultural Price Stabilization Policy Verified: Domestic export bans transfer producer surplus to urban CPI insulation.")
                 metrics["export_ban_price_stabilization_flag"] = True
+
+        all_text = " ".join(
+            [str(getattr(event, "title", "")), str(getattr(event, "description", ""))] +
+            [_get_claim_text(c) for c in (claims or [])]
+        ).lower()
+
+        if any(kw in all_text for kw in ["brent", "crude", "oil shock", "fertilizer chokepoint", "hormuz", "bab-el-mandeb", "potash", "phosphate"]):
+            e_sens = EnergyFertilizerChokepointSieve.calculate_energy_macro_sensitivity(
+                brent_price_shock_usd=25.0 if "shock" in all_text or "spike" in all_text else 15.0
+            )
+            n_vuln = EnergyFertilizerChokepointSieve.calculate_nutrient_chokepoint_vulnerability(
+                red_sea_bab_el_mandeb_blocked=("bab-el-mandeb" in all_text or "red sea" in all_text),
+                strait_of_hormuz_risk_factor=0.65 if "hormuz" in all_text else 0.30
+            )
+            findings.insert(0, f"[ENERGY MACRO-PASSTHROUGH] {e_sens['tactical_rationale']} Tier: {e_sens['energy_stress_tier']}.")
+            findings.insert(1, f"[NUTRIENT CHOKEPOINT SENSITIVITY] {n_vuln['tactical_rationale']} Tier: {n_vuln['nutrient_security_tier']}.")
+            metrics["brent_price_shock_usd"] = e_sens["brent_price_shock_usd"]
+            metrics["cad_expansion_usd_b"] = e_sens["cad_expansion_usd_b"]
+            metrics["cpi_inflation_impact_pct"] = e_sens["cpi_inflation_impact_pct"]
+            metrics["omc_under_recovery_crore_inr"] = e_sens["omc_under_recovery_crore_inr"]
+            metrics["nutrient_chokepoint_vulnerability_score"] = n_vuln["chokepoint_vulnerability_score"]
+            metrics["nutrient_security_tier"] = n_vuln["nutrient_security_tier"]
+
+        if any(kw in all_text for kw in ["sugarcane", "sugar cartel", "water cartel", "irrigation", "naam foundation", "marathwada", "vidarbha", "cag audit"]):
+            w_asym = AgrarianWaterCartelSieve.calculate_crop_water_asymmetry(
+                sugarcane_land_pct=4.0,
+                sugarcane_water_pct=71.5,
+                rain_shadow_deficit_pct=40.0 if "drought" in all_text else 25.0
+            )
+            w_res = AgrarianWaterCartelSieve.evaluate_watershed_resilience(
+                unexecuted_state_capex_crore=70000.0,
+                irrigated_area_increase_pct=0.1,
+                community_river_rejuvenated_km=528.0
+            )
+            findings.insert(0, f"[AGRARIAN WATER CARTEL FORENSIC] {w_asym['tactical_rationale']} Tier: {w_asym['governance_capture_tier']}.")
+            findings.insert(1, f"[WATERSHED RESILIENCE AUDIT] Community multiplier {w_res['community_resilience_multiplier']}x vs State fiscal leakage {w_res['fiscal_leakage_index']} (70k Cr capex -> 0.1% increase).")
+            metrics["sugarcane_water_inequality_ratio"] = w_asym["crop_water_inequality_ratio"]
+            metrics["manufactured_drought_vulnerability_score"] = w_asym["manufactured_drought_vulnerability_score"]
+            metrics["governance_capture_tier"] = w_asym["governance_capture_tier"]
+            metrics["community_watershed_multiplier"] = w_res["community_resilience_multiplier"]
+            metrics["fiscal_leakage_index"] = w_res["fiscal_leakage_index"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,

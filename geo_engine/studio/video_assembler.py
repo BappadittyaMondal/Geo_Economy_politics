@@ -111,11 +111,30 @@ class VideoAssembler:
             meta_args.append(f"-metadata:s:a:{idx-1} language={l_code}")
             meta_args.append(f"-metadata:s:a:{idx-1} title=\"{l_code.upper()}\"")
 
-        input_files = ["-i video_base.mp4"] + [f"-i audio_{l}.mp3" for l in lang_codes]
+        # Subtitle stream mapping if enabled
+        sub_inputs = []
+        sub_maps = []
+        sub_metas = []
+        if render_spec.enable_subtitles:
+            sub_start_idx = len(lang_codes) + 1
+            for s_idx, l_code in enumerate(lang_codes):
+                sub_inputs.append(f"-i subtitles_{l_code}.srt")
+                sub_maps.append(f"-map {sub_start_idx + s_idx}:s")
+                sub_metas.append(f"-metadata:s:s:{s_idx} language={l_code}")
+                sub_metas.append(f"-metadata:s:s:{s_idx} title=\"{l_code.upper()}_SUB\"")
+
+        input_files = ["-i video_base.mp4"] + [f"-i audio_{l}.mp3" for l in lang_codes] + sub_inputs
+        sub_codec_arg = "-c:s mov_text " if render_spec.enable_subtitles else ""
+        all_maps = " ".join(map_args + sub_maps)
+        all_metas = " ".join(meta_args + sub_metas)
+
+        clean_title = script_package.title.replace('"', '\\"') if script_package.title else ""
+        title_meta = f'-metadata title="{clean_title}" ' if clean_title else ""
+
         mux_cmd = (
             f"ffmpeg -y {' '.join(input_files)} "
-            f"{' '.join(map_args)} -c:v copy -c:a aac "
-            f"{' '.join(meta_args)} output_multiaudio_{manifest_id}.mp4"
+            f"{all_maps} -c:v copy -c:a aac {sub_codec_arg}"
+            f"{all_metas} {title_meta}output_multiaudio_{manifest_id}.mp4"
         )
 
         return RenderJobManifest(
@@ -323,9 +342,17 @@ class VideoAssembler:
                     ffmpeg_exe, "-y",
                     "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono",
                     "-t", str(duration_sec),
-                    "-c:a", "aac", audio_path
+                    "-c:a", "libmp3lame", audio_path
                 ]
-                subprocess.run(fallback_cmd, capture_output=True)
+                res_fb = subprocess.run(fallback_cmd, capture_output=True)
+                if res_fb.returncode != 0:
+                    fallback_cmd_alt = [
+                        ffmpeg_exe, "-y",
+                        "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono",
+                        "-t", str(duration_sec),
+                        audio_path
+                    ]
+                    subprocess.run(fallback_cmd_alt, capture_output=True)
 
             # 3. Stitch Slide and Audio into Scene Clip with Dynamic Ken Burns Motion
             cam = scene.camera_motion.lower()
@@ -455,7 +482,8 @@ class VideoAssembler:
                     ], capture_output=True)
 
         # 6. Execute Multi-Audio Multiplexing
-        cmd_tokens = manifest.multi_audio_mux_command.split()
+        import shlex
+        cmd_tokens = shlex.split(manifest.multi_audio_mux_command)
         cmd_tokens[0] = ffmpeg_exe  # use resolved ffmpeg binary
         res_mux = subprocess.run(cmd_tokens, cwd=output_dir, capture_output=True)
 

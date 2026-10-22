@@ -198,6 +198,88 @@ class EpistemicKnowledgeGraph:
                     cumulative[tgt] = round(1.0 - (1.0 - cumulative[tgt]) * (1.0 - min(1.0, imp)), 4)
         return cumulative
 
+    def traverse_shockwave_cascade(
+        self,
+        root_id: str,
+        max_depth: int = 3,
+        min_cumulative_confidence: float = 0.35,
+        hop_attenuation: float = 0.85
+    ) -> Dict[str, Any]:
+        """
+        Traverses multi-hop cascading shockwaves from a designated epicenter node,
+        synthesizing primary shocks (depth 1), secondary ripples (depth 2), and
+        tertiary disruptions (depth 3+) with narrative causal trajectories and mitigations.
+        """
+        if root_id not in self.nodes:
+            return {
+                "root_node_id": root_id,
+                "error": f"Root node '{root_id}' not found in epistemic knowledge graph.",
+                "total_impacted_nodes": 0
+            }
+
+        root_node = self.nodes[root_id]
+        traces = self.trace_downstream_shocks(
+            root_id=root_id,
+            max_depth=max_depth,
+            min_impact=min_cumulative_confidence,
+            hop_attenuation=hop_attenuation
+        )
+
+        primary = []
+        secondary = []
+        tertiary = []
+        narrative_chains = []
+        chokepoints = []
+
+        for t in traces:
+            nid = t["node_id"]
+            hops = t["shortest_hops"]
+            entry = {
+                "node_id": nid,
+                "name": t["name"],
+                "category": t["category"],
+                "epistemic_tier": t["tier"],
+                "net_impact": t["max_impact"],
+                "hops": hops,
+                "causal_mechanism": t["causal_mechanism"],
+                "chain": " -> ".join(t["trace_path"])
+            }
+            if t["category"] in ("CHOKEPOINT", "LOGISTICS", "MARITIME"):
+                chokepoints.append(t["name"])
+
+            narrative_chains.append(f"[{hops}-HOP] {entry['chain']} via {t['causal_mechanism']} (Impact: {t['max_impact']})")
+
+            if hops == 1:
+                primary.append(entry)
+            elif hops == 2:
+                secondary.append(entry)
+            else:
+                tertiary.append(entry)
+
+        mitigations = []
+        if chokepoints:
+            mitigations.append(f"Maritime/Logistics Chokepoints identified ({', '.join(set(chokepoints))}). Reroute freight, deploy naval escorts, and buffer coastal fuel stockpiles.")
+        if any(t["category"] in ("CURRENCY", "MACRO_FINANCIAL") for t in traces):
+            mitigations.append("Macro-monetary shockwave detected. Activate Special Rupee Vostro Accounts (SRVA) and bilateral currency swap windows.")
+        if any(t["category"] in ("FERTILIZER", "FOOD_SECURITY") for t in traces):
+            mitigations.append("Caloric sovereignty alert. Enforce domestic export controls and expand strategic fertilizer buffer inventories.")
+        if not mitigations:
+            mitigations.append("Maintain sovereign strategic autonomy; monitor secondary and tertiary supply-chain indicators.")
+
+        return {
+            "root_node_id": root_id,
+            "root_node_name": root_node.name,
+            "root_category": root_node.category,
+            "primary_shocks": primary,
+            "secondary_ripples": secondary,
+            "tertiary_shockwaves": tertiary,
+            "causal_narrative_chains": narrative_chains,
+            "vulnerable_chokepoints": list(set(chokepoints)),
+            "strategic_mitigations": mitigations,
+            "cascade_depth_reached": max((t["shortest_hops"] for t in traces), default=0),
+            "total_impacted_nodes": len(traces)
+        }
+
     def augment_from_distilled_claims(self, claims: List[Any]) -> int:
         """
         Dynamically augments the causal graph from atomically distilled propositions

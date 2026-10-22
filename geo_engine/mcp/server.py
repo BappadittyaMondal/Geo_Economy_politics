@@ -235,8 +235,64 @@ class GeoEngineMCPServer:
                 },
                 "required": ["conversation_text"]
             }
+        },
+        {
+            "name": "geo_verify_evidence",
+            "description": "Run Evidence Intelligence & Fact Verification Engine to audit claims, detect statistical manipulation, verify against statutory baselines, and assign one of the 7 formal verdicts.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "description": "The statement, claim, speech excerpt, or article to verify."
+                    }
+                },
+                "required": ["text"]
+            }
+        },
+        {
+            "name": "geo_quantum_evaluation",
+            "description": "Evaluate quantum information statecraft: multi-vector alignment superposition, Shannon entropy, collapse thresholds, observer disturbance, and Post-Quantum Cryptography (PQC) vulnerability.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "statement": {"type": "string", "default": "Multi-vector strategic alignment", "description": "Scenario statement to evaluate."},
+                    "c_west": {"type": "number", "default": 0.45, "description": "Western alignment amplitude."},
+                    "c_eurasia": {"type": "number", "default": 0.55, "description": "Eurasian alignment amplitude."},
+                    "c_south": {"type": "number", "default": 0.70, "description": "Global South alignment amplitude."},
+                    "kinetic_escalation_score": {"type": "number", "default": 0.20, "description": "Kinetic or sanctions escalation score (0.0 to 1.0)."},
+                    "collapse_threshold": {"type": "number", "default": 0.75, "description": "Superposition collapse threshold."}
+                }
+            }
+        },
+        {
+            "name": "geo_chokepoint_sensitivity",
+            "description": "Quantify macroeconomic crude oil price shocks (CAD, CPI, OMC under-recoveries) and agrarian nutrient chokepoint vulnerabilities.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "crude_shock_usd": {"type": "number", "default": 20.0, "description": "Brent crude price shock in USD/bbl."},
+                    "red_sea_blocked": {"type": "boolean", "default": False, "description": "Whether Red Sea / Bab-el-Mandeb transit is interdicted."},
+                    "hormuz_risk": {"type": "number", "default": 0.30, "description": "Strait of Hormuz risk factor (0.0 to 1.0)."},
+                    "buffer_months": {"type": "number", "default": 2.5, "description": "Domestic fertilizer buffer stocks in months."}
+                }
+            }
+        },
+        {
+            "name": "geo_quarantine_learn",
+            "description": "Execute governed autonomous safe learning: extract propositions, quarantine in SQLite, cross-verify against EIFVE, and safely promote without codebase mutation.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "text": {"type": "string", "description": "Text to ingest, extract propositions, and learn from."},
+                    "source": {"type": "string", "default": "MCP Ingestion", "description": "Source provenance identifier."},
+                    "auto_promote": {"type": "boolean", "default": True, "description": "Auto-promote high-confidence verified claims."}
+                },
+                "required": ["text"]
+            }
         }
     ]
+
 
     def __init__(self, store: Optional[EventStore] = None):
         self.store = store or EventStore()
@@ -490,8 +546,72 @@ class GeoEngineMCPServer:
             )
             return res
 
+        elif tool_name == "geo_verify_evidence":
+            from ..verification import FactVerificationEngine
+            text = arguments.get("text", "")
+            engine = FactVerificationEngine(self.store)
+            report = engine.verify_text(text)
+            return report.model_dump()
+
+        elif tool_name == "geo_quantum_evaluation":
+            from ..lenses.deep_tech import QuantumInformationSieve
+            statement = arguments.get("statement", "Multi-vector strategic alignment")
+            c_west = float(arguments.get("c_west", 0.45))
+            c_eurasia = float(arguments.get("c_eurasia", 0.55))
+            c_south = float(arguments.get("c_south", 0.70))
+            k_score = float(arguments.get("kinetic_escalation_score", 0.20))
+            thresh = float(arguments.get("collapse_threshold", 0.75))
+            diag = QuantumInformationSieve.calculate_geopolitical_superposition(
+                c_west=c_west,
+                c_eurasia=c_eurasia,
+                c_south=c_south,
+                kinetic_escalation_score=k_score,
+                collapse_threshold=thresh,
+            )
+            pqc = QuantumInformationSieve.evaluate_pqc_sovereignty()
+            obs = QuantumInformationSieve.calculate_channel_observer_disturbance()
+            return {
+                "statement": statement,
+                "superposition": diag,
+                "pqc_sovereignty": pqc,
+                "observer_disturbance": obs,
+            }
+
+        elif tool_name == "geo_chokepoint_sensitivity":
+            from ..lenses.food_security import EnergyFertilizerChokepointSieve
+            crude_shock = float(arguments.get("crude_shock_usd", 20.0))
+            red_sea = bool(arguments.get("red_sea_blocked", False))
+            hormuz = float(arguments.get("hormuz_risk", 0.30))
+            buffer_m = float(arguments.get("buffer_months", 2.5))
+            macro = EnergyFertilizerChokepointSieve.calculate_energy_macro_sensitivity(
+                brent_price_shock_usd=crude_shock
+            )
+            nutrient = EnergyFertilizerChokepointSieve.calculate_nutrient_chokepoint_vulnerability(
+                red_sea_bab_el_mandeb_blocked=red_sea,
+                strait_of_hormuz_risk_factor=hormuz,
+                domestic_soil_nutrient_buffer_months=buffer_m,
+            )
+            return {
+                "crude_macro_sensitivity": macro,
+                "nutrient_chokepoint_vulnerability": nutrient,
+            }
+
+        elif tool_name == "geo_quarantine_learn":
+            from ..verification.learner import AutonomousLearner
+            text = arguments.get("text", "")
+            source = arguments.get("source", "MCP Ingestion")
+            auto_promote = bool(arguments.get("auto_promote", True))
+            learner = AutonomousLearner()
+            res = learner.learn_from_text(
+                raw_text=text,
+                source_name=source,
+                auto_promote=auto_promote,
+            )
+            return res
+
         else:
             raise ValueError(f"Unknown tool: {tool_name}")
+
 
 
 def run_stdio_server():

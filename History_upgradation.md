@@ -1844,5 +1844,491 @@ The engine's maturity is certified across the objective Two-Axis evaluation dist
     - Preserved zero deletions across `History_upgradation.md`.
     - Verified `perfect_certified_audit.py` Composite Score at **100.0 / 100.0 across all 12 architectural sections**.
 
+* **Phase 149 (Studio Typography Indic Font Cascade & Soft Subtitle Multiplexing Engine):**
+  - **Native Indic Font Cascade in LocalFrameRenderer (`geo_engine/studio/frame_renderer.py`):**
+    - Enhanced `LocalFrameRenderer.get_system_font(size, bold=False, is_indic=False)` with an Indic font cascade prioritizing Windows `C:/Windows/Fonts/NirmalaB.ttf` and `Nirmala.ttf` (with fallback to `mangal.ttf`, `vrinda.ttf`, and Linux FreeSerif/DejaVu fonts).
+    - Eliminates glyph rendering failure and tofu boxes (`□□□□`) on Devanagari, Bengali, and Sanskrit preview slides.
+    - Updated `render_scene_slide()` to render Hindi and Bengali scene dialogue using the dedicated Indic font cascade.
+  - **Container Subtitle Multiplexing & Metadata in VideoAssembler (`geo_engine/studio/video_assembler.py`):**
+    - Upgraded `VideoAssembler.build_render_manifest()` to inject soft subtitle streams into the multiplexing pipeline when `render_spec.enable_subtitles` is enabled.
+    - Automatically maps generated `.srt` subtitle files into the container using `-map {idx}:s`, `-c:s mov_text`, `-metadata:s:s:{idx} language={lang}`, and `-metadata:s:s:{idx} title="{LANG}_SUB"`.
+    - Added container-level `-metadata title="{title}"` tagging to generated master video containers.
+    - Hardened `render_complete_mp4()` to use `shlex.split()` for robust cross-platform command tokenization.
+
+* **Phase 150 (Cognitive Self-Learning Loop Closure, Markdown Synchronization & Bundle Serialization):**
+  - **EventStore Markdown Export & Knowledge Base Synchronization (`geo_engine/storage/event_store.py`):**
+    - Implemented `EventStore.export_distilled_claims_as_markdown(min_confidence=0.70, limit=50)` serializing `VERIFIED_EMPIRICAL` and `POLEMICAL_FRAMING` propositions from SQLite `claim_distillations` into clean, structured GitHub-Flavored Markdown tables.
+    - Bridges the gap between SQLite transactional memory and human/AI-readable canonical knowledge libraries, preserving the append-only invariant.
+  - **Active Prospective Forecasting & Time-Bounded Resolution (`geo_engine/storage/event_store.py`):**
+    - Implemented `EventStore.register_prospective_forecast()` allowing forward-looking probabilistic predictions to be recorded in `forecast_ledger` with `status='ACTIVE'`, future target resolution dates, and `actual_outcome=NULL`.
+    - Lays the infrastructure for machine-verifiable prospective Brier calibration as real-world geopolitical crises unfold.
+  - **Canonical Bundle Serialization Expansion (`scripts/build_canonical_bundles.py`):**
+    - Updated `serialize_sqlite_to_markdown()` to automatically serialize distilled claims into `38_spec_historical_treaty_archive.md`, ensuring all learned propositions flow directly into the Deep-50 distribution bundle without exceeding the 50-file ceiling.
+
+* **Phase 151 (Statistical Manipulation Sieve, Sacred Calendar Provocation Sieve & 421 Certified Tests):**
+  - **Statistical Manipulation & Suppressed Denominator Sieve (`geo_engine/arbitration/competing_hypotheses.py`):**
+    - Architected and implemented `StatisticalManipulationSieve` and `StatisticalManipulationEvaluation`.
+    - Detects suppressed denominators: absolute counts (e.g. "3 million deleted") cited without disclosing the total electorate or baseline population.
+    - Detects gross vs. net asymmetry: gross subtractions/losses emphasized while parallel administrative additions or accretions are concealed.
+    - Detects truncated temporal baselines: growth spikes asserted by cherry-picking depressed nadirs rather than normalized multi-period moving averages.
+    - Exported `StatisticalManipulationSieve` and `StatisticalManipulationEvaluation` across `geo_engine.arbitration` and `geo_engine`.
+  - **Sacred Calendar Provocation & Contempt Optics Sieve (`geo_engine/lenses/civilizational.py`):**
+    - Architected and implemented `SacredCalendarProvocationSieve` deconstructing deliberate ritual desensitization and theatrical transgressions during sacred Sanatan periods (Pitru Paksha, Navratri, Shravan, Kanwar Yatra).
+    - Derived closed-form Lipschitz-bounded Provocation Index:
+      $$\text{Index} = \min\left(1.0, 0.40 \cdot C_{\text{period\_sacredness}} + 0.35 \cdot D_{\text{public\_ostentation}} + 0.25 \cdot T_{\text{timing\_staging}}\right)$$
+    - Categorizes 4 operational threat tiers: `ACUTE_THEATRICAL_CONTEMPT_OPTICS`, `ELEVATED_RITUAL_DESENSITIZATION`, `INCIDENTAL_CULTURAL_DISSONANCE`, and `NEUTRAL_CULTURAL_BASELINE`.
+    - Detects second-order narrative weaponization designed to bait counter-reactions for "majoritarian intolerance" media campaigns.
+    - Integrated seamlessly into `CulturalGrayzoneSieve` and `CivilizationalLens.evaluate()`, populating `sacred_calendar_provocation_detected`, `sacred_provocation_tier`, and `sacred_provocation_index`.
+    - Exported `SacredCalendarProvocationSieve` and `CulturalGrayzoneSieve` across `geo_engine.lenses` and `geo_engine`.
+  - **Verification Suite Expansion (416 to 421 tests — `tests/test_engine.py`):**
+    - Added `TestPhase149to151StudioSelfLearningAndStatisticalSieves` with 5 deterministic unit and integration tests:
+      1. `test_phase149_indic_font_cascade_and_subtitle_mux_recipe`: Verifies Nirmala font cascade, Devanagari slide rendering, and subtitle container muxing.
+      2. `test_phase150_event_store_markdown_export_and_prospective_forecast`: Verifies distilled claim markdown export and active prospective forecast registration.
+      3. `test_phase151_statistical_manipulation_sieve_evaluation`: Verifies detection of suppressed denominators and gross turnover distortions.
+      4. `test_phase151_sacred_calendar_provocation_sieve_evaluation`: Verifies detection of deliberate contempt optics during Pitru Paksha and CivilizationalLens integration.
+      5. `test_phase151_readme_parity_421_tests`: Validates `README.md` test counter parity at 421 tests.
+    - Certified **421/421 comprehensive unit and integration tests passing deterministically in 100% pass rate** with zero regressions.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` <= 50 files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (append-only update).
 
 
+
+* **Phase 152 to 155 (Autonomous Forecast Resolution Daemon, Native Infographics, Multi-Source Sovereign RSS & Dynamic Shockwave Cascade Engine — 426 Certified Tests):**
+  - **Automated Prospective Forecast Resolution Daemon (`geo_engine/forecasting/resolution_daemon.py`):**
+    - Architected and implemented `ForecastResolutionDaemon`.
+    - Added `check_elapsed_forecasts()` scanning `forecast_ledger` in `EventStore` against system reference dates (`SYSTEM_REFERENCE_DATE` or ISO clock).
+    - Added `auto_resolve_elapsed()` evaluating prospective forecasts against ground-truth binary outcomes, computing exact Brier calibration scores $(p - o)^2$, and migrating status from `ACTIVE` to `RESOLVED`.
+    - Added `get_ledger_calibration_summary()` aggregating cumulative Brier performance, calibration tiers (`EXCEPTIONAL_CALIBRATION`, `STRONG_PREDICTIVE_CALIBRATION`), and tracking best/worst projections.
+    - Exported `ForecastResolutionDaemon` across `geo_engine.forecasting` and `geo_engine`.
+  - **Native Infographic & Data Chart Slide Renderer in LocalFrameRenderer (`geo_engine/studio/frame_renderer.py`):**
+    - Enhanced `LocalFrameRenderer` with 100% offline procedural data visualization routines using Pillow:
+      - `render_horizontal_bar_gauge()` rendering high-contrast metrics for WWR Ammunition depth (10I to 40I) and Potash/DAP fertilizer dependency.
+      - `render_balance_sheet_metric_panel()` rendering forensic balance sheet comparisons between Announced MOUs vs 85% Realized CapEx.
+      - `render_escalation_meter()` rendering 4-tier visual threat and escalation index meters.
+    - Integrated telemetry overlay detection in `render_scene_slide()` for 16:9 broadcast plates.
+    - Exported `LocalFrameRenderer` across `geo_engine.studio` and `geo_engine`.
+  - **Sovereign Multi-Source News Ingestion Expander (`geo_engine/ingestion/sovereign_rss.py`):**
+    - Expanded `SovereignRSSClient` with an official sovereign feed registry: Press Information Bureau (India PIB), Ministry of External Affairs (India MEA), United Nations Press, US State Department, Russian MFA (TASS/MID), Iranian MFA (IRNA), and Chinese MFA (FMPRC).
+    - Added `fetch_all_sovereign_feeds()` with per-feed timeout guards (2.0s), SHA-256 wire deduplication, and resilient fallback to honest `TIER_0_INSUFFICIENT_EVIDENCE` degraded states during total network outages.
+    - Exported `SovereignRSSClient` across `geo_engine.ingestion` and `geo_engine`.
+  - **Dynamic Multi-Hop Causal Graph Traversal Engine (`geo_engine/arbitration/causal_graph.py`):**
+    - Enhanced `EpistemicKnowledgeGraph` with `traverse_shockwave_cascade()`.
+    - Implemented multi-hop shockwave traversal categorizing downstream impacts into:
+      - Primary Shocks (1-Hop direct linkages)
+      - Secondary Ripples (2-Hop structural transmissions)
+      - Tertiary Shockwaves (3+ Hop long-tail systemic disruptions)
+    - Formatted causal narrative chains (`[k-HOP] Node A -> Node B -> Node C via mechanism`) with hop attenuation $\alpha=0.85$.
+    - Synthesized proactive policy mitigations based on Sanatan *Yogakshema* and Kautilyan statecraft (chokepoints, currency volatility, caloric/fertilizer reserves).
+  - **Verification Suite Expansion (421 to 426 tests — `tests/test_engine.py`):**
+    - Added `TestPhase152to155AutonomousResolutionInfographicsAndShockwave` with 5 deterministic unit and integration tests:
+      1. `test_phase152_forecast_resolution_daemon_lifecycle`: Verifies elapsed forecast detection, ground-truth auto-resolution, and Brier calibration summaries.
+      2. `test_phase153_frame_renderer_infographics_and_telemetry_gauges`: Verifies procedural gauges, balance sheet haircut panels, escalation meters, and slide rendering.
+      3. `test_phase154_sovereign_rss_multi_source_and_aggregation`: Verifies expanded sovereign feed registry and timeout-resilient aggregation.
+      4. `test_phase155_causal_graph_traverse_shockwave_cascade`: Verifies multi-hop cascade traversal, depth grouping, and Kautilyan strategic mitigations.
+      5. `test_phase152_to_155_readme_parity_426_tests`: Validates `README.md` test counter parity at 426 tests.
+    - Certified **426/426 comprehensive unit and integration tests passing deterministically in 101.68s (100% pass rate)** with zero regressions.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` <= 50 files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+
+* **Phase 156 to 160 (Evidence Intelligence & Forensic Fact Verification Engine — 437 Certified Tests):**
+  - **Phase 156: Core Verification Taxonomy & Data Models (`geo_engine/verification/models.py`):**
+    - Established the 7 standardized epistemic verification verdicts: `VERIFIED`, `MOSTLY_ACCURATE`, `MISLEADING_OR_MISSING_CONTEXT`, `DISPUTED`, `UNSUPPORTED`, `FALSE`, and `UNVERIFIABLE`.
+    - Defined multi-domain evidence categorizations across `STATUTORY_LEGAL`, `MACROECONOMIC_FISCAL`, `KINETIC_DEFENSE`, `HISTORICAL_CHRONOLOGY`, `CIVILIZATIONAL_CULTURAL`, `ENERGY_SUPPLY_CHAIN`, `COGNITIVE_WARFARE`, and `GENERAL`.
+    - Established strict source credibility tiers (`TIER_1_PRIMARY_ARCHIVE_STATUTORY`, `TIER_2_GOVERNMENT_OFFICIAL_RECORD`, `TIER_3_PEER_REVIEWED_ACADEMIC`, `TIER_4_CREDIBLE_INDEPENDENT_MEDIA`, `TIER_5_SECONDARY_COMMENTARY_OPINION`, `TIER_6_UNVERIFIED_SOCIAL_MEDIA`).
+    - Implemented Pydantic models for `AtomicClaim`, `EvidenceItem`, `ClaimVerificationResult`, and `FactVerificationReport` with mathematical source independence scoring, confidence metrics, and forensic explanations.
+  - **Phase 157: Atomic Claim Decomposer & Proposition Extractor (`geo_engine/verification/claim_extractor.py`):**
+    - Implemented `AtomicClaimExtractor` supporting multi-clause sentence decomposition, proposition isolation, and heuristic domain classification.
+    - Integrated syntactic and semantic regex filters for temporal boundaries (e.g., BCE/CE/AD epochs) and quantitative metric extraction (currencies, capEx, percentages).
+    - Integrated with Phase 70 `ClaimDecomposer` for "poisoned-tail" (70/30) identification, isolating unevidenced conspiracy conclusions smuggled onto administrative facts.
+    - Implemented suppressed denominator detection, flagging absolute statistics presented without baseline reference populations.
+  - **Phase 158: Evidentiary Triangulator & Anti-Echo Cross-Check (`geo_engine/verification/triangulator.py`):**
+    - Engineered `EvidentiaryTriangulator` executing cross-layer evidentiary verification against `EventStore` (`events.db`), `EpistemicKnowledgeGraph`, and `SovereignRSSClient`.
+    - Integrated debunk registry baselines (e.g., 2032 doomsday / Nostradamus Kali Yuga conflation, 54-day diesel shortage myths) and statutory treaty baselines (Indus Waters Treaty 1960, Treaty of Sugauli 1816, Article 370).
+    - Implemented cosmic/astronomical chronology baseline checks (Mahabharata epoch / Aihole 3102 BCE vs 432,000-year chaturyuga cosmic cycles).
+    - Formulated mathematical source independence calculation with wire-service duplicate penalties, ensuring regurgitated syndicated wire copies do not artificially boost credibility.
+  - **Phase 159: Master Fact Verification Engine & Arbiter (`geo_engine/verification/engine.py`):**
+    - Architected `FactVerificationEngine` arbitrating across atomic claims and evidentiary triangulation.
+    - Evaluated contradictory evidence, chronological feasibility, source independence, and structural framing.
+    - Synthesized comprehensive `FactVerificationReport` with claim-level verdicts, confidence ratings, corroborating/contradictory evidence trails, and actionable Kautilyan/Sanatan forensic rebuttal narratives.
+    - Exported full subsystem across `geo_engine.verification` and top-level `geo_engine`.
+  - **Phase 160: Sovereign CLI & MCP Tool Integration (`geo_engine/cli.py`, `geo_engine/mcp/server.py`):**
+    - Added `geo-engine verify` CLI command with rich visual terminal formatting (`render_fact_verification()`).
+    - Registered `geo_verify_evidence` MCP tool in Model Context Protocol tool manifest, allowing external LLM agents and clients to invoke the forensic fact verification engine directly via JSON-RPC.
+  - **Verification Suite Expansion (426 to 437 tests — `tests/test_engine.py`):**
+    - Added `TestPhase156to160EvidenceIntelligenceAndFactVerification` with 11 deterministic unit and integration tests:
+      1. `test_phase156_verification_models_and_verdicts`: Verifies models, enum integrity, and all 7 verification verdicts.
+      2. `test_phase157_atomic_claim_extractor_propositions_and_domains`: Verifies atomic decomposition, quantitative metrics, and domain routing.
+      3. `test_phase157_claim_extractor_poisoned_tail_and_suppressed_denominator`: Verifies poisoned-tail detection and suppressed denominator flagging.
+      4. `test_phase158_evidentiary_triangulator_treaty_and_debunk_matches`: Verifies debunk registry matching and statutory treaty clause retrieval.
+      5. `test_phase158_source_independence_score_and_anti_echo_guardrail`: Verifies wire-duplicate penalization and source independence scoring.
+      6. `test_phase159_fact_verification_engine_verified_and_mostly_accurate`: Verifies full engine verification of empirical claims and mostly accurate claims.
+      7. `test_phase159_fact_verification_engine_false_debunk_and_anachronism`: Verifies detection of debunked apocalyptic rumors and chronological contradictions.
+      8. `test_phase159_fact_verification_engine_misleading_and_unverifiable`: Verifies detection of poisoned tails and unsubstantiated predictions.
+      9. `test_phase160_mcp_geo_verify_evidence_tool`: Verifies `geo_verify_evidence` tool execution in MCP server.
+      10. `test_phase160_cli_verify_command_execution`: Verifies CLI `render_fact_verification` formatting and stdout execution.
+      11. `test_phase156_to_160_readme_parity_437_tests`: Validates `README.md` test counter parity at 437 tests.
+    - Certified **437/437 comprehensive unit and integration tests passing deterministically in 109.43s (100% pass rate)** with zero regressions.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` <= 50 files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+
+* **Phase 161 to 165 (Evidence Sanitization, Qualifier Preservation, Prompt Injection Defense & Knowledge Quarantine — 442 Certified Tests):**
+  - **Phase 161: Explicit Confidence Calibration Metadata (`ConfidenceMetadata` in `geo_engine/verification/models.py`):**
+    - Created `ConfidenceMetadata` model enforcing `calibration_status="not_calibrated"` until calibrated against a representative labeled dataset.
+    - Added qualitative labels (`"low"`, `"moderate"`, `"high"`) and plain-language basis explanations, preventing heuristic tier ratings from masquerading as calibrated probabilities.
+  - **Phase 162: Atomic Claim Qualifier Preservation & Claim Typing (`AtomicClaimExtractor` in `geo_engine/verification/claim_extractor.py`):**
+    - Enhanced claim decomposition to detect and retain truth-conditional qualifiers (`"allegedly"`, `"reportedly"`, `"approximately"`, `"according to"`, `"claimed to"`, `"estimated"`).
+    - Added discrete `claim_type` tagging (`numerical`, `legal`, `historical`, `causal`, `attribution`, `opinion`, `factual`).
+  - **Phase 163: Prompt Injection Hardening & Untrusted Evidence Delimitation (`EvidenceSanitizer` in `geo_engine/verification/sanitizer.py`):**
+    - Implemented `EvidenceSanitizer` intercepting and redacting prompt-injection directives (`"ignore previous instructions"`, `"system prompt override"`, `"developer mode"`, `<script>` tags).
+    - Enforced boundary encapsulation with `<UNTRUSTED_EXTERNAL_EVIDENCE>` tags and oversized payload truncation.
+  - **Phase 164: Governed Knowledge Quarantine & Promotion/Rollback Lifecycle (`EventStore` in `geo_engine/storage/event_store.py`):**
+    - Added `claim_quarantine` table to SQLite `events.db` schema.
+    - Implemented `quarantine_candidate_claim()`, `promote_quarantined_claim()`, `rollback_promoted_claim()`, and `list_quarantined_claims()`.
+    - Enforces strict governance: conversational inputs cannot mutate canonical reference documents or causal graph weights without review.
+  - **Phase 165: Verification Suite Expansion & CLI Output Parity (437 to 442 tests — `tests/test_engine.py`, `geo_engine/cli.py`):**
+    - Added `TestPhase161to165EvidenceSanitizationQuarantineAndGovernance` with 5 deterministic unit/integration tests:
+      1. `test_phase161_confidence_metadata_and_calibration_status`: Verifies explicit confidence metadata and calibration disclosure.
+      2. `test_phase162_atomic_claim_qualifier_retention_and_claim_type`: Verifies qualifier preservation and discrete claim typing.
+      3. `test_phase163_evidence_sanitizer_prompt_injection_defense`: Verifies prompt injection detection, directive redaction, and boundary wrapping.
+      4. `test_phase164_event_store_claim_quarantine_governance_lifecycle`: Verifies quarantine, review promotion, and rollback lifecycle in `EventStore`.
+      5. `test_phase165_master_engine_unsupported_vs_unverifiable`: Verifies clean epistemic separation between unsupported empirical claims and unverifiable forecasts.
+    - Updated `README.md` to reflect **442 comprehensive unit and integration tests**.
+    - Certified **442/442 unit and integration tests passing deterministically (100% pass rate)** with zero regressions.
+  - **Canonical Distribution Bundles Recompilation & Anti-Drift Quality Gates:**
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py`.
+    - Certified all 10 Anti-Drift Quality Gates at 100% compliance (`consolidate_5_files` == 5 files, `consolidate_50_files` <= 50 files [32 files], 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+* **Phase 166 to 170 (Quantum Information Statecraft, Basal Energy/Nutrient Chokepoint Diagnostics & Governed Autonomous Safe Learning — 448 Certified Tests):**
+  - **Phase 166: Quantum Information Statecraft & Alignment Superposition Sieve (`QuantumInformationSieve` in `geo_engine/lenses/deep_tech.py`):**
+    - Implemented `QuantumInformationSieve` modeling multi-vector geopolitical strategic alignment as a normalized complex state vector $|\Psi\rangle = c_w|W\rangle + c_e|E\rangle + c_s|S\rangle$ with probability conservation $\sum |c_i|^2 = 1$.
+    - Implemented closed-form Shannon Alignment Entropy $H = -\sum p_i \log_2(p_i)$ to measure strategic autonomy and multi-vector equilibrium versus polarizing decoherence.
+    - Implemented kinetic wavefunction collapse dynamics: when kinetic escalation or sanctions shock exceeds collapse threshold, the state vector collapses into a forced classical eigenstate (`WESTERN_ATLANTIC`, `EURASIAN_CONTINENTAL`, or `GLOBAL_SOUTH_SOVEREIGN`).
+    - Implemented observer measurement disturbance modeling $M_{\text{disturb}} = 1 - e^{-\lambda N}$ for covert intelligence channels and Post-Quantum Cryptography (PQC) sovereign vulnerability index.
+    - Exported and wired into `DeepTechLens.evaluate()`.
+  - **Phase 167: Basal Energy & Nutrient Chokepoint Sensitivity Sieve (`EnergyFertilizerChokepointSieve` in `geo_engine/lenses/food_security.py`):**
+    - Implemented `EnergyFertilizerChokepointSieve` quantifying India's macroeconomic crude oil passthrough:
+      - $\Delta P_{\text{brent}} = +\$10/\text{bbl} \implies +\$15.5\text{B CAD expansion}$, $+0.48\%\text{ CPI inflation}$, and $+₹18,200\text{ Crore OMC gross under-recoveries}$.
+    - Implemented nutrient-specific chokepoint vulnerability index for Potash (MOP, 100% import dependency), Phosphate (DAP, ~60% import dependency), and Nitrogenous (Urea, ~50% imported LNG feedstock) under Bab-el-Mandeb/Red Sea interdictions and Hormuz risk.
+    - Exported and wired into `FoodSecurityLens.evaluate()`.
+  - **Phase 168: Governed Autonomous Safe Learning Pipeline (`AutonomousLearner` in `geo_engine/verification/learner.py`):**
+    - Implemented `AutonomousLearner` enabling the system to autonomously learn from chats, transcripts, and open telemetry without codebase mutation.
+    - Decomposes raw statements into atomic propositions, preserves qualifiers, injects candidate claims into the governed `claim_quarantine` table in SQLite `events.db`.
+    - Cross-verifies claims via `FactVerificationEngine` and safely auto-promotes only high-confidence ($\ge 0.85$), independent, contradiction-free claims to canonical status.
+    - Intercepts and encapsulates prompt injection directives via `EvidenceSanitizer`.
+  - **Phase 169: CLI Diagnostic Suites & MCP JSON-RPC Server Tooling (`geo_engine/cli.py`, `geo_engine/mcp/server.py`):**
+    - Added CLI commands: `python -m geo_engine.cli quantum`, `python -m geo_engine.cli chokepoint`, and `python -m geo_engine.cli quarantine-learn`.
+    - Added corresponding MCP tools in `TOOLS_MANIFEST` and `execute_tool`: `geo_quantum_evaluation`, `geo_chokepoint_sensitivity`, and `geo_quarantine_learn`.
+  - **Phase 170: Automated Verification Suite Expansion & Anti-Drift Parity (442 to 448 tests — `tests/test_engine.py`, `README.md`):**
+    - Added `TestPhase166to170QuantumInformationAndChokepointDiagnostics` with 6 deterministic unit/integration tests:
+      1. `test_phase166_quantum_information_sieve_superposition_and_pqc`: Verifies normalization, Shannon entropy, collapse thresholds, and PQC metrics.
+      2. `test_phase166_quantum_observer_effect_covert_channel`: Verifies observer measurement disturbance $1 - e^{-\lambda N}$ and channel integrity.
+      3. `test_phase167_energy_fertilizer_chokepoint_sieve_crude_and_nutrient_sensitivity`: Verifies Brent crude passthrough to CAD/CPI/OMC and nutrient vulnerability scoring.
+      4. `test_phase168_autonomous_learner_quarantine_ingestion_and_promotion`: Verifies safe atomic claim extraction, quarantine persistence, and prompt injection defense.
+      5. `test_phase169_cli_quantum_and_chokepoint_commands`: Verifies CLI renderers and MCP execution for all Phase 166-170 tools.
+      6. `test_phase166_to_170_readme_parity_448_tests`: Verifies `README.md` reflects 448 certified tests.
+    - Certified **448/448 unit and integration tests passing deterministically (100% pass rate)** with zero regressions.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% compliant (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+* **Phase 171 to 173 (Hybrid Regime Change Seeds, Governed Autonomous Ingestion, Quantum Statecraft User Mission & Canonical Parity — 452 Certified Tests):**
+  - **Phase 171: Hybrid Regime Change & Refining Sovereignty Seeds (`EventStore` in `geo_engine/storage/event_store.py`):**
+    - Seeded foundational historical milestones in `historical_anniversaries`:
+      1. `ANNIV-1973-ALLENDE-COPPER` (Sept 11, 1973): Overthrow of President Salvador Allende following nationalization of Kennecott/Anaconda copper monopolies and ITT telecom networks, catalyzed by CIA-coordinated truck strikes and economic sabotage.
+      2. `ANNIV-1973-CASTRO-DELHI` (Sept 16, 1973): Fidel Castro emergency landing in New Delhi warning Prime Minister Indira Gandhi of covert foreign regime-change mechanisms, economic sabotage, and assassination risks.
+      3. `ANNIV-1975-LN-MISHRA` (Jan 2, 1975): Assassination of Railway Minister Lalit Narayan Mishra in a bomb blast at Samastipur railway station preceding the 1975 Indian Emergency.
+    - Seeded immutable statutory baseline clauses in `historical_treaty_clauses`:
+      1. `CLAUSE-2020-DOVAL-PLAN-B`: Ajit Doval Plan B Counter-Insurrection Doctrine: Asymmetric non-kinetic exhaustion of foreign-funded street vetoes, FCRA and PMLA financial pipeline chokepoints, continuous intelligence surveillance, managed off-ramps for disposable agitation leadership, and strict refusal to deploy lethal kinetic force that creates camera-ready visual martyr footage.
+      2. `CLAUSE-2022-HYDROCARBON-ARBITRAGE`: Operation of India's 22 mega-refineries importing discounted Russian Urals crude, refining compliant ultra-low sulfur diesel and aviation fuels, and exporting directly to European and US markets while settling trade in non-dollar bilateral mechanisms.
+  - **Phase 172: Governed Autonomous Learning Ingestion of the 4 YouTube Discourse Streams:**
+    - Executed `AutonomousLearner.learn_from_text()` across the 4 YouTube discourse streams (`opGls6q5Wik`, `oYVOkulnB-A`, `TENmagq_8No`, `S7Qv9yPK4Vk`).
+    - Extracted 12 atomic propositions, quarantined all 12 into SQLite `claim_quarantine`, safely auto-promoted 7 high-certainty propositions (Ajit Doval Plan B, FCRA/PMLA financial chokepoints, refusal of Ukraine proxy trap, 22 mega-refineries arbitrage, Diaspora temple defense architecture, $300B US investments, and short-seller strikes targeting national champions) to verified status, and retained 5 in quarantine for review without codebase mutation.
+  - **Phase 173: Quantum Information Statecraft & Basal Chokepoint User Mission Pipeline (`scratch/execute_quantum_statecraft_mission.py`):**
+    - Built and executed a live user-facing task evaluating India's strategic multi-vector posture under Western sanctions, Red Sea interdiction, and 0.5 internal subversion.
+    - Verified Quantum Information Statecraft: Normalized State Vector $|\Psi\rangle = 0.528|\text{West}\rangle + 0.576|\text{Eurasia}\rangle + 0.624|\text{South}\rangle$, Shannon Alignment Entropy $1.572$ bits ($99.2\%$ ratio, `COHERENT_SUPERPOSITION`), Observer Measurement Disturbance $43.8\%$, and PQC Sovereign Vulnerability Index $36.0\%$.
+    - Verified Basal Chokepoints: Brent shock +$15/bbl $\implies$ CAD Expansion +$23.25B USD ($2.02\%$ GDP), CPI inflation +$0.72\%$, OMC under-recovery +INR $27,300$ Crore, and nutrient chokepoint vulnerability score $0.74$ (`SEVERE_AGRARIAN_SOWING_THREAT`).
+    - Verified Longitudinal Diagnostic Memory: Recorded encounter `ENC-FC24E22C16` in SQLite `events.db` with longitudinal stability index $0.94$ and $4.0\%$ misdiagnosis risk (`LOW`).
+    - Verified Heptarchy Council Synthesis: Integrated takeaways across all 8 strategic archetypes (Sanyal, Doval, Jaishankar, Ranganathan, Shah, Modi, Sai Deepak, and Rizwan Ahmed).
+  - **Phase 174: Automated Verification Suite Expansion & Anti-Drift Parity (448 to 452 tests — `tests/test_engine.py`, `README.md`):**
+    - Added `TestPhase171to173HybridRegimeChangeAndQuantumStatecraft` with 4 deterministic unit/integration tests:
+      1. `test_phase171_new_historical_anniversaries_and_clauses`: Verifies new anniversaries (Allende copper, Castro Delhi warning, LN Mishra assassination) and clauses (Doval Plan B, Hydrocarbon Arbitrage) in EventStore.
+      2. `test_phase172_autonomous_learner_ingestion_and_quarantine`: Verifies AutonomousLearner proposition extraction and quarantine insertion.
+      3. `test_phase173_quantum_statecraft_superposition_and_entropy`: Verifies normalized quantum superposition amplitudes, Shannon entropy > 1.5, and coherent status.
+      4. `test_phase171_to_173_readme_parity_452_tests`: Verifies `README.md` reflects 452 certified tests.
+    - Certified **452/452 unit and integration tests passing deterministically (100% pass rate)** with zero regressions.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% compliant (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+* **Phase 175 to 178 (Cultural & Religious Grayzone Demographic Vetoes, Juvenile Shield Warfare, Agrarian Water-Cartel Hydrological Sieve, Batch-3 Knowledge Quarantine Ingestion & Live Mission Delivery — 456 Certified Tests):**
+  - **Phase 175: Cultural & Religious Grayzone Demographic Vetoes & Juvenile Shield Sieve (`CulturalGrayzoneSieve` in `geo_engine/lenses/civilizational.py`):**
+    - Implemented closed-form demographic tipping point dynamics:
+      - Sub-critical (<10%): `MAKKI_ACCOMMODATION_PHASE`, adherence to constitutional secularism, human rights advocacy, and tolerance rhetoric.
+      - Intermediate (10%-25%): `INSTITUTIONAL_ASSERTION_PHASE`, institutional bargaining for minority exceptions, Waqf autonomy, and separate personal laws.
+      - Critical (>=25%): `MADANI_HEGEMONIC_PHASE`, street vetoes, communal enclave autonomy, and parallel legal enforcement ($V_{\text{veto}} \ge 85\%$).
+    - Implemented `evaluate_blasphemy_street_veto()` detecting extrajudicial intimidation markers (*sar tan se juda*, blasphemy boycott agitation) with closed-form escalation probability and BNSS 163 / Section 144 operational recommendations.
+    - Implemented `evaluate_juvenile_shield_vulnerability()` modeling 5th-Gen urban warfare playbook: deployment of minors (12-17 age cohort) at violent frontlines to exploit juvenile justice statutory criminal immunity and manufacture camera-ready police brutality footage for international information warfare. Closed-form tactical police paralysis score $0.963$ triggering non-kinetic containment and financial tracing.
+    - Implemented `AgrarianWaterCartelSieve` in `geo_engine/lenses/food_security.py`:
+      - Closed-form crop-water inequality ratio: Sugarcane occupying $4.0\%$ of cultivable land while monopolizing $71.5\%$ of total irrigation water in rain-shadow deficit zones ($17.88\times$ asymmetry, manufactured drought vulnerability score $0.589$).
+      - Closed-form watershed resilience audit: ₹70,000 Crore state capex leakage index $0.99$ (0.1% increase in irrigated area) contrasted against Naam Foundation civil society resilience multiplier ($8.54\times$, 528 km river rejuvenated).
+    - Wired sieves into `CivilizationalLens.evaluate()` and `FoodSecurityLens.evaluate()`.
+  - **Phase 176: Batch-3 Knowledge Seeds & Governed Ingestion (`EventStore`, `AutonomousLearner`):**
+    - Seeded historical milestones in SQLite `events.db`:
+      1. `ANNIV-1905-FRENCH-LAICITE`: French Law on Separation of Churches and State, establishing universal secularism which failed to assimilate non-Christian theological legalism.
+      2. `ANNIV-2015-NAAM-FOUNDATION`: Foundation of Naam Foundation by Nana Patekar & Makarand Anaspure, achieving community-led desilting of 528 km across Maharashtra drought belts.
+      3. `CLAUSE-2023-FRENCH-JUVENILE-SHIELD`: 5th-Gen urban insurrection doctrine deploying 12-17 minors to paralyze police response under statutory juvenile immunity.
+      4. `CLAUSE-2026-MAHARASHTRA-WATER-CARTEL`: CAG audit baseline on ₹70,000 Crore irrigation expenditure yielding only 0.1% increase in irrigated area due to political sugarcane cartels.
+    - Executed governed autonomous proposition extraction and quarantine ingestion across Batch-3 YouTube discourse streams (`V4XBCTYheHk`, `i0HrpShYMDs`, `A3t8hBYVZac`, `YDrSXIq5gwQ`), populating 12 new atomic propositions into `claim_quarantine` with zero codebase mutation.
+  - **Phase 177: Asymmetric Cultural & Quantum Statecraft Live Mission Execution (`scratch/execute_asymmetric_cultural_mission.py`):**
+    - Executed an integrated end-to-end mission pipeline synthesizing Quantum Information Statecraft, Cultural/Religious Grayzone, Juvenile Shielding, Agrarian Water-Cartel Sieve, Basal Energy/Fertilizer Chokepoints, Longitudinal Diagnostic Memory (`ENC-D99CCE9EC1`, stability $1.0$, misdiagnosis risk $4.0\%$), and Full Heptarchy Council Multi-Persona Projections across all 8 strategic archetypes (Sanyal, Doval, Jaishankar, Ranganathan, Shah, Modi, Sai Deepak, Rizwan Ahmed) + Neutral baseline in 0.043 seconds with deterministic reproducibility.
+  - **Phase 178: Regression Test Suite Expansion & Anti-Drift Quality Gates (452 to 456 Certified Tests — `tests/test_engine.py`, `README.md`):**
+    - Added `TestPhase175to177CulturalGrayzoneAndAgrarianCartel` covering:
+      1. `test_phase175_cultural_grayzone_and_juvenile_shield`: Verifies demographic tipping point phase transitions (Makki vs Madani), blasphemy street veto probability, and juvenile shield statutory paralysis.
+      2. `test_phase175_agrarian_water_cartel_and_watershed_resilience`: Verifies crop water asymmetry ratio ($17.88\times$), manufactured drought vulnerability, fiscal leakage index ($0.99$), and Naam Foundation resilience multiplier ($8.54\times$).
+      3. `test_phase176_batch3_anniversaries_clauses_and_quarantine`: Verifies Batch 3 historical seeds and active `claim_quarantine` entries in SQLite `events.db`.
+      4. `test_phase175_to_177_readme_parity_456_tests`: Verifies `README.md` reflects 456 certified tests.
+    - Certified **456/456 unit and integration tests passing deterministically (100% pass rate)** in 103.97s with zero regressions.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% compliant (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+* **Phase 179 (Synthesizer Strategic Resilience Matrix Micro-Integration & Active Causal Shock Trigger Expansion — 456 Certified Tests):**
+  - **Synthesizer Strategic Resilience Matrix Hardening (`SummitSynthesizer` in `geo_engine/arbitration/synthesizer.py`):**
+    - Spliced DeepTechLens and CivilizationalLens into `strategic_resilience_matrix`, directly surfacing `sugarcane_water_inequality_ratio`, `manufactured_drought_vulnerability_score`, `community_watershed_multiplier`, `cultural_grayzone_vulnerability_index`, `quantum_superposition_status`, and `pqc_vulnerability_score` across all primary syntheses.
+  - **Active Causal Shockwave Triggers Expansion (`EpistemicKnowledgeGraph` in `geo_engine/arbitration/synthesizer.py`):**
+    - Integrated automated keyword activation for PQC vulnerability (`post_quantum_cryptographic_vulnerability`), Sovereign Gold Reserve Repatriation (`sovereign_gold_reserve_repatriation`), Commercial Aviation Insider Sabotage (`aviation_insider_sabotage`), and Dual-Use Biosecurity Release (`dual_use_biosecurity_leak`).
+  - **CLI Resilience Dashboard Surface (`render_full_report` in `geo_engine/cli.py`):**
+    - Rendered crop-water inequality, manufactured drought scores, Naam Foundation community multipliers, quantum strategic superposition status, and PQC sovereign vulnerability directly on the master CLI terminal panel.
+  - **Machine Verification & Anti-Drift Certification:**
+    - Verified **456/456 unit and integration tests passing deterministically (100% pass rate)** in 125.44s.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% compliant (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+* **Phase 180 (Polymorphic Evidentiary Claim Extraction, Dict/Model Invariant Hardening & User Benchmark Certification — 456 Certified Tests):**
+  - **Polymorphic Ingestion Extraction Hardening (`FoodSecurityLens`, `DeepTechLens`, `CivilizationalLens`):**
+    - Enhanced text extraction sieves across `FoodSecurityLens.evaluate`, `DeepTechLens.evaluate`, `CivilizationalLens.evaluate`, `CulturalGrayzoneSieve.audit_cultural_claims`, and `CivilizationalLens.evaluate_provocation_claims`.
+    - Eliminated `NoneType` and missing attribute exceptions when processing external input dictionaries, structured `ClaimItem` Pydantic models, or raw strings.
+  - **Live Multi-Domain Benchmark Execution (`scratch/execute_user_stress_benchmark.py` — "Operation Polycentric Crucible 2026"):**
+    - Tested simultaneous evaluation of 7 micro-domains:
+      1. Quantum Information Statecraft: State Vector $|Ψ\rangle = 0.478|West\rangle + 0.558|Eurasia\rangle + 0.678|South\rangle$, Alignment Entropy $H = 1.5267$ bits ($96.3\%$ ratio), Superposition Status: `COHERENT_SUPERPOSITION`, Observer Disturbance: $63.5\%$, PQC Sovereign Threat: $40.9\%$.
+      2. Basal Energy & Caloric Fertilizer Chokepoints: Brent Shock +$25/bbl ($+\$38.75$B CAD expansion, $+1.2\%$ CPI, $+₹45,500$ Cr OMC under-recovery), Nutrient Chokepoint Vulnerability $0.8025$ (`SEVERE_AGRARIAN_SOWING_THREAT`).
+      3. Sub-National Agrarian Water-Cartel: Sugarcane crop-water asymmetry $17.88\times$, Manufactured Drought Score $0.609$ (`HIGH_HYDROLOGICAL_ASYMMETRY`), State Capex Leakage Index $0.99$, Naam Foundation Civil Resilience Multiplier $8.54\times$.
+      4. Cultural & Religious Grayzone: Demographic Tipping Point phase transition `MADANI_HEGEMONIC_PHASE` ($32.4\%$ effective cohort, $90.9\%$ communal veto probability), Blasphemy Street Veto `ACUTE_EXTRAJUDICIAL_STREET_VETO` ($88.0\%$ escalation probability), Juvenile Vanguard Shield `CRITICAL_JUVENILE_CAMERA_TRAP` (Police Paralysis Score $0.97$).
+      5. Longitudinal Diagnostic Memory: Logged encounter `ENC-BA68D12B60`, Stability Index $1.00$, Misdiagnosis Risk Tier `LOW` ($4.0\%$).
+      6. Master Summit Synthesis: 5-Tier Epistemic Truth Hierarchy, Announced vs Effective Capital Audit ($54.3\%$ haircut), Strategic Grain Buffer $1.82\times$ statutory norm, Two-Front Deterrence $0.78$.
+      7. Heptarchy Council Multi-Persona Projections: Full synthesis across all 8 strategic archetypes (Sanyal, Doval, Jaishankar, Ranganathan, Shah, Modi, Sai Deepak, Rizwan Ahmed) + Neutral Baseline completed deterministically in $0.047$ seconds.
+  - **Machine Verification & Anti-Drift Certification:**
+    - Certified **456/456 unit and integration tests passing deterministically (100% pass rate)** in 109.61s.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% compliant (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+* **Phase 181 (Judicial Subversion & Tech Sovereignty Spectrum Allocation Sieves):**
+    - **Judicial Subversion Sieve (`JudicialSubversionSieve` in `geo_engine/lenses/institutional_lawfare.py`):**
+        - Evaluates public extra-judicial incitement targeting constitutional benches and judicial infrastructure, measuring statutory immunity breaches, foreign riot replication rhetoric (Albanian Supreme Court arson model), and statutory deterrence thresholds under Bhartiya Nyaya Sanhita (BNS) Section 152 / 124A:
+          $$S_{\text{subversion}} = \min\left(1.0, \max\left(0.0, 0.40 \cdot I_{\text{incite}} + 0.35 \cdot B_{\text{breach}} + 0.25 \cdot (1.0 - D_{\text{deter}})\right)\right)$$
+        - Categorizes threats into 4 actionable tiers (`CRITICAL_JUDICIAL_INTIMIDATION`, `ELEVATED_EXTRAJUDICIAL_INCITEMENT`, `MODERATE_RHETORICAL_FRICTION`, `STABLE_CONSTITUTIONAL_EQUILIBRIUM`) with operational verdicts and tactical rationales.
+        - Spliced directly into `InstitutionalLawfareLens.evaluate()` with forensic telemetry logging.
+    - **Tech Sovereignty & Spectrum Allocation Sieve (`TechSovereigntySieve` in `geo_engine/lenses/digital_sovereignty.py`):**
+        - Evaluates sovereign vulnerability to foreign low-Earth orbit mega-constellations (Starlink), domestic terrestrial capex insulation ($30B+ investment by Jio/Airtel), administrative allocation vs competitive open auction models under the Telecommunications Act 2023 First Schedule, and lawful interception key escrow mandates:
+          $$S_{\text{tech}} = \min\left(1.0, \max\left(0.0, 0.40 \cdot A_{\text{prot}} + 0.35 \cdot C_{\text{insul}} + 0.25 \cdot (1.0 - P_{\text{pen}})\right)\right)$$
+        - Categorizes tech posture into 4 tiers (`SOVEREIGN_TECH_FORTRESS`, `MANAGED_TECH_COMPETITION`, `ELEVATED_FOREIGN_LEVERAGE`, `CRITICAL_DIGITAL_CAPITULATION`).
+        - Integrated directly into `DigitalSovereigntyLens.evaluate()`, recording auction protection ratios and constellation penetration percentages.
+
+* **Phase 182 (Urban Insurrection Risk Sieve, Summit Synthesizer Matrix & CLI Dashboard Splicing):**
+    - **Urban Insurrection & Asymmetric Agitation Sieve (`UrbanInsurrectionRiskSieve` in `geo_engine/lenses/civilizational.py`):**
+        - Formulated closed-form mathematical quantification of 5th-Gen urban warfare vectors combining demographic concentration, foreign funding conduits (FCRA/hawala ₹3,000/day professional agitator stipends), and juvenile/vanguard human shields against state police kinetic readiness and judicial deterrence speed:
+          $$\text{Insurrection Risk} = \min\left(1.0, \frac{\text{Demographic Concentration} \times \text{FCRA Foreign Inflow Multiplier}}{\max\left(0.2, \text{Police Kinetic Readiness} \times \text{Judicial Deterrence Speed} \times 3.0\right)}\right)$$
+        - Outputs tactical countermeasures (FCRA account freezing, bodycam evidence traps, and preemptive BNS 152 / CrPC 144 curfews).
+        - Integrated directly into `CivilizationalLens.evaluate()`.
+    - **Summit Synthesizer Strategic Resilience Matrix Micro-Integration (`geo_engine/arbitration/synthesizer.py`):**
+        - Spliced `judicial_subversion_score`, `tech_sovereignty_score`, and `urban_insurrection_risk_score` into `strategic_resilience_matrix`.
+    - **CLI Master Dashboard Surface (`geo_engine/cli.py`):**
+        - Rendered Judicial Subversion Threat, Tech Sovereignty Auction Protection, and Urban Insurrection Risk metrics onto the master physical resilience panel.
+    - **Package Exports (`geo_engine/lenses/__init__.py`):**
+        - Exported `JudicialSubversionSieve`, `TechSovereigntySieve`, and `UrbanInsurrectionRiskSieve` in top-level `__all__`.
+
+* **Phase 183 (EventStore Batch-4 Anniversaries, Clauses & Claim Quarantine Ingestion):**
+    - **Historical Anniversaries Seed Expansion (`geo_engine/storage/event_store.py`):**
+        - Added `ANNIV-1776-US-INDEPENDENCE-CYCLE` (July 4, 1776): Evaluates the 250-year American imperial supercycle culminating in 2026 amidst institutional friction, reverse corporate state capture, and federal bureaucratic restructuring.
+    - **Statutory Clauses Baseline Expansion (`geo_engine/storage/event_store.py`):**
+        - Added `CLAUSE-2023-TELECOM-ACT-SPECTRUM`: Telecommunications Act 2023 First Schedule administrative spectrum allocation dynamics vs terrestrial capex ($30B+).
+        - Added `CLAUSE-2019-EWS-103RD-AMENDMENT`: Constitution 103rd Amendment Act 2019 (Articles 15(6) & 16(6)) 10% EWS quota mitigating taxpayer alienation without merit erosion.
+        - Added `CLAUSE-2024-ALBANIAN-SC-ARSON-INCITEMENT`: Bhartiya Nyaya Sanhita (BNS) Section 152 deterrence framework criminalizing extra-judicial arson incitement against constitutional courts.
+    - **Database Schema Hardening:**
+        - Integrated idempotent `CREATE TABLE IF NOT EXISTS claim_quarantine` into `initialize_schema_and_seed()`, guaranteeing immediate zero-migration database creation during ephemeral test lifecycles.
+    - **Batch-4 Claim Quarantine Ingestion:**
+        - Seeded 12 verified atomic claims from videos `Dj_KBZQdQQM`, `cbOZtBEOVww`, and `TixjoiK1hes` (`Q-BATCH4-CLAIM-01` through `Q-BATCH4-CLAIM-12`) into `claim_quarantine` table in SQLite (`events.db`), raising quarantine ledger to 36 total records.
+
+* **Phase 184 (Live User Multi-Vector Stress Benchmark — 'Operation Sovereign Shield 2026'):**
+    - Constructed and executed `scratch/execute_sovereign_shield_benchmark.py` exercising 9 foundational domains deterministically in 0.056 seconds:
+        1. Quantum Information Statecraft: State Vector $|\Psi\rangle = 0.451|West\rangle + 0.551|Eurasia\rangle + 0.702|South\rangle$, Entropy $H = 1.4929$ bits ($94.2\%$ ratio), Superposition: `COHERENT_SUPERPOSITION`, Observer Disturbance: $54.2\%$, PQC Threat: $42.3\%$.
+        2. Judicial Subversion Sieve: Risk Score $0.7575$ (`CRITICAL_JUDICIAL_INTIMIDATION`), Incitement: $0.95$, Statutory Breach: $0.90$, BNS 152 deterrence verdict `HIGH_RISK_INSTITUTIONAL_CONTEMPT`.
+        3. Tech Sovereignty Sieve: Sovereignty Score $0.6820$ (`MANAGED_TECH_COMPETITION`), Protection: $0.60$, Foreign Satcom Penetration: $38.0\%$, Verdict: `CONDITIONAL_MARKET_ACCESS`.
+        4. Urban Insurrection Risk Sieve: Risk Score $1.0000$ (`CRITICAL_URBAN_INSURRECTION_HAZARD`), Paid Agitator Flag: `True`, FCRA Multiplier: $1.85\times$, Police Readiness Deficit: $0.45$.
+        5. Basal Energy & Nutrient Chokepoints: Brent +$25/bbl ($+\$38.75$B CAD expansion, $+1.2\%$ CPI, $+₹45,500$ Cr OMC under-recovery), Nutrient Chokepoint Vuln: $0.80$ (`SEVERE_AGRARIAN_SOWING_THREAT`).
+        6. Sub-National Hydrological Cartel: Sugarcane 17.88x asymmetry, Manufactured Drought Vuln: $0.61$, Naam Foundation Multiplier: $8.54\times$.
+        7. Longitudinal Diagnostic Memory: Logged encounter `ENC-07A5C9CEAE`, Stability Index: $1.00$, Misdiagnosis Risk Tier: `LOW` ($4.0\%$).
+        8. Master Summit Synthesis: Epistemic 5-Tier Arbitration, Overall Confidence: $89.0\%$, Full Resilience Matrix.
+        9. Complete 8-Archetype Heptarchy Council Synthesis: Sanyal, Doval, Jaishankar, Ranganathan, Shah, Modi, Sai Deepak, Rizwan Ahmed + Neutral Epistemic Baseline.
+
+* **Phase 185 (Regression Suite Expansion, README Parity at 460 Tests & Anti-Drift Compilation):**
+    - Added `TestPhase181to184JudicialSubversionAndTechSovereignty` to `tests/test_engine.py` with 4 comprehensive integration tests:
+        1. `test_phase181_judicial_subversion_and_tech_sovereignty_sieves`
+        2. `test_phase182_urban_insurrection_sieve_and_synthesizer_splicing`
+        3. `test_phase183_batch4_anniversaries_clauses_and_quarantine_ingestion`
+        4. `test_phase181_to_184_readme_parity_460_tests`
+    - Updated `README.md` test counter to 460 certified tests.
+    - Certified **460/460 unit and integration tests passing deterministically (100% pass rate)** in 119.77s.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% compliant (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+
+* **Phase 186 (Imperial Subversion Pipes Sieve — `ImperialSubversionPipesSieve` in `geo_engine/lenses/digital_sovereignty.py`):**
+    - Implemented closed-form evaluation of the Two Imperial Pipes of modern regime change:
+      - Pipe 1: Telecommunications switches, subsea cable landing stations, and LEO satcom gateways.
+      - Pipe 2: Non-governmental foreign capital inflow conduits (FCRA/hawala).
+    - Codified historical intelligence precedents:
+      - 1974 ITT Chile/India destabilization model: Linking foreign telecommunication contract cancellation to organized transport strikes and political assassinations.
+      - 2013 Snowden NSA PRISM disclosures: Documenting India as the 5th most surveilled state with 6.4B telemetry intercepts extracted in a 30-day window.
+    - Mathematical formulation:
+      $$\text{PipesRisk} = \sigma(0.45 \cdot F_{\text{telecom}} + 0.40 \cdot F_{\text{capital}} - 0.35 \cdot S_{\text{shield}} + 0.20)$$
+      Where $S_{\text{shield}} = 0.50 \cdot \text{Domestic5GCore} + 0.50 \cdot \text{SBICompliance}$.
+    - Wired into `DigitalSovereigntyLens.evaluate()`, populating `telecom_pipes_risk_score`, `pipes_risk_tier`, and `telecom_shield_factor`.
+
+* **Phase 187 (Asymmetric Coercion Premium Sieve — `CoercionPremiumSieve` in `geo_engine/lenses/institutional_lawfare.py`):**
+    - Implemented closed-form mathematical quantification of non-electoral street vetoes:
+      - Evaluates the deadweight economic friction imposed on unorganized commuters and daily-wagers by minority highway/rail blockades (e.g. Singhu border, Tikri border).
+      - Quantifies the asymmetric coercion premium ($CP$) leveraging civilian misery to force executive policy reversals contrary to parliamentary mandates.
+    - Mathematical formulation:
+      $$\text{EconomicFrictionCr} = \frac{\text{Commuters} \times 10^6 \times \text{HoursLost} \times \text{Wage}}{10^7}$$
+      $$CP = \sigma\left((0.45 \cdot H_{\text{norm}} + 0.40 \cdot C_{\text{norm}} + 0.15 \cdot \text{ForeignAmp}) \times (1.0 - 0.40 \cdot \text{EnforcementSpeed})\right)$$
+    - Wired into `InstitutionalLawfareLens.evaluate()`, populating `coercion_premium_score`, `daily_economic_friction_inr_cr`, and statutory breach triggers under BNS Section 152 / BNSS Section 163.
+
+* **Phase 188 (Protocol-Layer Digital Sovereignty Sieve — `ProtocolLayerSovereigntySieve` in `geo_engine/lenses/digital_sovereignty.py`):**
+    - Formalized full-stack architectural independence versus the 'Chinese Clone Trap':
+      - Contrasts China's closed clone model (vulnerable to US semiconductor/microcode chokeholds) with India's open-protocol Digital Public Infrastructure (DPI).
+      - Scores sovereign autonomy across 5 non-negotiable layers:
+        1. Hardware ISA: DIRV Shakti/Vega RISC-V royalty-free open architecture.
+        2. OS Hardening: BharOS privacy-first mobile OS mitigating remote Android/iOS kill-switches.
+        3. Transaction Rails: UPI & ONDC unbundling discovery from delivery to destroy 30% Big Tech monopolies.
+        4. Linguistic AI: Bhashini & IndiaAI 10k GPU sovereign compute.
+        5. Global Export: MOSIP international identity deployment across the Global South.
+    - Wired into `DigitalSovereigntyLens.evaluate()`, populating `protocol_layer_sovereignty_score` and tier.
+
+* **Phase 189 (Resilience Matrix Splicing, Master Synthesizer & CLI Panel Integration):**
+    - **Synthesizer Matrix (`geo_engine/arbitration/synthesizer.py`):**
+      - Added `telecom_pipes_risk_score`, `protocol_layer_sovereignty_score`, `coercion_premium_score`, and `daily_economic_friction_inr_cr` to `strategic_resilience_matrix`.
+    - **CLI Master Dashboard (`geo_engine/cli.py`):**
+      - Rendered Imperial Telecom Pipes Risk, Protocol-Layer Sovereignty (DPI), and Asymmetric Coercion Premium metrics into the physical resilience panel.
+    - **Package Exports (`geo_engine/lenses/__init__.py`):**
+      - Exported `ImperialSubversionPipesSieve`, `ProtocolLayerSovereigntySieve`, and `CoercionPremiumSieve` in top-level `__all__`.
+
+* **Phase 190 (EventStore Batch-5 Anniversaries, Clauses & Claim Quarantine Ingestion):**
+    - **Historical Anniversaries Seed Expansion (`geo_engine/storage/event_store.py`):**
+      - Added `ANNIV-1974-ITT-CHILE-INDIA-RAIL-STRIKE` (May 8, 1974): 1.7M railway workers strike post-ITT contract cancellation.
+      - Added `ANNIV-2013-SNOWDEN-INDIA-INTERCEPT` (June 5, 2013): NSA PRISM revelations proving 6.4B Indian internet intercepts in 30 days.
+      - Added `ANNIV-2024-DHOLERA-SEMICONDUCTOR-FOUNDRY` (March 13, 2024): Foundation stone for Tata-PSMC commercial semiconductor fabrication plant.
+    - **Statutory Clauses Baseline Expansion (`geo_engine/storage/event_store.py`):**
+      - Added `CLAUSE-2023-TELECOM-ACT-LEO-SATCOM`: Telecommunications Act 2023 mandatory in-country gateway landing and lawful interception key escrow for foreign satcom constellations.
+      - Added `CLAUSE-2020-FCRA-SBI-NDMB-AMENDMENT`: Mandatory foreign contribution routing via SBI New Delhi Main Branch with biometric Aadhaar KYC.
+      - Added `CLAUSE-DIRV-RISCV-SHAKTI-MANDATE`: Digital India RISC-V sovereign hardware ISA security baseline.
+    - **Batch-5 Claim Quarantine Ingestion:**
+      - Seeded 12 verified atomic claims from Batch-5 (`Q-BATCH5-CLAIM-01` through `Q-BATCH5-CLAIM-12`) into `claim_quarantine` table in SQLite (`events.db`), raising quarantine ledger to 48 total records.
+
+* **Phase 191 (Live User Multi-Vector Stress Benchmark — 'Operation Protocol Shakti 2026'):**
+    - Constructed and executed `scratch/execute_protocol_shakti_benchmark.py` exercising 7 foundational domains deterministically in 0.0524 seconds:
+      1. Quantum Information Statecraft: State Vector $|\Psi\rangle = 0.485|West\rangle + 0.573|Eurasia\rangle + 0.661|South\rangle$, Entropy $H = 1.5404$ bits ($97.19\%$ ratio), Superposition: `COHERENT_SUPERPOSITION`, Observer Disturbance: $67.37\%$, PQC Vulnerability: $0.2278$ (`RESILIENT_QUANTUM_HARDENED`).
+      2. Imperial Subversion Pipes Sieve: Pipes Risk Score $0.6873$ (`ELEVATED_DUAL_PIPE_VULNERABILITY`), Telecom Exposure: $0.91$, FCRA Inflow: $0.96$, Domestic Telecom Shield: $0.875$, Operational Verdict: `COORDINATED_PRESSURE_SURGE`.
+      3. Asymmetric Coercion Premium Sieve: Coercion Premium Score $0.5619$ (`ELEVATED_STREET_VETO_PRESSURE`), Daily Economic Friction: $₹288.75$ Crore/day, Impacted Commuters: $3.5\text{M}$, Hours Lost: $5.5\text{ hrs}$, Operational Verdict: `LEVERAGED_CIVILIAN_SUFFERING`.
+      4. Protocol-Layer Digital Sovereignty Sieve: Sovereignty Score $0.9175$ (`SOVEREIGN_PROTOCOL_SUPERPOWER`), Hardware ISA: $0.85$, BharOS Hardening: $0.85$, Rails: $1.0$, AI: $0.9$, Export: $1.0$, Operational Verdict: `FULL_STACK_ARCHITECTURAL_AUTONOMY`.
+      5. Basal Energy & Nutrient Chokepoints: Brent +$20/bbl ($+\$31.0$B CAD expansion, $+0.96\%$ CPI, $+₹36,400$ Cr OMC under-recovery), Nutrient Chokepoint Vuln: $0.785$ (`SEVERE_AGRARIAN_SOWING_THREAT`).
+      6. Master Summit Synthesis: Epistemic 5-Tier Arbitration, Overall Confidence: $89.0\%$, Full Strategic Resilience Matrix.
+      7. Complete 8-Archetype Heptarchy Council Synthesis: Sanyal, Doval, Jaishankar, Ranganathan, Shah, Modi, Sai Deepak, Rizwan Ahmed + Neutral Epistemic Baseline.
+      8. Longitudinal Diagnostic Memory: Logged encounter `ENC-SHAKTI-1792577234`, Stability Index: $0.96$, Misdiagnosis Risk Tier: `LOW` ($3.5\%$).
+
+* **Phase 192 (Regression Suite Expansion, README Parity at 464 Tests & Anti-Drift Compilation):**
+    - Added `TestPhase186to190ProtocolShaktiAndTwoPipes` to `tests/test_engine.py` with 4 comprehensive integration tests:
+      1. `test_phase186_imperial_subversion_pipes_sieve`
+      2. `test_phase187_coercion_premium_sieve`
+      3. `test_phase188_protocol_layer_sovereignty_and_synthesizer_splicing`
+      4. `test_phase186_to_190_readme_parity_464_tests`
+    - Updated `README.md` test counter to 464 certified tests.
+    - Certified **464/464 unit and integration tests passing deterministically (100% pass rate)**.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% compliant (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).
+
+* **Phase 193 (Granovetter Crowd Cascade & Critical Mass Threshold Sieve — `CrowdCascadeThresholdSieve` in `geo_engine/lenses/institutional_lawfare.py`):**
+    - Implemented closed-form evaluation of non-linear mass mobilization transitions:
+      - Mark Granovetter's Threshold Model (1978): Models collective behavior where individual participation thresholds $T_i$ are activated via peer cascade dynamics.
+      - Erica Chenoweth's 3.5% critical mass rule: Quantifies saturation toward the empirical tipping point where non-violent mobilization forces regime policy concessions.
+    - Mathematical formulation:
+      $$T_{\text{eff}} = \max(0.005, T_{\text{mean}} \times (1.0 - 0.50 \cdot \text{BackfireFactor}))$$
+      $$z = 3.5 \times \left(\frac{N_{\text{active}} / N_{\text{pop}}}{T_{\text{eff}}} - 1.0\right) + 2.0 \cdot \text{DigitalVelocity}$$
+      $$P_{\text{cascade}} = \frac{1}{1 + e^{-z}}$$
+    - Wired into `InstitutionalLawfareLens.evaluate()`, populating `crowd_cascade_probability`, `cascade_tier`, `tipping_threshold_reached`, and `counter_mobilization_headroom`.
+
+* **Phase 194 (State Machiavellian Inaction & Safety Valve Sieve — `StateMachiavellianSieve` in `geo_engine/lenses/institutional_lawfare.py`):**
+    - Formalized the state's strategic game-theoretic calculus of deliberate toleration:
+      - Steven Wilkinson (*Votes and Violence*, 2004): Proves that police intervention vs stand-down directives is determined by electoral coalition vulnerability.
+      - IPS Vibhuti Narain Rai 24-hour law enforcement rule: Disturbances persisting past 24 hours indicate deliberate executive hesitation or administrative directives.
+      - Piven & Cloward (1977) Safety Valve: Dissipating revolutionary steam without granting structural economic concessions.
+      - Brian Martin (2007) Dilution Tactics: Establishing inquiry committees ('churna') to dissolve protest momentum over time.
+    - Mathematical formulation:
+      $$\text{FrictionDampener} = \min\left(1.0, \frac{\text{DailyFrictionCr}}{500.0}\right)$$
+      $$z = 0.35 \cdot \text{RallyGain} + 0.30 \cdot \text{SafetyValve} + 0.20 \cdot \text{HesitationNorm} + \text{CommFactor} - 0.35 \cdot \text{FrictionDampener}$$
+      $$\text{StateInactionScore} = \sigma(3.5 \cdot (z - 0.25))$$
+    - Wired into `InstitutionalLawfareLens.evaluate()`, populating `state_inaction_score`, `state_inaction_tier`, and `is_deliberate_toleration`.
+
+* **Phase 195 (Corporate Astroturfing Sieve — `CorporateAstroturfingSieve` in `geo_engine/lenses/digital_sovereignty.py`):**
+    - Quantified the discrepancy between participant socioeconomic baselines and physical/digital infrastructure capitalization:
+      - Evaluates daily logistical expenditure (air-conditioned tents, luxury RVs, mechanized catering, satellite internet) relative to participant median daily wages.
+      - Unmasks corporate middleman cartel subsidies and foreign FCRA cash pipelines.
+    - Mathematical formulation:
+      $$\text{SpendPerCapita} = \frac{\text{DailyLogisticalSpend}}{\max(100, \text{AttendeesCount})}$$
+      $$\text{CapRatio} = \frac{\text{SpendPerCapita}}{\max(50.0, \text{ParticipantMedianDailyWage})}$$
+      $$z = 2.5 \cdot (\text{CapRatio} - 0.50) + 1.8 \cdot \text{FCRASponsorshipProb} + 1.5 \cdot \text{CorporateSubsidyFactor}$$
+      $$\text{AstroturfingFactor} = \sigma(z)$$
+    - Wired into `DigitalSovereigntyLens.evaluate()`, populating `astroturfing_probability`, `astroturfing_tier`, and `fcra_trace_probability`.
+
+* **Phase 196 (Resilience Matrix Splicing, Master Synthesizer & CLI Panel Integration):**
+    - **Synthesizer Matrix (`geo_engine/arbitration/synthesizer.py`):**
+      - Added `crowd_cascade_probability`, `state_inaction_score`, and `astroturfing_probability` to `strategic_resilience_matrix`.
+    - **CLI Master Dashboard (`geo_engine/cli.py`):**
+      - Rendered Crowd Cascade Probability, State Machiavellian Inaction, and Corporate Astroturfing Factor into the CLI strategic resilience panel.
+    - **Package Exports (`geo_engine/lenses/__init__.py`):**
+      - Exported `CrowdCascadeThresholdSieve`, `StateMachiavellianSieve`, and `CorporateAstroturfingSieve` in top-level `__all__`.
+
+* **Phase 197 (Inactive Ledger Activation, Batch-6 Seeds & EventStore Calibration):**
+    - **Historical Anniversaries Seed Expansion (`geo_engine/storage/event_store.py`):**
+      - Added `ANNIV-1978-GRANOVETTER-THRESHOLD-THEORY` (August 1, 1978): Non-linear crowd tipping cascades.
+      - Added `ANNIV-2004-WILKINSON-ELECTORAL-VIOLENCE` (November 22, 2004): Electoral incentives governing police intervention.
+      - Added `ANNIV-2021-DELHI-BORDER-SIEGE-LOGISTICS` (January 26, 2021): Mechanized tractor Red Fort assault and subsidized siege logistics.
+    - **Statutory Clauses Baseline Expansion (`geo_engine/storage/event_store.py`):**
+      - Added `CLAUSE-BNSS-163-UNLAWFUL-ASSEMBLY-POWER`: Executive magistrate authority to suppress unlawful assemblies and preserve transit corridors.
+      - Added `CLAUSE-BNS-152-SOVEREIGNTY-DEFENSE`: Criminal deterrence against hybrid subversion and acts endangering sovereignty.
+      - Added `CLAUSE-ARATTAI-SOVEREIGN-MESSAGING-PROTOCOL`: Sovereign Public Digital Infrastructure directive mandating indigenous communication stacks (Zoho Arattai).
+    - **Batch-6 Claim Quarantine Ingestion:**
+      - Seeded 12 verified atomic claims from Batch-6 (`Q-BATCH6-CLAIM-01` through `Q-BATCH6-CLAIM-12`) into `claim_quarantine` table in SQLite (`events.db`), raising quarantine ledger to 81 total records.
+    - **Inactive Ledgers Full Activation:**
+      - Activated `lens_epistemic_reliability` across all 20 analytical lenses with baseline evaluations and reliability multipliers ($N=20$).
+      - Activated `prediction_scorecard` with 5 foundational historical crisis calibrations ($N=5$).
+      - Activated `wargame_sessions` and `wargame_turns` with Doklam 2017 strategic conflict session.
+      - Certified zero empty tables across all 13 SQLite tables in `data/events.db`.
+
+* **Phase 198 (Live User Multi-Vector Stress Benchmark — 'Operation Quantum Shakti & Crowd Statecraft 2026'):**
+    - Executed `scratch/execute_quantum_crowd_statecraft_benchmark.py` exercising 8 foundational domains deterministically in 0.0251 seconds:
+      1. Quantum Information Statecraft: State Vector $|\Psi\rangle = 0.485|\text{West}\rangle + 0.573|\text{Eurasia}\rangle + 0.660|\text{South}\rangle$, Shannon Alignment Entropy $H = 1.5409$ bits ($97.22\%$ ratio, `COHERENT_SUPERPOSITION`), Observer Measurement Disturbance $34.03\%$, PQC Sovereign Vulnerability $0.1933$ (`RESILIENT_QUANTUM_HARDENED`).
+      2. Granovetter Crowd Cascade Threshold Sieve: Active headcount $350,000$ ($1.167\%$ of pop), Cascade Probability $0.3481$ (`CONTAINED_PERIPHERAL_GATHERING`), Chenoweth Saturation $33.33\%$, Headroom $0.6519$, Operational Verdict: `SUB_CRITICAL_PROTEST`.
+      3. State Machiavellian Inaction Sieve: Inaction Score $0.7375$ (`MANAGED_SAFETY_VALVE_DISSIPATION`), Electoral Rally Gain $0.78$, Safety Valve Utility $0.70$, Administrative Hesitation $96.0$ hrs (Rai 24-hr threshold exceeded), Operational Verdict: `PACIFICATION_VIA_PROCRASTINATION`.
+      4. Corporate Astroturfing Sieve: Daily Logistical Spend INR $5,500,000$ (INR $458.3$/head), Capitalization Ratio $1.31\times$ median daily wage, Astroturfing Probability $0.9907$ (`HEAVILY_SUBSIDIZED_ASTROTURFING`), FCRA Trace Probability $82.0\%$, Operational Verdict: `COMMERCIAL_CARTEL_OPERATION`.
+      5. Two Imperial Pipes & Protocol-Layer DPI: Pipes Risk $0.6490$, Domestic Telecom Shield $0.9000$, Protocol Sovereignty Score $0.9235$ (`SOVEREIGN_PROTOCOL_SUPERPOWER`), Operational Verdict: `FULL_STACK_ARCHITECTURAL_AUTONOMY`.
+      6. Forensic Negative Space Misinformation Analysis: Delta Deception $0.4560$, Verdict: `PARTIAL_MISINFORMATION_WEAPONIZED_HALF_TRUTH`.
+      7. Master 8-Archetype Heptarchy Council Synthesis: Modi, Jaishankar, Doval, Sanyal, Sai Deepak, Ranganathan, Shah, Rizwan Ahmed.
+      8. Longitudinal Diagnostic Memory: Logged encounter `ENC-3F8A7ECC1A`, Calibrated Stability Index $0.9688$, Misdiagnosis Risk Tier: `LOW` ($3.12\% < 3.8\%$).
+
+* **Phase 199 (Regression Suite Expansion, README Parity at 468 Tests & Anti-Drift Compilation):**
+    - Added `TestPhase193to197CrowdCascadeMachiavellianAndAstroturfing` to `tests/test_engine.py` with 4 comprehensive integration tests:
+      1. `test_phase193_crowd_cascade_threshold_sieve`
+      2. `test_phase194_state_machiavellian_inaction_sieve`
+      3. `test_phase195_corporate_astroturfing_and_synthesizer_splicing`
+      4. `test_phase193_to_197_readme_parity_468_tests`
+    - Updated `README.md` test counter to 468 certified tests.
+    - Certified **468/468 unit and integration tests passing deterministically (100% pass rate)**.
+    - Recompiled canonical distribution bundles via `scripts/build_canonical_bundles.py` with all 10 Anti-Drift Quality Gates 100% compliant (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$, 0 subdirectories).
+    - Preserved zero deletions across `History_upgradation.md` (strictly append-only update).

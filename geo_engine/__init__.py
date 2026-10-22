@@ -34,6 +34,32 @@ from .core.conversation_distiller import (
     DistillationReport,
     ChatConversationDistiller,
 )
+from .arbitration.competing_hypotheses import (
+    StatisticalManipulationEvaluation,
+    StatisticalManipulationSieve,
+)
+from .lenses.civilizational import (
+    CulturalGrayzoneSieve,
+    SacredCalendarProvocationSieve,
+)
+from .lenses.food_security import AgrarianWaterCartelSieve
+from .forecasting.resolution_daemon import ForecastResolutionDaemon
+from .studio.frame_renderer import LocalFrameRenderer
+from .ingestion.sovereign_rss import SovereignRSSClient
+from .verification import (
+    VerificationVerdict,
+    EvidenceDomain,
+    SourceCredibilityTier,
+    EvidenceItem,
+    AtomicClaim,
+    ClaimVerificationResult,
+    FactVerificationReport,
+    ConfidenceMetadata,
+    AtomicClaimExtractor,
+    EvidentiaryTriangulator,
+    FactVerificationEngine,
+    EvidenceSanitizer,
+)
 
 __all__ = [
     "CausalNode",
@@ -57,7 +83,29 @@ __all__ = [
     "DistilledClaim",
     "DistillationReport",
     "ChatConversationDistiller",
+    "StatisticalManipulationEvaluation",
+    "StatisticalManipulationSieve",
+    "CulturalGrayzoneSieve",
+    "SacredCalendarProvocationSieve",
+    "AgrarianWaterCartelSieve",
+    "ForecastResolutionDaemon",
+    "LocalFrameRenderer",
+    "SovereignRSSClient",
+    "VerificationVerdict",
+    "EvidenceDomain",
+    "SourceCredibilityTier",
+    "EvidenceItem",
+    "AtomicClaim",
+    "ClaimVerificationResult",
+    "FactVerificationReport",
+    "ConfidenceMetadata",
+    "AtomicClaimExtractor",
+    "EvidentiaryTriangulator",
+    "FactVerificationEngine",
+    "EvidenceSanitizer",
 ]
+
+
 
 
 

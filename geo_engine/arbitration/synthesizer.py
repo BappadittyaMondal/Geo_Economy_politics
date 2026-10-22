@@ -621,7 +621,6 @@ class SummitSynthesizer:
         else:
             arbitration_log.append("[EVIDENCE_DEGRADED] Zero empirical kinesic telemetry available. Tier 4 forensics suppressed to TIER_0_INSUFFICIENT_EVIDENCE.")
 
-        # Collect Strategic Resilience Matrix from extended physical and sovereign lenses
         lens_eval_map = {l.lens_name: l for l in lens_evals}
         food_eval = lens_eval_map.get(FoodSecurityLens.LENS_NAME) or lens_eval_map.get("Food Security, Fertilizer Geopolitics & Caloric Sovereignty")
         military_eval = lens_eval_map.get(MilitaryReadinessLens.LENS_NAME) or lens_eval_map.get("Military Readiness, ORBAT & Escalation Dominance")
@@ -631,6 +630,9 @@ class SummitSynthesizer:
         timeline_eval = lens_eval_map.get(IndiaTimelineLens.LENS_NAME) or lens_eval_map.get("India's Strategic Timelines & Post-1947 Boundary Trajectories")
         subsea_eval = lens_eval_map.get(SubseaCablesLens.LENS_NAME) or lens_eval_map.get("Subsea Cables & Hydro-Spatial Sovereignty")
         astro_eval = lens_eval_map.get(AstroPoliticsLens.LENS_NAME) or lens_eval_map.get("Astro-Politics, Orbital Sovereignty & Space Defense")
+        deep_tech_eval = lens_eval_map.get(DeepTechLens.LENS_NAME) or lens_eval_map.get("Deep-Tech & Quantitative Modeling")
+        civ_eval = lens_eval_map.get(CivilizationalLens.LENS_NAME) or lens_eval_map.get("Civilizational Statecraft (Sanatan / Comparative)")
+        digital_eval = lens_eval_map.get(DigitalSovereigntyLens.LENS_NAME) or lens_eval_map.get("Digital Sovereignty & Compute Infrastructure") or lens_eval_map.get("Digital Sovereignty, Compute & Telecommunications Stack Lens")
 
         strategic_resilience_matrix = {
             "food_caloric_sovereignty_index": food_eval.hard_metrics.get("caloric_sovereignty_index", 0.81) if food_eval else 0.81,
@@ -648,6 +650,22 @@ class SummitSynthesizer:
             "hydro_spatial_sovereignty_score": subsea_eval.hard_metrics.get("hydro_spatial_sovereignty_score", 0.68) if subsea_eval else 0.68,
             "satcom_sovereignty_coverage_pct": astro_eval.hard_metrics.get("satcom_sovereignty_coverage_pct", 84.0) if astro_eval else 84.0,
             "orbital_sovereignty_index": astro_eval.hard_metrics.get("orbital_sovereignty_index", 0.79) if astro_eval else 0.79,
+            "sugarcane_water_inequality_ratio": food_eval.hard_metrics.get("sugarcane_water_inequality_ratio") if food_eval and "sugarcane_water_inequality_ratio" in food_eval.hard_metrics else None,
+            "manufactured_drought_vulnerability_score": food_eval.hard_metrics.get("manufactured_drought_vulnerability_score") if food_eval and "manufactured_drought_vulnerability_score" in food_eval.hard_metrics else None,
+            "community_watershed_multiplier": food_eval.hard_metrics.get("community_watershed_multiplier") if food_eval and "community_watershed_multiplier" in food_eval.hard_metrics else None,
+            "cultural_grayzone_vulnerability_index": civ_eval.hard_metrics.get("cultural_grayzone_vulnerability_index", 0.15) if civ_eval else 0.15,
+            "quantum_superposition_status": deep_tech_eval.hard_metrics.get("quantum_superposition_status") if deep_tech_eval and "quantum_superposition_status" in deep_tech_eval.hard_metrics else None,
+            "pqc_vulnerability_score": deep_tech_eval.hard_metrics.get("pqc_vulnerability_score") if deep_tech_eval and "pqc_vulnerability_score" in deep_tech_eval.hard_metrics else None,
+            "judicial_subversion_score": lawfare_eval.hard_metrics.get("judicial_subversion_score") if lawfare_eval and "judicial_subversion_score" in lawfare_eval.hard_metrics else None,
+            "tech_sovereignty_score": digital_eval.hard_metrics.get("tech_sovereignty_score") if digital_eval and "tech_sovereignty_score" in digital_eval.hard_metrics else None,
+            "urban_insurrection_risk_score": civ_eval.hard_metrics.get("urban_insurrection_risk_score") if civ_eval and "urban_insurrection_risk_score" in civ_eval.hard_metrics else None,
+            "telecom_pipes_risk_score": digital_eval.hard_metrics.get("telecom_pipes_risk_score") if digital_eval and "telecom_pipes_risk_score" in digital_eval.hard_metrics else None,
+            "protocol_layer_sovereignty_score": digital_eval.hard_metrics.get("protocol_layer_sovereignty_score") if digital_eval and "protocol_layer_sovereignty_score" in digital_eval.hard_metrics else None,
+            "coercion_premium_score": lawfare_eval.hard_metrics.get("coercion_premium_score") if lawfare_eval and "coercion_premium_score" in lawfare_eval.hard_metrics else None,
+            "daily_economic_friction_inr_cr": lawfare_eval.hard_metrics.get("daily_economic_friction_inr_cr") if lawfare_eval and "daily_economic_friction_inr_cr" in lawfare_eval.hard_metrics else None,
+            "crowd_cascade_probability": lawfare_eval.hard_metrics.get("crowd_cascade_probability") if lawfare_eval and "crowd_cascade_probability" in lawfare_eval.hard_metrics else None,
+            "state_inaction_score": lawfare_eval.hard_metrics.get("state_inaction_score") if lawfare_eval and "state_inaction_score" in lawfare_eval.hard_metrics else None,
+            "astroturfing_probability": digital_eval.hard_metrics.get("astroturfing_probability") if digital_eval and "astroturfing_probability" in digital_eval.hard_metrics else None,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log
@@ -737,6 +755,14 @@ class SummitSynthesizer:
                 active_triggers["transnational_caste_lawfare_campaign"] = 0.75
             if any(w in ev_text for w in ["welfarism", "freebie", "jizya", "taxpayer", "blunder"]):
                 active_triggers["electoral_welfarism_expansion"] = 0.85
+            if any(w in ev_text for w in ["pqc", "quantum", "shor", "decrypt"]):
+                active_triggers["post_quantum_cryptographic_vulnerability"] = 0.85
+            if any(w in ev_text for w in ["gold repatriation", "rbi gold", "bank of england gold"]):
+                active_triggers["sovereign_gold_reserve_repatriation"] = 0.85
+            if any(w in ev_text for w in ["aviation sabotage", "kamikaze", "airspace closure"]):
+                active_triggers["aviation_insider_sabotage"] = 0.85
+            if any(w in ev_text for w in ["biosecurity", "pathogen", "lab release", "bwc"]):
+                active_triggers["dual_use_biosecurity_leak"] = 0.85
 
             if active_triggers:
                 causal_shocks = kg.propagate_shock(initial_shocks=active_triggers, max_hops=4)

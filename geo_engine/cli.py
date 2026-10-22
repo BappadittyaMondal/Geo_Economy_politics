@@ -201,6 +201,35 @@ def render_full_report(
             f"[bold magenta]SatCom Sovereignty Coverage (NavIC):[/bold magenta] {res.get('satcom_sovereignty_coverage_pct', 0.0):.1f}%  |  "
             f"[bold green]Orbital Anti-ASAT Sovereignty Index:[/bold green] {res.get('orbital_sovereignty_index', 0.0):.2f}"
         )
+        if res.get("sugarcane_water_inequality_ratio"):
+            res_text += (
+                f"\n[bold green]Sugarcane Crop-Water Inequality:[/bold green] {res['sugarcane_water_inequality_ratio']:.1f}x  |  "
+                f"[bold red]Manufactured Drought Vulnerability:[/bold red] {res.get('manufactured_drought_vulnerability_score', 0.0):.2f}  |  "
+                f"[bold cyan]Naam Community Resilience Multiplier:[/bold cyan] {res.get('community_watershed_multiplier', 1.0):.1f}x"
+            )
+        if res.get("quantum_superposition_status"):
+            res_text += (
+                f"\n[bold magenta]Quantum Strategic Superposition:[/bold magenta] {res['quantum_superposition_status']}  |  "
+                f"[bold yellow]PQC Sovereign Vulnerability:[/bold yellow] {res.get('pqc_vulnerability_score', 0.0):.1%}"
+            )
+        if res.get("judicial_subversion_score") is not None:
+            res_text += (
+                f"\n[bold red]Judicial Subversion Threat:[/bold red] {res['judicial_subversion_score']:.2f}  |  "
+                f"[bold cyan]Tech Sovereignty Auction Protection:[/bold cyan] {res.get('tech_sovereignty_score', 0.0):.2f}  |  "
+                f"[bold yellow]Urban Insurrection Risk:[/bold yellow] {res.get('urban_insurrection_risk_score', 0.0):.2f}"
+            )
+        if res.get("telecom_pipes_risk_score") is not None or res.get("coercion_premium_score") is not None:
+            res_text += (
+                f"\n[bold red]Imperial Telecom Pipes Risk:[/bold red] {res.get('telecom_pipes_risk_score', 0.0):.2f}  |  "
+                f"[bold cyan]Protocol-Layer Sovereignty (DPI):[/bold cyan] {res.get('protocol_layer_sovereignty_score', 0.0):.2f}  |  "
+                f"[bold yellow]Asymmetric Coercion Premium:[/bold yellow] {res.get('coercion_premium_score', 0.0):.2f}"
+            )
+        if res.get("crowd_cascade_probability") is not None or res.get("state_inaction_score") is not None or res.get("astroturfing_probability") is not None:
+            res_text += (
+                f"\n[bold magenta]Crowd Cascade Probability:[/bold magenta] {res.get('crowd_cascade_probability', 0.0):.2f}  |  "
+                f"[bold blue]State Machiavellian Inaction:[/bold blue] {res.get('state_inaction_score', 0.0):.2f}  |  "
+                f"[bold red]Corporate Astroturfing Factor:[/bold red] {res.get('astroturfing_probability', 0.0):.2f}"
+            )
         console.print("\n[bold yellow]=== STRATEGIC RESILIENCE & ESCALATION READINESS (LENSES 13-20) ===[/bold yellow]")
         console.print(Panel(res_text, title="Physical Caloric, Military, Subsea & Orbital Sovereignty Matrix", border_style="cyan"))
 
@@ -1069,9 +1098,218 @@ def render_studio_production(
     ))
 
 
+def render_fact_verification(statement: str):
+    """Executes the Evidence Intelligence & Fact Verification Engine and renders rich forensic output."""
+    from .verification import FactVerificationEngine, VerificationVerdict
+
+    console.print(Panel(
+        f"[bold cyan]EVIDENCE INTELLIGENCE & FACT VERIFICATION ENGINE[/bold cyan]\n"
+        f"[dim]Input: {statement}[/dim]",
+        border_style="cyan"
+    ))
+
+    engine = FactVerificationEngine()
+    report = engine.verify_text(statement)
+
+    verdict_colors = {
+        VerificationVerdict.VERIFIED: "bold green",
+        VerificationVerdict.MOSTLY_ACCURATE: "green",
+        VerificationVerdict.MISLEADING_OR_MISSING_CONTEXT: "bold yellow",
+        VerificationVerdict.DISPUTED: "bold blue",
+        VerificationVerdict.UNSUPPORTED: "yellow",
+        VerificationVerdict.FALSE: "bold red",
+        VerificationVerdict.UNVERIFIABLE: "dim white",
+    }
+    v_color = verdict_colors.get(report.overall_verdict, "white")
+
+    summary_tbl = Table(title=f"Verification Report: {report.report_id}", border_style="cyan", box=box.ROUNDED)
+    summary_tbl.add_column("Audit Metric", style="bold white", width=26)
+    summary_tbl.add_column("Evidence Grounding Detail", style="cyan")
+
+    summary_tbl.add_row("Overall Verdict", f"[{v_color}]{report.overall_verdict.value}[/{v_color}]")
+    summary_tbl.add_row("Composite Confidence", f"{report.composite_confidence:.2f} ([dim]{report.confidence_metadata.label}[/dim])")
+    summary_tbl.add_row("Calibration Status", f"[yellow]{report.confidence_metadata.calibration_status}[/yellow] ({report.confidence_metadata.explanation})")
+    summary_tbl.add_row("Claims Analyzed", str(report.total_claims_analyzed))
+    summary_tbl.add_row("Verdict Breakdown", (
+        f"[green]{report.verified_claims_count} Verified[/green] | "
+        f"[yellow]{report.misleading_claims_count} Misleading[/yellow] | "
+        f"[red]{report.false_claims_count} False[/red] | "
+        f"[dim]{report.unverifiable_claims_count} Unverifiable[/dim]"
+    ))
+    summary_tbl.add_row("Executive Summary", report.executive_summary)
+    summary_tbl.add_row("Reproducibility Hash", report.reproducibility_hash)
+    console.print(summary_tbl)
+
+    if report.claim_results:
+        claims_tbl = Table(title="Atomic Claim Provenance & Verification Matrix", border_style="blue", box=box.SIMPLE_HEAVY)
+        claims_tbl.add_column("Claim ID", width=14, style="bold")
+        claims_tbl.add_column("Domain", width=18, style="magenta")
+        claims_tbl.add_column("Extracted Proposition", width=36)
+        claims_tbl.add_column("Verdict", width=16)
+        claims_tbl.add_column("Conf.", width=6)
+        claims_tbl.add_column("Evidentiary Rationale", width=38)
+
+        for res in report.claim_results:
+            c_color = verdict_colors.get(res.verdict, "white")
+            prop_display = res.claim.extracted_proposition[:80] + ("..." if len(res.claim.extracted_proposition) > 80 else "")
+            if res.claim.qualifiers:
+                prop_display += f"\n[dim yellow]Qualifiers: {', '.join(res.claim.qualifiers)}[/dim yellow]"
+            claims_tbl.add_row(
+                res.claim.claim_id,
+                res.claim.domain.value,
+                prop_display,
+                f"[{c_color}]{res.verdict.value}[/{c_color}]",
+                f"{res.confidence_score:.2f}",
+                res.verdict_rationale[:85] + ("..." if len(res.verdict_rationale) > 85 else "")
+            )
+        console.print(claims_tbl)
+
+
+def render_quantum_evaluation(
+    statement: str = "Multi-vector strategic alignment",
+    c_west: float = 0.45,
+    c_eurasia: float = 0.55,
+    c_south: float = 0.70,
+    kinetic_escalation_score: float = 0.20,
+    collapse_threshold: float = 0.75,
+):
+    from geo_engine.lenses.deep_tech import QuantumInformationSieve
+
+    q_res = QuantumInformationSieve.calculate_geopolitical_superposition(
+        c_west=c_west,
+        c_eurasia=c_eurasia,
+        c_south=c_south,
+        kinetic_escalation_score=kinetic_escalation_score,
+        collapse_threshold=collapse_threshold,
+    )
+    pqc_res = QuantumInformationSieve.evaluate_pqc_sovereignty()
+    obs_res = QuantumInformationSieve.calculate_channel_observer_disturbance()
+
+    console.print(Panel(
+        f"[bold cyan]QUANTUM INFORMATION & STRATEGIC SUPERPOSITION DIAGNOSTICS[/bold cyan]\n"
+        f"Input Statement: [dim]{statement}[/dim]\n"
+        f"Superposition Status: [bold magenta]{q_res['superposition_status']}[/bold magenta] | "
+        f"Verdict: [bold yellow]{q_res['operational_verdict']}[/bold yellow]",
+        title="[bold yellow]Quantum Strategic Radar[/bold yellow]",
+        border_style="cyan"
+    ))
+
+    tbl = Table(title="State Vector & Entropy Calibration", box=box.ROUNDED)
+    tbl.add_column("Parameter", style="bold white", width=28)
+    tbl.add_column("Quantum Value / Metric", style="cyan")
+
+    tbl.add_row("Normalized |Psi> Vector", f"{q_res['amplitudes']['west']:.2f}|W> + {q_res['amplitudes']['eurasia']:.2f}|E> + {q_res['amplitudes']['south']:.2f}|S>")
+    tbl.add_row("Alignment Shannon Entropy", f"{q_res['alignment_entropy']:.4f} (Ratio: {q_res['entropy_ratio']:.2f})")
+    tbl.add_row("Wavefunction Collapse", f"[red]{q_res['is_collapsed']}[/red] (Escalation: {kinetic_escalation_score:.2f} vs Threshold: {collapse_threshold:.2f})")
+    tbl.add_row("PQC Vulnerability Score", f"{pqc_res['vulnerability_score']:.4f} ([yellow]{pqc_res['pqc_tier']}[/yellow])")
+    tbl.add_row("Observer Channel Disturbance", f"{obs_res['measurement_disturbance']:.4f} ([green]Integrity: {obs_res['channel_integrity']:.4f}[/green])")
+    console.print(tbl)
+
+
+def render_chokepoint_sensitivity(
+    crude_shock: float = 20.0,
+    red_sea_blocked: bool = False,
+    hormuz_risk: float = 0.30,
+    buffer_months: float = 2.5,
+):
+    from geo_engine.lenses.food_security import EnergyFertilizerChokepointSieve
+
+    e_res = EnergyFertilizerChokepointSieve.calculate_energy_macro_sensitivity(
+        brent_price_shock_usd=crude_shock
+    )
+    n_res = EnergyFertilizerChokepointSieve.calculate_nutrient_chokepoint_vulnerability(
+        red_sea_bab_el_mandeb_blocked=red_sea_blocked,
+        strait_of_hormuz_risk_factor=hormuz_risk,
+        domestic_soil_nutrient_buffer_months=buffer_months,
+    )
+
+    console.print(Panel(
+        f"[bold red]ENERGY & AGRARIAN NUTRIENT CHOKEPOINT SENSITIVITY AUDIT[/bold red]\n"
+        f"Crude Shock: [yellow]+${crude_shock:.1f}/bbl Brent[/yellow] | "
+        f"Red Sea Blocked: [magenta]{red_sea_blocked}[/magenta] | "
+        f"Hormuz Risk: [cyan]{hormuz_risk:.2f}[/cyan]",
+        title="[bold yellow]Basal Vulnerability Simulator[/bold yellow]",
+        border_style="red"
+    ))
+
+    tbl = Table(title="Macroeconomic & Food Security Passthrough", box=box.ROUNDED)
+    tbl.add_column("Sovereign Metric", style="bold white", width=28)
+    tbl.add_column("Calculated Impact", style="yellow")
+    tbl.add_column("Strategic Severity Tier", style="cyan")
+
+    tbl.add_row("Current Account Deficit (CAD)", f"+${e_res['cad_expansion_usd_b']} Billion USD (Projected: {e_res['projected_cad_gdp_pct']}% of GDP)", e_res["energy_stress_tier"])
+    tbl.add_row("Consumer Price Index (CPI)", f"+{e_res['cpi_inflation_impact_pct']}% Headline Inflation", e_res["energy_stress_tier"])
+    tbl.add_row("OMC Under-Recovery / Subsidy", f"₹{e_res['omc_under_recovery_crore_inr']:,.0f} Crore INR", e_res["energy_stress_tier"])
+    tbl.add_row("Nutrient Chokepoint Score", f"{n_res['chokepoint_vulnerability_score']:.4f} (Buffer: {buffer_months} mos)", n_res["nutrient_security_tier"])
+    tbl.add_row("Operational Mitigation", e_res["operational_verdict"] + "\n" + n_res["operational_verdict"], "ACTION REQUIRED")
+    console.print(tbl)
+
+
+def render_quarantine_learning(
+    text: str,
+    source_name: str = "Conversational Stream",
+    auto_promote: bool = True
+):
+    from geo_engine.verification.learner import AutonomousLearner
+
+    learner = AutonomousLearner()
+    res = learner.learn_from_text(raw_text=text, source_name=source_name, auto_promote=auto_promote)
+
+    console.print(Panel(
+        f"[bold green]GOVERNED AUTONOMOUS LEARNING & QUARANTINE PIPELINE[/bold green]\n"
+        f"Session: [dim]{res['learning_session_id']}[/dim] | Source: [cyan]{res['source_name']}[/cyan]\n"
+        f"Claims Extracted: [bold]{res['total_claims_extracted']}[/bold] | "
+        f"Quarantined: [yellow]{res['quarantined_count']}[/yellow] | "
+        f"Promoted to Verified: [bold green]{res['promoted_count']}[/bold green]",
+        title="[bold yellow]Autonomous Safe Learner[/bold yellow]",
+        border_style="green"
+    ))
+
+    if res["claims_summary"]:
+        tbl = Table(title="Ingested Claims Learning Matrix", box=box.SIMPLE_HEAVY)
+        tbl.add_column("Claim ID", width=14, style="bold")
+        tbl.add_column("Domain", width=16, style="magenta")
+        tbl.add_column("Proposition", width=40)
+        tbl.add_column("Verdict", width=14)
+        tbl.add_column("Status", width=22)
+
+        for c in res["claims_summary"]:
+            tbl.add_row(
+                c["claim_id"],
+                c["domain"],
+                c["proposition"][:75] + ("..." if len(c["proposition"]) > 75 else ""),
+                c["verdict"],
+                f"[green]{c['learning_status']}[/green]" if "PROMOTED" in c["learning_status"] else f"[yellow]{c['learning_status']}[/yellow]"
+            )
+        console.print(tbl)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
+
+
+    # Command: quantum
+    quantum_parser = subparsers.add_parser("quantum", help="Evaluate quantum information superposition and PQC resilience")
+    quantum_parser.add_argument("statement", nargs="?", default="Multi-vector strategic alignment", help="Scenario or statement")
+    quantum_parser.add_argument("--west", type=float, default=0.45, help="Western alignment amplitude")
+    quantum_parser.add_argument("--eurasia", type=float, default=0.55, help="Eurasian alignment amplitude")
+    quantum_parser.add_argument("--south", type=float, default=0.70, help="Global South alignment amplitude")
+    quantum_parser.add_argument("--escalation", type=float, default=0.20, help="Kinetic escalation score (0.0 - 1.0)")
+    quantum_parser.add_argument("--threshold", type=float, default=0.75, help="Collapse threshold (0.0 - 1.0)")
+
+    # Command: chokepoint
+    choke_parser = subparsers.add_parser("chokepoint", help="Evaluate basal energy crude shock and nutrient chokepoint sensitivity")
+    choke_parser.add_argument("--crude-shock", type=float, default=20.0, help="Brent crude price shock in USD/bbl")
+    choke_parser.add_argument("--red-sea-blocked", action="store_true", help="Red Sea / Bab-el-Mandeb transit blocked")
+    choke_parser.add_argument("--hormuz-risk", type=float, default=0.30, help="Strait of Hormuz risk factor (0.0 - 1.0)")
+    choke_parser.add_argument("--buffer-months", type=float, default=2.5, help="Domestic fertilizer buffer in months")
+
+    # Command: quarantine-learn
+    qlearn_parser = subparsers.add_parser("quarantine-learn", help="Run governed autonomous learning and quarantine ingestion")
+    qlearn_parser.add_argument("text", help="Text to ingest, extract propositions, quarantine, and audit")
+    qlearn_parser.add_argument("--source", default="Conversational Stream", help="Source provenance identifier")
+    qlearn_parser.add_argument("--no-auto-promote", action="store_true", help="Do not auto-promote high-confidence claims")
 
     # Command: audit
     audit_parser = subparsers.add_parser("audit", help="Run full 5-tier audit on a summit")
@@ -1161,7 +1399,12 @@ def main():
     # Command: mcp
     mcp_parser = subparsers.add_parser("mcp", help="Run Model Context Protocol (MCP) JSON-RPC 2.0 stdio server")
 
+    # Command: verify
+    verify_parser = subparsers.add_parser("verify", help="Run Evidence Intelligence & Fact Verification on statement or text")
+    verify_parser.add_argument("statement", help="Statement, claim, speech excerpt, or article to verify")
+
     try:
+
         args = parser.parse_args()
 
         if args.command == "studio":
@@ -1226,7 +1469,33 @@ def main():
         elif args.command == "mcp":
             from .mcp import run_stdio_server
             run_stdio_server()
+        elif args.command == "verify":
+            render_fact_verification(args.statement)
+        elif args.command == "quantum":
+            render_quantum_evaluation(
+                statement=args.statement,
+                c_west=getattr(args, "west", 0.45),
+                c_eurasia=getattr(args, "eurasia", 0.55),
+                c_south=getattr(args, "south", 0.70),
+                kinetic_escalation_score=getattr(args, "escalation", 0.20),
+                collapse_threshold=getattr(args, "threshold", 0.75),
+            )
+        elif args.command == "chokepoint":
+            render_chokepoint_sensitivity(
+                crude_shock=getattr(args, "crude_shock", 20.0),
+                red_sea_blocked=getattr(args, "red_sea_blocked", False),
+                hormuz_risk=getattr(args, "hormuz_risk", 0.30),
+                buffer_months=getattr(args, "buffer_months", 2.5),
+            )
+        elif args.command == "quarantine-learn":
+            render_quarantine_learning(
+                text=args.text,
+                source_name=getattr(args, "source", "Conversational Stream"),
+                auto_promote=not getattr(args, "no_auto_promote", False),
+            )
         elif args.command == "audit" or args.command is None:
+
+
             summit_title = getattr(args, "summit", "BRICS 2026 Summit")
             year = getattr(args, "year", 2026)
             persona = getattr(args, "persona", "neutral")

@@ -307,6 +307,105 @@ class ClaimDecomposer:
         )
 
 
+class StatisticalManipulationEvaluation(BaseModel):
+    """Evaluation of whether a numerical claim commits statistical or denominator manipulation."""
+    is_statistical_manipulation_detected: bool = False
+    manipulation_type: str = "LEGITIMATE_STATISTICAL_CITATION"
+    denominator_suppression_score: float = Field(default=0.0, ge=0.0, le=1.0)
+    gross_vs_net_distortion_ratio: float = Field(default=1.0, ge=0.0)
+    suppressed_denominator_detected: bool = False
+    gross_loss_without_addition_detected: bool = False
+    truncated_baseline_detected: bool = False
+    verdict: str = "BALANCED_STATISTICAL_REPORTING"
+    rationale: str = ""
+
+
+class StatisticalManipulationSieve:
+    """
+    Phase 151: Statistical Manipulation & Suppressed Denominator Sieve.
+    Sifts numerical and quantitative claims to detect suppressed denominators,
+    gross vs. net distortions, and truncated temporal baselines.
+    """
+    MAGNITUDE_KEYWORDS = [
+        r"\b([0-9]+(?:\.[0-9]+)?\s*(?:lakh|crore|million|billion|trillion|k|percent|%))\b",
+        r"\b([0-9]{2,3}(?:,[0-9]{3})+)\b",
+        r"\b([0-9]{5,})\b"
+    ]
+    NEGATIVE_DELTA_KEYWORDS = [
+        "deleted", "deletion", "purged", "removed", "cut", "lost", "dropped",
+        "slashed", "erased", "wiped out", "stolen", "snatched", "chori", "gayab", "hata diya"
+    ]
+    COMPENSATING_DELTA_KEYWORDS = [
+        "added", "enrolled", "registered", "new voters", "created", "net increase",
+        "net change", "parallel addition", "verified inclusions", "form 6", "inclusion"
+    ]
+    DENOMINATOR_KEYWORDS = [
+        "out of", "from total", "total electorate", "total population", "total workforce",
+        "overall base", "registered voters", "kul sankhya", "total registered", "across all states"
+    ]
+    TRUNCATED_BASELINE_KEYWORDS = [
+        "jumped", "spiked", "surged", "skyrocketed", "soared", "record surge",
+        "massive spike", "since last month", "overnight spike"
+    ]
+
+    @classmethod
+    def evaluate(cls, claim_text: str) -> StatisticalManipulationEvaluation:
+        text_lower = claim_text.lower()
+        has_magnitude = any(re.search(pat, text_lower) for pat in cls.MAGNITUDE_KEYWORDS)
+        neg_hits = [kw for kw in cls.NEGATIVE_DELTA_KEYWORDS if kw in text_lower]
+        comp_hits = [kw for kw in cls.COMPENSATING_DELTA_KEYWORDS if kw in text_lower]
+        denom_hits = [kw for kw in cls.DENOMINATOR_KEYWORDS if kw in text_lower]
+        spike_hits = [kw for kw in cls.TRUNCATED_BASELINE_KEYWORDS if kw in text_lower]
+
+        is_suppressed_denom = bool(has_magnitude and neg_hits and not denom_hits)
+        is_gross_without_net = bool(has_magnitude and neg_hits and not comp_hits)
+        is_truncated_baseline = bool(has_magnitude and spike_hits and not denom_hits)
+
+        denom_score = 0.85 if is_suppressed_denom else (0.45 if has_magnitude and not denom_hits else 0.10)
+        gross_distortion = 2.50 if (is_gross_without_net and is_suppressed_denom) else (1.75 if is_gross_without_net else 1.0)
+        is_manipulated = bool(is_suppressed_denom or (is_gross_without_net and len(neg_hits) >= 1))
+
+        if is_suppressed_denom and is_gross_without_net:
+            m_type = "SUPPRESSED_DENOMINATOR_AND_GROSS_LOSS_BIAS"
+            verdict = "ACUTE_STATISTICAL_MANIPULATION_DETECTED"
+            rationale = (
+                f"Statistical manipulation detected: Absolute negative volumes ({', '.join(neg_hits)}) "
+                f"cited without disclosing total baseline denominator or compensating additions/registrations "
+                f"(distortion ratio: {gross_distortion:.2f})."
+            )
+        elif is_suppressed_denom:
+            m_type = "SUPPRESSED_DENOMINATOR"
+            verdict = "SUPPRESSED_DENOMINATOR_DETECTED"
+            rationale = (
+                f"Absolute numerical loss cited without total population denominator baseline context "
+                f"(suppression score: {denom_score:.2f})."
+            )
+        elif is_gross_without_net:
+            m_type = "GROSS_NET_ASYMMETRY"
+            verdict = "GROSS_TURNOVER_MISREPRESENTED_AS_NET_LOSS"
+            rationale = "Gross subtractions/deletions highlighted without verifying parallel administrative accretions or net balance changes."
+        elif is_truncated_baseline:
+            m_type = "TRUNCATED_TEMPORAL_BASELINE"
+            verdict = "CHERRY_PICKED_TEMPORAL_BASELINE"
+            rationale = "Rate of change or growth spike asserted using truncated baseline without normalized multi-period moving average."
+        else:
+            m_type = "LEGITIMATE_STATISTICAL_CITATION"
+            verdict = "BALANCED_STATISTICAL_REPORTING"
+            rationale = "Statistical citation includes adequate contextual baselines or lacks manipulative omission patterns."
+
+        return StatisticalManipulationEvaluation(
+            is_statistical_manipulation_detected=is_manipulated,
+            manipulation_type=m_type,
+            denominator_suppression_score=denom_score,
+            gross_vs_net_distortion_ratio=gross_distortion,
+            suppressed_denominator_detected=is_suppressed_denom,
+            gross_loss_without_addition_detected=is_gross_without_net,
+            truncated_baseline_detected=is_truncated_baseline,
+            verdict=verdict,
+            rationale=rationale
+        )
+
+
 class ACHEvaluationReport(BaseModel):
     """Synthesized Analysis of Competing Hypotheses report."""
     incident_title: str

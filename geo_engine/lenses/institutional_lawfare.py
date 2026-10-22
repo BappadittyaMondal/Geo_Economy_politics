@@ -247,6 +247,89 @@ class InstitutionalLawfareLens:
                 metrics["grayzone_fracture_tier"] = gz_res["fracture_tier"]
                 metrics["electoral_alienation_risk"] = gz_res["electoral_alienation_risk"]
 
+            # Phase 181: Judicial Subversion & Extra-Judicial Deterrence Sieve
+            subv_res = JudicialSubversionSieve.evaluate_judicial_subversion(claims=claims)
+            metrics["judicial_subversion_score"] = subv_res["judicial_subversion_score"]
+            metrics["judicial_subversion_tier"] = subv_res["judicial_subversion_tier"]
+            metrics["judicial_subversion_risk_flag"] = subv_res["is_subversion_detected"]
+            metrics["judicial_operational_verdict"] = subv_res["operational_verdict"]
+            if subv_res["is_subversion_detected"] or subv_res["matched_arson_keywords"]:
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Judicial Subversion & Extra-Judicial Deterrence Sieve triggered: "
+                    f"Tier [{subv_res['judicial_subversion_tier']}] (Score: {subv_res['judicial_subversion_score']:.2f}). "
+                    f"Verdict: {subv_res['operational_verdict']}. {subv_res['tactical_rationale']}"
+                ))
+                alignment = min(alignment, -0.82)
+
+            # Phase 187: Asymmetric Coercion Premium & Democratic Subversion Sieve
+            coercion_res = CoercionPremiumSieve.evaluate_coercion_premium(claims=claims)
+            metrics["coercion_premium_score"] = coercion_res["coercion_premium_score"]
+            metrics["coercion_premium_tier"] = coercion_res["coercion_premium_tier"]
+            metrics["daily_economic_friction_inr_cr"] = coercion_res["daily_economic_friction_inr_cr"]
+            metrics["is_coercion_premium_active"] = coercion_res["is_coercion_premium_active"]
+            metrics["coercion_operational_verdict"] = coercion_res["operational_verdict"]
+            if coercion_res["is_coercion_premium_active"] or coercion_res["matched_mob_keywords"]:
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Coercion Premium & Democratic Subversion Sieve triggered: "
+                    f"Tier [{coercion_res['coercion_premium_tier']}] (Score: {coercion_res['coercion_premium_score']:.2f}, "
+                    f"Friction: ₹{coercion_res['daily_economic_friction_inr_cr']:.1f} Cr/day). "
+                    f"Verdict: {coercion_res['operational_verdict']}. {coercion_res['tactical_rationale']}"
+                ))
+                alignment = min(alignment, -0.80)
+
+            # Phase 193: Granovetter Crowd Cascade Threshold Sieve
+            cascade_res = CrowdCascadeThresholdSieve.evaluate_cascade_threshold(claims=claims)
+            metrics["crowd_cascade_probability"] = cascade_res["cascade_probability"]
+            metrics["crowd_cascade_tier"] = cascade_res["cascade_tier"]
+            metrics["tipping_threshold_reached"] = cascade_res["is_tipping_reached"]
+            metrics["cascade_operational_verdict"] = cascade_res["operational_verdict"]
+            if cascade_res["is_tipping_reached"] or cascade_res["matched_keywords"]:
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] Crowd Cascade Threshold Sieve triggered: "
+                    f"Tier [{cascade_res['cascade_tier']}] (Probability: {cascade_res['cascade_probability']:.2f}). "
+                    f"Verdict: {cascade_res['operational_verdict']}. {cascade_res['tactical_rationale']}"
+                ))
+                alignment = min(alignment, -0.78)
+
+            # Phase 194: State Machiavellian Inaction & Safety Valve Sieve
+            inaction_res = StateMachiavellianSieve.evaluate_state_inaction(
+                daily_economic_friction_inr_cr=coercion_res["daily_economic_friction_inr_cr"],
+                claims=claims
+            )
+            metrics["state_inaction_score"] = inaction_res["state_inaction_score"]
+            metrics["state_inaction_tier"] = inaction_res["state_inaction_tier"]
+            metrics["is_deliberate_toleration"] = inaction_res["is_deliberate_toleration"]
+            metrics["state_inaction_verdict"] = inaction_res["operational_verdict"]
+            if inaction_res["is_deliberate_toleration"] or inaction_res["matched_keywords"]:
+                findings.insert(0, (
+                    f"[GROUNDED TELEMETRY] State Machiavellian Inaction Sieve triggered: "
+                    f"Tier [{inaction_res['state_inaction_tier']}] (Score: {inaction_res['state_inaction_score']:.2f}). "
+                    f"Verdict: {inaction_res['operational_verdict']}. {inaction_res['tactical_rationale']}"
+                ))
+        else:
+            metrics["judicial_subversion_score"] = 0.15
+            metrics["judicial_subversion_tier"] = "STABLE_CONSTITUTIONAL_EQUILIBRIUM"
+            metrics["judicial_subversion_risk_flag"] = False
+            metrics["coercion_premium_score"] = 0.10
+            metrics["coercion_premium_tier"] = "CONSTITUTIONAL_ORDER_MAINTAINED"
+            metrics["daily_economic_friction_inr_cr"] = 0.0
+            metrics["is_coercion_premium_active"] = False
+            metrics["crowd_cascade_probability"] = 0.12
+            metrics["crowd_cascade_tier"] = "DORMANT_CROWD_EQUILIBRIUM"
+            metrics["tipping_threshold_reached"] = False
+            metrics["state_inaction_score"] = 0.20
+            metrics["state_inaction_tier"] = "IMMEDIATE_DECISIVE_ENFORCEMENT"
+            metrics["is_deliberate_toleration"] = False
+
+        if "judicial_subversion_score" not in metrics:
+            metrics["judicial_subversion_score"] = 0.15
+        if "coercion_premium_score" not in metrics:
+            metrics["coercion_premium_score"] = 0.10
+        if "crowd_cascade_probability" not in metrics:
+            metrics["crowd_cascade_probability"] = 0.12
+        if "state_inaction_score" not in metrics:
+            metrics["state_inaction_score"] = 0.20
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -640,6 +723,430 @@ class CulturalReligiousGrayzoneSieve:
             "electoral_alienation_risk": electoral_risk,
             "structural_summary": summary
         }
+
+
+class JudicialSubversionSieve:
+    """
+    Phase 181: Judicial Subversion & Extra-Judicial Deterrence Sieve.
+    Evaluates public incitement targeting judicial benches and constitutional architecture,
+    measuring the breach of statutory immunity, foreign replication rhetoric (e.g. Albanian Supreme Court arson threats),
+    and BNS Section 152 / 124A statutory deterrence thresholds.
+
+    Formula:
+        S_subversion = min(1.0, max(0.0, 0.40 * I_incitement + 0.35 * B_breach + 0.25 * (1.0 - D_deterrence)))
+    """
+
+    ARSON_INCITEMENT_KEYWORDS = [
+        "burn down supreme court", "burn court", "burn supreme court", "albania supreme court",
+        "albanian supreme court", "sc arson", "court arson", "subvert judiciary", "overthrow judiciary",
+        "threaten judge", "arson threat", "storm supreme court", "attack high court",
+        "lynch judge", "paralyze judiciary"
+    ]
+
+    STATUTORY_BREACH_KEYWORDS = [
+        "bns 152", "bns section 152", "section 152", "sedition", "contempt of court", "constitutional contempt",
+        "extra-judicial threat", "intimidate bench", "coercion of judges", "judicial blackmail"
+    ]
+
+    @classmethod
+    def evaluate_judicial_subversion(
+        cls,
+        incitement_intensity: float = 0.0,
+        statutory_breach_level: float = 0.0,
+        deterrence_speed: float = 0.5,
+        claims: Optional[List[Any]] = None
+    ) -> Dict[str, Any]:
+        incite = max(0.0, min(1.0, float(incitement_intensity)))
+        breach = max(0.0, min(1.0, float(statutory_breach_level)))
+        det = max(0.1, min(1.0, float(deterrence_speed)))
+
+        matched_arson = []
+        matched_breach = []
+
+        if claims:
+            for c in claims:
+                txt = c if isinstance(c, str) else (c.get("asserted_fact") or c.get("raw_text") or c.get("assertion") or "") if isinstance(c, dict) else getattr(c, "asserted_fact", getattr(c, "raw_text", getattr(c, "assertion", "")))
+                txt_l = txt.lower()
+                for kw in cls.ARSON_INCITEMENT_KEYWORDS:
+                    if kw in txt_l and kw not in matched_arson:
+                        matched_arson.append(kw)
+                for kw in cls.STATUTORY_BREACH_KEYWORDS:
+                    if kw in txt_l and kw not in matched_breach:
+                        matched_breach.append(kw)
+
+            if matched_arson:
+                incite = max(incite, min(1.0, 0.50 + 0.15 * len(matched_arson)))
+                breach = max(breach, 0.70)
+            if matched_breach:
+                breach = max(breach, min(1.0, 0.40 + 0.15 * len(matched_breach)))
+
+        score = round(min(1.0, max(0.0, 0.40 * incite + 0.35 * breach + 0.25 * (1.0 - det))), 4)
+
+        if score >= 0.75:
+            tier = "CRITICAL_JUDICIAL_INTIMIDATION"
+            verdict = "HIGH_RISK_INSTITUTIONAL_CONTEMPT"
+            rationale = (
+                "Severe extra-judicial threat detected: Public incitement threatening physical violence, arson, or insurrection "
+                "against constitutional benches (e.g. Albanian Supreme Court arson model). Mandates immediate BNS Section 152 deterrence."
+            )
+        elif score >= 0.50:
+            tier = "ELEVATED_EXTRAJUDICIAL_INCITEMENT"
+            verdict = "ELEVATED_CONTEMPT_RISK"
+            rationale = (
+                "Elevated institutional intimidation: Sustained political rhetoric seeking to delegitimize judicial independence "
+                "via street mobilization and coercive narrative pressure."
+            )
+        elif score >= 0.25:
+            tier = "MODERATE_RHETORICAL_FRICTION"
+            verdict = "ROUTINE_LEGAL_CHALLENGE"
+            rationale = "Constitutional dispute confined within standard appellate and procedural legal processes."
+        else:
+            tier = "STABLE_CONSTITUTIONAL_EQUILIBRIUM"
+            verdict = "JUDICIAL_INTEGRITY_SECURE"
+            rationale = "Judicial authority fully respected with active statutory enforcement and due process integrity."
+
+        return {
+            "judicial_subversion_score": score,
+            "incitement_escalation_score": incite,
+            "statutory_immunity_breach_score": breach,
+            "deterrence_speed_score": det,
+            "judicial_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "matched_arson_keywords": matched_arson,
+            "matched_breach_keywords": matched_breach,
+            "is_subversion_detected": score >= 0.50
+        }
+
+
+class CoercionPremiumSieve:
+    """
+    Phase 187: Asymmetric Coercion Premium & Democratic Subversion Sieve.
+    Quantifies the institutional and economic leverage when organized minority street vetoes
+    blockade critical national arterials (national highways, freight railway corridors, border crossings),
+    imposing crushing deadweight friction on unorganized daily commuters and supply chains to extract
+    executive policy concessions contrary to parliamentary legislative mandates.
+
+    Formula:
+        HoursLostNorm = min(1.0, daily_hours_lost / 8.0)
+        CommutersNorm = min(1.0, impacted_commuters_millions / 5.0)
+        EconomicFrictionCr = impacted_commuters_millions * 1e6 * daily_hours_lost * (hourly_wage_inr / 1e7)
+        raw_cp = (0.45 * HoursLostNorm + 0.40 * CommutersNorm + 0.15 * foreign_amplification_factor) * (1.0 - 0.40 * statutory_enforcement_speed)
+        CoercionPremiumScore = min(1.0, max(0.0, raw_cp))
+    """
+
+    MOB_COERCION_KEYWORDS = [
+        "highway blockade", "rail roko", "chakka jam", "border blockade", "shaheen bagh",
+        "singhu border", "tikri border", "arterial blockade", "street veto", "hostage city",
+        "paralyze capital", "delhi blockade", "encircle capital", "tractor rally",
+        "toll plaza capture", "freight disruption", "supply chain hostage"
+    ]
+
+    STATUTORY_SUBVERSION_KEYWORDS = [
+        "bns 152", "bnss 163", "section 144", "subversion of parliament", "electoral mandate override",
+        "minority veto", "mobocracy", "coercion premium", "asymmetric veto", "leveraged suffering"
+    ]
+
+    @classmethod
+    def evaluate_coercion_premium(
+        cls,
+        impacted_commuters_millions: float = 0.5,
+        daily_hours_lost: float = 2.0,
+        hourly_wage_inr: float = 120.0,
+        foreign_amplification_factor: float = 0.30,
+        statutory_enforcement_speed: float = 0.50,
+        claims: Optional[List[Any]] = None
+    ) -> Dict[str, Any]:
+        commuters = max(0.0, float(impacted_commuters_millions))
+        hours = max(0.0, min(12.0, float(daily_hours_lost)))
+        wage = max(20.0, float(hourly_wage_inr))
+        foreign_amp = max(0.0, min(1.0, float(foreign_amplification_factor)))
+        enforce_spd = max(0.0, min(1.0, float(statutory_enforcement_speed)))
+
+        matched_mob = []
+        matched_statutory = []
+
+        if claims:
+            for c in claims:
+                txt = c if isinstance(c, str) else (c.get("asserted_fact") or c.get("raw_text") or c.get("assertion") or "") if isinstance(c, dict) else getattr(c, "asserted_fact", getattr(c, "raw_text", getattr(c, "assertion", "")))
+                txt_l = txt.lower()
+                for kw in cls.MOB_COERCION_KEYWORDS:
+                    if kw in txt_l and kw not in matched_mob:
+                        matched_mob.append(kw)
+                for kw in cls.STATUTORY_SUBVERSION_KEYWORDS:
+                    if kw in txt_l and kw not in matched_statutory:
+                        matched_statutory.append(kw)
+
+            if matched_mob:
+                commuters = max(commuters, min(5.0, 1.0 + 0.5 * len(matched_mob)))
+                hours = max(hours, min(8.0, 2.5 + 0.6 * len(matched_mob)))
+            if matched_statutory:
+                foreign_amp = min(1.0, foreign_amp + 0.15 * len(matched_statutory))
+            if any(k in matched_mob for k in ["singhu border", "tikri border", "delhi blockade", "encircle capital"]):
+                # Prolonged strategic siege posture
+                commuters = max(commuters, 3.5)
+                hours = max(hours, 4.5)
+                foreign_amp = min(1.0, foreign_amp + 0.25)
+
+        commuters_norm = min(1.0, commuters / 5.0)
+        hours_norm = min(1.0, hours / 8.0)
+        daily_friction_cr = round((commuters * 1_000_000.0 * hours * wage) / 10_000_000.0, 2)
+
+        raw_cp = (0.45 * hours_norm + 0.40 * commuters_norm + 0.15 * foreign_amp) * (1.0 - 0.40 * enforce_spd)
+        score = round(min(1.0, max(0.0, raw_cp)), 4)
+
+        if score >= 0.75:
+            tier = "CRITICAL_MOB_COERCION_PREMIUM"
+            verdict = "DEMOCRATIC_MANDATE_PARALYZED"
+            rationale = (
+                f"Severe asymmetric coercion: Prolonged arterial highway/rail blockade impacting ~{commuters:.1f}M commuters "
+                f"with ~{hours:.1f} hours lost daily (economic friction ₹{daily_friction_cr:.1f} Cr/day). Non-electoral street veto "
+                f"threatens parliamentary supremacy. Mandates BNSS Section 163 / BNS 152 containment."
+            )
+        elif score >= 0.50:
+            tier = "ELEVATED_STREET_VETO_PRESSURE"
+            verdict = "LEVERAGED_CIVILIAN_SUFFERING"
+            rationale = (
+                f"Elevated coercion pressure: Strategic choke points occupied to manufacture commuter suffering "
+                f"(₹{daily_friction_cr:.1f} Cr/day friction) and force executive policy concessions."
+            )
+        elif score >= 0.25:
+            tier = "MODERATE_LOCALIZED_FRICTION"
+            verdict = "CONTAINED_ARTERIAL_PROTEST"
+            rationale = "Localized public demonstration with managed traffic diversions and baseline statutory law enforcement."
+        else:
+            tier = "CONSTITUTIONAL_ORDER_MAINTAINED"
+            verdict = "UNHINDERED_PUBLIC_COMMUTE"
+            rationale = "Transport corridors completely free; democratic dispute resolution channeled through legislative and judicial forums."
+
+        return {
+            "coercion_premium_score": score,
+            "daily_economic_friction_inr_cr": daily_friction_cr,
+            "impacted_commuters_millions": round(commuters, 2),
+            "daily_hours_lost": round(hours, 2),
+            "foreign_amplification_factor": round(foreign_amp, 2),
+            "statutory_enforcement_speed": round(enforce_spd, 2),
+            "coercion_premium_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "matched_mob_keywords": matched_mob,
+            "matched_statutory_keywords": matched_statutory,
+            "is_coercion_premium_active": score >= 0.50
+        }
+
+
+class CrowdCascadeThresholdSieve:
+    """
+    Phase 193: Granovetter Crowd Cascade & Critical Mass Threshold Sieve.
+    Mathematically models non-linear crowd mobilization transitions using Mark Granovetter's
+    Threshold Model of Collective Behavior (1978) combined with Erica Chenoweth's 3.5%
+    empirical rule of non-violent regime coercion.
+
+    Quantifies the tipping point where passive citizen populations transition into active
+    street mobilization as individual participation thresholds are triggered by peer cascades
+    and algorithmic digital virality.
+
+    Formula:
+        T_eff = max(0.005, T_mean * (1.0 - 0.50 * BackfireFactor))
+        z = 3.5 * ((N_active / N_pop) / T_eff - 1.0) + 2.0 * DigitalVelocity
+        P_cascade = 1 / (1 + exp(-z))
+    """
+
+    CASCADE_KEYWORDS = [
+        "granovetter", "tipping point", "critical mass", "3.5 percent rule", "crowd cascade",
+        "flash mob", "protest surge", "mass mobilization", "general strike", "million man march",
+        "bandwagon effect", "spontaneous gathering", "street surge", "popular uprising"
+    ]
+
+    @classmethod
+    def evaluate_cascade_threshold(
+        cls,
+        active_participants: float = 25_000.0,
+        jurisdiction_population: float = 30_000_000.0,
+        individual_threshold_mean: float = 0.05,
+        digital_amplification_velocity: float = 0.30,
+        repression_backfire_factor: float = 0.20,
+        claims: Optional[List[Any]] = None
+    ) -> Dict[str, Any]:
+        import math
+        active = max(0.0, float(active_participants))
+        pop = max(100_000.0, float(jurisdiction_population))
+        t_mean = max(0.001, min(1.0, float(individual_threshold_mean)))
+        velocity = max(0.0, min(1.0, float(digital_amplification_velocity)))
+        backfire = max(0.0, min(1.0, float(repression_backfire_factor)))
+
+        matched_kws = []
+        if claims:
+            for c in claims:
+                txt = c if isinstance(c, str) else (c.get("asserted_fact") or c.get("raw_text") or c.get("assertion") or "") if isinstance(c, dict) else getattr(c, "asserted_fact", getattr(c, "raw_text", getattr(c, "assertion", "")))
+                txt_l = txt.lower()
+                for kw in cls.CASCADE_KEYWORDS:
+                    if kw in txt_l and kw not in matched_kws:
+                        matched_kws.append(kw)
+
+            if matched_kws:
+                active = max(active, 100_000.0 + 50_000.0 * len(matched_kws))
+                velocity = min(1.0, velocity + 0.15 * len(matched_kws))
+            if any(k in matched_kws for k in ["critical mass", "3.5 percent rule", "million man march", "general strike"]):
+                active = max(active, 1_050_000.0)
+                velocity = min(1.0, velocity + 0.35)
+
+        active_ratio = active / pop
+        chenoweth_threshold = 0.035
+        chenoweth_saturation = min(1.0, active_ratio / chenoweth_threshold)
+
+        t_eff = max(0.005, t_mean * (1.0 - 0.50 * backfire))
+        z = 3.5 * ((active_ratio / t_eff) - 1.0) + 2.0 * velocity
+        cascade_prob = round(1.0 / (1.0 + math.exp(-z)), 4)
+        headroom = round(max(0.0, 1.0 - cascade_prob), 4)
+
+        if cascade_prob >= 0.75:
+            tier = "IRREVERSIBLE_MASS_CASCADE"
+            verdict = "CRITICAL_MASS_ACHIEVED"
+            rationale = (
+                f"Severe crowd contagion: Mobilization headcount (~{active:,.0f} / {active_ratio*100:.2f}%) has breached "
+                f"the Granovetter tipping threshold and approached the Chenoweth 3.5% critical mass limit ({chenoweth_saturation*100:.1f}% saturation). "
+                f"High risk of cascading institutional paralysis."
+            )
+        elif cascade_prob >= 0.50:
+            tier = "ELEVATED_MOBILIZATION_SURGE"
+            verdict = "THRESHOLD_CONTAGION_ACTIVE"
+            rationale = (
+                f"Elevated mobilization: Active participation (~{active:,.0f}) is triggering secondary peer thresholds "
+                f"accelerated by social media virality (velocity index {velocity:.2f})."
+            )
+        elif cascade_prob >= 0.25:
+            tier = "CONTAINED_PERIPHERAL_GATHERING"
+            verdict = "SUB_CRITICAL_PROTEST"
+            rationale = "Localized demonstration confined below the social tipping threshold; low probability of broad civic contagion."
+        else:
+            tier = "DORMANT_CROWD_EQUILIBRIUM"
+            verdict = "STABLE_CIVIC_ORDER"
+            rationale = "Civic equilibrium stable; individual mobilization thresholds remain unbreached."
+
+        return {
+            "cascade_probability": cascade_prob,
+            "active_participants": round(active, 0),
+            "jurisdiction_population": round(pop, 0),
+            "active_population_ratio": round(active_ratio, 6),
+            "effective_threshold": round(t_eff, 4),
+            "digital_velocity": round(velocity, 2),
+            "chenoweth_saturation_ratio": round(chenoweth_saturation, 4),
+            "counter_mobilization_headroom": headroom,
+            "cascade_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "matched_keywords": matched_kws,
+            "is_tipping_reached": cascade_prob >= 0.50
+        }
+
+
+class StateMachiavellianSieve:
+    """
+    Phase 194: State Machiavellian Inaction & Safety Valve Sieve.
+    Formalizes the state's strategic calculus of deliberate toleration and tactical hesitation.
+    Synthesizes:
+    1. Piven & Cloward (1977) Safety Valve: Permitting disruptive dissent to vent without structural policy concessions.
+    2. Steven Wilkinson (2004, 'Votes and Violence'): Electoral incentives governing police intervention vs deliberate stand-down orders.
+    3. IPS Vibhuti Narain Rai 24-hour rule: No communal riot or street siege persists past 24 hours without state hesitation or connivance.
+    4. John Mueller (1970) Rally-Around-the-Flag: Disruption fatigue turning middle-class voters toward the incumbent executive.
+    5. Brian Martin (2007) Dilution Tactics: Establishing inquiry committees ('churna') to dissolve protest momentum over time.
+
+    Formula:
+        FrictionDampener = min(1.0, DailyEconomicFrictionCr / 500.0)
+        HesitationNorm = min(1.0, HesitationHours / 168.0)
+        z = 0.35 * RallyGain + 0.30 * SafetyValve + 0.20 * HesitationNorm + CommFactor - 0.35 * FrictionDampener
+        StateInactionScore = 1 / (1 + exp(-3.5 * (z - 0.25)))
+    """
+
+    STATE_INACTION_KEYWORDS = [
+        "safety valve", "strategic inaction", "deliberate delay", "rally around the flag",
+        "inquiry committee", "piven cloward", "wilkinson", "rai 24 hour rule", "churna",
+        "stand down", "let them exhaust", "patience statecraft", "exhaustion strategy", "tactical hesitation"
+    ]
+
+    @classmethod
+    def evaluate_state_inaction(
+        cls,
+        electoral_consolidation_gain: float = 0.40,
+        safety_valve_utility: float = 0.35,
+        daily_economic_friction_inr_cr: float = 50.0,
+        administrative_hesitation_hours: float = 48.0,
+        inquiry_commission_active: bool = False,
+        claims: Optional[List[Any]] = None
+    ) -> Dict[str, Any]:
+        import math
+        rally = max(0.0, min(1.0, float(electoral_consolidation_gain)))
+        safety = max(0.0, min(1.0, float(safety_valve_utility)))
+        friction = max(0.0, float(daily_economic_friction_inr_cr))
+        hesitation = max(0.0, float(administrative_hesitation_hours))
+        comm_active = bool(inquiry_commission_active)
+
+        matched_kws = []
+        if claims:
+            for c in claims:
+                txt = c if isinstance(c, str) else (c.get("asserted_fact") or c.get("raw_text") or c.get("assertion") or "") if isinstance(c, dict) else getattr(c, "asserted_fact", getattr(c, "raw_text", getattr(c, "assertion", "")))
+                txt_l = txt.lower()
+                for kw in cls.STATE_INACTION_KEYWORDS:
+                    if kw in txt_l and kw not in matched_kws:
+                        matched_kws.append(kw)
+
+            if matched_kws:
+                rally = min(1.0, rally + 0.15 * len(matched_kws))
+                hesitation = max(hesitation, 72.0 + 24.0 * len(matched_kws))
+            if any(k in matched_kws for k in ["inquiry committee", "churna"]):
+                comm_active = True
+            if any(k in matched_kws for k in ["let them exhaust", "patience statecraft", "rally around the flag"]):
+                rally = max(rally, 0.75)
+                safety = max(safety, 0.70)
+
+        friction_dampener = min(1.0, friction / 500.0)
+        hesitation_norm = min(1.0, hesitation / 168.0)
+        comm_factor = 0.15 if comm_active else 0.0
+
+        z = 0.35 * rally + 0.30 * safety + 0.20 * hesitation_norm + comm_factor - 0.35 * friction_dampener
+        inaction_score = round(1.0 / (1.0 + math.exp(-3.5 * (z - 0.25))), 4)
+
+        if inaction_score >= 0.75:
+            tier = "CALCULATED_STRATEGIC_ATTRITION"
+            verdict = "DELIBERATE_TOLERATION_FOR_RALLY"
+            rationale = (
+                f"Sovereign deliberate inaction confirmed: State withholds kinetic police dispersal (hesitation ~{hesitation:.0f} hrs, "
+                f"Rai 24-hr threshold exceeded). Electoral calculus (Wilkinson model) projects voter backlash against disruption "
+                f"yielding rally-around-the-flag consolidation (gain score {rally:.2f})."
+            )
+        elif inaction_score >= 0.50:
+            tier = "MANAGED_SAFETY_VALVE_DISSIPATION"
+            verdict = "PACIFICATION_VIA_PROCRASTINATION"
+            rationale = (
+                f"Managed venting: State utilizes Piven-Cloward safety-valve mechanism (utility {safety:.2f}) coupled with "
+                f"inquiry committee procedures to dissipate agitational momentum without policy capitulation."
+            )
+        elif inaction_score >= 0.25:
+            tier = "TACTICAL_POLICE_RESTRAINT"
+            verdict = "DE_ESCALATION_POSTURE"
+            rationale = "Temporary administrative restraint maintained to avoid civilian casualties while preparing statutory containment."
+        else:
+            tier = "IMMEDIATE_DECISIVE_ENFORCEMENT"
+            verdict = "ZERO_TOLERANCE_STATUTORY_DISPERSAL"
+            rationale = "High economic friction forces immediate administrative interdiction; zero political toleration for disruption."
+
+        return {
+            "state_inaction_score": inaction_score,
+            "electoral_rally_gain": round(rally, 2),
+            "safety_valve_utility": round(safety, 2),
+            "administrative_hesitation_hours": round(hesitation, 1),
+            "inquiry_commission_active": comm_active,
+            "economic_friction_dampener": round(friction_dampener, 4),
+            "state_inaction_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "matched_keywords": matched_kws,
+            "is_deliberate_toleration": inaction_score >= 0.50
+        }
+
+
+
 
 
 

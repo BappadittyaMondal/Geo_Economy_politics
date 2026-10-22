@@ -149,8 +149,8 @@ class StoryDistiller:
 
         # 3. Calculate Scene Count and Pacing
         # Pacing: ~15-20 seconds per scene
-        scene_count = max(4, min(28, duration_minutes * 4))
-        scene_duration_sec = (duration_minutes * 60) / scene_count
+        scene_count = int(max(4, min(28, round(float(duration_minutes) * 4))))
+        scene_duration_sec = (float(duration_minutes) * 60) / scene_count
 
         scenes: List[SceneSegment] = []
         beats = self._generate_screenplay_beats(act1, act2, act3, scene_count)

@@ -98,6 +98,24 @@ def serialize_sqlite_to_markdown() -> str:
             sig = a["significance"].replace("|", "\\|")
             lines.append(f"| {a['anniv_id']} | {a['year']}-{a['month']:02d}-{a['day']:02d} | {title} | {a['region']} | {sig} |")
 
+        # 3. Autonomously Learned Claims & Propositions
+        try:
+            cursor.execute("SELECT * FROM claim_distillations WHERE verification_status in ('VERIFIED_EMPIRICAL', 'POLEMICAL_FRAMING') ORDER BY created_at DESC LIMIT 50")
+            claims = cursor.fetchall()
+            if claims:
+                lines.append("\n## Autonomously Learned Strategic Propositions\n")
+                lines.append("| Claim ID | Tier | Proposition | Citation / Anchor | Status |")
+                lines.append("| :--- | :--- | :--- | :--- | :--- |")
+                for c in claims:
+                    cid = c["claim_id"]
+                    tier = c["epistemic_tier"].replace("TIER_", "T")
+                    prop = c["proposition"].replace("|", "\\|")[:85]
+                    cite = (c["statutory_citation"] or c["fiscal_metric"] or "None").replace("|", "\\|").strip()[:40]
+                    stat = c["verification_status"]
+                    lines.append(f"| {cid} | {tier} | {prop} | {cite} | {stat} |")
+        except Exception:
+            pass
+
         conn.close()
     except Exception as e:
         lines.append(f"\n*Error reading SQLite database: {e}*")

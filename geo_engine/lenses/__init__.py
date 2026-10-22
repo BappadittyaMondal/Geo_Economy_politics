@@ -9,9 +9,14 @@ military readiness, subsea cables, and astro-politics space defense.
 
 from typing import List, Type, Any
 
-from .deep_tech import DeepTechLens, STEMCapitalDilutionSieve
+from .deep_tech import DeepTechLens, STEMCapitalDilutionSieve, QuantumInformationSieve
 from .history import HistoryLens
-from .civilizational import CivilizationalLens
+from .civilizational import (
+    CivilizationalLens,
+    CulturalGrayzoneSieve,
+    SacredCalendarProvocationSieve,
+    UrbanInsurrectionRiskSieve,
+)
 from .geo_economist import GeoEconomistLens
 from .geopolitical import GeopoliticalLens, ChokepointKineticSieve
 from .kinesics import KinesicsLens, SartorialSemioticSieve
@@ -19,7 +24,13 @@ from .cash_flow import CashFlowLens
 from .propaganda import PropagandaLens, AntitheticalRhetoricSieve
 from .petro_logistics import PetroLogisticsLens
 from .bureaucratic_inertia import BureaucraticInertiaLens, BureaucraticRollbackModel
-from .digital_sovereignty import DigitalSovereigntyLens
+from .digital_sovereignty import (
+    DigitalSovereigntyLens,
+    TechSovereigntySieve,
+    ImperialSubversionPipesSieve,
+    ProtocolLayerSovereigntySieve,
+    CorporateAstroturfingSieve,
+)
 from .hybrid_covert import HybridCovertLens, ExtraterritorialSovereignAsymmetrySieve, DiplomaticCounterIntelSieve
 from .india_timeline import IndiaTimelineLens
 from .demographic_infiltration import DemographicInfiltrationLens, DiasporaBacklashSieve
@@ -29,9 +40,13 @@ from .institutional_lawfare import (
     SubNationalEndowmentSieve,
     IntraCivilizationalFaultlineSieve,
     CulturalReligiousGrayzoneSieve,
+    JudicialSubversionSieve,
+    CoercionPremiumSieve,
+    CrowdCascadeThresholdSieve,
+    StateMachiavellianSieve,
 )
 
-from .food_security import FoodSecurityLens
+from .food_security import FoodSecurityLens, EnergyFertilizerChokepointSieve, AgrarianWaterCartelSieve
 from .military_readiness import MilitaryReadinessLens, AvionicsSovereigntySieve, AsymmetricInterceptionSieve
 from .subsea_cables import SubseaCablesLens
 from .astro_politics import AstroPoliticsLens
@@ -93,7 +108,21 @@ __all__ = [
     "DiasporaBacklashSieve",
     "DiplomaticCounterIntelSieve",
     "STEMCapitalDilutionSieve",
+    "QuantumInformationSieve",
+    "EnergyFertilizerChokepointSieve",
+    "AgrarianWaterCartelSieve",
     "CulturalReligiousGrayzoneSieve",
+    "CulturalGrayzoneSieve",
+    "SacredCalendarProvocationSieve",
+    "JudicialSubversionSieve",
+    "TechSovereigntySieve",
+    "UrbanInsurrectionRiskSieve",
+    "ImperialSubversionPipesSieve",
+    "ProtocolLayerSovereigntySieve",
+    "CoercionPremiumSieve",
+    "CrowdCascadeThresholdSieve",
+    "StateMachiavellianSieve",
+    "CorporateAstroturfingSieve",
 ]
 
 

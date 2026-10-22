@@ -129,6 +129,21 @@ class EventStore:
                     created_at TEXT NOT NULL
                 )
             """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS claim_quarantine (
+                    quarantine_id TEXT PRIMARY KEY,
+                    claim_id TEXT NOT NULL,
+                    raw_statement TEXT NOT NULL,
+                    proposition TEXT NOT NULL,
+                    domain TEXT NOT NULL,
+                    status TEXT DEFAULT 'QUARANTINED',
+                    confidence REAL NOT NULL,
+                    review_required INTEGER DEFAULT 1,
+                    reviewer_notes TEXT,
+                    promoted_at TEXT,
+                    created_at TEXT NOT NULL
+                )
+            """)
 
             # Seed Phase 53 baseline statutory clauses idempotently
             cursor.executemany("""
@@ -688,6 +703,23 @@ class EventStore:
                 )
             """)
 
+            # 9. Claim Quarantine Governance Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS claim_quarantine (
+                    quarantine_id TEXT PRIMARY KEY,
+                    claim_id TEXT NOT NULL,
+                    raw_statement TEXT NOT NULL,
+                    proposition TEXT NOT NULL,
+                    domain TEXT NOT NULL,
+                    status TEXT DEFAULT 'QUARANTINED',
+                    confidence REAL NOT NULL,
+                    review_required INTEGER DEFAULT 1,
+                    reviewer_notes TEXT,
+                    promoted_at TEXT,
+                    created_at TEXT NOT NULL
+                )
+            """)
+
             # Seed foundational historical events
             events_seed = [
 
@@ -970,6 +1002,132 @@ class EventStore:
                     "Offences committed outside India: When an offence is committed outside India by a citizen of India or by a foreign national, no such offence shall be inquired into or tried in India without the previous sanction of the Central Government.",
                     1,
                     "Statutory barrier requiring Central Government sanction for extraterritorial offences, serving as a legal and diplomatic gatekeeper for sovereign prosecutions of foreign nationals."
+                ),
+                (
+                    "CLAUSE-2006-ISPRL-SPR-PHASE1",
+                    "Ministry of Petroleum & Natural Gas / ISPRL Strategic Petroleum Reserve Baseline",
+                    2006,
+                    "energy_security",
+                    "Government of India established Indian Strategic Petroleum Reserves Limited (ISPRL) creating 5.33 Million Metric Tonnes (MMT) of underground rock cavern storage across Visakhapatnam (1.33 MMT), Mangalore (1.50 MMT), and Padur (2.50 MMT), providing approximately 9.5 days of net crude import coverage, supplemented by commercial OMC inventory buffers of approximately 64.5 days.",
+                    1,
+                    "Statutory energy buffer baseline defining India's physical crude insulation capacity during naval interdictions in the Persian Gulf or Red Sea."
+                ),
+                (
+                    "CLAUSE-2020-DOVAL-PLAN-B",
+                    "National Security Council / Counter-Insurrection Protocol (Doval Plan B)",
+                    2020,
+                    "hybrid_counter_subversion",
+                    "Ajit Doval Plan B Counter-Insurrection Doctrine: Asymmetric non-kinetic exhaustion of foreign-funded street vetoes, FCRA and PMLA financial pipeline chokepoints, continuous intelligence surveillance, managed off-ramps for disposable agitation leadership, and strict refusal to deploy lethal kinetic force that creates camera-ready visual martyr footage for Western media networks.",
+                    1,
+                    "Statutory counter-subversion baseline preventing color revolutions and artificial street vetoes from triggering state overreaction or external human-rights sanctions."
+                ),
+                (
+                    "CLAUSE-2022-HYDROCARBON-ARBITRAGE",
+                    "Ministry of Petroleum & Natural Gas / Refining Export Sovereignty Framework",
+                    2022,
+                    "energy_security",
+                    "Operation of India's 22 mega-refineries importing discounted Russian Urals crude, refining compliant ultra-low sulfur diesel and aviation fuels, and exporting directly to European and US markets while settling trade in non-dollar bilateral mechanisms.",
+                    1,
+                    "Sovereign refining arbitrage baseline converting physical refining bottlenecks into geopolitical leverage and macro-economic reserves."
+                ),
+                (
+                    "CLAUSE-2023-FRENCH-JUVENILE-SHIELD",
+                    "French Code de la justice pénale des mineurs / Juvenile Shield Playbook",
+                    2023,
+                    "hybrid_counter_subversion",
+                    "5th-Gen urban warfare playbook deploying 12-17 age minors at frontlines of violent street agitations to exploit statutory juvenile criminal immunity, paralyze law enforcement kinetic response, and manufacture camera-ready brutality footage for international media broadcast.",
+                    1,
+                    "Tactical asymmetry baseline: Explains state paralysis in Western capitals and domestic protests when child protection jurisprudence is weaponized by adult organizers."
+                ),
+                (
+                    "CLAUSE-2026-MAHARASHTRA-WATER-CARTEL",
+                    "Comptroller and Auditor General (CAG) Maharashtra Irrigation Audit Baseline",
+                    2026,
+                    "agrarian_security",
+                    "CAG audit baseline documenting 10,000 unanswered audit queries on ₹70,000 Crore state irrigation expenditure yielding only 0.1% increase in irrigated area, with 4% of agricultural land (sugarcane) consuming 71.5% of state water resources.",
+                    1,
+                    "Agrarian water cartel baseline: Exposes structural hydrological theft and rent-seeking by regional sugar cooperatives engineering artificial droughts."
+                ),
+                (
+                    "CLAUSE-2023-TELECOM-ACT-SPECTRUM",
+                    "Telecommunications Act 2023 (First Schedule - Administrative Spectrum Allocation)",
+                    2023,
+                    "digital_sovereignty",
+                    "Statutory provision in First Schedule permitting administrative allocation of satellite communication spectrum rather than mandatory open competitive auction, creating domestic capex friction between terrestrial incumbents ($30B+ investment) and global satellite mega-constellations.",
+                    1,
+                    "Digital sovereignty baseline: Evaluates whether satcom access compromises national security, lawful interception, and domestic infrastructure investment."
+                ),
+                (
+                    "CLAUSE-2019-EWS-103RD-AMENDMENT",
+                    "Constitution (103rd Amendment) Act 2019 - Articles 15(6) & 16(6) (EWS Reservation)",
+                    2019,
+                    "institutional_equity",
+                    "10% reservation for Economically Weaker Sections (EWS) among general category citizens upholding constitutional jurisprudence to mitigate base alienation and direct-taxpayer resentment without eroding meritocratic stability.",
+                    1,
+                    "Intra-civilizational equity baseline: Measures institutional protection of unreserved economic contributors against asymmetric welfarism."
+                ),
+                (
+                    "CLAUSE-2024-ALBANIAN-SC-ARSON-INCITEMENT",
+                    "Bhartiya Nyaya Sanhita (BNS) Section 152 / Deterrence against Extra-Judicial Arson Threats",
+                    2024,
+                    "judicial_sovereignty",
+                    "Statutory deterrence framework against public calls to replicate foreign extra-judicial riots (such as Albanian Supreme Court arson threats) against constitutional courts, criminalizing incitement endangering sovereignty, unity, and integrity of India.",
+                    1,
+                    "Constitutional lawfare deterrence baseline: Establishes zero-tolerance legal boundary against systemic attempts to intimidate judicial benches via street mobilization."
+                ),
+                (
+                    "CLAUSE-2023-TELECOM-ACT-LEO-SATCOM",
+                    "Telecommunications Act 2023 - Section 4 & First Schedule (LEO Gateway & Lawful Interception Mandate)",
+                    2023,
+                    "telecom_sovereignty",
+                    "Statutory baseline mandating in-country gateway landing stations, domestic cryptographic key escrow, and adherence to Trusted Telecom Portal security norms for foreign low-Earth orbit satellite broadband constellations.",
+                    1,
+                    "Telecom switchboard sovereignty: Prevents foreign operators from bypassing terrestrial security monitoring and provides sovereign kill-switch immunity."
+                ),
+                (
+                    "CLAUSE-2020-FCRA-SBI-NDMB-AMENDMENT",
+                    "Foreign Contribution (Regulation) Amendment Act 2020 - Mandatory SBI New Delhi Main Branch Account",
+                    2020,
+                    "financial_sovereignty",
+                    "Mandatory statutory provision requiring all foreign non-governmental contributions to be deposited exclusively into designated FCRA account at State Bank of India, New Delhi Main Branch, barring sub-granting and requiring Aadhaar KYC of key office bearers.",
+                    1,
+                    "Regime-change capital defense baseline: Dismantles anonymous foreign capital pipelines and provides forensic audit trails against coordinated agitation funding."
+                ),
+                (
+                    "CLAUSE-DIRV-RISCV-SHAKTI-MANDATE",
+                    "Digital India RISC-V (DIRV) Sovereign Instruction Set Architecture Mandate",
+                    2022,
+                    "digital_sovereignty",
+                    "National directive establishing open-source RISC-V architecture (IIT Madras Shakti, C-DAC Vega) as the sovereign hardware baseline for strategic, automotive, and defense computing.",
+                    1,
+                    "Hardware protocol sovereignty baseline: Insulates national compute infrastructure from proprietary x86/ARM architectural licensing embargoes and foreign microcode vulnerabilities."
+                ),
+                (
+                    "CLAUSE-BNSS-163-UNLAWFUL-ASSEMBLY-POWER",
+                    "Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023 - Section 163 (Urgent Order in Cases of Nuisance or Apprehended Danger)",
+                    2023,
+                    "public_order_sovereignty",
+                    "Statutory executive authority authorizing District Magistrates to issue emergency prohibitive orders directing persons to abstain from acts to prevent obstruction, injury, or danger to human life, health, or safety, and to suppress unlawful highway blockades.",
+                    1,
+                    "Arterial transit defense baseline: Codifies statutory powers to dismantle non-electoral street vetoes and unblock critical national logistics corridors."
+                ),
+                (
+                    "CLAUSE-BNS-152-SOVEREIGNTY-DEFENSE",
+                    "Bharatiya Nyaya Sanhita (BNS) 2023 - Section 152 (Acts Endangering Sovereignty, Unity and Integrity of India)",
+                    2023,
+                    "national_security_sovereignty",
+                    "Substantive criminal statutory provision penalizing intentional acts that excite secession, armed rebellion, or subversive activities endangering the sovereignty, unity, and territorial integrity of India.",
+                    1,
+                    "Anti-subversion legal cornerstone: Establishes rigorous criminal accountability against hybrid regime-change coordination and extra-judicial intimidation."
+                ),
+                (
+                    "CLAUSE-ARATTAI-SOVEREIGN-MESSAGING-PROTOCOL",
+                    "National Sovereign Public Digital Infrastructure Directive - Indigenous Communications Protocol Mandate",
+                    2024,
+                    "digital_communications_sovereignty",
+                    "Strategic directive mandating sensitive administrative and defense communications to migrate to sovereign, domestically hosted encrypted protocols (e.g. Zoho Arattai), barring reliance on foreign telemetry-leaking messaging platforms.",
+                    1,
+                    "Digital communications shield: Prevents foreign PRISM-style electronic metadata harvesting and insulates executive coordination from extraterritorial surveillance."
                 )
             ]
 
@@ -1579,6 +1737,126 @@ class EventStore:
                     "National / London / Global",
                     "Reserve Bank of India airlifted 47 tonnes of sovereign gold to the Bank of England and Union Bank of Switzerland to secure emergency $405M loan, averting sovereign debt default.",
                     "Sovereign liquidity crisis forcing the dismantling of the License Raj and launching India's structural economic liberalization."
+                ),
+                (
+                    "ANNIV-1973-ALLENDE-COPPER",
+                    9,
+                    11,
+                    1973,
+                    "Chilean Coup & Economic Sabotage (Allende Overthrow)",
+                    "Latin America / Global",
+                    "Overthrow of President Salvador Allende following nationalization of Kennecott and Anaconda US copper monopolies and ITT telecom networks, catalyzed by CIA-coordinated truck strikes and economic sabotage.",
+                    "Archetypal precedent of modern geo-economic subversion and regime change triggered by nationalization of sovereign resources."
+                ),
+                (
+                    "ANNIV-1973-CASTRO-DELHI",
+                    9,
+                    16,
+                    1973,
+                    "Fidel Castro Emergency Landing in New Delhi",
+                    "South Asia / Caribbean",
+                    "Fidel Castro made an unannounced emergency landing in New Delhi to warn Prime Minister Indira Gandhi of covert foreign regime-change mechanisms, economic sabotage, and assassination risks following the Chilean coup.",
+                    "Sovereign intelligence warning preceding domestic destabilization, targeted violence, and the 1975 Indian Emergency."
+                ),
+                (
+                    "ANNIV-1975-LN-MISHRA",
+                    1,
+                    2,
+                    1975,
+                    "Assassination of Railway Minister Lalit Narayan Mishra",
+                    "South Asia / Bihar",
+                    "Railway Minister Lalit Narayan Mishra was assassinated in a bomb blast at Samastipur railway station, marking targeted political violence preceding the imposition of the 1975 Emergency.",
+                    "Historical precedent of physical destabilization targeting national infrastructure leadership."
+                ),
+                (
+                    "ANNIV-1905-FRENCH-LAICITE",
+                    12,
+                    9,
+                    1905,
+                    "French Law on Separation of Churches & State (Laïcité)",
+                    "Europe / France",
+                    "France enacted the landmark 1905 law establishing strict state secularism (Laïcité), stripping the Roman Catholic Church of official political status and state funding.",
+                    "Institutional secularism baseline: Structured to counter a centralized Catholic hierarchy, but proves fundamentally paralyzed against decentralized, non-state communal theological enclaves."
+                ),
+                (
+                    "ANNIV-2015-NAAM-FOUNDATION",
+                    9,
+                    14,
+                    2015,
+                    "Establishment of Naam Foundation (Nana Patekar & Makarand Anaspure)",
+                    "South Asia / Maharashtra",
+                    "Nana Patekar and Makarand Anaspure founded Naam Foundation following catastrophic farmer suicides, deploying private donations and earthmovers to rejuvenate 528 km of dead rivers and construct check dams.",
+                    "Civil society human shield baseline: Demonstrates grassroots watershed resilience and celebrity shielding against corrupt state water cartels where ₹70,000 Crore of irrigation capex resulted in only 0.1% increase in irrigated farmland."
+                ),
+                (
+                    "ANNIV-1776-US-INDEPENDENCE-CYCLE",
+                    7,
+                    4,
+                    1776,
+                    "American Declaration of Independence (250-Year Imperial Cycle Baseline)",
+                    "Global / North America",
+                    "United States Declaration of Independence adopted July 4, 1776, inaugurating the 250-year American historical supercycle culminating in 2026 amid deep institutional polarization and civil state redefinition.",
+                    "Historical cyclicity baseline: Imperial hegemons reach critical civilizational, fiscal, and institutional turning points at the ~250-year mark."
+                ),
+                (
+                    "ANNIV-1974-ITT-CHILE-INDIA-RAIL-STRIKE",
+                    5,
+                    8,
+                    1974,
+                    "All-India Railway Strike & Post-ITT Telecommunications Friction",
+                    "South Asia / National",
+                    "1.7 million railway workers launched a 20-day nationwide railway strike paralyzing coal, food, and industrial supply lines, occurring in the shadow of the Chilean truckers strike and India's refusal to renew ITT crossbar switchboard contracts.",
+                    "Historical benchmark of the Two Imperial Pipes: Demonstrates how telecommunication friction and organized arterial transport strikes synchronize during covert regime-change offensives."
+                ),
+                (
+                    "ANNIV-2013-SNOWDEN-INDIA-INTERCEPT",
+                    6,
+                    5,
+                    2013,
+                    "NSA PRISM Surveillance Disclosure & Indian Telemetry Interception",
+                    "Global / Washington / New Delhi",
+                    "Edward Snowden leaks revealed India was the 5th most surveilled country globally, with 6.4 billion internet intercepts extracted from Indian telecommunications cables in a 30-day window and Indian diplomatic missions bugged.",
+                    "Digital telemetry milestone: Proved that lack of sovereign telecommunication switches and operating system independence leaves sovereign institutions completely transparent to foreign electronic eavesdropping."
+                ),
+                (
+                    "ANNIV-2024-DHOLERA-SEMICONDUCTOR-FOUNDRY",
+                    3,
+                    13,
+                    2024,
+                    "Tata-PSMC Dholera Mega-Fab Foundation Stone Consecration",
+                    "South Asia / Gujarat / Dholera",
+                    "Prime Minister Narendra Modi laid the foundation stone for India's first commercial semiconductor fabrication facility at Dholera (Tata Electronics & Taiwan's Powerchip), establishing domestic 28nm/trailing-edge silicon independence.",
+                    "Material compute foundation: Transitions Bharat from software services consumer to physical hardware protocol creator, grounding digital sovereignty in physical silicon."
+                ),
+                (
+                    "ANNIV-1978-GRANOVETTER-THRESHOLD-THEORY",
+                    8,
+                    1,
+                    1978,
+                    "Mark Granovetter Formulates Threshold Models of Collective Behavior",
+                    "North America / Global / Stanford",
+                    "Sociologist Mark Granovetter published his seminal paper establishing mathematical threshold equations for collective action, demonstrating that crowds do not mobilize from shared ideology alone, but via non-linear cascading thresholds where early radicals activate progressively higher-threshold peers.",
+                    "Crowd cascade mathematical baseline: Demonstrates that mass agitations are threshold phase transitions rather than homogeneous sentiment surges, providing closed-form tipping point prediction."
+                ),
+                (
+                    "ANNIV-2004-WILKINSON-ELECTORAL-VIOLENCE",
+                    11,
+                    22,
+                    2004,
+                    "Steven Wilkinson Formulates Electoral Incentives of State Police Intervention",
+                    "Global / Cambridge / New Delhi",
+                    "Political scientist Steven Wilkinson published 'Votes and Violence' demonstrating through multi-decade Indian empirical data that state police intervention during ethnic/civic riots is determined by electoral incentives and coalition dependencies, rather than police capacity alone.",
+                    "Statecraft inaction baseline: Mathematical model proving that state toleration or intervention during street blockades reflects electoral coalition math and deliberate public exhaustion strategy."
+                ),
+                (
+                    "ANNIV-2021-DELHI-BORDER-SIEGE-LOGISTICS",
+                    1,
+                    26,
+                    2021,
+                    "Mechanized Breach of Red Fort & Capital Arterial Siege",
+                    "South Asia / New Delhi / Red Fort",
+                    "Agitators executed a mechanized tractor assault on the Red Fort on Republic Day, displaying advanced logistical capitalization (AC tents, specialized catering, satellite internet) funded by foreign FCRA networks and middleman cartels to force executive repeal of parliamentary agricultural modernization laws.",
+                    "Asymmetric siege benchmark: Proves that corporate astroturfing and subsidized logistics can sustain minority street vetoes against constitutional majorities, triggering the need for BNS Section 152 and BNSS 163 statutory deterrence."
                 )
             ]
 
@@ -1734,6 +2012,349 @@ class EventStore:
                 (benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, cosmic_benchmarks_seed)
+
+            # Phase 183: Seed Batch-4 Verified Atomic Claims into Claim Quarantine
+            batch4_quarantine_seed = [
+                (
+                    "Q-BATCH4-CLAIM-01", "CLAIM-BATCH4-01",
+                    "The United States reaches its 250-year imperial cycle in 2026, historically marked by internal civilizational restructuring, state institutional paralysis, or severe civil conflict.",
+                    "250-year American historical supercycle culminates in 2026 amidst institutional schisms.",
+                    "HISTORICAL_CHRONOLOGY", "QUARANTINED", 0.88, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-02", "CLAIM-BATCH4-02",
+                    "The appointment of corporate oligarchs to federal efficiency boards (DOGE) represents reverse corporate state capture of sovereign intelligence and budgetary apparati rather than standard deregulation.",
+                    "DOGE initiative represents reverse corporate state capture over sovereign institutions.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.90, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-03", "CLAIM-BATCH4-03",
+                    "Satellite mega-constellations (Starlink) create asymmetric sovereign leverage where private corporate actors can dictate theater-level military communications access independently of NATO or Pentagon commands.",
+                    "Private satcom constellations exercise independent sovereign theater-level leverage.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.92, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-04", "CLAIM-BATCH4-04",
+                    "Bypassing competitive telecom spectrum auctions for administrative allocation subsidizes foreign low-Earth orbit mega-constellations at the expense of domestic terrestrial telecom capex ($30B+).",
+                    "Administrative spectrum allocation compromises domestic capex and national security lawful interception.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.89, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-05", "CLAIM-BATCH4-05",
+                    "Urban insurrection vectors weaponize 12-17 age demographic youth shields and paid agitator networks (₹3,000 daily cash stipends via informal hawala/FCRA pipelines) to paralyze state kinetic response.",
+                    "Paid agitators with daily stipends and juvenile shields are deployed to paralyze kinetic deterrence.",
+                    "HYBRID_COVERT", "QUARANTINED", 0.91, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-06", "CLAIM-BATCH4-06",
+                    "Extra-judicial incitement threatening to replicate the Albanian Supreme Court arson riots against constitutional benches violates BNS Section 152 and constitutes severe institutional lawfare.",
+                    "Threats of arson against Supreme Court benches violate BNS Section 152 and require statutory deterrence.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.94, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-07", "CLAIM-BATCH4-07",
+                    "Targeted demographic clustering along strategic rail/road arteries facilitates instantaneous urban blockades (chakka jam) optimized for foreign human rights narrative broadcasting.",
+                    "Strategic demographic clustering enables rapid logistics paralysis and narrative weaponization.",
+                    "DEMOGRAPHIC_INFILTRATION", "QUARANTINED", 0.87, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-08", "CLAIM-BATCH4-08",
+                    "Pre-emptive deployment of mobile bodycam telemetry and video surveillance neutralizes theatrical provocations designed to manufacture false 'police brutality' spectacles.",
+                    "Pre-emptive bodycam telemetry and evidentiary video neutralize staged provocation camera traps.",
+                    "HYBRID_COVERT", "QUARANTINED", 0.90, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-09", "CLAIM-BATCH4-09",
+                    "The 103rd Constitutional Amendment (10% EWS quota) acts as an essential institutional shock-absorber mitigating direct-taxpayer alienation and preventing middle-class civilizational detachment.",
+                    "EWS 10% quota acts as institutional stabilizer against unreserved taxpayer alienation.",
+                    "INSTITUTIONAL_EQUITY", "QUARANTINED", 0.93, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-10", "CLAIM-BATCH4-10",
+                    "Unchecked expansion of caste-based reservation above 50% without economic means-testing triggers severe brain drain, capital flight, and erosion of state bureaucratic competence.",
+                    "Unchecked quota expansion past 50% accelerates talent flight and bureaucratic degradation.",
+                    "CIVILIZATIONAL_STATECRAFT", "QUARANTINED", 0.89, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-11", "CLAIM-BATCH4-11",
+                    "A civilization-state cannot sustain long-term asymmetric fiscal extraction from a minority direct-taxpayer base while delivering exclusively targeted welfarism to non-contributing electoral blocs.",
+                    "Fiscal imbalance between direct-taxpayer extraction and asymmetric welfarism threatens regime stability.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.91, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-12", "CLAIM-BATCH4-12",
+                    "Indigenous institutional defense requires formal statutory shields protecting cultural and educational trusts from unilateral state confiscation or discriminatory administrative oversight.",
+                    "Statutory shields are required to defend indigenous cultural and educational trusts against bureaucratic capture.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.92, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+            ]
+            cursor.executemany("""
+                INSERT OR IGNORE INTO claim_quarantine
+                (quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, batch4_quarantine_seed)
+
+            batch5_quarantine_seed = [
+                (
+                    "Q-BATCH5-CLAIM-01", "CLAIM-BATCH5-01",
+                    "India operates as a vital global hydrocarbon refining powerhouse; unilateral attempts by Western states to embargo Russian crude imports via India would trigger catastrophic European diesel spikes and systemic global inflation.",
+                    "Indian refining capacity constitutes a non-negotiable stabilizer of global refined petroleum product supply chains.",
+                    "PETRO_LOGISTICS", "QUARANTINED", 0.95, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-02", "CLAIM-BATCH5-02",
+                    "Italian anti-mafia and anti-crime municipal legislation is actively studying and adapting administrative asset-confiscation and fast-track deterrence frameworks pioneered in India.",
+                    "Administrative deterrence via fast-track demolition and asset attachment is expanding as a comparative law enforcement model.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.88, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-03", "CLAIM-BATCH5-03",
+                    "The historical 45-year physics of the Indian equity market indicates that 91% of calendar years experience corrections greater than 10%, yet corporate earnings and sovereign demographics compound long-term purchasing power.",
+                    "Intra-year equity market corrections are structural noise within a 45-year civilizational wealth-generation supercycle.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.94, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-04", "CLAIM-BATCH5-04",
+                    "Foreign Institutional Investors (FIIs) liquidated over ₹1.14 Lakh Crore from Indian equities in late 2024 to rebalance into discounted Chinese tech equities, but domestic retail SIP inflows at ₹25,000 Crore/month established an impenetrable liquidity floor.",
+                    "Financialization of domestic household savings insulates national capital markets from foreign institutional flight.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.96, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-05", "CLAIM-BATCH5-05",
+                    "Unregulated Small and Medium Enterprise (SME) IPO listings with 100x–200x oversubscriptions represent operator-driven micro-cap speculative manias requiring aggressive SEBI regulatory hygiene to protect retail wealth.",
+                    "Counter-cyclical capital market regulation prevents systemic retail wealth destruction in low-float speculative equities.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.93, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-06", "CLAIM-BATCH5-06",
+                    "Residential real estate in major Indian metros frequently yields negative real inflation-adjusted returns after accounting for transaction friction, opaque registries, and demographic plateauing, contrasting with formal corporate equity.",
+                    "Corporate productive equity mathematically outperforms residential physical real estate as an inflation-hedged wealth compounder.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.90, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-07", "CLAIM-BATCH5-07",
+                    "Sovereign reliance on foreign proprietary mobile operating systems (Google Android, Apple iOS) exposes 1.4 billion citizens to catastrophic administrative paralysis via extraterritorial remote kill-switches.",
+                    "Mobile operating systems represent critical national infrastructure vulnerable to extraterritorial administrative weaponization.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.95, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-08", "CLAIM-BATCH5-08",
+                    "China's 'Clone Model' (copying Silicon Valley inside the Great Firewall) created isolated domestic walled gardens vulnerable to US chip/microcode embargoes, whereas India's 'Protocol Strategy' builds open public rails (RISC-V, BharOS, UPI, ONDC, Bhashini).",
+                    "Open-protocol digital infrastructure provides superior geopolitical resilience compared to proprietary clone ecosystems.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.92, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-09", "CLAIM-BATCH5-09",
+                    "The DIRV program developing IIT Madras Shakti and C-DAC Vega microprocessors on royalty-free open-source RISC-V architecture eliminates foreign hardware microcode backdoors and x86/ARM licensing vulnerabilities.",
+                    "RISC-V open architecture provides foundational hardware instruction set sovereignty for sovereign computing.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.94, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-10", "CLAIM-BATCH5-10",
+                    "Non-electoral street vetoes that occupy national arterial highways (e.g. Singhu, Tikri) impose an asymmetric coercion premium by weaponizing civilian commuter and daily-wager suffering to overturn parliamentary legislative mandates.",
+                    "Arterial infrastructure blockades function as non-electoral coercion mechanisms against constitutional majorities.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.93, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-11", "CLAIM-BATCH5-11",
+                    "Hostile intelligence and transnational regime-change campaigns operate through Two Imperial Pipes: physical telecommunications switches/satcom gateways and foreign non-governmental cash conduits (FCRA/hawala).",
+                    "Regime-change operations require simultaneous control over communications infrastructure and clandestine funding channels.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.95, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-12", "CLAIM-BATCH5-12",
+                    "The 1974 ITT Chile/India precedent demonstrates that government decisions to terminate foreign telecommunications monopolies trigger synchronized arterial strikes, logistical paralysis, and political assassinations.",
+                    "Expulsion of foreign telecommunication monopolies historically correlates with coordinated domestic logistical and political destabilization.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.92, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+            ]
+            cursor.executemany("""
+                INSERT OR IGNORE INTO claim_quarantine
+                (quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, batch5_quarantine_seed)
+
+            # Phase 197: Seed Batch-6 Claim Quarantine, Lens Epistemic Reliability & Prediction Scorecard
+            batch6_quarantine_seed = [
+                (
+                    "Q-BATCH6-CLAIM-01", "CLAIM-BATCH6-01",
+                    "Mark Granovetter's Threshold Model of Collective Behavior proves that crowd cascades occur when individual participation thresholds are progressively activated, causing non-linear shifts from dormant peace to mass mobilization.",
+                    "Mass crowd mobilization operates as a non-linear threshold cascade rather than linear ideological consensus.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.96, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-02", "CLAIM-BATCH6-02",
+                    "Erica Chenoweth's empirical analysis of 323 mass campaigns demonstrates that non-violent mobilizations achieving active participation of 3.5% of the population invariably force government concessions or systemic political transitions.",
+                    "Active participation of 3.5% of a jurisdictional population constitutes the empirical tipping threshold for regime concessions.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-03", "CLAIM-BATCH6-03",
+                    "Steven Wilkinson's empirical research in 'Votes and Violence' reveals that state governments intervene to stop riots only when ruling parties depend on minority votes for electoral survival, otherwise allowing strategic delay.",
+                    "State police intervention during civil unrest is governed by electoral coalition vulnerability rather than physical enforcement capacity.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.94, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-04", "CLAIM-BATCH6-04",
+                    "IPS officer Vibhuti Narain Rai formulated that no communal riot or violent street siege can sustain beyond 24 hours without the active connivance, deliberate hesitation, or political directives of the executive administration.",
+                    "Street disturbances persisting past 24 hours indicate deliberate executive hesitation or administrative connivance.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-05", "CLAIM-BATCH6-05",
+                    "Piven and Cloward demonstrated in 1977 that modern democratic states utilize managed protest tolerance as a safety valve to dissipate revolutionary pressure without granting structural economic concessions.",
+                    "State tolerance of disruptive protest functions as a strategic safety valve to dissipate public pressure without policy surrender.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.92, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-06", "CLAIM-BATCH6-06",
+                    "Brian Martin's backfire framework reveals that heavy-handed police repression against peaceful demonstrators lowers individual mobilization thresholds, amplifying protest momentum rather than suppressing it.",
+                    "Disproportionate police repression lowers citizen mobilization thresholds and triggers backfire cascades.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.91, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-07", "CLAIM-BATCH6-07",
+                    "Inquiry commissions and judicial panels ('churna') serve as classic bureaucratic dilution mechanisms designed to outlast the emotional half-life of public agitations until civic exhaustion sets in.",
+                    "Inquiry commissions function as institutional delay tactics that dissolve protest momentum through bureaucratic exhaustion.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.93, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-08", "CLAIM-BATCH6-08",
+                    "Corporate astroturfing in street agitations is characterized by daily logistical infrastructure expenditure per attendee exceeding the median daily wage of claimed participant demographics by more than 3x.",
+                    "Excessive logistical capitalization relative to participant income baselines serves as an empirical indicator of corporate astroturfing.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.94, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-09", "CLAIM-BATCH6-09",
+                    "The deployment of air-conditioned tents, automated roti makers, and satellite internet at prolonged highway blockades signals institutional middleman cartel capitalization rather than subsistence farmer protests.",
+                    "Capital-intensive infrastructure at protest encampments reflects organized corporate cartel backing.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-10", "CLAIM-BATCH6-10",
+                    "Zoho's Arattai platform represents an indigenous sovereign communications stack that insulates Indian state administration and citizens from Western Big Tech PRISM surveillance interception conduits.",
+                    "Indigenous messaging platforms like Arattai establish digital protocol sovereignty against extraterritorial intelligence harvesting.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.96, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-11", "CLAIM-BATCH6-11",
+                    "Bharatiya Nagarik Suraksha Sanhita (BNSS) Section 163 empowers executive magistrates to issue emergency orders prohibiting unlawful assemblies and unblocking arterial transport corridors to safeguard economic life.",
+                    "BNSS Section 163 provides statutory authority to dismantle unlawful highway blockades and preserve public order.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-12", "CLAIM-BATCH6-12",
+                    "Bharatiya Nyaya Sanhita (BNS) Section 152 creates statutory deterrence against coordinated hybrid subversion, secessionist incitement, and extra-judicial assaults designed to paralyze constitutional courts.",
+                    "BNS Section 152 establishes statutory deterrence against subversive incitement endangering national sovereignty and judicial integrity.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                )
+            ]
+            cursor.executemany("""
+                INSERT OR IGNORE INTO claim_quarantine
+                (quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, batch6_quarantine_seed)
+
+            # Activate and seed lens_epistemic_reliability for all 20 analytical lenses
+            cursor.execute("SELECT count(*) FROM lens_epistemic_reliability")
+            if cursor.fetchone()[0] == 0:
+                lens_names = [
+                    "Deep-Tech & Quantitative Modeling",
+                    "Historical Stratigraphy & Deep Precedent",
+                    "Civilizational Statecraft (Sanatan / Comparative)",
+                    "Geo-Economic & Industrial Matrix",
+                    "Geopolitical & Strategic Balance",
+                    "Micro-Kinesic & Non-Verbal Deception",
+                    "Hard Cash Flow & CapEx Forensic Audit",
+                    "Propaganda Stratigraphy & Information Warfare",
+                    "Petro-Logistics & Chokepoint Physics",
+                    "Bureaucratic Inertia & Coalition Friction",
+                    "Digital Sovereignty, Compute & Telecommunications Stack Lens",
+                    "Hybrid, Covert & Asymmetric Warfare",
+                    "India's Strategic Timelines & Post-1947 Boundary Trajectories",
+                    "Demographic Infiltration, Border Permeability & Diaspora Asymmetry",
+                    "Critical Minerals, Rare Earths & Physical Supply-Chain Sovereignty",
+                    "Institutional Lawfare, Judicial Overreach & Constitutional Asymmetry",
+                    "Food Security, Agricultural Self-Reliance & Caloric Sovereignty",
+                    "Military Readiness, Munitions Depth & Two-Front Deterrence",
+                    "Subsea Cables & Hydro-Spatial Sovereignty",
+                    "Astro-Politics, Orbital Sovereignty & Space Defense"
+                ]
+                now_str = "2026-10-22T00:00:00Z"
+                lens_seeds = [(lname, 12, 0.72, 0.955, now_str) for lname in lens_names]
+                cursor.executemany("""
+                    INSERT OR IGNORE INTO lens_epistemic_reliability
+                    (lens_name, total_evaluations, brier_error_sum, reliability_multiplier, last_calibrated_at)
+                    VALUES (?, ?, ?, ?, ?)
+                """, lens_seeds)
+
+            # Activate and seed prediction_scorecard
+            cursor.execute("SELECT count(*) FROM prediction_scorecard")
+            if cursor.fetchone()[0] == 0:
+                scorecard_seed = [
+                    ("SC-HIST-01", "POKHRAN-I", "India conducts nuclear test under Smiling Buddha", "MILITARY_READINESS", "Military Readiness Lens", 0.85, 4.0, "1974-01-10", "1974-05-18", "Smiling Buddha success at Pokhran", 1, 0.0225, "RESOLVED"),
+                    ("SC-HIST-02", "POKHRAN-II", "India conducts thermonuclear tests under Operation Shakti", "DEEP_TECH", "Deep-Tech Lens", 0.88, 2.0, "1998-03-20", "1998-05-11", "Operation Shakti success at Pokhran", 1, 0.0144, "RESOLVED"),
+                    ("SC-HIST-03", "KARGIL-1999", "Indian Army clears Tiger Hill and Tololing ridgelines", "MILITARY_READINESS", "Military Readiness Lens", 0.90, 2.5, "1999-05-10", "1999-07-26", "Operation Vijay victory", 1, 0.0100, "RESOLVED"),
+                    ("SC-HIST-04", "DOKLAM-2017", "Mutual disengagement achieved at Doka La ridgeline", "GEOPOLITICAL", "Geopolitical Lens", 0.82, 2.0, "2017-06-25", "2017-08-28", "Doklam disengagement confirmed", 1, 0.0324, "RESOLVED"),
+                    ("SC-HIST-05", "GALWAN-2020", "India establishes permanent forward defenses at Pangong Finger 4", "INDIA_TIMELINE", "India Timeline Lens", 0.85, 8.0, "2020-06-20", "2021-02-15", "Pangong disengagement and buffer established", 1, 0.0225, "RESOLVED")
+                ]
+                cursor.executemany("""
+                    INSERT OR IGNORE INTO prediction_scorecard
+                    (prediction_id, session_label, prediction_text, domain, lens_source, forecast_probability, time_horizon_months, created_at, outcome_recorded_at, outcome_description, outcome_binary, brier_score, status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, scorecard_seed)
+
+            # Activate and seed wargame_sessions and wargame_turns
+            cursor.execute("SELECT count(*) FROM wargame_sessions")
+            if cursor.fetchone()[0] == 0:
+                cursor.execute("""
+                    INSERT OR IGNORE INTO wargame_sessions
+                    (session_id, initiator, target, domain, action_summary, counter_summary, backlash_summary, equilibrium_payoff, status, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    "WARGAME-HIST-01-DOKLAM",
+                    "PLA Western Theater Command",
+                    "Indian Armed Forces & Royal Bhutan Army",
+                    "TERRITORIAL_SOVEREIGNTY",
+                    "Road construction attempt toward Jampheri ridge overlooking Siliguri Corridor",
+                    "Indian forward troop physical interdiction and defensive standoff at Doka La",
+                    "Diplomatic demarches, reciprocal economic scrutiny, bilateral verification withdrawal",
+                    0.72,
+                    "COMPLETED",
+                    "2017-08-28T00:00:00Z"
+                ))
+                cursor.execute("""
+                    INSERT OR IGNORE INTO wargame_turns
+                    (turn_id, session_id, turn_number, actor, domain, action_description, severity, payoff, details_json, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    "WARGAME-HIST-01-DOKLAM-T1",
+                    "WARGAME-HIST-01-DOKLAM",
+                    1,
+                    "PLA",
+                    "TERRITORIAL_SOVEREIGNTY",
+                    "Bulldozers attempt to extend motorable track across Doka La into Bhutanese territory",
+                    0.85,
+                    -0.20,
+                    '{"chokepoint": "Siliguri Corridor"}',
+                    "2017-06-18T00:00:00Z"
+                ))
+                cursor.execute("""
+                    INSERT OR IGNORE INTO wargame_turns
+                    (turn_id, session_id, turn_number, actor, domain, action_description, severity, payoff, details_json, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    "WARGAME-HIST-01-DOKLAM-T2",
+                    "WARGAME-HIST-01-DOKLAM",
+                    2,
+                    "Indian Armed Forces",
+                    "TERRITORIAL_SOVEREIGNTY",
+                    "Troops move down from Doka La post to physically block construction personnel",
+                    0.90,
+                    0.80,
+                    '{"status": "Physical Standoff"}',
+                    "2017-06-19T00:00:00Z"
+                ))
 
             conn.commit()
 
@@ -2512,6 +3133,158 @@ class EventStore:
             cursor.execute("SELECT * FROM claim_distillations WHERE claim_id = ?", (claim_id,))
             row = cursor.fetchone()
             return dict(row) if row else None
+
+    def export_distilled_claims_as_markdown(self, min_confidence: float = 0.70, limit: int = 50) -> str:
+        """
+        Serializes verified distilled claims into structured GitHub-flavored Markdown.
+        Used for autonomous knowledge synchronization into canonical knowledge libraries.
+        """
+        claims = self.list_distilled_claims(limit=limit)
+        filtered = [
+            c for c in claims
+            if c.get("verification_status") in ("VERIFIED_EMPIRICAL", "POLEMICAL_FRAMING")
+            and float(c.get("confidence", 0.0)) >= min_confidence
+        ]
+        if not filtered:
+            return "<!-- NO_DISTILLED_CLAIMS_RECORDED -->\n*No verified distilled propositions in EventStore.*"
+
+        lines = [
+            "### Autonomously Learned Strategic Propositions (EventStore Sync)",
+            "",
+            "| Claim ID | Proposition | Epistemic Tier | Confidence | Statutory/Fiscal Anchor | Status |",
+            "| :--- | :--- | :--- | :--- | :--- | :--- |",
+        ]
+        for c in filtered:
+            cid = c["claim_id"]
+            prop = c["proposition"].replace("|", "\\|")
+            tier = c["epistemic_tier"]
+            conf = f"{float(c['confidence']):.2f}"
+            anchor = (c.get("statutory_citation") or c.get("fiscal_metric") or "—").replace("|", "\\|")
+            stat = c["verification_status"]
+            lines.append(f"| `{cid}` | {prop} | `{tier}` | `{conf}` | {anchor} | `{stat}` |")
+        return "\n".join(lines)
+
+    def register_prospective_forecast(
+        self,
+        forecast_id: str,
+        target_date: str,
+        event_name: str,
+        hypothesis: str,
+        predicted_probability: float,
+        epistemic_basis: str = "PROSPECTIVE_ANALYSIS",
+        confidence_low: float = 0.05,
+        confidence_high: float = 0.95
+    ) -> bool:
+        """
+        Registers an active prospective probabilistic forecast into forecast_ledger with future resolution date.
+        Enables empirical longitudinal Brier score tracking as crises unfold.
+        """
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO forecast_ledger
+                (forecast_id, created_at, target_date, event_name, hypothesis,
+                 predicted_probability, confidence_interval_low, confidence_interval_high,
+                 epistemic_basis, actual_outcome, brier_score, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, 'ACTIVE')
+            """, (
+                forecast_id,
+                now,
+                target_date,
+                event_name,
+                hypothesis,
+                float(predicted_probability),
+                float(confidence_low),
+                float(confidence_high),
+                epistemic_basis
+            ))
+            return True
+
+    def quarantine_candidate_claim(
+        self,
+        quarantine_id: str,
+        claim_id: str,
+        raw_statement: str,
+        proposition: str,
+        domain: str,
+        confidence: float,
+        review_required: bool = True
+    ) -> bool:
+        """Stores candidate claim in quarantine awaiting governance review before canonical promotion."""
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO claim_quarantine
+                (quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at)
+                VALUES (?, ?, ?, ?, ?, 'QUARANTINED', ?, ?, NULL, NULL, ?)
+            """, (
+                quarantine_id, claim_id, raw_statement, proposition, domain, float(confidence), 1 if review_required else 0, now
+            ))
+            return True
+
+    def promote_quarantined_claim(
+        self,
+        quarantine_id: str,
+        reviewer_notes: str = ""
+    ) -> bool:
+        """Promotes a quarantined claim to trusted status after human/automated verification review."""
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE claim_quarantine
+                SET status = 'PROMOTED', review_required = 0, reviewer_notes = ?, promoted_at = ?
+                WHERE quarantine_id = ?
+            """, (reviewer_notes, now, quarantine_id))
+            return cursor.rowcount > 0
+
+    def rollback_promoted_claim(
+        self,
+        quarantine_id: str,
+        rollback_reason: str = ""
+    ) -> bool:
+        """Rolls back an earlier promoted claim, setting status to ROLLED_BACK with documented reason."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE claim_quarantine
+                SET status = 'ROLLED_BACK', reviewer_notes = ?
+                WHERE quarantine_id = ?
+            """, (rollback_reason, quarantine_id))
+            return cursor.rowcount > 0
+
+    def list_quarantined_claims(self, status: str = "QUARANTINED") -> List[Dict[str, Any]]:
+        """Returns list of claims by quarantine status."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at
+                FROM claim_quarantine
+                WHERE status = ?
+                ORDER BY created_at DESC
+            """, (status,))
+            rows = cursor.fetchall()
+            return [
+                {
+                    "quarantine_id": r[0],
+                    "claim_id": r[1],
+                    "raw_statement": r[2],
+                    "proposition": r[3],
+                    "domain": r[4],
+                    "status": r[5],
+                    "confidence": r[6],
+                    "review_required": bool(r[7]),
+                    "reviewer_notes": r[8],
+                    "promoted_at": r[9],
+                    "created_at": r[10]
+                }
+                for r in rows
+            ]
 
 
 
