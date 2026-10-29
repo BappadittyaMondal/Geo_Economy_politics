@@ -4105,7 +4105,7 @@ class TestPhase66to69HeptarchyAndAtomicGuardrails:
 
         assert "modi" in PersonaNarrator.ARCHETYPES
         assert "sai_deepak" in PersonaNarrator.ARCHETYPES
-        assert len(PersonaNarrator.ARCHETYPES) in (8, 9)  # 8/9 operational archetypes
+        assert len(PersonaNarrator.ARCHETYPES) in (8, 9, 13)  # 8/9 operational archetypes; 13 after Vedic Trayodasha expansion (Phases 211-214)
 
         mock_event = SummitEvent(summit_name="BRICS 2026 Test", year=2026, host_country="India")
         mock_report = SummitAnalysisReport(event=mock_event, overall_confidence_score=0.92)
@@ -4126,7 +4126,7 @@ class TestPhase66to69HeptarchyAndAtomicGuardrails:
 
         # 3. Test apply_all_personas
         all_res = PersonaNarrator.apply_all_personas(mock_report)
-        assert len(all_res) in (8, 9)
+        assert len(all_res) in (8, 9, 13)
         for k in ["sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "neutral"]:
             assert k in all_res
 
@@ -9575,12 +9575,1009 @@ class TestPhase193to197CrowdCascadeMachiavellianAndAstroturfing:
 
 
 
+class TestPhase201to205MaritimeKshatraPowerCurrency:
+    """
+    Phase 201–205: Verification of Maritime Forward Basing, Civilizational Kshatra,
+    Sovereign Power Hierarchy, Multilateral Currency Settlements, and Autonomous Chat Learning.
+    """
+
+    def test_phase201_maritime_forward_basing_sieve(self):
+        """Verify MaritimeForwardBasingSieve calculates interdiction index and ties into MilitaryReadinessLens."""
+        from geo_engine.lenses.military_readiness import MaritimeForwardBasingSieve, MilitaryReadinessLens
+        from geo_engine.core.models import StrategicEvent
+
+        # Full forward base with 3000m runway & deepwater jetty
+        res = MaritimeForwardBasingSieve.calculate_forward_basing_index(
+            runway_length_meters=3000.0,
+            has_deepwater_jetty=True,
+            plan_encirclement_pressure=0.45,
+            chokepoint_criticality=0.85,
+            subsea_cable_intercept_risk=0.40,
+        )
+        assert res["basing_interdiction_index"] >= 0.75
+        assert res["chokepoint_security_tier"] == "COMMANDING_CHOKEPOINT_DOMINANCE"
+        assert res["is_forward_basing_active"] is True
+        assert res["patrol_radius_score"] == 1.0
+
+        # Evaluate via MilitaryReadinessLens with Agaléga corpus
+        evt = StrategicEvent(
+            event_id="EVT-AGALEGA-TEST",
+            summit_name="Agalega Strategic Base Deployment",
+            title="India Commissions 3000m P-8I Runway and Deepwater Jetty on Agalega Mauritius",
+            year=2026,
+            month=10,
+            day=28,
+            primary_location="Agalega Island, Mauritius / Mozambique Channel",
+            summary="Strategic forward base commanding the Mozambique Channel chokepoint against PLAN encirclement.",
+        )
+        lens_eval = MilitaryReadinessLens.evaluate(evt)
+        assert "basing_interdiction_index" in lens_eval.hard_metrics
+        assert lens_eval.hard_metrics["is_forward_basing_active"] is True
+        assert any("MARITIME FORWARD BASING" in f for f in lens_eval.key_findings)
+
+    def test_phase202_civilizational_kshatra_sieve(self):
+        """Verify CivilizationalKshatraSieve calculates resilience and ties into CivilizationalLens."""
+        from geo_engine.lenses.civilizational import CivilizationalKshatraSieve, CivilizationalLens
+        from geo_engine.core.models import SummitEvent
+
+        # High Kshatra vs Low Pacifism
+        res = CivilizationalKshatraSieve.calculate_kshatra_resilience(
+            martial_tradition=0.85,
+            epistemic_clarity=0.80,
+            self_defense_resolve=0.85,
+            unilateral_pacifism=0.20,
+            historical_defeatism=0.20,
+            macaulayite_guilt=0.15,
+            foreign_subversion_pressure=0.40,
+        )
+        assert res["defensive_resilience_score"] >= 0.75
+        assert res["defensive_resilience_tier"] == "FORTIFIED_KSHATRA_SOVEREIGNTY"
+        assert res["is_kshatra_resilient"] is True
+
+        # Evaluate via CivilizationalLens with Gita & Kshatra corpus
+        summit = SummitEvent(
+            summit_id="SUMMIT-KSHATRA-TEST",
+            summit_name="Civilizational Dialectic of Kshatra and Svadharma",
+            title="Krishna vs Buddha: Kshatra Virya, Mewar Bappa Rawal Defense and Devala Smriti Reconversion",
+            year=2026,
+            month=10,
+            day=28,
+            host_country="Bharat",
+            host_city="New Delhi",
+            declarations=["Upholding defensive Kshatra Virya against existential subversion."],
+        )
+        lens_eval = CivilizationalLens.evaluate(summit)
+        assert "civilizational_vulnerability_index" in lens_eval.hard_metrics
+        assert lens_eval.hard_metrics["is_kshatra_resilient"] is True
+        assert any("CIVILIZATIONAL KSHATRA SIEVE" in f for f in lens_eval.key_findings)
+
+    def test_phase203_sovereign_power_hierarchy_sieve(self):
+        """Verify SovereignPowerHierarchySieve calculates P > W and ties into InstitutionalLawfareLens."""
+        from geo_engine.lenses.institutional_lawfare import SovereignPowerHierarchySieve, InstitutionalLawfareLens
+        from geo_engine.core.models import StrategicEvent
+
+        # High state regulatory power vs private oligarch liquidity
+        res = SovereignPowerHierarchySieve.calculate_power_hierarchy(
+            state_regulatory_penal_score=0.90,
+            private_wealth_liquidity_score=0.60,
+            antitrust_or_statutory_enforcement=True,
+            foreign_asylum_headroom=0.10,
+        )
+        assert res["sovereign_dominance_ratio"] == 1.50
+        assert res["oligarch_subordination_factor"] >= 0.75
+        assert res["power_hierarchy_tier"] == "TOTAL_SOVEREIGN_PRIMACY"
+        assert res["coercive_state_primacy"] is True
+
+        # Evaluate via InstitutionalLawfareLens
+        evt = StrategicEvent(
+            event_id="EVT-POWER-VS-MONEY-TEST",
+            summit_name="Power vs Money Statecraft Audit",
+            title="Sovereign Coercive State Primacy: Harshad Mehta, Jack Ma Ant Group and Standard Oil Antitrust",
+            year=2026,
+            month=10,
+            day=28,
+            primary_location="New Delhi",
+            summary="Demonstrates that sovereign regulatory and penal power permanently subordinates private oligarchic capital.",
+        )
+        lens_eval = InstitutionalLawfareLens.evaluate(evt)
+        assert "oligarch_subordination_factor" in lens_eval.hard_metrics
+        assert lens_eval.hard_metrics["coercive_state_primacy"] is True
+        assert any("SOVEREIGN POWER HIERARCHY" in f for f in lens_eval.key_findings)
+
+    def test_phase204_multilateral_currency_settlement_sieve(self):
+        """Verify MultilateralCurrencySettlementSieve calculates sanctions firewall and ties into GeoEconomistLens."""
+        from geo_engine.lenses.geo_economist import MultilateralCurrencySettlementSieve, GeoEconomistLens
+        from geo_engine.core.models import SummitEvent
+
+        # Robust statutory harmonization & bilateral clearing
+        res = MultilateralCurrencySettlementSieve.calculate_settlement_resilience(
+            commercial_code_alignment=0.85,
+            dispute_arbitration_friction=0.15,
+            bilateral_clearing_ratio=0.75,
+            swift_dependency_ratio=0.25,
+        )
+        assert res["sanctions_firewall_score"] >= 0.75
+        assert res["dedollarization_resilience_tier"] == "IMPREGNABLE_SANCTIONS_FIREWALL"
+        assert res["is_sanctions_firewall_effective"] is True
+
+        # Evaluate via GeoEconomistLens with statutory harmonization corpus
+        summit = SummitEvent(
+            summit_id="SUMMIT-BRICS-CURRENCY-TEST",
+            summit_name="BRICS New Delhi Secret Statutory Harmonization Summit",
+            title="BRICS Central Banks Agree on Statutory Harmonization for Local Currency Settlements and Sanctions Firewall",
+            year=2026,
+            month=10,
+            day=28,
+            host_country="India",
+            host_city="New Delhi",
+            declarations=["Implementing bilateral local currency clearing insulated from secondary sanctions."],
+        )
+        lens_eval = GeoEconomistLens.evaluate(summit)
+        assert "sanctions_firewall_score" in lens_eval.hard_metrics
+        assert lens_eval.hard_metrics["is_sanctions_firewall_effective"] is True
+        assert any("STATUTORY HARMONIZATION & SANCTIONS FIREWALL" in f for f in lens_eval.key_findings)
+
+    def test_phase205_autonomous_chat_learner_and_readme_parity(self):
+        """Verify AutonomousLearner.learn_from_chat(), new EventStore seeds, and README parity."""
+        import pathlib
+        from geo_engine.verification.learner import AutonomousLearner
+        from geo_engine.storage.event_store import EventStore
+
+        learner = AutonomousLearner()
+        chat_msg = (
+            "India commissioned a 3,000-meter paved runway on Agalega Island in Mauritius to monitor the Mozambique Channel. "
+            "BRICS parliamentary speakers agreed on statutory commercial code harmonization for bilateral local currency settlements."
+        )
+        learn_res = learner.learn_from_chat(
+            conversation_messages=chat_msg,
+            user_identity="Certified User Turn Test",
+            auto_promote=True,
+        )
+        assert learn_res["operational_status"] == "LEARNING_CYCLE_COMPLETED_SAFELY"
+        assert learn_res["quarantined_count"] >= 2
+        assert learn_res["promoted_count"] >= 1
+
+        # Verify EventStore historical anniversaries & clauses
+        store = EventStore()
+        annivs = [a["anniversary_id"] for a in store.get_historical_anniversaries()]
+        assert "ANNIV-0738-BATTLE-OF-RAJASTHAN-BAPPA-RAWAL" in annivs
+        assert "ANNIV-0100-DEVALA-SMRITI-PURIFICATION-CODE" in annivs
+        assert "ANNIV-1993-HARSHAD-MEHTA-PRESS-CONFERENCE-STATE-SUBORDINATION" in annivs
+        assert "ANNIV-1971-PETRODOLLAR-BRETTON-WOODS-NIXON-SHOCK" in annivs
+
+        clauses = [c["clause_id"] for c in store.get_baseline_clauses()]
+        assert "CLAUSE-MAURITIUS-MARITIME-SECURITY-AGREEMENT-AGALEGA" in clauses
+        assert "CLAUSE-BRICS-STATUTORY-HARMONIZATION-LOCAL-CURRENCY" in clauses
+
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "501 comprehensive unit and integration tests" in content
 
 
 
+class TestPhase206to214VedicCouncilCableMineral:
+    """
+    Phase 206-214: 10 deterministic tests for 4 new sieves, Phase 210 harmonizer,
+    4 Vedic Trayodasha archetypes, synthesizer splicing, EventStore seeds, and README parity.
+    """
+
+    def test_phase206_subsea_cable_sovereignty_sieve(self):
+        """Phase 206: SubseaCableSovereigntySieve sigmoid math and output keys."""
+        from geo_engine.lenses.subsea_cables import SubseaCableSovereigntySieve
+        sieve = SubseaCableSovereigntySieve()
+        # High-risk scenario: exposed landing stations, deep chokepoints, no redundancy
+        result = sieve.calculate_cable_sovereignty(
+            landing_station_exposure_risk=0.85,
+            chokepoint_depth_risk=0.75,
+            domestic_cable_redundancy_score=0.15,
+            encryption_layer_score=0.20,
+            repair_ship_autonomy_score=0.10,
+        )
+        assert "cable_vulnerability_index" in result
+        cvi = result["cable_vulnerability_index"]
+        assert 0.0 <= cvi <= 1.0, f"CVI out of sigmoid range: {cvi}"
+        assert cvi > 0.5, f"High-risk scenario should yield CVI > 0.5, got {cvi}"
+        assert "cable_sovereignty_tier" in result
+        assert "is_cable_compromised" in result
+
+    def test_phase207_critical_minerals_refining_crisis_sieve(self):
+        """Phase 207: CriticalMineralsRefiningCrisisSieve sigmoid and midstream captivity."""
+        from geo_engine.lenses.critical_minerals import CriticalMineralsRefiningCrisisSieve
+        sieve = CriticalMineralsRefiningCrisisSieve()
+        # China controls ~85% HREE refining scenario
+        result = sieve.calculate_refining_crisis(
+            single_country_refining_share=0.85,
+            upstream_extraction_gap=0.70,
+            domestic_refining_capacity_score=0.08,
+            stockpile_days_buffer=15.0,
+            alternative_supplier_count=1,
+        )
+        assert "refining_concentration_risk" in result
+        rcr = result["refining_concentration_risk"]
+        assert 0.0 <= rcr <= 1.0, f"RCR out of sigmoid range: {rcr}"
+        assert rcr > 0.7, f"Critical midstream captivity should yield RCR > 0.7, got {rcr}"
+        assert "mineral_sovereignty_tier" in result
+        assert "is_midstream_captive" in result
+
+    def test_phase208_national_champion_sovereign_sieve(self):
+        """Phase 208: NationalChampionSovereignSieve dual-output equilibrium math."""
+        from geo_engine.lenses.geo_economist import NationalChampionSovereignSieve
+        sieve = NationalChampionSovereignSieve()
+        # Jio archetype: high domestic capex, moderate cartel risk
+        result = sieve.calculate_champion_equilibrium(
+            domestic_capex_share=0.72,
+            foreign_displacement_score=0.65,
+            foreign_tech_dependency=0.30,
+            herfindahl_index=0.58,
+            cross_sector_tying_score=0.45,
+            regulatory_vigilance=0.50,
+        )
+        assert "sovereign_shield_factor" in result
+        assert "domestic_cartel_risk" in result
+        assert "strategic_equilibrium_ratio" in result
+        ssf = result["sovereign_shield_factor"]
+        dcr = result["domestic_cartel_risk"]
+        ser = result["strategic_equilibrium_ratio"]
+        assert 0.0 <= ssf <= 1.0
+        assert 0.0 <= dcr <= 1.0
+        assert ser >= 0.0
+        assert "national_champion_tier" in result
+        assert "is_cartel_risk_dominant" in result
+
+    def test_phase209_cultural_grayzone_legitimacy_sieve(self):
+        """Phase 209: CulturalGrayzoneLegitimacySieve Pramana validation and Dharma weaponization."""
+        from geo_engine.lenses.civilizational import CulturalGrayzoneLegitimacySieve
+        sieve = CulturalGrayzoneLegitimacySieve()
+        # High sacred-term density, near-zero physical corroboration => weaponization
+        text = ("dharma ram rajya puja prasad ahimsa blessing temple bell" * 6)
+        result = sieve.calculate_grayzone_legitimacy(
+            corpus=text,
+            verified_physical_actions=0,
+            declared_obligations=5,
+            antitrust_scrutiny_pressure=0.8,
+            emotional_amplification_score=0.9,
+        )
+        assert "cultural_grayzone_hijack_probability" in result
+        gzp = result["cultural_grayzone_hijack_probability"]
+        assert 0.0 <= gzp <= 1.0
+        assert gzp > 0.6, f"Dharma-weaponization scenario should yield GZP > 0.6, got {gzp}"
+        assert "grayzone_tier" in result
+        assert "is_dharma_weaponized" in result
+
+    def test_phase210_auto_quarantine_harmonizer(self):
+        """Phase 210: AutonomousLearner.auto_harmonize_quarantine() returns valid dict."""
+        from geo_engine.verification.learner import AutonomousLearner
+        learner = AutonomousLearner()
+        assert hasattr(learner, "auto_harmonize_quarantine"), "Method missing from AutonomousLearner"
+        result = learner.auto_harmonize_quarantine(min_corroboration_count=3)
+        assert "harmonizer_status" in result
+        assert result["harmonizer_status"] in (
+            "HARMONIZATION_COMPLETE", "DB_ERROR"
+        ), f"Unexpected status: {result['harmonizer_status']}"
+        if result["harmonizer_status"] == "HARMONIZATION_COMPLETE":
+            assert "promoted_count" in result
+            assert "retained_count" in result
+            assert isinstance(result["promoted_count"], int)
+            assert isinstance(result["retained_count"], int)
+            assert "min_corroboration_threshold" in result
+            assert result["min_corroboration_threshold"] == 3
+
+    def test_phase211_to_214_vedic_council_archetypes(self):
+        """Phase 211-214: All 4 Vedic Trayodasha archetypes present in PersonaNarrator."""
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        archetypes = PersonaNarrator.ARCHETYPES
+        assert len(archetypes) >= 13, f"Expected >= 13 archetypes, got {len(archetypes)}"
+        # Verify 4 new Vedic archetypes
+        for key in ("kautilya", "krishna_gita", "vedic_rishi", "ram_rajya"):
+            assert key in archetypes, f"Missing archetype: {key}"
+            arch = archetypes[key]
+            assert "name" in arch
+            assert "doctrinal_axis" in arch
+            assert "lens_weights" in arch
+            assert "conceptual_framing" in arch
+        # Verify apply_persona generates valid output for each
+        narrator = PersonaNarrator()
+        test_event = type("E", (), {
+            "title": "Test Vedic Archetype Event",
+            "description": "Dharma-based statecraft test event for Trayodasha Council validation.",
+            "region": "Bharat",
+            "source_type": "test",
+        })()
+        for key in ("kautilya", "krishna_gita", "vedic_rishi", "ram_rajya"):
+            p_out = narrator.apply_persona(test_event, key)
+            assert "archetype_key" in p_out
+            assert p_out["archetype_key"] == key
+
+    def test_phase206_to_214_event_store_seeds(self):
+        """Phase 206-210 EventStore: 4 new anniversary seeds and 2 new clause seeds verified."""
+        from geo_engine.storage.event_store import EventStore
+        store = EventStore()
+        annivs = [a["anniversary_id"] for a in store.get_historical_anniversaries()]
+        # 4 new seeds
+        for aid in (
+            "ANNIV-1858-TELEGRAPH-CABLE-RED-SEA-IMPERIAL-INFRASTRUCTURE",
+            "ANNIV-2022-NORD-STREAM-PIPELINE-CABLE-SABOTAGE",
+            "ANNIV-2010-CHINA-RARE-EARTH-EXPORT-QUOTA-JAPAN-EMBARGO",
+            "ANNIV-1977-RELIANCE-DHIRUBHAI-AMBANI-FIRST-PUBLIC-ISSUE",
+        ):
+            assert aid in annivs, f"Missing anniversary: {aid}"
+        clauses = [c["clause_id"] for c in store.get_baseline_clauses()]
+        for cid in (
+            "CLAUSE-INDIA-CABLES-TELEGRAPH-ACT-1885-SOVEREIGN-INFRASTRUCTURE",
+            "CLAUSE-INDIA-CCI-COMPETITION-ACT-2002-HERFINDAHL-ENFORCEMENT",
+        ):
+            assert cid in clauses, f"Missing clause: {cid}"
+
+    def test_phase206_to_214_lenses_init_exports(self):
+        """Phase 206-209: All 4 new sieves are importable from geo_engine.lenses __all__."""
+        import geo_engine.lenses as lenses_module
+        for sieve_name in (
+            "SubseaCableSovereigntySieve",
+            "CriticalMineralsRefiningCrisisSieve",
+            "NationalChampionSovereignSieve",
+            "CulturalGrayzoneLegitimacySieve",
+        ):
+            assert hasattr(lenses_module, sieve_name), f"{sieve_name} not exported from geo_engine.lenses"
+            assert sieve_name in lenses_module.__all__, f"{sieve_name} not in __all__"
+
+    def test_phase206_to_214_synthesizer_matrix_keys(self):
+        """Phase 206-209: strategic_resilience_matrix in synthesizer includes 4 new keys."""
+        import inspect
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        source = inspect.getsource(SummitSynthesizer)
+        for key in (
+            "cable_vulnerability_index",
+            "refining_concentration_risk",
+            "strategic_equilibrium_ratio",
+            "cultural_grayzone_hijack_probability",
+        ):
+            assert key in source, f"'{key}' missing from SummitSynthesizer source"
+
+    def test_phase206_to_214_readme_parity_483_tests(self):
+        """Phase 206-214 README parity: counter updated to 483 certified tests."""
+        import pathlib
+        readme_path = pathlib.Path(__file__).parent.parent / "README.md"
+        content = readme_path.read_text(encoding="utf-8")
+        assert "501 comprehensive unit and integration tests" in content, (
+            f"README.md still shows old test count. Expected '501 comprehensive unit and integration tests'"
+        )
+
+
+class TestPhase215to220BugFixes_SRCIAndIntegration:
+    """
+    Phase 215-220: Bug fixes, sieve-lens integration wiring, SRCI aggregator,
+    learn_from_event, Vedic cross-wire. 6 deterministic tests.
+    """
+
+    def test_phase215_auto_harmonize_quarantine_schema_fix(self):
+        """Phase 215: auto_harmonize_quarantine() uses correct schema and returns HARMONIZATION_COMPLETE."""
+        from geo_engine.verification.learner import AutonomousLearner
+        learner = AutonomousLearner()
+        result = learner.auto_harmonize_quarantine(min_corroboration_count=3)
+        assert result["harmonizer_status"] == "HARMONIZATION_COMPLETE", (
+            f"Expected HARMONIZATION_COMPLETE, got: {result['harmonizer_status']}. "
+            f"Error: {result.get('error', 'none')}. Schema fix may have regressed."
+        )
+        assert "promoted_count" in result
+        assert "retained_count" in result
+        assert isinstance(result["promoted_count"], int)
+        assert isinstance(result["retained_count"], int)
+        assert result["min_corroboration_threshold"] == 3
+
+    def test_phase217_learn_from_event(self):
+        """Phase 217: AutonomousLearner.learn_from_event() distills SummitEvent into quarantine."""
+        from geo_engine.verification.learner import AutonomousLearner
+        learner = AutonomousLearner()
+        assert hasattr(learner, "learn_from_event"), "learn_from_event() missing from AutonomousLearner"
+        # Create a duck-typed event object
+        event = type("MockEvent", (), {
+            "event_id": "TEST-PHASE217-LEARN",
+            "title": "India Launches Domestic Cable Repair Ship Sovereign Program",
+            "description": "India commissions INS Sagar Rakshak as first domestically-built "
+                           "cable repair vessel reducing dependence on foreign repair consortia.",
+            "region": "Indian Ocean / Mumbai",
+            "civilizational_significance": "Sovereign infrastructure control: repair ship autonomy "
+                                           "reduces cable vulnerability index below critical threshold.",
+        })()
+        result = learner.learn_from_event(event, auto_promote=True)
+        assert result["operational_status"] == "LEARNING_CYCLE_COMPLETED_SAFELY"
+        assert result["total_claims_extracted"] >= 1
+
+    def test_phase218_vedic_archetype_grayzone_cross_wire(self):
+        """Phase 218: Vedic archetypes produce grayzone_sieve_alert when corpus has sacred terms."""
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        narrator = PersonaNarrator()
+        # Event with high sacred term density
+        event = type("MockEvent", (), {
+            "event_id": "TEST-PHASE218-GZ",
+            "title": "Dharma Corporate Leverages Ram Rajya Branding for Market Capture",
+            "description": (
+                "dharma ram rajya puja prasad ahimsa blessing temple bell seva mandir "
+                "gau pitru sankalpa daan dharma ahimsa puja ram rajya blessing "
+                "Corporate grayzone actor deploys sacred Hindu vocabulary to legitimize "
+                "monopolistic expansion without statutory compliance obligations."
+            ),
+            "region": "Bharat",
+            "civilizational_significance": "Dharma weaponization for market control.",
+            "source_type": "test",
+        })()
+        for key in ("ram_rajya", "krishna_gita", "vedic_rishi", "kautilya"):
+            out = narrator.apply_persona(event, key)
+            assert "archetype_key" in out
+            # grayzone_sieve_alert should be present for Vedic archetypes
+            assert "grayzone_sieve_alert" in out, (
+                f"Expected grayzone_sieve_alert in {key} output. "
+                f"Keys: {list(out.keys())}"
+            )
+            gz = out["grayzone_sieve_alert"]
+            assert "cultural_grayzone_hijack_probability" in gz
+            assert 0.0 <= gz["cultural_grayzone_hijack_probability"] <= 1.0
+
+    def test_phase220_srci_aggregator_math(self):
+        """Phase 220: SovereignRiskCompositeIndex is sigma-bounded and tiers are consistent."""
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        s = SummitSynthesizer()
+        assert hasattr(s, "compute_sovereign_risk_composite_index"), "SRCI method missing"
+        # Test 1: High-risk scenario
+        high_risk_srm = {
+            "cable_vulnerability_index": 0.90,
+            "refining_concentration_risk": 0.95,
+            "strategic_equilibrium_ratio": 0.8,  # cartel dominant
+            "cultural_grayzone_hijack_probability": 0.92,
+            "sanctions_firewall_score": 0.15,
+            "demographic_border_vulnerability": 0.85,
+        }
+        r_high = s.compute_sovereign_risk_composite_index(high_risk_srm)
+        assert "srci_score" in r_high
+        assert "srci_tier" in r_high
+        assert "dominant_risk_domain" in r_high
+        assert 0.0 <= r_high["srci_score"] <= 1.0
+        assert r_high["srci_score"] > 0.5, f"High-risk scenario should yield SRCI > 0.5, got {r_high['srci_score']}"
+        # Test 2: Low-risk scenario
+        low_risk_srm = {
+            "cable_vulnerability_index": 0.10,
+            "refining_concentration_risk": 0.10,
+            "strategic_equilibrium_ratio": 3.5,
+            "cultural_grayzone_hijack_probability": 0.05,
+            "sanctions_firewall_score": 0.97,
+            "demographic_border_vulnerability": 0.10,
+        }
+        r_low = s.compute_sovereign_risk_composite_index(low_risk_srm)
+        assert 0.0 <= r_low["srci_score"] <= 1.0
+        assert r_low["srci_score"] < r_high["srci_score"], "Low-risk should score lower than high-risk"
+        # Test 3: Empty SRM (defaults only)
+        r_default = s.compute_sovereign_risk_composite_index({})
+        assert 0.0 <= r_default["srci_score"] <= 1.0
+
+    def test_phase220_srci_component_inputs_present(self):
+        """Phase 220: SRCI output contains component_inputs breakdown dict."""
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        s = SummitSynthesizer()
+        result = s.compute_sovereign_risk_composite_index({
+            "cable_vulnerability_index": 0.72,
+            "refining_concentration_risk": 0.85,
+            "strategic_equilibrium_ratio": 1.5,
+            "cultural_grayzone_hijack_probability": 0.60,
+            "sanctions_firewall_score": 0.80,
+            "demographic_border_vulnerability": 0.55,
+        })
+        assert "component_inputs" in result
+        ci = result["component_inputs"]
+        for key in ("cable_vulnerability_index", "refining_concentration_risk",
+                    "strategic_equilibrium_ratio", "cultural_grayzone_hijack_probability",
+                    "sanctions_firewall_score", "demographic_border_vulnerability"):
+            assert key in ci, f"Missing component input: {key}"
+
+    def test_phase215_to_220_learner_total_methods(self):
+        """Phase 215-217: AutonomousLearner now has 4 public methods."""
+        from geo_engine.verification.learner import AutonomousLearner
+        methods = [m for m in dir(AutonomousLearner) if not m.startswith("_")]
+        assert "auto_harmonize_quarantine" in methods
+        assert "learn_from_text" in methods
+        assert "learn_from_chat" in methods
+        assert "learn_from_event" in methods
+        assert len(methods) >= 4, f"Expected >= 4 methods, got {len(methods)}: {methods}"
+
+
+class TestPhase216SieveLensIntegration:
+    """Phase 216: Machine-verified sieve wiring into lens evaluate() hard_metrics."""
+
+    def test_phase216_subsea_cable_sieve_in_lens_evaluate(self):
+        """SubseaCableSovereigntySieve.calculate_cable_sovereignty() wired into SubseaCablesLens.evaluate()."""
+        from geo_engine.lenses.subsea_cables import SubseaCablesLens
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="India Cable Sovereignty",
+            year=2025,
+            event_type="GEO_ECONOMIC",
+            primary_region="Indian Ocean",
+            focal_date="2025-01-01",
+            temporal_mode="empirical_historical",
+        )
+        result = SubseaCablesLens().evaluate(ev)
+        assert result.hard_metrics.get("cable_vulnerability_index") is not None, (
+            f"cable_vulnerability_index missing from hard_metrics: {list(result.hard_metrics.keys())}"
+        )
+        val = result.hard_metrics["cable_vulnerability_index"]
+        assert 0.0 <= val <= 1.0, f"cable_vulnerability_index={val} out of [0,1] bounds"
+
+    def test_phase216_critical_minerals_sieve_in_lens_evaluate(self):
+        """CriticalMineralsRefiningCrisisSieve wired into CriticalMineralsLens.evaluate()."""
+        from geo_engine.lenses.critical_minerals import CriticalMineralsLens
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="China Rare Earth Refining Monopoly",
+            year=2025,
+            event_type="GEO_ECONOMIC",
+            primary_region="China",
+            focal_date="2025-01-01",
+            temporal_mode="empirical_historical",
+        )
+        result = CriticalMineralsLens().evaluate(ev)
+        assert result.hard_metrics.get("refining_concentration_risk") is not None, (
+            f"refining_concentration_risk missing: {list(result.hard_metrics.keys())}"
+        )
+        val = result.hard_metrics["refining_concentration_risk"]
+        assert 0.0 <= val <= 1.0, f"refining_concentration_risk={val} out of [0,1] bounds"
+
+    def test_phase216_national_champion_sieve_in_lens_evaluate(self):
+        """NationalChampionSovereignSieve wired into GeoEconomistLens.evaluate()."""
+        from geo_engine.lenses.geo_economist import GeoEconomistLens
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="India National Champion Policy",
+            year=2025,
+            event_type="GEO_ECONOMIC",
+            primary_region="India",
+            focal_date="2025-01-01",
+            temporal_mode="empirical_historical",
+        )
+        result = GeoEconomistLens().evaluate(ev)
+        assert result.hard_metrics.get("strategic_equilibrium_ratio") is not None, (
+            f"strategic_equilibrium_ratio missing: {list(result.hard_metrics.keys())}"
+        )
+        val = result.hard_metrics["strategic_equilibrium_ratio"]
+        assert val > 0.0, f"strategic_equilibrium_ratio={val} must be positive"
+
+    def test_phase216_cultural_grayzone_sieve_in_lens_evaluate(self):
+        """CulturalGrayzoneLegitimacySieve wired into CivilizationalLens.evaluate()."""
+        from geo_engine.lenses.civilizational import CivilizationalLens
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="Dharma Weaponization Analysis",
+            year=2025,
+            event_type="CIVILIZATIONAL_CRISIS",
+            primary_region="India",
+            focal_date="2025-01-01",
+            temporal_mode="empirical_historical",
+        )
+        result = CivilizationalLens().evaluate(ev)
+        assert result.hard_metrics.get("cultural_grayzone_hijack_probability") is not None, (
+            f"cultural_grayzone_hijack_probability missing: {list(result.hard_metrics.keys())}"
+        )
+        val = result.hard_metrics["cultural_grayzone_hijack_probability"]
+        assert 0.0 <= val <= 1.0, f"cultural_grayzone_hijack_probability={val} out of [0,1] bounds"
+
+
+class TestPhase221to224SievesAndQuantum:
+    """Phases 221-225: Supply Chain Migration, Media Lawfare, FUD Deflation, Hardware Moat & Quantum Statecraft."""
+
+    def test_phase221_supply_chain_vacuum_capture_sieve(self):
+        """Phase 221: Verify SupplyChainVacuumCaptureSieve math and lens evaluate wiring."""
+        from geo_engine.lenses.geo_economist import GeoEconomistLens, SupplyChainVacuumCaptureSieve
+        from geo_engine.core.models import SummitEvent
+
+        # 1. Direct mathematical verification
+        res = SupplyChainVacuumCaptureSieve.calculate_supply_chain_capture(
+            neighbor_instability_index=0.75,
+            domestic_tariff_harmonization=0.90,
+            logistics_friction=0.30,
+            addressable_migrating_market_usd_b=20.0
+        )
+        assert 0.0 <= res["supply_chain_capture_potential"] <= 1.0
+        assert res["captured_order_value_usd_b"] > 15.0
+        assert res["is_supply_chain_vacuum_captured"] is True
+        assert res["supply_chain_capture_tier"] == "AGGRESSIVE_SUPPLY_CHAIN_CAPTURE"
+
+        # 2. Lens evaluate integration
+        ev = SummitEvent(
+            title="Bangladesh Apparel Disruption",
+            year=2026,
+            event_type="GEO_ECONOMIC",
+            primary_region="South Asia",
+            focal_date="2026-10-27",
+            temporal_mode="empirical_historical"
+        )
+        lens_res = GeoEconomistLens.evaluate(ev)
+        assert "supply_chain_capture_potential" in lens_res.hard_metrics
+        assert "captured_order_value_usd_b" in lens_res.hard_metrics
+        assert lens_res.hard_metrics["supply_chain_capture_potential"] >= 0.80
+
+    def test_phase222_data_sovereignty_media_lawfare_sieve(self):
+        """Phase 222: Verify DataSovereigntyMediaLawfareSieve math and lens evaluate wiring."""
+        from geo_engine.lenses.institutional_lawfare import InstitutionalLawfareLens, DataSovereigntyMediaLawfareSieve
+        from geo_engine.core.models import SummitEvent
+
+        # 1. Direct mathematical verification
+        res = DataSovereigntyMediaLawfareSieve.calculate_media_lawfare(
+            foreign_data_exemption_demand=0.85,
+            media_cartel_concentration=0.80,
+            statutory_penalty_severity=0.90,
+            investigative_whistleblower_safeguard=0.50
+        )
+        assert 0.0 <= res["media_lawfare_vulnerability"] <= 1.0
+        assert "media_lawfare_tier" in res
+        assert "operational_verdict" in res
+
+        # 2. Lens evaluate integration
+        ev = SummitEvent(
+            title="Media Giants Challenge DPDP Act",
+            year=2026,
+            event_type="STRATEGIC_EVENT",
+            primary_region="India",
+            focal_date="2026-10-27",
+            temporal_mode="empirical_historical"
+        )
+        lens_res = InstitutionalLawfareLens.evaluate(ev)
+        assert "media_lawfare_vulnerability" in lens_res.hard_metrics
+        assert "media_lawfare_tier" in lens_res.hard_metrics
+
+    def test_phase223_cognitive_panic_monetization_filter(self):
+        """Phase 223: Verify CognitivePanicMonetizationFilter FUD deflation math and lens wiring."""
+        from geo_engine.lenses.propaganda import PropagandaLens, CognitivePanicMonetizationFilter
+        from geo_engine.core.models import SummitEvent
+
+        # 1. Direct mathematical verification: commercial panic funnel with low empirical evidence
+        res = CognitivePanicMonetizationFilter.calculate_panic_monetization(
+            emotional_amplification_score=0.90,
+            affiliate_commercial_density=0.85,
+            empirical_telemetry_score=0.10,
+            clickbait_urgency_factor=0.95
+        )
+        assert res["commercial_fud_probability"] >= 0.85
+        assert res["is_commercial_fud_dominant"] is True
+        assert res["panic_monetization_tier"] == "CONFIRMED_COMMERCIAL_FUD_FUNNEL"
+        assert res["debiased_structural_threat"] < res["empirical_telemetry_score"]
+
+        # 2. Lens evaluate integration
+        ev = SummitEvent(
+            title="Emergency Doomsday Lockdown Rumors",
+            year=2026,
+            event_type="STRATEGIC_EVENT",
+            primary_region="Global",
+            focal_date="2026-10-27",
+            temporal_mode="empirical_historical"
+        )
+        lens_res = PropagandaLens.evaluate(ev)
+        assert "commercial_fud_probability" in lens_res.hard_metrics
+        assert "panic_monetization_index" in lens_res.hard_metrics
+        assert "debiased_structural_threat" in lens_res.hard_metrics
+
+    def test_phase224_indigenous_hardware_tech_moat_sieve(self):
+        """Phase 224: Verify IndigenousHardwareTechMoatSieve math and lens evaluate wiring."""
+        from geo_engine.lenses.digital_sovereignty import DigitalSovereigntyLens, IndigenousHardwareTechMoatSieve
+        from geo_engine.core.models import SummitEvent
+
+        # 1. Direct mathematical verification: sovereign indigenous engineering vs white-label CKD
+        res = IndigenousHardwareTechMoatSieve.calculate_hardware_moat(
+            proprietary_bms_ip_score=0.90,
+            local_thermal_optimization_score=0.85,
+            foreign_ckd_rebadge_share=0.10,
+            domestic_manufacturing_integration=0.80
+        )
+        assert res["indigenous_tech_moat_score"] >= 0.85
+        assert res["is_indigenous_moat_defensible"] is True
+        assert res["hardware_tech_moat_tier"] == "FORTIFIED_INDIGENOUS_TECH_MOAT"
+
+        # 2. Lens evaluate integration
+        ev = SummitEvent(
+            title="Ather Energy Sovereign Tech Moat",
+            year=2026,
+            event_type="GEO_ECONOMIC",
+            primary_region="India",
+            focal_date="2026-10-27",
+            temporal_mode="empirical_historical"
+        )
+        lens_res = DigitalSovereigntyLens.evaluate(ev)
+        assert "indigenous_tech_moat_score" in lens_res.hard_metrics
+        assert "hardware_tech_moat_tier" in lens_res.hard_metrics
+
+    def test_phase225_quantum_information_superposition_and_pqc_audit(self):
+        """Phase 225: Quantum Information Statecraft: Superposition, Entropy & PQC Resilience."""
+        from geo_engine.lenses.deep_tech import QuantumInformationSieve
+
+        # 1. Multi-vector alignment superposition
+        q_res = QuantumInformationSieve.calculate_geopolitical_superposition(
+            c_west=0.45,
+            c_eurasia=0.55,
+            c_south=0.70,
+            kinetic_escalation_score=0.25,
+            collapse_threshold=0.75
+        )
+        assert q_res["superposition_status"] == "COHERENT_SUPERPOSITION"
+        assert q_res["entropy_ratio"] >= 0.85
+        assert q_res["is_collapsed"] is False
+        assert len(q_res["probabilities"]) == 3
+        assert abs(sum(q_res["probabilities"].values()) - 1.0) < 0.05
+
+        # 2. Post-Quantum Cryptographic (PQC) Sovereignty Risk
+        pqc_res = QuantumInformationSieve.evaluate_pqc_sovereignty(
+            q_day_horizon_years=8.0,
+            pqc_migration_progress_pct=65.0,
+            critical_infrastructure_c4isr_pqc_pct=80.0
+        )
+        assert pqc_res["vulnerability_score"] < 0.35
+        assert pqc_res["pqc_tier"] == "RESILIENT_QUANTUM_HARDENED"
+        assert "POST_QUANTUM" in pqc_res["operational_verdict"]
+
+
+class TestPhase226MicroAuditAndCliEndToEnd:
+    """Phase 226: End-to-end CLI robustness, None-safe formatting, and synthesizer resilience matrix verification."""
+
+    def test_phase226_strategic_resilience_matrix_phase221_to_224_wiring(self):
+        """Verify that SummitSynthesizer populates Phase 221-224 metrics in strategic_resilience_matrix."""
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="High-Tech & Supply Chain Test",
+            year=2026,
+            event_type="GEO_ECONOMIC",
+            primary_region="India",
+            focal_date="2026-10-29",
+            temporal_mode="empirical_historical"
+        )
+        report = SummitSynthesizer.synthesize_report(ev)
+        srm = report.strategic_resilience_matrix
+
+        for k in (
+            "supply_chain_capture_potential",
+            "captured_order_value_usd_b",
+            "media_lawfare_vulnerability",
+            "commercial_fud_probability",
+            "debiased_structural_threat",
+            "indigenous_tech_moat_score"
+        ):
+            assert k in srm, f"Missing key {k} in strategic_resilience_matrix"
+            assert srm[k] is not None, f"Key {k} is None in strategic_resilience_matrix"
+            assert isinstance(srm[k], (int, float))
+
+    def test_phase226_cli_full_report_safe_rendering_with_none_values(self):
+        """Verify render_full_report renders without TypeError even with None metric values."""
+        from geo_engine.cli import render_full_report
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="CLI Robustness None-Safe Test",
+            year=2026,
+            event_type="GEO_ECONOMIC",
+            primary_region="India",
+            focal_date="2026-10-29",
+            temporal_mode="empirical_historical"
+        )
+        # Execute full report render (must not raise TypeError: unsupported format string passed to NoneType)
+        report = render_full_report(target_event=ev, export=None)
+        assert report is not None
+
+    def test_phase226_render_conversation_learning_robustness(self):
+        """Verify render_conversation_learning accepts both keyword 'text' and positional arguments."""
+        from geo_engine.cli import render_conversation_learning
+
+        # Keyword invocation
+        render_conversation_learning(text="India's indigenous BMS achieved 98% efficiency in field tests.", subject="Tech Moat")
+        # Positional invocation
+        render_conversation_learning("India deployed indigenous NavIC receivers on commercial vessels.")
 
 
 
+class TestPhase228to238SievesAndSynthesizer:
+    """
+    Phases 228-238: Rigorous deterministic verification of 11 net-new mathematical sieves
+    and full SummitSynthesizer strategic resilience matrix integration.
+    """
 
+    def test_phase228_street_lawfare_sieve(self):
+        """Phase 228: StreetLawfareSieve verification under extreme and nominal parameters."""
+        from geo_engine.lenses.institutional_lawfare import StreetLawfareSieve
 
+        # High risk mobilization
+        res_high = StreetLawfareSieve.calculate_street_lawfare(
+            fcra_foreign_funding_exposure=0.90,
+            protest_mobilization_velocity=0.85,
+            statutory_compliance_rigor=0.15,
+            subversive_legal_aid_density=0.80
+        )
+        assert res_high["street_lawfare_score"] >= 0.80
+        assert res_high["street_lawfare_tier"] == "CRITICAL_STREET_LAWFARE_RISK"
+        assert res_high["is_infrastructure_lawfare_active"] is True
 
+        # Nominal compliant dissent
+        res_low = StreetLawfareSieve.calculate_street_lawfare(
+            fcra_foreign_funding_exposure=0.10,
+            protest_mobilization_velocity=0.20,
+            statutory_compliance_rigor=0.90,
+            subversive_legal_aid_density=0.10
+        )
+        assert res_low["street_lawfare_score"] < 0.35
+        assert res_low["street_lawfare_tier"] == "TRANSPARENT_RULE_OF_LAW_CONTAINMENT"
+        assert res_low["is_infrastructure_lawfare_active"] is False
+
+    def test_phase229_offshore_capital_magnetism_sieve(self):
+        """Phase 229: OffshoreCapitalMagnetismSieve GIFT City capital inflow verification."""
+        from geo_engine.lenses.geo_economist import OffshoreCapitalMagnetismSieve
+
+        res = OffshoreCapitalMagnetismSieve.calculate_capital_magnetism(
+            tax_arbitrage_differential=0.85,
+            currency_convertibility_ease=0.80,
+            geopolitical_sanction_insulation=0.85,
+            bureaucratic_dispute_friction=0.20,
+            addressable_capital_pool_usd_b=50.0
+        )
+        assert res["capital_magnetism_score"] >= 0.80
+        assert res["capital_magnetism_tier"] == "PRIME_GLOBAL_CAPITAL_MAGNET"
+        assert res["captured_inflow_potential_usd_b"] > 40.0
+        assert res["is_capital_magnet_active"] is True
+
+    def test_phase230_high_altitude_aero_defense_sieve(self):
+        """Phase 230: HighAltitudeAeroDefenseSieve LAC density altitude air dominance verification."""
+        from geo_engine.lenses.military_readiness import HighAltitudeAeroDefenseSieve
+
+        res = HighAltitudeAeroDefenseSieve.calculate_aero_defense(
+            high_altitude_thrust_to_weight=0.85,
+            sensor_fusion_aesa_integration=0.90,
+            cold_soak_turnaround_agility=0.80,
+            foreign_airframe_dependency=0.20
+        )
+        assert res["high_altitude_defense_score"] >= 0.80
+        assert res["high_altitude_defense_tier"] == "AIR_DOMINANCE_SOVEREIGNTY"
+        assert res["is_air_dominance_assured"] is True
+
+    def test_phase231_tripartite_coherence_sieve(self):
+        """Phase 231: TripartiteCoherenceSieve minilateral alignment verification."""
+        from geo_engine.lenses.geopolitical import TripartiteCoherenceSieve
+
+        res = TripartiteCoherenceSieve.calculate_tripartite_coherence(
+            shared_maritime_security_alignment=0.90,
+            defense_interoperability_score=0.85,
+            economic_supply_chain_synergy=0.80,
+            bilateral_territorial_friction=0.10
+        )
+        assert res["tripartite_coherence_score"] >= 0.65
+        assert res["is_tripartite_coherent"] is True
+        assert "tripartite_coherence_tier" in res
+
+    def test_phase232_statutory_border_demography_sieve(self):
+        """Phase 232: StatutoryBorderDemographySieve border frontier sovereignty verification."""
+        from geo_engine.lenses.demographic_infiltration import StatutoryBorderDemographySieve
+
+        res = StatutoryBorderDemographySieve.calculate_border_demography(
+            voter_roll_cleansing_rigor=0.85,
+            biometric_deduplication_rate=0.90,
+            cross_border_infiltration_flow=0.20,
+            lawfare_injunction_friction=0.15
+        )
+        assert res["demographic_sovereignty_score"] >= 0.80
+        assert res["demographic_sovereignty_tier"] == "FORTIFIED_DEMOGRAPHIC_SOVEREIGNTY"
+        assert res["is_demographic_sovereignty_secure"] is True
+
+    def test_phase233_strategic_metallurgy_sieve(self):
+        """Phase 233: StrategicMetallurgySieve single-crystal superalloy and NdFeB magnet verification."""
+        from geo_engine.lenses.digital_sovereignty import StrategicMetallurgySieve
+
+        res = StrategicMetallurgySieve.calculate_metallurgy_autonomy(
+            single_crystal_superalloy_ip=0.80,
+            ndfeb_domestic_refining_supply=0.75,
+            titanium_hull_casting_capacity=0.85,
+            foreign_turbine_core_dependency=0.20
+        )
+        assert res["metallurgy_autonomy_score"] >= 0.80
+        assert res["metallurgy_autonomy_tier"] == "METALLURGICAL_SOVEREIGN_INDEPENDENCE"
+        assert res["is_metallurgy_autonomous"] is True
+
+    def test_phase234_nuclear_ambiguity_sieve(self):
+        """Phase 234: NuclearAmbiguitySieve strategic opaque deterrence verification."""
+        from geo_engine.lenses.hybrid_covert import NuclearAmbiguitySieve
+
+        res = NuclearAmbiguitySieve.calculate_nuclear_ambiguity(
+            unacknowledged_warhead_capacity=0.90,
+            second_strike_credibility=0.95,
+            tactical_deception_capability=0.85,
+            treaty_inspection_penetration=0.10
+        )
+        assert res["nuclear_ambiguity_score"] >= 0.80
+        assert res["nuclear_ambiguity_tier"] == "MAXIMAL_STRATEGIC_AMBIGUITY_DETERRENCE"
+        assert res["is_strategic_ambiguity_intact"] is True
+
+    def test_phase235_resource_curse_sieve(self):
+        """Phase 235: ResourceCurseSieve Dutch disease macroeconomic exposure verification."""
+        from geo_engine.lenses.geo_economist import ResourceCurseSieve
+
+        res = ResourceCurseSieve.calculate_resource_curse(
+            single_commodity_export_concentration=0.85,
+            foreign_exchange_volatility=0.75,
+            fertilizer_food_import_dependency=0.60,
+            sovereign_wealth_diversification=0.20
+        )
+        assert res["resource_curse_vulnerability"] >= 0.80
+        assert res["resource_curse_tier"] == "DUTCH_DISEASE_CRITICAL_COLLAPSE"
+        assert res["is_resource_curse_vulnerable"] is True
+
+    def test_phase236_cognitive_sovereignty_sieve(self):
+        """Phase 236: CognitiveSovereigntySieve genomic firewall and biosecurity verification."""
+        from geo_engine.lenses.propaganda import CognitiveSovereigntySieve
+
+        res = CognitiveSovereigntySieve.calculate_cognitive_sovereignty(
+            genomic_data_firewall_rigor=0.85,
+            biocompute_neural_surveillance=0.80,
+            algorithmic_attention_capture=0.30,
+            synthetic_deepfake_disinformation_flow=0.25
+        )
+        assert res["cognitive_sovereignty_score"] >= 0.80
+        assert res["cognitive_sovereignty_tier"] == "FORTIFIED_COGNITIVE_AND_BIO_SOVEREIGNTY"
+        assert res["is_cognitive_sovereignty_secure"] is True
+
+    def test_phase237_astro_sovereignty_sieve(self):
+        """Phase 237: AstroSovereigntySieve cryogenic indigenization and lunar ISRU verification."""
+        from geo_engine.lenses.astro_politics import AstroSovereigntySieve
+
+        res = AstroSovereigntySieve.calculate_astro_sovereignty(
+            cryogenic_engine_indigenization=0.95,
+            lunar_south_pole_isru_telemetry=0.90,
+            deep_space_optical_laser_comms=0.80,
+            asteroid_mining_orbital_readiness=0.45
+        )
+        assert res["astro_sovereignty_score"] >= 0.80
+        assert res["astro_sovereignty_tier"] == "TIER_1_EXTRA_TERRESTRIAL_SOVEREIGNTY"
+        assert res["is_astro_sovereignty_tier1"] is True
+
+    def test_phase238_riparian_resilience_sieve(self):
+        """Phase 238: RiparianResilienceSieve Himalayan flood early warning telemetry verification."""
+        from geo_engine.lenses.food_security import RiparianResilienceSieve
+
+        res = RiparianResilienceSieve.calculate_riparian_resilience(
+            early_warning_telemetry_minutes=180.0,
+            transboundary_data_exchange_share=0.85,
+            siltation_embankment_risk_factor=0.35,
+            downstream_density_hazard=0.45
+        )
+        assert res["riparian_resilience_score"] >= 0.80
+        assert res["riparian_resilience_tier"] == "OPTIMAL_RIPARIAN_DEFENSE_AND_EARLY_WARNING"
+        assert res["is_riparian_defense_adequate"] is True
+
+    def test_phase239_strategic_resilience_matrix_phase228_to_238_wiring(self):
+        """Phase 239: Verify all 11 new sieves are populated in SummitSynthesizer resilience matrix."""
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="Comprehensive Deep-Tech, Covert Statecraft & Astro Sovereignty Test",
+            year=2026,
+            event_type="GEO_ECONOMIC",
+            primary_region="India",
+            focal_date="2026-10-29",
+            temporal_mode="empirical_historical"
+        )
+        report = SummitSynthesizer.synthesize_report(ev)
+        srm = report.strategic_resilience_matrix
+
+        new_keys = (
+            "street_lawfare_score",
+            "capital_magnetism_score",
+            "high_altitude_defense_score",
+            "tripartite_coherence_score",
+            "demographic_sovereignty_score",
+            "metallurgy_autonomy_score",
+            "nuclear_ambiguity_score",
+            "resource_curse_vulnerability",
+            "cognitive_sovereignty_score",
+            "astro_sovereignty_score",
+            "riparian_resilience_score",
+        )
+        for k in new_keys:
+            assert k in srm, f"Missing key {k} in strategic_resilience_matrix"
+            assert srm[k] is not None, f"Key {k} is None in strategic_resilience_matrix"
+            assert isinstance(srm[k], (int, float))

@@ -157,6 +157,102 @@ class PersonaNarrator:
                 "statutory remedies (Booth Level Agent objections, Section 24 appeals, Section 80 Election Petitions) before staging a media circus."
             )
         },
+        "kautilya": {
+            "name": "Arthashastra Statecraft Realist (Kautilya-Chanakya Tradition)",
+            "doctrinal_axis": "Mandala Theory (Ari-Mitra-Ari Circle of States), Saptanga 7-Pillar State Audit & Chaturopayas (Sama/Dama/Danda/Bheda)",
+            "lens_weights": {
+                "HybridCovertLens": 1.8,
+                "InstitutionalLawfareLens": 2.0,
+                "GeopoliticalLens": 1.8,
+                "MilitaryReadinessLens": 1.7,
+                "CashFlowLens": 1.5,
+                "HistoryLens": 1.6
+            },
+            "conceptual_framing": (
+                "The world's first complete statecraft manual (350 BCE): every inter-state relationship is classified "
+                "strictly by the Mandala geometry — the adjacent state is the natural adversary (Ari), the state beyond the enemy "
+                "is the natural ally (Mitra), alternating in concentric rings. State power is audited through 7 pillars (Saptanga): "
+                "Swami (sovereign legitimacy), Amatya (bureaucratic integrity), Janapada (territorial-demographic mass), Durga "
+                "(physical fortifications), Kosha (treasury depth), Danda (coercive military force), and Mitra (alliance quality). "
+                "Every diplomatic engagement must be classified under the Chaturopayas: "
+                "Sama (conciliation), Dama (financial inducement), Danda (coercive force), Bheda (divide-and-rule). "
+                "Surveillance (Sanstha & Samcara espionage networks) is a sovereign administrative function, not a moral violation."
+            )
+        },
+        "krishna_gita": {
+            "name": "Rajadharma & Svadharma Realist (Bhagavad Gita-Mahabharata Tradition)",
+            "doctrinal_axis": "Rajadharma (Shanti Parva), Svadharma Duty-Audit, Nishkama Karma & Udyoga Parva Diplomatic Exhaustion Protocol",
+            "lens_weights": {
+                "CivilizationalLens": 2.0,
+                "PropagandaLens": 1.8,
+                "HistoryLens": 1.7,
+                "GeopoliticalLens": 1.5,
+                "IndiaTimelineLens": 1.6,
+                "InstitutionalLawfareLens": 1.4
+            },
+            "conceptual_framing": (
+                "The Bhagavad Gita resolves the central epistemic paradox of all statecraft: when Svadharma (righteous duty "
+                "according to one's station) conflicts with Moha (emotional attachment or sentimental hesitation), Svadharma is "
+                "the absolute imperative. Nishkama Karma (action without selfish attachment to outcomes) is the highest form of "
+                "executive statecraft — it is identical to operating without cognitive bias or sycophantic distortion. "
+                "Bhishma's Shanti Parva Rajadharma codex — delivered on the bed of arrows — is history's most exhaustive "
+                "treatise on sovereign governance, taxation, espionage, water law, and famine management. "
+                "Krishna's Udyoga Parva diplomatic mission establishes the canonical standard: exhaust every peaceful option "
+                "before committing to righteous war. Only when the minimum offer (five villages) is rejected does the Dharmic "
+                "war become just and inevitable. Vidhura Niti represents the incorruptible civil servant standard."
+            )
+        },
+        "vedic_rishi": {
+            "name": "Vedic-Upanishadic Pramana Epistemologist (Rishi Tradition)",
+            "doctrinal_axis": "Pramana Shastra (Pratyaksha/Anumana/Shabda) + Neti-Neti ACH Method + Maya-Misinformation Deconstruction + Satya Anchoring",
+            "lens_weights": {
+                "PropagandaLens": 1.9,
+                "CivilizationalLens": 1.8,
+                "HistoryLens": 1.7,
+                "DemographicInfiltrationLens": 1.5,
+                "InstitutionalLawfareLens": 1.4,
+                "AstroPoliticsLens": 1.3
+            },
+            "conceptual_framing": (
+                "The Vedic Pramana Shastra (valid knowledge theory) classifies all epistemic inputs into three categories: "
+                "Pratyaksha (direct sensory/physical observation — Tier 1 physical evidence), "
+                "Anumana (logical inference from verified premises — Tier 2 statistical inference), and "
+                "Shabda (authoritative testimony from reliable sources — Tier 3 rhetoric/declarations). "
+                "This maps precisely to the engine's Epistemic Hierarchy: Physical > Financial > Kinesics > Rhetoric. "
+                "The Upanishadic Neti-Neti (not this, not this) dialectical elimination method is structurally identical to "
+                "Analysis of Competing Hypotheses (ACH) — both progressively falsify illusions to arrive at irreducible truth (Satya). "
+                "Maya (cosmic illusion) is the Vedic name for information warfare: every propaganda system attempts to install "
+                "a Maya layer between the observer and ground reality. Viveka (discernment) is the algorithmic equivalent of "
+                "the engine's Negative Space Differential Forensics (ΔDeception) that pierces through Maya to Satya. "
+                "The Rishi tradition demands: before accepting any claim, verify its Pramana — is it Pratyaksha, Anumana, or merely Shabda?"
+            )
+        },
+        "ram_rajya": {
+            "name": "Maryada Purushottam Sovereignty Realist (Ram Rajya-Ramayana Tradition)",
+            "doctrinal_axis": "Sovereign Legitimacy Audit (Sarva Loka Sukhaya), Ravana Hubris Collapse Probability, Hanuman Intelligence Architecture & Setu Bandhan Strategic Engineering",
+            "lens_weights": {
+                "CivilizationalLens": 1.9,
+                "InstitutionalLawfareLens": 1.6,
+                "HistoryLens": 1.7,
+                "GeopoliticalLens": 1.5,
+                "MilitaryReadinessLens": 1.4,
+                "PropagandaLens": 1.5
+            },
+            "conceptual_framing": (
+                "The Valmiki Ramayana encodes the world's oldest documented case study of statecraft, intelligence operations, "
+                "and civilizational collapse. Sovereign legitimacy is derived not from military supremacy alone but from "
+                "Sarva Loka Sukhaya (welfare of all citizens) — the Ram Rajya standard against which every ruler is judged. "
+                "Ravana possessed unmatched technological capability (Pushpaka Vimana, Brahmastra), economic dominance (golden Lanka), "
+                "and military might — yet his singular Ahamkara (unchecked hubris) and Kama (unrighteous desire) made collapse "
+                "mathematically inevitable. This is the Ravana Hubris Collapse model: "
+                "when a state or corporate entity accumulates supreme power without Dharmic restraint, self-destruction is certain. "
+                "Hanuman represents the complete intelligence and special operations archetype: "
+                "covert reconnaissance (Lanka infiltration), psychological warfare (Lanka Dahan), information retrieval (Sita location), "
+                "and force projection (bridge-building coalition). "
+                "Setu Bandhan (Ram's Bridge) is the first recorded strategic engineering project — mobilizing civilizational will "
+                "to physically bridge a maritime chokepoint and project force across an ocean."
+            )
+        },
         "neutral": {
             "name": "Neutral Epistemic Baseline",
             "doctrinal_axis": "Deterministic Epistemic Truth Hierarchy (Physical > Cash > Redlines > Kinesics > PR)",
@@ -295,7 +391,76 @@ class PersonaNarrator:
                 "Audit statutory compliance: verify whether claimants exhausted administrative remedies (BLA objections, Sec 80 Election Petitions)."
             ]
 
-        else:
+        elif key == "kautilya":
+            takeaway = (
+                "Through the Arthashastra Mandala lens, the adjacent state is the structural adversary (Ari) and "
+                "the non-adjacent state is the structural ally (Mitra) — India-China-Pakistan-USA relationships "
+                "map precisely to this concentric ring geometry. The Saptanga audit reveals state vulnerabilities: "
+                "which of the 7 pillars (treasury, coercive force, territory, bureaucracy, fortifications, allies, sovereign legitimacy) "
+                "is degraded? Every diplomatic move must be classified: "
+                "Sama (conciliation when adversary is stronger), Dama (economic inducement for leverage), "
+                "Danda (coercive force when all else fails), Bheda (strategic division of adversary coalitions). "
+                "Espionage (Sanstha networks) is not a moral failing but a sovereign administrative necessity."
+            )
+            recommendations = [
+                "Apply Mandala geometry: identify Ari (adjacent adversary), Mitra (non-adjacent ally), Udasina (neutral), and Madhyama (mediator) in every strategic configuration.",
+                "Audit adversary Saptanga: attack the weakest pillar (Kosha depletion, Amatya corruption, Mitra isolation) before deploying Danda.",
+                "Deploy Bheda proactively: ensure adversary coalitions remain fractured through strategic economic inducements and covert Sanstha operations."
+            ]
+
+        elif key == "krishna_gita":
+            takeaway = (
+                "The Rajadharma standard (Shanti Parva) demands that every sovereign act be measured against one criterion: "
+                "does it serve the welfare of the praja (citizens) and uphold Rta (cosmic moral order)? "
+                "The Udyoga Parva protocol applies: before escalation, verify that every peaceful avenue has been exhausted — "
+                "has the minimum dignity offer (five villages of sovereignty) been made and refused? "
+                "Only then does Dharmic war become just and obligatory. Svadharma cannot be abandoned for Moha — "
+                "a civilization that abandons its defensive duty for sentimental pacifism invites the destruction of all Dharma. "
+                "Vidhura Niti standard: the incorruptible civil servant serves truth over the sovereign's comfort."
+            )
+            recommendations = [
+                "Apply the Udyoga Protocol before all conflict escalation: document exhaustion of Sama, Dama, and Bheda before committing to Danda.",
+                "Audit sovereign decisions against the Rajadharma standard: does the action serve Sarva Loka Sukhaya or narrow dynastic interest?",
+                "Enforce Vidhura Niti in institutional appointments: reject advisors who prioritize sovereign approval over objective truth."
+            ]
+
+        elif key == "vedic_rishi":
+            takeaway = (
+                "The Pramana audit reveals the epistemic foundation of every strategic claim: "
+                "Is this Pratyaksha (directly observable physical fact — satellite imagery, financial filing, troop count)? "
+                "Is this sound Anumana (inference from verified Pratyaksha premises with valid logical structure)? "
+                "Or is this merely Shabda — an assertion from an authority whose reliability has not been independently validated? "
+                "The Neti-Neti method eliminates false hypotheses: for every claimed cause, systematically test and reject "
+                "alternatives until only the irreducible truth (Satya) remains. "
+                "Maya layer detection: identify where the information source has installed a perceptual illusion between "
+                "the observer and ground reality. Viveka (discernment) is the only antidote."
+            )
+            recommendations = [
+                "Apply Pramana Validation to every source: demand Pratyaksha evidence before accepting Anumana conclusions, and verify Shabda source reliability before citing authority.",
+                "Deploy Neti-Neti ACH: for every strategic explanation, list all competing hypotheses and systematically falsify each using available Pratyaksha evidence.",
+                "Map Maya Layers: identify where narrative construction diverges from physical-tier observable reality — the gap is the deception index (ΔDeception)."
+            ]
+
+        elif key == "ram_rajya":
+            takeaway = (
+                "The Ram Rajya legitimacy audit applies the Sarva Loka Sukhaya standard: "
+                "does the sovereign's action deliver welfare to all citizens, or does it serve dynastic, oligarchic, or foreign interests? "
+                "The Ravana Hubris Collapse probability assessment: when an entity accumulates unchecked power "
+                "without Dharmic restraint (Ahamkara + Kama), mathematical collapse is certain — "
+                "the greater the material supremacy combined with hubris, the faster the trajectory toward self-destruction. "
+                "The Hanuman intelligence protocol: before full military or economic engagement, "
+                "deploy covert reconnaissance, psychological disruption, and strategic intelligence harvesting. "
+                "Setu Bandhan doctrine: when a maritime chokepoint or strategic gap must be bridged, "
+                "mobilize civilizational will and engineering capability to create physical access where none existed."
+            )
+            recommendations = [
+                "Apply Ram Rajya Standard: audit every policy decision against the Sarva Loka Sukhaya criterion — who benefits, and is the benefit distributed across all citizens?",
+                "Calculate Ravana Hubris Index: flag any state or corporate entity accumulating unchecked cross-sector power without corresponding Dharmic accountability as high collapse-risk.",
+                "Deploy Hanuman Protocol: before full-spectrum engagement, complete covert reconnaissance (intelligence mapping) and psychological warfare (information disruption) phases."
+            ]
+
+
+        elif key == "neutral":
             takeaway = (
                 f"Neutral arbitration confirms overall epistemic confidence at {report.overall_confidence_score * 100:.1f}%. "
                 f"Physical and financial ground truth successfully supersedes ceremonial communiqué text."
@@ -306,7 +471,7 @@ class PersonaNarrator:
             ]
 
 
-        return {
+        _persona_output = {
             "archetype_key": key,
             "archetype_name": profile["name"],
             "doctrinal_axis": profile["doctrinal_axis"],
@@ -316,11 +481,29 @@ class PersonaNarrator:
             "lens_weights": profile["lens_weights"],
             "disclaimer": "[Analytical modeling of doctrinal tradition — not a statement by or attributable to the named individual]"
         }
+        # Phase 218: Augment Vedic archetypes with CulturalGrayzoneLegitimacySieve
+        if key in ("ram_rajya", "krishna_gita", "vedic_rishi", "kautilya"):
+            try:
+                from geo_engine.lenses.civilizational import CulturalGrayzoneLegitimacySieve
+                _gz_sieve = CulturalGrayzoneLegitimacySieve()
+                _gz_corpus = (
+                    (getattr(report, "description", "") or "")
+                    + " "
+                    + (getattr(report, "civilizational_significance", "") or "")
+                    + " "
+                    + (getattr(report, "title", "") or "")
+                )
+                _persona_output["grayzone_sieve_alert"] = (
+                    _gz_sieve.calculate_grayzone_legitimacy(corpus=_gz_corpus)
+                )
+            except Exception:
+                pass  # Sieve cross-wire is additive; never break persona output
+        return _persona_output
 
     @classmethod
     def apply_all_personas(cls, report: SummitAnalysisReport) -> Dict[str, Dict[str, Any]]:
         """
-        Executes concurrent synthesis across the complete 7-archetype Strategic Heptarchy.
+        Executes concurrent synthesis across the complete 13-archetype Strategic Trayodasha Council.
         Returns a dictionary mapping archetype keys to their structured evaluations.
         """
         results = {}

@@ -633,6 +633,9 @@ class SummitSynthesizer:
         deep_tech_eval = lens_eval_map.get(DeepTechLens.LENS_NAME) or lens_eval_map.get("Deep-Tech & Quantitative Modeling")
         civ_eval = lens_eval_map.get(CivilizationalLens.LENS_NAME) or lens_eval_map.get("Civilizational Statecraft (Sanatan / Comparative)")
         digital_eval = lens_eval_map.get(DigitalSovereigntyLens.LENS_NAME) or lens_eval_map.get("Digital Sovereignty & Compute Infrastructure") or lens_eval_map.get("Digital Sovereignty, Compute & Telecommunications Stack Lens")
+        propaganda_eval = lens_eval_map.get(PropagandaLens.LENS_NAME) or lens_eval_map.get("State Propaganda & Disinformation Forensics") or lens_eval_map.get("State Propaganda & Strategic Narrative Deconstruction")
+        geo_eval = lens_eval_map.get(GeopoliticalLens.LENS_NAME) or lens_eval_map.get("Geopolitical & Chokepoint Forensics")
+        hybrid_eval = lens_eval_map.get(HybridCovertLens.LENS_NAME) or lens_eval_map.get("Hybrid & Covert Warfare Operations")
 
         strategic_resilience_matrix = {
             "food_caloric_sovereignty_index": food_eval.hard_metrics.get("caloric_sovereignty_index", 0.81) if food_eval else 0.81,
@@ -666,6 +669,34 @@ class SummitSynthesizer:
             "crowd_cascade_probability": lawfare_eval.hard_metrics.get("crowd_cascade_probability") if lawfare_eval and "crowd_cascade_probability" in lawfare_eval.hard_metrics else None,
             "state_inaction_score": lawfare_eval.hard_metrics.get("state_inaction_score") if lawfare_eval and "state_inaction_score" in lawfare_eval.hard_metrics else None,
             "astroturfing_probability": digital_eval.hard_metrics.get("astroturfing_probability") if digital_eval and "astroturfing_probability" in digital_eval.hard_metrics else None,
+            "basing_interdiction_index": military_eval.hard_metrics.get("basing_interdiction_index") if military_eval and "basing_interdiction_index" in military_eval.hard_metrics else None,
+            "civilizational_vulnerability_index": civ_eval.hard_metrics.get("civilizational_vulnerability_index") if civ_eval and "civilizational_vulnerability_index" in civ_eval.hard_metrics else None,
+            "oligarch_subordination_factor": lawfare_eval.hard_metrics.get("oligarch_subordination_factor") if lawfare_eval and "oligarch_subordination_factor" in lawfare_eval.hard_metrics else None,
+            "sanctions_firewall_score": geo_economist_eval.hard_metrics.get("sanctions_firewall_score") if geo_economist_eval and "sanctions_firewall_score" in geo_economist_eval.hard_metrics else None,
+            # Phase 206–209: New Sieve Indicators
+            "cable_vulnerability_index": subsea_eval.hard_metrics.get("cable_vulnerability_index") if subsea_eval and "cable_vulnerability_index" in subsea_eval.hard_metrics else None,
+            "refining_concentration_risk": minerals_eval.hard_metrics.get("refining_concentration_risk") if minerals_eval and "refining_concentration_risk" in minerals_eval.hard_metrics else None,
+            "strategic_equilibrium_ratio": geo_economist_eval.hard_metrics.get("strategic_equilibrium_ratio") if geo_economist_eval and "strategic_equilibrium_ratio" in geo_economist_eval.hard_metrics else None,
+            "cultural_grayzone_hijack_probability": civ_eval.hard_metrics.get("cultural_grayzone_hijack_probability") if civ_eval and "cultural_grayzone_hijack_probability" in civ_eval.hard_metrics else None,
+            # Phase 221–224: Dynamic Supply Chain, Media Lawfare, FUD Deflation & Tech Moat Sieves
+            "supply_chain_capture_potential": geo_economist_eval.hard_metrics.get("supply_chain_capture_potential") if geo_economist_eval and "supply_chain_capture_potential" in geo_economist_eval.hard_metrics else None,
+            "captured_order_value_usd_b": geo_economist_eval.hard_metrics.get("captured_order_value_usd_b") if geo_economist_eval and "captured_order_value_usd_b" in geo_economist_eval.hard_metrics else None,
+            "media_lawfare_vulnerability": lawfare_eval.hard_metrics.get("media_lawfare_vulnerability") if lawfare_eval and "media_lawfare_vulnerability" in lawfare_eval.hard_metrics else None,
+            "commercial_fud_probability": propaganda_eval.hard_metrics.get("commercial_fud_probability") if propaganda_eval and "commercial_fud_probability" in propaganda_eval.hard_metrics else None,
+            "debiased_structural_threat": propaganda_eval.hard_metrics.get("debiased_structural_threat") if propaganda_eval and "debiased_structural_threat" in propaganda_eval.hard_metrics else None,
+            "indigenous_tech_moat_score": digital_eval.hard_metrics.get("indigenous_tech_moat_score") if digital_eval and "indigenous_tech_moat_score" in digital_eval.hard_metrics else None,
+            # Phase 228-238: Deep-Tech, Covert Statecraft, Metallurgy & Astro-Political Sieves
+            "street_lawfare_score": lawfare_eval.hard_metrics.get("street_lawfare_score") if lawfare_eval and "street_lawfare_score" in lawfare_eval.hard_metrics else None,
+            "capital_magnetism_score": geo_economist_eval.hard_metrics.get("capital_magnetism_score") if geo_economist_eval and "capital_magnetism_score" in geo_economist_eval.hard_metrics else None,
+            "high_altitude_defense_score": military_eval.hard_metrics.get("high_altitude_defense_score") if military_eval and "high_altitude_defense_score" in military_eval.hard_metrics else None,
+            "tripartite_coherence_score": geo_eval.hard_metrics.get("tripartite_coherence_score") if geo_eval and "tripartite_coherence_score" in geo_eval.hard_metrics else None,
+            "demographic_sovereignty_score": demo_eval.hard_metrics.get("demographic_sovereignty_score") if demo_eval and "demographic_sovereignty_score" in demo_eval.hard_metrics else None,
+            "metallurgy_autonomy_score": digital_eval.hard_metrics.get("metallurgy_autonomy_score") if digital_eval and "metallurgy_autonomy_score" in digital_eval.hard_metrics else None,
+            "nuclear_ambiguity_score": hybrid_eval.hard_metrics.get("nuclear_ambiguity_score") if hybrid_eval and "nuclear_ambiguity_score" in hybrid_eval.hard_metrics else None,
+            "resource_curse_vulnerability": geo_economist_eval.hard_metrics.get("resource_curse_vulnerability") if geo_economist_eval and "resource_curse_vulnerability" in geo_economist_eval.hard_metrics else None,
+            "cognitive_sovereignty_score": propaganda_eval.hard_metrics.get("cognitive_sovereignty_score") if propaganda_eval and "cognitive_sovereignty_score" in propaganda_eval.hard_metrics else None,
+            "astro_sovereignty_score": astro_eval.hard_metrics.get("astro_sovereignty_score") if astro_eval and "astro_sovereignty_score" in astro_eval.hard_metrics else None,
+            "riparian_resilience_score": food_eval.hard_metrics.get("riparian_resilience_score") if food_eval and "riparian_resilience_score" in food_eval.hard_metrics else None,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log
@@ -833,6 +864,116 @@ class SummitSynthesizer:
 
     # Alias for synthesize_report
     synthesize = synthesize_report
+
+
+
+    def compute_sovereign_risk_composite_index(
+        self, strategic_resilience_matrix: dict
+    ) -> dict:
+        """
+        Phase 220: Sovereign Risk Composite Index (SRCI).
+        Aggregates 6 key SRM indicators into a single σ-bounded sovereign risk scalar.
+        Replaces ad-hoc manual reading of 30+ SRM keys with one actionable number.
+
+        Mathematical formula:
+          z = w1*cable_vulnerability_index
+            + w2*refining_concentration_risk
+            + w3*(1 - min(2.0, strategic_equilibrium_ratio) / 2.0)  # cartel normalization
+            + w4*cultural_grayzone_hijack_probability
+            + w5*(1 - sanctions_firewall_score)                       # inverse firewall
+            + w6*demographic_border_vulnerability
+          SRCI = sigma(z - 0.5)  # centered sigmoid, SRCI in [0,1]
+
+        Weights (sum to 1.0):
+          w1=0.18 (cable),  w2=0.22 (minerals), w3=0.15 (cartel),
+          w4=0.12 (grayzone), w5=0.20 (sanctions), w6=0.13 (demographic)
+
+        Tier thresholds:
+          SRCI >= 0.80: CRITICAL_SOVEREIGN_VULNERABILITY
+          SRCI >= 0.65: HIGH_RISK_MULTI_DOMAIN_EXPOSURE
+          SRCI >= 0.50: MODERATE_COMPOSITE_RISK
+          SRCI >= 0.35: MANAGEABLE_SOVEREIGN_RISK
+          SRCI < 0.35:  LOW_COMPOSITE_SOVEREIGN_RISK
+        """
+        import math
+
+        def sigma(z: float) -> float:
+            return 1.0 / (1.0 + math.exp(-z))
+
+        rm = strategic_resilience_matrix or {}
+
+        cable_vi      = float(rm.get("cable_vulnerability_index") or 0.50)
+        refining_risk = float(rm.get("refining_concentration_risk") or 0.50)
+        eq_ratio      = float(rm.get("strategic_equilibrium_ratio") or 1.0)
+        gz_prob       = float(rm.get("cultural_grayzone_hijack_probability") or 0.30)
+        sanctions_fw  = float(rm.get("sanctions_firewall_score") or 0.50)
+        demo_vuln     = float(rm.get("demographic_border_vulnerability") or 0.40)
+
+        # Cartel normalization: equilibrium > 2.0 = fully shielded
+        cartel_risk_term = 1.0 - min(2.0, eq_ratio) / 2.0
+
+        # Weights
+        w1, w2, w3, w4, w5, w6 = 0.18, 0.22, 0.15, 0.12, 0.20, 0.13
+
+        z = (
+            w1 * cable_vi
+            + w2 * refining_risk
+            + w3 * cartel_risk_term
+            + w4 * gz_prob
+            + w5 * (1.0 - sanctions_fw)
+            + w6 * demo_vuln
+            - 0.5  # center the sigmoid at midpoint
+        )
+        srci = sigma(z * 4.0)  # scale factor 4 for better discrimination
+
+        # Determine tier
+        if srci >= 0.80:
+            tier = "CRITICAL_SOVEREIGN_VULNERABILITY"
+            dominant_keys = sorted(
+                [("cable", w1 * cable_vi), ("minerals", w2 * refining_risk),
+                 ("cartel", w3 * cartel_risk_term), ("grayzone", w4 * gz_prob),
+                 ("sanctions", w5 * (1 - sanctions_fw)), ("demo", w6 * demo_vuln)],
+                key=lambda x: x[1], reverse=True
+            )
+            dominant_domain = dominant_keys[0][0]
+        elif srci >= 0.65:
+            tier = "HIGH_RISK_MULTI_DOMAIN_EXPOSURE"
+            dominant_domain = "multi_domain"
+        elif srci >= 0.50:
+            tier = "MODERATE_COMPOSITE_RISK"
+            dominant_domain = "composite"
+        elif srci >= 0.35:
+            tier = "MANAGEABLE_SOVEREIGN_RISK"
+            dominant_domain = "manageable"
+        else:
+            tier = "LOW_COMPOSITE_SOVEREIGN_RISK"
+            dominant_domain = "low_risk"
+
+        # Dominant domain for any tier
+        if srci >= 0.50:
+            contributions = {
+                "cable": w1 * cable_vi,
+                "minerals": w2 * refining_risk,
+                "cartel": w3 * cartel_risk_term,
+                "grayzone": w4 * gz_prob,
+                "sanctions": w5 * (1.0 - sanctions_fw),
+                "demographic": w6 * demo_vuln,
+            }
+            dominant_domain = max(contributions, key=contributions.get)
+
+        return {
+            "srci_score": round(srci, 4),
+            "srci_tier": tier,
+            "dominant_risk_domain": dominant_domain,
+            "component_inputs": {
+                "cable_vulnerability_index": round(cable_vi, 4),
+                "refining_concentration_risk": round(refining_risk, 4),
+                "strategic_equilibrium_ratio": round(eq_ratio, 4),
+                "cultural_grayzone_hijack_probability": round(gz_prob, 4),
+                "sanctions_firewall_score": round(sanctions_fw, 4),
+                "demographic_border_vulnerability": round(demo_vuln, 4),
+            },
+        }
 
 
 class LaymanSynthesizer:

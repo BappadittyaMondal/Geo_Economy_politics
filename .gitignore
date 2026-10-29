@@ -1,4 +1,4 @@
-﻿# Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -32,3 +32,4 @@ Thumbs.db
 *.log
 scratch/
 studio_output/
+data/test_tmp_binary_render/

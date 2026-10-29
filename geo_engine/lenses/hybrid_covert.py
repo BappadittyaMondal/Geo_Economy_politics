@@ -148,6 +148,15 @@ class HybridCovertLens:
 
             metrics["claims_evaluated"] = len(claims)
 
+        # Phase 234: Wire NuclearAmbiguitySieve
+        _na_result = NuclearAmbiguitySieve.calculate_nuclear_ambiguity(
+            unacknowledged_warhead_capacity=metrics.get("unacknowledged_warhead_capacity", 0.85),
+            second_strike_credibility=metrics.get("second_strike_credibility", 0.90),
+            tactical_deception_capability=metrics.get("tactical_deception_capability", 0.80),
+            treaty_inspection_penetration=metrics.get("treaty_inspection_penetration", 0.15),
+        )
+        metrics.update(_na_result)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -416,3 +425,72 @@ class DiplomaticCounterIntelSieve:
 
 
 
+
+
+
+class NuclearAmbiguitySieve:
+    """
+    Phase 234: Evaluates strategic nuclear ambiguity (e.g. Dimona Amimut model, Samson option)
+    balancing unacknowledged warhead capacity, survivable second-strike deterrence, and tactical
+    deception against intrusive treaty inspection penetration.
+    """
+
+    @classmethod
+    def calculate_nuclear_ambiguity(
+        cls,
+        unacknowledged_warhead_capacity: float = 0.85,
+        second_strike_credibility: float = 0.90,
+        tactical_deception_capability: float = 0.80,
+        treaty_inspection_penetration: float = 0.15,
+    ) -> Dict[str, Any]:
+        """
+        Calculates nuclear ambiguity deterrence score using logistic sigmoid model.
+        """
+        import math
+        u_war = max(0.0, min(1.0, float(unacknowledged_warhead_capacity)))
+        s_strike = max(0.0, min(1.0, float(second_strike_credibility)))
+        t_dec = max(0.0, min(1.0, float(tactical_deception_capability)))
+        t_insp = max(0.0, min(1.0, float(treaty_inspection_penetration)))
+
+        numerator = u_war * 0.35 + s_strike * 0.40 + t_dec * 0.25
+        ratio = numerator / max(0.10, t_insp)
+        z = 1.8 * ratio - 4.5
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "MAXIMAL_STRATEGIC_AMBIGUITY_DETERRENCE"
+            verdict = "SAMSON_OPTION_CAPABILITY_ZERO_SANCTION_VULNERABILITY"
+            rationale = (
+                f"Maximal strategic ambiguity ({score:.4f}): Second-strike credibility ({s_strike:.2f}) and deception "
+                f"({t_dec:.2f}) maintain supreme deterrence without provoking statutory non-proliferation sanctions."
+            )
+        elif score >= 0.60:
+            tier = "CREDIBLE_OPAQUE_DETERRENCE"
+            verdict = "SECURE_SECOND_STRIKE_PROTECTED_POSTURE"
+            rationale = (
+                f"Credible deterrence ({score:.4f}): Solid retaliatory capability with low inspection penetration ({t_insp:.2f})."
+            )
+        elif score >= 0.40:
+            tier = "CONTESTED_NON_PROLIFERATION_FRICTION"
+            verdict = "INSPECTION_PRESSURE_COMPROMISING_AMBIGUITY"
+            rationale = (
+                f"Contested posture ({score:.4f}): Elevated inspection pressure ({t_insp:.2f}) constraining deterrence flexibility."
+            )
+        else:
+            tier = "COMPROMISED_STRATEGIC_POSTURE"
+            verdict = "TRANSPARENCY_CRIPPLING_RETALIATORY_LEVERAGE"
+            rationale = (
+                f"Compromised ambiguity ({score:.4f}): High inspection penetration or weak second strike erodes deterrence."
+            )
+
+        return {
+            "nuclear_ambiguity_score": score,
+            "unacknowledged_warhead_capacity": round(u_war, 4),
+            "second_strike_credibility": round(s_strike, 4),
+            "tactical_deception_capability": round(t_dec, 4),
+            "treaty_inspection_penetration": round(t_insp, 4),
+            "nuclear_ambiguity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_strategic_ambiguity_intact": score >= 0.60
+        }

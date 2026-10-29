@@ -154,6 +154,15 @@ class DemographicInfiltrationLens:
                 alignment = -0.70
                 metrics["border_stress_index"] = 0.91
 
+        # Phase 232: Wire StatutoryBorderDemographySieve
+        _bd_result = StatutoryBorderDemographySieve.calculate_border_demography(
+            voter_roll_cleansing_rigor=metrics.get("voter_roll_cleansing_rigor", 0.75),
+            biometric_deduplication_rate=metrics.get("biometric_deduplication_rate", 0.80),
+            cross_border_infiltration_flow=metrics.get("cross_border_infiltration_flow", 0.30),
+            lawfare_injunction_friction=metrics.get("lawfare_injunction_friction", 0.25),
+        )
+        metrics.update(_bd_result)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -163,3 +172,72 @@ class DemographicInfiltrationLens:
             hard_metrics=metrics,
             evidence_status="sufficient"
         )
+
+
+
+class StatutoryBorderDemographySieve:
+    """
+    Phase 232: Evaluates demographic sovereignty and border frontier security along sensitive border corridors
+    (e.g., Eastern border, Siliguri corridor) by analyzing voter roll cleansing rigor, biometric deduplication,
+    cross-border illegal infiltration flows, and judicial lawfare injunctions against deportation.
+    """
+
+    @classmethod
+    def calculate_border_demography(
+        cls,
+        voter_roll_cleansing_rigor: float = 0.75,
+        biometric_deduplication_rate: float = 0.80,
+        cross_border_infiltration_flow: float = 0.30,
+        lawfare_injunction_friction: float = 0.25,
+    ) -> Dict[str, Any]:
+        """
+        Calculates demographic sovereignty score using logistic sigmoid model.
+        """
+        import math
+        v_clean = max(0.0, min(1.0, float(voter_roll_cleansing_rigor)))
+        b_dedup = max(0.0, min(1.0, float(biometric_deduplication_rate)))
+        c_flow = max(0.0, min(1.0, float(cross_border_infiltration_flow)))
+        l_inj = max(0.0, min(1.0, float(lawfare_injunction_friction)))
+
+        z = 2.8 * v_clean + 2.4 * b_dedup - 3.2 * c_flow - 1.6 * l_inj - 0.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "FORTIFIED_DEMOGRAPHIC_SOVEREIGNTY"
+            verdict = "BORDER_FRONTIER_STABILIZED_STATUTORY_CONTROL"
+            rationale = (
+                f"Fortified sovereignty ({score:.4f}): Rigorous voter roll cleansing ({v_clean:.2f}) and biometric deduplication "
+                f"({b_dedup:.2f}) effectively neutralize infiltration risks."
+            )
+        elif score >= 0.60:
+            tier = "CONTAINED_BORDER_INFILTRATION"
+            verdict = "ACTIVE_BIOMETRIC_SCRUTINY_BORDER_FENCING"
+            rationale = (
+                f"Contained infiltration ({score:.4f}): Active biometric screening maintains acceptable demographic stability."
+            )
+        elif score >= 0.40:
+            tier = "VULNERABLE_DEMOGRAPHIC_CHOKEPOINT"
+            verdict = "CHICKENS_NECK_SILIGURI_CORRIDOR_PRESSURE"
+            rationale = (
+                f"Demographic chokepoint vulnerability ({score:.4f}): Infiltration flows ({c_flow:.2f}) or lawfare injunctions "
+                f"({l_inj:.2f}) straining local administrative control."
+            )
+        else:
+            tier = "ACUTE_DEMOGRAPHIC_SOVEREIGNTY_EROSION"
+            verdict = "CRITICAL_ARTICLE_355_INTERVENTION_MANDATED"
+            rationale = (
+                f"Acute demographic erosion ({score:.4f}): Severe cross-border infiltration threatening constitutional order. "
+                f"Immediate federal intervention under Article 355 required."
+            )
+
+        return {
+            "demographic_sovereignty_score": score,
+            "voter_roll_cleansing_rigor": round(v_clean, 4),
+            "biometric_deduplication_rate": round(b_dedup, 4),
+            "cross_border_infiltration_flow": round(c_flow, 4),
+            "lawfare_injunction_friction": round(l_inj, 4),
+            "demographic_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_demographic_sovereignty_secure": score >= 0.60
+        }

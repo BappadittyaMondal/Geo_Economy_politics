@@ -330,6 +330,60 @@ class InstitutionalLawfareLens:
         if "state_inaction_score" not in metrics:
             metrics["state_inaction_score"] = 0.20
 
+        # Phase 203: Sovereign Coercion Hierarchy Sieve (Power vs Money / P > W)
+        corpus = f"{getattr(event, 'summit_name', '')} {getattr(event, 'title', '')} {getattr(event, 'summary', '')}".lower()
+        if claims:
+            corpus += " " + " ".join(getattr(c, "raw_text", getattr(c, "asserted_fact", getattr(c, "assertion", ""))).lower() for c in claims)
+
+        power_terms = [
+            "power vs money", "power is money", "harshad mehta", "jack ma", "ant group",
+            "evergrande", "hui ka yan", "rockefeller", "standard oil", "antitrust",
+            "oligarch", "coercive state", "ed summons", "cbi raid", "regulatory subordination"
+        ]
+        has_power = any(pt in corpus for pt in power_terms)
+        if has_power:
+            s_penal = 0.90 if ("ed" in corpus or "cbi" in corpus or "antitrust" in corpus or "jack ma" in corpus or "harshad" in corpus) else 0.80
+            w_liq = 0.85 if ("billionaire" in corpus or "ambani" in corpus or "oligarch" in corpus or "rockefeller" in corpus) else 0.65
+            has_enforce = ("antitrust" in corpus or "raid" in corpus or "arrest" in corpus or "jail" in corpus or "subordination" in corpus)
+            power_calc = SovereignPowerHierarchySieve.calculate_power_hierarchy(
+                state_regulatory_penal_score=s_penal,
+                private_wealth_liquidity_score=w_liq,
+                antitrust_or_statutory_enforcement=has_enforce,
+                foreign_asylum_headroom=0.15
+            )
+            findings.insert(0, (
+                f"[SOVEREIGN POWER HIERARCHY] {power_calc['tactical_rationale']} "
+                f"Verdict: {power_calc['operational_verdict']}."
+            ))
+            metrics["sovereign_dominance_ratio"] = power_calc["sovereign_dominance_ratio"]
+            metrics["oligarch_subordination_factor"] = power_calc["oligarch_subordination_factor"]
+            metrics["power_hierarchy_tier"] = power_calc["power_hierarchy_tier"]
+            metrics["coercive_state_primacy"] = power_calc["coercive_state_primacy"]
+        else:
+            metrics["sovereign_dominance_ratio"] = 1.30
+            metrics["oligarch_subordination_factor"] = 0.78
+            metrics["power_hierarchy_tier"] = "TOTAL_SOVEREIGN_PRIMACY"
+            metrics["coercive_state_primacy"] = True
+
+        
+        # Phase 222: Wire DataSovereigntyMediaLawfareSieve
+        _ml_sieve = DataSovereigntyMediaLawfareSieve()
+        _ml_result = _ml_sieve.calculate_media_lawfare(
+            foreign_data_exemption_demand=metrics.get("foreign_data_exemption_demand", 0.75),
+            media_cartel_concentration=metrics.get("media_cartel_concentration", 0.70),
+            statutory_penalty_severity=metrics.get("statutory_penalty_severity", 0.85),
+            investigative_whistleblower_safeguard=metrics.get("investigative_whistleblower_safeguard", 0.40),
+        )
+        metrics.update(_ml_result)
+
+        # Phase 228: Wire StreetLawfareSieve
+        _sl_result = StreetLawfareSieve.calculate_street_lawfare(
+            fcra_foreign_funding_exposure=metrics.get("fcra_foreign_funding_exposure", 0.70),
+            protest_mobilization_velocity=metrics.get("protest_mobilization_velocity", 0.65),
+            statutory_compliance_rigor=metrics.get("statutory_compliance_rigor", 0.30),
+            subversive_legal_aid_density=metrics.get("subversive_legal_aid_density", 0.75),
+        )
+        metrics.update(_sl_result)
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -1146,8 +1200,213 @@ class StateMachiavellianSieve:
         }
 
 
+class SovereignPowerHierarchySieve:
+    """
+    Phase 203: Sovereign Coercion Hierarchy Sieve (Power vs. Money / P > W).
+    Quantifies the sovereign state's coercive, regulatory, and penal supremacy
+    over private oligarchic capital, commercial cartels, and celebrity ecosystems
+    (e.g. Harshad Mehta vs Narasimha Rao, Jack Ma / Ant Group vs CCP, Hui Ka Yan / Evergrande,
+    Standard Oil Sherman Antitrust breakup).
+
+    Mathematical Formulation:
+      Dominance_Ratio = state_regulatory_penal_score / max(0.10, private_wealth_liquidity_score)
+      z = 3.5 * (Dominance_Ratio - 1.0) + 1.8 * (1.0 if antitrust_or_statutory_enforcement else 0.0) - 1.2 * foreign_asylum_headroom
+      Oligarch_Subordination_Factor = round(1.0 / (1.0 + math.exp(-z)), 4)
+    """
+
+    @classmethod
+    def calculate_power_hierarchy(
+        cls,
+        state_regulatory_penal_score: float = 0.85,
+        private_wealth_liquidity_score: float = 0.65,
+        antitrust_or_statutory_enforcement: bool = True,
+        foreign_asylum_headroom: float = 0.20,
+    ) -> dict:
+        import math
+        s_score = min(1.0, max(0.05, float(state_regulatory_penal_score)))
+        w_score = min(1.0, max(0.05, float(private_wealth_liquidity_score)))
+        asylum = min(1.0, max(0.0, float(foreign_asylum_headroom)))
+
+        dom_ratio = round(s_score / max(0.10, w_score), 4)
+        enforce_val = 1.0 if antitrust_or_statutory_enforcement else 0.0
+
+        z = 3.5 * (dom_ratio - 1.0) + 1.8 * enforce_val - 1.2 * asylum
+        sub_factor = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if sub_factor >= 0.75:
+            tier = "TOTAL_SOVEREIGN_PRIMACY"
+            verdict = "COERCIVE_STATE_SUBORDINATES_PRIVATE_CAPITAL"
+            rationale = (
+                f"Sovereign power dominates wealth (P > W): State regulatory & penal capacity ({s_score:.2f}) "
+                f"overwhelms private liquidity ({w_score:.2f}) with dominance ratio {dom_ratio:.2f}. "
+                f"Statutory enforcement active. Private balance sheets offer zero defense against sovereign mandate."
+            )
+        elif sub_factor >= 0.50:
+            tier = "REGULATED_OLIGARCHIC_ALIGNMENT"
+            verdict = "STATE_DIRECTED_CORPORATE_DISCIPLINE"
+            rationale = (
+                f"Disciplined alignment: Corporate cartels operate strictly within sovereign regulatory boundaries "
+                f"(dominance ratio {dom_ratio:.2f}, subordination factor {sub_factor:.4f})."
+            )
+        elif sub_factor >= 0.25:
+            tier = "CONTESTED_REGULATORY_CAPTURE"
+            verdict = "OLIGARCHIC_LOBBYING_FRICTION"
+            rationale = (
+                f"Regulatory friction: High private liquidity ({w_score:.2f}) creates lobbying resistance, "
+                f"though state retains statutory veto."
+            )
+        else:
+            tier = "SEVERE_STATE_CAPTURE"
+            verdict = "OLIGARCHIC_CARTEL_DICTATING_POLICY"
+            rationale = "Pathological institutional failure: Private capital captures state regulatory machinery, eroding sovereign enforcement."
+
+        return {
+            "sovereign_dominance_ratio": dom_ratio,
+            "oligarch_subordination_factor": sub_factor,
+            "state_regulatory_penal_score": s_score,
+            "private_wealth_liquidity_score": w_score,
+            "antitrust_or_statutory_enforcement": antitrust_or_statutory_enforcement,
+            "power_hierarchy_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "coercive_state_primacy": sub_factor >= 0.50,
+        }
 
 
 
+class DataSovereigntyMediaLawfareSieve:
+    """
+    Phase 222: Audits commercial media conglomerate litigation against sovereign data privacy
+    regulations (DPDP Act 2023), distinguishing legitimate investigative reporting safeguards
+    from commercial surveillance ad-revenue self-preservation and foreign intelligence conduits.
+    """
+
+    @classmethod
+    def calculate_media_lawfare(
+        cls,
+        foreign_data_exemption_demand: float = 0.75,
+        media_cartel_concentration: float = 0.70,
+        statutory_penalty_severity: float = 0.85,
+        investigative_whistleblower_safeguard: float = 0.40,
+    ) -> Dict[str, Any]:
+        """
+        Calculates media lawfare vulnerability score using logistic sigmoid model.
+        """
+        import math
+        f_exemp = max(0.0, min(1.0, float(foreign_data_exemption_demand)))
+        m_cartel = max(0.0, min(1.0, float(media_cartel_concentration)))
+        p_sev = max(0.0, min(1.0, float(statutory_penalty_severity)))
+        w_safe = max(0.0, min(1.0, float(investigative_whistleblower_safeguard)))
+
+        z = 2.8 * f_exemp + 2.0 * m_cartel - 2.5 * p_sev - 1.2 * w_safe - 0.2
+        vulnerability = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if vulnerability >= 0.80:
+            tier = "CRITICAL_MEDIA_LAWFARE_RISK"
+            verdict = "COMMERCIAL_CARTEL_CHALLENGING_SOVEREIGN_PRIVACY"
+            rationale = (
+                f"Severe lawfare risk ({vulnerability:.4f}): Concentrated media cartel ({m_cartel:.2f}) demanding "
+                f"blanket exemptions ({f_exemp:.2f}) poses direct threat to citizen data sovereignty under DPDP Act."
+            )
+        elif vulnerability >= 0.55:
+            tier = "ELEVATED_LITIGATION_PRESSURE"
+            verdict = "REGULATORY_STANDOFF_REQUIRING_JUDICIAL_CLARIFICATION"
+            rationale = (
+                f"Elevated litigation pressure ({vulnerability:.4f}): Legal balance required between Art 19(1)(a) "
+                f"journalistic sources and Art 21 statutory data privacy boundaries."
+            )
+        elif vulnerability >= 0.35:
+            tier = "CONTAINED_STATUTORY_DISPUTE"
+            verdict = "STATUTORY_PENALTIES_DETERRING_COMMERCIAL_ABUSE"
+            rationale = (
+                f"Contained dispute ({vulnerability:.4f}): High statutory penalty severity ({p_sev:.2f}) "
+                f"restrains unmonitored commercial data harvesting."
+            )
+        else:
+            tier = "SOVEREIGN_DATA_INTEGRITY_PRESERVED"
+            verdict = "ROBUST_CITIZEN_PRIVACY_ENFORCEMENT"
+            rationale = (
+                f"Robust privacy enforcement ({vulnerability:.4f}): Whistleblower safeguards balanced against "
+                f"strict non-exemption of commercial data brokers."
+            )
+
+        return {
+            "media_lawfare_vulnerability": vulnerability,
+            "foreign_data_exemption_demand": round(f_exemp, 4),
+            "media_cartel_concentration": round(m_cartel, 4),
+            "statutory_penalty_severity": round(p_sev, 4),
+            "investigative_whistleblower_safeguard": round(w_safe, 4),
+            "media_lawfare_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_sovereignty_compromised": vulnerability >= 0.60
+        }
 
 
+class StreetLawfareSieve:
+    """
+    Phase 228: Analyzes street-level mobilization weaponized via foreign funding conduits (FCRA violations)
+    and coordinated Public Interest Litigation (PIL) designed to halt national critical infrastructure projects
+    (e.g., ports, highways, energy plants, defense corridors) under the pretext of environmental or civil rights claims.
+    """
+
+    @classmethod
+    def calculate_street_lawfare(
+        cls,
+        fcra_foreign_funding_exposure: float = 0.70,
+        protest_mobilization_velocity: float = 0.65,
+        statutory_compliance_rigor: float = 0.30,
+        subversive_legal_aid_density: float = 0.75,
+    ) -> Dict[str, Any]:
+        """
+        Calculates street lawfare vulnerability score using logistic sigmoid model.
+        """
+        import math
+        fcra = max(0.0, min(1.0, float(fcra_foreign_funding_exposure)))
+        p_vel = max(0.0, min(1.0, float(protest_mobilization_velocity)))
+        s_comp = max(0.0, min(1.0, float(statutory_compliance_rigor)))
+        l_aid = max(0.0, min(1.0, float(subversive_legal_aid_density)))
+
+        z = 2.8 * fcra + 2.2 * p_vel + 1.8 * l_aid - 2.5 * s_comp - 0.8
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "CRITICAL_STREET_LAWFARE_RISK"
+            verdict = "FOREIGN_FUNDED_MOBILIZATION_AGAINST_SOVEREIGN_INFRASTRUCTURE"
+            rationale = (
+                f"Critical street lawfare threat ({score:.4f}): High foreign funding exposure ({fcra:.2f}) "
+                f"combined with aggressive legal aid mobilization ({l_aid:.2f}) actively imperils critical project execution."
+            )
+        elif score >= 0.55:
+            tier = "ELEVATED_COORDINATED_AGITATION"
+            verdict = "LEGAL_AID_SHIELDING_UNSANCTIONED_MOBILIZATION"
+            rationale = (
+                f"Elevated agitation ({score:.4f}): Coordinated protest velocity ({p_vel:.2f}) requires heightened "
+                f"statutory oversight and FCRA audit scrutiny."
+            )
+        elif score >= 0.35:
+            tier = "LOCALIZED_STATUTORY_DISPUTE"
+            verdict = "CIVIL_DISSENT_WITHIN_CONSTITUTIONAL_CHANNELS"
+            rationale = (
+                f"Localized dispute ({score:.4f}): Protests remain largely within legal channels, though vigilance against "
+                f"subversive hijacking is necessary."
+            )
+        else:
+            tier = "TRANSPARENT_RULE_OF_LAW_CONTAINMENT"
+            verdict = "ROBUST_STATUTORY_OVERSIGHT_FCRA_COMPLIANT"
+            rationale = (
+                f"Robust containment ({score:.4f}): High statutory compliance ({s_comp:.2f}) successfully deters "
+                f"asymmetric foreign manipulation of domestic infrastructure."
+            )
+
+        return {
+            "street_lawfare_score": score,
+            "fcra_foreign_funding_exposure": round(fcra, 4),
+            "protest_mobilization_velocity": round(p_vel, 4),
+            "statutory_compliance_rigor": round(s_comp, 4),
+            "subversive_legal_aid_density": round(l_aid, 4),
+            "street_lawfare_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_infrastructure_lawfare_active": score >= 0.60
+        }

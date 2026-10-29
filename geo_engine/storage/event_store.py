@@ -1129,6 +1129,44 @@ class EventStore:
                     1,
                     "Digital communications shield: Prevents foreign PRISM-style electronic metadata harvesting and insulates executive coordination from extraterritorial surveillance."
                 )
+            ,
+                (
+                    "CLAUSE-MAURITIUS-MARITIME-SECURITY-AGREEMENT-AGALEGA",
+                    "India-Mauritius Strategic Joint Infrastructure Agreement (Agaléga Forward Maritime Base)",
+                    2015,
+                    "maritime_forward_basing",
+                    "Bilateral sovereign agreement constructing 3,000-meter paved runway and St. James deepwater jetty on Agaléga Island, securing anti-submarine warfare (ASW) interdiction over the Mozambique Channel and western Indian Ocean SLOCs.",
+                    1,
+                    "Maritime security hub: Positions P-8I Poseidon patrol coverage over southwestern Indian Ocean chokepoints."
+                ),
+                (
+                    "CLAUSE-BRICS-STATUTORY-HARMONIZATION-LOCAL-CURRENCY",
+                    "BRICS Inter-Parliamentary & Central Bank Statutory Harmonization Protocol",
+                    2024,
+                    "polycentric_currency_clearing",
+                    "Statutory harmonization framework aligning commercial arbitration, customs valuation, and cross-border bank messaging formats to enable direct bilateral national currency settlements (INR, RUB, Dirham, Yuan) insulated from OFAC secondary sanctions.",
+                    1,
+                    "Sanctions firewall: Eliminates third-party reserve currency dependency and SWIFT weaponization risks."
+                ),
+                # Phase 206 + 208: Cable Sovereignty & CCI Antitrust Statutory Anchors
+                (
+                    "CLAUSE-INDIA-CABLES-TELEGRAPH-ACT-1885-SOVEREIGN-INFRASTRUCTURE",
+                    "Indian Telegraph Act, 1885 — Sovereign Cable Infrastructure Authority",
+                    1885,
+                    "cable_infrastructure_sovereignty",
+                    "Section 4 of the Indian Telegraph Act, 1885 vests exclusive sovereign authority in the Central Government to establish, maintain, and operate telegraph and cable systems — forming the legal bedrock for submarine cable landing station licensing, encryption mandate enforcement, and domestic cable redundancy infrastructure requirements.",
+                    1,
+                    "Cable sovereignty legal authority: Omission of Section 4 enforcement creates landing-station exposure where foreign operators control physical cable access, enabling intelligence interception and traffic routing manipulation."
+                ),
+                (
+                    "CLAUSE-INDIA-CCI-COMPETITION-ACT-2002-HERFINDAHL-ENFORCEMENT",
+                    "Competition Act, 2002 — CCI Herfindahl-Hirschman Anti-Monopoly Enforcement",
+                    2002,
+                    "antitrust_sovereign_enforcement",
+                    "Sections 4 and 6 of the Competition Act, 2002 empower the Competition Commission of India (CCI) to investigate abuse of dominant position (HHI > 2500) and combinations (mergers/acquisitions) that create monopolistic market structures — establishing the statutory baseline for Phase 208 NationalChampionSovereignSieve DomesticCartelRisk detection.",
+                    1,
+                    "Antitrust enforcement standard: Without CCI HHI enforcement (HHI > 2500 = high concentration), domestic national champions capturing >70% sector share transform from sovereign shields into domestic cartels — StrategicEquilibrium collapses below 1.0."
+                )
             ]
 
             cursor.executemany("""
@@ -1857,6 +1895,84 @@ class EventStore:
                     "South Asia / New Delhi / Red Fort",
                     "Agitators executed a mechanized tractor assault on the Red Fort on Republic Day, displaying advanced logistical capitalization (AC tents, specialized catering, satellite internet) funded by foreign FCRA networks and middleman cartels to force executive repeal of parliamentary agricultural modernization laws.",
                     "Asymmetric siege benchmark: Proves that corporate astroturfing and subsidized logistics can sustain minority street vetoes against constitutional majorities, triggering the need for BNS Section 152 and BNSS 163 statutory deterrence."
+                )
+            ,
+                (
+                    "ANNIV-0738-BATTLE-OF-RAJASTHAN-BAPPA-RAWAL",
+                    8,
+                    15,
+                    738,
+                    "Battle of Rajasthan & Umayyad Caliphate Expulsion by Bappa Rawal",
+                    "South Asia / Rajasthan / Chittorgarh",
+                    "Confederacy led by Bappa Rawal (Guhilot/Mewar) and Nagabhata I (Gurjara-Pratihara) shatters Umayyad Caliphate invasion force, safeguarding Bharat's western frontiers from Islamic expansion for nearly 300 years.",
+                    "Civilizational defense baseline: Proof of indigenous military doctrine halting Arab expansion."
+                ),
+                (
+                    "ANNIV-0100-DEVALA-SMRITI-PURIFICATION-CODE",
+                    1,
+                    1,
+                    100,
+                    "Devala Smriti Formalization of Shuddhi & Reconversion Protocols",
+                    "Ancient Bharat",
+                    "Vedic jurisprudential codex establishing formal legal and ritual purification (Shuddhi) protocols for reclaiming and reintegrating forcibly converted, abducted, or enslaved populations (Ghar Wapsi).",
+                    "Dharmic legal flexibility: Proves Sanatan legal traditions historically accommodated proactive reintegration."
+                ),
+                (
+                    "ANNIV-1993-HARSHAD-MEHTA-PRESS-CONFERENCE-STATE-SUBORDINATION",
+                    6,
+                    16,
+                    1993,
+                    "Harshad Mehta Press Conference & Sovereign Penal Subordination",
+                    "Mumbai / New Delhi",
+                    "Market manipulator Harshad Mehta attempts to blackmail the Prime Minister via a suitcase press conference; sovereign regulatory and penal machinery decisively crushes his financial empire, confirming Power permanently dominates Wealth (P > W).",
+                    "Sovereign power law: Private oligarchic capital is completely subordinate to state coercive instruments."
+                ),
+                (
+                    "ANNIV-1971-PETRODOLLAR-BRETTON-WOODS-NIXON-SHOCK",
+                    8,
+                    15,
+                    1971,
+                    "Nixon Shock & Inception of the Petro-Dollar Architecture",
+                    "Global / Washington / Riyadh",
+                    "US unpegs the dollar from gold and negotiates the Saudi oil pricing pact in USD, creating the 50-year global petrodollar monetary monopoly and weaponized sanctions leverage.",
+                    "Monetary hegemony origin: Foundational reference point for modern de-dollarization and bilateral clearing rails."
+                ),
+                # Phase 206-209: Cable, Minerals, Champion, Cultural-Grayzone Anchors
+                (
+                    "ANNIV-1858-TELEGRAPH-CABLE-RED-SEA-IMPERIAL-INFRASTRUCTURE",
+                    11, 13,
+                    1858,
+                    "British Red Sea Telegraph Cable — Colonial Undersea Infrastructure Doctrine",
+                    "London / Aden / Bombay",
+                    "Britain lays undersea telegraph cables through the Red Sea, Aden, and Indian Ocean, establishing the first imperial information chokepoint — a direct ancestor of modern subsea cable sovereignty doctrines and landing-station control as geopolitical power.",
+                    "Undersea cable as imperial infrastructure: Whoever controls landing stations and repair ships controls the information commons. Foundational mirror for Phase 206 SubseaCableSovereigntySieve."
+                ),
+                (
+                    "ANNIV-2022-NORD-STREAM-PIPELINE-CABLE-SABOTAGE",
+                    9, 26,
+                    2022,
+                    "Nord Stream 1 & 2 Undersea Pipeline Sabotage — Infrastructure as Warfare Domain",
+                    "Baltic Sea / Germany / Russia",
+                    "Simultaneous explosive sabotage of Nord Stream 1 and Nord Stream 2 undersea pipelines sets definitive precedent that undersea infrastructure is an active warfare domain — state or quasi-state actors can destroy civilian energy infrastructure without triggering Article 5 retaliation.",
+                    "Undersea infrastructure is a contested warfare domain: Cable chokepoint risk is kinetic, not merely regulatory. Phase 206 cable vulnerability math must account for deliberate interdiction scenarios."
+                ),
+                (
+                    "ANNIV-2010-CHINA-RARE-EARTH-EXPORT-QUOTA-JAPAN-EMBARGO",
+                    9, 7,
+                    2010,
+                    "China Rare Earth Export Quota & Japan Senkaku Embargo — Midstream Weaponization",
+                    "Beijing / Tokyo / Global",
+                    "China imposes de-facto rare earth embargo on Japan during Senkaku trawler dispute — demonstrating that controlling upstream extraction and midstream refining (>85% of global HREE refining) converts minerals into sovereign coercion weapons.",
+                    "Critical minerals midstream is a sovereign weapon: Refining concentration risk (Phase 207 CriticalMineralsRefiningCrisisSieve) creates hard geopolitical dependency that converts economic dependency into kinetic leverage."
+                ),
+                (
+                    "ANNIV-1977-RELIANCE-DHIRUBHAI-AMBANI-FIRST-PUBLIC-ISSUE",
+                    11, 15,
+                    1977,
+                    "Dhirubhai Ambani Reliance Textiles First Public Issue — Trusteeship Capitalism Founding Archetype",
+                    "Bombay / Gujarat",
+                    "Dhirubhai Ambani lists Reliance Textiles in 1977, building a mass-retail shareholder base across Gujarat and Bombay — the founding archetype of Bharatiya Trusteeship Capitalism where domestic capex creation displaces foreign MNC dominance while simultaneously concentrating sectoral power.",
+                    "National champion dual-nature: Sovereign shield (Phase 208 NationalChampionSovereignSieve) and cartel risk coexist — StrategicEquilibrium = SovereignShieldFactor / DomesticCartelRisk is the correct measure."
                 )
             ]
 

@@ -16,12 +16,14 @@ from .civilizational import (
     CulturalGrayzoneSieve,
     SacredCalendarProvocationSieve,
     UrbanInsurrectionRiskSieve,
+    CivilizationalKshatraSieve,
+    CulturalGrayzoneLegitimacySieve,
 )
-from .geo_economist import GeoEconomistLens
-from .geopolitical import GeopoliticalLens, ChokepointKineticSieve
+from .geo_economist import GeoEconomistLens, MultilateralCurrencySettlementSieve, NationalChampionSovereignSieve, SupplyChainVacuumCaptureSieve, OffshoreCapitalMagnetismSieve, ResourceCurseSieve
+from .geopolitical import GeopoliticalLens, ChokepointKineticSieve, TripartiteCoherenceSieve
 from .kinesics import KinesicsLens, SartorialSemioticSieve
 from .cash_flow import CashFlowLens
-from .propaganda import PropagandaLens, AntitheticalRhetoricSieve
+from .propaganda import PropagandaLens, AntitheticalRhetoricSieve, CognitivePanicMonetizationFilter, CognitiveSovereigntySieve
 from .petro_logistics import PetroLogisticsLens
 from .bureaucratic_inertia import BureaucraticInertiaLens, BureaucraticRollbackModel
 from .digital_sovereignty import (
@@ -30,11 +32,13 @@ from .digital_sovereignty import (
     ImperialSubversionPipesSieve,
     ProtocolLayerSovereigntySieve,
     CorporateAstroturfingSieve,
+    IndigenousHardwareTechMoatSieve,
+    StrategicMetallurgySieve,
 )
-from .hybrid_covert import HybridCovertLens, ExtraterritorialSovereignAsymmetrySieve, DiplomaticCounterIntelSieve
+from .hybrid_covert import HybridCovertLens, ExtraterritorialSovereignAsymmetrySieve, DiplomaticCounterIntelSieve, NuclearAmbiguitySieve
 from .india_timeline import IndiaTimelineLens
-from .demographic_infiltration import DemographicInfiltrationLens, DiasporaBacklashSieve
-from .critical_minerals import CriticalMineralsLens
+from .demographic_infiltration import DemographicInfiltrationLens, DiasporaBacklashSieve, StatutoryBorderDemographySieve
+from .critical_minerals import CriticalMineralsLens, CriticalMineralsRefiningCrisisSieve
 from .institutional_lawfare import (
     InstitutionalLawfareLens,
     SubNationalEndowmentSieve,
@@ -44,12 +48,15 @@ from .institutional_lawfare import (
     CoercionPremiumSieve,
     CrowdCascadeThresholdSieve,
     StateMachiavellianSieve,
+    SovereignPowerHierarchySieve,
+    DataSovereigntyMediaLawfareSieve,
+    StreetLawfareSieve,
 )
 
-from .food_security import FoodSecurityLens, EnergyFertilizerChokepointSieve, AgrarianWaterCartelSieve
-from .military_readiness import MilitaryReadinessLens, AvionicsSovereigntySieve, AsymmetricInterceptionSieve
-from .subsea_cables import SubseaCablesLens
-from .astro_politics import AstroPoliticsLens
+from .food_security import FoodSecurityLens, EnergyFertilizerChokepointSieve, AgrarianWaterCartelSieve, RiparianResilienceSieve
+from .military_readiness import MilitaryReadinessLens, AvionicsSovereigntySieve, AsymmetricInterceptionSieve, MaritimeForwardBasingSieve, HighAltitudeAeroDefenseSieve
+from .subsea_cables import SubseaCablesLens, SubseaCableSovereigntySieve
+from .astro_politics import AstroPoliticsLens, AstroSovereigntySieve
 
 LENS_REGISTRY: List[Type[Any]] = [
     DeepTechLens,
@@ -123,6 +130,29 @@ __all__ = [
     "CrowdCascadeThresholdSieve",
     "StateMachiavellianSieve",
     "CorporateAstroturfingSieve",
+    "MaritimeForwardBasingSieve",
+    "CivilizationalKshatraSieve",
+    "SovereignPowerHierarchySieve",
+    "MultilateralCurrencySettlementSieve",
+    "SubseaCableSovereigntySieve",
+    "CriticalMineralsRefiningCrisisSieve",
+    "NationalChampionSovereignSieve",
+    "CulturalGrayzoneLegitimacySieve",
+    "SupplyChainVacuumCaptureSieve",
+    "DataSovereigntyMediaLawfareSieve",
+    "CognitivePanicMonetizationFilter",
+    "IndigenousHardwareTechMoatSieve",
+    "StreetLawfareSieve",
+    "OffshoreCapitalMagnetismSieve",
+    "ResourceCurseSieve",
+    "HighAltitudeAeroDefenseSieve",
+    "TripartiteCoherenceSieve",
+    "StatutoryBorderDemographySieve",
+    "StrategicMetallurgySieve",
+    "NuclearAmbiguitySieve",
+    "CognitiveSovereigntySieve",
+    "AstroSovereigntySieve",
+    "RiparianResilienceSieve",
 ]
 
 

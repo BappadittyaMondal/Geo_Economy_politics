@@ -118,6 +118,25 @@ class DigitalSovereigntyLens:
 
             metrics["claims_evaluated"] = len(claims)
 
+        
+        # Phase 224: Wire IndigenousHardwareTechMoatSieve
+        _moat_sieve = IndigenousHardwareTechMoatSieve()
+        _moat_result = _moat_sieve.calculate_hardware_moat(
+            proprietary_bms_ip_score=metrics.get("proprietary_bms_ip_score", 0.85),
+            local_thermal_optimization_score=metrics.get("local_thermal_optimization_score", 0.80),
+            foreign_ckd_rebadge_share=metrics.get("foreign_ckd_rebadge_share", 0.20),
+            domestic_manufacturing_integration=metrics.get("domestic_manufacturing_integration", 0.75),
+        )
+        metrics.update(_moat_result)
+
+        # Phase 233: Wire StrategicMetallurgySieve
+        _sm_result = StrategicMetallurgySieve.calculate_metallurgy_autonomy(
+            single_crystal_superalloy_ip=metrics.get("single_crystal_superalloy_ip", 0.60),
+            ndfeb_domestic_refining_supply=metrics.get("ndfeb_domestic_refining_supply", 0.45),
+            titanium_hull_casting_capacity=metrics.get("titanium_hull_casting_capacity", 0.70),
+            foreign_turbine_core_dependency=metrics.get("foreign_turbine_core_dependency", 0.40),
+        )
+        metrics.update(_sm_result)
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -531,5 +550,143 @@ class CorporateAstroturfingSieve:
 
 
 
+
+
+class IndigenousHardwareTechMoatSieve:
+    """
+    Phase 224: Evaluates sovereign technology autonomy by measuring local R&D, proprietary BMS/thermal
+    management IP, and domestic value addition versus rebadged foreign CKD/SKD white-label assembly kits
+    under Press Note 3 and sovereign PLI mandates.
+    """
+
+    @classmethod
+    def calculate_hardware_moat(
+        cls,
+        proprietary_bms_ip_score: float = 0.85,
+        local_thermal_optimization_score: float = 0.80,
+        foreign_ckd_rebadge_share: float = 0.20,
+        domestic_manufacturing_integration: float = 0.75,
+    ) -> Dict[str, Any]:
+        """
+        Calculates indigenous hardware tech moat score using logistic sigmoid model.
+        """
+        import math
+        bms_ip = max(0.0, min(1.0, float(proprietary_bms_ip_score)))
+        therm = max(0.0, min(1.0, float(local_thermal_optimization_score)))
+        ckd = max(0.0, min(1.0, float(foreign_ckd_rebadge_share)))
+        dom_mfg = max(0.0, min(1.0, float(domestic_manufacturing_integration)))
+
+        z = 3.0 * bms_ip + 2.2 * therm + 2.0 * dom_mfg - 3.5 * ckd - 1.2
+        moat_score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if moat_score >= 0.80:
+            tier = "FORTIFIED_INDIGENOUS_TECH_MOAT"
+            verdict = "AUTHENTIC_SOVEREIGN_HARDWARE_INDEPENDENCE"
+            rationale = (
+                f"Fortified moat ({moat_score:.4f}): Proprietary BMS IP ({bms_ip:.2f}) and local thermal "
+                f"optimization ({therm:.2f}) combined with low foreign CKD share ({ckd:.2f}) establishes "
+                f"complete structural immunity against foreign component chokeholds."
+            )
+        elif moat_score >= 0.55:
+            tier = "PROGRESSIVE_LOCALIZATION_EQUILIBRIUM"
+            verdict = "GROWING_DOMESTIC_CAPABILITY_WITH_TRACE_IMPORT_DEPENDENCY"
+            rationale = (
+                f"Progressive localization ({moat_score:.4f}): Core sub-assemblies domestic, "
+                f"but cell chemistry or specific microcontrollers remain imported."
+            )
+        elif moat_score >= 0.35:
+            tier = "VULNERABLE_CKD_HYBRID_ASSEMBLER"
+            verdict = "ELEVATED_SUPPLY_CHAIN_INTERDICTION_RISK"
+            rationale = (
+                f"Vulnerable assembler ({moat_score:.4f}): Foreign CKD share ({ckd:.2f}) creates high exposure "
+                f"to foreign export bans or battery thermal safety failures under Indian conditions."
+            )
+        else:
+            tier = "DECEPTIVE_WHITE_LABEL_CAPTIVITY"
+            verdict = "PSEUDO_DOMESTIC_ASSEMBLER_SUBJECT_TO_PRESS_NOTE_3_INTERDICTION"
+            rationale = (
+                f"White-label captivity ({moat_score:.4f}): Mere screwdriver assembly of imported foreign kits. "
+                f"Zero sovereign tech moat; fails statutory PLI/AIS-156 domestic value-add criteria."
+            )
+
+        return {
+            "indigenous_tech_moat_score": moat_score,
+            "proprietary_bms_ip_score": round(bms_ip, 4),
+            "local_thermal_optimization_score": round(therm, 4),
+            "foreign_ckd_rebadge_share": round(ckd, 4),
+            "domestic_manufacturing_integration": round(dom_mfg, 4),
+            "hardware_tech_moat_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_indigenous_moat_defensible": moat_score >= 0.60
+        }
+
+
+
+class StrategicMetallurgySieve:
+    """
+    Phase 233: Analyzes sovereign metallurgy autonomy across high-temperature single-crystal superalloys
+    (Kaveri/AMCA turbine blades), sintered Neodymium-Iron-Boron (NdFeB) permanent magnets for AESA radar/EVs,
+    and submarine-grade titanium pressure hull casting against foreign technology denial cartels.
+    """
+
+    @classmethod
+    def calculate_metallurgy_autonomy(
+        cls,
+        single_crystal_superalloy_ip: float = 0.60,
+        ndfeb_domestic_refining_supply: float = 0.45,
+        titanium_hull_casting_capacity: float = 0.70,
+        foreign_turbine_core_dependency: float = 0.40,
+    ) -> Dict[str, Any]:
+        """
+        Calculates strategic metallurgy autonomy score using logistic sigmoid model.
+        """
+        import math
+        s_crys = max(0.0, min(1.0, float(single_crystal_superalloy_ip)))
+        ndfeb = max(0.0, min(1.0, float(ndfeb_domestic_refining_supply)))
+        ti_cast = max(0.0, min(1.0, float(titanium_hull_casting_capacity)))
+        f_core = max(0.0, min(1.0, float(foreign_turbine_core_dependency)))
+
+        z = 2.8 * s_crys + 2.2 * ndfeb + 1.8 * ti_cast - 3.5 * f_core - 0.8
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "METALLURGICAL_SOVEREIGN_INDEPENDENCE"
+            verdict = "COMPLETE_HOT_SECTION_AND_AESA_DOMESTIC_PRODUCTION"
+            rationale = (
+                f"Metallurgical independence ({score:.4f}): Single-crystal IP ({s_crys:.2f}) and NdFeB refining ({ndfeb:.2f}) "
+                f"insulate defense manufacturing from foreign denial regimes."
+            )
+        elif score >= 0.55:
+            tier = "SUBSTANTIAL_DOMESTIC_SUBSTITUTION"
+            verdict = "REDUCED_VULNERABILITY_TO_MTCR_DENIAL"
+            rationale = (
+                f"Substantial substitution ({score:.4f}): Titanium casting and magnet supply robust, though advanced turbine core "
+                f"licensing ({f_core:.2f}) remains partially active."
+            )
+        elif score >= 0.35:
+            tier = "CRITICAL_CHOKEPOINT_DEPENDENCY"
+            verdict = "VULNERABLE_TO_RARE_EARTH_AND_SUPERALLOY_EMBARGO"
+            rationale = (
+                f"Chokepoint dependency ({score:.4f}): Foreign turbine core reliance ({f_core:.2f}) exposes defense aviation to embargoes."
+            )
+        else:
+            tier = "COMPLETE_EXTRATERRITORIAL_METALLURGY_VETO"
+            verdict = "AEROSPACE_AND_RADAR_HARDWARE_PARALYZED"
+            rationale = (
+                f"Extraterritorial veto ({score:.4f}): Extreme reliance on imported superalloys and magnets paralyses indigenous defense production."
+            )
+
+        return {
+            "metallurgy_autonomy_score": score,
+            "single_crystal_superalloy_ip": round(s_crys, 4),
+            "ndfeb_domestic_refining_supply": round(ndfeb, 4),
+            "titanium_hull_casting_capacity": round(ti_cast, 4),
+            "foreign_turbine_core_dependency": round(f_core, 4),
+            "metallurgy_autonomy_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_metallurgy_autonomous": score >= 0.60
+        }
 
 ```

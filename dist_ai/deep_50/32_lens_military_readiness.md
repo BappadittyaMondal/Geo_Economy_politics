@@ -145,6 +145,90 @@ class AvionicsSovereigntySieve:
         }
 
 
+class MaritimeForwardBasingSieve:
+    """
+    Phase 201: Maritime Forward-Basing & Chokepoint Interdiction Sieve.
+    Evaluates forward maritime power projection, anti-submarine warfare (ASW)
+    patrol coverage (e.g. Boeing P-8I Poseidon deployment thresholds),
+    deepwater jetty berthing capability for guided-missile destroyers/tankers,
+    and chokepoint interdiction dominance across critical sea lanes of communication
+    (Mozambique Channel, Malacca Strait, Bab-el-Mandeb, Sunda/Lombok Straits)
+    against adversary naval encirclement architectures (e.g. PLAN String of Pearls).
+
+    Mathematical Formulation:
+      Runway_Score = min(1.0, max(0.1, runway_length_meters / 3000.0))
+      Jetty_Bonus = 0.35 if has_deepwater_jetty else 0.0
+      Patrol_Radius_Score = min(1.0, round(Runway_Score * (1.0 + Jetty_Bonus), 4))
+
+      # Sigmoid chokepoint interdiction index
+      z = 3.2 * (Patrol_Radius_Score - plan_encirclement_pressure) + 1.5 * (chokepoint_criticality - 0.50)
+      Basing_Interdiction_Index = round(1.0 / (1.0 + math.exp(-z)), 4)
+    """
+
+    @classmethod
+    def calculate_forward_basing_index(
+        cls,
+        runway_length_meters: float = 3000.0,
+        has_deepwater_jetty: bool = True,
+        plan_encirclement_pressure: float = 0.50,
+        chokepoint_criticality: float = 0.75,
+        subsea_cable_intercept_risk: float = 0.40,
+    ) -> Dict[str, Any]:
+        runway = max(500.0, float(runway_length_meters))
+        encirclement = min(1.0, max(0.0, float(plan_encirclement_pressure)))
+        criticality = min(1.0, max(0.0, float(chokepoint_criticality)))
+        cable_risk = min(1.0, max(0.0, float(subsea_cable_intercept_risk)))
+
+        runway_score = min(1.0, runway / 3000.0)
+        jetty_bonus = 0.35 if has_deepwater_jetty else 0.0
+        patrol_score = min(1.0, round(runway_score * (1.0 + jetty_bonus), 4))
+
+        z = 3.2 * (patrol_score - encirclement) + 1.5 * (criticality - 0.50)
+        interdiction_index = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if interdiction_index >= 0.75:
+            tier = "COMMANDING_CHOKEPOINT_DOMINANCE"
+            verdict = "FORWARD_UNSINKABLE_SURVEILLANCE_HUB_ACTIVE"
+            rationale = (
+                f"Full ASW capability verified: Runway ({runway:.0f}m) supports continuous P-8I Poseidon patrols. "
+                f"Deepwater jetty allows guided-missile destroyer turnaround. "
+                f"Interdiction Index: {interdiction_index:.4f} neutralizes regional encirclement pressure."
+            )
+        elif interdiction_index >= 0.50:
+            tier = "CONTESTED_MARITIME_MONITORING"
+            verdict = "CREDIBLE_REGIONAL_RADAR_AND_PATROL_COVERAGE"
+            rationale = (
+                f"Sufficient forward presence: Coastal radar and medium surveillance aircraft active. "
+                f"Runway {runway:.0f}m, deepwater jetty {has_deepwater_jetty}. "
+                f"Interdiction Index: {interdiction_index:.4f} provides viable maritime domain awareness."
+            )
+        elif interdiction_index >= 0.25:
+            tier = "VULNERABLE_LITTORAL_OUTPOST"
+            verdict = "RESTRICTED_TACTICAL_FACILITY_REQUIRES_EXPANSION"
+            rationale = (
+                f"Sub-optimal basing infrastructure: Limited runway length ({runway:.0f}m) or absence of deepwater berths. "
+                f"Interdiction Index: {interdiction_index:.4f} leaves sea lanes exposed to adversary power projection."
+            )
+        else:
+            tier = "SEVERELY_ENCIRCLED_MARITIME_VACUUM"
+            verdict = "TOTAL_CHOKEPOINT_DENIAL_BY_ADVERSARY"
+            rationale = "Critical intelligence gap: Adversary PLAN presence dominates surrounding waters with near-zero indigenous ASW counter-balance."
+
+        return {
+            "basing_interdiction_index": interdiction_index,
+            "patrol_radius_score": patrol_score,
+            "runway_length_meters": runway,
+            "has_deepwater_jetty": has_deepwater_jetty,
+            "plan_encirclement_pressure": encirclement,
+            "chokepoint_criticality": criticality,
+            "subsea_cable_intercept_risk": cable_risk,
+            "chokepoint_security_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_forward_basing_active": interdiction_index >= 0.50,
+        }
+
+
 class MilitaryReadinessLens:
     """Evaluator for kinetic warfighting capability, ammunition stockpiles, and strategic deterrence."""
 
@@ -266,6 +350,38 @@ class MilitaryReadinessLens:
             if burnout_calc["cost_burnout_index"] >= 0.50:
                 alignment = max(0.15, round(alignment - 0.15, 2))
 
+        # Scan for forward basing & maritime chokepoint terms (Phase 201)
+        basing_terms = [
+            "agalega", "mauritius", "mozambique channel", "forward base", "p-8i", "poseidon",
+            "chokepoint", "deepwater jetty", "st. james", "duqm", "maritime patrol", "asw patrol"
+        ]
+        basing_detected = any(t in corpus for t in basing_terms)
+        basing_calc = None
+        if basing_detected:
+            is_p8i = ("p-8i" in corpus or "poseidon" in corpus or "3000" in corpus or "agalega" in corpus)
+            runway_len = 3000.0 if is_p8i else 2400.0
+            has_jetty = True if ("jetty" in corpus or "deepwater" in corpus or "st. james" in corpus or "agalega" in corpus) else False
+            encircle = 0.65 if ("string of pearls" in corpus or "encircle" in corpus or "djibouti" in corpus) else 0.45
+            criticality = 0.85 if ("chokepoint" in corpus or "mozambique" in corpus or "sloc" in corpus) else 0.65
+            cable_risk = 0.55 if ("cable" in corpus or "subsea" in corpus or "baie du jacotet" in corpus) else 0.35
+            basing_calc = MaritimeForwardBasingSieve.calculate_forward_basing_index(
+                runway_length_meters=runway_len,
+                has_deepwater_jetty=has_jetty,
+                plan_encirclement_pressure=encircle,
+                chokepoint_criticality=criticality,
+                subsea_cable_intercept_risk=cable_risk
+            )
+            findings.insert(0, (
+                f"[MARITIME FORWARD BASING] {basing_calc['tactical_rationale']} "
+                f"Verdict: {basing_calc['operational_verdict']}."
+            ))
+            metrics["basing_interdiction_index"] = basing_calc["basing_interdiction_index"]
+            metrics["chokepoint_security_tier"] = basing_calc["chokepoint_security_tier"]
+            metrics["p8i_coverage_ratio"] = basing_calc["patrol_radius_score"]
+            metrics["is_forward_basing_active"] = basing_calc["is_forward_basing_active"]
+            if basing_calc["is_forward_basing_active"]:
+                alignment = min(1.0, round(alignment + 0.15, 2))
+
         if claims:
             military_or_readiness = any(
                 any(kw in getattr(c, "asserted_fact", getattr(c, "assertion", "")).lower()
@@ -282,6 +398,15 @@ class MilitaryReadinessLens:
                 metrics["kinetic_escalation_dominance_score"] = 0.85
                 metrics["sub_kinetic_probing_risk"] = 0.91
 
+        # Phase 230: Wire HighAltitudeAeroDefenseSieve
+        _aero_result = HighAltitudeAeroDefenseSieve.calculate_aero_defense(
+            high_altitude_thrust_to_weight=metrics.get("high_altitude_thrust_to_weight", 0.80),
+            sensor_fusion_aesa_integration=metrics.get("sensor_fusion_aesa_integration", 0.85),
+            cold_soak_turnaround_agility=metrics.get("cold_soak_turnaround_agility", 0.75),
+            foreign_airframe_dependency=metrics.get("foreign_airframe_dependency", 0.35),
+        )
+        metrics.update(_aero_result)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -291,5 +416,72 @@ class MilitaryReadinessLens:
             hard_metrics=metrics,
             evidence_status="sufficient"
         )
+
+
+
+class HighAltitudeAeroDefenseSieve:
+    """
+    Phase 230: Evaluates high-altitude air combat readiness across the LAC (15,000 ft density altitude),
+    modeling afterburning thrust-to-weight margins, AESA radar sensor fusion, cold-soak startup agility,
+    and foreign airframe dependency.
+    """
+
+    @classmethod
+    def calculate_aero_defense(
+        cls,
+        high_altitude_thrust_to_weight: float = 0.80,
+        sensor_fusion_aesa_integration: float = 0.85,
+        cold_soak_turnaround_agility: float = 0.75,
+        foreign_airframe_dependency: float = 0.35,
+    ) -> Dict[str, Any]:
+        """
+        Calculates high-altitude aero defense capability score using logistic sigmoid model.
+        """
+        import math
+        t_tw = max(0.0, min(1.0, float(high_altitude_thrust_to_weight)))
+        s_fus = max(0.0, min(1.0, float(sensor_fusion_aesa_integration)))
+        c_soak = max(0.0, min(1.0, float(cold_soak_turnaround_agility)))
+        f_dep = max(0.0, min(1.0, float(foreign_airframe_dependency)))
+
+        z = 3.0 * t_tw + 2.4 * s_fus + 1.8 * c_soak - 3.2 * f_dep - 0.8
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "AIR_DOMINANCE_SOVEREIGNTY"
+            verdict = "SUPERIOR_LAC_ALTITUDE_COMBAT_READINESS"
+            rationale = (
+                f"Air dominance sovereignty ({score:.4f}): High thrust-to-weight ({t_tw:.2f}) and AESA sensor fusion "
+                f"({s_fus:.2f}) ensure tactical air superiority at extreme density altitudes."
+            )
+        elif score >= 0.60:
+            tier = "ROBUST_TACTICAL_PARITY"
+            verdict = "EFFECTIVE_DETERRENCE_MODERATE_SUPPLY_CHAIN_SENSITIVITY"
+            rationale = (
+                f"Tactical parity ({score:.4f}): Effective frontline deterrence with manageable foreign airframe dependency ({f_dep:.2f})."
+            )
+        elif score >= 0.40:
+            tier = "CONTESTED_INTERCEPTION_CAPACITY"
+            verdict = "THRUST_DEFICIT_OR_AVIONICS_LAG"
+            rationale = (
+                f"Contested interception ({score:.4f}): Cold-soak agility or thrust limits reduce scramble effectiveness."
+            )
+        else:
+            tier = "CRITICAL_HIGH_ALTITUDE_VULNERABILITY"
+            verdict = "FOREIGN_DEPENDENCY_CRIPPLING_FRONT_LINE_MOBILITY"
+            rationale = (
+                f"Critical vulnerability ({score:.4f}): High foreign airframe reliance ({f_dep:.2f}) exposes fleet to MTCR/spare parts denial."
+            )
+
+        return {
+            "high_altitude_defense_score": score,
+            "high_altitude_thrust_to_weight": round(t_tw, 4),
+            "sensor_fusion_aesa_integration": round(s_fus, 4),
+            "cold_soak_turnaround_agility": round(c_soak, 4),
+            "foreign_airframe_dependency": round(f_dep, 4),
+            "high_altitude_defense_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_air_dominance_assured": score >= 0.70
+        }
 
 ```

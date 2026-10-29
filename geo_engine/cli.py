@@ -214,21 +214,99 @@ def render_full_report(
             )
         if res.get("judicial_subversion_score") is not None:
             res_text += (
-                f"\n[bold red]Judicial Subversion Threat:[/bold red] {res['judicial_subversion_score']:.2f}  |  "
-                f"[bold cyan]Tech Sovereignty Auction Protection:[/bold cyan] {res.get('tech_sovereignty_score', 0.0):.2f}  |  "
-                f"[bold yellow]Urban Insurrection Risk:[/bold yellow] {res.get('urban_insurrection_risk_score', 0.0):.2f}"
+                f"\n[bold red]Judicial Subversion Threat:[/bold red] {(res.get('judicial_subversion_score') or 0.0):.2f}  |  "
+                f"[bold cyan]Tech Sovereignty Auction Protection:[/bold cyan] {(res.get('tech_sovereignty_score') or 0.0):.2f}  |  "
+                f"[bold yellow]Urban Insurrection Risk:[/bold yellow] {(res.get('urban_insurrection_risk_score') or 0.0):.2f}"
             )
         if res.get("telecom_pipes_risk_score") is not None or res.get("coercion_premium_score") is not None:
             res_text += (
-                f"\n[bold red]Imperial Telecom Pipes Risk:[/bold red] {res.get('telecom_pipes_risk_score', 0.0):.2f}  |  "
-                f"[bold cyan]Protocol-Layer Sovereignty (DPI):[/bold cyan] {res.get('protocol_layer_sovereignty_score', 0.0):.2f}  |  "
-                f"[bold yellow]Asymmetric Coercion Premium:[/bold yellow] {res.get('coercion_premium_score', 0.0):.2f}"
+                f"\n[bold red]Imperial Telecom Pipes Risk:[/bold red] {(res.get('telecom_pipes_risk_score') or 0.0):.2f}  |  "
+                f"[bold cyan]Protocol-Layer Sovereignty (DPI):[/bold cyan] {(res.get('protocol_layer_sovereignty_score') or 0.0):.2f}  |  "
+                f"[bold yellow]Asymmetric Coercion Premium:[/bold yellow] {(res.get('coercion_premium_score') or 0.0):.2f}"
             )
         if res.get("crowd_cascade_probability") is not None or res.get("state_inaction_score") is not None or res.get("astroturfing_probability") is not None:
             res_text += (
-                f"\n[bold magenta]Crowd Cascade Probability:[/bold magenta] {res.get('crowd_cascade_probability', 0.0):.2f}  |  "
-                f"[bold blue]State Machiavellian Inaction:[/bold blue] {res.get('state_inaction_score', 0.0):.2f}  |  "
-                f"[bold red]Corporate Astroturfing Factor:[/bold red] {res.get('astroturfing_probability', 0.0):.2f}"
+                f"\n[bold magenta]Crowd Cascade Probability:[/bold magenta] {(res.get('crowd_cascade_probability') or 0.0):.2f}  |  "
+                f"[bold blue]State Machiavellian Inaction:[/bold blue] {(res.get('state_inaction_score') or 0.0):.2f}  |  "
+                f"[bold red]Corporate Astroturfing Factor:[/bold red] {(res.get('astroturfing_probability') or 0.0):.2f}"
+            )
+        if res.get("basing_interdiction_index") is not None or res.get("civilizational_vulnerability_index") is not None or res.get("oligarch_subordination_factor") is not None or res.get("sanctions_firewall_score") is not None:
+            res_text += (
+                f"\n[bold cyan]Maritime Basing Interdiction:[/bold cyan] {(res.get('basing_interdiction_index') or 0.0):.2f}  |  "
+                f"[bold yellow]Civ Vulnerability Index:[/bold yellow] {(res.get('civilizational_vulnerability_index') or 0.0):.2f}  |  "
+                f"[bold green]Oligarch Subordination Factor:[/bold green] {(res.get('oligarch_subordination_factor') or 0.0):.2f}  |  "
+                f"[bold magenta]Sanctions Firewall Score:[/bold magenta] {(res.get('sanctions_firewall_score') or 0.0):.2f}"
+            )
+        if (
+            res.get("cable_vulnerability_index") is not None
+            or res.get("refining_concentration_risk") is not None
+            or res.get("strategic_equilibrium_ratio") is not None
+            or res.get("cultural_grayzone_hijack_probability") is not None
+        ):
+            cable_vuln = (res.get("cable_vulnerability_index") or 0.0)
+            refining_risk = (res.get("refining_concentration_risk") or 0.0)
+            equilibrium = (res.get("strategic_equilibrium_ratio") or 1.0)
+            grayzone = (res.get("cultural_grayzone_hijack_probability") or 0.0)
+            res_text += (
+                f"\n[bold red]Subsea Cable Vulnerability Index:[/bold red] {cable_vuln:.2f}  |  "
+                f"[bold yellow]Critical Minerals Refining Crisis Risk:[/bold yellow] {refining_risk:.2f}\n"
+                f"[bold cyan]National Champion Strategic Equilibrium:[/bold cyan] {equilibrium:.2f}  |  "
+                f"[bold magenta]Cultural Grayzone Dharma Hijack Probability:[/bold magenta] {grayzone:.2f}"
+            )
+        if (
+            res.get("supply_chain_capture_potential") is not None
+            or res.get("media_lawfare_vulnerability") is not None
+            or res.get("commercial_fud_probability") is not None
+            or res.get("indigenous_tech_moat_score") is not None
+        ):
+            sc_pot = (res.get("supply_chain_capture_potential") or 0.0)
+            sc_usd = (res.get("captured_order_value_usd_b") or 0.0)
+            med_law = (res.get("media_lawfare_vulnerability") or 0.0)
+            fud_prob = (res.get("commercial_fud_probability") or 0.0)
+            deb_thr = (res.get("debiased_structural_threat") or 0.0)
+            tech_moat = (res.get("indigenous_tech_moat_score") or 0.0)
+            res_text += (
+                f"\n[bold green]Supply Chain Vacuum Capture:[/bold green] {sc_pot:.2f} (${sc_usd:.1f}B)  |  "
+                f"[bold yellow]Media Lawfare Vulnerability:[/bold yellow] {med_law:.2f}\n"
+                f"[bold red]Commercial Panic/FUD Probability:[/bold red] {fud_prob:.2f} (Debiased Threat: {deb_thr:.2f})  |  "
+                f"[bold cyan]Indigenous Tech Moat Score:[/bold cyan] {tech_moat:.2f}"
+            )
+        if (
+            res.get("street_lawfare_score") is not None
+            or res.get("capital_magnetism_score") is not None
+            or res.get("high_altitude_defense_score") is not None
+            or res.get("tripartite_coherence_score") is not None
+            or res.get("demographic_sovereignty_score") is not None
+            or res.get("metallurgy_autonomy_score") is not None
+            or res.get("nuclear_ambiguity_score") is not None
+            or res.get("resource_curse_vulnerability") is not None
+            or res.get("cognitive_sovereignty_score") is not None
+            or res.get("astro_sovereignty_score") is not None
+            or res.get("riparian_resilience_score") is not None
+        ):
+            sl_sc = (res.get("street_lawfare_score") or 0.0)
+            cm_sc = (res.get("capital_magnetism_score") or 0.0)
+            ha_sc = (res.get("high_altitude_defense_score") or 0.0)
+            tc_sc = (res.get("tripartite_coherence_score") or 0.0)
+            ds_sc = (res.get("demographic_sovereignty_score") or 0.0)
+            sm_sc = (res.get("metallurgy_autonomy_score") or 0.0)
+            na_sc = (res.get("nuclear_ambiguity_score") or 0.0)
+            rc_sc = (res.get("resource_curse_vulnerability") or 0.0)
+            cs_sc = (res.get("cognitive_sovereignty_score") or 0.0)
+            as_sc = (res.get("astro_sovereignty_score") or 0.0)
+            rr_sc = (res.get("riparian_resilience_score") or 0.0)
+            res_text += (
+                f"\n[bold magenta]Street Lawfare Risk:[/bold magenta] {sl_sc:.2f}  |  "
+                f"[bold green]Capital Magnetism (GIFT IFSC):[/bold green] {cm_sc:.2f}  |  "
+                f"[bold cyan]High-Altitude Aero Defense:[/bold cyan] {ha_sc:.2f}\n"
+                f"[bold blue]Tripartite Coherence:[/bold blue] {tc_sc:.2f}  |  "
+                f"[bold yellow]Border Demography Sovereignty:[/bold yellow] {ds_sc:.2f}  |  "
+                f"[bold white]Strategic Metallurgy Autonomy:[/bold white] {sm_sc:.2f}\n"
+                f"[bold red]Nuclear Ambiguity Deterrence:[/bold red] {na_sc:.2f}  |  "
+                f"[bold dark_orange]Resource Curse Vulnerability:[/bold dark_orange] {rc_sc:.2f}  |  "
+                f"[bold bright_cyan]Cognitive Sovereignty:[/bold bright_cyan] {cs_sc:.2f}\n"
+                f"[bold bright_yellow]Astro-Political Extra-Terrestrial Sovereignty:[/bold bright_yellow] {as_sc:.2f}  |  "
+                f"[bold bright_blue]Riparian Disaster Resilience:[/bold bright_blue] {rr_sc:.2f}"
             )
         console.print("\n[bold yellow]=== STRATEGIC RESILIENCE & ESCALATION READINESS (LENSES 13-20) ===[/bold yellow]")
         console.print(Panel(res_text, title="Physical Caloric, Military, Subsea & Orbital Sovereignty Matrix", border_style="cyan"))
@@ -821,7 +899,7 @@ def render_audit_ingestion(audit_path: str):
 
     resolved_path = os.path.abspath(audit_path)
     if not os.path.exists(resolved_path):
-        console.print(f"[bold red][ERROR][/bold red] Audit file not found: {resolved_path}", file=sys.stderr)
+        console.print(f"[bold red][ERROR][/bold red] Audit file not found: {resolved_path}")
         sys.exit(1)
 
     console.print(f"\n[bold cyan]=== INGESTING FORENSIC AUDIT TELEMETRY INTO EVENT STORE ===[/bold cyan]")
@@ -900,13 +978,14 @@ def render_chronology_arbitration(event_name: str = "Mahabharata War Chronology"
     console.print(Panel(res_box, title="[bold white on blue] MPCA ARBITRATION CONSENSUS VERDICT [/bold white on blue]", border_style="cyan"))
 
 
-def render_conversation_learning(text_or_path: str, subject: Optional[str] = None, session_id: Optional[str] = None) -> None:
+def render_conversation_learning(text_or_path: Optional[str] = None, subject: Optional[str] = None, session_id: Optional[str] = None, text: Optional[str] = None) -> None:
     """Renders autonomous conversation self-learning and distillation results."""
     from .ingestion.chat_distiller import ChatConversationDistiller
     import pathlib
 
-    content = text_or_path
-    p = pathlib.Path(text_or_path)
+    target = text if text is not None else (text_or_path or "")
+    content = target
+    p = pathlib.Path(target)
     if p.exists() and p.is_file():
         content = p.read_text(encoding="utf-8")
 
@@ -1503,7 +1582,7 @@ def main():
             out_dir = getattr(args, "output_dir", "reports")
             render_full_report(summit_title, year, persona=persona, export=export_fmt, output_dir=out_dir)
     except Exception as e:
-        console.print(f"[bold red][ERROR][/bold red] CLI Execution Failed: {e}", file=sys.stderr)
+        console.print(f"[bold red][ERROR][/bold red] CLI Execution Failed: {e}")
         sys.exit(1)
 
 

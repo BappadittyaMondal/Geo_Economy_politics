@@ -63,6 +63,17 @@ class CriticalMineralsLens:
                 metrics["material_sovereignty_index"] = 0.32
                 metrics["midstream_refining_monopoly_risk"] = 0.92
 
+        # Phase 216: Wire CriticalMineralsRefiningCrisisSieve
+        _mineral_sieve = CriticalMineralsRefiningCrisisSieve()
+        _mineral_result = _mineral_sieve.calculate_refining_crisis(
+            single_country_refining_share=metrics.get("hree_refining_concentration_pct", 82.5) / 100.0,
+            upstream_extraction_gap=metrics.get("upstream_extraction_gap", 0.65),
+            domestic_refining_capacity_score=metrics.get("material_sovereignty_index", 0.48),
+            stockpile_days_buffer=metrics.get("strategic_stockpile_days", 30.0),
+            alternative_supplier_count=max(1, int(metrics.get("alternative_supplier_count", 1))),
+        )
+        metrics.update(_mineral_result)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -72,3 +83,104 @@ class CriticalMineralsLens:
             hard_metrics=metrics,
             evidence_status="sufficient"
         )
+
+
+class CriticalMineralsRefiningCrisisSieve:
+    """
+    Phase 207: Quantifies midstream refining concentration risk for critical minerals.
+    Raw extraction ≠ usable sovereignty; China controls 70-90% of midstream REE, Gallium,
+    Germanium, NdFeB magnet, and battery-grade Lithium Hydroxide refining.
+
+    Mathematical core:
+        RefiningConcentrationRisk = σ(
+            3.0 · SingleCountryRefiningShare
+            + 2.0 · UpstreamExtractionGap
+            - 2.5 · DomesticRefiningCapacityScore
+            - 1.5 · StockpileDaysBuffer_normalized
+        )
+    """
+
+    @classmethod
+    def calculate_refining_crisis(
+        cls,
+        single_country_refining_share: float = 0.85,
+        upstream_extraction_gap: float = 0.70,
+        domestic_refining_capacity_score: float = 0.15,
+        stockpile_days_buffer: float = 30.0,
+        alternative_supplier_count: int = 1,
+        claims=None
+    ):
+        """
+        Calculates midstream refining concentration risk and mineral sovereignty tier.
+
+        Args:
+            single_country_refining_share: 0-1, fraction of global midstream refining by dominant single country
+            upstream_extraction_gap: 0-1, gap between raw ore extraction and domestic chemical processing
+            domestic_refining_capacity_score: 0-1, India's own midstream refining capability
+            stockpile_days_buffer: days of strategic reserve (max meaningful value ~180 days)
+            alternative_supplier_count: number of credible non-dominant alternative refining suppliers
+            claims: optional claim objects for keyword detection
+
+        Returns:
+            dict with refining_concentration_risk, mineral_sovereignty_tier, is_midstream_captive, etc.
+        """
+        import math
+
+        refining_share = max(0.0, min(1.0, float(single_country_refining_share)))
+        extract_gap = max(0.0, min(1.0, float(upstream_extraction_gap)))
+        domestic_cap = max(0.0, min(1.0, float(domestic_refining_capacity_score)))
+        stockpile_norm = max(0.0, min(1.0, float(stockpile_days_buffer) / 180.0))
+        alt_suppliers = max(0, int(alternative_supplier_count))
+
+        z = (
+            3.0 * refining_share
+            + 2.0 * extract_gap
+            - 2.5 * domestic_cap
+            - 1.5 * stockpile_norm
+            - 0.5 * min(1.0, alt_suppliers / 3.0)
+            - 1.0
+        )
+        refining_concentration_risk = round(1.0 / (1.0 + math.exp(-z)), 4)
+        mineral_sovereignty_score = round(1.0 - refining_concentration_risk, 4)
+
+        if refining_concentration_risk >= 0.80:
+            tier = "CRITICAL_MIDSTREAM_CAPTIVITY"
+            verdict = "EMERGENCY_DOMESTIC_REFINING_MANDATE"
+            rationale = (
+                f"Acute midstream captivity: dominant single-country refining share ({refining_share*100:.0f}%) "
+                f"combined with negligible domestic capacity ({domestic_cap*100:.0f}%) creates absolute "
+                f"strategic dependency. Raw mining provides zero usable sovereignty."
+            )
+            is_captive = True
+        elif refining_concentration_risk >= 0.60:
+            tier = "HIGH_MIDSTREAM_CONCENTRATION_RISK"
+            verdict = "PRIORITY_REFINING_DIVERSIFICATION"
+            rationale = (
+                f"High refining concentration risk: {refining_share*100:.0f}% single-country dominance "
+                f"with only {stockpile_days_buffer:.0f} days strategic reserve buffer."
+            )
+            is_captive = True
+        elif refining_concentration_risk >= 0.40:
+            tier = "MODERATE_REFINING_DEPENDENCY"
+            verdict = "STRUCTURED_DIVERSIFICATION_REQUIRED"
+            rationale = "Moderate refining dependency; partial domestic capacity mitigates but does not eliminate strategic risk."
+            is_captive = False
+        else:
+            tier = "RESILIENT_MINERAL_SOVEREIGNTY"
+            verdict = "MIDSTREAM_SOVEREIGNTY_MAINTAINED"
+            rationale = "Domestic refining capacity and strategic reserves provide adequate supply chain insulation."
+            is_captive = False
+
+        return {
+            "refining_concentration_risk": refining_concentration_risk,
+            "mineral_sovereignty_score": mineral_sovereignty_score,
+            "single_country_refining_share": round(refining_share, 4),
+            "upstream_extraction_gap": round(extract_gap, 4),
+            "domestic_refining_capacity_score": round(domestic_cap, 4),
+            "stockpile_days_buffer": stockpile_days_buffer,
+            "alternative_supplier_count": alt_suppliers,
+            "mineral_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_midstream_captive": is_captive
+        }

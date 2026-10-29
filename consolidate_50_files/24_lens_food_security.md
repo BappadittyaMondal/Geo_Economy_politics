@@ -285,6 +285,15 @@ class FoodSecurityLens:
             metrics["community_watershed_multiplier"] = w_res["community_resilience_multiplier"]
             metrics["fiscal_leakage_index"] = w_res["fiscal_leakage_index"]
 
+        # Phase 238: Wire RiparianResilienceSieve
+        _rip_result = RiparianResilienceSieve.calculate_riparian_resilience(
+            early_warning_telemetry_minutes=metrics.get("early_warning_telemetry_minutes", 120.0),
+            transboundary_data_exchange_share=metrics.get("transboundary_data_exchange_share", 0.75),
+            siltation_embankment_risk_factor=metrics.get("siltation_embankment_risk_factor", 0.40),
+            downstream_density_hazard=metrics.get("downstream_density_hazard", 0.60),
+        )
+        metrics.update(_rip_result)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -294,5 +303,78 @@ class FoodSecurityLens:
             hard_metrics=metrics,
             evidence_status="sufficient"
         )
+
+
+
+class RiparianResilienceSieve:
+    """
+    Phase 238: Evaluates transboundary riparian flood resilience and Glacial Lake Outburst Flood (GLOF)
+    early-warning defense across Himalayan river systems (Kosi, Gandak, Karnali/Ghaghara, Brahmaputra),
+    modeling real-time Doppler hydromet radar early-warning lead times, bilateral data-exchange agreements,
+    siltation embankment load, and downstream population exposure.
+    """
+
+    @classmethod
+    def calculate_riparian_resilience(
+        cls,
+        early_warning_telemetry_minutes: float = 120.0,
+        transboundary_data_exchange_share: float = 0.75,
+        siltation_embankment_risk_factor: float = 0.40,
+        downstream_density_hazard: float = 0.60,
+    ) -> Dict[str, Any]:
+        """
+        Calculates transboundary riparian resilience score using logistic sigmoid model.
+        """
+        import math
+        mins = max(0.0, float(early_warning_telemetry_minutes))
+        share = max(0.0, min(1.0, float(transboundary_data_exchange_share)))
+        silt = max(0.0, min(1.0, float(siltation_embankment_risk_factor)))
+        dens = max(0.0, min(1.0, float(downstream_density_hazard)))
+
+        telemetry_factor = min(1.0, mins / 180.0)
+        numerator = telemetry_factor * 0.60 + share * 0.40
+        denominator = max(0.20, 0.50 * silt + 0.50 * dens)
+        ratio = numerator / denominator
+        z = 2.5 * (ratio - 1.0)
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "OPTIMAL_RIPARIAN_DEFENSE_AND_EARLY_WARNING"
+            verdict = "TRANSBOUNDARY_COOPERATION_MINIMIZING_FLOOD_DISASTER"
+            rationale = (
+                f"Optimal riparian defense ({score:.4f}): Early-warning lead time ({mins:.0f}m) and telemetry exchange "
+                f"({share:.2f}) provide decisive mitigation against flash floods and GLOFs."
+            )
+        elif score >= 0.60:
+            tier = "RESILIENT_WATER_GOVERNANCE"
+            verdict = "EFFECTIVE_EMBANKMENT_AND_TELEMETRY_MANAGEMENT"
+            rationale = (
+                f"Resilient water governance ({score:.4f}): Effective flood management despite moderate downstream density hazard ({dens:.2f})."
+            )
+        elif score >= 0.40:
+            tier = "ELEVATED_FLASH_FLOOD_HAZARD"
+            verdict = "SILTATION_AND_UPSTREAM_DAM_RISK_REQUIRING_ALERT"
+            rationale = (
+                f"Elevated hazard ({score:.4f}): Siltation ({silt:.2f}) or inadequate warning time compromises downstream defense."
+            )
+        else:
+            tier = "CATASTROPHIC_TRANSBOUNDARY_RIPARIAN_VULNERABILITY"
+            verdict = "UNMONITORED_GLOF_OR_ARTIFICIAL_DAM_SURGE_THREAT"
+            rationale = (
+                f"Catastrophic vulnerability ({score:.4f}): Lack of transboundary hydromet data creates extreme disaster risk in downstream Gangetic plains."
+            )
+
+        return {
+            "riparian_resilience_score": score,
+            "riparian_resilience_ratio": round(ratio, 4),
+            "early_warning_telemetry_minutes": round(mins, 1),
+            "transboundary_data_exchange_share": round(share, 4),
+            "siltation_embankment_risk_factor": round(silt, 4),
+            "downstream_density_hazard": round(dens, 4),
+            "riparian_resilience_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_riparian_defense_adequate": score >= 0.60
+        }
 
 ```

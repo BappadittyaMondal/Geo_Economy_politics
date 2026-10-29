@@ -158,6 +158,15 @@ class GeopoliticalLens:
 
         confidence = 0.91 if not evidence else round(min(0.98, 0.91 + (len(evidence) * 0.02)), 2)
 
+        # Phase 231: Wire TripartiteCoherenceSieve
+        _tri_result = TripartiteCoherenceSieve.calculate_tripartite_coherence(
+            shared_maritime_security_alignment=metrics.get("shared_maritime_security_alignment", 0.85),
+            defense_interoperability_score=metrics.get("defense_interoperability_score", 0.75),
+            economic_supply_chain_synergy=metrics.get("economic_supply_chain_synergy", 0.70),
+            bilateral_territorial_friction=metrics.get("bilateral_territorial_friction", 0.15),
+        )
+        metrics.update(_tri_result)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -167,3 +176,71 @@ class GeopoliticalLens:
             hard_metrics=metrics
         )
 
+
+
+
+class TripartiteCoherenceSieve:
+    """
+    Phase 231: Evaluates strategic cohesion and minilateral alignment across tripartite partnerships
+    (e.g., India-France-UAE, India-US-Japan, India-Israel-UAE/I2U2) by balancing shared maritime security,
+    defense interoperability, and economic synergy against bilateral territorial or diplomatic frictions.
+    """
+
+    @classmethod
+    def calculate_tripartite_coherence(
+        cls,
+        shared_maritime_security_alignment: float = 0.85,
+        defense_interoperability_score: float = 0.75,
+        economic_supply_chain_synergy: float = 0.70,
+        bilateral_territorial_friction: float = 0.15,
+    ) -> Dict[str, Any]:
+        """
+        Calculates minilateral tripartite coherence score using logistic sigmoid model.
+        """
+        import math
+        m_align = max(0.0, min(1.0, float(shared_maritime_security_alignment)))
+        d_inter = max(0.0, min(1.0, float(defense_interoperability_score)))
+        e_syn = max(0.0, min(1.0, float(economic_supply_chain_synergy)))
+        b_fric = max(0.0, min(1.0, float(bilateral_territorial_friction)))
+
+        ratio = (m_align * 0.40 + d_inter * 0.35 + e_syn * 0.25) / max(0.10, 1.0 + 2.0 * b_fric)
+        z = 3.5 * ratio - 1.8
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "HIGHLY_COHERENT_STRATEGIC_AXIS"
+            verdict = "UNIFIED_INDO_PACIFIC_MINILATERAL_LEVERAGE"
+            rationale = (
+                f"High minilateral coherence ({score:.4f}): Robust maritime alignment ({m_align:.2f}) and defense "
+                f"interoperability ({d_inter:.2f}) provide formidable deterrent leverage."
+            )
+        elif score >= 0.60:
+            tier = "EFFECTIVE_TACTICAL_COORDINATION"
+            verdict = "FUNCTIONAL_MARITIME_DOMAIN_AWARENESS"
+            rationale = (
+                f"Effective tactical coordination ({score:.4f}): Solid operational synergy despite minor bilateral frictions ({b_fric:.2f})."
+            )
+        elif score >= 0.40:
+            tier = "FRAGMENTED_BILATERAL_PRIORITIES"
+            verdict = "FRICTION_DILUTING_MINILATERAL_COHESION"
+            rationale = (
+                f"Fragmented priorities ({score:.4f}): Bilateral friction ({b_fric:.2f}) diluting minilateral coalition cohesion."
+            )
+        else:
+            tier = "COGNITIVE_MINILATERAL_DISARRAY"
+            verdict = "STRATEGIC_DIVERGENCE_PARALYZING_COALITION"
+            rationale = (
+                f"Strategic disarray ({score:.4f}): Divergent sovereign objectives render minilateral grouping non-functional."
+            )
+
+        return {
+            "tripartite_coherence_score": score,
+            "shared_maritime_security_alignment": round(m_align, 4),
+            "defense_interoperability_score": round(d_inter, 4),
+            "economic_supply_chain_synergy": round(e_syn, 4),
+            "bilateral_territorial_friction": round(b_fric, 4),
+            "tripartite_coherence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_tripartite_coherent": score >= 0.60
+        }

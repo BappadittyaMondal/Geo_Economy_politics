@@ -152,6 +152,61 @@ class CivilizationalLens:
         if "urban_insurrection_risk_score" not in metrics:
             metrics["urban_insurrection_risk_score"] = 0.28
 
+        # Phase 202: Civilizational Kshatra & Defensive Resilience Sieve
+        corpus_civ = ""
+        if claims:
+            corpus_civ = " ".join(_extract_text(c).lower() for c in claims)
+        if summit:
+            corpus_civ += f" {getattr(summit, 'summit_name', '')} {getattr(summit, 'title', '')}".lower()
+
+        kshatra_terms = [
+            "kshatra", "krishna", "gita", "buddha", "ahimsa", "pacifism", "cowardice",
+            "apologist", "svadharma", "mewar", "bappa rawal", "devala smriti", "ghar wapsi",
+            "rajput", "resistance", "shuddhi"
+        ]
+        has_kshatra = any(kt in corpus_civ for kt in kshatra_terms)
+        if has_kshatra:
+            up_val = 0.55 if ("pacifis" in corpus_civ or "coward" in corpus_civ or "apolog" in corpus_civ) else 0.25
+            hd_val = 0.50 if ("defeat" in corpus_civ or "subvert" in corpus_civ or "erasure" in corpus_civ) else 0.20
+            mt_val = 0.85 if ("krishna" in corpus_civ or "bappa rawal" in corpus_civ or "mewar" in corpus_civ or "kshatra" in corpus_civ) else 0.65
+            ec_val = 0.80 if ("devala" in corpus_civ or "smriti" in corpus_civ or "svadharma" in corpus_civ or "gita" in corpus_civ) else 0.60
+            kshatra_calc = CivilizationalKshatraSieve.calculate_kshatra_resilience(
+                martial_tradition=mt_val,
+                epistemic_clarity=ec_val,
+                self_defense_resolve=0.80,
+                unilateral_pacifism=up_val,
+                historical_defeatism=hd_val,
+                macaulayite_guilt=0.30,
+                foreign_subversion_pressure=0.45
+            )
+            findings.insert(0, (
+                f"[CIVILIZATIONAL KSHATRA SIEVE] {kshatra_calc['tactical_rationale']} "
+                f"Verdict: {kshatra_calc['operational_verdict']}."
+            ))
+            metrics["civilizational_vulnerability_index"] = kshatra_calc["civilizational_vulnerability_index"]
+            metrics["defensive_resilience_score"] = kshatra_calc["defensive_resilience_score"]
+            metrics["kshatra_virya_score"] = kshatra_calc["kshatra_virya_score"]
+            metrics["defensive_resilience_tier"] = kshatra_calc["defensive_resilience_tier"]
+            metrics["is_kshatra_resilient"] = kshatra_calc["is_kshatra_resilient"]
+        else:
+            metrics["civilizational_vulnerability_index"] = 0.25
+            metrics["defensive_resilience_score"] = 0.75
+            metrics["kshatra_virya_score"] = 0.72
+            metrics["defensive_resilience_tier"] = "ASSERTIVE_DHARMIC_DETERRENCE"
+            metrics["is_kshatra_resilient"] = True
+
+        # Phase 216: Wire CulturalGrayzoneLegitimacySieve
+        _gz_sieve = CulturalGrayzoneLegitimacySieve()
+        _event_corpus = (getattr(summit, "description", "") or "") + " " + (getattr(summit, "title", "") or "")
+        _gz_result = _gz_sieve.calculate_grayzone_legitimacy(
+            corpus=_event_corpus,
+            verified_physical_actions=int(metrics.get("verified_physical_actions", 0)),
+            declared_obligations=max(1, int(metrics.get("declared_obligations", 3))),
+            antitrust_scrutiny_pressure=metrics.get("antitrust_scrutiny_pressure", 0.30),
+            emotional_amplification_score=metrics.get("emotional_amplification_score", 0.40),
+        )
+        metrics.update(_gz_result)
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -597,7 +652,210 @@ class UrbanInsurrectionRiskSieve:
         }
 
 
+class CivilizationalKshatraSieve:
+    """
+    Phase 202: Civilizational Kshatra Defensive Sieve.
+    Quantifies civilizational defensive resilience (Kshatra Virya, Nishkama combat readiness,
+    and martial assertiveness) versus unilateral pacifist vulnerability (apologist paralysis,
+    moral capitulation, and historical defeatism).
+
+    Mathematical Formulation:
+      K_virya = 0.40 * martial_tradition + 0.35 * epistemic_clarity + 0.25 * self_defense_resolve
+      P_apol = 0.50 * unilateral_pacifism + 0.30 * historical_defeatism + 0.20 * macaulayite_guilt
+
+      z = 4.0 * (P_apol - K_virya) + 1.2 * (foreign_subversion_pressure - 0.50)
+      Civilizational_Vulnerability_Index = round(1.0 / (1.0 + math.exp(-z)), 4)
+      Defensive_Resilience_Score = round(1.0 - Civilizational_Vulnerability_Index, 4)
+    """
+
+    @classmethod
+    def calculate_kshatra_resilience(
+        cls,
+        martial_tradition: float = 0.70,
+        epistemic_clarity: float = 0.65,
+        self_defense_resolve: float = 0.75,
+        unilateral_pacifism: float = 0.30,
+        historical_defeatism: float = 0.35,
+        macaulayite_guilt: float = 0.40,
+        foreign_subversion_pressure: float = 0.50,
+    ) -> dict:
+        import math
+        mt = min(1.0, max(0.0, float(martial_tradition)))
+        ec = min(1.0, max(0.0, float(epistemic_clarity)))
+        sdr = min(1.0, max(0.0, float(self_defense_resolve)))
+
+        up = min(1.0, max(0.0, float(unilateral_pacifism)))
+        hd = min(1.0, max(0.0, float(historical_defeatism)))
+        mg = min(1.0, max(0.0, float(macaulayite_guilt)))
+        fsp = min(1.0, max(0.0, float(foreign_subversion_pressure)))
+
+        k_virya = round(0.40 * mt + 0.35 * ec + 0.25 * sdr, 4)
+        p_apol = round(0.50 * up + 0.30 * hd + 0.20 * mg, 4)
+
+        z = 4.0 * (p_apol - k_virya) + 1.2 * (fsp - 0.50)
+        vuln_index = round(1.0 / (1.0 + math.exp(-z)), 4)
+        resilience = round(1.0 - vuln_index, 4)
+
+        if vuln_index >= 0.75:
+            tier = "CRITICAL_PACIFIST_PARALYSIS"
+            verdict = "SEVERE_CIVILIZATIONAL_VULNERABILITY_UNILATERAL_DISARMAMENT"
+            rationale = (
+                f"Defensive immunity collapse: Unilateral pacifism ({up:.2f}) and historical defeatism ({hd:.2f}) "
+                f"paralyze defensive response. Kshatra Virya ({k_virya:.4f}) is subverted by apologist guilt ({p_apol:.4f}). "
+                f"Civilizational Vulnerability Index: {vuln_index:.4f}."
+            )
+        elif vuln_index >= 0.50:
+            tier = "ELEVATED_APOLOGIST_FRICTION"
+            verdict = "CONTESTED_DEFENSIVE_CONSCIOUSNESS_PARTIAL_RESILIENCE"
+            rationale = (
+                f"Contested strategic posture: Emerging civilizational assertiveness ({k_virya:.4f}) faces "
+                f"residual colonial/secular apologist drag ({p_apol:.4f}). Vulnerability Index: {vuln_index:.4f}."
+            )
+        elif vuln_index >= 0.25:
+            tier = "ASSERTIVE_DHARMIC_DETERRENCE"
+            verdict = "BALANCED_BRAHMA_KSHATRA_SYNTHESIS"
+            rationale = (
+                f"Robust defensive deterrence: Martial readiness ({mt:.2f}) and epistemic clarity ({ec:.2f}) "
+                f"dominate defeatist narratives. Defensive Resilience Score: {resilience:.4f}."
+            )
+        else:
+            tier = "FORTIFIED_KSHATRA_SOVEREIGNTY"
+            verdict = "UNAPOLOGETIC_CIVILIZATIONAL_IMMUNITY"
+            rationale = "Impenetrable civilizational immune system: High martial resolve, decolonial epistemic clarity, and zero apologist capitulation."
+
+        return {
+            "civilizational_vulnerability_index": vuln_index,
+            "defensive_resilience_score": resilience,
+            "kshatra_virya_score": k_virya,
+            "pacifist_paralysis_score": p_apol,
+            "foreign_subversion_pressure": fsp,
+            "defensive_resilience_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_kshatra_resilient": resilience >= 0.50,
+        }
 
 
+
+class CulturalGrayzoneLegitimacySieve:
+    """
+    Phase 209: Detects when sacred Bharatiya vocabulary (Puja, Prasad, Dharma, Ram Rajya,
+    Ahimsa, Martyr/Shaheed, Aashirvaad, Temple Bell) is instrumentalized as a rhetorical
+    shield against antitrust scrutiny, regulatory oversight, or legal accountability.
+
+    Applies Vedic Pramana test: is the sacred claim backed by Pratyaksha (observable physical
+    actions) or is it merely Shabda (unverified rhetorical assertion)?
+
+    Mathematical core:
+        GrayzoneHijackProbability = σ(
+            3.5 · SacredTermDensity
+            - 2.5 · PhysicalActionCorroboration
+            + 2.0 · AntitrustrScrutinyPressure
+            + 1.5 · EmotionalAmplificationScore
+        )
+    """
+
+    SACRED_TERMS = [
+        "puja", "prasad", "dharma", "ram rajya", "ahimsa", "aashirvaad", "blessing",
+        "temple bell", "deity", "sacred", "martyr", "shaheed", "divine", "god's will",
+        "trusteeship", "samajik nyas", "seva", "loka samgraha", "yagna", "sankalp",
+        "rashtra dharma", "maa bharati", "bharat mata", "sacrifice for nation"
+    ]
+
+    @classmethod
+    def calculate_grayzone_legitimacy(
+        cls,
+        corpus: str = "",
+        verified_physical_actions: int = 0,
+        declared_obligations: int = 1,
+        antitrust_scrutiny_pressure: float = 0.30,
+        emotional_amplification_score: float = 0.40,
+        claims=None
+    ):
+        """
+        Calculates cultural grayzone weaponization probability using Pramana validation.
+
+        Args:
+            corpus: full text corpus of statements, speeches, press releases being analyzed
+            verified_physical_actions: count of physically observable/filed actions (capex filings, tax returns, CCI data)
+            declared_obligations: total count of declared sacred commitments (to avoid division by zero, min=1)
+            antitrust_scrutiny_pressure: 0-1, active regulatory/CCI/SEBI review pressure on the actor
+            emotional_amplification_score: 0-1, media amplification of emotional/sacred imagery
+            claims: optional claim objects
+
+        Returns:
+            dict with cultural_grayzone_hijack_probability, grayzone_tier, is_dharma_weaponized, etc.
+        """
+        import math
+
+        text = corpus.lower() if corpus else ""
+        if claims:
+            for c in claims:
+                txt = c if isinstance(c, str) else (
+                    getattr(c, "asserted_fact", getattr(c, "raw_text", getattr(c, "assertion", "")))
+                    if not isinstance(c, dict)
+                    else (c.get("asserted_fact") or c.get("raw_text") or c.get("assertion") or "")
+                )
+                text += " " + txt.lower()
+
+        word_count = max(1, len(text.split()))
+        sacred_hit_count = sum(1 for term in cls.SACRED_TERMS if term in text)
+        sacred_term_density = min(1.0, sacred_hit_count / max(1, word_count / 50.0))
+
+        physical_corroboration = min(1.0, float(verified_physical_actions) / max(1, int(declared_obligations)))
+        scrutiny = max(0.0, min(1.0, float(antitrust_scrutiny_pressure)))
+        emotion_amp = max(0.0, min(1.0, float(emotional_amplification_score)))
+
+        z = (
+            3.5 * sacred_term_density
+            - 2.5 * physical_corroboration
+            + 2.0 * scrutiny
+            + 1.5 * emotion_amp
+            - 2.0
+        )
+        grayzone_hijack_probability = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if grayzone_hijack_probability >= 0.75:
+            tier = "CONFIRMED_DHARMA_WEAPONIZATION"
+            verdict = "SACRED_LANGUAGE_DEPLOYED_AS_REGULATORY_SHIELD"
+            rationale = (
+                f"Sacred term density ({sacred_term_density:.3f}) combined with low physical corroboration "
+                f"({physical_corroboration:.3f}) confirms deployment of Bharatiya sacred vocabulary "
+                f"as a rhetorical shield against regulatory scrutiny. Pramana test FAILS: claims are "
+                f"Shabda (unverified assertion) not Pratyaksha (observable fact)."
+            )
+            is_weaponized = True
+        elif grayzone_hijack_probability >= 0.50:
+            tier = "PARTIAL_GRAYZONE_INSTRUMENTALIZATION"
+            verdict = "HYBRID_GENUINE_AND_INSTRUMENTAL_SACRED_FRAMING"
+            rationale = (
+                f"Mixed pattern: partial genuine cultural expression mixed with instrumental use of "
+                f"sacred framing to deflect accountability. Physical action corroboration ({physical_corroboration:.3f}) "
+                f"is insufficient to fully validate declared sacred obligations."
+            )
+            is_weaponized = True
+        elif grayzone_hijack_probability >= 0.25:
+            tier = "LOW_GRAYZONE_RISK"
+            verdict = "LARGELY_AUTHENTIC_CULTURAL_EXPRESSION"
+            rationale = "Sacred terminology usage appears culturally authentic; physical actions broadly corroborate declared obligations."
+            is_weaponized = False
+        else:
+            tier = "AUTHENTIC_DHARMIC_EXPRESSION"
+            verdict = "GENUINE_CIVILIZATIONAL_STEWARDSHIP"
+            rationale = "Pramana validation passes: physical actions (Pratyaksha) substantiate sacred declarations (Shabda). Dharmic trusteeship is genuine."
+            is_weaponized = False
+
+        return {
+            "cultural_grayzone_hijack_probability": grayzone_hijack_probability,
+            "sacred_term_density": round(sacred_term_density, 4),
+            "physical_action_corroboration": round(physical_corroboration, 4),
+            "antitrust_scrutiny_pressure": round(scrutiny, 4),
+            "emotional_amplification_score": round(emotion_amp, 4),
+            "sacred_terms_detected": sacred_hit_count,
+            "grayzone_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_dharma_weaponized": is_weaponized
+        }
 
 ```
