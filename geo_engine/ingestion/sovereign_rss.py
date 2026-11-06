@@ -18,6 +18,10 @@ class SovereignRSSClient:
     SOVEREIGN_FEEDS = {
         "India_MEA": "https://www.mea.gov.in/rss-feed.htm",
         "India_PIB": "https://pib.gov.in/RssMain.aspx?ModId=1",
+        "India_PIB_Defense": "https://pib.gov.in/RssMain.aspx?ModId=2",
+        "India_PIB_Science": "https://pib.gov.in/RssMain.aspx?ModId=3",
+        "India_ISRO": "https://www.isro.gov.in/rss.xml",
+        "India_PIB_Culture": "https://pib.gov.in/RssMain.aspx?ModId=4",
         "UN_Press": "https://press.un.org/en/feed.xml",
         "US_StateDept": "https://www.state.gov/rss-feed/press-releases/feed/",
         "Russia_MFA": "https://mid.ru/en/rss/",

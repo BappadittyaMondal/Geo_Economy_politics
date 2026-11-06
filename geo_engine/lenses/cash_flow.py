@@ -5,6 +5,7 @@ The 85% Haircut Rule on unfinanced MOUs, Sovereign Wealth Fund (SWF) deployment 
 and secondary sanctions capital discount.
 """
 
+import math
 from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, FinancialFlow, LensEvaluation, SummitEvent
 
@@ -89,6 +90,67 @@ class CashFlowLens:
                 "illicit_crime_terror_hawala_index": 0.72,
                 "transnational_syndicate_asset_freeze_leverage": 0.68
             }
+            # Phase 247: Wire DigitalEnclosureTrapSieve fallback
+            det_meta = getattr(summit, "metadata", {}) or {}
+            det_params = det_meta.get("digital_enclosure_trap", {}) if isinstance(det_meta, dict) else {}
+            _det_res = DigitalEnclosureTrapSieve.calculate_digital_enclosure(
+                crypto_capital_flight_ratio=det_params.get("crypto_capital_flight_ratio", 0.50),
+                offshore_exchange_opacity=det_params.get("offshore_exchange_opacity", 0.60),
+                cbdc_programmability_index=det_params.get("cbdc_programmability_index", 0.65),
+                physical_gold_reserve_ratio=det_params.get("physical_gold_reserve_ratio", 0.40)
+            )
+            metrics["digital_enclosure_trap_score"] = _det_res["digital_enclosure_trap_score"]
+            metrics["digital_enclosure_trap_tier"] = _det_res["digital_enclosure_trap_tier"]
+            # Phase 258: Wire BullionPaperArbitrageDislocationSieve fallback
+            bdr_params = det_meta.get("bullion_dislocation", {}) if isinstance(det_meta, dict) else {}
+            _bdr_res = BullionPaperArbitrageDislocationSieve.calculate_bullion_dislocation_risk(
+                paper_to_physical_leverage=bdr_params.get("paper_to_physical_leverage", 0.70),
+                vault_drain_velocity=bdr_params.get("vault_drain_velocity", 0.60),
+                tariff_arbitrage_spread=bdr_params.get("tariff_arbitrage_spread", 0.40),
+                sovereign_bullion_repatriation=bdr_params.get("sovereign_bullion_repatriation", 0.80),
+            )
+            metrics.update(_bdr_res)
+
+            # Phase 268: Wire PreciousMetalSovereignArbitrageSieve
+            pms_params = det_meta.get("precious_metal_arbitrage", {}) if isinstance(det_meta, dict) else {}
+            _pms_res = PreciousMetalSovereignArbitrageSieve.calculate_bullion_sovereignty(
+                physical_vault_inventory=pms_params.get("physical_vault_inventory", 0.60),
+                paper_derivative_claims=pms_params.get("paper_derivative_claims", 0.50),
+                sge_comex_premium_usd=pms_params.get("sge_comex_premium_usd", 25.0),
+                central_bank_repatriation_rate=pms_params.get("central_bank_repatriation_rate", 0.70),
+                household_streedhan_buffer=pms_params.get("household_streedhan_buffer", 0.85),
+            )
+            metrics.update(_pms_res)
+    
+            # Phase 272: Wire SovereignBalanceSheetShieldSieve
+            bop_params = det_meta.get("sovereign_bop_shield", {}) if isinstance(det_meta, dict) else {}
+            _bop_res = SovereignBalanceSheetShieldSieve.calculate_bop_shield(
+                forex_reserves_usd_b=bop_params.get("forex_reserves_usd_b", 700.0),
+                short_term_external_debt_usd_b=bop_params.get("short_term_external_debt_usd_b", 140.0),
+                dii_retail_absorption_rate=bop_params.get("dii_retail_absorption_rate", 0.80),
+                cad_pressure_index=bop_params.get("cad_pressure_index", 0.40),
+                fii_flight_velocity=bop_params.get("fii_flight_velocity", 0.50),
+            )
+            metrics.update(_bop_res)
+            # Phase 275 & 276: Wire DomesticHNWICapitalFormationSieve & SovereignGoldRepatriationSieve
+            hnwi_params = det_meta.get("hnwi_capital", {}) if isinstance(det_meta, dict) else {}
+            _hnwi_res = DomesticHNWICapitalFormationSieve.calculate_capital_flight_risk(
+                hnwi_cohort_growth_rate=hnwi_params.get("hnwi_cohort_growth_rate", 0.12),
+                gift_city_onshoring_ratio=hnwi_params.get("gift_city_onshoring_ratio", 0.65),
+                confiscation_rhetoric_intensity=hnwi_params.get("confiscation_rhetoric_intensity", 0.35),
+                tax_unpredictability_index=hnwi_params.get("tax_unpredictability_index", 0.40),
+            )
+            metrics.update(_hnwi_res)
+    
+            gold_params = det_meta.get("gold_reserves", {}) if isinstance(det_meta, dict) else {}
+            _gold_res = SovereignGoldRepatriationSieve.calculate_reserve_immunity(
+                domestic_physical_gold_tonnes=gold_params.get("domestic_physical_gold_tonnes", 500.0),
+                total_sovereign_gold_tonnes=gold_params.get("total_sovereign_gold_tonnes", 850.0),
+                local_currency_settlement_pct=gold_params.get("local_currency_settlement_pct", 0.25),
+                g7_custody_exposure_pct=gold_params.get("g7_custody_exposure_pct", 0.40),
+            )
+            metrics.update(_gold_res)
+    
             if claims:
                 banking_npa_claims = [
                     c for c in claims
@@ -194,6 +256,68 @@ class CashFlowLens:
         metrics["consolidated_capex_model"] = capex_calc
         metrics["consolidated_public_capex_usd_or_inr_trillion"] = capex_calc["consolidated_public_capex"]
 
+        # Phase 247: Wire DigitalEnclosureTrapSieve
+        det_meta = getattr(summit, "metadata", {}) or {}
+        det_params = det_meta.get("digital_enclosure_trap", {}) if isinstance(det_meta, dict) else {}
+        _det_res = DigitalEnclosureTrapSieve.calculate_digital_enclosure(
+            crypto_capital_flight_ratio=det_params.get("crypto_capital_flight_ratio", 0.50),
+            offshore_exchange_opacity=det_params.get("offshore_exchange_opacity", 0.60),
+            cbdc_programmability_index=det_params.get("cbdc_programmability_index", 0.65),
+            physical_gold_reserve_ratio=det_params.get("physical_gold_reserve_ratio", 0.40)
+        )
+        metrics["digital_enclosure_trap_score"] = _det_res["digital_enclosure_trap_score"]
+        metrics["digital_enclosure_trap_tier"] = _det_res["digital_enclosure_trap_tier"]
+        # Phase 258: Wire BullionPaperArbitrageDislocationSieve
+        bdr_params = det_meta.get("bullion_dislocation", {}) if isinstance(det_meta, dict) else {}
+        _bdr_res = BullionPaperArbitrageDislocationSieve.calculate_bullion_dislocation_risk(
+            paper_to_physical_leverage=bdr_params.get("paper_to_physical_leverage", 0.70),
+            vault_drain_velocity=bdr_params.get("vault_drain_velocity", 0.60),
+            tariff_arbitrage_spread=bdr_params.get("tariff_arbitrage_spread", 0.40),
+            sovereign_bullion_repatriation=bdr_params.get("sovereign_bullion_repatriation", 0.80),
+        )
+        metrics.update(_bdr_res)
+
+        # Phase 268: Wire PreciousMetalSovereignArbitrageSieve
+        pms_params = det_meta.get("precious_metal_arbitrage", {}) if isinstance(det_meta, dict) else {}
+        _pms_res = PreciousMetalSovereignArbitrageSieve.calculate_bullion_sovereignty(
+            physical_vault_inventory=pms_params.get("physical_vault_inventory", 0.60),
+            paper_derivative_claims=pms_params.get("paper_derivative_claims", 0.50),
+            sge_comex_premium_usd=pms_params.get("sge_comex_premium_usd", 25.0),
+            central_bank_repatriation_rate=pms_params.get("central_bank_repatriation_rate", 0.70),
+            household_streedhan_buffer=pms_params.get("household_streedhan_buffer", 0.85),
+        )
+        metrics.update(_pms_res)
+
+        # Phase 272: Wire SovereignBalanceSheetShieldSieve
+        bop_params = det_meta.get("sovereign_bop_shield", {}) if isinstance(det_meta, dict) else {}
+        _bop_res = SovereignBalanceSheetShieldSieve.calculate_bop_shield(
+            forex_reserves_usd_b=bop_params.get("forex_reserves_usd_b", 700.0),
+            short_term_external_debt_usd_b=bop_params.get("short_term_external_debt_usd_b", 140.0),
+            dii_retail_absorption_rate=bop_params.get("dii_retail_absorption_rate", 0.80),
+            cad_pressure_index=bop_params.get("cad_pressure_index", 0.40),
+            fii_flight_velocity=bop_params.get("fii_flight_velocity", 0.50),
+        )
+        metrics.update(_bop_res)
+        # Phase 275 & 276: Wire DomesticHNWICapitalFormationSieve & SovereignGoldRepatriationSieve
+        hnwi_params = det_meta.get("hnwi_capital", {}) if isinstance(det_meta, dict) else {}
+        _hnwi_res = DomesticHNWICapitalFormationSieve.calculate_capital_flight_risk(
+            hnwi_cohort_growth_rate=hnwi_params.get("hnwi_cohort_growth_rate", 0.12),
+            gift_city_onshoring_ratio=hnwi_params.get("gift_city_onshoring_ratio", 0.65),
+            confiscation_rhetoric_intensity=hnwi_params.get("confiscation_rhetoric_intensity", 0.35),
+            tax_unpredictability_index=hnwi_params.get("tax_unpredictability_index", 0.40),
+        )
+        metrics.update(_hnwi_res)
+
+        gold_params = det_meta.get("gold_reserves", {}) if isinstance(det_meta, dict) else {}
+        _gold_res = SovereignGoldRepatriationSieve.calculate_reserve_immunity(
+            domestic_physical_gold_tonnes=gold_params.get("domestic_physical_gold_tonnes", 500.0),
+            total_sovereign_gold_tonnes=gold_params.get("total_sovereign_gold_tonnes", 850.0),
+            local_currency_settlement_pct=gold_params.get("local_currency_settlement_pct", 0.25),
+            g7_custody_exposure_pct=gold_params.get("g7_custody_exposure_pct", 0.40),
+        )
+        metrics.update(_gold_res)
+
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=clamped_alignment,
@@ -267,4 +391,334 @@ class CashFlowLens:
                 if syndicate_risk_tier == "CRITICAL_SQUEEZE"
                 else "Syndicate retains alternative hawala channels; requires deeper financial intelligence coordination."
             )
+        }
+
+
+class DigitalEnclosureTrapSieve:
+    """
+    Phase 247: Models retail/corporate capital entrapment in non-jurisdictional offshore
+    crypto platforms vs. sovereign physical gold accumulation ahead of programmable CBDC resets.
+    """
+
+    @classmethod
+    def calculate_digital_enclosure(
+        cls,
+        crypto_capital_flight_ratio: float = 0.50,
+        offshore_exchange_opacity: float = 0.60,
+        cbdc_programmability_index: float = 0.65,
+        physical_gold_reserve_ratio: float = 0.40
+    ) -> Dict[str, Any]:
+        """
+        Calculates the digital enclosure vulnerability using bounded logistic sigmoid:
+            z = 2.8*CCFR + 2.4*OEO + 2.2*CPI - 3.0*PGR - 0.8
+            score = 1 / (1 + exp(-z))
+        """
+        ccfr = max(0.0, min(1.0, float(crypto_capital_flight_ratio)))
+        oeo = max(0.0, min(1.0, float(offshore_exchange_opacity)))
+        cpi = max(0.0, min(1.0, float(cbdc_programmability_index)))
+        pgr = max(0.0, min(1.0, float(physical_gold_reserve_ratio)))
+
+        z = 2.8 * ccfr + 2.4 * oeo + 2.2 * cpi - 3.0 * pgr - 0.8
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "CRITICAL_DIGITAL_ENCLOSURE_RISK"
+            verdict = "ACUTE_CAPITAL_ENTRAPMENT_IN_UNBACKED_CRYPTO_OR_PROGRAMMABLE_FIAT"
+            rationale = (
+                f"Critical digital enclosure risk ({score:.4f}): High capital flight to offshore crypto platforms "
+                f"({ccfr:.2f}) and exchange opacity ({oeo:.2f}) expose domestic private wealth to sudden liquidation "
+                f"without statutory lender-of-last-resort protections."
+            )
+        elif score >= 0.55:
+            tier = "ELEVATED_CUSTODIAL_VULNERABILITY"
+            verdict = "MODERATE_OFFSHORE_EXPOSURE_REQUIRING_GOLD_ACCUMULATION"
+            rationale = (
+                f"Elevated custodial vulnerability ({score:.4f}): Programmable CBDC risk ({cpi:.2f}) outpaces "
+                f"physical gold reserve buffers ({pgr:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "MODERATE_EXPOSURE"
+            verdict = "BALANCED_SOVEREIGN_RESERVE_DIVERSIFICATION"
+            rationale = (
+                f"Moderate exposure ({score:.4f}): Physical gold holdings ({pgr:.2f}) provide baseline macroeconomic insulation."
+            )
+        else:
+            tier = "FORTIFIED_PHYSICAL_ASSET_ANCHOR"
+            verdict = "SOVEREIGN_BULLION_HEGEMONY_AND_DEBT_INSULATION"
+            rationale = (
+                f"Fortified physical anchor ({score:.4f}): High gold reserve ratio ({pgr:.2f}) and minimal unbacked crypto flight "
+                f"({ccfr:.2f}) shield sovereign balance sheet from digital reset shocks."
+            )
+
+        return {
+            "digital_enclosure_trap_score": score,
+            "crypto_capital_flight_ratio": round(ccfr, 4),
+            "offshore_exchange_opacity": round(oeo, 4),
+            "cbdc_programmability_index": round(cpi, 4),
+            "physical_gold_reserve_ratio": round(pgr, 4),
+            "digital_enclosure_trap_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_enclosure_risk_acute": score >= 0.70
+        }
+
+class BullionPaperArbitrageDislocationSieve:
+    """
+    Phase 258: Bullion Paper-Physical Arbitrage Dislocation Sieve.
+    Quantifies the decoupling of COMEX/LBMA unallocated paper gold claims (~100:1 leverage)
+    from vaulted physical bullion during geopolitical de-dollarization shocks.
+    Models vault drain velocity, customs tariff arbitrage (15% to 6% duty spread), and RBI physical bullion repatriation.
+    """
+
+    @staticmethod
+    def calculate_bullion_dislocation_risk(
+        paper_to_physical_leverage: float = 0.7,
+        vault_drain_velocity: float = 0.6,
+        tariff_arbitrage_spread: float = 0.4,
+        sovereign_bullion_repatriation: float = 0.8,
+    ) -> Dict[str, Any]:
+        ppl = min(1.0, max(0.0, float(paper_to_physical_leverage)))
+        vdv = min(1.0, max(0.0, float(vault_drain_velocity)))
+        tas = min(1.0, max(0.0, float(tariff_arbitrage_spread)))
+        sbr = min(1.0, max(0.0, float(sovereign_bullion_repatriation)))
+
+        z = (2.8 * ppl + 2.5 * vdv + 2.2 * tas - 3.0 * sbr - 0.8)
+        risk = 1.0 / (1.0 + math.exp(-z))
+        risk = round(min(1.0, max(0.0, risk)), 4)
+
+        if risk >= 0.75:
+            tier = "ACUTE_PAPER_BULLION_DISLOCATION_AND_DEFAULT_RISK"
+            verdict = "SEVERE_COMEX_LBMA_PHYSICAL_DELIVERY_FAILURE_RISK"
+        elif risk >= 0.55:
+            tier = "ELEVATED_PHYSICAL_DELIVERY_PREMIUM"
+            verdict = "HIGH_PAPER_DECOUPLING_AND_EASTERN_ACCUMULATION"
+        elif risk >= 0.35:
+            tier = "CONTROLLED_ARBITRAGE_VOLATILITY"
+            verdict = "BALANCED_TARIFF_AND_DELIVERY_EQUILIBRIUM"
+        else:
+            tier = "FORTIFIED_SOVEREIGN_BULLION_ANCHOR"
+            verdict = "SECURE_DOMESTIC_PHYSICAL_VAULT_ANCHOR"
+
+        return {
+            "bullion_dislocation_risk": risk,
+            "bullion_dislocation_tier": tier,
+            "bullion_dislocation_verdict": verdict,
+            "paper_to_physical_leverage": ppl,
+            "vault_drain_velocity": vdv,
+            "tariff_arbitrage_spread": tas,
+            "sovereign_bullion_repatriation": sbr,
+            "is_bullion_dislocated": risk >= 0.55
+        }
+
+
+class PreciousMetalSovereignArbitrageSieve:
+    """
+    Phase 268: Precious Metal Sovereign Arbitrage Sieve.
+    Quantifies sovereign bullion resilience by evaluating physical vs paper vault ratios,
+    Shanghai Gold Exchange (SGE) physical delivery premiums over COMEX spot,
+    central bank physical repatriation velocity (RBI 100+ tonnes from Bank of England),
+    and decentralized household Streedhan gold reserves (~25,000 tonnes macro-buffer).
+    """
+
+    @staticmethod
+    def calculate_bullion_sovereignty(
+        physical_vault_inventory: float = 0.60,
+        paper_derivative_claims: float = 0.50,
+        sge_comex_premium_usd: float = 25.0,
+        central_bank_repatriation_rate: float = 0.70,
+        household_streedhan_buffer: float = 0.85,
+    ) -> dict:
+        import math
+        pvi = max(0.0, float(physical_vault_inventory))
+        pdc = max(0.0, float(paper_derivative_claims))
+        vault_ratio = min(5.0, pvi / (max(0.001, pdc) + 1e-5))
+
+        cbr = min(1.0, max(0.0, float(central_bank_repatriation_rate)))
+        hsb = min(1.0, max(0.0, float(household_streedhan_buffer)))
+        sge_norm = min(2.0, max(0.0, float(sge_comex_premium_usd) / 25.0))
+
+        z = (2.2 * vault_ratio + 2.5 * cbr + 2.6 * hsb + 1.5 * sge_norm - 1.8)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_PHYSICAL_BULLION_SOVEREIGNTY"
+            verdict = "UNASSAILABLE_PHYSICAL_VAULT_AND_STREEDHAN_ANCHOR"
+        elif score >= 0.55:
+            tier = "ADEQUATE_CENTRAL_BANK_GOLD_BACKING"
+            verdict = "SUBSTANTIAL_REPATRIATION_AND_RESERVE_STABILITY"
+        elif score >= 0.35:
+            tier = "VULNERABLE_PAPER_DERIVATIVE_EXPOSURE"
+            verdict = "MODERATE_EXPOSURE_TO_WESTERN_SYNTHETIC_PAPER_SHOCKS"
+        else:
+            tier = "CRITICAL_FIAT_DEBASEMENT_VULNERABILITY"
+            verdict = "SEVERE_UNBACKED_FIAT_AND_CUSTODIAL_FREEZE_RISK"
+
+        return {
+            "bullion_sovereignty_score": score,
+            "vault_physical_to_paper_ratio": round(vault_ratio, 4),
+            "streedhan_macro_buffer_index": round(hsb, 4),
+            "central_bank_repatriation_rate": round(cbr, 4),
+            "sge_comex_arbitrage_premium_usd": round(float(sge_comex_premium_usd), 2),
+            "bullion_sovereignty_tier": tier,
+            "bullion_sovereignty_verdict": verdict,
+            "is_bullion_sovereign": score >= 0.55
+        }
+
+
+class SovereignBalanceSheetShieldSieve:
+    """
+    Phase 272: Sovereign Balance Sheet Shield Sieve.
+    Quantifies macro balance-of-payments immunity under the Greenspan-Guidotti rule:
+    ratio of foreign exchange reserves to short-term external debt maturing within 1 year,
+    and domestic institutional investor (DII) retail SIP inflow velocity neutralizing
+    foreign institutional investor (FII) equity flight during global liquidity freezes.
+    """
+
+    @staticmethod
+    def calculate_bop_shield(
+        forex_reserves_usd_b: float = 700.0,
+        short_term_external_debt_usd_b: float = 140.0,
+        dii_retail_absorption_rate: float = 0.80,
+        cad_pressure_index: float = 0.40,
+        fii_flight_velocity: float = 0.50,
+    ) -> dict:
+        import math
+        fx = max(0.0, float(forex_reserves_usd_b))
+        std = max(0.0, float(short_term_external_debt_usd_b))
+        cover_ratio = min(5.0, fx / (max(0.001, std) + 1e-5))
+
+        dii = min(1.0, max(0.0, float(dii_retail_absorption_rate)))
+        cad = min(1.0, max(0.0, float(cad_pressure_index)))
+        fii = min(1.0, max(0.0, float(fii_flight_velocity)))
+
+        z = (2.5 * cover_ratio + 2.8 * dii - 2.4 * cad - 2.2 * fii - 1.5)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SOVEREIGN_BOP_SHIELD"
+            verdict = "ROBUST_IMPORT_COVER_AND_RETAIL_DII_INSULATION"
+        elif score >= 0.55:
+            tier = "ADEQUATE_DOMESTIC_CAPITAL_ABSORPTION"
+            verdict = "STABLE_LIQUIDITY_BUFFER_AGAINST_FII_OUTFLOWS"
+        elif score >= 0.35:
+            tier = "CONTESTED_EXTERNAL_LIQUIDITY_PRESSURE"
+            verdict = "ELEVATED_CURRENT_ACCOUNT_DEFICIT_SQUEEZE"
+        else:
+            tier = "ACUTE_BALANCE_OF_PAYMENTS_VULNERABILITY"
+            verdict = "CRITICAL_EXTERNAL_DEBT_ROLLOVER_AND_LIQUIDITY_RISK"
+
+        return {
+            "sovereign_bop_shield_score": score,
+            "forex_to_short_term_debt_ratio": round(cover_ratio, 4),
+            "dii_capital_flight_insulation": round(dii, 4),
+            "cad_pressure_index": round(cad, 4),
+            "fii_flight_velocity": round(fii, 4),
+            "bop_shield_tier": tier,
+            "bop_shield_verdict": verdict,
+            "is_bop_shield_resilient": score >= 0.55
+        }
+
+
+class DomesticHNWICapitalFormationSieve:
+    """
+    Phase 275: Domestic HNWI Capital Formation & Tax Wealth Sieve.
+    Quantifies the balance between expanding domestic risk capital cohorts (₹8.5 Cr+ wealth)
+    and capital flight incentives driven by populist wealth-confiscation / inheritance tax rhetoric,
+    arbitraged against IFSC GIFT City onshoring incentives.
+    """
+
+    @staticmethod
+    def calculate_capital_flight_risk(
+        hnwi_cohort_growth_rate: float = 0.12,
+        gift_city_onshoring_ratio: float = 0.65,
+        confiscation_rhetoric_intensity: float = 0.35,
+        tax_unpredictability_index: float = 0.40,
+    ) -> dict:
+        import math
+        hnwi = max(0.0, float(hnwi_cohort_growth_rate))
+        gift = min(1.0, max(0.0, float(gift_city_onshoring_ratio)))
+        conf = min(1.0, max(0.0, float(confiscation_rhetoric_intensity)))
+        tax = min(1.0, max(0.0, float(tax_unpredictability_index)))
+
+        z = (2.4 * conf + 2.2 * tax - 2.6 * gift - 2.0 * min(1.0, hnwi) - 0.4)
+        flight_risk = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        flight_risk = round(min(1.0, max(0.0, flight_risk)), 4)
+        retention = round(1.0 - flight_risk, 4)
+
+        if flight_risk >= 0.75:
+            tier = "ACUTE_HNWI_CAPITAL_FLIGHT_RISK"
+            verdict = "HEAVY_OUTFLOW_TO_DUBAI_AND_SINGAPORE_TAX_HAVENS"
+        elif flight_risk >= 0.55:
+            tier = "ELEVATED_DOMESTIC_CAPITAL_EROSION"
+            verdict = "WEALTH_RETENTION_PRESSURED_BY_POPULIST_RHETORIC"
+        elif flight_risk >= 0.35:
+            tier = "STABLE_DOMESTIC_WEALTH_FORMATION"
+            verdict = "BALANCED_CAPITAL_EXPANSION_WITH_GIFT_CITY_ABSORPTION"
+        else:
+            tier = "FORTIFIED_SOVEREIGN_CAPITAL_MAGNET"
+            verdict = "ROBUST_DOMESTIC_RISK_CAPITAL_ACCUMULATION_AND_ONSHORING"
+
+        return {
+            "capital_flight_risk_score": flight_risk,
+            "capital_retention_score": retention,
+            "hnwi_cohort_growth_rate": round(hnwi, 4),
+            "gift_city_onshoring_ratio": round(gift, 4),
+            "confiscation_rhetoric_intensity": round(conf, 4),
+            "tax_unpredictability_index": round(tax, 4),
+            "capital_formation_tier": tier,
+            "capital_formation_verdict": verdict,
+            "is_capital_flight_critical": flight_risk >= 0.55,
+        }
+
+
+class SovereignGoldRepatriationSieve:
+    """
+    Phase 276: Sovereign Gold Repatriation & Fiat Counterparty Default Sieve.
+    Measures sovereign bullion immunity against foreign custodial freezes (e.g., Bank of England, G7 sanctions)
+    based on the ratio of physical gold repatriated to domestic vaults plus local currency bilateral trade settlement pacts.
+    """
+
+    @staticmethod
+    def calculate_reserve_immunity(
+        domestic_physical_gold_tonnes: float = 500.0,
+        total_sovereign_gold_tonnes: float = 850.0,
+        local_currency_settlement_pct: float = 0.25,
+        g7_custody_exposure_pct: float = 0.40,
+    ) -> dict:
+        import math
+        dom = max(0.0, float(domestic_physical_gold_tonnes))
+        tot = max(1.0, float(total_sovereign_gold_tonnes))
+        repat_ratio = min(1.0, dom / tot)
+        local_curr = min(1.0, max(0.0, float(local_currency_settlement_pct)))
+        g7_exp = min(1.0, max(0.0, float(g7_custody_exposure_pct)))
+
+        z = (3.0 * repat_ratio + 2.2 * local_curr - 2.8 * g7_exp - 0.2)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SOVEREIGN_BULLION_IMMUNITY"
+            verdict = "MINIMAL_COUNTERPARTY_RISK_DOMESTIC_VAULT_DOMINANCE"
+        elif score >= 0.55:
+            tier = "RESILIENT_REPATRIATED_RESERVES"
+            verdict = "ADEQUATE_SWIFT_DISCONNECTION_AND_SANCTION_BUFFER"
+        elif score >= 0.35:
+            tier = "MODERATE_CUSTODIAL_DEPENDENCE"
+            verdict = "VULNERABLE_TO_G7_ASSET_FREEZE_AND_THIRD_PARTY_DEFAULT"
+        else:
+            tier = "HIGH_EXTERNAL_RESERVE_PERIL"
+            verdict = "CRITICAL_EXPOSURE_TO_FOREIGN_JURISDICTION_SEIZURE"
+
+        return {
+            "reserve_immunity_score": score,
+            "gold_repatriation_ratio": round(repat_ratio, 4),
+            "domestic_gold_tonnes": round(dom, 2),
+            "total_gold_tonnes": round(tot, 2),
+            "local_currency_settlement_pct": round(local_curr, 4),
+            "g7_custody_exposure_pct": round(g7_exp, 4),
+            "bullion_immunity_tier": tier,
+            "bullion_immunity_verdict": verdict,
+            "is_reserve_immunity_secure": score >= 0.55,
         }

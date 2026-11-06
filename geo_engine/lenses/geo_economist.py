@@ -1,3 +1,6 @@
+from .cash_flow import DomesticHNWICapitalFormationSieve, SovereignGoldRepatriationSieve
+from .food_security import BiosphereThermodynamicSoilResilienceSieve
+import math
 """
 Lens 4: Geo-Economic Realism Lens.
 Applies rigorous macro-financial constraints: Mundell-Fleming Trilemma,
@@ -175,6 +178,28 @@ class GeoEconomistLens:
         )
         metrics.update(_rc_result)
 
+        # Phase 246: Wire SovereignDebtContagionSieve
+        _sd_res = SovereignDebtContagionSieve.calculate_debt_contagion(
+            external_debt_to_fx_ratio=metrics.get("external_debt_to_fx_ratio", 0.85),
+            import_cover_vulnerability=metrics.get("import_cover_vulnerability", 0.80),
+            rate_hike_shock=metrics.get("rate_hike_shock", 0.75),
+            local_currency_settlement_buffer=metrics.get("local_currency_settlement_buffer", 0.25),
+        )
+        metrics.update(_sd_res)
+
+        # Phase 282: Wire SectoralCapitalRotationAndGridConstraintSieve
+        ge_meta = getattr(summit, "metadata", {}) or {}
+        rot_params = ge_meta.get("sectoral_rotation", {}) if isinstance(ge_meta, dict) else {}
+        _rot_res = SectoralCapitalRotationAndGridConstraintSieve.calculate_sectoral_rotation(
+            grid_saturation_friction=rot_params.get("grid_saturation_friction", 0.70),
+            discretionary_capex_compression=rot_params.get("discretionary_capex_compression", 0.65),
+            crude_disinflation_dividend=rot_params.get("crude_disinflation_dividend", 0.55),
+            credit_deepening_rate=rot_params.get("credit_deepening_rate", 0.75),
+            headline_benchmark_delta_pct=rot_params.get("headline_benchmark_delta_pct", 0.025),
+            sectoral_it_energy_delta_pct=rot_params.get("sectoral_it_energy_delta_pct", -0.045),
+            sectoral_banking_auto_delta_pct=rot_params.get("sectoral_banking_auto_delta_pct", 0.038),
+        )
+        metrics.update(_rot_res)
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -611,4 +636,128 @@ class ResourceCurseSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_resource_curse_vulnerable": score >= 0.55
+        }
+
+
+class SovereignDebtContagionSieve:
+    """
+    Phase 246: Sovereign Balance-of-Payments & Debt Contagion Sieve.
+    Evaluates multi-country default cascades, foreign exchange depletion, and Bretton Woods liquidity contraction
+    across developing and frontier economies during global monetary tightening.
+    Formula:
+        z = 3.2 * external_debt_to_fx + 2.6 * import_cover_vuln + 2.0 * rate_hike - 2.8 * local_currency_buffer - 1.0
+        sovereign_default_contagion_risk = 1.0 / (1.0 + exp(-z))
+    """
+    @classmethod
+    def calculate_debt_contagion(
+        cls,
+        external_debt_to_fx_ratio: float = 0.85,
+        import_cover_vulnerability: float = 0.80,
+        rate_hike_shock: float = 0.75,
+        local_currency_settlement_buffer: float = 0.25
+    ) -> Dict[str, Any]:
+        d_fx = max(0.0, min(1.0, float(external_debt_to_fx_ratio)))
+        i_cov = max(0.0, min(1.0, float(import_cover_vulnerability)))
+        r_shock = max(0.0, min(1.0, float(rate_hike_shock)))
+        l_buff = max(0.0, min(1.0, float(local_currency_settlement_buffer)))
+
+        z = 3.2 * d_fx + 2.6 * i_cov + 2.0 * r_shock - 2.8 * l_buff - 1.0
+        risk = round(1.0 / (1.0 + math.exp(-max(-20.0, min(20.0, z)))), 4)
+
+        if risk >= 0.80:
+            tier = "TERMINAL_SOVEREIGN_INSOLVENCY_COLLAPSE"
+            verdict = "IMMINENT_BALANCE_OF_PAYMENTS_DEFAULT"
+            rationale = (
+                f"Terminal insolvency risk ({risk:.4f}): External debt-to-FX exhaustion ({d_fx:.2f}) and collapsing "
+                f"import cover ({i_cov:.2f}) trigger sovereign default cascade and strategic asset forfeiture."
+            )
+        elif risk >= 0.60:
+            tier = "SEVERE_BALANCE_OF_PAYMENTS_CRISIS"
+            verdict = "IMF_CONDITIONALITY_SURRENDER"
+            rationale = (
+                f"Severe payments crisis ({risk:.4f}): Depleted foreign exchange reserves force emergency IMF "
+                f"structural adjustment loans and currency devaluations."
+            )
+        elif risk >= 0.40:
+            tier = "ELEVATED_EXTERNAL_VULNERABILITY"
+            verdict = "MONITORED_LIQUIDITY_PRESSURE"
+            rationale = (
+                f"Elevated vulnerability ({risk:.4f}): Tightening global liquidity increases debt service costs; "
+                f"requires bilateral currency swaps and capital controls."
+            )
+        else:
+            tier = "FORTIFIED_SOVEREIGN_SOLVENCY"
+            verdict = "AMPLE_FX_RESERVE_RESILIENCE"
+            rationale = (
+                f"Fortified solvency ({risk:.4f}): Substantial foreign exchange buffers and local currency "
+                f"settlement mechanisms completely insulate sovereign from external default contagion."
+            )
+
+        return {
+            "sovereign_default_contagion_risk": risk,
+            "external_debt_to_fx_ratio": round(d_fx, 4),
+            "import_cover_vulnerability": round(i_cov, 4),
+            "rate_hike_shock": round(r_shock, 4),
+            "local_currency_settlement_buffer": round(l_buff, 4),
+            "sovereign_default_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_default_contagion_critical": risk >= 0.60
+        }
+
+
+class SectoralCapitalRotationAndGridConstraintSieve:
+    """
+    Phase 282: Sectoral Capital Rotation & Grid Constraint Sieve.
+    Quantifies intra-market capital reallocation during global macro shocks,
+    modeling physical electrical grid bottlenecks resisting AI data center capex
+    coupled with crude oil disinflation dividends rotating capital into domestic banking and consumption.
+    """
+
+    @staticmethod
+    def calculate_sectoral_rotation(
+        grid_saturation_friction: float = 0.70,
+        discretionary_capex_compression: float = 0.65,
+        crude_disinflation_dividend: float = 0.55,
+        credit_deepening_rate: float = 0.75,
+        headline_benchmark_delta_pct: float = 0.025,
+        sectoral_it_energy_delta_pct: float = -0.045,
+        sectoral_banking_auto_delta_pct: float = 0.038,
+    ) -> dict:
+        import math
+        grid = min(1.0, max(0.0, float(grid_saturation_friction)))
+        capex = min(1.0, max(0.0, float(discretionary_capex_compression)))
+        crude = min(1.0, max(0.0, float(crude_disinflation_dividend)))
+        credit = min(1.0, max(0.0, float(credit_deepening_rate)))
+
+        divergence = abs(float(sectoral_it_energy_delta_pct) - float(sectoral_banking_auto_delta_pct))
+        is_illusion = (divergence >= 0.060 and float(headline_benchmark_delta_pct) > 0.0)
+
+        z = (2.6 * grid + 2.4 * capex - 2.5 * crude - 2.0 * credit - 0.3)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "ACUTE_SECTORAL_CANNIBALIZATION_AND_GRID_CLIFF"
+            verdict = "SEVERE_IT_CAPEX_COMPRESSION_MASKED_BY_DOWNSTREAM_CREDIT_ROTATION"
+        elif score >= 0.55:
+            tier = "ELEVATED_INTRA_MARKET_DIVERGENCE"
+            verdict = "HIGH_CAPITAL_ROTATION_FROM_TECH_ENERGY_TO_DOMESTIC_CONSUMPTION"
+        elif score >= 0.35:
+            tier = "BALANCED_CROSS_SECTOR_EQUILIBRIUM"
+            verdict = "BROAD_BASED_MARKET_PARTICIPATION_WITH_MINIMAL_HEADLINE_ILLUSION"
+        else:
+            tier = "HOMOGENEOUS_SOVEREIGN_CAPITAL_EXPANSION"
+            verdict = "SYNCHRONIZED_RALLY_ACROSS_EXPORT_TECH_AND_DOMESTIC_MANUFACTURING"
+
+        return {
+            "sectoral_rotation_score": score,
+            "sectoral_divergence_delta": round(divergence, 4),
+            "grid_saturation_friction": round(grid, 4),
+            "discretionary_capex_compression": round(capex, 4),
+            "crude_disinflation_dividend": round(crude, 4),
+            "credit_deepening_rate": round(credit, 4),
+            "is_index_illusion_active": is_illusion,
+            "sectoral_rotation_tier": tier,
+            "sectoral_rotation_verdict": verdict,
         }

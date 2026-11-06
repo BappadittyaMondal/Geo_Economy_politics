@@ -1,6 +1,7 @@
 # LENS SPECIFICATION: PROPAGANDA
 
 ```python
+from .history import MultidisciplinaryEpistemicTriangulationSieve
 """
 Lens 8: Propaganda & Narrative Warfare Lens.
 Deconstructs summit communiques and state media apparatuses (Xinhua, RT, DD India, Western press).
@@ -235,11 +236,53 @@ class PropagandaLens:
         )
         metrics.update(_cog_result)
 
+        # Phase 244: Wire PedagogicalHaloSmugglingSieve
+        _ph_res = PedagogicalHaloSmugglingSieve.calculate_smuggling_risk(
+            parasocial_devotion=metrics.get("parasocial_devotion_index", 0.85),
+            colloquial_humor_density=metrics.get("colloquial_humor_density", 0.80),
+            peer_reviewed_grounding=metrics.get("peer_reviewed_grounding", 0.20),
+            falsifiability_index=metrics.get("falsifiability_index", 0.25),
+        )
+        metrics.update(_ph_res)
+
+        # Phase 264: Wire EliteMediaCognitiveCaptureSieve
+        prop_meta = getattr(summit, "metadata", {}) or {}
+        prop_params = prop_meta.get("media_capture", {}) if isinstance(prop_meta, dict) else {}
+        _mc_res = EliteMediaCognitiveCaptureSieve.calculate_cognitive_capture(
+            media_underworld_capital_exposure=prop_params.get("media_underworld_capital_exposure", 0.45),
+            dopamine_algorithmic_decay_index=prop_params.get("dopamine_algorithmic_decay_index", 0.55),
+            cultural_immune_resilience=prop_params.get("cultural_immune_resilience", 0.65),
+        )
+        metrics["cognitive_subversion_risk"] = _mc_res["cognitive_subversion_risk"]
+        metrics["illicit_media_financing_exposure"] = _mc_res["illicit_media_financing_exposure"]
+        metrics["cognitive_capture_tier"] = _mc_res["cognitive_capture_tier"]
+        # Phase 270: Wire CognitiveCorticalResilienceSieve
+        cog_params = prop_meta.get("cognitive_resilience", {}) if isinstance(prop_meta, dict) else {}
+        _ccr_res = CognitiveCorticalResilienceSieve.calculate_cognitive_resilience(
+            critical_primary_source_literacy=cog_params.get("critical_primary_source_literacy", 0.70),
+            dharmic_stoicism_index=cog_params.get("dharmic_stoicism_index", 0.75),
+            amygdala_panic_stimuli_density=cog_params.get("amygdala_panic_stimuli_density", 0.40),
+            algorithmic_dopamine_decay=cog_params.get("algorithmic_dopamine_decay", 0.50),
+        )
+        metrics.update(_ccr_res)
+
+
         if tensor["epistemic_classification"] == "KŪṬA-YUKTI":
             findings.insert(0, f"[EPISTEMIC TENSOR AUDIT] KŪṬA-YUKTI detected: Narrative exhibits severe evidence distortion (L-infinity norm: {tensor['l_infinity_norm']}, Distortion Penalty: {tensor['distortion_penalty']}). Reality: {tensor['reality_percentage']}%, Propaganda: {tensor['propaganda_percentage']}%.")
         elif tensor["epistemic_classification"] == "SAD-BHĀSA":
             findings.insert(0, f"[EPISTEMIC TENSOR AUDIT] SAD-BHĀSA (Mixed Rhetoric): Reality: {tensor['reality_percentage']}%, Propaganda: {tensor['propaganda_percentage']}%.")
 
+        # Phase 279: Wire MultidisciplinaryEpistemicTriangulationSieve in PropagandaLens
+        prop_meta = getattr(summit, "metadata", {}) or {}
+        triang_params_p = prop_meta.get("epistemic_triangulation", {}) if isinstance(prop_meta, dict) else {}
+        _prop_triang = MultidisciplinaryEpistemicTriangulationSieve.calculate_triangulation_concordance(
+            genetics_concordance=triang_params_p.get("genetics_concordance", 0.85),
+            archaeozoology_concordance=triang_params_p.get("archaeozoology_concordance", 0.80),
+            stratigraphy_concordance=triang_params_p.get("stratigraphy_concordance", 0.75),
+            hydrology_concordance=triang_params_p.get("hydrology_concordance", 0.80),
+            epigraphy_concordance=triang_params_p.get("epigraphy_concordance", 0.70),
+        )
+        metrics.update({f"propaganda_{k}": v for k, v in _prop_triang.items()})
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -450,6 +493,195 @@ class CognitiveSovereigntySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_cognitive_sovereignty_secure": score >= 0.55
+        }
+
+
+class PedagogicalHaloSmugglingSieve:
+    """
+    Phase 244: Pedagogical Halo Effect & Edutainment Cognitive Smuggling Sieve.
+    Evaluates epistemic smuggling where colloquial humor and teaching halos bypass critical skepticism,
+    allowing educators to smuggle subjective political/economic assertions into mass memory as incontrovertible facts.
+    Formula:
+        z = 2.8 * parasocial_devotion + 2.4 * colloquial_humor - 3.2 * peer_reviewed - 1.5 * falsifiability
+        epistemic_smuggling_risk = 1.0 / (1.0 + exp(-z))
+    """
+    @classmethod
+    def calculate_smuggling_risk(
+        cls,
+        parasocial_devotion: float = 0.85,
+        colloquial_humor_density: float = 0.80,
+        peer_reviewed_grounding: float = 0.20,
+        falsifiability_index: float = 0.25
+    ) -> Dict[str, Any]:
+        p_dev = max(0.0, min(1.0, float(parasocial_devotion)))
+        c_hum = max(0.0, min(1.0, float(colloquial_humor_density)))
+        p_gro = max(0.0, min(1.0, float(peer_reviewed_grounding)))
+        f_idx = max(0.0, min(1.0, float(falsifiability_index)))
+
+        z = 2.8 * p_dev + 2.4 * c_hum - 3.2 * p_gro - 1.5 * f_idx
+        risk = round(1.0 / (1.0 + math.exp(-max(-20.0, min(20.0, z)))), 4)
+
+        if risk >= 0.75:
+            tier = "COGNITIVE_SMUGGLING_CRITICAL"
+            verdict = "SUBJECTIVE_POLEMICS_SMUGGLED_AS_EMPIRICAL_FACT"
+            rationale = (
+                f"Critical smuggling risk ({risk:.4f}): High parasocial devotion ({p_dev:.2f}) and colloquial humor "
+                f"completely disarm critical skepticism, requiring mandatory epistemic clamp to Tier 5 rhetoric."
+            )
+        elif risk >= 0.50:
+            tier = "ELEVATED_PEDAGOGICAL_BIAS"
+            verdict = "COLLOQUIAL_DISTORTION_DETECTED"
+            rationale = (
+                f"Elevated pedagogical bias ({risk:.4f}): Informal teaching analogies introduce substantial subjective framing; "
+                f"requires independent multi-lens corroboration."
+            )
+        elif risk >= 0.30:
+            tier = "MODERATE_RHETORICAL_TEACHING"
+            verdict = "STANDARD_PEDAGOGICAL_ANALOGY"
+            rationale = (
+                f"Moderate rhetorical teaching ({risk:.4f}): Conventional educational discourse with manageable subjective framing."
+            )
+        else:
+            tier = "RIGOROUS_EMPIRICAL_DISCOURSE"
+            verdict = "FALSIFIABLE_GROUNDED_PEDAGOGY"
+            rationale = (
+                f"Rigorous discourse ({risk:.4f}): High peer-reviewed grounding and falsifiability; zero epistemic smuggling."
+            )
+
+        return {
+            "epistemic_smuggling_risk": risk,
+            "parasocial_devotion_index": round(p_dev, 4),
+            "colloquial_humor_density": round(c_hum, 4),
+            "peer_reviewed_grounding": round(p_gro, 4),
+            "falsifiability_index": round(f_idx, 4),
+            "epistemic_smuggling_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_epistemic_smuggling_active": risk >= 0.50
+        }
+
+
+class EliteMediaCognitiveCaptureSieve:
+    """
+    Phase 264: Elite Media Cognitive Capture Sieve.
+    Quantifies the vulnerability of domestic narrative ecosystems to foreign underworld financing
+    (offshore betting, hawala syndicates, streaming cartel buyouts), algorithmic dopamine degradation
+    via hyper-short-form video loops, counterbalanced by sovereign and cultural immune resilience.
+    """
+
+    @classmethod
+    def calculate_cognitive_capture(
+        cls,
+        media_underworld_capital_exposure: float = 0.45,
+        dopamine_algorithmic_decay_index: float = 0.55,
+        cultural_immune_resilience: float = 0.65,
+    ) -> Dict[str, Any]:
+        """
+        Calculates cognitive capture risk using calibrated logistic sigmoid:
+            z = 2.8 * Media + 2.5 * Dopamine - 2.6 * Cultural - 1.2
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        med = max(0.0, min(1.0, float(media_underworld_capital_exposure)))
+        dop = max(0.0, min(1.0, float(dopamine_algorithmic_decay_index)))
+        cul = max(0.0, min(1.0, float(cultural_immune_resilience)))
+
+        z = 2.8 * med + 2.5 * dop - 2.6 * cul - 1.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "CRITICAL_COGNITIVE_CAPTURE_RISK"
+            verdict = "FOREIGN_ALGORITHMIC_AND_UNDERWORLD_NARRATIVE_CONTROL"
+            rationale = (
+                f"Critical cognitive capture ({score:.4f}): Heavy offshore underworld capital penetration ({med:.2f}) "
+                f"and algorithmic attention decay ({dop:.2f}) induce pervasive societal demoralization."
+            )
+        elif score >= 0.55:
+            tier = "ELEVATED_ALGORITHMIC_SUBVERSION"
+            verdict = "ACCELERATING_ATTENTION_SPAN_FRAGMENTATION"
+            rationale = (
+                f"Elevated subversion ({score:.4f}): Foreign platform recommendation loops degrade critical civic "
+                f"discernment and promote synthetic societal polarization."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_ENTERTAINMENT_CORRIDORS"
+            verdict = "BALANCED_MEDIA_RESILIENCE_CONTESTATION"
+            rationale = (
+                f"Contested media space ({score:.4f}): Cultural immune resilience ({cul:.2f}) partially checks "
+                f"foreign algorithmic capture."
+            )
+        else:
+            tier = "FORTIFIED_INDIGENOUS_MEDIA_SOVEREIGNTY"
+            verdict = "RESILIENT_DOMESTIC_COGNITIVE_IMMUNITY"
+            rationale = (
+                f"Fortified sovereignty ({score:.4f}): High cultural resilience and indigenous media platforms "
+                f"neutralize foreign cognitive subversion."
+            )
+
+        underworld_exp = round(min(1.0, med * 1.2), 4)
+        frag_idx = round(min(1.0, dop * 1.15), 4)
+
+        return {
+            "cognitive_subversion_risk": score,
+            "media_underworld_capital_exposure": round(med, 4),
+            "dopamine_algorithmic_decay_index": round(dop, 4),
+            "cultural_immune_resilience": round(cul, 4),
+            "illicit_media_financing_exposure": underworld_exp,
+            "attention_span_fragmentation_index": frag_idx,
+            "cognitive_capture_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_media_captured": score >= 0.55,
+        }
+
+
+class CognitiveCorticalResilienceSieve:
+    """
+    Phase 270: Cognitive Cortical Resilience Sieve.
+    Quantifies neuro-cognitive immunity and public discernment resisting outrage-bait,
+    measuring primary source literacy, Dharmic stoicism (Dhriti and Viveka emotional stability),
+    resisting amygdala panic stimuli, and countering algorithmic attention-span degradation.
+    """
+
+    @staticmethod
+    def calculate_cognitive_resilience(
+        critical_primary_source_literacy: float = 0.70,
+        dharmic_stoicism_index: float = 0.75,
+        amygdala_panic_stimuli_density: float = 0.40,
+        algorithmic_dopamine_decay: float = 0.50,
+    ) -> dict:
+        import math
+        lit = min(1.0, max(0.0, float(critical_primary_source_literacy)))
+        stc = min(1.0, max(0.0, float(dharmic_stoicism_index)))
+        pan = min(1.0, max(0.0, float(amygdala_panic_stimuli_density)))
+        dop = min(1.0, max(0.0, float(algorithmic_dopamine_decay)))
+
+        z = (2.8 * lit + 2.6 * stc - 2.5 * pan - 2.4 * dop - 1.0)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_DHARMIC_COGNITIVE_IMMUNITY"
+            verdict = "HIGH_DISCERNMENT_AND_VIRAL_OUTRAGE_IMMUNITY"
+        elif score >= 0.55:
+            tier = "RESILIENT_PUBLIC_DISCERNMENT"
+            verdict = "STABLE_PREFRONTAL_GROUNDING_OVER_PANIC_STIMULI"
+        elif score >= 0.35:
+            tier = "ELEVATED_ALGORITHMIC_VULNERABILITY"
+            verdict = "MODERATE_SUSCEPTIBILITY_TO_HYPER_STIMULATION"
+        else:
+            tier = "ACUTE_COGNITIVE_HIJACK_SUSCEPTIBILITY"
+            verdict = "SEVERE_AMYGDALA_EXPLOITATION_AND_ATTENTION_FRAGMENTATION"
+
+        return {
+            "cognitive_sovereignty_score": score,
+            "critical_primary_source_literacy": round(lit, 4),
+            "dharmic_stoicism_index": round(stc, 4),
+            "amygdala_panic_stimuli_density": round(pan, 4),
+            "algorithmic_dopamine_decay": round(dop, 4),
+            "cognitive_resilience_tier": tier,
+            "cognitive_resilience_verdict": verdict,
+            "is_cognitive_immune": score >= 0.55
         }
 
 ```

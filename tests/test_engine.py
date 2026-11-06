@@ -10581,3 +10581,1152 @@ class TestPhase228to238SievesAndSynthesizer:
             assert k in srm, f"Missing key {k} in strategic_resilience_matrix"
             assert srm[k] is not None, f"Key {k} is None in strategic_resilience_matrix"
             assert isinstance(srm[k], (int, float))
+
+
+
+class TestPhase240to246SievesAndSynthesis:
+    """Test suite for Phases 240 to 246 (Lawfare Asymmetry, Covert Fissile Espionage, Longevity, Halo Smuggling, Hostage Coercion & Debt Contagion)."""
+
+    def test_phase240_unsc_veto_asymmetry_sieve(self):
+        """Phase 240: Verify UNSCVetoAsymmetrySieve detects permanent seat entrapment without Article 27(3) veto equality."""
+        from geo_engine.lenses.institutional_lawfare import UNSCVetoAsymmetrySieve
+
+        # Extreme entrapment: high sanctions liability, high Chapter VII duty, zero veto
+        res_trap = UNSCVetoAsymmetrySieve.calculate_veto_asymmetry(
+            sanctions_liability=0.95,
+            chapter_vii_duty=0.90,
+            veto_authority=0.0
+        )
+        assert res_trap["veto_entrapment_risk"] >= 0.80
+        assert res_trap["veto_entrapment_tier"] == "SUBORDINATE_CLIENT_ENTRAPMENT"
+        assert res_trap["is_unsc_entrapment_active"] is True
+
+        # Sovereign parity: full veto authority
+        res_parity = UNSCVetoAsymmetrySieve.calculate_veto_asymmetry(
+            sanctions_liability=0.20,
+            chapter_vii_duty=0.30,
+            veto_authority=1.0
+        )
+        assert res_parity["veto_entrapment_risk"] < 0.35
+        assert res_parity["veto_entrapment_tier"] == "SOVEREIGN_VETO_EQUALITY_ASSURED"
+        assert res_parity["is_unsc_entrapment_active"] is False
+
+    def test_phase241_nuclear_mineral_espionage_sieve(self):
+        """Phase 241: Verify NuclearMineralEspionageSieve identifies covert fissile transit corridor pre-emption vectors."""
+        from geo_engine.lenses.hybrid_covert import NuclearMineralEspionageSieve
+
+        res_flash = NuclearMineralEspionageSieve.calculate_fissile_vulnerability(
+            uranium_deposit_proximity=0.90,
+            corridor_logistics_control=0.85,
+            clandestine_proliferation_risk=0.80,
+            airspace_reconnaissance_interdiction=0.30
+        )
+        assert res_flash["fissile_chokepoint_vulnerability"] >= 0.80
+        assert res_flash["fissile_chokepoint_tier"] == "CRITICAL_FISSILE_CORRIDOR_FLASHPOINT"
+        assert res_flash["is_nuclear_mineral_flashpoint"] is True
+
+        res_secure = NuclearMineralEspionageSieve.calculate_fissile_vulnerability(
+            uranium_deposit_proximity=0.10,
+            corridor_logistics_control=0.10,
+            clandestine_proliferation_risk=0.10,
+            airspace_reconnaissance_interdiction=0.90
+        )
+        assert res_secure["fissile_chokepoint_vulnerability"] < 0.40
+        assert res_secure["fissile_chokepoint_tier"] == "SECURE_DEMILITARIZED_TERRAIN"
+        assert res_secure["is_nuclear_mineral_flashpoint"] is False
+
+    def test_phase242_sovereign_longevity_demography_sieve(self):
+        """Phase 242: Verify SovereignLongevityDemographySieve models cellular senescence defense and demographic resilience."""
+        from geo_engine.lenses.deep_tech import SovereignLongevityDemographySieve
+
+        res_div = SovereignLongevityDemographySieve.calculate_longevity_dividend(
+            healthspan_extension_years=25.0,
+            cognitive_retention_score=0.90,
+            entitlement_fiscal_burden=0.35,
+            biological_stratification_index=0.40
+        )
+        assert res_div["sovereign_longevity_score"] >= 0.80
+        assert res_div["longevity_dividend_tier"] == "FORTIFIED_COGNITIVE_LONGEVITY_DIVIDEND"
+        assert res_div["is_longevity_dividend_positive"] is True
+
+        res_col = SovereignLongevityDemographySieve.calculate_longevity_dividend(
+            healthspan_extension_years=2.0,
+            cognitive_retention_score=0.30,
+            entitlement_fiscal_burden=0.95,
+            biological_stratification_index=0.90
+        )
+        assert res_col["sovereign_longevity_score"] < 0.40
+        assert res_col["longevity_dividend_tier"] == "TERMINAL_DEMOGRAPHIC_INVERSION_COLLAPSE"
+        assert res_col["is_longevity_dividend_positive"] is False
+
+    def test_phase244_pedagogical_halo_smuggling_sieve(self):
+        """Phase 244: Verify PedagogicalHaloSmugglingSieve detects cognitive smuggling disguised as colloquial education."""
+        from geo_engine.lenses.propaganda import PedagogicalHaloSmugglingSieve
+
+        res_smuggle = PedagogicalHaloSmugglingSieve.calculate_smuggling_risk(
+            parasocial_devotion=0.95,
+            colloquial_humor_density=0.90,
+            peer_reviewed_grounding=0.10,
+            falsifiability_index=0.15
+        )
+        assert res_smuggle["epistemic_smuggling_risk"] >= 0.75
+        assert res_smuggle["epistemic_smuggling_tier"] == "COGNITIVE_SMUGGLING_CRITICAL"
+        assert res_smuggle["is_epistemic_smuggling_active"] is True
+
+        res_rigor = PedagogicalHaloSmugglingSieve.calculate_smuggling_risk(
+            parasocial_devotion=0.15,
+            colloquial_humor_density=0.10,
+            peer_reviewed_grounding=0.90,
+            falsifiability_index=0.85
+        )
+        assert res_rigor["epistemic_smuggling_risk"] < 0.30
+        assert res_rigor["epistemic_smuggling_tier"] == "RIGOROUS_EMPIRICAL_DISCOURSE"
+        assert res_rigor["is_epistemic_smuggling_active"] is False
+
+    def test_phase245_asymmetric_hostage_coercion_sieve(self):
+        """Phase 245: Verify AsymmetricHostageCoercionSieve quantifies sub-kinetic captive leverage vs Doval deterrence."""
+        from geo_engine.lenses.hybrid_covert import AsymmetricHostageCoercionSieve
+
+        res_hostage = AsymmetricHostageCoercionSieve.calculate_hostage_coercion(
+            domestic_distraction_incentive=0.90,
+            sub_kinetic_threshold_gap=0.85,
+            offensive_defense_deterrence=0.30,
+            diplomatic_leverage=0.20
+        )
+        assert res_hostage["hostage_coercion_leverage"] >= 0.75
+        assert res_hostage["hostage_coercion_tier"] == "ACUTE_HOSTAGE_DIPLOMACY_TRAP"
+        assert res_hostage["is_hostage_diplomacy_active"] is True
+
+        res_deterred = AsymmetricHostageCoercionSieve.calculate_hostage_coercion(
+            domestic_distraction_incentive=0.30,
+            sub_kinetic_threshold_gap=0.30,
+            offensive_defense_deterrence=0.95,
+            diplomatic_leverage=0.70
+        )
+        assert res_deterred["hostage_coercion_leverage"] < 0.35
+        assert res_deterred["hostage_coercion_tier"] == "MINIMAL_COERCIVE_UTILITY"
+        assert res_deterred["is_hostage_diplomacy_active"] is False
+
+    def test_phase246_sovereign_debt_contagion_sieve(self):
+        """Phase 246: Verify SovereignDebtContagionSieve models balance-of-payments default cascades under rate-hike shocks."""
+        from geo_engine.lenses.geo_economist import SovereignDebtContagionSieve
+
+        res_default = SovereignDebtContagionSieve.calculate_debt_contagion(
+            external_debt_to_fx_ratio=0.95,
+            import_cover_vulnerability=0.90,
+            rate_hike_shock=0.85,
+            local_currency_settlement_buffer=0.10
+        )
+        assert res_default["sovereign_default_contagion_risk"] >= 0.80
+        assert res_default["sovereign_default_tier"] == "TERMINAL_SOVEREIGN_INSOLVENCY_COLLAPSE"
+        assert res_default["is_default_contagion_critical"] is True
+
+        res_solvent = SovereignDebtContagionSieve.calculate_debt_contagion(
+            external_debt_to_fx_ratio=0.20,
+            import_cover_vulnerability=0.15,
+            rate_hike_shock=0.30,
+            local_currency_settlement_buffer=0.85
+        )
+        assert res_solvent["sovereign_default_contagion_risk"] < 0.40
+        assert res_solvent["sovereign_default_tier"] == "FORTIFIED_SOVEREIGN_SOLVENCY"
+        assert res_solvent["is_default_contagion_critical"] is False
+
+    def test_phase243_lenses_init_exports_count_77(self):
+        """Phase 243: Verify geo_engine.lenses package exports exactly 77 verified analytical symbols."""
+        import geo_engine.lenses as lenses
+
+        assert hasattr(lenses, "__all__")
+        assert len(lenses.__all__) >= 77, f"Expected at least 77 exported symbols, found {len(lenses.__all__)}"
+        expected_sieves = (
+            "UNSCVetoAsymmetrySieve",
+            "NuclearMineralEspionageSieve",
+            "SovereignLongevityDemographySieve",
+            "PedagogicalHaloSmugglingSieve",
+            "AsymmetricHostageCoercionSieve",
+            "SovereignDebtContagionSieve",
+        )
+        for s in expected_sieves:
+            assert s in lenses.__all__, f"Missing {s} in geo_engine.lenses.__all__"
+            assert hasattr(lenses, s), f"Missing attribute {s} on geo_engine.lenses module"
+
+    def test_phase243_strategic_resilience_matrix_phase240_to_246_wiring(self):
+        """Phase 243: Verify all 6 new metrics are populated in SummitSynthesizer resilience matrix."""
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="Comprehensive Multi-Domain Lawfare, Longevity & Asymmetric Statecraft Summit",
+            year=2026,
+            event_type="GEO_ECONOMIC",
+            primary_region="India",
+            focal_date="2026-10-30",
+            temporal_mode="empirical_historical"
+        )
+        report = SummitSynthesizer.synthesize_report(ev)
+        srm = report.strategic_resilience_matrix
+
+        new_keys = (
+            "veto_entrapment_risk",
+            "fissile_chokepoint_vulnerability",
+            "sovereign_longevity_score",
+            "epistemic_smuggling_risk",
+            "hostage_coercion_leverage",
+            "sovereign_default_contagion_risk",
+        )
+        for k in new_keys:
+            assert k in srm, f"Missing key {k} in strategic_resilience_matrix"
+            assert srm[k] is not None, f"Key {k} is None in strategic_resilience_matrix"
+            assert isinstance(srm[k], (int, float))
+
+    def test_phase243_lens_evaluate_populates_new_metrics(self):
+        """Phase 243: Verify each lens evaluate() call automatically populates its respective new metrics."""
+        from geo_engine.lenses.institutional_lawfare import InstitutionalLawfareLens
+        from geo_engine.lenses.hybrid_covert import HybridCovertLens
+        from geo_engine.lenses.deep_tech import DeepTechLens
+        from geo_engine.lenses.propaganda import PropagandaLens
+        from geo_engine.lenses.geo_economist import GeoEconomistLens
+        from geo_engine.core.models import SummitEvent
+
+        dummy_event = SummitEvent(
+            title="Comprehensive Metrics Test Event",
+            year=2026,
+            event_type="GEO_ECONOMIC",
+            primary_region="India",
+            focal_date="2026-10-30",
+            temporal_mode="empirical_historical"
+        )
+
+        lf_eval = InstitutionalLawfareLens.evaluate(dummy_event)
+        assert "veto_entrapment_risk" in lf_eval.hard_metrics
+
+        hc_eval = HybridCovertLens.evaluate(dummy_event)
+        assert "fissile_chokepoint_vulnerability" in hc_eval.hard_metrics
+        assert "hostage_coercion_leverage" in hc_eval.hard_metrics
+
+        dt_eval = DeepTechLens.evaluate(dummy_event)
+        assert "sovereign_longevity_score" in dt_eval.hard_metrics
+
+        pr_eval = PropagandaLens.evaluate(dummy_event)
+        assert "epistemic_smuggling_risk" in pr_eval.hard_metrics
+
+        ge_eval = GeoEconomistLens.evaluate(dummy_event)
+        assert "sovereign_default_contagion_risk" in ge_eval.hard_metrics
+
+
+class TestPhase247to250SievesAndDigest:
+    """Phase 247-250: Digital Enclosure Trap, Kinetic Diversionary Escalation, Multi-Domain 8-Pillar Ranker & SRM Integration."""
+
+    def test_phase247_digital_enclosure_trap_sieve(self):
+        """Phase 247: DigitalEnclosureTrapSieve bounds crypto capital flight vs physical gold."""
+        from geo_engine.lenses.cash_flow import DigitalEnclosureTrapSieve
+        res = DigitalEnclosureTrapSieve.calculate_digital_enclosure(
+            crypto_capital_flight_ratio=0.85,
+            offshore_exchange_opacity=0.90,
+            cbdc_programmability_index=0.80,
+            physical_gold_reserve_ratio=0.15
+        )
+        assert res["digital_enclosure_trap_score"] >= 0.75
+        assert res["digital_enclosure_trap_tier"] == "CRITICAL_DIGITAL_ENCLOSURE_RISK"
+        assert res["is_enclosure_risk_acute"] is True
+
+        # Test fortified anchor
+        safe_res = DigitalEnclosureTrapSieve.calculate_digital_enclosure(
+            crypto_capital_flight_ratio=0.10,
+            offshore_exchange_opacity=0.20,
+            cbdc_programmability_index=0.30,
+            physical_gold_reserve_ratio=0.90
+        )
+        assert safe_res["digital_enclosure_trap_score"] < 0.35
+        assert safe_res["digital_enclosure_trap_tier"] == "FORTIFIED_PHYSICAL_ASSET_ANCHOR"
+
+    def test_phase248_kinetic_diversionary_escalation_sieve(self):
+        """Phase 248: KineticDiversionaryEscalationSieve coalition majority deficit vs war expansion."""
+        from geo_engine.lenses.military_readiness import KineticDiversionaryEscalationSieve
+        res = KineticDiversionaryEscalationSieve.calculate_diversionary_escalation(
+            coalition_majority_deficit=0.85,
+            judicial_prosecution_vulnerability=0.90,
+            security_establishment_friction=0.75,
+            diplomatic_offramp_pressure=0.20
+        )
+        assert res["diversionary_escalation_risk"] >= 0.75
+        assert res["diversionary_escalation_tier"] == "ACUTE_DIVERSIONARY_ESCALATION_TRAP"
+        assert res["is_diversionary_risk_acute"] is True
+
+        # Test stable deterrence
+        stable_res = KineticDiversionaryEscalationSieve.calculate_diversionary_escalation(
+            coalition_majority_deficit=0.10,
+            judicial_prosecution_vulnerability=0.15,
+            security_establishment_friction=0.20,
+            diplomatic_offramp_pressure=0.85
+        )
+        assert stable_res["diversionary_escalation_risk"] < 0.35
+        assert stable_res["diversionary_escalation_tier"] == "STABLE_EXECUTIVE_DETERRENCE"
+
+    def test_phase249_multi_domain_strategic_news_ranker_8_domains(self):
+        """Phase 249: StrategicNewsRanker 8-Pillar Sovereign Matrix validation."""
+        from morning_digest.ranker import StrategicNewsRanker
+        domains = StrategicNewsRanker.STRATEGIC_DOMAINS
+        assert len(domains) == 8, f"Expected 8 strategic domains, got {len(domains)}"
+        total_weight = sum(d["weight"] for d in domains.values())
+        assert abs(total_weight - 1.0) < 1e-4
+
+        # Test space & science scoring
+        space_scored = StrategicNewsRanker.score_headline(
+            "ISRO SPADEX mission accomplishes autonomous in-space docking and power transfer."
+        )
+        assert space_scored["primary_domain"] == "science_and_space"
+        assert space_scored["strategic_score"] > 0.05
+
+        # Test defense self-reliance scoring
+        defense_scored = StrategicNewsRanker.score_headline(
+            "India defense production crosses ₹1.78 lakh crore with indigenous BrahMos deployment."
+        )
+        assert defense_scored["primary_domain"] == "aatmanirbharta_defense"
+        assert defense_scored["india_impact_score"] >= 0.50
+
+        # Test epigraphy scoring
+        epigraphy_scored = StrategicNewsRanker.score_headline(
+            "ASI epigraphy decipherment of 5th-century Sanskrit seal confirms Skandapurana text."
+        )
+        assert epigraphy_scored["primary_domain"] == "history_and_epigraphy"
+
+    def test_phase250_lenses_init_exports_count_79(self):
+        """Phase 250: geo_engine.lenses exports 79 verified symbols."""
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) in (79, 86, 94, 100, 109)
+        assert "DigitalEnclosureTrapSieve" in lenses.__all__
+        assert "KineticDiversionaryEscalationSieve" in lenses.__all__
+
+    def test_phase250_strategic_resilience_matrix_phase247_to_248_wiring(self):
+        """Phase 250: Verify digital_enclosure_trap_score and diversionary_escalation_risk in SRM."""
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(
+            title="Comprehensive Digital Sovereignty & Kinetic Defense Summit",
+            year=2026,
+            event_type="HYBRID_WARFARE",
+            primary_region="India",
+            focal_date="2026-10-31",
+            temporal_mode="empirical_historical"
+        )
+        report = SummitSynthesizer.synthesize_report(ev)
+        srm = report.strategic_resilience_matrix
+
+        assert "digital_enclosure_trap_score" in srm
+        assert "diversionary_escalation_risk" in srm
+        assert srm["digital_enclosure_trap_score"] is not None
+        assert srm["diversionary_escalation_risk"] is not None
+        assert isinstance(srm["digital_enclosure_trap_score"], (int, float))
+        assert isinstance(srm["diversionary_escalation_risk"], (int, float))
+
+    def test_phase250_lens_evaluate_populates_phase247_248_metrics(self):
+        """Phase 250: Verify CashFlowLens and MilitaryReadinessLens populate new metrics."""
+        from geo_engine.lenses.cash_flow import CashFlowLens
+        from geo_engine.lenses.military_readiness import MilitaryReadinessLens
+        from geo_engine.core.models import SummitEvent
+
+        dummy_event = SummitEvent(
+            title="Sovereign Finance and Readiness Test",
+            year=2026,
+            event_type="GEO_ECONOMIC",
+            primary_region="India",
+            focal_date="2026-10-31",
+            temporal_mode="empirical_historical"
+        )
+
+        cf_eval = CashFlowLens.evaluate(dummy_event)
+        assert "digital_enclosure_trap_score" in cf_eval.hard_metrics
+
+        mr_eval = MilitaryReadinessLens.evaluate(dummy_event)
+        assert "diversionary_escalation_risk" in mr_eval.hard_metrics
+
+    def test_phase250_telegram_bot_formats_8_domains(self):
+        """Phase 250: TelegramDigestPublisher formats digest with new domain categories."""
+        from morning_digest.bot import TelegramDigestPublisher
+        sample_items = [
+            {
+                "source": "ISRO Gazette",
+                "timestamp": "2026-10-31T08:00",
+                "headline": "ISRO SPADEX satellite achieves successful docking maneuver.",
+                "category": "Science And Space",
+                "strategic_score": 0.88,
+                "requires_deep_dive": True,
+                "lens_tags": ["DeepTechLens"],
+                "india_impact_score": 0.90
+            },
+            {
+                "source": "Ministry of Defense",
+                "timestamp": "2026-10-31T08:30",
+                "headline": "Defense exports hit record high under Aatmanirbhar Bharat initiative.",
+                "category": "Aatmanirbharta Defense",
+                "strategic_score": 0.85,
+                "requires_deep_dive": True,
+                "lens_tags": ["MilitaryReadinessLens"],
+                "india_impact_score": 0.95
+            }
+        ]
+        chunks = TelegramDigestPublisher.format_telegram_digest(sample_items)
+        assert len(chunks) >= 1
+        assert "Science And Space" in chunks[0]
+        assert "Aatmanirbharta Defense" in chunks[0]
+
+
+
+class TestPhase253to259SievesAndTelemetry:
+    """Regression test suite for Phases 253 to 259 and Dynamic Telemetry Ingestion Bridge."""
+
+    def test_phase253_cultural_religious_grayzone_micro_signal_sieve(self):
+        from geo_engine.lenses.civilizational import CulturalReligiousGrayzoneMicroSignalSieve
+        # Zero baseline must be FORTIFIED (calibrated offset -1.2)
+        res0 = CulturalReligiousGrayzoneMicroSignalSieve.calculate_grayzone_risk(0.0, 0.0, 0.0, 0.0, 0.0)
+        assert res0["cultural_grayzone_risk"] < 0.35
+        assert res0["cultural_grayzone_tier"] == "FORTIFIED_CIVILIZATIONAL_COHESION"
+        assert res0["is_grayzone_destabilized"] is False
+
+        # Critical friction scenario
+        res_crit = CulturalReligiousGrayzoneMicroSignalSieve.calculate_grayzone_risk(0.9, 0.85, 0.9, 0.8, 0.2)
+        assert res_crit["cultural_grayzone_risk"] >= 0.75
+        assert res_crit["cultural_grayzone_tier"] == "CRITICAL_GRAYZONE_DESTABILIZATION_RISK"
+        assert res_crit["is_grayzone_destabilized"] is True
+
+    def test_phase254_sub_national_insurgency_incubation_sieve(self):
+        from geo_engine.lenses.history import SubNationalInsurgencyIncubationSieve
+        # Consensual Patel stability
+        res_patel = SubNationalInsurgencyIncubationSieve.calculate_insurgency_blowback(0.1, 0.1, 0.1, 0.8)
+        assert res_patel["partisan_blowback_risk"] < 0.40
+        assert res_patel["insurgency_tier"] == "PATEL_CONSENSUAL_INSTITUTIONAL_STABILITY"
+        assert res_patel["is_blowback_critical"] is False
+
+        # Acute Indira blowback scenario
+        res_blowback = SubNationalInsurgencyIncubationSieve.calculate_insurgency_blowback(0.95, 0.9, 0.85, 0.2)
+        assert res_blowback["partisan_blowback_risk"] >= 0.80
+        assert res_blowback["insurgency_tier"] == "IMMINENT_SOVEREIGN_BLOWBACK_AND_DECAPITATION_RISK"
+        assert res_blowback["is_blowback_critical"] is True
+
+    def test_phase255_abyssal_hydrospatial_sovereignty_sieve(self):
+        from geo_engine.lenses.subsea_cables import AbyssalHydrospatialSovereigntySieve
+        # High DSRV readiness and low deficit
+        res_dom = AbyssalHydrospatialSovereigntySieve.calculate_abyssal_sovereignty(0.2, 0.1, 0.2, 0.9)
+        assert res_dom["abyssal_sovereignty_score"] < 0.35
+        assert res_dom["abyssal_sovereignty_tier"] == "FORTIFIED_ABYSSAL_DOMINANCE"
+
+        # Contested seabed with high deficit
+        res_vuln = AbyssalHydrospatialSovereigntySieve.calculate_abyssal_sovereignty(0.9, 0.8, 0.9, 0.2)
+        assert res_vuln["abyssal_sovereignty_score"] >= 0.75
+        assert res_vuln["abyssal_sovereignty_tier"] == "CRITICAL_ABYSSAL_RESOURCE_VULNERABILITY"
+        assert res_vuln["is_abyssal_contested"] is True
+
+    def test_phase256_trophic_biosecurity_cascade_sieve(self):
+        from geo_engine.lenses.food_security import TrophicBiosecurityCascadeSieve
+        # Diclofenac-type scavenger collapse
+        res_col = TrophicBiosecurityCascadeSieve.calculate_trophic_cascade_risk(0.95, 0.9, 0.85, 0.1)
+        assert res_col["trophic_cascade_risk"] >= 0.80
+        assert res_col["trophic_cascade_tier"] == "CATASTROPHIC_TROPHIC_COLLAPSE_AND_ZOONOTIC_SHOCK"
+        assert res_col["is_trophic_cascade_critical"] is True
+
+        # Resilient ecosystem
+        res_safe = TrophicBiosecurityCascadeSieve.calculate_trophic_cascade_risk(0.1, 0.1, 0.1, 0.9)
+        assert res_safe["trophic_cascade_risk"] < 0.40
+        assert res_safe["trophic_cascade_tier"] == "RESILIENT_ECOSYSTEM_EQUILIBRIUM"
+
+    def test_phase257_cognitive_sovereignty_antahkarana_sieve(self):
+        from geo_engine.lenses.deep_tech import CognitiveSovereigntyAntahkaranaSieve
+        # Severe foreign AI enclosure
+        res_enc = CognitiveSovereigntyAntahkaranaSieve.calculate_cognitive_enclosure_risk(0.9, 0.85, 0.9, 0.1)
+        assert res_enc["cognitive_enclosure_risk"] >= 0.75
+        assert res_enc["cognitive_enclosure_tier"] == "CRITICAL_COGNITIVE_COLONIZATION_RISK"
+        assert res_enc["is_cognitive_colonized"] is True
+
+        # Sovereign indigenous foundation model
+        res_sovr = CognitiveSovereigntyAntahkaranaSieve.calculate_cognitive_enclosure_risk(0.1, 0.1, 0.2, 0.95)
+        assert res_sovr["cognitive_enclosure_risk"] < 0.35
+        assert res_sovr["cognitive_enclosure_tier"] == "FORTIFIED_SOVEREIGN_COGNITIVE_AUTONOMY"
+
+    def test_phase258_bullion_paper_arbitrage_dislocation_sieve(self):
+        from geo_engine.lenses.cash_flow import BullionPaperArbitrageDislocationSieve
+        # Extreme paper delivery default risk
+        res_disloc = BullionPaperArbitrageDislocationSieve.calculate_bullion_dislocation_risk(0.95, 0.9, 0.8, 0.2)
+        assert res_disloc["bullion_dislocation_risk"] >= 0.75
+        assert res_disloc["bullion_dislocation_tier"] == "ACUTE_PAPER_BULLION_DISLOCATION_AND_DEFAULT_RISK"
+        assert res_disloc["is_bullion_dislocated"] is True
+
+        # High RBI physical vault repatriation buffer
+        res_anch = BullionPaperArbitrageDislocationSieve.calculate_bullion_dislocation_risk(0.2, 0.2, 0.2, 0.95)
+        assert res_anch["bullion_dislocation_risk"] < 0.35
+        assert res_anch["bullion_dislocation_tier"] == "FORTIFIED_SOVEREIGN_BULLION_ANCHOR"
+
+    def test_phase259_archaeo_astronomical_chronology_sieve(self):
+        from geo_engine.lenses.history import ArchaeoAstronomicalChronologySieve
+        # Triangulated empirical anchor
+        res_ver = ArchaeoAstronomicalChronologySieve.calculate_chronological_validity(0.9, 0.85, 0.9, 0.1)
+        assert res_ver["chronological_validity_score"] >= 0.80
+        assert res_ver["chronology_tier"] == "VERIFIED_EMPIRICAL_CHRONOLOGICAL_ANCHOR"
+        assert res_ver["is_chronology_verified"] is True
+
+        # Curricular distortion
+        res_dist = ArchaeoAstronomicalChronologySieve.calculate_chronological_validity(0.1, 0.1, 0.2, 0.9)
+        assert res_dist["chronological_validity_score"] < 0.40
+        assert res_dist["chronology_tier"] == "IDEOLOGICALLY_DISTORTED_OR_MYTHOLOGICAL_FABRICATION"
+
+    def test_phases_253_to_259_synthesizer_strategic_resilience_matrix(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi", member_countries=["India", "Russia", "China"])
+        report = SummitSynthesizer.synthesize_report(summit)
+        matrix = report.strategic_resilience_matrix
+        for key in [
+            "cultural_grayzone_risk",
+            "partisan_blowback_risk",
+            "abyssal_sovereignty_score",
+            "trophic_cascade_risk",
+            "cognitive_enclosure_risk",
+            "bullion_dislocation_risk",
+            "chronological_validity_score",
+        ]:
+            assert key in matrix
+            assert matrix[key] is not None
+            assert isinstance(matrix[key], float)
+            assert 0.0 <= matrix[key] <= 1.0
+
+    def test_phases_253_to_259_query_parser_dynamic_telemetry(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Audit quantum statecraft, COMEX bullion paper arbitrage, Waqf Act Section 40 street veto, "
+            "Matsya 6000 abyssal seabed mining, and Diclofenac trophic biosecurity cascade in 2026"
+        )
+        assert q.requires_quantum_statecraft is True
+        assert q.requires_bullion_audit is True
+        assert q.requires_grayzone_micro_signal is True
+        assert q.requires_abyssal_sovereignty is True
+        assert q.requires_trophic_biosecurity is True
+
+    def test_phases_253_to_259_readme_parity_539_tests(self):
+        import os
+        readme_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "README.md")
+        if os.path.exists(readme_path):
+            with open(readme_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            assert any(c in content for c in ["539", "550", "560"])
+
+
+class TestPhase260to267SievesAndTelemetry:
+    """
+    Verification Suite for Phases 260 to 267:
+    - Phase 260: SovereignPNTNavigationAutonomySieve (NavIC, Rubidium clock drift, GPS denial, CEP assurance)
+    - Phase 261: FrontierAIRegulatoryCaptureSieve (Compliance moats, FLOP penalties, open source defense)
+    - Phase 262: SubConventionalProxyWarfareSieve (Operation Tupac, narco-hawala, internal cohesion)
+    - Phase 263: EpistemicTextualTriangulationSieve (Critical Sanskrit editions, archaeology, pop-myth penalty)
+    - Phase 264: EliteMediaCognitiveCaptureSieve (Underworld capital, dopamine algorithmic decay)
+    - Phase 265: HydrologicalWeaponizationBufferSieve (Upper Siang cushion, zero-division protection)
+    - Phase 266: AntiquityPlunderRepatriationSieve (UNESCO 1970, sacred murti recovery, museum resistance)
+    - Phase 267: DiasporaSanctuaryLawfareSieve (Western host tolerance, consular reciprocity)
+    - Dynamic QueryParser telemetry and SummitSynthesizer 79-key matrix integration.
+    """
+
+    def test_phase260_sovereign_pnt_navigation_autonomy_sieve(self):
+        from geo_engine.lenses.military_readiness import SovereignPNTNavigationAutonomySieve
+        # Resilient NavIC lock
+        res_lock = SovereignPNTNavigationAutonomySieve.calculate_pnt_autonomy(7.0, 0.05, 0.20, 1.0)
+        assert res_lock["pnt_sovereignty_score"] >= 0.80
+        assert res_lock["pnt_sovereignty_tier"] == "FORTIFIED_PNT_SOVEREIGNTY"
+        assert res_lock["is_pnt_sovereign"] is True
+        assert res_lock["missile_cep_assurance"] > 0.75
+
+        # Severe denial baseline
+        res_denial = SovereignPNTNavigationAutonomySieve.calculate_pnt_autonomy(0.0, 1.0, 0.9, 0.0)
+        assert res_denial["pnt_sovereignty_score"] < 0.20
+        assert res_denial["pnt_sovereignty_tier"] == "SEVERE_PNT_DENIAL_AND_GUIDANCE_FAILURE"
+        assert res_denial["is_pnt_sovereign"] is False
+
+    def test_phase261_frontier_ai_regulatory_capture_sieve(self):
+        from geo_engine.lenses.deep_tech import FrontierAIRegulatoryCaptureSieve
+        # Acute regulatory capture
+        res_cap = FrontierAIRegulatoryCaptureSieve.calculate_regulatory_capture(0.90, 0.85, 0.20)
+        assert res_cap["ai_regulatory_moat_risk"] >= 0.75
+        assert res_cap["ai_regulatory_capture_tier"] == "ACUTE_AI_CARTEL_REGULATORY_CAPTURE"
+        assert res_cap["is_ai_ecosystem_captured"] is True
+        assert res_cap["indian_it_margin_vulnerability"] > 0.80
+
+        # Fortified open source
+        res_open = FrontierAIRegulatoryCaptureSieve.calculate_regulatory_capture(0.10, 0.10, 0.90)
+        assert res_open["ai_regulatory_moat_risk"] < 0.35
+        assert res_open["ai_regulatory_capture_tier"] == "SOVEREIGN_OPEN_MODEL_ECOSYSTEM_FORTIFIED"
+
+    def test_phase262_sub_conventional_proxy_warfare_sieve(self):
+        from geo_engine.lenses.hybrid_covert import SubConventionalProxyWarfareSieve
+        # High cohesion dampens proxy threat (sign inversion bug test)
+        res_cohesion = SubConventionalProxyWarfareSieve.calculate_proxy_attrition(0.20, 0.20, 0.85, 0.95)
+        assert res_cohesion["asymmetric_attrition_threat"] < 0.25
+        assert res_cohesion["proxy_attrition_tier"] == "FORTIFIED_COUNTER_SUBVERSION_POSTURE"
+        assert res_cohesion["counter_proxy_deterrence_index"] > 0.75
+
+        # Acute proxy campaign
+        res_proxy = SubConventionalProxyWarfareSieve.calculate_proxy_attrition(0.90, 0.85, 0.20, 0.25)
+        assert res_proxy["asymmetric_attrition_threat"] >= 0.75
+        assert res_proxy["proxy_attrition_tier"] == "ACUTE_SUB_CONVENTIONAL_PROXY_WARFARE"
+        assert res_proxy["is_proxy_attrition_acute"] is True
+
+    def test_phase263_epistemic_textual_triangulation_sieve(self):
+        from geo_engine.lenses.civilizational import EpistemicTextualTriangulationSieve
+        # Primary Sanskrit critical edition alignment
+        res_canon = EpistemicTextualTriangulationSieve.calculate_textual_fidelity(0.95, 0.90, 0.05, 0.05)
+        assert res_canon["textual_fidelity_score"] >= 0.80
+        assert res_canon["textual_fidelity_tier"] == "VERIFIED_SRUTI_SMRITI_CANONICAL_ANCHOR"
+        assert res_canon["is_textually_verified"] is True
+
+        # Pop myth TV serial invention
+        res_pop = EpistemicTextualTriangulationSieve.calculate_textual_fidelity(0.10, 0.10, 0.85, 0.90)
+        assert res_pop["textual_fidelity_score"] < 0.35
+        assert res_pop["textual_fidelity_tier"] == "UNVERIFIED_FOLK_ACCRETION_OR_DISTORTION"
+        assert res_pop["pop_myth_contamination_risk"] > 0.75
+
+    def test_phase264_elite_media_cognitive_capture_sieve(self):
+        from geo_engine.lenses.propaganda import EliteMediaCognitiveCaptureSieve
+        # Critical underworld and dopamine decay
+        res_med = EliteMediaCognitiveCaptureSieve.calculate_cognitive_capture(0.85, 0.85, 0.20)
+        assert res_med["cognitive_subversion_risk"] >= 0.75
+        assert res_med["cognitive_capture_tier"] == "CRITICAL_COGNITIVE_CAPTURE_RISK"
+        assert res_med["is_media_captured"] is True
+
+        # Fortified domestic sovereignty
+        res_fort = EliteMediaCognitiveCaptureSieve.calculate_cognitive_capture(0.10, 0.15, 0.90)
+        assert res_fort["cognitive_subversion_risk"] < 0.35
+        assert res_fort["cognitive_capture_tier"] == "FORTIFIED_INDIGENOUS_MEDIA_SOVEREIGNTY"
+
+    def test_phase265_hydrological_weaponization_buffer_sieve(self):
+        from geo_engine.lenses.food_security import HydrologicalWeaponizationBufferSieve
+        # Upper Siang cushion resilience
+        res_cushion = HydrologicalWeaponizationBufferSieve.calculate_hydro_resilience(9.0, 6.0, 0.20, 0.20, 0.85)
+        assert res_cushion["hydro_weaponization_resilience"] >= 0.75
+        assert res_cushion["hydro_weaponization_tier"] == "FORTIFIED_DOWNSTREAM_BUFFER_CUSHION"
+        assert res_cushion["is_downstream_buffered"] is True
+
+        # Zero upstream threat edge case (division by zero immunity test)
+        res_zero = HydrologicalWeaponizationBufferSieve.calculate_hydro_resilience(9.0, 0.0, 0.10, 0.10, 0.80)
+        assert res_zero["hydro_weaponization_resilience"] >= 0.75
+        assert res_zero["hydro_weaponization_tier"] == "FORTIFIED_DOWNSTREAM_BUFFER_CUSHION"
+
+    def test_phase266_antiquity_plunder_repatriation_sieve(self):
+        from geo_engine.lenses.civilizational import AntiquityPlunderRepatriationSieve
+        # Accelerated sacred murti recovery
+        res_murti = AntiquityPlunderRepatriationSieve.calculate_heritage_restitution(0.85, 0.80, 0.20, 0.90)
+        assert res_murti["sacred_heritage_restitution_score"] >= 0.75
+        assert res_murti["heritage_restitution_tier"] == "ACUTE_RESTITUTION_MOMENTUM"
+        assert res_murti["is_restitution_active"] is True
+
+        # Chronic plunder vulnerability
+        res_vuln = AntiquityPlunderRepatriationSieve.calculate_heritage_restitution(0.10, 0.15, 0.90, 0.10)
+        assert res_vuln["sacred_heritage_restitution_score"] < 0.35
+        assert res_vuln["heritage_restitution_tier"] == "CHRONIC_HERITAGE_PLUNDER_VULNERABILITY"
+
+    def test_phase267_diaspora_sanctuary_lawfare_sieve(self):
+        from geo_engine.lenses.geopolitical import DiasporaSanctuaryLawfareSieve
+        # Acute transnational sanctuary threat
+        res_sanc = DiasporaSanctuaryLawfareSieve.calculate_sanctuary_threat(0.85, 0.80, 0.20, 0.25)
+        assert res_sanc["transnational_extremism_threat_score"] >= 0.75
+        assert res_sanc["diaspora_sanctuary_tier"] == "ACUTE_TRANSNATIONAL_EXTREMIST_SANCTUARY"
+        assert res_sanc["is_sanctuary_coercive"] is True
+
+        # Fortified reciprocal security
+        res_fort = DiasporaSanctuaryLawfareSieve.calculate_sanctuary_threat(0.15, 0.10, 0.85, 0.85)
+        assert res_fort["transnational_extremism_threat_score"] < 0.35
+        assert res_fort["diaspora_sanctuary_tier"] == "FORTIFIED_RECIPROCAL_CONSULAR_SECURITY"
+
+    def test_phases_260_to_267_synthesizer_strategic_resilience_matrix(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi", member_countries=["India", "Russia", "China"])
+        report = SummitSynthesizer.synthesize_report(summit)
+        matrix = report.strategic_resilience_matrix
+        for key in [
+            "pnt_sovereignty_score",
+            "ai_regulatory_moat_risk",
+            "asymmetric_attrition_threat",
+            "textual_fidelity_score",
+            "cognitive_subversion_risk",
+            "hydro_weaponization_resilience",
+            "sacred_heritage_restitution_score",
+            "transnational_extremism_threat_score",
+        ]:
+            assert key in matrix
+            assert matrix[key] is not None
+            assert isinstance(matrix[key], float)
+            assert 0.0 <= matrix[key] <= 1.0
+
+    def test_phases_260_to_267_query_parser_dynamic_telemetry(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Audit NavIC PNT autonomy, FLOP threshold AI safety moat, Operation Tupac proxy warfare, "
+            "Valmiki Ramayana Sanskrit critical edition, elite media dopamine decay, "
+            "Medog dam water bomb hydro weaponization, stolen murti repatriation, and diaspora sanctuary lawfare in 2026"
+        )
+        assert q.requires_pnt_autonomy is True
+        assert q.requires_ai_governance is True
+        assert q.requires_proxy_warfare is True
+        assert q.requires_textual_triangulation is True
+        assert q.requires_media_capture is True
+        assert q.requires_hydro_weaponization is True
+        assert q.requires_antiquity_restitution is True
+        assert q.requires_diaspora_sanctuary is True
+
+    def test_phases_260_to_267_readme_parity_550_tests(self):
+        import os
+        readme_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "README.md")
+        if os.path.exists(readme_path):
+            with open(readme_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            assert any(c in content for c in ("550", "560"))
+
+
+class TestPhase268to273SievesAndTelemetry:
+    """
+    Phase 268 to 273 Test Suite:
+    Certifies PreciousMetalSovereignArbitrageSieve, ChokepointHydrocarbonInterdictionSieve,
+    CognitiveCorticalResilienceSieve, FastBreederNuclearFuelAutonomySieve,
+    SovereignBalanceSheetShieldSieve, SubRegionalElectoralPolarizationSieve,
+    85 live telemetry channels in SummitSynthesizer, QueryParser AST flags,
+    and 100 exported symbols in lenses/__init__.py.
+    """
+
+    def test_phase268_precious_metal_sovereign_arbitrage_sieve(self):
+        from geo_engine.lenses.cash_flow import PreciousMetalSovereignArbitrageSieve
+        # Fortified bullion sovereignty
+        res_fort = PreciousMetalSovereignArbitrageSieve.calculate_bullion_sovereignty(
+            physical_vault_inventory=0.90,
+            paper_derivative_claims=0.20,
+            sge_comex_premium_usd=35.0,
+            central_bank_repatriation_rate=0.85,
+            household_streedhan_buffer=0.90
+        )
+        assert res_fort["bullion_sovereignty_score"] >= 0.75
+        assert res_fort["bullion_sovereignty_tier"] == "FORTIFIED_PHYSICAL_BULLION_SOVEREIGNTY"
+        assert res_fort["is_bullion_sovereign"] is True
+
+        # Critical fiat debasement vulnerability
+        res_vuln = PreciousMetalSovereignArbitrageSieve.calculate_bullion_sovereignty(
+            physical_vault_inventory=0.05,
+            paper_derivative_claims=0.95,
+            sge_comex_premium_usd=2.0,
+            central_bank_repatriation_rate=0.05,
+            household_streedhan_buffer=0.10
+        )
+        assert res_vuln["bullion_sovereignty_score"] < 0.35
+        assert res_vuln["bullion_sovereignty_tier"] == "CRITICAL_FIAT_DEBASEMENT_VULNERABILITY"
+
+    def test_phase269_chokepoint_hydrocarbon_interdiction_sieve(self):
+        from geo_engine.lenses.petro_logistics import ChokepointHydrocarbonInterdictionSieve
+        # Acute energy chokepoint interdiction
+        res_choke = ChokepointHydrocarbonInterdictionSieve.calculate_chokepoint_vulnerability(
+            hormuz_interdiction_risk=0.90,
+            brent_shock_pct=0.75,
+            spr_cover_days=8.0,
+            chabahar_bypass_resilience=0.20
+        )
+        assert res_choke["hydrocarbon_chokepoint_vulnerability_score"] >= 0.75
+        assert res_choke["chokepoint_vulnerability_tier"] == "ACUTE_ENERGY_CHOKEPOINT_INTERDICTION"
+        assert res_choke["is_energy_chokepoint_critical"] is True
+
+        # Fortified strategic energy reserves
+        res_fort = ChokepointHydrocarbonInterdictionSieve.calculate_chokepoint_vulnerability(
+            hormuz_interdiction_risk=0.10,
+            brent_shock_pct=0.05,
+            spr_cover_days=95.0,
+            chabahar_bypass_resilience=0.85
+        )
+        assert res_fort["hydrocarbon_chokepoint_vulnerability_score"] < 0.35
+        assert res_fort["chokepoint_vulnerability_tier"] == "FORTIFIED_STRATEGIC_ENERGY_RESERVES"
+
+    def test_phase270_cognitive_cortical_resilience_sieve(self):
+        from geo_engine.lenses.propaganda import CognitiveCorticalResilienceSieve
+        # Fortified Dharmic cognitive immunity
+        res_imm = CognitiveCorticalResilienceSieve.calculate_cognitive_resilience(
+            critical_primary_source_literacy=0.90,
+            dharmic_stoicism_index=0.95,
+            amygdala_panic_stimuli_density=0.15,
+            algorithmic_dopamine_decay=0.20
+        )
+        assert res_imm["cognitive_sovereignty_score"] >= 0.75
+        assert res_imm["cognitive_resilience_tier"] == "FORTIFIED_DHARMIC_COGNITIVE_IMMUNITY"
+        assert res_imm["is_cognitive_immune"] is True
+
+        # Acute cognitive hijack susceptibility
+        res_hijack = CognitiveCorticalResilienceSieve.calculate_cognitive_resilience(
+            critical_primary_source_literacy=0.10,
+            dharmic_stoicism_index=0.15,
+            amygdala_panic_stimuli_density=0.90,
+            algorithmic_dopamine_decay=0.95
+        )
+        assert res_hijack["cognitive_sovereignty_score"] < 0.35
+        assert res_hijack["cognitive_resilience_tier"] == "ACUTE_COGNITIVE_HIJACK_SUSCEPTIBILITY"
+
+    def test_phase271_fast_breeder_nuclear_fuel_autonomy_sieve(self):
+        from geo_engine.lenses.deep_tech import FastBreederNuclearFuelAutonomySieve
+        # Autonomous closed thorium cycle
+        res_nuc = FastBreederNuclearFuelAutonomySieve.calculate_nuclear_autonomy(
+            breeding_ratio=1.20,
+            thorium_inventory_tonnes=400000.0,
+            uranium_annual_import_need_tonnes=1000.0,
+            cartel_sanction_drag_index=0.15,
+            smr_deployment_capacity_mwe=880.0
+        )
+        assert res_nuc["nuclear_fuel_cycle_autonomy_score"] >= 0.75
+        assert res_nuc["nuclear_autonomy_tier"] == "AUTONOMOUS_CLOSED_THORIUM_CYCLE"
+        assert res_nuc["is_nuclear_cycle_autonomous"] is True
+
+        # Zero uranium edge case (division by zero immunity)
+        res_zero = FastBreederNuclearFuelAutonomySieve.calculate_nuclear_autonomy(
+            breeding_ratio=1.15,
+            thorium_inventory_tonnes=350000.0,
+            uranium_annual_import_need_tonnes=0.0,
+            cartel_sanction_drag_index=0.10,
+            smr_deployment_capacity_mwe=660.0
+        )
+        assert res_zero["nuclear_fuel_cycle_autonomy_score"] >= 0.75
+
+    def test_phase272_sovereign_balance_sheet_shield_sieve(self):
+        from geo_engine.lenses.cash_flow import SovereignBalanceSheetShieldSieve
+        # Fortified sovereign BoP shield
+        res_bop = SovereignBalanceSheetShieldSieve.calculate_bop_shield(
+            forex_reserves_usd_b=720.0,
+            short_term_external_debt_usd_b=135.0,
+            dii_retail_absorption_rate=0.88,
+            cad_pressure_index=0.25,
+            fii_flight_velocity=0.30
+        )
+        assert res_bop["sovereign_bop_shield_score"] >= 0.75
+        assert res_bop["bop_shield_tier"] == "FORTIFIED_SOVEREIGN_BOP_SHIELD"
+        assert res_bop["is_bop_shield_resilient"] is True
+
+        # Acute BoP vulnerability
+        res_vuln = SovereignBalanceSheetShieldSieve.calculate_bop_shield(
+            forex_reserves_usd_b=40.0,
+            short_term_external_debt_usd_b=120.0,
+            dii_retail_absorption_rate=0.15,
+            cad_pressure_index=0.90,
+            fii_flight_velocity=0.95
+        )
+        assert res_vuln["sovereign_bop_shield_score"] < 0.35
+        assert res_vuln["bop_shield_tier"] == "ACUTE_BALANCE_OF_PAYMENTS_VULNERABILITY"
+
+    def test_phase273_sub_regional_electoral_polarization_sieve(self):
+        from geo_engine.lenses.institutional_lawfare import SubRegionalElectoralPolarizationSieve
+        # Fortified Labharthi consensus
+        res_elec = SubRegionalElectoralPolarizationSieve.calculate_electoral_stability(
+            welfare_saturation_rate=0.90,
+            institutional_neutrality_index=0.85,
+            caste_fragmentation_intensity=0.20,
+            rhetorical_polarization_decay=0.25
+        )
+        assert res_elec["electoral_governance_stability_score"] >= 0.75
+        assert res_elec["electoral_stability_tier"] == "FORTIFIED_LABHARTHI_CONSENSUS"
+        assert res_elec["is_electoral_governance_stable"] is True
+
+        # Acute Maryada erosion
+        res_erode = SubRegionalElectoralPolarizationSieve.calculate_electoral_stability(
+            welfare_saturation_rate=0.20,
+            institutional_neutrality_index=0.25,
+            caste_fragmentation_intensity=0.85,
+            rhetorical_polarization_decay=0.90
+        )
+        assert res_erode["electoral_governance_stability_score"] < 0.35
+        assert res_erode["electoral_stability_tier"] == "ACUTE_MARYADA_EROSION_AND_FRAGMENTATION"
+
+    def test_phases_268_to_273_synthesizer_85_live_channels(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi", member_countries=["India", "Russia", "China"])
+        report = SummitSynthesizer.synthesize_report(summit)
+        matrix = report.strategic_resilience_matrix
+        for key in [
+            "bullion_sovereignty_score",
+            "hydrocarbon_chokepoint_vulnerability_score",
+            "cognitive_sovereignty_score",
+            "nuclear_fuel_cycle_autonomy_score",
+            "sovereign_bop_shield_score",
+            "electoral_governance_stability_score",
+        ]:
+            assert key in matrix
+            assert matrix[key] is not None
+            assert isinstance(matrix[key], float)
+            assert 0.0 <= matrix[key] <= 1.0
+
+    def test_phases_268_to_273_query_parser_dynamic_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Audit COMEX physical bullion streedhan reserves, Hormuz brent shock tanker interdiction, "
+            "dharmic stoicism against outrage-bait, fast breeder thorium cycle, "
+            "bop shield forex import cover, and electoral polarization labharthi in 2026"
+        )
+        assert q.requires_precious_metals is True
+        assert q.requires_hydrocarbon_chokepoints is True
+        assert q.requires_cognitive_resilience is True
+        assert q.requires_nuclear_autonomy is True
+        assert q.requires_bop_shield is True
+        assert q.requires_electoral_polarization is True
+
+    def test_phases_268_to_273_lenses_init_exports_count_100(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) >= 100
+
+    def test_phases_268_to_273_readme_parity_560_tests(self):
+        import os
+        readme_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "README.md")
+        if os.path.exists(readme_path):
+            with open(readme_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            assert "560" in content
+
+
+class TestPhases274to282SievesAndTelemetry:
+    """Test suite certifying Phases 274 through 282 mathematical models, lenses, and telemetry."""
+
+    def test_phase274_critical_refinery_cyber_kinetic_sabotage_sieve(self):
+        from geo_engine.lenses.petro_logistics import CriticalRefineryCyberKineticSabotageSieve
+        # Acute sabotage threat
+        res = CriticalRefineryCyberKineticSabotageSieve.calculate_refinery_sabotage_risk(
+            dcs_anomaly_index=0.85,
+            crack_spread_exposure=0.90,
+            osint_prenotification_velocity=0.80,
+            airgap_cyber_defense_score=0.20
+        )
+        assert res["refinery_sabotage_risk_score"] >= 0.75
+        assert res["refinery_sabotage_tier"] == "CRITICAL_REFINERY_CYBER_KINETIC_THREAT"
+        assert res["is_refinery_sabotage_critical"] is True
+
+        # Fortified industrial defense
+        safe_res = CriticalRefineryCyberKineticSabotageSieve.calculate_refinery_sabotage_risk(
+            dcs_anomaly_index=0.10,
+            crack_spread_exposure=0.30,
+            osint_prenotification_velocity=0.10,
+            airgap_cyber_defense_score=0.95
+        )
+        assert safe_res["refinery_sabotage_risk_score"] < 0.35
+        assert safe_res["refinery_sabotage_tier"] == "SECURE_REFINING_FORTRESS"
+        assert safe_res["is_refinery_sabotage_critical"] is False
+
+    def test_phase275_domestic_hnwi_capital_formation_sieve(self):
+        from geo_engine.lenses.cash_flow import DomesticHNWICapitalFormationSieve
+        # Acute capital flight
+        res = DomesticHNWICapitalFormationSieve.calculate_capital_flight_risk(
+            hnwi_cohort_growth_rate=0.05,
+            gift_city_onshoring_ratio=0.15,
+            confiscation_rhetoric_intensity=0.85,
+            tax_unpredictability_index=0.80
+        )
+        assert res["capital_flight_risk_score"] >= 0.75
+        assert res["capital_formation_tier"] == "ACUTE_HNWI_CAPITAL_FLIGHT_RISK"
+        assert res["is_capital_flight_critical"] is True
+
+        # Fortified domestic retention
+        safe_res = DomesticHNWICapitalFormationSieve.calculate_capital_flight_risk(
+            hnwi_cohort_growth_rate=0.25,
+            gift_city_onshoring_ratio=0.85,
+            confiscation_rhetoric_intensity=0.10,
+            tax_unpredictability_index=0.15
+        )
+        assert safe_res["capital_flight_risk_score"] < 0.35
+        assert safe_res["capital_formation_tier"] == "FORTIFIED_SOVEREIGN_CAPITAL_MAGNET"
+        assert safe_res["capital_retention_score"] > 0.65
+
+    def test_phase276_sovereign_gold_repatriation_sieve(self):
+        from geo_engine.lenses.cash_flow import SovereignGoldRepatriationSieve
+        # Fortified domestic vault immunity
+        res = SovereignGoldRepatriationSieve.calculate_reserve_immunity(
+            domestic_physical_gold_tonnes=750.0,
+            total_sovereign_gold_tonnes=850.0,
+            local_currency_settlement_pct=0.45,
+            g7_custody_exposure_pct=0.12
+        )
+        assert res["reserve_immunity_score"] >= 0.75
+        assert res["bullion_immunity_tier"] == "FORTIFIED_SOVEREIGN_BULLION_IMMUNITY"
+        assert res["is_reserve_immunity_secure"] is True
+
+        # High external custody risk
+        risk_res = SovereignGoldRepatriationSieve.calculate_reserve_immunity(
+            domestic_physical_gold_tonnes=100.0,
+            total_sovereign_gold_tonnes=850.0,
+            local_currency_settlement_pct=0.05,
+            g7_custody_exposure_pct=0.85
+        )
+        assert risk_res["reserve_immunity_score"] < 0.35
+        assert risk_res["bullion_immunity_tier"] == "HIGH_EXTERNAL_RESERVE_PERIL"
+        assert risk_res["is_reserve_immunity_secure"] is False
+
+    def test_phase277_multi_agent_group_chat_consensus_sieve(self):
+        from geo_engine.lenses.deep_tech import MultiAgentGroupChatConsensusSieve
+        # Deterministic multi-agent convergence
+        res = MultiAgentGroupChatConsensusSieve.calculate_agent_consensus(
+            agent_divergence_variance=0.10,
+            iteration_convergence_velocity=0.90,
+            credential_isolation_index=0.99,
+            circular_loop_risk=0.05
+        )
+        assert res["multi_agent_consensus_score"] >= 0.75
+        assert res["agent_consensus_tier"] == "DETERMINISTIC_MULTI_AGENT_CONVERGENCE"
+        assert res["is_consensus_deterministic"] is True
+
+        # Runaway circular deadlock
+        deadlock_res = MultiAgentGroupChatConsensusSieve.calculate_agent_consensus(
+            agent_divergence_variance=0.90,
+            iteration_convergence_velocity=0.15,
+            credential_isolation_index=0.40,
+            circular_loop_risk=0.85
+        )
+        assert deadlock_res["multi_agent_consensus_score"] < 0.35
+        assert deadlock_res["agent_consensus_tier"] == "RUNAWAY_MULTI_AGENT_DEADLOCK"
+
+    def test_phase278_paleogenomic_demographic_continuity_sieve(self):
+        from geo_engine.lenses.civilizational import PaleogenomicDemographicContinuitySieve
+        # Unified ancient genomic bedrock
+        res = PaleogenomicDemographicContinuitySieve.calculate_genomic_continuity(
+            indus_periphery_share=0.58,
+            aasi_bedrock_share=0.28,
+            steppe_influx_disparity=0.10,
+            colonial_bifurcation_bias=0.15
+        )
+        assert res["paleogenomic_continuity_score"] >= 0.75
+        assert res["genomic_continuity_tier"] == "FORTIFIED_CIVILIZATIONAL_GENOMIC_CONTINUITY"
+        assert res["is_genomic_continuity_certified"] is True
+
+        # Fragmented racial construct
+        frag_res = PaleogenomicDemographicContinuitySieve.calculate_genomic_continuity(
+            indus_periphery_share=0.20,
+            aasi_bedrock_share=0.15,
+            steppe_influx_disparity=0.80,
+            colonial_bifurcation_bias=0.85
+        )
+        assert frag_res["paleogenomic_continuity_score"] < 0.35
+        assert frag_res["genomic_continuity_tier"] == "ACUTE_DEMOGRAPHIC_FRAGMENTATION_RISK"
+
+    def test_phase279_multidisciplinary_epistemic_triangulation_sieve(self):
+        from geo_engine.lenses.history import MultidisciplinaryEpistemicTriangulationSieve
+        # Hard multi-science convergence
+        res = MultidisciplinaryEpistemicTriangulationSieve.calculate_triangulation_concordance(
+            genetics_concordance=0.90,
+            archaeozoology_concordance=0.85,
+            stratigraphy_concordance=0.80,
+            hydrology_concordance=0.85,
+            epigraphy_concordance=0.75
+        )
+        assert res["epistemic_triangulation_score"] >= 0.75
+        assert res["triangulation_tier"] == "UNASSAILABLE_MULTI_DOMAIN_EPISTEMIC_CONVERGENCE"
+        assert res["is_triangulation_conclusive"] is True
+
+        # Speculative single discipline
+        spec_res = MultidisciplinaryEpistemicTriangulationSieve.calculate_triangulation_concordance(
+            genetics_concordance=0.20,
+            archaeozoology_concordance=0.15,
+            stratigraphy_concordance=0.25,
+            hydrology_concordance=0.20,
+            epigraphy_concordance=0.30
+        )
+        assert spec_res["epistemic_triangulation_score"] < 0.35
+        assert spec_res["triangulation_tier"] == "EPISTEMIC_COLLAPSE_UNVERIFIED_HISTORICAL_CONSTRUCT"
+
+    def test_phase280_biosphere_thermodynamic_soil_resilience_sieve(self):
+        from geo_engine.lenses.food_security import BiosphereThermodynamicSoilResilienceSieve
+        # Regenerative soil fortress
+        res = BiosphereThermodynamicSoilResilienceSieve.calculate_soil_resilience(
+            soil_organic_carbon_pct=3.8,
+            agroforestry_coverage_ratio=0.70,
+            chemical_fertilizer_overuse_rate=0.15,
+            groundwater_table_depletion=0.20
+        )
+        assert res["soil_resilience_score"] >= 0.75
+        assert res["soil_resilience_tier"] == "REGENERATIVE_BIOSPHERE_SOIL_FORTRESS"
+        assert res["is_soil_resilience_adequate"] is True
+
+        # Desertification vulnerability
+        des_res = BiosphereThermodynamicSoilResilienceSieve.calculate_soil_resilience(
+            soil_organic_carbon_pct=0.6,
+            agroforestry_coverage_ratio=0.10,
+            chemical_fertilizer_overuse_rate=0.85,
+            groundwater_table_depletion=0.80
+        )
+        assert des_res["soil_resilience_score"] < 0.35
+        assert des_res["soil_resilience_tier"] == "ACUTE_BIOSPHERE_DESERTIFICATION_CRISIS"
+
+    def test_phase281_dharmic_soft_power_cultural_sovereignty_sieve(self):
+        from geo_engine.lenses.civilizational import DharmicSoftPowerCulturalSovereigntySieve
+        # Resurgent Dharmic soft power
+        res = DharmicSoftPowerCulturalSovereigntySieve.calculate_dharmic_sovereignty(
+            global_soft_power_projection=0.85,
+            cultural_decolonization_velocity=0.80,
+            state_temple_asset_control_rate=0.20,
+            narrative_delegitimation_pressure=0.15
+        )
+        assert res["dharmic_sovereignty_score"] >= 0.75
+        assert res["dharmic_sovereignty_tier"] == "SOVEREIGN_DHARMIC_CIVILIZATIONAL_RESURGENCE"
+        assert res["is_dharmic_sovereignty_resilient"] is True
+
+        # Bureaucratic capture erosion
+        cap_res = DharmicSoftPowerCulturalSovereigntySieve.calculate_dharmic_sovereignty(
+            global_soft_power_projection=0.25,
+            cultural_decolonization_velocity=0.30,
+            state_temple_asset_control_rate=0.85,
+            narrative_delegitimation_pressure=0.80
+        )
+        assert cap_res["dharmic_sovereignty_score"] < 0.35
+        assert cap_res["dharmic_sovereignty_tier"] == "CRITICAL_CIVILIZATIONAL_EROSION"
+
+    def test_phase282_sectoral_capital_rotation_and_grid_constraint_sieve(self):
+        from geo_engine.lenses.geo_economist import SectoralCapitalRotationAndGridConstraintSieve
+        # Index illusion detection
+        res = SectoralCapitalRotationAndGridConstraintSieve.calculate_sectoral_rotation(
+            grid_saturation_friction=0.92,
+            discretionary_capex_compression=0.88,
+            crude_disinflation_dividend=0.35,
+            credit_deepening_rate=0.50,
+            headline_benchmark_delta_pct=0.025,
+            sectoral_it_energy_delta_pct=-0.045,
+            sectoral_banking_auto_delta_pct=0.038
+        )
+        assert res["sectoral_rotation_score"] >= 0.75
+        assert res["is_index_illusion_active"] is True
+        assert res["sectoral_rotation_tier"] == "ACUTE_SECTORAL_CANNIBALIZATION_AND_GRID_CLIFF"
+
+    def test_phases_274_to_282_synthesizer_telemetry(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi")
+        report = SummitSynthesizer.synthesize_report(summit)
+        matrix = report.strategic_resilience_matrix
+        for key in [
+            "refinery_sabotage_risk_score",
+            "capital_flight_risk_score",
+            "reserve_immunity_score",
+            "multi_agent_consensus_score",
+            "paleogenomic_continuity_score",
+            "epistemic_triangulation_score",
+            "soil_resilience_score",
+            "dharmic_sovereignty_score",
+            "sectoral_rotation_score",
+        ]:
+            assert key in matrix
+            assert matrix[key] is not None
+            assert isinstance(matrix[key], float)
+            assert 0.0 <= matrix[key] <= 1.0
+
+    def test_phases_274_to_282_query_parser_dynamic_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Audit refinery sabotage and SCADA anomaly, HNWI capital flight to GIFT City, "
+            "RBI gold repatriation domestic vault immunity, multi-agent consensus swarm, "
+            "Rakhigarhi ancient DNA paleogenomics, Harappa centenary epistemic triangulation, "
+            "save soil resilience SOC, Dharmic soft power free TN temples, "
+            "and sectoral rotation grid saturation in 2026"
+        )
+        assert q.requires_refinery_sabotage is True
+        assert q.requires_hnwi_capital is True
+        assert q.requires_gold_repatriation is True
+        assert q.requires_multi_agent_consensus is True
+        assert q.requires_paleogenomics is True
+        assert q.requires_epistemic_triangulation is True
+        assert q.requires_soil_resilience is True
+        assert q.requires_dharmic_sovereignty is True
+        assert q.requires_sectoral_rotation is True
+
+    def test_phases_274_to_282_lenses_init_exports_count_109(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) == 109

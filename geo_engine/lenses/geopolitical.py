@@ -167,6 +167,19 @@ class GeopoliticalLens:
         )
         metrics.update(_tri_result)
 
+        # Phase 267: Wire DiasporaSanctuaryLawfareSieve
+        geo_meta = getattr(summit, "metadata", {}) or {}
+        diaspora_params = geo_meta.get("diaspora_sanctuary", {}) if isinstance(geo_meta, dict) else {}
+        _diaspora_res = DiasporaSanctuaryLawfareSieve.calculate_sanctuary_threat(
+            host_tolerance_index=diaspora_params.get("host_tolerance_index", 0.55),
+            illicit_remittance_flow=diaspora_params.get("illicit_remittance_flow", 0.45),
+            extradition_coercion_depth=diaspora_params.get("extradition_coercion_depth", 0.50),
+            bilateral_diplomatic_leverage=diaspora_params.get("bilateral_diplomatic_leverage", 0.60),
+        )
+        metrics["transnational_extremism_threat_score"] = _diaspora_res["transnational_extremism_threat_score"]
+        metrics["host_sanctuary_lawfare_exposure"] = _diaspora_res["host_sanctuary_lawfare_exposure"]
+        metrics["diaspora_sanctuary_tier"] = _diaspora_res["diaspora_sanctuary_tier"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -243,4 +256,82 @@ class TripartiteCoherenceSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_tripartite_coherent": score >= 0.60
+        }
+
+
+class DiasporaSanctuaryLawfareSieve:
+    """
+    Phase 267: Diaspora Sanctuary Lawfare Sieve.
+    Quantifies national security exposure to transnational extremist safe havens in Western partner nations
+    (e.g., Canada, UK, US), host government political vote-bank tolerance under 'free speech' pretexts,
+    illicit diaspora charity remittance diversion, counterbalanced by reciprocal extradition coercion
+    and bilateral trade/consular conditionality.
+    """
+
+    @classmethod
+    def calculate_sanctuary_threat(
+        cls,
+        host_tolerance_index: float = 0.55,
+        illicit_remittance_flow: float = 0.45,
+        extradition_coercion_depth: float = 0.50,
+        bilateral_diplomatic_leverage: float = 0.60,
+    ) -> Dict[str, Any]:
+        """
+        Calculates transnational extremist sanctuary threat score using calibrated logistic sigmoid:
+            z = 2.8 * HostTolerance + 2.4 * Remittances - 2.6 * Extradition - 2.2 * Leverage - 1.0
+            threat = 1 / (1 + exp(-z))
+        """
+        import math
+        host = max(0.0, min(1.0, float(host_tolerance_index)))
+        remit = max(0.0, min(1.0, float(illicit_remittance_flow)))
+        extra = max(0.0, min(1.0, float(extradition_coercion_depth)))
+        lev = max(0.0, min(1.0, float(bilateral_diplomatic_leverage)))
+
+        z = 2.8 * host + 2.4 * remit - 2.6 * extra - 2.2 * lev - 1.0
+        threat = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if threat >= 0.75:
+            tier = "ACUTE_TRANSNATIONAL_EXTREMIST_SANCTUARY"
+            verdict = "HOST_STATE_SHIELDING_SUBVERSIVE_NETWORKS"
+            rationale = (
+                f"Acute sanctuary threat ({threat:.4f}): Host nation political tolerance ({host:.2f}) and dark remittance "
+                f"flows ({remit:.2f}) shield anti-India violent extremism; mandates aggressive consular/economic reciprocity."
+            )
+        elif threat >= 0.55:
+            tier = "ELEVATED_HOST_STATE_SHIELDING"
+            verdict = "DIPLOMATIC_INERTIA_IMPEDING_EXTRADITION"
+            rationale = (
+                f"Elevated shielding ({threat:.4f}): Host government relies on procedural lawfare and free-speech pretexts "
+                f"to stall red-corner notices and extradition dossiers."
+            )
+        elif threat >= 0.35:
+            tier = "CONTESTED_EXTRADITION_CORRIDORS"
+            verdict = "BALANCED_CONSULAR_CONTESTATION"
+            rationale = (
+                f"Contested corridors ({threat:.4f}): Diplomatic leverage ({lev:.2f}) yields selective security coordination "
+                f"amid continuing diaspora political friction."
+            )
+        else:
+            tier = "FORTIFIED_RECIPROCAL_CONSULAR_SECURITY"
+            verdict = "EFFECTIVE_TRANSNATIONAL_DETERRENCE_ACTIVE"
+            rationale = (
+                f"Fortified security ({threat:.4f}): Assertive extradition leverage ({extra:.2f}) and mutual intelligence "
+                f"interdiction neutralize external sanctuary operations."
+            )
+
+        exposure = round(min(1.0, host * 1.25), 4)
+        reciprocal_idx = round(min(1.0, extra * 0.85 + lev * 0.15), 4)
+
+        return {
+            "transnational_extremism_threat_score": threat,
+            "host_tolerance_index": round(host, 4),
+            "illicit_remittance_flow": round(remit, 4),
+            "extradition_coercion_depth": round(extra, 4),
+            "bilateral_diplomatic_leverage": round(lev, 4),
+            "host_sanctuary_lawfare_exposure": exposure,
+            "reciprocal_diplomatic_pressure_index": reciprocal_idx,
+            "diaspora_sanctuary_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_sanctuary_coercive": threat >= 0.55,
         }

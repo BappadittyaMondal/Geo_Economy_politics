@@ -404,6 +404,31 @@ class MilitaryReadinessLens:
         )
         metrics.update(_aero_result)
 
+        # Phase 248: Wire KineticDiversionaryEscalationSieve
+        kde_meta = getattr(event, "metadata", {}) or {}
+        kde_params = kde_meta.get("kinetic_diversionary_escalation", {}) if isinstance(kde_meta, dict) else {}
+        _kde_result = KineticDiversionaryEscalationSieve.calculate_diversionary_escalation(
+            coalition_majority_deficit=kde_params.get("coalition_majority_deficit", metrics.get("coalition_majority_deficit", 0.55)),
+            judicial_prosecution_vulnerability=kde_params.get("judicial_prosecution_vulnerability", metrics.get("judicial_prosecution_vulnerability", 0.60)),
+            security_establishment_friction=kde_params.get("security_establishment_friction", metrics.get("security_establishment_friction", 0.50)),
+            diplomatic_offramp_pressure=kde_params.get("diplomatic_offramp_pressure", metrics.get("diplomatic_offramp_pressure", 0.40))
+        )
+        metrics["diversionary_escalation_risk"] = _kde_result["diversionary_escalation_risk"]
+        metrics["diversionary_escalation_tier"] = _kde_result["diversionary_escalation_tier"]
+
+        # Phase 260: Wire SovereignPNTNavigationAutonomySieve
+        pnt_meta = getattr(event, "metadata", {}) or {}
+        pnt_params = pnt_meta.get("pnt_navigation", {}) if isinstance(pnt_meta, dict) else {}
+        _pnt_result = SovereignPNTNavigationAutonomySieve.calculate_pnt_autonomy(
+            active_satellites_in_view=pnt_params.get("active_satellites_in_view", 7.0),
+            rubidium_clock_drift_metric=pnt_params.get("rubidium_clock_drift_metric", 0.05),
+            ew_jamming_intensity=pnt_params.get("ew_jamming_intensity", 0.20),
+            regional_coverage_ratio=pnt_params.get("regional_coverage_ratio", 1.0),
+        )
+        metrics["pnt_sovereignty_score"] = _pnt_result["pnt_sovereignty_score"]
+        metrics["pnt_sovereignty_tier"] = _pnt_result["pnt_sovereignty_tier"]
+        metrics["missile_cep_assurance"] = _pnt_result["missile_cep_assurance"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -479,4 +504,154 @@ class HighAltitudeAeroDefenseSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_air_dominance_assured": score >= 0.70
+        }
+
+
+class KineticDiversionaryEscalationSieve:
+    """
+    Phase 248: Quantifies when an executive leader's domestic parliamentary coalition fragility
+    (e.g., 53/120 Knesset seats) and judicial/prosecution exposure create a structural imperative
+    to sustain and expand external kinetic conflict (diversionary war theory).
+    """
+
+    @classmethod
+    def calculate_diversionary_escalation(
+        cls,
+        coalition_majority_deficit: float = 0.55,
+        judicial_prosecution_vulnerability: float = 0.60,
+        security_establishment_friction: float = 0.50,
+        diplomatic_offramp_pressure: float = 0.40
+    ) -> Dict[str, Any]:
+        """
+        Calculates diversionary escalation risk using bounded logistic sigmoid:
+            z = 3.0*CMD + 2.6*JPV + 2.2*SEF - 2.5*DOP - 0.5
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        cmd = max(0.0, min(1.0, float(coalition_majority_deficit)))
+        jpv = max(0.0, min(1.0, float(judicial_prosecution_vulnerability)))
+        sef = max(0.0, min(1.0, float(security_establishment_friction)))
+        dop = max(0.0, min(1.0, float(diplomatic_offramp_pressure)))
+
+        z = 3.0 * cmd + 2.6 * jpv + 2.2 * sef - 2.5 * dop - 0.5
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "ACUTE_DIVERSIONARY_ESCALATION_TRAP"
+            verdict = "DOMESTIC_SURVIVAL_DRIVING_EXTERNAL_WAR_EXPANSION"
+            rationale = (
+                f"Acute diversionary escalation trap ({score:.4f}): Severe legislative deficit ({cmd:.2f}) and judicial "
+                f"prosecution vulnerability ({jpv:.2f}) compel political leadership to sustain active kinetic confrontation "
+                f"despite institutional security establishment friction ({sef:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ELEVATED_DOMESTIC_SURVIVAL_PRESSURE"
+            verdict = "TACTICAL_ESCALATION_TO_DEFLECT_PARLIAMENTARY_DISSOLUTION"
+            rationale = (
+                f"Elevated survival pressure ({score:.4f}): Narrow majority margin incentivizes periodic cross-border strikes "
+                f"to suppress internal coalition mutiny."
+            )
+        elif score >= 0.35:
+            tier = "CONTROLLED_PARLIAMENTARY_FRICTION"
+            verdict = "MANAGEABLE_EXECUTIVE_POLITICAL_TENSION"
+            rationale = (
+                f"Controlled parliamentary friction ({score:.4f}): Coalition stability allows conventional strategic calculus "
+                f"with moderate diplomatic off-ramp feasibility ({dop:.2f})."
+            )
+        else:
+            tier = "STABLE_EXECUTIVE_DETERRENCE"
+            verdict = "UNCOMPROMISED_SOVEREIGN_STRATEGIC_COMMAND"
+            rationale = (
+                f"Stable executive deterrence ({score:.4f}): Clear legislative majority and institutional consensus "
+                f"decouple kinetic operations from domestic political survival."
+            )
+
+        return {
+            "diversionary_escalation_risk": score,
+            "coalition_majority_deficit": round(cmd, 4),
+            "judicial_prosecution_vulnerability": round(jpv, 4),
+            "security_establishment_friction": round(sef, 4),
+            "diplomatic_offramp_pressure": round(dop, 4),
+            "diversionary_escalation_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_diversionary_risk_acute": score >= 0.70
+        }
+
+
+
+class SovereignPNTNavigationAutonomySieve:
+    """
+    Phase 260: Evaluates Space PNT (Positioning, Navigation, and Timing) sovereignty,
+    NavIC/IRNSS operational independence, atomic clock (Rubidium) stability, electronic warfare
+    jamming resilience along border sectors (LAC/LOC), and missile CEP (Circular Error Probable) assurance.
+    """
+
+    @classmethod
+    def calculate_pnt_autonomy(
+        cls,
+        active_satellites_in_view: float = 7.0,
+        rubidium_clock_drift_metric: float = 0.05,
+        ew_jamming_intensity: float = 0.20,
+        regional_coverage_ratio: float = 1.0,
+    ) -> Dict[str, Any]:
+        """
+        Calculates PNT sovereignty and guidance assurance score using calibrated logistic sigmoid:
+            z = 2.5 * (N_active / 4.0) + 2.0 * (1.0 - Drift) - 2.8 * Jamming + 1.8 * Coverage - 2.5
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        n_act = max(0.0, float(active_satellites_in_view))
+        drift = max(0.0, min(1.0, float(rubidium_clock_drift_metric)))
+        jam = max(0.0, min(1.0, float(ew_jamming_intensity)))
+        cov = max(0.0, min(1.0, float(regional_coverage_ratio)))
+
+        norm_n = min(2.0, n_act / 4.0)
+        z = 2.5 * norm_n + 2.0 * (1.0 - drift) - 2.8 * jam + 1.8 * cov - 2.5
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "FORTIFIED_PNT_SOVEREIGNTY"
+            verdict = "UNCOMPROMISED_INDEPENDENT_PNT_LOCK"
+            rationale = (
+                f"Fortified PNT sovereignty ({score:.4f}): Robust NavIC constellation geometry ({n_act:.0f} satellites in view), "
+                f"space-grade rubidium clock stability (drift={drift:.2f}), and EW resilience assure precision standoff guidance."
+            )
+        elif score >= 0.60:
+            tier = "OPERATIONAL_REGIONAL_PNT_LOCK"
+            verdict = "RELIABLE_THEATER_NAVIGATION_WITH_MODERATE_EW_MARGIN"
+            rationale = (
+                f"Operational regional lock ({score:.4f}): Adequate satellite visibility and acceptable clock drift "
+                f"provide reliable guidance for tactical munitions with manageable jamming vulnerability ({jam:.2f})."
+            )
+        elif score >= 0.40:
+            tier = "CONTESTED_PNT_ENVIRONMENT"
+            verdict = "SIGNIFICANT_GPS_DENIAL_AND_MISSILE_CEP_DEGRADATION"
+            rationale = (
+                f"Contested PNT environment ({score:.4f}): Elevated electronic warfare jamming ({jam:.2f}) or constellation "
+                f"gaps degrade terminal guidance accuracy across forward theater sectors."
+            )
+        else:
+            tier = "SEVERE_PNT_DENIAL_AND_GUIDANCE_FAILURE"
+            verdict = "CRITICAL_PNT_VULNERABILITY_STANDOFF_WEAPON_BLINDING"
+            rationale = (
+                f"Severe PNT denial ({score:.4f}): Insufficient operational satellites or severe atomic standard drift "
+                f"forces fallback to vulnerable foreign constellations or unguided ballistic modes."
+            )
+
+        cep_assurance = round(score * 0.95, 4)
+        dep_risk = round(max(0.0, 1.0 - score), 4)
+
+        return {
+            "pnt_sovereignty_score": score,
+            "active_satellites_in_view": round(n_act, 1),
+            "rubidium_clock_drift_metric": round(drift, 4),
+            "ew_jamming_intensity": round(jam, 4),
+            "regional_coverage_ratio": round(cov, 4),
+            "missile_cep_assurance": cep_assurance,
+            "foreign_hardware_dependency_risk": dep_risk,
+            "pnt_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_pnt_sovereign": score >= 0.60,
         }

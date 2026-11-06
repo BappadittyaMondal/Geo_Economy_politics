@@ -308,6 +308,125 @@ def render_full_report(
                 f"[bold bright_yellow]Astro-Political Extra-Terrestrial Sovereignty:[/bold bright_yellow] {as_sc:.2f}  |  "
                 f"[bold bright_blue]Riparian Disaster Resilience:[/bold bright_blue] {rr_sc:.2f}"
             )
+        if (
+            res.get("veto_entrapment_risk") is not None
+            or res.get("fissile_chokepoint_vulnerability") is not None
+            or res.get("sovereign_longevity_score") is not None
+            or res.get("epistemic_smuggling_risk") is not None
+            or res.get("hostage_coercion_leverage") is not None
+            or res.get("sovereign_default_contagion_risk") is not None
+        ):
+            ve_sc = (res.get("veto_entrapment_risk") or 0.0)
+            fc_sc = (res.get("fissile_chokepoint_vulnerability") or 0.0)
+            lo_sc = (res.get("sovereign_longevity_score") or 0.0)
+            es_sc = (res.get("epistemic_smuggling_risk") or 0.0)
+            hc_sc = (res.get("hostage_coercion_leverage") or 0.0)
+            sd_sc = (res.get("sovereign_default_contagion_risk") or 0.0)
+            res_text += (
+                f"\n[bold red]UNSC Veto Entrapment Risk:[/bold red] {ve_sc:.2f}  |  "
+                f"[bold yellow]Fissile Chokepoint Vulnerability:[/bold yellow] {fc_sc:.2f}  |  "
+                f"[bold green]Sovereign Longevity Dividend:[/bold green] {lo_sc:.2f}\n"
+                f"[bold magenta]Epistemic Smuggling Risk:[/bold magenta] {es_sc:.2f}  |  "
+                f"[bold cyan]Hostage Coercion Leverage:[/bold cyan] {hc_sc:.2f}  |  "
+                f"[bold red]Sovereign Default Contagion:[/bold red] {sd_sc:.2f}"
+            )
+        if (
+            res.get("digital_enclosure_trap_score") is not None
+            or res.get("diversionary_escalation_risk") is not None
+        ):
+            de_sc = (res.get("digital_enclosure_trap_score") or 0.0)
+            de_risk = (res.get("diversionary_escalation_risk") or 0.0)
+            res_text += (
+                f"\n[bold magenta]Digital Enclosure Trap Score:[/bold magenta] {de_sc:.2f}  |  "
+                f"[bold red]Kinetic Diversionary Escalation Risk:[/bold red] {de_risk:.2f}"
+            )
+        if any(
+            res.get(k) is not None
+            for k in [
+                "cultural_grayzone_risk",
+                "partisan_blowback_risk",
+                "abyssal_sovereignty_score",
+                "trophic_cascade_risk",
+                "cognitive_enclosure_risk",
+                "bullion_dislocation_risk",
+                "chronological_validity_score",
+            ]
+        ):
+            cgr = (res.get("cultural_grayzone_risk") or 0.0)
+            pbr = (res.get("partisan_blowback_risk") or 0.0)
+            ass = (res.get("abyssal_sovereignty_score") or 0.0)
+            tcr = (res.get("trophic_cascade_risk") or 0.0)
+            cer = (res.get("cognitive_enclosure_risk") or 0.0)
+            bdr = (res.get("bullion_dislocation_risk") or 0.0)
+            cvs = (res.get("chronological_validity_score") or 0.0)
+            res_text += (
+                f"\n[bold yellow]Phases 253-259 Strategic Telemetry:[/bold yellow]\n"
+                f"  [cyan]Cultural Grayzone Risk:[/cyan] {cgr:.2f}  |  "
+                f"[red]Insurgency Blowback Risk:[/red] {pbr:.2f}  |  "
+                f"[blue]Abyssal Sovereignty Score:[/blue] {ass:.2f}\n"
+                f"  [green]Trophic Cascade Risk:[/green] {tcr:.2f}  |  "
+                f"[magenta]Cognitive Enclosure Risk:[/magenta] {cer:.2f}  |  "
+                f"[yellow]Bullion Dislocation Risk:[/yellow] {bdr:.2f}\n"
+                f"  [bold white]Archaeo-Astronomical Chronology Validity:[/bold white] {cvs:.2f}"
+            )
+        if any(
+            res.get(k) is not None
+            for k in [
+                "pnt_sovereignty_score",
+                "ai_regulatory_moat_risk",
+                "asymmetric_attrition_threat",
+                "textual_fidelity_score",
+                "cognitive_subversion_risk",
+                "hydro_weaponization_resilience",
+                "sacred_heritage_restitution_score",
+                "transnational_extremism_threat_score",
+            ]
+        ):
+            pnt = (res.get("pnt_sovereignty_score") or 0.0)
+            aim = (res.get("ai_regulatory_moat_risk") or 0.0)
+            aat = (res.get("asymmetric_attrition_threat") or 0.0)
+            tfs = (res.get("textual_fidelity_score") or 0.0)
+            csr = (res.get("cognitive_subversion_risk") or 0.0)
+            hwr = (res.get("hydro_weaponization_resilience") or 0.0)
+            shr = (res.get("sacred_heritage_restitution_score") or 0.0)
+            tet = (res.get("transnational_extremism_threat_score") or 0.0)
+            res_text += (
+                f"\n[bold yellow]Phases 260-267 Strategic Telemetry:[/bold yellow]\n"
+                f"  [cyan]PNT Autonomy Score:[/cyan] {pnt:.2f}  |  "
+                f"[magenta]AI Regulatory Moat Risk:[/magenta] {aim:.2f}  |  "
+                f"[red]Proxy Warfare Threat:[/red] {aat:.2f}\n"
+                f"  [green]Sanskrit Textual Fidelity:[/green] {tfs:.2f}  |  "
+                f"[yellow]Media Cognitive Capture Risk:[/yellow] {csr:.2f}  |  "
+                f"[blue]Hydro Weaponization Resilience:[/blue] {hwr:.2f}\n"
+                f"  [bold cyan]Sacred Murti Restitution:[/bold cyan] {shr:.2f}  |  "
+                f"[bold red]Diaspora Sanctuary Threat:[/bold red] {tet:.2f}"
+            )
+        if any(
+            res.get(k) is not None
+            for k in [
+                "bullion_sovereignty_score",
+                "hydrocarbon_chokepoint_vulnerability_score",
+                "cognitive_sovereignty_score",
+                "nuclear_fuel_cycle_autonomy_score",
+                "sovereign_bop_shield_score",
+                "electoral_governance_stability_score",
+            ]
+        ):
+            bss = (res.get("bullion_sovereignty_score") or 0.0)
+            hcv = (res.get("hydrocarbon_chokepoint_vulnerability_score") or 0.0)
+            css = (res.get("cognitive_sovereignty_score") or 0.0)
+            nfa = (res.get("nuclear_fuel_cycle_autonomy_score") or 0.0)
+            bop = (res.get("sovereign_bop_shield_score") or 0.0)
+            egs = (res.get("electoral_governance_stability_score") or 0.0)
+            res_text += (
+                f"\n[bold yellow]Phases 268-273 Strategic Telemetry:[/bold yellow]\n"
+                f"  [bold yellow]Bullion Physical Sovereignty:[/bold yellow] {bss:.2f}  |  "
+                f"[bold red]Hydrocarbon Chokepoint Risk:[/bold red] {hcv:.2f}  |  "
+                f"[bold green]Cognitive Cortical Immunity:[/bold green] {css:.2f}\n"
+                f"  [bold cyan]Fast Breeder Nuclear Autonomy:[/bold cyan] {nfa:.2f}  |  "
+                f"[bold blue]Sovereign BoP Shield:[/bold blue] {bop:.2f}  |  "
+                f"[bold magenta]Electoral Stability Consensus:[/bold magenta] {egs:.2f}"
+            )
         console.print("\n[bold yellow]=== STRATEGIC RESILIENCE & ESCALATION READINESS (LENSES 13-20) ===[/bold yellow]")
         console.print(Panel(res_text, title="Physical Caloric, Military, Subsea & Orbital Sovereignty Matrix", border_style="cyan"))
 

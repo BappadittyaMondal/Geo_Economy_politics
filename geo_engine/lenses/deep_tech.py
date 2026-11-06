@@ -1,3 +1,4 @@
+from .geo_economist import SectoralCapitalRotationAndGridConstraintSieve
 """
 Lens 1: Deep-Tech & Quantitative Modeling Lens.
 Applies Bayesian confidence discounting, knowledge graph entity resolution,
@@ -338,6 +339,70 @@ class DeepTechLens:
             metrics["pqc_vulnerability_score"] = pqc_res["vulnerability_score"]
             metrics["pqc_tier"] = pqc_res["pqc_tier"]
 
+        # Phase 242: Wire SovereignLongevityDemographySieve
+        _sl_res = SovereignLongevityDemographySieve.calculate_longevity_dividend(
+            healthspan_extension_years=metrics.get("healthspan_extension_years", 15.0),
+            cognitive_retention_score=metrics.get("cognitive_retention_score", 0.85),
+            entitlement_fiscal_burden=metrics.get("entitlement_fiscal_burden", 0.60),
+            biological_stratification_index=metrics.get("biological_stratification_index", 0.50),
+        )
+        metrics.update(_sl_res)
+
+        # Phase 257: Wire CognitiveSovereigntyAntahkaranaSieve
+        _cog_res = CognitiveSovereigntyAntahkaranaSieve.calculate_cognitive_enclosure_risk(
+            foreign_alignment_bias=float(metrics.get("foreign_alignment_bias", 0.5)),
+            synthetic_empathy_manipulation=float(metrics.get("synthetic_empathy_manipulation", 0.4)),
+            algorithmic_dependency_ratio=float(metrics.get("algorithmic_dependency_ratio", 0.6)),
+            sovereign_epistemic_grounding=float(metrics.get("sovereign_epistemic_grounding", 0.3)),
+        )
+        metrics.update(_cog_res)
+
+        # Phase 261: Wire FrontierAIRegulatoryCaptureSieve
+        ai_meta = getattr(summit, "metadata", {}) or {}
+        ai_params = ai_meta.get("ai_governance", {}) if isinstance(ai_meta, dict) else {}
+        _ai_res = FrontierAIRegulatoryCaptureSieve.calculate_regulatory_capture(
+            compliance_moat_intensity=ai_params.get("compliance_moat_intensity", 0.50),
+            flop_threshold_penalty_index=ai_params.get("flop_threshold_penalty_index", 0.40),
+            open_source_resilience_ratio=ai_params.get("open_source_resilience_ratio", 0.60),
+        )
+        metrics["ai_regulatory_moat_risk"] = _ai_res["ai_regulatory_moat_risk"]
+        metrics["indian_it_margin_vulnerability"] = _ai_res["indian_it_margin_vulnerability"]
+        metrics["sovereign_compute_urgency"] = _ai_res["sovereign_compute_urgency"]
+        metrics["ai_regulatory_capture_tier"] = _ai_res["ai_regulatory_capture_tier"]
+        # Phase 271: Wire FastBreederNuclearFuelAutonomySieve
+        tech_meta = getattr(summit, "metadata", {}) or {}
+        nuc_params = tech_meta.get("nuclear_autonomy", {}) if isinstance(tech_meta, dict) else {}
+        _nuc_res = FastBreederNuclearFuelAutonomySieve.calculate_nuclear_autonomy(
+            breeding_ratio=nuc_params.get("breeding_ratio", 1.05),
+            thorium_inventory_tonnes=nuc_params.get("thorium_inventory_tonnes", 300000.0),
+            uranium_annual_import_need_tonnes=nuc_params.get("uranium_annual_import_need_tonnes", 3000.0),
+            cartel_sanction_drag_index=nuc_params.get("cartel_sanction_drag_index", 0.35),
+            smr_deployment_capacity_mwe=nuc_params.get("smr_deployment_capacity_mwe", 440.0),
+        )
+        metrics.update(_nuc_res)
+
+
+        # Phase 277: Wire MultiAgentGroupChatConsensusSieve
+        agent_params = tech_meta.get("agent_orchestration", {}) if isinstance(tech_meta, dict) else {}
+        _agent_res = MultiAgentGroupChatConsensusSieve.calculate_agent_consensus(
+            agent_divergence_variance=agent_params.get("agent_divergence_variance", 0.25),
+            iteration_convergence_velocity=agent_params.get("iteration_convergence_velocity", 0.70),
+            credential_isolation_index=agent_params.get("credential_isolation_index", 0.95),
+            circular_loop_risk=agent_params.get("circular_loop_risk", 0.20),
+        )
+        metrics.update(_agent_res)
+        # Phase 282: Wire SectoralCapitalRotationAndGridConstraintSieve in DeepTechLens
+        rot_params_dt = tech_meta.get("sectoral_rotation", {}) if isinstance(tech_meta, dict) else {}
+        _dt_rot = SectoralCapitalRotationAndGridConstraintSieve.calculate_sectoral_rotation(
+            grid_saturation_friction=rot_params_dt.get("grid_saturation_friction", 0.70),
+            discretionary_capex_compression=rot_params_dt.get("discretionary_capex_compression", 0.65),
+            crude_disinflation_dividend=rot_params_dt.get("crude_disinflation_dividend", 0.55),
+            credit_deepening_rate=rot_params_dt.get("credit_deepening_rate", 0.75),
+            headline_benchmark_delta_pct=rot_params_dt.get("headline_benchmark_delta_pct", 0.025),
+            sectoral_it_energy_delta_pct=rot_params_dt.get("sectoral_it_energy_delta_pct", -0.045),
+            sectoral_banking_auto_delta_pct=rot_params_dt.get("sectoral_banking_auto_delta_pct", 0.038),
+        )
+        metrics.update({f"tech_{k}": v for k, v in _dt_rot.items()})
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -346,3 +411,302 @@ class DeepTechLens:
             key_findings=findings,
             hard_metrics=metrics
         )
+
+
+class SovereignLongevityDemographySieve:
+    """
+    Phase 242: Sovereign Longevity Demography & Epigenetic Healthspan Sieve.
+    Quantifies the economic and cognitive dividend of cellular senescence clearance (senolytics),
+    epigenetic reprogramming (Yamanaka factors), and healthspan extension on national demographic resilience.
+    Formula:
+        longevity_ratio = (min(1.0, healthspan_extension_years / 30.0) * cognitive_retention_score) /
+                          max(0.15, entitlement_fiscal_burden * biological_stratification_index)
+        z = 2.4 * (longevity_ratio - 1.0)
+        sovereign_longevity_score = 1.0 / (1.0 + exp(-z))
+    """
+    @classmethod
+    def calculate_longevity_dividend(
+        cls,
+        healthspan_extension_years: float = 15.0,
+        cognitive_retention_score: float = 0.85,
+        entitlement_fiscal_burden: float = 0.60,
+        biological_stratification_index: float = 0.50
+    ) -> Dict[str, Any]:
+        h_ext = max(0.0, float(healthspan_extension_years))
+        c_ret = max(0.0, min(1.0, float(cognitive_retention_score)))
+        e_bur = max(0.0, min(1.0, float(entitlement_fiscal_burden)))
+        b_str = max(0.0, min(1.0, float(biological_stratification_index)))
+
+        numerator = min(1.0, h_ext / 30.0) * c_ret
+        denominator = max(0.15, e_bur * b_str)
+        longevity_ratio = numerator / denominator
+        z = 2.4 * (longevity_ratio - 1.0)
+        score = round(1.0 / (1.0 + math.exp(-max(-20.0, min(20.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "FORTIFIED_COGNITIVE_LONGEVITY_DIVIDEND"
+            verdict = "RADICAL_SENESCENCE_DEFENSE_EXPANSION"
+            rationale = (
+                f"Fortified longevity dividend ({score:.4f}): Healthspan extension ({h_ext:.1f} yrs) and cognitive retention "
+                f"successfully transform aging demographics into compounding intellectual capital."
+            )
+        elif score >= 0.60:
+            tier = "RESILIENT_HEALTHSPAN_EXPANSION"
+            verdict = "STABLE_BIOTECH_ENTITLEMENT_MITIGATION"
+            rationale = (
+                f"Resilient expansion ({score:.4f}): Controlled entitlement burdens and expanding silver workforce "
+                f"productivity buffer demographic transitions."
+            )
+        elif score >= 0.40:
+            tier = "BURDENED_GERONTOCRATIC_TRANSITION"
+            verdict = "ELEVATED_ENTITLEMENT_FISCAL_PRESSURE"
+            rationale = (
+                f"Burdened transition ({score:.4f}): High entitlement healthcare liabilities outpace longevity "
+                f"therapeutic adoption."
+            )
+        else:
+            tier = "TERMINAL_DEMOGRAPHIC_INVERSION_COLLAPSE"
+            verdict = "CRITICAL_POPULATION_AGING_BANKRUPTCY"
+            rationale = (
+                f"Terminal demographic crisis ({score:.4f}): Severe aging, cognitive capital depletion, and "
+                f"unpayable sovereign entitlement burdens."
+            )
+
+        return {
+            "sovereign_longevity_score": score,
+            "healthspan_extension_years": round(h_ext, 4),
+            "cognitive_retention_score": round(c_ret, 4),
+            "entitlement_fiscal_burden": round(e_bur, 4),
+            "biological_stratification_index": round(b_str, 4),
+            "longevity_dividend_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_longevity_dividend_positive": score >= 0.60
+        }
+
+
+class CognitiveSovereigntyAntahkaranaSieve:
+    """
+    Phase 257: Cognitive Sovereignty Antahkarana Sieve (Algorithmic Enclosure Defense).
+    Models sovereign vulnerability to foreign proprietary foundation AI models (e.g., OpenAI, Anthropic)
+    hardcoded with Western post-modern utilitarian ethics, covert epistemic distortion, synthetic empathy
+    manipulation, and algorithmic cognitive colonization vs indigenous epistemic grounding (IKS).
+    """
+
+    @staticmethod
+    def calculate_cognitive_enclosure_risk(
+        foreign_alignment_bias: float = 0.5,
+        synthetic_empathy_manipulation: float = 0.4,
+        algorithmic_dependency_ratio: float = 0.6,
+        sovereign_epistemic_grounding: float = 0.3,
+    ) -> Dict[str, Any]:
+        fab = min(1.0, max(0.0, float(foreign_alignment_bias)))
+        sem = min(1.0, max(0.0, float(synthetic_empathy_manipulation)))
+        adr = min(1.0, max(0.0, float(algorithmic_dependency_ratio)))
+        seg = min(1.0, max(0.0, float(sovereign_epistemic_grounding)))
+
+        z = (2.8 * fab + 2.5 * sem + 2.2 * adr - 3.0 * seg - 0.8)
+        risk = 1.0 / (1.0 + math.exp(-z))
+        risk = round(min(1.0, max(0.0, risk)), 4)
+
+        if risk >= 0.75:
+            tier = "CRITICAL_COGNITIVE_COLONIZATION_RISK"
+            verdict = "SEVERE_ALGORITHMIC_EPISTEMIC_CAPTIVITY"
+        elif risk >= 0.55:
+            tier = "ELEVATED_EPISTEMIC_DEPENDENCY"
+            verdict = "FOREIGN_AI_VALUE_SYSTEM_PENETRATION"
+        elif risk >= 0.35:
+            tier = "CONTROLLED_ALGORITHMIC_EXPOSURE"
+            verdict = "MODERATE_COGNITIVE_DEPENDENCY_CONTAINED"
+        else:
+            tier = "FORTIFIED_SOVEREIGN_COGNITIVE_AUTONOMY"
+            verdict = "RESILIENT_INDIGENOUS_AI_GROUNDING"
+
+        return {
+            "cognitive_enclosure_risk": risk,
+            "cognitive_enclosure_tier": tier,
+            "cognitive_enclosure_verdict": verdict,
+            "foreign_alignment_bias": fab,
+            "synthetic_empathy_manipulation": sem,
+            "algorithmic_dependency_ratio": adr,
+            "sovereign_epistemic_grounding": seg,
+            "is_cognitive_colonized": risk >= 0.55
+        }
+
+
+class FrontierAIRegulatoryCaptureSieve:
+    """
+    Phase 261: Frontier AI Regulatory Capture Sieve.
+    Quantifies the weaponization of artificial safety audits, certification licensing moats,
+    FLOP threshold reporting penalties (>10^26 FLOPs), and closed-API vendor lock-in engineered
+    to suppress open-source models and impose rent-seeking compliance burdens on Indian IT services.
+    """
+
+    @classmethod
+    def calculate_regulatory_capture(
+        cls,
+        compliance_moat_intensity: float = 0.50,
+        flop_threshold_penalty_index: float = 0.40,
+        open_source_resilience_ratio: float = 0.60,
+    ) -> Dict[str, Any]:
+        """
+        Calculates AI regulatory capture risk using calibrated logistic sigmoid:
+            z = 2.6 * Moat + 2.4 * FLOP - 2.8 * OpenSource - 1.5
+            risk = 1 / (1 + exp(-z))
+        """
+        import math
+        c_moat = max(0.0, min(1.0, float(compliance_moat_intensity)))
+        f_pen = max(0.0, min(1.0, float(flop_threshold_penalty_index)))
+        os_res = max(0.0, min(1.0, float(open_source_resilience_ratio)))
+
+        z = 2.6 * c_moat + 2.4 * f_pen - 2.8 * os_res - 1.5
+        risk = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if risk >= 0.75:
+            tier = "ACUTE_AI_CARTEL_REGULATORY_CAPTURE"
+            verdict = "RESTRICTIVE_LICENSING_SUPPRESSION_OF_OPEN_ECOSYSTEMS"
+            rationale = (
+                f"Acute regulatory capture ({risk:.4f}): Incumbent frontier AI monopolies have successfully weaponized "
+                f"compliance moats ({c_moat:.2f}) and compute thresholds ({f_pen:.2f}) to criminalize open-weight deployment."
+            )
+        elif risk >= 0.55:
+            tier = "ELEVATED_COMPLIANCE_MONOPOLY_RISK"
+            verdict = "CLOSED_API_DEPENDENCY_SQUEEZING_DOMESTIC_SERVICES"
+            rationale = (
+                f"Elevated compliance risk ({risk:.4f}): Proprietary governance standards threaten Indian IT service "
+                f"margins through closed-API licensing rents and mandatory foreign safety audits."
+            )
+        elif risk >= 0.35:
+            tier = "CONTESTED_OPEN_VS_PROPRIETARY_GOVERNANCE"
+            verdict = "BALANCED_COMPUTE_SOVEREIGNTY_CONTESTATION"
+            rationale = (
+                f"Contested governance ({risk:.4f}): Open-source model proliferation ({os_res:.2f}) provides partial "
+                f"insulation against regulatory enclosure."
+            )
+        else:
+            tier = "SOVEREIGN_OPEN_MODEL_ECOSYSTEM_FORTIFIED"
+            verdict = "DECENTRALIZED_COMPUTE_AND_ALGORITHMIC_SOVEREIGNTY"
+            rationale = (
+                f"Fortified open ecosystem ({risk:.4f}): High open-source adoption and indigenous compute clusters "
+                f"neutralize foreign legislative capture efforts."
+            )
+
+        it_vuln = round(min(1.0, risk * 1.15), 4)
+        compute_urg = round(max(0.0, min(1.0, risk * 0.90 + 0.10)), 4)
+
+        return {
+            "ai_regulatory_moat_risk": risk,
+            "compliance_moat_intensity": round(c_moat, 4),
+            "flop_threshold_penalty_index": round(f_pen, 4),
+            "open_source_resilience_ratio": round(os_res, 4),
+            "indian_it_margin_vulnerability": it_vuln,
+            "sovereign_compute_urgency": compute_urg,
+            "ai_regulatory_capture_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_ai_ecosystem_captured": risk >= 0.55,
+        }
+
+
+class FastBreederNuclearFuelAutonomySieve:
+    """
+    Phase 271: Fast Breeder Nuclear Fuel Autonomy Sieve.
+    Quantifies nuclear fuel cycle sovereignty across Stage 2 Fast Breeder Reactors (PFBR 500 MWe),
+    Stage 3 Thorium fuel cycle transition velocity, insulation from foreign Uranium Suppliers Group (NSG) cartels,
+    and industrial Small Modular Reactor (SMR) captive zero-carbon deployment.
+    """
+
+    @classmethod
+    def calculate_nuclear_autonomy(
+        cls,
+        breeding_ratio: float = 1.05,
+        thorium_inventory_tonnes: float = 300000.0,
+        uranium_annual_import_need_tonnes: float = 3000.0,
+        cartel_sanction_drag_index: float = 0.35,
+        smr_deployment_capacity_mwe: float = 440.0,
+    ) -> dict:
+        import math
+        br = max(0.0, float(breeding_ratio))
+        th = max(0.0, float(thorium_inventory_tonnes))
+        u = max(0.0, float(uranium_annual_import_need_tonnes))
+        th_ratio = min(4.0, (th / 100000.0) / (max(0.001, u / 1000.0) + 1e-5))
+
+        drag = min(1.0, max(0.0, float(cartel_sanction_drag_index)))
+        smr_norm = min(2.0, max(0.0, float(smr_deployment_capacity_mwe) / 500.0))
+
+        z = (2.6 * br + 2.4 * th_ratio - 2.5 * drag + 2.0 * smr_norm - 2.2)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "AUTONOMOUS_CLOSED_THORIUM_CYCLE"
+            verdict = "FORTIFIED_CLOSED_CYCLE_AND_BREEDER_SELF_SUFFICIENCY"
+        elif score >= 0.55:
+            tier = "OPERATIONAL_FAST_BREEDER_PROGRESSION"
+            verdict = "ADVANCING_PLUTONIUM_BREEDING_AND_STAGE_2_SCALING"
+        elif score >= 0.35:
+            tier = "CONTESTED_URANIUM_CARTEL_DEPENDENCY"
+            verdict = "MODERATE_EXPOSURE_TO_NSG_FUEL_AND_ENRICHMENT_SANCTIONS"
+        else:
+            tier = "CRITICAL_NUCLEAR_FUEL_VULNERABILITY"
+            verdict = "ACUTE_EXTERNAL_URANIUM_IMPORT_BOTTLENECK"
+
+        return {
+            "nuclear_fuel_cycle_autonomy_score": score,
+            "fbr_breeding_ratio": round(br, 4),
+            "thorium_to_uranium_cushion_ratio": round(th_ratio, 4),
+            "cartel_sanction_drag_index": round(drag, 4),
+            "smr_captive_capacity_mwe": round(float(smr_deployment_capacity_mwe), 2),
+            "nuclear_autonomy_tier": tier,
+            "nuclear_autonomy_verdict": verdict,
+            "is_nuclear_cycle_autonomous": score >= 0.55
+        }
+
+
+class MultiAgentGroupChatConsensusSieve:
+    """
+    Phase 277: Multi-Agent Group-Chat Consensus & Emergent Collaboration Sieve.
+    Quantifies the mathematical convergence rate of multi-agent cognitive swarms,
+    penalizing circular oscillation, hallucinated task dependencies, and private credential leakage.
+    """
+
+    @staticmethod
+    def calculate_agent_consensus(
+        agent_divergence_variance: float = 0.25,
+        iteration_convergence_velocity: float = 0.70,
+        credential_isolation_index: float = 0.95,
+        circular_loop_risk: float = 0.20,
+    ) -> dict:
+        import math
+        div = min(1.0, max(0.0, float(agent_divergence_variance)))
+        vel = min(1.0, max(0.0, float(iteration_convergence_velocity)))
+        iso = min(1.0, max(0.0, float(credential_isolation_index)))
+        loop = min(1.0, max(0.0, float(circular_loop_risk)))
+
+        z = (2.8 * vel + 2.5 * iso - 2.6 * div - 2.4 * loop - 0.5)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "DETERMINISTIC_MULTI_AGENT_CONVERGENCE"
+            verdict = "HIGH_FIDELITY_CONSENSUS_WITH_ZERO_CREDENTIAL_LEAKAGE"
+        elif score >= 0.55:
+            tier = "STABLE_AGENT_ORCHESTRATION"
+            verdict = "ACCEPTABLE_CONVERGENCE_WITH_CONTROLLED_ITERATION_DEPTH"
+        elif score >= 0.35:
+            tier = "ELEVATED_CIRCULAR_OSCILLATION_RISK"
+            verdict = "SUBOPTIMAL_AGENT_AGREEMENT_POTENTIAL_WHEEL_SPINNING"
+        else:
+            tier = "RUNAWAY_MULTI_AGENT_DEADLOCK"
+            verdict = "CRITICAL_HALLUCINATION_CASCADE_AND_UNBOUNDED_TOKEN_CONSUMPTION"
+
+        return {
+            "multi_agent_consensus_score": score,
+            "iteration_convergence_velocity": round(vel, 4),
+            "credential_isolation_index": round(iso, 4),
+            "agent_divergence_variance": round(div, 4),
+            "circular_loop_risk": round(loop, 4),
+            "agent_consensus_tier": tier,
+            "agent_consensus_verdict": verdict,
+            "is_consensus_deterministic": score >= 0.55,
+        }

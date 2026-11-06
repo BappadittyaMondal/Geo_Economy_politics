@@ -1,6 +1,7 @@
 # LENS SPECIFICATION: DIGITAL_SOVEREIGNTY
 
 ```python
+from .deep_tech import MultiAgentGroupChatConsensusSieve
 """
 Lens 11: Digital Sovereignty, Compute & Telecommunications Stack Lens.
 Evaluates technological independence, hardware supply chains, telecom infrastructure,
@@ -137,6 +138,16 @@ class DigitalSovereigntyLens:
             foreign_turbine_core_dependency=metrics.get("foreign_turbine_core_dependency", 0.40),
         )
         metrics.update(_sm_result)
+        # Phase 277: Wire MultiAgentGroupChatConsensusSieve in DigitalSovereigntyLens
+        ds_meta = getattr(summit, "metadata", {}) or {}
+        agent_params_ds = ds_meta.get("agent_orchestration", {}) if isinstance(ds_meta, dict) else {}
+        _ds_agent = MultiAgentGroupChatConsensusSieve.calculate_agent_consensus(
+            agent_divergence_variance=agent_params_ds.get("agent_divergence_variance", 0.25),
+            iteration_convergence_velocity=agent_params_ds.get("iteration_convergence_velocity", 0.70),
+            credential_isolation_index=agent_params_ds.get("credential_isolation_index", 0.95),
+            circular_loop_risk=agent_params_ds.get("circular_loop_risk", 0.20),
+        )
+        metrics.update({f"digital_{k}": v for k, v in _ds_agent.items()})
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,

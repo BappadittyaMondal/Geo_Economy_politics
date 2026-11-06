@@ -1,6 +1,8 @@
 # LENS SPECIFICATION: INSTITUTIONAL_LAWFARE
 
 ```python
+from .civilizational import DharmicSoftPowerCulturalSovereigntySieve
+import math
 """
 Lens 16: Institutional Lawfare & Sovereign Jurisdiction Weaponization.
 Analyzes the weaponization of international legal architectures, FATF grey-listing timing,
@@ -387,6 +389,35 @@ class InstitutionalLawfareLens:
             subversive_legal_aid_density=metrics.get("subversive_legal_aid_density", 0.75),
         )
         metrics.update(_sl_result)
+
+        # Phase 240: Wire UNSCVetoAsymmetrySieve
+        _va_result = UNSCVetoAsymmetrySieve.calculate_veto_asymmetry(
+            sanctions_liability=metrics.get("sanctions_liability_exposure", 0.70),
+            chapter_vii_duty=metrics.get("chapter_vii_enforcement_duty", 0.65),
+            veto_authority=metrics.get("article_27_veto_authority", 0.10),
+        )
+        metrics.update(_va_result)
+        # Phase 273: Wire SubRegionalElectoralPolarizationSieve
+        law_meta = getattr(event, "metadata", {}) or {}
+        law_params = law_meta.get("electoral_polarization", {}) if isinstance(law_meta, dict) else {}
+        _sep_res = SubRegionalElectoralPolarizationSieve.calculate_electoral_stability(
+            welfare_saturation_rate=law_params.get("welfare_saturation_rate", 0.80),
+            institutional_neutrality_index=law_params.get("institutional_neutrality_index", 0.75),
+            caste_fragmentation_intensity=law_params.get("caste_fragmentation_intensity", 0.45),
+            rhetorical_polarization_decay=law_params.get("rhetorical_polarization_decay", 0.50),
+        )
+        metrics.update(_sep_res)
+
+        # Phase 281: Wire DharmicSoftPowerCulturalSovereigntySieve in InstitutionalLawfareLens
+        law_meta = getattr(event, "metadata", {}) or {}
+        dharmic_params_l = law_meta.get("dharmic_sovereignty", {}) if isinstance(law_meta, dict) else {}
+        _dharmic_res_l = DharmicSoftPowerCulturalSovereigntySieve.calculate_dharmic_sovereignty(
+            global_soft_power_projection=dharmic_params_l.get("global_soft_power_projection", 0.75),
+            cultural_decolonization_velocity=dharmic_params_l.get("cultural_decolonization_velocity", 0.70),
+            state_temple_asset_control_rate=dharmic_params_l.get("state_temple_asset_control_rate", 0.65),
+            narrative_delegitimation_pressure=dharmic_params_l.get("narrative_delegitimation_pressure", 0.40),
+        )
+        metrics.update({f"lawfare_{k}": v for k, v in _dharmic_res_l.items()})
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -1412,6 +1443,120 @@ class StreetLawfareSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_infrastructure_lawfare_active": score >= 0.60
+        }
+
+
+class UNSCVetoAsymmetrySieve:
+    """
+    Phase 240: UNSC Veto Asymmetry & Advisory Seat Liability Sieve.
+    Evaluates the sovereign risk of accepting a permanent UNSC seat without full Article 27(3) veto equality.
+    Formula:
+        z = 3.2 * sanctions_liability + 2.5 * chapter_vii_duty - 3.8 * veto_authority - 0.5
+        veto_entrapment_risk = 1.0 / (1.0 + exp(-z))
+    """
+    @classmethod
+    def calculate_veto_asymmetry(
+        cls,
+        sanctions_liability: float = 0.70,
+        chapter_vii_duty: float = 0.65,
+        veto_authority: float = 0.10
+    ) -> Dict[str, Any]:
+        s_liab = max(0.0, min(1.0, float(sanctions_liability)))
+        c_duty = max(0.0, min(1.0, float(chapter_vii_duty)))
+        v_auth = max(0.0, min(1.0, float(veto_authority)))
+
+        z = 3.2 * s_liab + 2.5 * c_duty - 3.8 * v_auth - 0.5
+        risk = round(1.0 / (1.0 + math.exp(-max(-20.0, min(20.0, z)))), 4)
+
+        if risk >= 0.80:
+            tier = "SUBORDINATE_CLIENT_ENTRAPMENT"
+            verdict = "ACUTE_UNSC_VETO_DILUTION_TRAP"
+            rationale = (
+                f"Severe entrapment risk ({risk:.4f}): Permanent membership without Article 27(3) veto authority "
+                f"exposes sovereign state to mandatory Chapter VII enforcement liabilities without defense."
+            )
+        elif risk >= 0.55:
+            tier = "ASYMMETRIC_MULTILATERAL_EXPOSURE"
+            verdict = "RESTRICTED_VOTING_RIGHTS_VULNERABILITY"
+            rationale = (
+                f"Elevated multilateral exposure ({risk:.4f}): Contested voting mechanisms create structural "
+                f"asymmetry against P5 veto-holding adversaries."
+            )
+        elif risk >= 0.35:
+            tier = "TRANSITIONAL_GOVERNANCE_PARITY"
+            verdict = "MONITORED_SUNSET_REFORM_PROGRESS"
+            rationale = (
+                f"Transitional parity ({risk:.4f}): Reform protocols balance Chapter VII responsibilities with "
+                f"conditional veto sunset mechanisms."
+            )
+        else:
+            tier = "SOVEREIGN_VETO_EQUALITY_ASSURED"
+            verdict = "FULL_ARTICLE_27_VETO_PARITY"
+            rationale = (
+                f"Optimal sovereign equality ({risk:.4f}): Full Article 27(3) veto rights secured, guaranteeing "
+                f"absolute defense against hostile multilateral lawfare resolutions."
+            )
+
+        return {
+            "veto_entrapment_risk": risk,
+            "sanctions_liability_exposure": round(s_liab, 4),
+            "chapter_vii_enforcement_duty": round(c_duty, 4),
+            "article_27_veto_authority": round(v_auth, 4),
+            "veto_entrapment_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_unsc_entrapment_active": risk >= 0.55
+        }
+
+
+class SubRegionalElectoralPolarizationSieve:
+    """
+    Phase 273: Sub-Regional Electoral Polarization Sieve.
+    Quantifies the balance between universal welfare delivery saturation (Labharthi consensus)
+    and sub-regional identity fault line mobilization, tracking the decay of political civility
+    (Maryada erosion) counterbalanced by statutory institutional neutrality of the Election Commission.
+    """
+
+    @classmethod
+    def calculate_electoral_stability(
+        cls,
+        welfare_saturation_rate: float = 0.80,
+        institutional_neutrality_index: float = 0.75,
+        caste_fragmentation_intensity: float = 0.45,
+        rhetorical_polarization_decay: float = 0.50,
+    ) -> dict:
+        import math
+        welf = min(1.0, max(0.0, float(welfare_saturation_rate)))
+        neut = min(1.0, max(0.0, float(institutional_neutrality_index)))
+        caste = min(1.0, max(0.0, float(caste_fragmentation_intensity)))
+        rhet = min(1.0, max(0.0, float(rhetorical_polarization_decay)))
+
+        z = (2.8 * welf + 2.4 * neut - 2.6 * caste - 2.5 * rhet - 1.0)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_LABHARTHI_CONSENSUS"
+            verdict = "UNIVERSAL_DEVELOPMENTAL_SATURATION_OVER_IDENTITY_DIVIDES"
+        elif score >= 0.55:
+            tier = "STABLE_ELECTORAL_GOVERNANCE"
+            verdict = "ROBUST_INSTITUTIONAL_NEUTRALITY_AND_CIVIC_ORDER"
+        elif score >= 0.35:
+            tier = "CONTESTED_SUBREGIONAL_POLARIZATION"
+            verdict = "ELEVATED_IDENTITY_FAULT_LINES_AND_RHETORICAL_FRICTION"
+        else:
+            tier = "ACUTE_MARYADA_EROSION_AND_FRAGMENTATION"
+            verdict = "CRITICAL_POLITICAL_CIVILITY_COLLAPSE_AND_DISRUPTION"
+
+        return {
+            "electoral_governance_stability_score": score,
+            "welfare_saturation_rate": round(welf, 4),
+            "institutional_neutrality_index": round(neut, 4),
+            "caste_fragmentation_intensity": round(caste, 4),
+            "rhetorical_polarization_decay": round(rhet, 4),
+            "electoral_stability_tier": tier,
+            "electoral_stability_verdict": verdict,
+            "is_electoral_governance_stable": score >= 0.55
         }
 
 ```

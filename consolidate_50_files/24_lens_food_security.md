@@ -8,6 +8,7 @@ Evaluates agricultural trade balances, chemical fertilizer supply dependencies
 PDS entitlements, and maritime bulk food supply corridors.
 """
 
+import math
 from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, StrategicEvent
 
@@ -294,6 +295,40 @@ class FoodSecurityLens:
         )
         metrics.update(_rip_result)
 
+        # Phase 256: Wire TrophicBiosecurityCascadeSieve
+        _trophic_result = TrophicBiosecurityCascadeSieve.calculate_trophic_cascade_risk(
+            chemical_bioaccumulation_rate=float(metrics.get("chemical_bioaccumulation_rate", 0.0)),
+            keystone_scavenger_depletion=float(metrics.get("keystone_scavenger_depletion", 0.0)),
+            zoonotic_vector_surge=float(metrics.get("zoonotic_vector_surge", 0.0)),
+            regulatory_ban_latency=float(metrics.get("regulatory_ban_latency", 0.5)),
+        )
+        metrics.update(_trophic_result)
+
+        # Phase 265: Wire HydrologicalWeaponizationBufferSieve
+        food_meta = getattr(event, "metadata", {}) or {}
+        hydro_params = food_meta.get("hydro_weaponization", {}) if isinstance(food_meta, dict) else {}
+        _hydro_res = HydrologicalWeaponizationBufferSieve.calculate_hydro_resilience(
+            downstream_storage_cushion_bcm=hydro_params.get("downstream_storage_cushion_bcm", 9.0),
+            upstream_threat_volume_bcm=hydro_params.get("upstream_threat_volume_bcm", 6.0),
+            flow_withholding_index=hydro_params.get("flow_withholding_index", 0.35),
+            protest_lawfare_subversion=hydro_params.get("protest_lawfare_subversion", 0.40),
+            early_warning_telemetry_ratio=hydro_params.get("early_warning_telemetry_ratio", 0.80),
+        )
+        metrics["hydro_weaponization_resilience"] = _hydro_res["hydro_weaponization_resilience"]
+        metrics["foreign_ngo_subversion_risk"] = _hydro_res["foreign_ngo_subversion_risk"]
+        metrics["brahmaputra_discharge_stability"] = _hydro_res["brahmaputra_discharge_stability"]
+        metrics["hydro_weaponization_tier"] = _hydro_res["hydro_weaponization_tier"]
+
+        # Phase 280: Wire BiosphereThermodynamicSoilResilienceSieve
+        food_meta = getattr(event, "metadata", {}) or {}
+        soil_params = food_meta.get("soil_resilience", {}) if isinstance(food_meta, dict) else {}
+        _soil_res = BiosphereThermodynamicSoilResilienceSieve.calculate_soil_resilience(
+            soil_organic_carbon_pct=soil_params.get("soil_organic_carbon_pct", 1.8),
+            agroforestry_coverage_ratio=soil_params.get("agroforestry_coverage_ratio", 0.35),
+            chemical_fertilizer_overuse_rate=soil_params.get("chemical_fertilizer_overuse_rate", 0.60),
+            groundwater_table_depletion=soil_params.get("groundwater_table_depletion", 0.55),
+        )
+        metrics.update(_soil_res)
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -375,6 +410,194 @@ class RiparianResilienceSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_riparian_defense_adequate": score >= 0.60
+        }
+
+
+class TrophicBiosecurityCascadeSieve:
+    """
+    Phase 256: Trophic Biosecurity Cascade Sieve.
+    Quantifies nonlinear ecological collapses caused by biochemical, pharmaceutical, or veterinary contaminants
+    (e.g., Diclofenac decimating 40M vultures -> rabies epidemic killing 500k humans -> $34B economic cost).
+    Models chemical persistence, keystone scavenger depletion, and zoonotic vector surge against regulatory latency.
+    """
+
+    @staticmethod
+    def calculate_trophic_cascade_risk(
+        chemical_bioaccumulation_rate: float = 0.0,
+        keystone_scavenger_depletion: float = 0.0,
+        zoonotic_vector_surge: float = 0.0,
+        regulatory_ban_latency: float = 0.5,
+    ) -> Dict[str, Any]:
+        cbr = min(1.0, max(0.0, float(chemical_bioaccumulation_rate)))
+        ksd = min(1.0, max(0.0, float(keystone_scavenger_depletion)))
+        zvs = min(1.0, max(0.0, float(zoonotic_vector_surge)))
+        rbl = min(1.0, max(0.0, float(regulatory_ban_latency)))
+
+        z = (3.2 * cbr + 2.8 * ksd + 2.4 * zvs - 3.0 * rbl - 1.0)
+        risk = 1.0 / (1.0 + math.exp(-z))
+        risk = round(min(1.0, max(0.0, risk)), 4)
+
+        if risk >= 0.80:
+            tier = "CATASTROPHIC_TROPHIC_COLLAPSE_AND_ZOONOTIC_SHOCK"
+            verdict = "ACUTE_KEYSTONE_EXTINCTION_CASCADE_ACTIVE"
+        elif risk >= 0.60:
+            tier = "ELEVATED_BIO_SOVEREIGNTY_FRAGILITY"
+            verdict = "UNREGULATED_BIOCHEMICAL_DIFFUSION_PRESSURE"
+        elif risk >= 0.40:
+            tier = "MODERATE_ECOLOGICAL_DISRUPTION"
+            verdict = "LOCALIZED_BIODIVERSITY_STRESS_CONTAINED"
+        else:
+            tier = "RESILIENT_ECOSYSTEM_EQUILIBRIUM"
+            verdict = "FORTIFIED_TROPHIC_BIOSECURITY"
+
+        return {
+            "trophic_cascade_risk": risk,
+            "trophic_cascade_tier": tier,
+            "trophic_verdict": verdict,
+            "chemical_bioaccumulation_rate": cbr,
+            "keystone_scavenger_depletion": ksd,
+            "zoonotic_vector_surge": zvs,
+            "regulatory_ban_latency": rbl,
+            "is_trophic_cascade_critical": risk >= 0.60
+        }
+
+
+class HydrologicalWeaponizationBufferSieve:
+    """
+    Phase 265: Hydrological Weaponization Buffer Sieve.
+    Quantifies national resilience against transboundary mega-dam weaponization
+    (e.g., Medog 60GW dam on the Brahmaputra Great Bend), assessing downstream buffer
+    storage capacity (Upper Siang 9 BCM cushion), seasonal flow withholding,
+    foreign-funded anti-dam NGO lawfare subversion, and satellite early warning telemetry.
+    """
+
+    @classmethod
+    def calculate_hydro_resilience(
+        cls,
+        downstream_storage_cushion_bcm: float = 9.0,
+        upstream_threat_volume_bcm: float = 6.0,
+        flow_withholding_index: float = 0.35,
+        protest_lawfare_subversion: float = 0.40,
+        early_warning_telemetry_ratio: float = 0.80,
+    ) -> Dict[str, Any]:
+        """
+        Calculates hydrological weaponization resilience score using calibrated logistic sigmoid
+        with epsilon-smoothed storage ratio:
+            ratio = min(2.5, storage_cushion / (max(0.001, upstream_threat) + 1e-5))
+            z = 2.8 * ratio - 2.5 * flow_withholding - 2.6 * protest_subversion + 2.2 * early_warning - 1.5
+            resilience = 1 / (1 + exp(-z))
+        """
+        import math
+        s_cushion = max(0.0, float(downstream_storage_cushion_bcm))
+        u_threat = max(0.0, float(upstream_threat_volume_bcm))
+        f_withhold = max(0.0, min(1.0, float(flow_withholding_index)))
+        p_subvert = max(0.0, min(1.0, float(protest_lawfare_subversion)))
+        ew_ratio = max(0.0, min(1.0, float(early_warning_telemetry_ratio)))
+
+        safe_threat = max(0.001, u_threat) + 1e-5
+        cushion_ratio = min(2.5, s_cushion / safe_threat)
+
+        z = 2.8 * cushion_ratio - 2.5 * f_withhold - 2.6 * p_subvert + 2.2 * ew_ratio - 1.5
+        resilience = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if resilience >= 0.75:
+            tier = "FORTIFIED_DOWNSTREAM_BUFFER_CUSHION"
+            verdict = "SUFFICIENT_FLASH_FLOOD_ABSORPTION_CAPACITY"
+            rationale = (
+                f"Fortified buffer cushion ({resilience:.4f}): Downstream storage reservoir ({s_cushion:.1f} BCM) "
+                f"provides {cushion_ratio:.2f}x volumetric absorption against upstream surges while early warning "
+                f"telemetry ({ew_ratio:.2f}) mitigates sudden discharge releases."
+            )
+        elif resilience >= 0.55:
+            tier = "ADEQUATE_TRANSRIPARIAN_ABSORPTION"
+            verdict = "MODERATE_FLOOD_BUFFER_WITH_LOCALIZED_EXPOSURE"
+            rationale = (
+                f"Adequate absorption ({resilience:.4f}): Storage capacity handles seasonal variances, but upstream "
+                f"flow withholding ({f_withhold:.2f}) stresses agricultural irrigation."
+            )
+        elif resilience >= 0.35:
+            tier = "CONTESTED_HYDROLOGICAL_VULNERABILITY"
+            verdict = "ELEVATED_RIPARIAN_PRESSURE_AND_SUBVERSIVE_DELAYS"
+            rationale = (
+                f"Contested vulnerability ({resilience:.4f}): Foreign-funded NGO protest lawfare ({p_subvert:.2f}) "
+                f"stalls buffer dam construction, elevating downstream inundation risks."
+            )
+        else:
+            tier = "ACUTE_FLASH_FLOOD_AND_DROUGHT_VULNERABILITY"
+            verdict = "DEFENSELESS_DOWNSTREAM_RIPARIAN_POSITION"
+            rationale = (
+                f"Acute vulnerability ({resilience:.4f}): Near-zero buffer storage capacity leaves fertile valleys "
+                f"existentially exposed to adversary water-bomb releases and artificial dry-season droughts."
+            )
+
+        ngo_risk = round(min(1.0, p_subvert * 1.25), 4)
+        flow_stab = round(min(1.0, max(0.0, resilience * 0.90 + 0.10)), 4)
+
+        return {
+            "hydro_weaponization_resilience": resilience,
+            "downstream_storage_cushion_bcm": round(s_cushion, 2),
+            "upstream_threat_volume_bcm": round(u_threat, 2),
+            "flow_withholding_index": round(f_withhold, 4),
+            "protest_lawfare_subversion": round(p_subvert, 4),
+            "early_warning_telemetry_ratio": round(ew_ratio, 4),
+            "foreign_ngo_subversion_risk": ngo_risk,
+            "brahmaputra_discharge_stability": flow_stab,
+            "hydro_weaponization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_downstream_buffered": resilience >= 0.55,
+        }
+
+
+class BiosphereThermodynamicSoilResilienceSieve:
+    """
+    Phase 280: Biosphere Thermodynamic Soil Resilience Sieve.
+    Quantifies agricultural carrying capacity and macro-food security resilience
+    based on Soil Organic Carbon (SOC) percentages, tree-based agroforestry buffer,
+    penalized by chemical fertilizer overuse and groundwater table depletion.
+    """
+
+    @staticmethod
+    def calculate_soil_resilience(
+        soil_organic_carbon_pct: float = 1.8,
+        agroforestry_coverage_ratio: float = 0.35,
+        chemical_fertilizer_overuse_rate: float = 0.60,
+        groundwater_table_depletion: float = 0.55,
+    ) -> dict:
+        import math
+        soc = max(0.0, float(soil_organic_carbon_pct))
+        soc_ratio = min(2.0, soc / 3.0)  # 3.0% is healthy baseline
+        agro = min(1.0, max(0.0, float(agroforestry_coverage_ratio)))
+        chem = min(1.0, max(0.0, float(chemical_fertilizer_overuse_rate)))
+        water = min(1.0, max(0.0, float(groundwater_table_depletion)))
+
+        z = (2.8 * soc_ratio + 2.0 * agro - 2.5 * chem - 2.2 * water - 0.2)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "REGENERATIVE_BIOSPHERE_SOIL_FORTRESS"
+            verdict = "HEALTHY_SOC_BUFFER_STABLE_CARRYING_CAPACITY_AND_LOW_SUBSIDY_DRAG"
+        elif score >= 0.55:
+            tier = "STABLE_AGRO_ECOLOGICAL_EQUILIBRIUM"
+            verdict = "SUFFICIENT_ORGANIC_MATTER_MODERATE_FERTILIZER_DEPENDENCY"
+        elif score >= 0.35:
+            tier = "ELEVATED_TOP_SOIL_DEGRADATION_VULNERABILITY"
+            verdict = "CRITICAL_SOC_DEPLETION_RISK_OF_YIELD_CLIFF_AND_SUBSIDY_BALLOON"
+        else:
+            tier = "ACUTE_BIOSPHERE_DESERTIFICATION_CRISIS"
+            verdict = "CATASTROPHIC_SOIL_EXHAUSTION_FOOD_SECURITY_THREAT_AND_RURAL_DISTRESS"
+
+        return {
+            "soil_resilience_score": score,
+            "soil_organic_carbon_pct": round(soc, 2),
+            "soc_adequacy_ratio": round(soc_ratio, 4),
+            "agroforestry_coverage_ratio": round(agro, 4),
+            "chemical_fertilizer_overuse_rate": round(chem, 4),
+            "groundwater_table_depletion": round(water, 4),
+            "soil_resilience_tier": tier,
+            "soil_resilience_verdict": verdict,
+            "is_soil_resilience_adequate": score >= 0.55,
         }
 
 ```

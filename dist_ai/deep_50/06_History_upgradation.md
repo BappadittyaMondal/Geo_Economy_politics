@@ -2985,3 +2985,693 @@ Constraints Verified:
 - **Terminal Visual KPI Grid:** `geo_engine/cli.py` upgraded with a dedicated multi-color status panel rendering all 11 metrics with defensive `(res.get(...) or 0.0)` fallbacks.
 - **Test Suite Scaling:** Appended `TestPhase228to238SievesAndSynthesizer` containing 12 net-new tests to `tests/test_engine.py`, expanding the test suite to **513 comprehensive unit and integration tests (100% deterministic pass rate)**.
 - **Documentation Parity:** `README.md` updated to reflect 513 certified tests while maintaining full backward-compatible parity assertions.
+
+
+---
+
+### Phase 240 — `UNSCVetoAsymmetrySieve`
+- **File:** `geo_engine/lenses/institutional_lawfare.py`
+- **Motivation:** Solves the naive "any permanent seat is a diplomatic victory" fallacy. Evaluates Article 27(3) veto equality vs Chapter VII binding sanction liabilities, preventing sovereign entrapment in an advisory/second-class permanent seat without veto defense.
+- **Mathematical Model:**
+  $$z = 3.2 \cdot \text{sanctions\_liability} + 2.5 \cdot \text{chapter\_vii\_duty} - 3.8 \cdot \text{veto\_authority} - 0.5$$
+  $$\text{veto\_entrapment\_risk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `SUBORDINATE_CLIENT_ENTRAPMENT`, $\ge 0.55$ `ASYMMETRIC_MULTILATERAL_EXPOSURE`, $\ge 0.35$ `TRANSITIONAL_GOVERNANCE_PARITY`, $< 0.35$ `SOVEREIGN_VETO_EQUALITY_ASSURED`.
+- **Wiring:** Embedded into `InstitutionalLawfareLens.evaluate()`, populating `veto_entrapment_risk` and `veto_entrapment_tier` in `hard_metrics`.
+- **Test:** `test_phase240_unsc_veto_asymmetry_sieve` — PASS.
+
+---
+
+### Phase 241 — `NuclearMineralEspionageSieve`
+- **File:** `geo_engine/lenses/hybrid_covert.py`
+- **Motivation:** Integrates physical fissile mineral geography into border conflict models. Links British MI6 Operation Dateline (1947 Gilgit coup), Aksai Chin uranium deposits, G219 logistics routes, and IAF Squadron 106 Canberra high-altitude photoreconnaissance to China's pre-emptive 1962 war calculations and the subsequent Sino-Pak nuclear proliferation axis.
+- **Mathematical Model:**
+  $$\text{fissile\_ratio} = \frac{0.40 \cdot \text{uranium\_deposit\_proximity} + 0.35 \cdot \text{corridor\_logistics\_control} + 0.25 \cdot \text{clandestine\_proliferation\_risk}}{\max(0.10, \text{airspace\_reconnaissance\_interdiction})}$$
+  $$z = 2.8 \cdot \text{fissile\_ratio} - 3.2, \quad \text{fissile\_chokepoint\_vulnerability} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `CRITICAL_FISSILE_CORRIDOR_FLASHPOINT`, $\ge 0.60$ `STRATEGIC_NUCLEAR_BUFFER_FRICTION`, $\ge 0.40$ `MONITORED_MINERAL_FRONTIER`, $< 0.40$ `SECURE_DEMILITARIZED_TERRAIN`.
+- **Wiring:** Embedded into `HybridCovertLens.evaluate()`, populating `fissile_chokepoint_vulnerability` and `fissile_chokepoint_tier` in `hard_metrics`.
+- **Test:** `test_phase241_nuclear_mineral_espionage_sieve` — PASS.
+
+---
+
+### Phase 242 — `SovereignLongevityDemographySieve`
+- **File:** `geo_engine/lenses/deep_tech.py`
+- **Motivation:** Expands demographic analysis beyond fertility and migration into cellular biotechnology and healthspan economics. Quantifies the sovereign impact of cellular senescence clearance (senolytics), epigenetic reprogramming (Yamanaka factors), and healthspan extension on national cognitive capital retention and sovereign entitlement debt.
+- **Mathematical Model:**
+  $$\text{longevity\_ratio} = \frac{\min(1.0, \text{healthspan\_extension\_years} / 30.0) \times \text{cognitive\_retention\_score}}{\max(0.15, \text{entitlement\_fiscal\_burden} \times \text{biological\_stratification\_index})}$$
+  $$z = 2.4 \cdot (\text{longevity\_ratio} - 1.0), \quad \text{sovereign\_longevity\_score} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `FORTIFIED_COGNITIVE_LONGEVITY_DIVIDEND`, $\ge 0.60$ `RESILIENT_HEALTHSPAN_EXPANSION`, $\ge 0.40$ `BURDENED_GERONTOCRATIC_TRANSITION`, $< 0.40$ `TERMINAL_DEMOGRAPHIC_INVERSION_COLLAPSE`.
+- **Wiring:** Embedded into `DeepTechLens.evaluate()`, populating `sovereign_longevity_score` and `longevity_dividend_tier` in `hard_metrics`.
+- **Test:** `test_phase242_sovereign_longevity_demography_sieve` — PASS.
+
+---
+
+### Phase 244 — `PedagogicalHaloSmugglingSieve`
+- **File:** `geo_engine/lenses/propaganda.py`
+- **Motivation:** Solves mass student steering and cognitive cartels in digital edutainment. Quantifies epistemic smuggling where colloquial humor and teaching halos bypass student critical skepticism, allowing celebrity educators to smuggle subjective political opinions into mass memory as incontrovertible facts.
+- **Mathematical Model:**
+  $$z = 2.8 \cdot \text{parasocial\_devotion} + 2.4 \cdot \text{colloquial\_humor\_density} - 3.2 \cdot \text{peer\_reviewed\_grounding} - 1.5 \cdot \text{falsifiability\_index}$$
+  $$\text{epistemic\_smuggling\_risk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `COGNITIVE_SMUGGLING_CRITICAL`, $\ge 0.50$ `ELEVATED_PEDAGOGICAL_BIAS`, $\ge 0.30$ `MODERATE_RHETORICAL_TEACHING`, $< 0.30$ `RIGOROUS_EMPIRICAL_DISCOURSE`.
+- **Wiring:** Embedded into `PropagandaLens.evaluate()`, populating `epistemic_smuggling_risk` and `epistemic_smuggling_tier` in `hard_metrics`.
+- **Test:** `test_phase244_pedagogical_halo_smuggling_sieve` — PASS.
+
+---
+
+### Phase 245 — `AsymmetricHostageCoercionSieve`
+- **File:** `geo_engine/lenses/hybrid_covert.py`
+- **Motivation:** Models sub-kinetic border captive diplomacy and grayzone hostage leverage. Quantifies how failing or destabilized adversaries systematically detain low-level sovereign civilians (fishermen, border laborers) to deflect domestic street unrest and manufacture diplomatic bargaining chips vs the Modi-Doval offensive-defense deterrence posture.
+- **Mathematical Model:**
+  $$z = 2.5 \cdot \text{domestic\_distraction\_incentive} + 2.2 \cdot \text{sub\_kinetic\_threshold\_gap} - 3.0 \cdot \text{offensive\_defense\_deterrence} - 1.2 \cdot \text{diplomatic\_leverage}$$
+  $$\text{hostage\_coercion\_leverage} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `ACUTE_HOSTAGE_DIPLOMACY_TRAP`, $\ge 0.55$ `ELEVATED_ASYMMETRIC_LEVERAGE`, $\ge 0.35$ `CONTROLLED_BORDER_FRICTION`, $< 0.35$ `MINIMAL_COERCIVE_UTILITY`.
+- **Wiring:** Embedded into `HybridCovertLens.evaluate()`, populating `hostage_coercion_leverage` and `hostage_coercion_tier` in `hard_metrics`.
+- **Test:** `test_phase245_asymmetric_hostage_coercion_sieve` — PASS.
+
+---
+
+### Phase 246 — `SovereignDebtContagionSieve`
+- **File:** `geo_engine/lenses/geo_economist.py`
+- **Motivation:** Models balance-of-payments default cascades and Bretton Woods dollar liquidity contraction across 20+ developing/frontier nations during US Fed rate-hike shocks, assessing vulnerability to predatory asset forfeiture and IMF conditionality surrender.
+- **Mathematical Model:**
+  $$z = 3.2 \cdot \text{external\_debt\_to\_fx\_ratio} + 2.6 \cdot \text{import\_cover\_vulnerability} + 2.0 \cdot \text{rate\_hike\_shock} - 2.8 \cdot \text{local\_currency\_settlement\_buffer} - 1.0$$
+  $$\text{sovereign\_default\_contagion\_risk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `TERMINAL_SOVEREIGN_INSOLVENCY_COLLAPSE`, $\ge 0.60$ `SEVERE_BALANCE_OF_PAYMENTS_CRISIS`, $\ge 0.40$ `ELEVATED_EXTERNAL_VULNERABILITY`, $< 0.40$ `FORTIFIED_SOVEREIGN_SOLVENCY`.
+- **Wiring:** Embedded into `GeoEconomistLens.evaluate()`, populating `sovereign_default_contagion_risk` and `sovereign_default_tier` in `hard_metrics`.
+- **Test:** `test_phase246_sovereign_debt_contagion_sieve` — PASS.
+
+---
+
+### Phase 243 — Master Synthesis Integration, Package Exports Scaling & 522-Test Milestone
+- **Package Exports Expansion:** `geo_engine/lenses/__init__.py` updated with all 6 new sieves, expanding total package exports to **77 verified analytical symbols**.
+- **Synthesis Integration:** `SummitSynthesizer.strategic_resilience_matrix` wired with all 6 new metrics (`veto_entrapment_risk`, `fissile_chokepoint_vulnerability`, `sovereign_longevity_score`, `epistemic_smuggling_risk`, `hostage_coercion_leverage`, `sovereign_default_contagion_risk`).
+- **Terminal Visual KPI Grid:** `geo_engine/cli.py` upgraded with a dedicated multi-color status panel rendering all 6 metrics with defensive fallback syntax.
+- **Quantum Information Statecraft:** Verified `QuantumInformationSieve` state-vector superposition $|\Psi\rangle$, Shannon alignment entropy, and PQC audit in deep-tech evaluation.
+- **Test Suite Scaling:** Appended `TestPhase240to246SievesAndSynthesis` containing 9 comprehensive unit and integration tests to `tests/test_engine.py`, expanding the test suite to **522 comprehensive unit and integration tests (100% deterministic pass rate)**.
+- **Canonical Distribution Bundles:** `consolidate_5_files` strictly preserved at 5 files; `consolidate_50_files` verified at 32 files; all 10 Anti-Drift Quality Gates 100% certified.
+
+
+---
+
+### Phase 247 — `DigitalEnclosureTrapSieve`
+- **File:** `geo_engine/lenses/cash_flow.py`
+- **Motivation:** Analyzes crypto-asset-driven capital flight, dollarized stablecoin dollar drains, and statutory gold tariff arbitrage vs sovereign programmable CBDC liquidity pools. Detects when speculative digital token accumulation destabilizes sovereign central bank reserves and accelerates currency depreciation traps.
+- **Mathematical Model:**
+  $$z = 3.0 \cdot \text{crypto\_gdp\_ratio} + 2.4 \cdot \text{speculative\_token\_inflow} + 1.8 \cdot \text{gold\_tariff\_friction} - 2.8 \cdot \text{cbdc\_liquidity\_velocity} - 2.0 \cdot \text{physical\_gold\_spread}$$
+  $$\text{digital\_enclosure\_trap\_score} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `ACUTE_DIGITAL_ENCLOSURE_COLLAPSE`, $\ge 0.50$ `ELEVATED_CAPITAL_FLIGHT_RISK`, $\ge 0.30$ `MODERATE_FIAT_DEPRECIATION_FRICTION`, $< 0.30$ `FORTIFIED_SOVEREIGN_RESERVE_STABILITY`.
+- **Wiring:** Embedded into `CashFlowLens.evaluate()`, populating `digital_enclosure_trap_score` and `digital_enclosure_trap_tier` in `hard_metrics`.
+- **Test:** `test_phase247_digital_enclosure_trap_sieve` — PASS.
+
+---
+
+### Phase 248 — `KineticDiversionaryEscalationSieve`
+- **File:** `geo_engine/lenses/military_readiness.py`
+- **Motivation:** Mathematical modeling of domestic political collapse driving external kinetic escalation. Parametrizes how legislative deficit, domestic judicial vulnerability (e.g. corruption indictments), anti-regime public protests, and kinetic border probing force embattled leadership to execute diversionary cross-border strikes to preserve coalition survival against diplomatic offramp pressure.
+- **Mathematical Model:**
+  $$z = 3.5 \cdot \text{coalition\_deficit\_ratio} + 2.6 \cdot \text{judicial\_vulnerability} + 2.2 \cdot \text{anti\_regime\_protest\_intensity} + 1.8 \cdot \text{kinetic\_probe\_velocity} - 3.0 \cdot \text{diplomatic\_offramp\_pressure} - 1.0$$
+  $$\text{diversionary\_escalation\_risk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `IMMINENT_DIVERSIONARY_WAR_EXPANSION`, $\ge 0.60$ `ELEVATED_COALITION_SURVIVAL_STRIKE`, $\ge 0.35$ `MODERATE_BORDER_PROBING_FRICTION`, $< 0.35$ `STABLE_EXECUTIVE_DETERRENCE`.
+- **Wiring:** Embedded into `MilitaryReadinessLens.evaluate()`, populating `diversionary_escalation_risk` and `diversionary_escalation_tier` in `hard_metrics`.
+- **Test:** `test_phase248_kinetic_diversionary_escalation_sieve` — PASS.
+
+---
+
+### Phase 249 — Multi-Domain Strategic News Ranker (8-Pillar Sovereign Architecture)
+- **Files:** `morning_digest/ranker.py`, `morning_digest/bot.py`, `geo_engine/ingestion/sovereign_rss.py`
+- **Motivation:** Expands intelligence monitoring from 4 baseline domains to an 8-Pillar Sovereign Architecture covering all key national security and civilizational verticals: Border Security, Geo-Economics, Aatmanirbharta Defense, Digital Sovereignty, Science & Space, Culture & Civilization, History & Epigraphy, and Sacred Geography & Law.
+- **Weights & Normalization:** Normalized weights summing to 1.00 (`0.18, 0.16, 0.16, 0.14, 0.12, 0.10, 0.07, 0.07`). Score blend incorporates primary domain dominance ($\\max(D) \times 0.30$) with multi-domain composite ($\\sum D_i W_i \times 1.5$) to ensure focused crisis events score with high strategic fidelity without cross-domain dilution.
+- **Ingestion Expansion:** Added feeds for PIB Defense, PIB Science, ISRO Announcements, and PIB Culture.
+- **Telegram Dispatch:** Upgraded `morning_digest/bot.py` formatting engine with sovereign domain iconography and multi-lens impact badges.
+- **Test:** `test_phase249_multi_domain_strategic_news_ranker_8_domains` — PASS.
+
+---
+
+### Phase 250 — Master Synthesis Integration, Package Exports Scaling & 529-Test Milestone
+- **Package Exports Expansion:** `geo_engine/lenses/__init__.py` updated with `DigitalEnclosureTrapSieve` and `KineticDiversionaryEscalationSieve`, expanding total package exports to **79 verified analytical symbols**.
+- **Synthesis Integration:** `SummitSynthesizer.strategic_resilience_matrix` wired with both metrics (`digital_enclosure_trap_score`, `diversionary_escalation_risk`).
+- **Terminal Visual KPI Grid:** `geo_engine/cli.py` upgraded with a dedicated multi-color status panel rendering all newly wired metrics with defensive fallback syntax.
+- **Quantum Information Statecraft:** Verified `QuantumInformationSieve` state-vector superposition $|\Psi\rangle$, Shannon alignment entropy, and PQC audit in deep-tech and multi-lens strategic evaluation.
+- **Test Suite Scaling:** Appended `TestPhase247to250SievesAndDigest` containing 7 comprehensive unit and integration tests to `tests/test_engine.py`, expanding the test suite to **529 comprehensive unit and integration tests (100% deterministic pass rate)**.
+- **Canonical Distribution Bundles:** `consolidate_5_files` strictly preserved at 5 files; `consolidate_50_files` verified within canonical bounds; all 10 Anti-Drift Quality Gates 100% certified.
+
+
+---
+
+## Phases 253–259 — Multi-Domain Sovereign Sieves, DNA Mathematical Calibration & Dynamic Telemetry Bridge
+
+**Execution Date:** 2026-11-01 IST  
+**Execution Mode:** Comprehensive Deep-DNA Implementation, Micro-Level Verification, and Anti-Oscillation Architecture  
+**Final Test Status:** ✅ 529 → **539 certified passing tests (100% deterministic pass rate)**  
+**Package Exports:** 79 → **86 verified analytical symbols** in `geo_engine/lenses/__init__.py`  
+**Quality Gates:** All 10 Anti-Drift Quality Gates 100% certified (`consolidate_5_files` == 5, `consolidate_50_files` <= 50)  
+**Preservation Policy:** Strictly append-only, zero deletions across `History_upgradation.md`  
+
+---
+
+### Phase 253: `CulturalReligiousGrayzoneMicroSignalSieve` & DNA-Level Mathematical Bias Calibration
+- **File:** `geo_engine/lenses/civilizational.py`
+- **Problem Solved:** Traditional engines suffer acute blind spots regarding sub-kinetic grayzone destabilization along narrow logistics corridors (Siliguri Corridor), statutory due process disparities (Waqf Act 1995 Section 40 overriding Civil Courts vs HR&CE state bureaucratic control over Hindu temples), and sacred calendar exploitation for non-electoral street vetoes.
+- **DNA Mathematical Calibration Bug Discovered & Resolved:**
+  - *Bug:* The original uncalibrated formula utilized offset $\theta = -0.5$. At a zero baseline with zero provocation, $z = -0.5 \implies \sigma(-0.5) = 0.3775 \ge 0.35$, which caused the engine to falsely classify a completely peaceful jurisdiction as `MODERATE_COMMUNAL_FRICTION`.
+  - *Fix:* Calibrated the offset constant to $\theta = -1.2$. At zero inputs, $z = -1.2 \implies \sigma(-1.2) = 0.2315 < 0.35$ (`FORTIFIED_CIVILIZATIONAL_COHESION`), ensuring the engine never hallucinates friction without verified provocation.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{SacredCalendarFriction} + 2.5 \cdot \text{StatutoryAsymmetry} + 2.4 \cdot \text{CorridorDemographicShift} + 2.2 \cdot \text{StreetVetoCapacity} - 3.0 \cdot \text{AdministrativeDeterrence} - 1.2$$
+  $$\text{CulturalGrayzoneRisk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `CRITICAL_GRAYZONE_DESTABILIZATION_RISK`, $\ge 0.55$ `ELEVATED_SUB_KINETIC_PRESSURE`, $\ge 0.35$ `MODERATE_COMMUNAL_FRICTION`, $< 0.35$ `FORTIFIED_CIVILIZATIONAL_COHESION`.
+- **Wiring:** Embedded into `CivilizationalLens.evaluate()`, populating `cultural_grayzone_risk`, `cultural_grayzone_tier`, and `is_grayzone_destabilized` in `hard_metrics`.
+- **Test:** `test_phase253_cultural_religious_grayzone_micro_signal_sieve` — PASS.
+
+---
+
+### Phase 254: `SubNationalInsurgencyIncubationSieve` (Patel vs. Indira Historical Warning)
+- **File:** `geo_engine/lenses/history.py`
+- **Problem Solved:** Formulates the historical paradox between Sardar Patel's consensual constitutional integration and Indira Gandhi's hyper-centralized electoral realpolitik. Parametrizes the systemic hazard where executive authority tolerates or covertly nurtures radical sub-national factions for short-term domestic political leverage, triggering uncontrollable kinetic insurgency, intelligence compromise, and sovereign decapitation risk.
+- **Mathematical Specification:**
+  $$z = 3.2 \cdot \text{PartisanPatronageRatio} + 2.6 \cdot \text{FringeMilitantTolerance} + 2.2 \cdot \text{ExternalSanctuaryDiffusion} - 3.0 \cdot \text{InstitutionalCounterIntel} - 1.0$$
+  $$\text{PartisanBlowbackRisk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `IMMINENT_SOVEREIGN_BLOWBACK_AND_DECAPITATION_RISK`, $\ge 0.60$ `UNCONTROLLED_INSURGENCY_INCUBATION`, $\ge 0.40$ `LATENT_SUB_NATIONAL_POLARIZATION`, $< 0.40$ `PATEL_CONSENSUAL_INSTITUTIONAL_STABILITY`.
+- **Wiring:** Embedded into `HistoryLens.evaluate()`, populating `partisan_blowback_risk`, `insurgency_tier`, and `is_blowback_critical` in `hard_metrics`.
+- **Test:** `test_phase254_sub_national_insurgency_incubation_sieve` — PASS.
+
+---
+
+### Phase 255: `AbyssalHydrospatialSovereigntySieve`
+- **File:** `geo_engine/lenses/subsea_cables.py`
+- **Problem Solved:** Expands maritime domain awareness beyond shallow straits to abyssal depths (3,000–6,000m) across the Central Indian Ocean Basin. Models sovereign extraction rights for polymetallic nodules (Ni, Co, Cu, Mn), International Seabed Authority (ISA) regulatory lawfare, and Deep Submergence Recovery Vehicle (DSRV) parity (India's *Matsya 6000* / *Samudrayaan* vs. Chinese *Fendouzhe* survey incursions).
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{NoduleDensityIndex} + 2.5 \cdot \text{ISAClaimOverlap} + 2.2 \cdot \text{CriticalMineralDeficit} - 3.0 \cdot \text{DSRVOperationalReadiness} - 0.8$$
+  $$\text{AbyssalSovereigntyScore} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `CRITICAL_ABYSSAL_RESOURCE_VULNERABILITY`, $\ge 0.55$ `CONTESTED_SEABED_SOVEREIGNTY`, $\ge 0.35$ `BALANCED_DEEP_OCEAN_PRESENCE`, $< 0.35$ `FORTIFIED_ABYSSAL_DOMINANCE`.
+- **Wiring:** Embedded into `SubseaCablesLens.evaluate()`, populating `abyssal_sovereignty_score`, `abyssal_sovereignty_tier`, and `is_abyssal_contested` in `hard_metrics`.
+- **Test:** `test_phase255_abyssal_hydrospatial_sovereignty_sieve` — PASS.
+
+---
+
+### Phase 256: `TrophicBiosecurityCascadeSieve`
+- **File:** `geo_engine/lenses/food_security.py`
+- **Problem Solved:** Resolves the narrow bioweapon fallacy by parametrizing nonlinear ecological and macro-epidemiological collapses triggered by unregulated biochemical or pharmaceutical diffusion (e.g. ₹2 veterinary Diclofenac wiping out 40M vultures $\to$ rabies vector surge killing 500k humans $\to$ \$34B economic cost). Models trophic persistence, keystone scavenger depletion, and zoonotic vectors against regulatory ban latency.
+- **Mathematical Specification:**
+  $$z = 3.2 \cdot \text{ChemicalBioaccumulationRate} + 2.8 \cdot \text{KeystoneScavengerDepletion} + 2.4 \cdot \text{ZoonoticVectorSurge} - 3.0 \cdot \text{RegulatoryBanLatency} - 1.0$$
+  $$\text{TrophicCascadeRisk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `CATASTROPHIC_TROPHIC_COLLAPSE_AND_ZOONOTIC_SHOCK`, $\ge 0.60$ `ELEVATED_BIO_SOVEREIGNTY_FRAGILITY`, $\ge 0.40$ `MODERATE_ECOLOGICAL_DISRUPTION`, $< 0.40$ `RESILIENT_ECOSYSTEM_EQUILIBRIUM`.
+- **Wiring:** Embedded into `FoodSecurityLens.evaluate()`, populating `trophic_cascade_risk`, `trophic_cascade_tier`, and `is_trophic_cascade_critical` in `hard_metrics`.
+- **Test:** `test_phase256_trophic_biosecurity_cascade_sieve` — PASS.
+
+---
+
+### Phase 257: `CognitiveSovereigntyAntahkaranaSieve` (Algorithmic Enclosure Defense)
+- **File:** `geo_engine/lenses/deep_tech.py`
+- **Problem Solved:** Models **Algorithmic Cognitive Enclosure** and epistemic distortion when national institutions rely on foreign proprietary AI foundation models (OpenAI, Anthropic) hardcoded with Western post-modern utilitarian ethics. Quantifies covert epistemic distortion, synthetic empathy manipulation, and algorithmic cognitive colonization versus sovereign on-premise foundation models grounded in Indigenous Knowledge Systems (IKS) and primary epigraphy.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{ForeignAlignmentBias} + 2.5 \cdot \text{SyntheticEmpathyManipulation} + 2.2 \cdot \text{AlgorithmicDependencyRatio} - 3.0 \cdot \text{SovereignEpistemicGrounding} - 0.8$$
+  $$\text{CognitiveEnclosureRisk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `CRITICAL_COGNITIVE_COLONIZATION_RISK`, $\ge 0.55$ `ELEVATED_EPISTEMIC_DEPENDENCY`, $\ge 0.35$ `CONTROLLED_ALGORITHMIC_EXPOSURE`, $< 0.35$ `FORTIFIED_SOVEREIGN_COGNITIVE_AUTONOMY`.
+- **Wiring:** Embedded into `DeepTechLens.evaluate()`, populating `cognitive_enclosure_risk`, `cognitive_enclosure_tier`, and `is_cognitive_colonized` in `hard_metrics`.
+- **Test:** `test_phase257_cognitive_sovereignty_antahkarana_sieve` — PASS.
+
+---
+
+### Phase 258: `BullionPaperArbitrageDislocationSieve`
+- **File:** `geo_engine/lenses/cash_flow.py`
+- **Problem Solved:** Quantifies the decoupling of COMEX and LBMA fractional-reserve paper claims (~100:1 leverage) from vaulted physical bullion during geopolitical and de-dollarization shocks. Models physical delivery default risk, physical vault drain velocity toward Eastern central banks, customs tariff arbitrage (Union Budget 2024 duty cuts from 15% to 6%), and RBI physical bullion repatriation from Western depositories.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{PaperToPhysicalLeverage} + 2.5 \cdot \text{VaultDrainVelocity} + 2.2 \cdot \text{TariffArbitrageSpread} - 3.0 \cdot \text{SovereignBullionRepatriation} - 0.8$$
+  $$\text{BullionDislocationRisk} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `ACUTE_PAPER_BULLION_DISLOCATION_AND_DEFAULT_RISK`, $\ge 0.55$ `ELEVATED_PHYSICAL_DELIVERY_PREMIUM`, $\ge 0.35$ `CONTROLLED_ARBITRAGE_VOLATILITY`, $< 0.35$ `FORTIFIED_SOVEREIGN_BULLION_ANCHOR`.
+- **Wiring:** Embedded into `CashFlowLens.evaluate()`, populating `bullion_dislocation_risk`, `bullion_dislocation_tier`, and `is_bullion_dislocated` in `hard_metrics`.
+- **Test:** `test_phase258_bullion_paper_arbitrage_dislocation_sieve` — PASS.
+
+---
+
+### Phase 259: `ArchaeoAstronomicalChronologySieve`
+- **File:** `geo_engine/lenses/history.py`
+- **Problem Solved:** Resolves historiographical distortions by eliminating both colonial-era chronological compression (arbitrarily forcing Indian history post-Alexander) and speculative hyper-antiquity dates derived from planetarium software artifacts. Parametrizes multi-pillar triangulation across astronomical precession alignments ($50.3''/\text{year}$), Sanskrit epigraphical copper-plate density, and primary textual internal consistency.
+- **Mathematical Specification:**
+  $$z = 3.0 \cdot \text{AstronomicalPrecessionFit} + 2.6 \cdot \text{EpigraphicalAnchorDensity} + 2.2 \cdot \text{TextualInternalConsistency} - 2.8 \cdot \text{CurricularDistortionBias} - 0.5$$
+  $$\text{ChronologicalValidityScore} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `VERIFIED_EMPIRICAL_CHRONOLOGICAL_ANCHOR`, $\ge 0.60$ `PROBABLE_HISTORICAL_TIMELINE`, $\ge 0.40$ `CONTESTED_INTERPOLATED_DATING`, $< 0.40$ `IDEOLOGICALLY_DISTORTED_OR_MYTHOLOGICAL_FABRICATION`.
+- **Wiring:** Embedded into `HistoryLens.evaluate()`, populating `chronological_validity_score`, `chronology_tier`, and `is_chronology_verified` in `hard_metrics`.
+- **Test:** `test_phase259_archaeo_astronomical_chronology_sieve` — PASS.
+
+---
+
+### Dynamic Telemetry Ingestion Bridge & Anti-Wheel-Spinning Integration
+- **File:** `geo_engine/core/query_parser.py`
+- **Innovation:** Replaced static default parameter reliance with a dynamic Natural Language Intent & Attribute Extractor. Queries mentioning quantum statecraft, COMEX bullion drain, Waqf statutory friction, abyssal seabed mining, or Diclofenac biosecurity cascades automatically extract domain flags and target lenses into `StrategicQuery`, eliminating the "optical illusion" of static default execution.
+
+---
+
+### Master Synthesis & Terminal KPI Grid Integration
+- **Synthesizer Integration:** `SummitSynthesizer.strategic_resilience_matrix` wired with all 7 new metrics with defensive `(res.get(...) or 0.0)` fallbacks, scaling active matrix keys to **71 comprehensive telemetry channels**. Added `history_eval` resolution to ensure seamless multi-lens arbitration.
+- **CLI KPI Rendering:** `geo_engine/cli.py` upgraded with a dedicated multi-color status panel rendering all Phases 253–259 metrics safely.
+- **Package Exports Expansion:** `geo_engine/lenses/__init__.py` updated with all 7 sieves, bringing total verified analytical exports to **86 symbols**.
+- **Test Suite Scaling:** Appended `TestPhase253to259SievesAndTelemetry` containing 10 comprehensive unit and integration tests to `tests/test_engine.py`, expanding the test suite to **539 comprehensive unit and integration tests (100% deterministic pass rate)**.
+- **Documentation Parity:** `README.md` updated to reflect 539 certified passing tests.
+- **Queue Clearance:** Staging queue in `UPGRADE_PLANING` and `UPGRADE_PLANING.md` cleared following 100% successful verification and regression pass.
+
+
+---
+
+## 🏛️ PHASES 260–267: PNT AUTONOMY, FRONTIER AI GOVERNANCE, SUB-CONVENTIONAL PROXY ATTRITION, SANSKRIT TEXTUAL TRIANGULATION, MEDIA COGNITIVE CAPTURE, TRANSRIPARIAN DAM WEAPONIZATION, ANTIQUITY RESTITUTION & DIASPORA SANCTUARY LAWFARE
+
+### Overview & Architectural Verification
+Following forensic DNA-level auditing of the staged roadmap in `UPGRADE_PLANING`, eight specialized strategic sieves (Phases 260–267) were implemented, mathematically calibrated to eliminate zero-baseline bias and sign-inversion bugs, and fully integrated into the 20-Lens Epistemic Arbitration Engine.
+
+---
+
+### Phase 260: `SovereignPNTNavigationAutonomySieve`
+- **File:** `geo_engine/lenses/military_readiness.py`
+- **Problem Solved:** Models Space PNT (Positioning, Navigation, and Timing) sovereignty, NavIC/IRNSS operational autonomy, and missile CEP (Circular Error Probable) assurance during electronic warfare (EW) jamming and GPS/GLONASS denial along forward borders (LAC/LOC). Eliminates the zero-baseline bias bug by applying a calibrated intercept $\theta = -2.5$.
+- **Mathematical Specification:**
+  $$z = 2.5 \cdot \left(\frac{N_{\text{active}}}{4.0}\right) + 2.0 \cdot (1.0 - \text{Drift}_{\text{rubidium}}) - 2.8 \cdot \text{Jamming}_{\text{EW}} + 1.8 \cdot \text{Coverage}_{1500\text{km}} - 2.5$$
+  $$S_{\text{PNT}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `FORTIFIED_PNT_SOVEREIGNTY`, $\ge 0.60$ `OPERATIONAL_REGIONAL_PNT_LOCK`, $\ge 0.40$ `CONTESTED_PNT_ENVIRONMENT`, $< 0.40$ `SEVERE_PNT_DENIAL_AND_GUIDANCE_FAILURE`.
+- **Wiring:** Embedded into `MilitaryReadinessLens.evaluate()`, populating `pnt_sovereignty_score`, `pnt_sovereignty_tier`, and `missile_cep_assurance` in `hard_metrics`.
+- **Test:** `test_phase260_sovereign_pnt_navigation_autonomy_sieve` — PASS.
+
+---
+
+### Phase 261: `FrontierAIRegulatoryCaptureSieve`
+- **File:** `geo_engine/lenses/deep_tech.py`
+- **Problem Solved:** Quantifies the weaponization of artificial safety audits, certification licensing moats, compute threshold reporting penalties (>10^26 FLOPs), and closed-API vendor lock-in engineered by foreign monopolies to suppress open-source models and impose rent-seeking compliance burdens on Indian IT services.
+- **Mathematical Specification:**
+  $$z = 2.6 \cdot \text{Moat}_{\text{compliance}} + 2.4 \cdot \text{Threshold}_{\text{FLOP}} - 2.8 \cdot \text{Resilience}_{\text{open\_source}} - 1.5$$
+  $$S_{\text{AI\_Capture}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `ACUTE_AI_CARTEL_REGULATORY_CAPTURE`, $\ge 0.55$ `ELEVATED_COMPLIANCE_MONOPOLY_RISK`, $\ge 0.35$ `CONTESTED_OPEN_VS_PROPRIETARY_GOVERNANCE`, $< 0.35$ `SOVEREIGN_OPEN_MODEL_ECOSYSTEM_FORTIFIED`.
+- **Wiring:** Embedded into `DeepTechLens.evaluate()`, populating `ai_regulatory_moat_risk`, `indian_it_margin_vulnerability`, `sovereign_compute_urgency`, and `ai_regulatory_capture_tier` in `hard_metrics`.
+- **Test:** `test_phase261_frontier_ai_regulatory_capture_sieve` — PASS.
+
+---
+
+### Phase 262: `SubConventionalProxyWarfareSieve`
+- **File:** `geo_engine/lenses/hybrid_covert.py`
+- **Problem Solved:** Resolves adversary asymmetric attrition pressure, Operation Tupac proxy networks, and narco-hawala dark capital conduits. Fixes a critical sign-inversion bug in staged specifications: internal societal and statutory cohesion ($w_4$) now correctly *dampens* adversary proxy threat rather than amplifying it.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{Infiltration}_{\text{corridors}} + 2.5 \cdot \text{Narco\_Hawala} - 2.6 \cdot \text{Precision\_Retaliation} - 2.2 \cdot \text{Internal\_Cohesion} - 0.5$$
+  $$S_{\text{Proxy\_Attrition}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `ACUTE_SUB_CONVENTIONAL_PROXY_WARFARE`, $\ge 0.55$ `ELEVATED_ASYMMETRIC_ATTRITION_RISK`, $\ge 0.35$ `CONTROLLED_BORDER_SECURITY_FRICTION`, $< 0.35$ `FORTIFIED_COUNTER_SUBVERSION_POSTURE`.
+- **Wiring:** Embedded into `HybridCovertLens.evaluate()`, populating `asymmetric_attrition_threat`, `counter_proxy_deterrence_index`, and `proxy_attrition_tier` in `hard_metrics`.
+- **Test:** `test_phase262_sub_conventional_proxy_warfare_sieve` — PASS.
+
+---
+
+### Phase 263: `EpistemicTextualTriangulationSieve`
+- **File:** `geo_engine/lenses/civilizational.py`
+- **Problem Solved:** Triangulates scriptural and historical propositions against authentic critical Sanskrit editions (Valmiki Ramayana, Vyasa Mahabharata BORI Critical Edition, Shruti/Smriti canonical strata) and archaeological stratigraphy (Rakhigarhi, Sanauli, Dwarka marine archaeology), while penalizing 19th-century colonial distortions (Macaulay, Max Müller) and post-classical pop-culture TV serial inventions.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot P_{\text{primary}} + 2.5 \cdot M_{\text{archaeology}} - 2.6 \cdot D_{\text{colonial}} - 2.2 \cdot T_{\text{tv\_pop\_myth}} - 1.5$$
+  $$S_{\text{Epistemic\_Rigor}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.80$ `VERIFIED_SRUTI_SMRITI_CANONICAL_ANCHOR`, $\ge 0.60$ `PROBABLE_TEXTUAL_CORROBORATION`, $\ge 0.35$ `CONTESTED_INTERPOLATED_NARRATIVE`, $< 0.35$ `UNVERIFIED_FOLK_ACCRETION_OR_DISTORTION`.
+- **Wiring:** Embedded into `CivilizationalLens.evaluate()`, populating `textual_fidelity_score`, `pop_myth_contamination_risk`, and `textual_fidelity_tier` in `hard_metrics`.
+- **Test:** `test_phase263_epistemic_textual_triangulation_sieve` — PASS.
+
+---
+
+### Phase 264: `EliteMediaCognitiveCaptureSieve`
+- **File:** `geo_engine/lenses/propaganda.py`
+- **Problem Solved:** Quantifies the vulnerability of domestic narrative ecosystems to foreign underworld financing (offshore betting, hawala syndicates, streaming cartel buyouts), algorithmic dopamine degradation via hyper-short-form video loops, counterbalanced by sovereign and cultural immune resilience.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{Media}_{\text{underworld}} + 2.5 \cdot \text{Dopamine}_{\text{decay}} - 2.6 \cdot \text{Cultural}_{\text{resilience}} - 1.2$$
+  $$S_{\text{Cognitive\_Capture}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `CRITICAL_COGNITIVE_CAPTURE_RISK`, $\ge 0.55$ `ELEVATED_ALGORITHMIC_SUBVERSION`, $\ge 0.35$ `CONTESTED_ENTERTAINMENT_CORRIDORS`, $< 0.35$ `FORTIFIED_INDIGENOUS_MEDIA_SOVEREIGNTY`.
+- **Wiring:** Embedded into `PropagandaLens.evaluate()`, populating `cognitive_subversion_risk`, `illicit_media_financing_exposure`, and `cognitive_capture_tier` in `hard_metrics`.
+- **Test:** `test_phase264_elite_media_cognitive_capture_sieve` — PASS.
+
+---
+
+### Phase 265: `HydrologicalWeaponizationBufferSieve`
+- **File:** `geo_engine/lenses/food_security.py`
+- **Problem Solved:** Models national resilience against transboundary mega-dam weaponization (e.g., Medog 60GW dam on the Brahmaputra Great Bend), downstream buffer storage capacity (Upper Siang 9 BCM cushion), flow withholding, and anti-dam NGO lawfare. Eliminates a fatal division-by-zero hazard in staged formulas using smooth denominator bounding.
+- **Mathematical Specification:**
+  $$\text{CushionRatio} = \min\left(2.5, \frac{V_{\text{storage\_cushion}}}{\max(0.001, V_{\text{upstream\_threat}}) + 10^{-5}}\right)$$
+  $$z = 2.8 \cdot \text{CushionRatio} - 2.5 \cdot T_{\text{flow\_withholding}} - 2.6 \cdot \text{Protest}_{\text{subversion}} + 2.2 \cdot \text{EarlyWarning} - 1.5$$
+  $$S_{\text{Hydro\_Security}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_DOWNSTREAM_BUFFER_CUSHION`, $\ge 0.55$ `ADEQUATE_TRANSRIPARIAN_ABSORPTION`, $\ge 0.35$ `CONTESTED_HYDROLOGICAL_VULNERABILITY`, $< 0.35$ `ACUTE_FLASH_FLOOD_AND_DROUGHT_VULNERABILITY`.
+- **Wiring:** Embedded into `FoodSecurityLens.evaluate()`, populating `hydro_weaponization_resilience`, `foreign_ngo_subversion_risk`, and `hydro_weaponization_tier` in `hard_metrics`.
+- **Test:** `test_phase265_hydrological_weaponization_buffer_sieve` — PASS.
+
+---
+
+### Phase 266: `AntiquityPlunderRepatriationSieve`
+- **File:** `geo_engine/lenses/civilizational.py`
+- **Problem Solved:** Quantifies the sovereign momentum of recovering sacred Murtis and stolen temple antiquities under the 1970 UNESCO Convention, overcoming Western museum cartel legal resistance, and accelerating 3D photogrammetric temple asset cataloging.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot R_{\text{repatriation}} + 2.4 \cdot D_{\text{treaties}} - 2.6 \cdot M_{\text{museum\_resistance}} + 2.2 \cdot T_{\text{digitization}} - 1.2$$
+  $$S_{\text{Heritage\_Recovery}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `ACUTE_RESTITUTION_MOMENTUM`, $\ge 0.55$ `ACTIVE_DIPLOMATIC_RECLAMATION`, $\ge 0.35$ `CONTESTED_COLONIAL_RETENTION`, $< 0.35$ `CHRONIC_HERITAGE_PLUNDER_VULNERABILITY`.
+- **Wiring:** Embedded into `CivilizationalLens.evaluate()`, populating `sacred_heritage_restitution_score`, `illicit_antiquity_trafficking_threat`, and `heritage_restitution_tier` in `hard_metrics`.
+- **Test:** `test_phase266_antiquity_plunder_repatriation_sieve` — PASS.
+
+---
+
+### Phase 267: `DiasporaSanctuaryLawfareSieve`
+- **File:** `geo_engine/lenses/geopolitical.py`
+- **Problem Solved:** Quantifies national security exposure to transnational extremist safe havens in Western partner nations (e.g., Canada, UK, US), host government political vote-bank tolerance under 'free speech' pretexts, illicit diaspora charity remittance diversion, counterbalanced by reciprocal extradition coercion and bilateral trade/consular conditionality. Correctly routed into `GeopoliticalLens` resolving staged non-existent class references.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{Host}_{\text{tolerance}} + 2.4 \cdot \text{Remittances} - 2.6 \cdot \text{Extradition} - 2.2 \cdot \text{Leverage} - 1.0$$
+  $$S_{\text{Sanctuary\_Threat}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `ACUTE_TRANSNATIONAL_EXTREMIST_SANCTUARY`, $\ge 0.55$ `ELEVATED_HOST_STATE_SHIELDING`, $\ge 0.35$ `CONTESTED_EXTRADITION_CORRIDORS`, $< 0.35$ `FORTIFIED_RECIPROCAL_CONSULAR_SECURITY`.
+- **Wiring:** Embedded into `GeopoliticalLens.evaluate()`, populating `transnational_extremism_threat_score`, `host_sanctuary_lawfare_exposure`, and `diaspora_sanctuary_tier` in `hard_metrics`.
+- **Test:** `test_phase267_diaspora_sanctuary_lawfare_sieve` — PASS.
+
+---
+
+### Master Integration & Telemetry Infrastructure
+- **QueryParser AST Flags:** Added eight explicit boolean intent flags (`requires_pnt_autonomy`, `requires_ai_governance`, `requires_proxy_warfare`, `requires_textual_triangulation`, `requires_media_capture`, `requires_hydro_weaponization`, `requires_antiquity_restitution`, `requires_diaspora_sanctuary`) to eliminate mock defaults.
+- **Synthesizer Telemetry Scaling:** `SummitSynthesizer.strategic_resilience_matrix` expanded to **79 comprehensive live telemetry channels**.
+- **CLI Terminal KPI Card:** Upgraded `geo_engine/cli.py` with multi-color ANSI card formatting for all Phases 260–267 metrics.
+- **Package Exports Expansion:** `geo_engine/lenses/__init__.py` updated with all 8 sieves, bringing total verified analytical exports to **94 symbols**.
+- **Test Suite Expansion:** Appended `TestPhase260to267SievesAndTelemetry` (11 new unit and integration tests), expanding test suite from 539 to **550 comprehensive unit and integration tests (100% pass rate)**.
+- **Documentation Parity:** `README.md` updated to reflect 550 certified passing tests.
+
+---
+
+### Phase 268: `PreciousMetalSovereignArbitrageSieve`
+- **File:** `geo_engine/lenses/cash_flow.py`
+- **Problem Solved:** Models sovereign physical bullion resilience against Western unallocated paper derivative defaults (COMEX/LBMA fractional reserve leverage), Shanghai Gold Exchange physical delivery premiums ($\Delta P_{\text{SGE-COMEX}}$), RBI physical gold repatriation from London vaults, and decentralized private household *Streedhan* gold reserves (~25,000–30,000 tonnes) acting as an uncollateralized macroeconomic buffer. Bounded with $\epsilon$-smoothed denominator to eliminate division-by-zero risk.
+- **Mathematical Specification:**
+  $$\text{VaultRatio} = \min\left(5.0, \frac{\text{Physical}_{\text{vault\_inventory}}}{\max(0.001, \text{Paper}_{\text{derivative\_claims}}) + 10^{-5}}\right)$$
+  $$z = 2.2 \cdot \text{VaultRatio} + 2.5 \cdot R_{\text{central\_bank\_repatriation}} + 2.6 \cdot H_{\text{domestic\_streedhan}} + 1.5 \cdot \min(2.0, \Delta P_{\text{SGE-COMEX}} / 25.0) - 1.8$$
+  $$S_{\text{Bullion\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_PHYSICAL_BULLION_SOVEREIGNTY`, $\ge 0.55$ `ADEQUATE_CENTRAL_BANK_GOLD_BACKING`, $\ge 0.35$ `VULNERABLE_PAPER_DERIVATIVE_EXPOSURE`, $< 0.35$ `CRITICAL_FIAT_DEBASEMENT_VULNERABILITY`.
+- **Wiring:** Embedded into `CashFlowLens.evaluate()`, populating `bullion_sovereignty_score`, `vault_physical_to_paper_ratio`, `streedhan_macro_buffer_index`, and `bullion_sovereignty_tier` in `hard_metrics`.
+- **Test:** `test_phase268_precious_metal_sovereign_arbitrage_sieve` — PASS.
+
+---
+
+### Phase 269: `ChokepointHydrocarbonInterdictionSieve`
+- **File:** `geo_engine/lenses/petro_logistics.py`
+- **Problem Solved:** Quantifies macro-energy vulnerability across maritime chokepoints (Strait of Hormuz, Bab-el-Mandeb), crude oil price shocks (Brent surge over \$100/barrel), counterbalanced by Strategic Petroleum Reserve (SPR) days of cover relative to the 90-day statutory benchmark and multimodal bypass corridors (Chabahar / IMEC). Correctly routed into `PetroLogisticsLens` eliminating cross-module duplication.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{Hormuz}_{\text{interdiction\_risk}} + 2.4 \cdot \Delta \text{Brent}_{\text{shock}} - 2.6 \cdot \min\left(2.0, \frac{\text{SPR}_{\text{days}}}{90.0}\right) - 2.2 \cdot \text{Chabahar}_{\text{resilience}} - 1.2$$
+  $$S_{\text{Hydrocarbon\_Vulnerability}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `ACUTE_ENERGY_CHOKEPOINT_INTERDICTION`, $\ge 0.55$ `ELEVATED_STRAIT_OF_HORMUZ_EXPOSURE`, $\ge 0.35$ `MODERATE_SPR_BUFFER_CONTAINMENT`, $< 0.35$ `FORTIFIED_STRATEGIC_ENERGY_RESERVES`.
+- **Wiring:** Embedded into `PetroLogisticsLens.evaluate()`, populating `hydrocarbon_chokepoint_vulnerability_score`, `spr_coverage_durability_ratio`, and `chokepoint_vulnerability_tier` in `hard_metrics`.
+- **Test:** `test_phase269_chokepoint_hydrocarbon_interdiction_sieve` — PASS.
+
+---
+
+### Phase 270: `CognitiveCorticalResilienceSieve`
+- **File:** `geo_engine/lenses/propaganda.py`
+- **Problem Solved:** Quantifies neuro-cognitive immunity and public discernment resisting outrage-bait and psychological hybrid warfare. Purged of pseudo-scientific terminology ("gyrification parity") and anchored strictly in empirical cognitive metrics: primary source literacy, Dharmic stoicism (*Dhriti* and *Viveka* emotional stability), resistance to amygdala panic stimuli, and countering algorithmic dopamine decay.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{Critical}_{\text{literacy}} + 2.6 \cdot \text{Dharmic}_{\text{stoicism}} - 2.5 \cdot \text{Amygdala}_{\text{panic\_stimuli}} - 2.4 \cdot \text{Algorithmic}_{\text{dopamine\_decay}} - 1.0$$
+  $$S_{\text{Cognitive\_Resilience}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_DHARMIC_COGNITIVE_IMMUNITY`, $\ge 0.55$ `RESILIENT_PUBLIC_DISCERNMENT`, $\ge 0.35$ `ELEVATED_ALGORITHMIC_VULNERABILITY`, $< 0.35$ `ACUTE_COGNITIVE_HIJACK_SUSCEPTIBILITY`.
+- **Wiring:** Embedded into `PropagandaLens.evaluate()`, populating `cognitive_sovereignty_score`, `critical_primary_source_literacy`, `dharmic_stoicism_index`, and `cognitive_resilience_tier` in `hard_metrics`.
+- **Test:** `test_phase270_cognitive_cortical_resilience_sieve` — PASS.
+
+---
+
+### Phase 271: `FastBreederNuclearFuelAutonomySieve`
+- **File:** `geo_engine/lenses/deep_tech.py`
+- **Problem Solved:** Models closed nuclear fuel cycle sovereignty across Stage 2 Fast Breeder Reactors (PFBR 500 MWe at Kalpakkam), Stage 3 Thorium fuel cycle transition velocity, insulation from Nuclear Suppliers Group (NSG) cartel conditionalities, and industrial captive Small Modular Reactor (SMR) zero-carbon deployment. Incorporates $\epsilon$-smoothed denominator to eliminate division-by-zero risk when Uranium imports are zero.
+- **Mathematical Specification:**
+  $$\text{ThoriumRatio} = \min\left(4.0, \frac{\text{Thorium}_{\text{inventory}} / 100000}{\max(0.001, \text{Uranium}_{\text{import\_need}} / 1000) + 10^{-5}}\right)$$
+  $$z = 2.6 \cdot \text{Breeding}_{\text{ratio}} + 2.4 \cdot \text{ThoriumRatio} - 2.5 \cdot \text{Cartel}_{\text{drag}} + 2.0 \cdot \text{SMR}_{\text{norm}} - 2.2$$
+  $$S_{\text{Nuclear\_Autonomy}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `AUTONOMOUS_CLOSED_THORIUM_CYCLE`, $\ge 0.55$ `OPERATIONAL_FAST_BREEDER_PROGRESSION`, $\ge 0.35$ `CONTESTED_URANIUM_CARTEL_DEPENDENCY`, $< 0.35$ `CRITICAL_NUCLEAR_FUEL_VULNERABILITY`.
+- **Wiring:** Embedded into `DeepTechLens.evaluate()`, populating `nuclear_fuel_cycle_autonomy_score`, `fbr_breeding_ratio`, `thorium_to_uranium_cushion_ratio`, and `nuclear_autonomy_tier` in `hard_metrics`.
+- **Test:** `test_phase271_fast_breeder_nuclear_fuel_autonomy_sieve` — PASS.
+
+---
+
+### Phase 272: `SovereignBalanceSheetShieldSieve`
+- **File:** `geo_engine/lenses/cash_flow.py`
+- **Problem Solved:** Quantifies macro balance-of-payments immunity under the Greenspan-Guidotti rule: ratio of foreign exchange reserves (> \$700B) to short-term external debt maturing within 1 year, and Domestic Institutional Investor (DII) retail SIP inflow velocity neutralizing Foreign Institutional Investor (FII) equity flight during global liquidity freezes. Distinct from Phase 268 to prevent circular oscillation and redundancy.
+- **Mathematical Specification:**
+  $$\text{CoverRatio} = \min\left(5.0, \frac{\text{Forex}_{\text{reserves}}}{\max(0.001, \text{ShortTerm}_{\text{debt}}) + 10^{-5}}\right)$$
+  $$z = 2.5 \cdot \text{CoverRatio} + 2.8 \cdot \text{DII}_{\text{retail\_absorption}} - 2.4 \cdot \text{CAD}_{\text{pressure}} - 2.2 \cdot \text{FII}_{\text{flight}} - 1.5$$
+  $$S_{\text{BOP\_Shield}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_SOVEREIGN_BOP_SHIELD`, $\ge 0.55$ `ADEQUATE_DOMESTIC_CAPITAL_ABSORPTION`, $\ge 0.35$ `CONTESTED_EXTERNAL_LIQUIDITY_PRESSURE`, $< 0.35$ `ACUTE_BALANCE_OF_PAYMENTS_VULNERABILITY`.
+- **Wiring:** Embedded into `CashFlowLens.evaluate()`, populating `sovereign_bop_shield_score`, `forex_to_short_term_debt_ratio`, `dii_capital_flight_insulation`, and `bop_shield_tier` in `hard_metrics`.
+- **Test:** `test_phase272_sovereign_balance_sheet_shield_sieve` — PASS.
+
+---
+
+### Phase 273: `SubRegionalElectoralPolarizationSieve`
+- **File:** `geo_engine/lenses/institutional_lawfare.py`
+- **Problem Solved:** Models the tension between universal welfare delivery saturation (*Labharthi* consensus) and sub-regional identity fault line mobilization, tracking the decay of political civility (*Maryada* erosion) counterbalanced by statutory institutional neutrality of the Election Commission of India. Calibrated offset prevents zero-baseline distortion.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{Welfare}_{\text{saturation}} + 2.4 \cdot \text{Institutional}_{\text{neutrality}} - 2.6 \cdot \text{Caste}_{\text{fragmentation}} - 2.5 \cdot \text{Rhetorical}_{\text{polarization}} - 1.0$$
+  $$S_{\text{Electoral\_Stability}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_LABHARTHI_CONSENSUS`, $\ge 0.55$ `STABLE_ELECTORAL_GOVERNANCE`, $\ge 0.35$ `CONTESTED_SUBREGIONAL_POLARIZATION`, $< 0.35$ `ACUTE_MARYADA_EROSION_AND_FRAGMENTATION`.
+- **Wiring:** Embedded into `InstitutionalLawfareLens.evaluate()`, populating `electoral_governance_stability_score`, `welfare_saturation_rate`, `maryada_erosion_index`, and `electoral_stability_tier` in `hard_metrics`.
+- **Test:** `test_phase273_sub_regional_electoral_polarization_sieve` — PASS.
+
+---
+
+### Master Telemetry & Architectural Scaling (Phases 268–273)
+- **QueryParser AST Flags:** Added six explicit boolean intent flags (`requires_precious_metals`, `requires_hydrocarbon_chokepoints`, `requires_cognitive_resilience`, `requires_nuclear_autonomy`, `requires_bop_shield`, `requires_electoral_polarization`) with discrete word-boundary token matching.
+- **Synthesizer Telemetry Scaling:** `SummitSynthesizer.strategic_resilience_matrix` expanded from 79 to **85 comprehensive live telemetry channels**.
+- **CLI Terminal KPI Card:** Upgraded `geo_engine/cli.py` with multi-color ANSI card formatting for all Phases 268–273 metrics.
+- **Package Exports Expansion:** `geo_engine/lenses/__init__.py` updated with all 6 sieves, expanding total analytical exports from 94 to **100 symbols**.
+- **Test Suite Expansion:** Appended `TestPhase268to273SievesAndTelemetry` (10 new unit and integration tests), expanding test suite from 550 to **560 comprehensive unit and integration tests (100% pass rate)**.
+- **Documentation Parity:** `README.md` updated to reflect 560 certified passing tests.
+- **Canonical Bundle Governance:** Distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) recompiled and certified across all 10 Anti-Drift Quality Gates (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$).
+
+---
+
+### Phase 274: `CriticalRefineryCyberKineticSabotageSieve`
+- **File:** `geo_engine/lenses/petro_logistics.py`
+- **Problem Solved:** Models industrial SCADA / DCS cyber-kinetic vulnerability, physical loitering drone defense interception capabilities, and backup cracking capacity across high-complexity coastal refinery complexes (e.g., Jamnagar 1.24 Mbpd, Vadinar 400 kbpd). Detects single-point infrastructure failure risks and foreign kinetic sabotage vectors against sovereign energy supply chains.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{SCADA}_{\text{airgap}} + 2.5 \cdot \text{Drone}_{\text{defense}} + 2.2 \cdot \text{Reserve}_{\text{redundancy}} - 3.2 \cdot \text{Attack}_{\text{surface}} - 2.6 \cdot \text{SingleSite}_{\text{concentration}} - 0.5$$
+  $$S_{\text{Refinery\_Sabotage\_Risk}} = 1.0 - \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `CRITICAL_REFINERY_KINETIC_VULNERABILITY`
+  - $\ge 0.55$: `ELEVATED_COASTAL_ENERGY_SECURITY_EXPOSURE`
+  - $\ge 0.35$: `MODERATE_DEFENSIVE_HARDENING`
+  - $< 0.35$: `FORTIFIED_STRATEGIC_REFINING_BASTION`
+- **Wiring:** Embedded into `PetroLogisticsLens.evaluate()` and cross-wired into `HybridCovertLens.evaluate()`, populating `refinery_sabotage_risk_score`, `refinery_defensive_readiness`, `scada_airgap_isolation_index`, and `refinery_sabotage_tier` in `hard_metrics`.
+- **Test:** `test_phase274_critical_refinery_cyber_kinetic_sabotage_sieve` ✅ PASS.
+
+---
+
+### Phase 275: `DomesticHNWICapitalFormationSieve`
+- **File:** `geo_engine/lenses/cash_flow.py`
+- **Problem Solved:** Tracks High Net Worth Individual (HNWI) capital domicile, domestic entrepreneurial capital retention, and offshore tax residency arbitrage pressures (e.g., Dubai Golden Visa, Singapore family offices) versus IFSC GIFT City onshore tax parity incentives.
+- **Mathematical Specification:**
+  $$z = 2.6 \cdot \text{GIFT}_{\text{parity}} + 2.4 \cdot \text{EODB}_{\text{velocity}} - 3.0 \cdot \text{Tax}_{\text{disadvantage}} - 2.5 \cdot \text{Judicial}_{\text{harassment}} - 0.2$$
+  $$S_{\text{Capital\_Flight\_Risk}} = 1.0 - \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `SEVERE_HNWI_CAPITAL_EXODUS`
+  - $\ge 0.55$: `ELEVATED_WEALTH_DISINTERMEDIATION`
+  - $\ge 0.35$: `BALANCED_DOMESTIC_CAPITAL_RETENTION`
+  - $< 0.35$: `FORTIFIED_DOMESTIC_CAPITAL_MAGNET`
+- **Wiring:** Embedded into `CashFlowLens.evaluate()` and cross-referenced in `GeoEconomistLens.evaluate()`, populating `capital_flight_risk_score`, `domestic_capital_retention_index`, `gift_city_arbitrage_efficiency`, and `hnwi_capital_tier` in `hard_metrics`.
+- **Test:** `test_phase275_domestic_hnwi_capital_formation_sieve` ✅ PASS.
+
+---
+
+### Phase 276: `SovereignGoldRepatriationSieve`
+- **File:** `geo_engine/lenses/cash_flow.py`
+- **Problem Solved:** Quantifies jurisdictional sovereign gold reserve immunity following Bank of England (BoE) and Bank for International Settlements (BIS) custodial repatriation operations (e.g., RBI repatriation of 100+ metric tonnes to domestic vaults), calculating physical vault custody ratios, paper bullion ETF dislocation spreads, and freeze-risk mitigation.
+- **Mathematical Specification:**
+  $$\text{PhysicalRatio} = \min\left(1.0, \frac{\text{DomesticVaults}_{\text{tonnes}}}{\max(1.0, \text{TotalReserve}_{\text{tonnes}})}\right)$$
+  $$z = 3.2 \cdot \text{PhysicalRatio} + 2.5 \cdot \text{Settlement}_{\text{autonomy}} - 3.0 \cdot \text{G7}_{\text{jurisdictional\_risk}} - 2.2 \cdot \text{PaperETF}_{\text{haircut}} - 0.5$$
+  $$S_{\text{Reserve\_Immunity}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `FORTIFIED_PHYSICAL_GOLD_IMMUNITY`
+  - $\ge 0.55$: `DEFENSIBLE_DOMESTIC_VAULT_CUSHION`
+  - $\ge 0.35$: `VULNERABLE_OFFSHORE_JURISDICTION_EXPOSURE`
+  - $< 0.35$: `CRITICAL_CUSTODIAL_FREEZE_RISK`
+- **Wiring:** Embedded into `CashFlowLens.evaluate()` and cross-referenced in `GeoEconomistLens.evaluate()`, populating `reserve_immunity_score`, `physical_vault_custody_ratio`, `sovereign_gold_autonomy_index`, and `gold_repatriation_tier` in `hard_metrics`.
+- **Test:** `test_phase276_sovereign_gold_repatriation_sieve` ✅ PASS.
+
+---
+
+### Phase 277: `MultiAgentGroupChatConsensusSieve`
+- **File:** `geo_engine/lenses/deep_tech.py`
+- **Problem Solved:** Models autonomous multi-agent group chat stability, Bayesian consensus convergence velocity, prevention of epistemic circular loops ("wheel-spinning"), and autonomous execution guardrails in multi-model agentic coding architectures.
+- **Mathematical Specification:**
+  $$z = 2.8 \cdot \text{Convergence}_{\text{velocity}} + 2.5 \cdot \text{Credential}_{\text{isolation}} - 3.2 \cdot \text{Divergence}_{\text{variance}} - 2.8 \cdot \text{CircularLoop}_{\text{risk}} - 0.2$$
+  $$S_{\text{Agent\_Consensus}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `HIGH_FIDELITY_AGENTIC_CONVERGENCE`
+  - $\ge 0.55$: `BOUNDED_ITERATIVE_ALIGNMENT`
+  - $\ge 0.35$: `ELEVATED_DIVERGENCE_FRICTION`
+  - $< 0.35$: `CIRCULAR_WHEEL_SPINNING_ANOMALY`
+- **Wiring:** Embedded into `DeepTechLens.evaluate()` and cross-wired into `DigitalSovereigntyLens.evaluate()`, populating `multi_agent_consensus_score`, `agent_orchestration_stability_index`, and `agent_consensus_tier` in `hard_metrics`.
+- **Test:** `test_phase277_multi_agent_group_chat_consensus_sieve` ✅ PASS.
+
+---
+
+### Phase 278: `PaleogenomicDemographicContinuitySieve`
+- **File:** `geo_engine/lenses/civilizational.py`
+- **Problem Solved:** Mathematically quantifies ancient DNA (aDNA) continuity (e.g., Rakhigarhi sample I6113: 12,000-year South Asian genetic cline, zero Steppe pastoralist ancestry in 2600 BCE mature Harappan), debunking colonial race-invasion myths via high-coverage skeletal sample validation, epigraphic/archaeological concordance, and admixture delta bounds.
+- **Mathematical Specification:**
+  $$z = 3.0 \cdot \text{Indigenous}_{\text{cline\_stability}} + 2.6 \cdot \text{Stratigraphic}_{\text{concordance}} + 2.0 \cdot \text{Skeletal}_{\text{depth}} - 3.5 \cdot \text{Discontinuity}_{\text{delta}} - 0.4$$
+  $$S_{\text{Paleogenomic\_Continuity}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `UNBROKEN_INDIGENOUS_PALEOGENOMIC_CONTINUITY`
+  - $\ge 0.55$: `HIGH_FIDELITY_ARCHAEOGENETIC_COHERENCE`
+  - $\ge 0.35$: `CONTESTED_ADMIXTURE_STRATIGRAPHY`
+  - $< 0.35$: `DISRUPTED_DEMOGRAPHIC_LINEAGE`
+- **Wiring:** Embedded into `CivilizationalLens.evaluate()` and cross-wired into `HistoryLens.evaluate()`, populating `paleogenomic_continuity_score`, `indigenous_cline_stability_index`, `stratigraphic_concordance_index`, and `paleogenomic_continuity_tier` in `hard_metrics`.
+- **Test:** `test_phase278_paleogenomic_demographic_continuity_sieve` ✅ PASS.
+
+---
+
+### Phase 279: `MultidisciplinaryEpistemicTriangulationSieve`
+- **File:** `geo_engine/lenses/history.py`
+- **Problem Solved:** Enforces strict epistemic consensus across 4 independent disciplines: Epigraphy/Inscriptions, Archaeo-astronomy, Archaeogenetics (aDNA), and Marine Geo-archaeology (e.g., submerged Dwarka marine structures). Rejects unidisciplinary circular claims lacking cross-domain physical corroboration.
+- **Mathematical Specification:**
+  $$z = 2.2 \cdot \text{Epigraphy} + 2.4 \cdot \text{Astronomy} + 2.6 \cdot \text{Genetics} + 2.5 \cdot \text{Marine} - 3.2 \cdot \text{TextualBias} - 0.8$$
+  $$S_{\text{Epistemic\_Triangulation}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `QUADRUPLE_DISCIPLINARY_EPISTEMIC_CERTAINTY`
+  - $\ge 0.55$: `MULTI_DOMAIN_CORROBORATED_CONSENSUS`
+  - $\ge 0.35$: `UNIDISCIPLINARY_SPECULATIVE_HYPOTHESIS`
+  - $< 0.35$: `PSEUDO_SCHOLARLY_CIRCULAR_FABRICATION`
+- **Wiring:** Embedded into `HistoryLens.evaluate()` and cross-wired into `PropagandaLens.evaluate()`, populating `epistemic_triangulation_score`, `cross_domain_concordance_index`, and `epistemic_triangulation_tier` in `hard_metrics`.
+- **Test:** `test_phase279_multidisciplinary_epistemic_triangulation_sieve` ✅ PASS.
+
+---
+
+### Phase 280: `BiosphereThermodynamicSoilResilienceSieve`
+- **File:** `geo_engine/lenses/food_security.py`
+- **Problem Solved:** Quantifies ecological carrying capacity, topsoil organic carbon (SOC) regeneration rates, agroforestry integration, groundwater aquifer drawdown depletion, and chemical fertilizer salinization drag on long-term caloric sovereignty.
+- **Mathematical Specification:**
+  $$\text{SOC\_Norm} = \min\left(1.0, \frac{\text{SOC}_{\%}}{2.5}\right)$$
+  $$z = 2.8 \cdot \text{SOC\_Norm} + 2.4 \cdot \text{Agroforestry}_{\text{ratio}} - 2.8 \cdot \text{Chemical}_{\text{overuse}} - 2.6 \cdot \text{WaterTable}_{\text{depletion}} - 0.2$$
+  $$S_{\text{Soil\_Resilience}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `REGENERATIVE_THERMODYNAMIC_BIOSPHERE_BASTION`
+  - $\ge 0.55$: `SUSTAINABLE_EDAPHIC_EQUILIBRIUM`
+  - $\ge 0.35$: `DEGRADING_SOIL_ORGANIC_MATRIX`
+  - $< 0.35$: `CRITICAL_DESERTIFICATION_AND_AQUIFER_COLLAPSE`
+- **Wiring:** Embedded into `FoodSecurityLens.evaluate()` and cross-referenced in `GeoEconomistLens.evaluate()`, populating `soil_resilience_score`, `soil_organic_carbon_normalized`, `edaphic_resilience_tier`, and `soil_resilience_verdict` in `hard_metrics`.
+- **Test:** `test_phase280_biosphere_thermodynamic_soil_resilience_sieve` ✅ PASS.
+
+---
+
+### Phase 281: `DharmicSoftPowerCulturalSovereigntySieve`
+- **File:** `geo_engine/lenses/civilizational.py`
+- **Problem Solved:** Models global civilizational attraction, civilizational narrative decolonization velocity, domestic temple economy deregulation (liberation from state HR&CE bureaucratic expropriation), and international counter-delegitimation resilience.
+- **Mathematical Specification:**
+  $$z = 2.6 \cdot \text{SoftPower}_{\text{projection}} + 2.8 \cdot \text{Decolonization}_{\text{velocity}} - 2.7 \cdot \text{TempleAsset}_{\text{control}} - 2.5 \cdot \text{Narrative}_{\text{delegitimation}} - 0.3$$
+  $$S_{\text{Dharmic\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `FORTIFIED_DHARMIC_CIVILIZATIONAL_SOVEREIGNTY`
+  - $\ge 0.55$: `ACTIVE_CULTURAL_DECOLONIZATION_TRAJECTORY`
+  - $\ge 0.35$: `CONTESTED_INSTITUTIONAL_APPROPRIATION`
+  - $< 0.35$: `CRITICAL_CIVILIZATIONAL_EROSION`
+- **Wiring:** Embedded into `CivilizationalLens.evaluate()` and cross-wired into `InstitutionalLawfareLens.evaluate()`, populating `dharmic_sovereignty_score`, `cultural_decolonization_index`, and `dharmic_sovereignty_tier` in `hard_metrics`.
+- **Test:** `test_phase281_dharmic_soft_power_cultural_sovereignty_sieve` ✅ PASS.
+
+---
+
+### Phase 282: `SectoralCapitalRotationAndGridConstraintSieve`
+- **File:** `geo_engine/lenses/geo_economist.py`
+- **Problem Solved:** Quantifies intra-market capital reallocation during global macro shocks, modeling physical electrical grid saturation bottlenecks resisting AI data center capex coupled with crude oil disinflation dividends rotating capital into domestic banking and consumption. Includes automated "Index Illusion" divergence detection.
+- **Mathematical Specification:**
+  $$\text{Divergence} = |\Delta_{\text{IT\_Energy}} - \Delta_{\text{Banking\_Auto}}|$$
+  $$\text{IsIllusion} = (\text{Divergence} \ge 0.060 \land \Delta_{\text{Benchmark}} > 0.0)$$
+  $$z = 2.6 \cdot \text{Grid}_{\text{friction}} + 2.4 \cdot \text{Capex}_{\text{compression}} - 2.5 \cdot \text{Crude}_{\text{dividend}} - 2.0 \cdot \text{Credit}_{\text{deepening}} - 0.3$$
+  $$S_{\text{Sectoral\_Rotation}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:**
+  - $\ge 0.75$: `ACUTE_SECTORAL_CANNIBALIZATION_AND_GRID_CLIFF`
+  - $\ge 0.55$: `ELEVATED_INTRA_MARKET_DIVERGENCE`
+  - $\ge 0.35$: `BALANCED_CROSS_SECTOR_EQUILIBRIUM`
+  - $< 0.35$: `HOMOGENEOUS_SOVEREIGN_CAPITAL_EXPANSION`
+- **Wiring:** Embedded into `GeoEconomistLens.evaluate()` and cross-wired into `DeepTechLens.evaluate()`, populating `sectoral_rotation_score`, `sectoral_divergence_delta`, `is_index_illusion_active`, `sectoral_rotation_tier`, and `sectoral_rotation_verdict` in `hard_metrics`.
+- **Test:** `test_phase282_sectoral_capital_rotation_and_grid_constraint_sieve` ✅ PASS.
+
+---
+
+### Master Telemetry & Architectural Scaling (Phases 274–282)
+- **QueryParser AST Flags:** Added nine explicit boolean intent flags (`requires_refinery_sabotage`, `requires_hnwi_capital`, `requires_gold_repatriation`, `requires_multi_agent_consensus`, `requires_paleogenomics`, `requires_epistemic_triangulation`, `requires_soil_resilience`, `requires_dharmic_sovereignty`, `requires_sectoral_rotation`) with discrete word-boundary token matching.
+- **Synthesizer Telemetry Scaling:** `SummitSynthesizer.strategic_resilience_matrix` expanded from 85 to **94 comprehensive live telemetry channels**.
+- **Package Exports Expansion:** `geo_engine/lenses/__init__.py` updated with all 9 sieves, expanding total analytical exports from 100 to **109 symbols**.
+- **Test Suite Expansion:** Appended `TestPhases274to282SievesAndTelemetry` (12 comprehensive unit and integration tests), expanding test suite from 560 to **572 comprehensive unit and integration tests (100% pass rate)**.
+- **Documentation Parity:** `README.md` updated to reflect 572 certified passing tests.
+- **Canonical Bundle Governance:** Distribution bundles (`dist_ai/core_5`, `dist_ai/deep_50`, `consolidate_5_files`, `consolidate_50_files`) recompiled and certified across all 10 Anti-Drift Quality Gates (`consolidate_5_files` == 5 files, `consolidate_50_files` == 32 files $\le 50$).
+
+---
+
+# 🌐 Comprehensive System Evolution & Multi-Phase Macro Journey Summary (Phases 1–282)
+
+### 1. The Epistemic Foundation: 5-Tier Truth Hierarchy
+The platform was architected from inception on an unshakeable epistemological premise: **higher physical and financial reality strictly overrides rhetorical communiqués and diplomatic theatrics.**
+- **Tier 1 (Physical Reality & Kinetic Ground):** Topography, satellite imagery, physical pipeline throughput, border troop deployments, ordnance stockpiles.
+- **Tier 2 (Financial Realism & Capital Flows):** SWIFT liquidity, Central Bank forex reserves, physical gold repatriation, debt refinancing spreads, bilateral local currency clearing.
+- **Tier 3 (Sovereign Redlines & Treaties):** Demarcated boundary accords, ratified bilateral treaties, statutory sovereignty provisions.
+- **Tier 4 (Protocol-Subtracted Kinesics):** Objective facial action units (FACS), sartorial semiotics, acoustic fundamental frequency ($F_0$) perturbations, and prosodic latency.
+- **Tier 5 (Communiqués & Narrative Rhetoric):** Joint declarations, press releases, state broadcaster spin, and multilateral communiqués.
+
+### 2. The 20 Analytical Lenses Architecture
+The platform analyzes complex geopolitical phenomena across twenty specialized, decoupled analytical lenses:
+1. `DeepTechLens`: Foundry nodes, lithography chokepoints, quantum superposition statecraft, AI regulatory moats.
+2. `HistoryLens`: Boundary treaties, cartographic precedents, colonial legacy distortions, diplomatic archives.
+3. `CivilizationalLens`: Sanatan statecraft (*Rajdharma*, *Kshatra Dharma*, *Mandala* theory), dharmic soft power, sacred geography.
+4. `GeoEconomistLens`: Currency clearing, vostro accounts, sanctions firewalls, sectoral capital rotation, grid constraints.
+5. `GeopoliticalLens`: Rimland balance of power, maritime chokepoints, strategic deterrence, corridor encirclement.
+6. `KinesicsLens`: FACS AU micro-expression forensics, sartorial semiotics, physical posture tension metrics.
+7. `CashFlowLens`: 85% haircut on unfinanced MOUs, Greenspan-Guidotti reserves, gold repatriation, HNWI retention.
+8. `PropagandaLens`: Disinformation deconstruction, cognitive warfare, framing bias, dopamine-driven outrage loops.
+9. `PetroLogisticsLens`: Shadow tanker fleets, maritime chokepoints, refining bottlenecks, crude diversion logistics.
+10. `DeepStateLens`: Bureaucratic inertia, regulatory vetting (Press Note 3), statutory administrative friction.
+11. `DigitalSovereigntyLens`: Telecom stack bifurcation (DIRV RISC-V, BharOS), subsea landing stations, cloud sovereignty.
+12. `HybridCovertLens`: Grey-zone operations, cyber-kinetic sabotage, lawfare, non-linear asymmetric escalation.
+13. `IndiaTimelineLens`: Post-1947 boundary evolution, perimeter stability, *Yogakshema*, strategic timelines.
+14. `DemographicInfiltrationLens`: Border transit corridors, illegal migration vectors, asymmetric demographic shifts.
+15. `CriticalMineralsLens`: Rare earth refining concentration, battery mineral cartels, processing chokepoints.
+16. `InstitutionalLawfareLens`: Extraterritorial sanctions (OFAC/FATF), electoral jurisprudence, judicial subversion.
+17. `FoodSecurityLens`: Caloric sovereignty, grain buffers, MOP/DAP fertilizer chokepoints, soil organic carbon resilience.
+18. `MilitaryReadinessLens`: Two-front deterrence, War Wastage Reserves (WWR), integrated air defense (IADS).
+19. `SubseaCablesLens`: Abyssal seabed mining, deep-sea fiber optic cables, hydrophone acoustic monitoring.
+20. `AstroPoliticsLens`: LEO mega-constellations, NavIC PNT autonomy, orbital sovereignty, ASAT deterrence.
+
+### 3. The 109 Verified Mathematical Sieves Engine
+Across 282 engineering phases, 109 specialized mathematical sieves were designed, calibrated, and embedded into the analytical lenses. Every sieve employs bounded logistic sigmoids $\sigma(z) \in [0.0, 1.0]$, $\epsilon$-smoothed denominators, explicit penalty curves, and empirical categorical tiers.
+
+### 4. 5 Strategic Persona Projections
+The synthesis engine dynamically projects multi-lens evaluations through five distinct sovereign doctrine archetypes:
+- **Sanjeev Sanyal Tradition (`sanyal`):** Complex Adaptive Systems, empirical data, maritime networks, institutional reform.
+- **Ajit Doval Tradition (`doval`):** Hard sovereign realism, deterrence, covert intelligence, internal security matrix.
+- **S. Jaishankar Tradition (`jaishankar`):** Strategic multi-alignment, issue-based coalitions, unapologetic national interest.
+- **Anand Ranganathan Tradition (`ranganathan`):** Civilizational rationalism, zero-hypocrisy empirical audit, civilizational defense.
+- **Dr. Ankit Shah Tradition (`ankit_shah`):** Macro-monetary realism, de-dollarization velocity, physical gold repatriation, sovereign balance-sheet warfare.
+
+### 5. Multi-Modal Acoustic DSP & Kinesic Prosodic Telemetry Engine
+Incorporates an on-premise, zero-external-dependency acoustic digital signal processing (DSP) engine:
+- Fundamental Frequency ($F_0$) via Normalized Autocorrelation Function (NACF)
+- Pitch perturbation jitter analysis
+- Voice Activity Detection (VAD) pause latency forensics
+- Facial Action Coding System (FACS) action units: AU4 (brow lowerer), AU6 (cheek raiser), AU12 (lip corner puller), AU24 (lip pressor)
+- Sartorial semiotics tracking cultural, corporate, and military attire shifts.
+
+### 6. Multi-Pillar Chronology Arbiter (MPCA) & Paleogenomic Archaeogenetics
+Replaces colonial-era racial frameworks with rigorous multi-pillar Bayesian synthesis:
+- Ancient DNA (aDNA) cline continuity (Rakhigarhi sample I6113)
+- Bronze Age Sinauli OCP chariot and warrior burials (2000 BCE)
+- Archaeo-astronomical planetary conjunction alignment
+- Epigraphic and riverine cadastre stratigraphy
+- Submerged marine archaeology (Dwarka Gulf of Khambhat acoustic mapping).
+
+### 7. Autonomous Sovereign Video Studio & Cinema Pipeline
+Enables automated transformation of strategic intelligence into full multimedia briefings:
+- 1080p slide generation via offline PIL renderer
+- Multilingual voice synthesis (English, Hindi, Bengali, Sanskrit)
+- Sub-bass (55Hz/110Hz) procedural drone soundscapes with dynamic audio ducking
+- Ken Burns motion graphics (pan, zoom, tilt)
+- Headless vector PDF generation and HTML sovereign dashboards.
+
+### 8. Autonomous Closed-Loop Self-Learning Engine & Brier Ledger
+- **Closed-Loop Learning:** `ChatConversationDistiller` ingests conversational evidence and extracts atomic claims with zero codebase drift.
+- **Proof-Carrying Quarantine:** New claims are persisted in SQLite WAL storage under strict quarantine lifecycle controls before promotion.
+- **Brier Calibration Ledger:** Quantitative prediction tracker scoring forecasts ($B = rac{1}{N} \sum (f_t - o_t)^2$) across empirical outcomes.
+
+### 9. Production Hardening & Anti-Drift Quality Gates
+Every build is certified against 10 Anti-Drift Quality Gates:
+1. File count bounds (`consolidate_5_files` == 5, `consolidate_50_files` $\le 50$)
+2. Registry count parity (strictly 20 lenses)
+3. Universal markdown compliance in bundles
+4. Zero binary file contamination
+5. Zero credential leaks (regex pattern scanning)
+6. Object schema completeness
+7. Evidence capability matrix presence
+8. Deterministic git hash embedding
+9. Token budget compliance ($\le 150,000$ words)
+10. 100% test pass rate across all 572 tests in `tests/test_engine.py`.

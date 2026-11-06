@@ -5,6 +5,7 @@ subsea cable landing stations (Mumbai, Chennai), deep-sea seabed mining (polymet
 and acoustic/maritime chokepoint vulnerabilities in the Indian Ocean and Indo-Pacific.
 """
 
+import math
 from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, StrategicEvent
 
@@ -65,6 +66,15 @@ class SubseaCablesLens:
             repair_ship_autonomy_score=metrics.get("repair_ship_autonomy_score", 0.40),
         )
         metrics.update(_cable_result)
+
+        # Phase 255: Wire AbyssalHydrospatialSovereigntySieve
+        _abyssal_result = AbyssalHydrospatialSovereigntySieve.calculate_abyssal_sovereignty(
+            nodule_density_index=float(metrics.get("nodule_density_index", 0.5)),
+            isa_claim_overlap=float(metrics.get("isa_claim_overlap", 0.3)),
+            critical_mineral_deficit=float(metrics.get("critical_mineral_deficit", 0.5)),
+            dsrv_operational_readiness=float(metrics.get("dsrv_operational_readiness", 0.7)),
+        )
+        metrics.update(_abyssal_result)
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -199,3 +209,53 @@ class SubseaCableSovereigntySieve:
             "tactical_rationale": rationale,
             "is_cable_compromised": is_compromised
         }
+
+
+class AbyssalHydrospatialSovereigntySieve:
+    """
+    Phase 255: Abyssal Hydrospatial Sovereignty Sieve.
+    Evaluates abyssal seabed (3,000–6,000m) critical mineral extraction rights,
+    polymetallic nodule concentration (Ni, Co, Cu, Mn), International Seabed Authority (ISA)
+    regulatory lawfare, and Deep Submergence Recovery Vehicle (DSRV) operational parity (Matsya 6000 vs Chinese Fendouzhe).
+    """
+
+    @staticmethod
+    def calculate_abyssal_sovereignty(
+        nodule_density_index: float = 0.5,
+        isa_claim_overlap: float = 0.3,
+        critical_mineral_deficit: float = 0.6,
+        dsrv_operational_readiness: float = 0.7,
+    ) -> Dict[str, Any]:
+        ndi = min(1.0, max(0.0, float(nodule_density_index)))
+        isa = min(1.0, max(0.0, float(isa_claim_overlap)))
+        cmd = min(1.0, max(0.0, float(critical_mineral_deficit)))
+        dsrv = min(1.0, max(0.0, float(dsrv_operational_readiness)))
+
+        z = (2.8 * ndi + 2.5 * isa + 2.2 * cmd - 3.0 * dsrv - 0.8)
+        score = 1.0 / (1.0 + math.exp(-z))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "CRITICAL_ABYSSAL_RESOURCE_VULNERABILITY"
+            verdict = "SEVERE_SEABED_SOVEREIGNTY_DEFICIT"
+        elif score >= 0.55:
+            tier = "CONTESTED_SEABED_SOVEREIGNTY"
+            verdict = "ELEVATED_ISA_AND_ADVERSARY_ENCROACHMENT"
+        elif score >= 0.35:
+            tier = "BALANCED_DEEP_OCEAN_PRESENCE"
+            verdict = "PROGRESSIVE_DSRV_AND_MINERAL_EQUILIBRIUM"
+        else:
+            tier = "FORTIFIED_ABYSSAL_DOMINANCE"
+            verdict = "SECURE_DEEP_SEA_RESOURCE_SOVEREIGNTY"
+
+        return {
+            "abyssal_sovereignty_score": score,
+            "abyssal_sovereignty_tier": tier,
+            "abyssal_verdict": verdict,
+            "nodule_density_index": ndi,
+            "isa_claim_overlap": isa,
+            "critical_mineral_deficit": cmd,
+            "dsrv_operational_readiness": dsrv,
+            "is_abyssal_contested": score >= 0.55
+        }
+

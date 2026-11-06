@@ -16,33 +16,62 @@ class StrategicNewsRanker:
 
     STRATEGIC_DOMAINS = {
         "border_security": {
-            "weight": 0.35,
+            "weight": 0.18,
             "keywords": [
                 "border", "lac", "loc", "troops", "disengagement", "siliguri",
                 "china", "pla", "pakistan", "bangladesh", "dhaka", "hasina",
-                "defense", "missile", "patrol", "navy", "indian ocean"
+                "defense", "missile", "patrol", "navy", "indian ocean", "geopolitics"
             ]
         },
         "geo_economics": {
-            "weight": 0.30,
+            "weight": 0.16,
             "keywords": [
                 "capex", "rbi", "rupee", "inr", "vostro", "crude", "oil", "petro",
                 "trade deficit", "sanctions", "ofac", "cips", "central bank",
                 "inflation", "currency swap", "ndb", "sovereign fund"
             ]
         },
-        "multilateral_diplomacy": {
-            "weight": 0.20,
+        "aatmanirbharta_defense": {
+            "weight": 0.16,
             "keywords": [
-                "brics", "quad", "sco", "g20", "asean", "bimstec", "mea", "jaishankar",
-                "modi", "summit", "bilateral", "unsc", "treaty", "communique"
+                "aatmanirbhar", "indigenous", "defense production", "brahmos",
+                "sudarshan chakra", "idex", "export", "drdo", "hal", "tejas", "ins",
+                "make in india", "defense corridor"
             ]
         },
         "digital_sovereignty": {
-            "weight": 0.15,
+            "weight": 0.14,
             "keywords": [
-                "semiconductor", "chip", "fab", "telecom", "huawei", "5g", "compute",
-                "ai", "satellite", "navic", "critical minerals", "lithium"
+                "semiconductor", "chip", "fab", "telecom", "huawei", "5g", "6g", "compute",
+                "ai", "gpu", "indiaai", "quantum", "critical minerals", "lithium", "navic", "satellite"
+            ]
+        },
+        "science_and_space": {
+            "weight": 0.12,
+            "keywords": [
+                "isro", "space", "spadex", "docking", "chandrayaan", "gaganyaan",
+                "axiom-4", "nisar", "satellite", "navic", "nuclear", "fast breeder", "plasma thruster"
+            ]
+        },
+        "culture_and_civilization": {
+            "weight": 0.10,
+            "keywords": [
+                "civilization", "sanatan", "heritage", "temple corridor", "kashi",
+                "ujjain", "mahakal", "ayodhya", "decolonial", "dharma", "kumbh"
+            ]
+        },
+        "history_and_epigraphy": {
+            "weight": 0.07,
+            "keywords": [
+                "asi", "epigraphy", "inscription", "bharatshri", "archaeology",
+                "excavation", "skandapurana", "srisailam", "seal", "copper plate", "itihasa"
+            ]
+        },
+        "sacred_geography_and_law": {
+            "weight": 0.07,
+            "keywords": [
+                "pilgrimage", "tirtha", "waqf", "places of worship", "temple autonomy",
+                "devaswom", "statutory", "endowment", "sacred geography", "jurisprudence"
             ]
         }
     }
@@ -52,7 +81,10 @@ class StrategicNewsRanker:
         "arunachal", "ladakh", "indian ocean", "modi", "jaishankar", "doval", "iaf",
         "drdo", "isro", "navic", "rbi", "rupee", "inr", "vostro", "sebi", "upi",
         "bangladesh", "dhaka", "hasina", "yunus", "pakistan", "islamabad", "sri lanka",
-        "nepal", "maldives", "myanmar", "subsea", "landing station", "potash", "urea"
+        "nepal", "maldives", "myanmar", "subsea", "landing station", "potash", "urea",
+        "chandrayaan", "gaganyaan", "spadex", "nisar", "brahmos", "sudarshan chakra",
+        "idex", "bharatshri", "asi", "epigraphy", "temple corridor", "kashi", "ujjain",
+        "ayodhya", "waqf", "devaswom", "aatmanirbhar", "pli"
     ]
 
     @classmethod
@@ -70,7 +102,8 @@ class StrategicNewsRanker:
 
         # Determine primary domain
         best_domain = max(domain_scores.items(), key=lambda x: x[1])[0] if domain_scores else "general_intel"
-        final_score = round(min(1.0, total_score), 3)
+        max_domain = max(domain_scores.values()) if domain_scores else 0.0
+        final_score = round(min(1.0, max_domain * 0.30 + total_score * 1.5), 3)
 
         # Multi-lens tags scanning across the 20 analytical optics
         lens_tags: List[str] = []

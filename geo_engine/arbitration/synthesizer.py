@@ -632,6 +632,7 @@ class SummitSynthesizer:
         astro_eval = lens_eval_map.get(AstroPoliticsLens.LENS_NAME) or lens_eval_map.get("Astro-Politics, Orbital Sovereignty & Space Defense")
         deep_tech_eval = lens_eval_map.get(DeepTechLens.LENS_NAME) or lens_eval_map.get("Deep-Tech & Quantitative Modeling")
         civ_eval = lens_eval_map.get(CivilizationalLens.LENS_NAME) or lens_eval_map.get("Civilizational Statecraft (Sanatan / Comparative)")
+        history_eval = lens_eval_map.get(HistoryLens.LENS_NAME) or lens_eval_map.get("World & Indian Diplomatic History")
         digital_eval = lens_eval_map.get(DigitalSovereigntyLens.LENS_NAME) or lens_eval_map.get("Digital Sovereignty & Compute Infrastructure") or lens_eval_map.get("Digital Sovereignty, Compute & Telecommunications Stack Lens")
         propaganda_eval = lens_eval_map.get(PropagandaLens.LENS_NAME) or lens_eval_map.get("State Propaganda & Disinformation Forensics") or lens_eval_map.get("State Propaganda & Strategic Narrative Deconstruction")
         geo_eval = lens_eval_map.get(GeopoliticalLens.LENS_NAME) or lens_eval_map.get("Geopolitical & Chokepoint Forensics")
@@ -697,6 +698,50 @@ class SummitSynthesizer:
             "cognitive_sovereignty_score": propaganda_eval.hard_metrics.get("cognitive_sovereignty_score") if propaganda_eval and "cognitive_sovereignty_score" in propaganda_eval.hard_metrics else None,
             "astro_sovereignty_score": astro_eval.hard_metrics.get("astro_sovereignty_score") if astro_eval and "astro_sovereignty_score" in astro_eval.hard_metrics else None,
             "riparian_resilience_score": food_eval.hard_metrics.get("riparian_resilience_score") if food_eval and "riparian_resilience_score" in food_eval.hard_metrics else None,
+            # Phase 240-246: Lawfare Asymmetry, Covert Fissile Espionage, Sovereign Longevity, Halo Smuggling, Hostage Coercion & Debt Contagion
+            "veto_entrapment_risk": lawfare_eval.hard_metrics.get("veto_entrapment_risk") if lawfare_eval and "veto_entrapment_risk" in lawfare_eval.hard_metrics else None,
+            "fissile_chokepoint_vulnerability": hybrid_eval.hard_metrics.get("fissile_chokepoint_vulnerability") if hybrid_eval and "fissile_chokepoint_vulnerability" in hybrid_eval.hard_metrics else None,
+            "sovereign_longevity_score": deep_tech_eval.hard_metrics.get("sovereign_longevity_score") if deep_tech_eval and "sovereign_longevity_score" in deep_tech_eval.hard_metrics else None,
+            "epistemic_smuggling_risk": propaganda_eval.hard_metrics.get("epistemic_smuggling_risk") if propaganda_eval and "epistemic_smuggling_risk" in propaganda_eval.hard_metrics else None,
+            "hostage_coercion_leverage": hybrid_eval.hard_metrics.get("hostage_coercion_leverage") if hybrid_eval and "hostage_coercion_leverage" in hybrid_eval.hard_metrics else None,
+            "sovereign_default_contagion_risk": geo_economist_eval.hard_metrics.get("sovereign_default_contagion_risk") if geo_economist_eval and "sovereign_default_contagion_risk" in geo_economist_eval.hard_metrics else None,
+            # Phase 247-248: Digital Enclosure Trap & Kinetic Diversionary Escalation
+            "digital_enclosure_trap_score": cash_eval.hard_metrics.get("digital_enclosure_trap_score") if cash_eval and "digital_enclosure_trap_score" in cash_eval.hard_metrics else None,
+            "diversionary_escalation_risk": military_eval.hard_metrics.get("diversionary_escalation_risk") if military_eval and "diversionary_escalation_risk" in military_eval.hard_metrics else None,
+            # Phases 253-259: Cultural Grayzone, Insurgency Blowback, Abyssal Seabed, Trophic Cascade, Cognitive Enclosure, Bullion Arbitrage & Archaeo-Chronology
+            "cultural_grayzone_risk": civ_eval.hard_metrics.get("cultural_grayzone_risk") if civ_eval and "cultural_grayzone_risk" in civ_eval.hard_metrics else None,
+            "partisan_blowback_risk": history_eval.hard_metrics.get("partisan_blowback_risk") if history_eval and "partisan_blowback_risk" in history_eval.hard_metrics else None,
+            "abyssal_sovereignty_score": subsea_eval.hard_metrics.get("abyssal_sovereignty_score") if subsea_eval and "abyssal_sovereignty_score" in subsea_eval.hard_metrics else None,
+            "trophic_cascade_risk": food_eval.hard_metrics.get("trophic_cascade_risk") if food_eval and "trophic_cascade_risk" in food_eval.hard_metrics else None,
+            "cognitive_enclosure_risk": deep_tech_eval.hard_metrics.get("cognitive_enclosure_risk") if deep_tech_eval and "cognitive_enclosure_risk" in deep_tech_eval.hard_metrics else None,
+            "bullion_dislocation_risk": cash_eval.hard_metrics.get("bullion_dislocation_risk") if cash_eval and "bullion_dislocation_risk" in cash_eval.hard_metrics else None,
+            "chronological_validity_score": history_eval.hard_metrics.get("chronological_validity_score") if history_eval and "chronological_validity_score" in history_eval.hard_metrics else None,
+            # Phases 260-267: PNT Sovereignty, AI Capture, Sub-Conventional Proxy, Textual Triangulation, Media Capture, Hydro Weaponization, Antiquity Restitution & Diaspora Sanctuary
+            "pnt_sovereignty_score": military_eval.hard_metrics.get("pnt_sovereignty_score") if military_eval and "pnt_sovereignty_score" in military_eval.hard_metrics else None,
+            "ai_regulatory_moat_risk": deep_tech_eval.hard_metrics.get("ai_regulatory_moat_risk") if deep_tech_eval and "ai_regulatory_moat_risk" in deep_tech_eval.hard_metrics else None,
+            "asymmetric_attrition_threat": hybrid_eval.hard_metrics.get("asymmetric_attrition_threat") if hybrid_eval and "asymmetric_attrition_threat" in hybrid_eval.hard_metrics else None,
+            "textual_fidelity_score": civ_eval.hard_metrics.get("textual_fidelity_score") if civ_eval and "textual_fidelity_score" in civ_eval.hard_metrics else None,
+            "cognitive_subversion_risk": propaganda_eval.hard_metrics.get("cognitive_subversion_risk") if propaganda_eval and "cognitive_subversion_risk" in propaganda_eval.hard_metrics else None,
+            "hydro_weaponization_resilience": food_eval.hard_metrics.get("hydro_weaponization_resilience") if food_eval and "hydro_weaponization_resilience" in food_eval.hard_metrics else None,
+            "sacred_heritage_restitution_score": civ_eval.hard_metrics.get("sacred_heritage_restitution_score") if civ_eval and "sacred_heritage_restitution_score" in civ_eval.hard_metrics else None,
+            "transnational_extremism_threat_score": geo_eval.hard_metrics.get("transnational_extremism_threat_score") if geo_eval and "transnational_extremism_threat_score" in geo_eval.hard_metrics else None,
+            # Phases 268-273: Bullion Sovereignty, Chokepoint Hydrocarbon, Cognitive Cortical Resilience, Nuclear Fuel Autonomy, Sovereign BOP Shield, Sub-Regional Electoral Polarization
+            "bullion_sovereignty_score": cash_eval.hard_metrics.get("bullion_sovereignty_score") if cash_eval and "bullion_sovereignty_score" in cash_eval.hard_metrics else None,
+            "hydrocarbon_chokepoint_vulnerability_score": petro_eval.hard_metrics.get("hydrocarbon_chokepoint_vulnerability_score") if petro_eval and "hydrocarbon_chokepoint_vulnerability_score" in petro_eval.hard_metrics else None,
+            "cognitive_sovereignty_score": propaganda_eval.hard_metrics.get("cognitive_sovereignty_score") if propaganda_eval and "cognitive_sovereignty_score" in propaganda_eval.hard_metrics else None,
+            "nuclear_fuel_cycle_autonomy_score": deep_tech_eval.hard_metrics.get("nuclear_fuel_cycle_autonomy_score") if deep_tech_eval and "nuclear_fuel_cycle_autonomy_score" in deep_tech_eval.hard_metrics else None,
+            "sovereign_bop_shield_score": cash_eval.hard_metrics.get("sovereign_bop_shield_score") if cash_eval and "sovereign_bop_shield_score" in cash_eval.hard_metrics else None,
+            "electoral_governance_stability_score": lawfare_eval.hard_metrics.get("electoral_governance_stability_score") if lawfare_eval and "electoral_governance_stability_score" in lawfare_eval.hard_metrics else None,
+            # Phases 274-282: Refinery Sabotage, HNWI Capital, Gold Repatriation, Multi-Agent Consensus, Paleogenomics, Epistemic Triangulation, Soil Resilience, Dharmic Soft Power, Sectoral Rotation
+            "refinery_sabotage_risk_score": petro_eval.hard_metrics.get("refinery_sabotage_risk_score") if petro_eval and "refinery_sabotage_risk_score" in petro_eval.hard_metrics else None,
+            "capital_flight_risk_score": cash_eval.hard_metrics.get("capital_flight_risk_score") if cash_eval and "capital_flight_risk_score" in cash_eval.hard_metrics else None,
+            "reserve_immunity_score": cash_eval.hard_metrics.get("reserve_immunity_score") if cash_eval and "reserve_immunity_score" in cash_eval.hard_metrics else None,
+            "multi_agent_consensus_score": deep_tech_eval.hard_metrics.get("multi_agent_consensus_score") if deep_tech_eval and "multi_agent_consensus_score" in deep_tech_eval.hard_metrics else None,
+            "paleogenomic_continuity_score": civ_eval.hard_metrics.get("paleogenomic_continuity_score") if civ_eval and "paleogenomic_continuity_score" in civ_eval.hard_metrics else None,
+            "epistemic_triangulation_score": history_eval.hard_metrics.get("epistemic_triangulation_score") if history_eval and "epistemic_triangulation_score" in history_eval.hard_metrics else None,
+            "soil_resilience_score": food_eval.hard_metrics.get("soil_resilience_score") if food_eval and "soil_resilience_score" in food_eval.hard_metrics else None,
+            "dharmic_sovereignty_score": civ_eval.hard_metrics.get("dharmic_sovereignty_score") if civ_eval and "dharmic_sovereignty_score" in civ_eval.hard_metrics else None,
+            "sectoral_rotation_score": geo_economist_eval.hard_metrics.get("sectoral_rotation_score") if geo_economist_eval and "sectoral_rotation_score" in geo_economist_eval.hard_metrics else None,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

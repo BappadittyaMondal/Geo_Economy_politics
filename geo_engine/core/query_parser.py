@@ -30,6 +30,36 @@ class StrategicQuery(BaseModel):
     requires_minerals_audit: bool = False
     requires_lawfare_audit: bool = False
     requires_chronology_arbitration: bool = False
+    requires_abyssal_sovereignty: bool = False
+    requires_trophic_biosecurity: bool = False
+    requires_cognitive_sovereignty: bool = False
+    requires_bullion_audit: bool = False
+    requires_insurgency_audit: bool = False
+    requires_quantum_statecraft: bool = False
+    requires_grayzone_micro_signal: bool = False
+    requires_pnt_autonomy: bool = False
+    requires_ai_governance: bool = False
+    requires_proxy_warfare: bool = False
+    requires_textual_triangulation: bool = False
+    requires_media_capture: bool = False
+    requires_hydro_weaponization: bool = False
+    requires_antiquity_restitution: bool = False
+    requires_diaspora_sanctuary: bool = False
+    requires_precious_metals: bool = False
+    requires_hydrocarbon_chokepoints: bool = False
+    requires_cognitive_resilience: bool = False
+    requires_nuclear_autonomy: bool = False
+    requires_bop_shield: bool = False
+    requires_electoral_polarization: bool = False
+    requires_refinery_sabotage: bool = False
+    requires_hnwi_capital: bool = False
+    requires_gold_repatriation: bool = False
+    requires_multi_agent_consensus: bool = False
+    requires_paleogenomics: bool = False
+    requires_epistemic_triangulation: bool = False
+    requires_soil_resilience: bool = False
+    requires_dharmic_sovereignty: bool = False
+    requires_sectoral_rotation: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -271,6 +301,84 @@ class QueryParser:
             ("timeline" in text_lower and any(cls.matches_keyword(text_lower, w) for w in ["mahabharat", "ramayan", "ancient", "epic", "dating", "dispute", "verdict"]))
         )
 
+        req_abyssal = any(cls.matches_keyword(text_lower, kw) for kw in ["abyssal", "polymetallic", "matsya", "samudrayaan", "seabed", "nodule", "deep submergence"])
+        req_trophic = any(cls.matches_keyword(text_lower, kw) for kw in ["trophic", "diclofenac", "vulture", "rabies", "zoonotic", "biosecurity cascade", "scavenger"])
+        req_cognitive = any(cls.matches_keyword(text_lower, kw) for kw in ["cognitive enclosure", "antahkarana", "synthetic empathy", "ai colonization", "foreign model", "proprietary ai"])
+        req_bullion = any(cls.matches_keyword(text_lower, kw) for kw in ["bullion", "paper gold", "comex", "lbma", "gold repatriation", "tariff arbitrage", "rbi gold", "vault drain"])
+        req_insurgency = any(cls.matches_keyword(text_lower, kw) for kw in ["sub-national", "insurgency incubation", "patel vs indira", "partisan blowback", "fringe militant"])
+        req_quantum = any(cls.matches_keyword(text_lower, kw) for kw in ["quantum", "superposition", "shannon alignment", "pqc", "quantum statecraft", "qubit"])
+        req_grayzone_micro = any(cls.matches_keyword(text_lower, kw) for kw in ["sacred calendar", "waqf", "hr&ce", "street veto", "corridor demographic", "communal friction", "due process asymmetry"])
+        req_pnt = any(cls.matches_keyword(text_lower, kw) for kw in ["pnt", "navic", "irnss", "rubidium", "clock drift", "gps denial", "missile cep", "satellite navigation"])
+        req_ai_gov = any(cls.matches_keyword(text_lower, kw) for kw in ["flop", "ai safety", "ai governance", "regulatory moat", "open-source suppression", "it margin", "frontier ai"])
+        req_proxy = any(cls.matches_keyword(text_lower, kw) for kw in ["operation tupac", "proxy warfare", "narco-hawala", "sleeper cell", "asymmetric attrition"])
+        req_textual = any(cls.matches_keyword(text_lower, kw) for kw in ["bori", "valmiki", "vyasa", "critical edition", "textual stratigraphy", "shruti", "smriti", "pop myth", "andhe ka putra"])
+        req_media = any(cls.matches_keyword(text_lower, kw) for kw in ["elite media", "underworld capital", "dopamine decay", "short-form", "media capture", "cognitive capture"])
+        req_hydro = any(cls.matches_keyword(text_lower, kw) for kw in ["medog", "upper siang", "water bomb", "upstream dam", "hydro weaponization", "dam buffer", "brahmaputra flood"])
+        req_antiquity = any(cls.matches_keyword(text_lower, kw) for kw in ["antiquity", "murti", "repatriation", "unesco 1970", "stolen idol", "sacred heritage", "temple plunder", "museum cartel"])
+        req_diaspora = any(cls.matches_keyword(text_lower, kw) for kw in ["diaspora sanctuary", "host tolerance", "free speech pretext", "consular reciprocity", "transnational extremist", "safe haven"])
+        req_pm = any(cls.matches_keyword(text_lower, kw) for kw in ["bullion", "sge", "comex", "streedhan", "gold repatriation", "physical gold", "paper derivative"])
+        req_hydro_choke = any(cls.matches_keyword(text_lower, kw) for kw in ["hormuz", "brent shock", "chokepoint interdiction", "spr cover", "chabahar bypass", "tanker interdiction"])
+        req_cog_res = any(cls.matches_keyword(text_lower, kw) for kw in ["cortical resilience", "dharmic stoicism", "dhriti", "viveka", "outrage-bait", "amygdala panic", "cognitive resilience"])
+        req_nuc = any(cls.matches_keyword(text_lower, kw) for kw in ["fast breeder", "pfbr", "thorium cycle", "nsg cartel", "nuclear autonomy", "smr captive", "closed fuel cycle"])
+        req_bop = any(cls.matches_keyword(text_lower, kw) for kw in ["bop shield", "balance of payments", "greenspan-guidotti", "dii absorption", "fii flight", "forex import cover"])
+        req_elec = any(cls.matches_keyword(text_lower, kw) for kw in ["electoral polarization", "labharthi", "maryada", "caste fragmentation", "election commission neutrality", "welfare saturation"])
+        req_refinery_sab = any(cls.matches_keyword(text_lower, kw) for kw in ["refinery sabotage", "ruf pit", "vizag refinery", "ot sabotage", "scada anomaly", "crack spread", "dcs anomaly"])
+        req_hnwi = any(cls.matches_keyword(text_lower, kw) for kw in ["hnwi", "capital flight", "gift city", "inheritance tax", "wealth tax", "confiscation rhetoric", "onshoring"])
+        req_gold_repat = any(cls.matches_keyword(text_lower, kw) for kw in ["gold repatriation", "rbi gold", "domestic vault", "bullion immunity", "counterparty default", "g7 asset freeze"])
+        req_multi_agent = any(cls.matches_keyword(text_lower, kw) for kw in ["multi-agent", "agent consensus", "group chat", "agent swarm", "circular loop", "credential isolation"])
+        req_paleo = any(cls.matches_keyword(text_lower, kw) for kw in ["rakhigarhi", "ancient dna", "adna", "indus periphery", "aasi", "aryan migration", "steppe pastoralist", "endogamy"])
+        req_triang = any(cls.matches_keyword(text_lower, kw) for kw in ["epistemic triangulation", "archaeozoology", "harappa centenary", "faunal evidence", "zebu", "osteometry"])
+        req_soil = any(cls.matches_keyword(text_lower, kw) for kw in ["soil resilience", "save soil", "soil organic carbon", "soc", "topsoil", "agroforestry", "desertification"])
+        req_dharmic_sov = any(cls.matches_keyword(text_lower, kw) for kw in ["dharmic soft power", "free tn temples", "temple autonomy", "hr&ce", "cultural decolonization", "spiritual diplomacy"])
+        req_sec_rot = any(cls.matches_keyword(text_lower, kw) for kw in ["sectoral rotation", "grid saturation", "data center grid", "ai capex", "index illusion", "hyperscaler capex", "sensex 2000"])
+
+        if req_pnt and "military_readiness" not in active_lenses:
+            active_lenses.append("military_readiness")
+        if req_ai_gov and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if req_proxy and "hybrid_covert" not in active_lenses:
+            active_lenses.append("hybrid_covert")
+        if req_textual and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_media and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if req_hydro and "food_security" not in active_lenses:
+            active_lenses.append("food_security")
+        if req_antiquity and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_diaspora and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_pm and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_hydro_choke and "petro_logistics" not in active_lenses:
+            active_lenses.append("petro_logistics")
+        if req_cog_res and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if req_nuc and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if req_bop and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_elec and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_refinery_sab and "petro_logistics" not in active_lenses:
+            active_lenses.append("petro_logistics")
+        if req_hnwi and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_gold_repat and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_multi_agent and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if req_paleo and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_triang and "history" not in active_lenses:
+            active_lenses.append("history")
+        if req_soil and "food_security" not in active_lenses:
+            active_lenses.append("food_security")
+        if req_dharmic_sov and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_sec_rot and "geo_economist" not in active_lenses:
+            active_lenses.append("geo_economist")
+
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
         resolved_profiles = []
@@ -304,6 +412,36 @@ class QueryParser:
             requires_minerals_audit=req_minerals,
             requires_lawfare_audit=req_lawfare,
             requires_chronology_arbitration=req_chronology,
+            requires_abyssal_sovereignty=req_abyssal,
+            requires_trophic_biosecurity=req_trophic,
+            requires_cognitive_sovereignty=req_cognitive,
+            requires_bullion_audit=req_bullion,
+            requires_insurgency_audit=req_insurgency,
+            requires_quantum_statecraft=req_quantum,
+            requires_grayzone_micro_signal=req_grayzone_micro,
+            requires_pnt_autonomy=req_pnt,
+            requires_ai_governance=req_ai_gov,
+            requires_proxy_warfare=req_proxy,
+            requires_textual_triangulation=req_textual,
+            requires_media_capture=req_media,
+            requires_hydro_weaponization=req_hydro,
+            requires_antiquity_restitution=req_antiquity,
+            requires_diaspora_sanctuary=req_diaspora,
+            requires_precious_metals=req_pm,
+            requires_hydrocarbon_chokepoints=req_hydro_choke,
+            requires_cognitive_resilience=req_cog_res,
+            requires_nuclear_autonomy=req_nuc,
+            requires_bop_shield=req_bop,
+            requires_electoral_polarization=req_elec,
+            requires_refinery_sabotage=req_refinery_sab,
+            requires_hnwi_capital=req_hnwi,
+            requires_gold_repatriation=req_gold_repat,
+            requires_multi_agent_consensus=req_multi_agent,
+            requires_paleogenomics=req_paleo,
+            requires_epistemic_triangulation=req_triang,
+            requires_soil_resilience=req_soil,
+            requires_dharmic_sovereignty=req_dharmic_sov,
+            requires_sectoral_rotation=req_sec_rot,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

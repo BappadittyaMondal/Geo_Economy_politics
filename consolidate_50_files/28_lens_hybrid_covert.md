@@ -1,6 +1,8 @@
 # LENS SPECIFICATION: HYBRID_COVERT
 
 ```python
+from .petro_logistics import CriticalRefineryCyberKineticSabotageSieve
+import math
 """
 Lens 12: Covert Action, Hybrid Warfare & Strategic Leverage Lens.
 Analyzes asymmetric statecraft, intelligence maneuvering, regulatory lawfare (FATF, OFAC),
@@ -160,6 +162,47 @@ class HybridCovertLens:
         )
         metrics.update(_na_result)
 
+        # Phase 241: Wire NuclearMineralEspionageSieve
+        _fe_result = NuclearMineralEspionageSieve.calculate_fissile_vulnerability(
+            uranium_deposit_proximity=metrics.get("uranium_deposit_proximity", 0.85),
+            corridor_logistics_control=metrics.get("corridor_logistics_control", 0.80),
+            clandestine_proliferation_risk=metrics.get("clandestine_proliferation_risk", 0.75),
+            airspace_reconnaissance_interdiction=metrics.get("airspace_reconnaissance_interdiction", 0.40),
+        )
+        metrics.update(_fe_result)
+
+        # Phase 245: Wire AsymmetricHostageCoercionSieve
+        _hc_result = AsymmetricHostageCoercionSieve.calculate_hostage_coercion(
+            domestic_distraction_incentive=metrics.get("domestic_distraction_incentive", 0.85),
+            sub_kinetic_threshold_gap=metrics.get("sub_kinetic_threshold_gap", 0.80),
+            offensive_defense_deterrence=metrics.get("offensive_defense_deterrence", 0.75),
+            diplomatic_leverage=metrics.get("diplomatic_leverage", 0.30),
+        )
+        metrics.update(_hc_result)
+
+        # Phase 262: Wire SubConventionalProxyWarfareSieve
+        hyb_meta = getattr(summit, "metadata", {}) or {}
+        hyb_params = hyb_meta.get("proxy_warfare", {}) if isinstance(hyb_meta, dict) else {}
+        _pw_res = SubConventionalProxyWarfareSieve.calculate_proxy_attrition(
+            infiltration_corridors_density=hyb_params.get("infiltration_corridors_density", 0.50),
+            narco_hawala_financing_flow=hyb_params.get("narco_hawala_financing_flow", 0.45),
+            precision_retaliation_deterrence=hyb_params.get("precision_retaliation_deterrence", 0.70),
+            internal_societal_cohesion=hyb_params.get("internal_societal_cohesion", 0.75),
+        )
+        metrics["asymmetric_attrition_threat"] = _pw_res["asymmetric_attrition_threat"]
+        metrics["counter_proxy_deterrence_index"] = _pw_res["counter_proxy_deterrence_index"]
+        metrics["proxy_attrition_tier"] = _pw_res["proxy_attrition_tier"]
+
+        # Phase 274: Wire CriticalRefineryCyberKineticSabotageSieve in HybridCovertLens
+        hc_meta = getattr(summit, "metadata", {}) or {}
+        hc_sab = hc_meta.get("refinery_sabotage", {}) if isinstance(hc_meta, dict) else {}
+        _hc_ref_res = CriticalRefineryCyberKineticSabotageSieve.calculate_refinery_sabotage_risk(
+            dcs_anomaly_index=hc_sab.get("dcs_anomaly_index", 0.65),
+            crack_spread_exposure=hc_sab.get("crack_spread_exposure", 0.75),
+            osint_prenotification_velocity=hc_sab.get("osint_prenotification_velocity", 0.50),
+            airgap_cyber_defense_score=hc_sab.get("airgap_cyber_defense_score", 0.70),
+        )
+        metrics.update({f"hybrid_{k}": v for k, v in _hc_ref_res.items()})
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -496,6 +539,219 @@ class NuclearAmbiguitySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_strategic_ambiguity_intact": score >= 0.60
+        }
+
+
+class NuclearMineralEspionageSieve:
+    """
+    Phase 241: Nuclear Mineral Espionage & Fissile Transit Corridor Sieve.
+    Evaluates covert mineral espionage and border pre-emption linked to strategic fissile deposits
+    (e.g., 1947 Gilgit Op Dateline, 1962 Aksai Chin G219 uranium transit, Sino-Pak proliferation).
+    Formula:
+        fissile_ratio = (0.40 * uranium + 0.35 * corridor + 0.25 * clandestine) / max(0.10, airspace_recon)
+        z = 2.8 * fissile_ratio - 3.2
+        fissile_chokepoint_vulnerability = 1.0 / (1.0 + exp(-z))
+    """
+    @classmethod
+    def calculate_fissile_vulnerability(
+        cls,
+        uranium_deposit_proximity: float = 0.85,
+        corridor_logistics_control: float = 0.80,
+        clandestine_proliferation_risk: float = 0.75,
+        airspace_reconnaissance_interdiction: float = 0.40
+    ) -> Dict[str, Any]:
+        u_prox = max(0.0, min(1.0, float(uranium_deposit_proximity)))
+        c_ctrl = max(0.0, min(1.0, float(corridor_logistics_control)))
+        p_risk = max(0.0, min(1.0, float(clandestine_proliferation_risk)))
+        a_recon = max(0.10, min(1.0, float(airspace_reconnaissance_interdiction)))
+
+        numerator = 0.40 * u_prox + 0.35 * c_ctrl + 0.25 * p_risk
+        fissile_ratio = numerator / a_recon
+        z = 2.8 * fissile_ratio - 3.2
+        vuln = round(1.0 / (1.0 + math.exp(-max(-20.0, min(20.0, z)))), 4)
+
+        if vuln >= 0.80:
+            tier = "CRITICAL_FISSILE_CORRIDOR_FLASHPOINT"
+            verdict = "PREEMPTIVE_MINERAL_INTERDICTION_FLASHPOINT"
+            rationale = (
+                f"Critical vulnerability ({vuln:.4f}): Proximity to high-grade uranium deposits combined with "
+                f"strategic logistics control creates an imminent pre-emption vector."
+            )
+        elif vuln >= 0.60:
+            tier = "STRATEGIC_NUCLEAR_BUFFER_FRICTION"
+            verdict = "ELEVATED_COVERT_TRANSIT_VULNERABILITY"
+            rationale = (
+                f"Strategic buffer friction ({vuln:.4f}): Contested mineral corridors subject to active "
+                f"aerial photoreconnaissance and clandestine monitoring."
+            )
+        elif vuln >= 0.40:
+            tier = "MONITORED_MINERAL_FRONTIER"
+            verdict = "STABLE_SURVEILLANCE_POSTURE"
+            rationale = (
+                f"Monitored frontier ({vuln:.4f}): Fissile deposits sufficiently buffered with adequate "
+                f"reconnaissance interdiction."
+            )
+        else:
+            tier = "SECURE_DEMILITARIZED_TERRAIN"
+            verdict = "NEGLIGIBLE_FISSILE_ESPIONAGE_RISK"
+            rationale = (
+                f"Secure terrain ({vuln:.4f}): Zero fissile corridor vulnerability; high airspace sovereignty."
+            )
+
+        return {
+            "fissile_chokepoint_vulnerability": vuln,
+            "uranium_deposit_proximity": round(u_prox, 4),
+            "corridor_logistics_control": round(c_ctrl, 4),
+            "clandestine_proliferation_risk": round(p_risk, 4),
+            "airspace_reconnaissance_interdiction": round(a_recon, 4),
+            "fissile_chokepoint_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_nuclear_mineral_flashpoint": vuln >= 0.60
+        }
+
+
+class AsymmetricHostageCoercionSieve:
+    """
+    Phase 245: Sub-Kinetic Border Captive & Hostage Diplomacy Sieve.
+    Evaluates asymmetric captive maneuvers by destabilized adversaries attempting to manufacture
+    domestic distractions and extract diplomatic concessions below open kinetic warfare thresholds.
+    Formula:
+        z = 2.5 * domestic_distraction + 2.2 * sub_kinetic_gap - 3.0 * offensive_defense - 1.2 * diplomatic_leverage
+        hostage_coercion_leverage = 1.0 / (1.0 + exp(-z))
+    """
+    @classmethod
+    def calculate_hostage_coercion(
+        cls,
+        domestic_distraction_incentive: float = 0.85,
+        sub_kinetic_threshold_gap: float = 0.80,
+        offensive_defense_deterrence: float = 0.75,
+        diplomatic_leverage: float = 0.30
+    ) -> Dict[str, Any]:
+        d_dist = max(0.0, min(1.0, float(domestic_distraction_incentive)))
+        s_gap = max(0.0, min(1.0, float(sub_kinetic_threshold_gap)))
+        o_det = max(0.0, min(1.0, float(offensive_defense_deterrence)))
+        d_lev = max(0.0, min(1.0, float(diplomatic_leverage)))
+
+        z = 2.5 * d_dist + 2.2 * s_gap - 3.0 * o_det - 1.2 * d_lev
+        leverage = round(1.0 / (1.0 + math.exp(-max(-20.0, min(20.0, z)))), 4)
+
+        if leverage >= 0.75:
+            tier = "ACUTE_HOSTAGE_DIPLOMACY_TRAP"
+            verdict = "ASYMMETRIC_CIVILIAN_WEAPONIZATION_ACTIVE"
+            rationale = (
+                f"Acute coercion trap ({leverage:.4f}): Adversary is aggressively weaponizing border captives to "
+                f"deflect domestic collapse; mandates non-linear kinetic/economic counter-escalation."
+            )
+        elif leverage >= 0.55:
+            tier = "ELEVATED_ASYMMETRIC_LEVERAGE"
+            verdict = "SUB_KINETIC_GRAYZONE_MANEUVER"
+            rationale = (
+                f"Elevated hostage posture ({leverage:.4f}): Captive detentions used as diplomatic leverage; "
+                f"demands assertive offensive-defense signaling."
+            )
+        elif leverage >= 0.35:
+            tier = "CONTROLLED_BORDER_FRICTION"
+            verdict = "ROUTINE_CONSULAR_CONTAINMENT"
+            rationale = (
+                f"Controlled friction ({leverage:.4f}): Captive incidents handled through standard bilateral "
+                f"consular mechanisms without strategic coercion."
+            )
+        else:
+            tier = "MINIMAL_COERCIVE_UTILITY"
+            verdict = "TOTAL_OFFENSIVE_DEFENSE_DETERRENCE"
+            rationale = (
+                f"Minimal utility ({leverage:.4f}): Robust offensive-defense posture completely neutralizes "
+                f"adversary's attempt to extract concessions from hostage-taking."
+            )
+
+        return {
+            "hostage_coercion_leverage": leverage,
+            "domestic_distraction_incentive": round(d_dist, 4),
+            "sub_kinetic_threshold_gap": round(s_gap, 4),
+            "offensive_defense_deterrence": round(o_det, 4),
+            "diplomatic_leverage": round(d_lev, 4),
+            "hostage_coercion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_hostage_diplomacy_active": leverage >= 0.55
+        }
+
+
+class SubConventionalProxyWarfareSieve:
+    """
+    Phase 262: Sub-Conventional Proxy Warfare Sieve.
+    Quantifies adversary asymmetric attrition pressure, Operation Tupac-style proxy networks,
+    narco-hawala dark capital flow velocity, cross-border infiltration corridor density,
+    counterbalanced by precision standoff kinetic deterrence and internal legal/statutory cohesion (NIA/UAPA).
+    """
+
+    @classmethod
+    def calculate_proxy_attrition(
+        cls,
+        infiltration_corridors_density: float = 0.50,
+        narco_hawala_financing_flow: float = 0.45,
+        precision_retaliation_deterrence: float = 0.70,
+        internal_societal_cohesion: float = 0.75,
+    ) -> Dict[str, Any]:
+        """
+        Calculates asymmetric proxy attrition threat using calibrated logistic sigmoid:
+            z = 2.8 * Infil + 2.5 * Narco - 2.6 * Retaliation - 2.2 * Cohesion - 0.5
+            threat = 1 / (1 + exp(-z))
+        """
+        import math
+        infil = max(0.0, min(1.0, float(infiltration_corridors_density)))
+        narco = max(0.0, min(1.0, float(narco_hawala_financing_flow)))
+        retal = max(0.0, min(1.0, float(precision_retaliation_deterrence)))
+        cohes = max(0.0, min(1.0, float(internal_societal_cohesion)))
+
+        z = 2.8 * infil + 2.5 * narco - 2.6 * retal - 2.2 * cohes - 0.5
+        threat = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if threat >= 0.75:
+            tier = "ACUTE_SUB_CONVENTIONAL_PROXY_WARFARE"
+            verdict = "STATE_SPONSORED_ASYMMETRIC_ATTRITION_CAMPAIGN"
+            rationale = (
+                f"Acute proxy warfare threat ({threat:.4f}): Dense infiltration corridors ({infil:.2f}) and active "
+                f"narco-hawala networks ({narco:.2f}) outpace conventional deterrence; mandates standoff kinetic strikes."
+            )
+        elif threat >= 0.55:
+            tier = "ELEVATED_ASYMMETRIC_ATTRITION_RISK"
+            verdict = "SUB_KINETIC_PROXY_PROBING_ACTIVE"
+            rationale = (
+                f"Elevated attrition risk ({threat:.4f}): Sleeper cell financing and localized border skirmishing "
+                f"attempt to tie down domestic security forces."
+            )
+        elif threat >= 0.35:
+            tier = "CONTROLLED_BORDER_SECURITY_FRICTION"
+            verdict = "CONTAINED_HYBRID_INFILTRATION_PRESSURE"
+            rationale = (
+                f"Controlled friction ({threat:.4f}): Robust internal cohesion ({cohes:.2f}) and statutory enforcement "
+                f"successfully constrain cross-border proxy mobility."
+            )
+        else:
+            tier = "FORTIFIED_COUNTER_SUBVERSION_POSTURE"
+            verdict = "OVERWHELMING_OFFENSIVE_DEFENSE_DETERRENCE"
+            rationale = (
+                f"Fortified deterrence ({threat:.4f}): Proactive retaliation readiness ({retal:.2f}) and high internal "
+                f"cohesion neutralize adversary sub-conventional initiatives."
+            )
+
+        counter_det = round(min(1.0, max(0.0, 1.0 - threat * 0.85)), 4)
+        dark_cap = round(min(1.0, max(0.0, 1.0 - narco * 0.90)), 4)
+
+        return {
+            "asymmetric_attrition_threat": threat,
+            "infiltration_corridors_density": round(infil, 4),
+            "narco_hawala_financing_flow": round(narco, 4),
+            "precision_retaliation_deterrence": round(retal, 4),
+            "internal_societal_cohesion": round(cohes, 4),
+            "counter_proxy_deterrence_index": counter_det,
+            "dark_capital_interception_rate": dark_cap,
+            "proxy_attrition_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_proxy_attrition_acute": threat >= 0.55,
         }
 
 ```

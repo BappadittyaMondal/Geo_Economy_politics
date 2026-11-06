@@ -5,6 +5,7 @@ Kautilya's Arthashastra (Raja Mandala Theory), Rajdharma, Yogakshema, and Vasudh
 contrasted against Chinese Tianxia, Russian Eurasianism, and Western Hegemony.
 """
 
+import math
 from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
@@ -204,6 +205,59 @@ class CivilizationalLens:
         )
         metrics.update(_gz_result)
 
+        _micro_gz_result = CulturalReligiousGrayzoneMicroSignalSieve.calculate_grayzone_risk(
+            sacred_calendar_friction=float(metrics.get("sacred_calendar_friction", 0.0)),
+            statutory_asymmetry=float(metrics.get("statutory_asymmetry", 0.0)),
+            corridor_demographic_shift=float(metrics.get("corridor_demographic_shift", 0.0)),
+            street_veto_capacity=float(metrics.get("street_veto_capacity", 0.0)),
+            administrative_deterrence=float(metrics.get("administrative_deterrence", 0.0)),
+        )
+        metrics.update(_micro_gz_result)
+
+        # Phase 263: Wire EpistemicTextualTriangulationSieve
+        civ_meta = getattr(summit, "metadata", {}) or {}
+        civ_params = civ_meta.get("textual_triangulation", {}) if isinstance(civ_meta, dict) else {}
+        _txt_res = EpistemicTextualTriangulationSieve.calculate_textual_fidelity(
+            primary_source_alignment=civ_params.get("primary_source_alignment", 0.50),
+            archaeological_corroboration=civ_params.get("archaeological_corroboration", 0.50),
+            colonial_distortion_penalty=civ_params.get("colonial_distortion_penalty", 0.20),
+            pop_myth_contamination_penalty=civ_params.get("pop_myth_contamination_penalty", 0.15),
+        )
+        metrics["textual_fidelity_score"] = _txt_res["textual_fidelity_score"]
+        metrics["pop_myth_contamination_risk"] = _txt_res["pop_myth_contamination_risk"]
+        metrics["textual_fidelity_tier"] = _txt_res["textual_fidelity_tier"]
+
+        # Phase 266: Wire AntiquityPlunderRepatriationSieve
+        ant_params = civ_meta.get("antiquity_repatriation", {}) if isinstance(civ_meta, dict) else {}
+        _ant_res = AntiquityPlunderRepatriationSieve.calculate_heritage_restitution(
+            repatriation_velocity_annual=ant_params.get("repatriation_velocity_annual", 0.50),
+            bilateral_treaty_activation=ant_params.get("bilateral_treaty_activation", 0.60),
+            museum_cartel_resistance=ant_params.get("museum_cartel_resistance", 0.40),
+            temple_catalog_digitization=ant_params.get("temple_catalog_digitization", 0.65),
+        )
+        metrics["sacred_heritage_restitution_score"] = _ant_res["sacred_heritage_restitution_score"]
+        metrics["illicit_antiquity_trafficking_threat"] = _ant_res["illicit_antiquity_trafficking_threat"]
+        metrics["heritage_restitution_tier"] = _ant_res["heritage_restitution_tier"]
+
+        # Phase 278 & 281: Wire PaleogenomicDemographicContinuitySieve & DharmicSoftPowerCulturalSovereigntySieve
+        civ_meta = getattr(summit, "metadata", {}) or {}
+        genomic_params = civ_meta.get("paleogenomics", {}) if isinstance(civ_meta, dict) else {}
+        _gen_res = PaleogenomicDemographicContinuitySieve.calculate_genomic_continuity(
+            indus_periphery_share=genomic_params.get("indus_periphery_share", 0.55),
+            aasi_bedrock_share=genomic_params.get("aasi_bedrock_share", 0.30),
+            steppe_influx_disparity=genomic_params.get("steppe_influx_disparity", 0.15),
+            colonial_bifurcation_bias=genomic_params.get("colonial_bifurcation_bias", 0.40),
+        )
+        metrics.update(_gen_res)
+
+        dharmic_params = civ_meta.get("dharmic_sovereignty", {}) if isinstance(civ_meta, dict) else {}
+        _dharmic_res = DharmicSoftPowerCulturalSovereigntySieve.calculate_dharmic_sovereignty(
+            global_soft_power_projection=dharmic_params.get("global_soft_power_projection", 0.75),
+            cultural_decolonization_velocity=dharmic_params.get("cultural_decolonization_velocity", 0.70),
+            state_temple_asset_control_rate=dharmic_params.get("state_temple_asset_control_rate", 0.65),
+            narrative_delegitimation_pressure=dharmic_params.get("narrative_delegitimation_pressure", 0.40),
+        )
+        metrics.update(_dharmic_res)
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -853,4 +907,314 @@ class CulturalGrayzoneLegitimacySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_dharma_weaponized": is_weaponized
+        }
+
+
+class CulturalReligiousGrayzoneMicroSignalSieve:
+    """
+    Phase 253: Cultural & Religious Grayzone Micro-Signal Sieve.
+    Quantifies sub-kinetic destabilization risk across sacred calendar friction,
+    statutory asymmetry (Waqf Act Sec 40 vs HR&CE temple control), arterial corridor demographic shifts,
+    and non-electoral street veto capacity versus administrative deterrence.
+    Calibrated with baseline offset theta = -1.2 to guarantee zero-baseline civilizational cohesion.
+    """
+
+    @staticmethod
+    def calculate_grayzone_risk(
+        sacred_calendar_friction: float = 0.0,
+        statutory_asymmetry: float = 0.0,
+        corridor_demographic_shift: float = 0.0,
+        street_veto_capacity: float = 0.0,
+        administrative_deterrence: float = 0.0,
+    ) -> Dict[str, Any]:
+        scf = min(1.0, max(0.0, float(sacred_calendar_friction)))
+        sa = min(1.0, max(0.0, float(statutory_asymmetry)))
+        cds = min(1.0, max(0.0, float(corridor_demographic_shift)))
+        svc = min(1.0, max(0.0, float(street_veto_capacity)))
+        ad = min(1.0, max(0.0, float(administrative_deterrence)))
+
+        # Calibrated offset -1.2 ensures at (0,0,0,0,0) z = -1.2, sigma(z) = 0.2315 < 0.35 (FORTIFIED)
+        z = (2.8 * scf + 2.5 * sa + 2.4 * cds + 2.2 * svc - 3.0 * ad - 1.2)
+        risk = 1.0 / (1.0 + math.exp(-z))
+        risk = round(min(1.0, max(0.0, risk)), 4)
+
+        if risk >= 0.75:
+            tier = "CRITICAL_GRAYZONE_DESTABILIZATION_RISK"
+            verdict = "SEVERE_SUB_KINETIC_DESTABILIZATION_ACTIVE"
+        elif risk >= 0.55:
+            tier = "ELEVATED_SUB_KINETIC_PRESSURE"
+            verdict = "COORDINATED_GRAYZONE_FRICTION_ACCELERATING"
+        elif risk >= 0.35:
+            tier = "MODERATE_COMMUNAL_FRICTION"
+            verdict = "LOCALIZED_STATUTORY_OR_CALENDAR_FRICTION"
+        else:
+            tier = "FORTIFIED_CIVILIZATIONAL_COHESION"
+            verdict = "RESILIENT_DHARMIC_EQUILIBRIUM"
+
+        return {
+            "cultural_grayzone_risk": risk,
+            "cultural_grayzone_tier": tier,
+            "cultural_grayzone_verdict": verdict,
+            "sacred_calendar_friction": scf,
+            "statutory_asymmetry": sa,
+            "corridor_demographic_shift": cds,
+            "street_veto_capacity": svc,
+            "administrative_deterrence": ad,
+            "is_grayzone_destabilized": risk >= 0.55
+        }
+
+
+
+class EpistemicTextualTriangulationSieve:
+    """
+    Phase 263: Epistemic Textual Triangulation Sieve.
+    Evaluates scriptural and historical propositions against authentic critical Sanskrit editions
+    (Valmiki Ramayana, Vyasa Mahabharata BORI Critical Edition, Shruti/Smriti canonical strata),
+    archaeological stratigraphy (Rakhigarhi, Sanauli, Dwarka marine archaeology),
+    while penalizing 19th-century colonial distortions (Macaulay, Max Müller) and post-classical pop-culture TV inventions.
+    """
+
+    @classmethod
+    def calculate_textual_fidelity(
+        cls,
+        primary_source_alignment: float = 0.50,
+        archaeological_corroboration: float = 0.50,
+        colonial_distortion_penalty: float = 0.20,
+        pop_myth_contamination_penalty: float = 0.15,
+    ) -> Dict[str, Any]:
+        """
+        Calculates textual fidelity score using calibrated logistic sigmoid:
+            z = 2.8 * Primary + 2.5 * Arch - 2.6 * Colonial - 2.2 * PopMyth - 1.5
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        prim = max(0.0, min(1.0, float(primary_source_alignment)))
+        arch = max(0.0, min(1.0, float(archaeological_corroboration)))
+        col = max(0.0, min(1.0, float(colonial_distortion_penalty)))
+        pop = max(0.0, min(1.0, float(pop_myth_contamination_penalty)))
+
+        z = 2.8 * prim + 2.5 * arch - 2.6 * col - 2.2 * pop - 1.5
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.80:
+            tier = "VERIFIED_SRUTI_SMRITI_CANONICAL_ANCHOR"
+            verdict = "RIGOROUS_PRIMARY_CANONICAL_PROVENANCE"
+            provenance = "TIER_1_CANONICAL_TEXT_AND_ARCHAEOLOGY"
+            rationale = (
+                f"Verified canonical anchor ({score:.4f}): Direct alignment with primary critical Sanskrit editions "
+                f"({prim:.2f}) and corroborating archaeological stratigraphy ({arch:.2f}) dismantles colonial distortions."
+            )
+        elif score >= 0.60:
+            tier = "PROBABLE_TEXTUAL_CORROBORATION"
+            verdict = "AUTHENTIC_SECONDARY_TRADITION_CORROBORATED"
+            provenance = "TIER_2_CORROBORATED_TRADITION"
+            rationale = (
+                f"Probable corroboration ({score:.4f}): Substantial traditional textual alignment with low distortion penalties."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_INTERPOLATED_NARRATIVE"
+            verdict = "SUSPECT_COLONIAL_OR_MEDIEVAL_INTERPOLATION"
+            provenance = "TIER_3_CONTESTED_INTERPOLATION"
+            rationale = (
+                f"Contested narrative ({score:.4f}): Elevated colonial translation bias ({col:.2f}) or unverified "
+                f"commentarial interpolations detected."
+            )
+        else:
+            tier = "UNVERIFIED_FOLK_ACCRETION_OR_DISTORTION"
+            verdict = "POP_CULTURE_FABRICATION_OR_COLONIAL_SUBVERSION"
+            provenance = "TIER_4_POP_MYTH_FABRICATION"
+            rationale = (
+                f"Unverified distortion ({score:.4f}): Narrative relies on TV serial pop-culture tropes ({pop:.2f}) "
+                f"or Macaulayite distortions without primary Sanskrit textual grounding."
+            )
+
+        pop_risk = round(min(1.0, pop * 1.5 + col * 0.8), 4)
+
+        return {
+            "textual_fidelity_score": score,
+            "primary_source_alignment": round(prim, 4),
+            "archaeological_corroboration": round(arch, 4),
+            "colonial_distortion_penalty": round(col, 4),
+            "pop_myth_contamination_penalty": round(pop, 4),
+            "pop_myth_contamination_risk": pop_risk,
+            "epistemic_provenance_tier": provenance,
+            "textual_fidelity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_textually_verified": score >= 0.60,
+        }
+
+
+class AntiquityPlunderRepatriationSieve:
+    """
+    Phase 266: Antiquity Plunder Repatriation Sieve.
+    Quantifies the sovereign momentum of recovering sacred Murtis and stolen temple antiquities
+    under the 1970 UNESCO Convention, overcoming Western museum cartel legal resistance,
+    and accelerating 3D photogrammetric temple asset cataloging.
+    """
+
+    @classmethod
+    def calculate_heritage_restitution(
+        cls,
+        repatriation_velocity_annual: float = 0.50,
+        bilateral_treaty_activation: float = 0.60,
+        museum_cartel_resistance: float = 0.40,
+        temple_catalog_digitization: float = 0.65,
+    ) -> Dict[str, Any]:
+        """
+        Calculates sacred heritage restitution score using calibrated logistic sigmoid:
+            z = 2.8 * Repat + 2.4 * Treaty - 2.6 * Resistance + 2.2 * Digitization - 1.2
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        rep = max(0.0, min(1.0, float(repatriation_velocity_annual)))
+        trt = max(0.0, min(1.0, float(bilateral_treaty_activation)))
+        res = max(0.0, min(1.0, float(museum_cartel_resistance)))
+        dig = max(0.0, min(1.0, float(temple_catalog_digitization)))
+
+        z = 2.8 * rep + 2.4 * trt - 2.6 * res + 2.2 * dig - 1.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "ACUTE_RESTITUTION_MOMENTUM"
+            verdict = "SOVEREIGN_SACRED_HERITAGE_RECLAMATION_ACCELERATING"
+            rationale = (
+                f"Acute restitution momentum ({score:.4f}): Proactive bilateral treaties ({trt:.2f}) and temple asset "
+                f"digitization ({dig:.2f}) systematically dismantle Western museum retention pretexts."
+            )
+        elif score >= 0.55:
+            tier = "ACTIVE_DIPLOMATIC_RECLAMATION"
+            verdict = "SUSTAINED_SACRED_ARTIFACT_RECOVERY_VELOCITY"
+            rationale = (
+                f"Active reclamation ({score:.4f}): Steady artifact repatriations supported by legal prosecution of smuggling cartels."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_COLONIAL_RETENTION"
+            verdict = "FOREIGN_MUSEUM_RESISTANCE_IMPEDING_RETURN"
+            rationale = (
+                f"Contested retention ({score:.4f}): Foreign museums exploit 'public trust' legal loopholes ({res:.2f}) "
+                f"to stall artifact restitution."
+            )
+        else:
+            tier = "CHRONIC_HERITAGE_PLUNDER_VULNERABILITY"
+            verdict = "UNPROTECTED_TEMPLE_REPOSITORIES_EXPOSED"
+            rationale = (
+                f"Chronic plunder vulnerability ({score:.4f}): Lack of digitized temple inventories leaves rural consecrated "
+                f"sites vulnerable to international illicit trafficking."
+            )
+
+        trafficking_threat = round(max(0.0, min(1.0, 1.0 - dig * 0.7 - rep * 0.3)), 4)
+
+        return {
+            "sacred_heritage_restitution_score": score,
+            "repatriation_velocity_annual": round(rep, 4),
+            "bilateral_treaty_activation": round(trt, 4),
+            "museum_cartel_resistance": round(res, 4),
+            "temple_catalog_digitization": round(dig, 4),
+            "illicit_antiquity_trafficking_threat": trafficking_threat,
+            "heritage_restitution_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_restitution_active": score >= 0.55,
+        }
+
+
+class PaleogenomicDemographicContinuitySieve:
+    """
+    Phase 278: Paleogenomic Demographic Continuity Sieve.
+    Quantifies the biological continuity of South Asian populations using ancient DNA (aDNA)
+    frameworks (Rakhigarhi I6113 sample, 0% Steppe pastoralist ancestry, deep indigenous split of Iranian-related ancestry >12,000 YBP),
+    neutralizing colonial racial divide-and-conquer narratives (AIT/AMT).
+    """
+
+    @staticmethod
+    def calculate_genomic_continuity(
+        indus_periphery_share: float = 0.55,
+        aasi_bedrock_share: float = 0.30,
+        steppe_influx_disparity: float = 0.15,
+        colonial_bifurcation_bias: float = 0.40,
+    ) -> dict:
+        import math
+        indus = min(1.0, max(0.0, float(indus_periphery_share)))
+        aasi = min(1.0, max(0.0, float(aasi_bedrock_share)))
+        substrate = indus + aasi
+        steppe_disp = min(1.0, max(0.0, float(steppe_influx_disparity)))
+        bias = min(1.0, max(0.0, float(colonial_bifurcation_bias)))
+
+        z = (3.2 * substrate - 2.4 * steppe_disp - 2.2 * bias - 0.6)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_CIVILIZATIONAL_GENOMIC_CONTINUITY"
+            verdict = "OVERWHELMING_PRE_STEPPE_INDIGENOUS_SUBSTRATE_UNIFIED_POPULATION"
+        elif score >= 0.55:
+            tier = "ROBUST_SOUTH_ASIAN_BIOLOGICAL_CONTINUUM"
+            verdict = "DEMOGRAPHIC_CONTINUITY_RESILIENT_AGAINST_COLONIAL_DIVIDE_AND_CONQUER"
+        elif score >= 0.35:
+            tier = "ELEVATED_NARRATIVE_VULNERABILITY"
+            verdict = "SUSCEPTIBLE_TO_COLONIAL_RACE_BIFURCATION_AND_REGIONAL_SEPARATISM"
+        else:
+            tier = "ACUTE_DEMOGRAPHIC_FRAGMENTATION_RISK"
+            verdict = "EXPLOITATION_OF_GENETIC_DISPARITIES_FOR_SUB_NATIONAL_DESTABILIZATION"
+
+        return {
+            "paleogenomic_continuity_score": score,
+            "indigenous_continuity_substrate": round(substrate, 4),
+            "indus_periphery_share": round(indus, 4),
+            "aasi_bedrock_share": round(aasi, 4),
+            "steppe_influx_disparity": round(steppe_disp, 4),
+            "colonial_bifurcation_bias": round(bias, 4),
+            "genomic_continuity_tier": tier,
+            "genomic_continuity_verdict": verdict,
+            "is_genomic_continuity_certified": score >= 0.55,
+        }
+
+
+class DharmicSoftPowerCulturalSovereigntySieve:
+    """
+    Phase 281: Dharmic Soft Power & Cultural Sovereignty Sieve.
+    Quantifies global civilizational soft power projection (Yogic sciences, Save Soil, multilateral presence)
+    versus domestic institutional friction and regulatory capture (state control over 44,000+ Hindu temples under HR&CE).
+    """
+
+    @staticmethod
+    def calculate_dharmic_sovereignty(
+        global_soft_power_projection: float = 0.75,
+        cultural_decolonization_velocity: float = 0.70,
+        state_temple_asset_control_rate: float = 0.65,
+        narrative_delegitimation_pressure: float = 0.40,
+    ) -> dict:
+        import math
+        soft = min(1.0, max(0.0, float(global_soft_power_projection)))
+        decol = min(1.0, max(0.0, float(cultural_decolonization_velocity)))
+        temple_ctrl = min(1.0, max(0.0, float(state_temple_asset_control_rate)))
+        delegit = min(1.0, max(0.0, float(narrative_delegitimation_pressure)))
+
+        z = (2.6 * soft + 2.4 * decol - 2.8 * temple_ctrl - 2.0 * delegit - 0.2)
+        score = 1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z))))
+        score = round(min(1.0, max(0.0, score)), 4)
+
+        if score >= 0.75:
+            tier = "SOVEREIGN_DHARMIC_CIVILIZATIONAL_RESURGENCE"
+            verdict = "HIGH_GLOBAL_SOFT_POWER_AND_UNCOMPROMISED_CULTURAL_AUTONOMY"
+        elif score >= 0.55:
+            tier = "RESILIENT_CULTURAL_DIPLOMACY"
+            verdict = "EFFECTIVE_GLOBAL_REACH_COUNTERBALANCED_BY_DOMESTIC_INSTITUTIONAL_DRAG"
+        elif score >= 0.35:
+            tier = "ASYMMETRIC_REGULATORY_CAPTURE_VULNERABILITY"
+            verdict = "SEVERE_TEMPLE_ASSET_ALIENATION_AND_CONSTITUTIONAL_INEQUALITY"
+        else:
+            tier = "CRITICAL_CIVILIZATIONAL_EROSION"
+            verdict = "SYSTEMIC_BUREAUCRATIC_EXPLOITATION_AND_ACCELERATED_CULTURAL_DISLOCATION"
+
+        return {
+            "dharmic_sovereignty_score": score,
+            "global_soft_power_projection": round(soft, 4),
+            "cultural_decolonization_velocity": round(decol, 4),
+            "state_temple_asset_control_rate": round(temple_ctrl, 4),
+            "narrative_delegitimation_pressure": round(delegit, 4),
+            "dharmic_sovereignty_tier": tier,
+            "dharmic_sovereignty_verdict": verdict,
+            "is_dharmic_sovereignty_resilient": score >= 0.55,
         }
