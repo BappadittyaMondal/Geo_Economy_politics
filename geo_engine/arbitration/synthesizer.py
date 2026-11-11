@@ -4,7 +4,9 @@ Reconciles all 12 analytical lenses, executes epistemic truth arbitration,
 and outputs a complete, de-sanitized multilateral summit intelligence report.
 """
 
-from typing import Any, Dict, List, Optional, Tuple
+import math
+import inspect
+from typing import Any, Dict, List, Optional, Tuple, Union
 from ..core.models import (
     EpistemicTier,
     FinancialFlow,
@@ -635,8 +637,10 @@ class SummitSynthesizer:
         history_eval = lens_eval_map.get(HistoryLens.LENS_NAME) or lens_eval_map.get("World & Indian Diplomatic History")
         digital_eval = lens_eval_map.get(DigitalSovereigntyLens.LENS_NAME) or lens_eval_map.get("Digital Sovereignty & Compute Infrastructure") or lens_eval_map.get("Digital Sovereignty, Compute & Telecommunications Stack Lens")
         propaganda_eval = lens_eval_map.get(PropagandaLens.LENS_NAME) or lens_eval_map.get("State Propaganda & Disinformation Forensics") or lens_eval_map.get("State Propaganda & Strategic Narrative Deconstruction")
-        geo_eval = lens_eval_map.get(GeopoliticalLens.LENS_NAME) or lens_eval_map.get("Geopolitical & Chokepoint Forensics")
-        hybrid_eval = lens_eval_map.get(HybridCovertLens.LENS_NAME) or lens_eval_map.get("Hybrid & Covert Warfare Operations")
+        geo_eval = lens_eval_map.get(GeopoliticalLens.LENS_NAME) or lens_eval_map.get("Geopolitical & Chokepoint Forensics") or lens_eval_map.get("Geopolitical Balance & Strategic Hedging")
+        hybrid_eval = lens_eval_map.get(HybridCovertLens.LENS_NAME) or lens_eval_map.get("Hybrid & Covert Warfare Operations") or lens_eval_map.get("Hybrid Warfare & Asymmetric Leverage")
+        bureaucratic_eval = lens_eval_map.get(BureaucraticInertiaLens.LENS_NAME) or lens_eval_map.get("Deep-State & Bureaucratic Continuity")
+        geo_economist_eval = lens_eval_map.get(GeoEconomistLens.LENS_NAME) or lens_eval_map.get("Geo-Economic Realism & Monetary Architecture") or lens_eval_map.get("Geo-Economic Leverage & Industrial Moats")
 
         strategic_resilience_matrix = {
             "food_caloric_sovereignty_index": food_eval.hard_metrics.get("caloric_sovereignty_index", 0.81) if food_eval else 0.81,
@@ -742,6 +746,53 @@ class SummitSynthesizer:
             "soil_resilience_score": food_eval.hard_metrics.get("soil_resilience_score") if food_eval and "soil_resilience_score" in food_eval.hard_metrics else None,
             "dharmic_sovereignty_score": civ_eval.hard_metrics.get("dharmic_sovereignty_score") if civ_eval and "dharmic_sovereignty_score" in civ_eval.hard_metrics else None,
             "sectoral_rotation_score": geo_economist_eval.hard_metrics.get("sectoral_rotation_score") if geo_economist_eval and "sectoral_rotation_score" in geo_economist_eval.hard_metrics else None,
+            # Phases 283-294: Island Net Security, Programmable CBDC, Inter-Agency Counter-Subversion, Banking CRAR, Sub-National Bureaucracy, GaN Radar, High-Altitude Airlift, BigTech Algorithmic Sovereignty, Sacred Economy, ODI Asset Capture, Archaeo-Astronomy, Black Projects
+            "maritime_net_security_score": geo_eval.hard_metrics.get("maritime_net_security_score") if geo_eval and "maritime_net_security_score" in geo_eval.hard_metrics else None,
+            "monetary_autonomy_score": digital_eval.hard_metrics.get("monetary_autonomy_score") if digital_eval and "monetary_autonomy_score" in digital_eval.hard_metrics else None,
+            "counter_subversion_score": hybrid_eval.hard_metrics.get("counter_subversion_score") if hybrid_eval and "counter_subversion_score" in hybrid_eval.hard_metrics else None,
+            "banking_fortress_score": cash_eval.hard_metrics.get("banking_fortress_score") if cash_eval and "banking_fortress_score" in cash_eval.hard_metrics else None,
+            "administrative_velocity_score": bureaucratic_eval.hard_metrics.get("administrative_velocity_score") if bureaucratic_eval and "administrative_velocity_score" in bureaucratic_eval.hard_metrics else None,
+            "gan_radar_sovereignty_score": deep_tech_eval.hard_metrics.get("gan_radar_sovereignty_score") if deep_tech_eval and "gan_radar_sovereignty_score" in deep_tech_eval.hard_metrics else None,
+            "high_altitude_logistics_score": military_eval.hard_metrics.get("high_altitude_logistics_score") if military_eval and "high_altitude_logistics_score" in military_eval.hard_metrics else None,
+            "algorithmic_sovereignty_score": digital_eval.hard_metrics.get("algorithmic_sovereignty_score") if digital_eval and "algorithmic_sovereignty_score" in digital_eval.hard_metrics else None,
+            "sacred_economy_multiplier_score": civ_eval.hard_metrics.get("sacred_economy_multiplier_score") if civ_eval and "sacred_economy_multiplier_score" in civ_eval.hard_metrics else None,
+            "asset_capture_score": geo_economist_eval.hard_metrics.get("asset_capture_score") if geo_economist_eval and "asset_capture_score" in geo_economist_eval.hard_metrics else None,
+            "archaeo_astronomical_dating_score": history_eval.hard_metrics.get("archaeo_astronomical_dating_score") if history_eval and "archaeo_astronomical_dating_score" in history_eval.hard_metrics else None,
+            "black_project_resilience_score": hybrid_eval.hard_metrics.get("black_project_resilience_score") if hybrid_eval and "black_project_resilience_score" in hybrid_eval.hard_metrics else None,
+            # Phases 295-300: Trans-Himalayan Hydrology, Predatory Dumping, Epistemic Apaurusheya, Sacred Heritage, Narrative Inversion, Malacca Deterrence
+            "hydro_deterrence_score": geo_eval.hard_metrics.get("hydro_deterrence_score") if geo_eval and "hydro_deterrence_score" in geo_eval.hard_metrics else None,
+            "industrial_resilience_score": geo_economist_eval.hard_metrics.get("industrial_resilience_score") if geo_economist_eval and "industrial_resilience_score" in geo_economist_eval.hard_metrics else None,
+            "epistemic_sovereignty_score": civ_eval.hard_metrics.get("epistemic_sovereignty_score") if civ_eval and "epistemic_sovereignty_score" in civ_eval.hard_metrics else None,
+            "heritage_defense_score": lawfare_eval.hard_metrics.get("heritage_defense_score") if lawfare_eval and "heritage_defense_score" in lawfare_eval.hard_metrics else None,
+            "narrative_immunity_score": propaganda_eval.hard_metrics.get("narrative_immunity_score") if propaganda_eval and "narrative_immunity_score" in propaganda_eval.hard_metrics else None,
+            "maritime_chokepoint_deterrence_score": military_eval.hard_metrics.get("maritime_chokepoint_deterrence_score") if military_eval and "maritime_chokepoint_deterrence_score" in military_eval.hard_metrics else None,
+            # Phases 301-307: Ritual Sovereignty, Dharmic Constitutionalism, Historical Sandarshan, Epic Fidelity, Theological Realism, Spiritual Integration, Dietary Plurality
+            "ritual_sovereignty_score": lawfare_eval.hard_metrics.get("ritual_sovereignty_score") if lawfare_eval and "ritual_sovereignty_score" in lawfare_eval.hard_metrics else None,
+            "dharmic_constitutionalism_score": lawfare_eval.hard_metrics.get("dharmic_constitutionalism_score") if lawfare_eval and "dharmic_constitutionalism_score" in lawfare_eval.hard_metrics else None,
+            "historical_sandarshan_score": history_eval.hard_metrics.get("historical_sandarshan_score") if history_eval and "historical_sandarshan_score" in history_eval.hard_metrics else None,
+            "canonical_fidelity_score": propaganda_eval.hard_metrics.get("canonical_fidelity_score") if propaganda_eval and "canonical_fidelity_score" in propaganda_eval.hard_metrics else None,
+            "theological_realism_score": demo_eval.hard_metrics.get("theological_realism_score") if demo_eval and "theological_realism_score" in demo_eval.hard_metrics else None,
+            "spiritual_integration_score": civ_eval.hard_metrics.get("spiritual_integration_score") if civ_eval and "spiritual_integration_score" in civ_eval.hard_metrics else None,
+            "dietary_plurality_score": civ_eval.hard_metrics.get("dietary_plurality_score") if civ_eval and "dietary_plurality_score" in civ_eval.hard_metrics else None,
+            # Phase 308: Quantum Decision Theory (QDT) & Dynamic Epistemic Gating
+            "quantum_interference_index": round(
+                2.0 * math.sqrt(
+                    max(0.01, (civ_eval.alignment_score + 1.0) / 2.0 if civ_eval else 0.5) *
+                    max(0.01, (geo_eval.alignment_score + 1.0) / 2.0 if geo_eval else 0.5)
+                ) * math.cos(math.radians(45.0)),
+                4
+            ),
+            "dynamic_epistemic_gating_active": bool(prioritized_lenses and len(prioritized_lenses) > 0),
+            # Phases 309-317: Sovereign Historiographical, Military & Geo-Economic Sieves
+            "archival_fidelity_score": history_eval.hard_metrics.get("archival_fidelity_score") if history_eval and "archival_fidelity_score" in history_eval.hard_metrics else None,
+            "academic_gatekeeping_score": propaganda_eval.hard_metrics.get("academic_gatekeeping_score") if propaganda_eval and "academic_gatekeeping_score" in propaganda_eval.hard_metrics else None,
+            "succession_continuity_score": geo_economist_eval.hard_metrics.get("succession_continuity_score") if geo_economist_eval and "succession_continuity_score" in geo_economist_eval.hard_metrics else None,
+            "linguistic_sprachbund_score": civ_eval.hard_metrics.get("linguistic_sprachbund_score") if civ_eval and "linguistic_sprachbund_score" in civ_eval.hard_metrics else None,
+            "indigenous_stem_score": deep_tech_eval.hard_metrics.get("indigenous_stem_score") if deep_tech_eval and "indigenous_stem_score" in deep_tech_eval.hard_metrics else None,
+            "subaltern_memory_score": history_eval.hard_metrics.get("subaltern_memory_score") if history_eval and "subaltern_memory_score" in history_eval.hard_metrics else None,
+            "industrial_attrition_score": military_eval.hard_metrics.get("industrial_attrition_score") if military_eval and "industrial_attrition_score" in military_eval.hard_metrics else None,
+            "imperial_debt_overreach_score": cash_eval.hard_metrics.get("imperial_debt_overreach_score") if cash_eval and "imperial_debt_overreach_score" in cash_eval.hard_metrics else None,
+            "colonial_drain_score": history_eval.hard_metrics.get("colonial_drain_score") if history_eval and "colonial_drain_score" in history_eval.hard_metrics else None,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

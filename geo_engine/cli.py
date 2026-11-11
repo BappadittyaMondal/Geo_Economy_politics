@@ -1513,7 +1513,7 @@ def main():
     audit_parser = subparsers.add_parser("audit", help="Run full 5-tier audit on a summit")
     audit_parser.add_argument("--summit", default="BRICS 2026 Summit", help="Summit title")
     audit_parser.add_argument("--year", type=int, default=2026, help="Summit year")
-    audit_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
+    audit_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "sadhguru"], help="Strategic analytical archetype projection")
     audit_parser.add_argument("--export", choices=["html", "pdf", "md", "all"], default=None, help="Export format for sovereign intelligence report")
     audit_parser.add_argument("--output-dir", default="reports", help="Directory to save exported files")
 
@@ -1527,19 +1527,19 @@ def main():
     dash_parser = subparsers.add_parser("dashboard", help="Generate and export interactive sovereign intelligence dashboard")
     dash_parser.add_argument("--summit", default="BRICS 2026 Summit", help="Summit title or strategic event name")
     dash_parser.add_argument("--year", type=int, default=2026, help="Event year")
-    dash_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
+    dash_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "sadhguru"], help="Strategic analytical archetype projection")
     dash_parser.add_argument("--export", choices=["html", "pdf", "md", "all"], default="all", help="Export formats for dashboard")
     dash_parser.add_argument("--output-dir", default="reports", help="Directory to save exported files")
 
     # Command: lenses
     lens_parser = subparsers.add_parser("lenses", help="Display evaluation across all registered lenses")
     lens_parser.add_argument("--summit", default="BRICS 2026 Summit", help="Summit title")
-    lens_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
+    lens_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "sadhguru"], help="Strategic analytical archetype projection")
 
     # Command: query
     query_parser = subparsers.add_parser("query", help="Run natural-language query routing through dynamic lens activation")
     query_parser.add_argument("prompt", type=str, help="Analytical question or scenario prompt")
-    query_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"], help="Strategic analytical archetype projection")
+    query_parser.add_argument("--persona", default="neutral", choices=["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "sadhguru"], help="Strategic analytical archetype projection")
     query_parser.add_argument("--export", choices=["html", "pdf", "md", "all"], default=None, help="Export format for sovereign intelligence report")
     query_parser.add_argument("--output-dir", default="reports", help="Directory to save exported files")
 

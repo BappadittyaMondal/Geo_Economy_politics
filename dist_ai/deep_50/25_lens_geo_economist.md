@@ -203,6 +203,59 @@ class GeoEconomistLens:
             sectoral_banking_auto_delta_pct=rot_params.get("sectoral_banking_auto_delta_pct", 0.038),
         )
         metrics.update(_rot_res)
+
+        # Phase 292: Wire OutwardDirectInvestmentAssetCaptureSieve
+        odi_params = ge_meta.get("outward_asset_capture", {}) if isinstance(ge_meta, dict) else {}
+        _odi_res = OutwardDirectInvestmentAssetCaptureSieve.calculate_asset_capture(
+            odi_deployment=odi_params.get("odi_deployment", 0.75),
+            ip_repatriation=odi_params.get("ip_repatriation", 0.70),
+            host_jurisdiction_protectionism=odi_params.get("host_jurisdiction_protectionism", 0.35),
+            forex_volatility=odi_params.get("forex_volatility", 0.25),
+        )
+        metrics["asset_capture_score"] = _odi_res["asset_capture_score"]
+        metrics["odi_capital_efficiency_index"] = _odi_res["odi_capital_efficiency_index"]
+        metrics["ip_repatriation_ratio"] = _odi_res["ip_repatriation_ratio"]
+        metrics["asset_capture_tier"] = _odi_res["asset_capture_tier"]
+
+        # Phase 286: Wire CommercialBankAssetQualityAndCRARSieve in GeoEconomistLens
+        from .cash_flow import CommercialBankAssetQualityAndCRARSieve
+        bank_params_ge = ge_meta.get("bank_asset_quality", {}) if isinstance(ge_meta, dict) else {}
+        _bank_res_ge = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
+            crar_ratio=bank_params_ge.get("crar_ratio", 0.80),
+            provision_coverage=bank_params_ge.get("provision_coverage", 0.75),
+            net_npa_ratio=bank_params_ge.get("net_npa_ratio", 0.15),
+            mtm_treasury_exposure=bank_params_ge.get("mtm_treasury_exposure", 0.20),
+        )
+        metrics.update({f"economist_{k}": v for k, v in _bank_res_ge.items()})
+
+        # Phase 296: Wire PredatoryOvercapacityDumpingSieve
+        dump_params = ge_meta.get("predatory_dumping", {}) if isinstance(ge_meta, dict) else {}
+        _dump_res = PredatoryOvercapacityDumpingSieve.calculate(
+            marginal_cost_global=dump_params.get("marginal_cost_global", 100.0),
+            dumped_price_fob=dump_params.get("dumped_price_fob", 25.0),
+            qco_enforcement_ratio=dump_params.get("qco_enforcement_ratio", 0.80),
+            tariff_anti_dumping_pct=dump_params.get("tariff_anti_dumping_pct", 0.35),
+            msme_vulnerability_index=dump_params.get("msme_vulnerability_index", 0.50),
+            domestic_pli_scale=dump_params.get("domestic_pli_scale", 0.75),
+            cluster_supply_chain_density=dump_params.get("cluster_supply_chain_density", 0.70),
+        )
+        metrics["industrial_resilience_score"] = _dump_res["industrial_resilience_score"]
+        metrics["industrial_sovereignty_tier"] = _dump_res["industrial_sovereignty_tier"]
+        metrics["dumping_margin"] = _dump_res["dumping_margin"]
+        metrics["protective_coverage_ratio"] = _dump_res["protective_coverage_ratio"]
+
+        # Phase 311: Wire SuccessionContinuitySieve
+        succ_params = ge_meta.get("succession_continuity", {}) if isinstance(ge_meta, dict) else {}
+        _succ_res = SuccessionContinuitySieve.calculate(
+            institutional_cadre_alignment=succ_params.get("institutional_cadre_alignment", 0.85),
+            factional_rupture_friction=succ_params.get("factional_rupture_friction", 0.20),
+            capex_statutory_durability=succ_params.get("capex_statutory_durability", 0.80),
+            electoral_populist_volatility=succ_params.get("electoral_populist_volatility", 0.25),
+        )
+        metrics["succession_continuity_score"] = _succ_res["succession_continuity_score"]
+        metrics["succession_continuity_tier"] = _succ_res["succession_continuity_tier"]
+        metrics["policy_durability_index"] = _succ_res["policy_durability_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -764,5 +817,234 @@ class SectoralCapitalRotationAndGridConstraintSieve:
             "sectoral_rotation_tier": tier,
             "sectoral_rotation_verdict": verdict,
         }
+
+
+class OutwardDirectInvestmentAssetCaptureSieve:
+    """
+    Phase 292: Outward Direct Investment Asset Capture Sieve.
+    Quantifies Indian multinational overseas direct investment (ODI), opportunistic acquisition
+    of distressed Western industrial/tech assets, global intellectual property repatriation,
+    and corporate balance-sheet resilience.
+    """
+
+    @classmethod
+    def calculate_asset_capture(
+        cls,
+        odi_deployment: float = 0.75,
+        ip_repatriation: float = 0.70,
+        host_jurisdiction_protectionism: float = 0.35,
+        forex_volatility: float = 0.25,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Asset Capture Score using calibrated logistic sigmoid:
+            z = 2.8 * odi + 2.5 * ip - 2.6 * prot - 2.4 * forex - 0.2
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        odi = max(0.0, min(1.0, float(odi_deployment)))
+        ip = max(0.0, min(1.0, float(ip_repatriation)))
+        prot = max(0.0, min(1.0, float(host_jurisdiction_protectionism)))
+        forex = max(0.0, min(1.0, float(forex_volatility)))
+
+        z = 2.8 * odi + 2.5 * ip - 2.6 * prot - 2.4 * forex - 0.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "AGGRESSIVE_GLOBAL_STRATEGIC_ASSET_CAPTURE"
+            verdict = "SOVEREIGN_MULTINATIONAL_OUTWARD_EXPANSION_DOMINANCE"
+            rationale = (
+                f"Aggressive asset capture ({score:.4f}): Robust ODI deployment ({odi:.2f}) and aggressive IP "
+                f"repatriation ({ip:.2f}) acquire critical Western industrial technologies at distressed valuations."
+            )
+        elif score >= 0.55:
+            tier = "PRUDENT_OUTWARD_CAPITAL_EXPANSION"
+            verdict = "STRATEGIC_GLOBAL_FOOTPRINT_CONSOLIDATION"
+            rationale = (
+                f"Prudent outward expansion ({score:.4f}): Disciplined capital deployment navigates protectionist barriers ({prot:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "VULNERABLE_FOREIGN_ACQUISITION_DRAG"
+            verdict = "REGULATORY_SCRUTINY_STALLING_CROSS_BORDER_MA"
+            rationale = (
+                f"Vulnerable acquisition drag ({score:.4f}): Host nation FDI screening and currency swings ({forex:.2f}) impede deals."
+            )
+        else:
+            tier = "CRITICAL_CAPITAL_TRAP_IN_DISTRESSED_ASSETS"
+            verdict = "SEVERE_EXPROPRIATION_AND_WRITE_DOWN_EXPOSURE"
+            rationale = (
+                f"Critical capital trap ({score:.4f}): Severe regulatory hostility and forex collapse threaten overseas investments."
+            )
+
+        return {
+            "asset_capture_score": score,
+            "odi_deployment": round(odi, 4),
+            "ip_repatriation": round(ip, 4),
+            "host_jurisdiction_protectionism": round(prot, 4),
+            "forex_volatility": round(forex, 4),
+            "odi_capital_efficiency_index": round(odi, 4),
+            "ip_repatriation_ratio": round(ip, 4),
+            "asset_capture_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_asset_capture_aggressive": score >= 0.55,
+        }
+
+
+class PredatoryOvercapacityDumpingSieve:
+    """
+    Phase 296: Mercantilist Industrial Overcapacity, Predatory Price Dumping & MSME Shield Sieve.
+    Quantifies foreign state-subsidized overcapacity dumping (e.g. Canton Fair Phase 3 price shocks),
+    evaluating domestic MSME margin erosion, and calculating protective resilience via Quality Control Orders (QCOs),
+    anti-dumping tariffs, and Production Linked Incentive (PLI) domestic scaling.
+
+    Formulation:
+      DumpingMargin = max(0.0, min(1.0, (marginal_cost_global - dumped_price_fob) / (marginal_cost_global + 1e-6)))
+      ProtectiveCoverage = min(2.0, (qco_enforcement_ratio + tariff_anti_dumping_pct) / (msme_vulnerability_index + 1e-6))
+      z = 2.6 * ProtectiveCoverage + 2.4 * domestic_pli_scale - 3.5 * DumpingMargin - 0.3
+      S_Industrial = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        marginal_cost_global: float = 100.0,
+        dumped_price_fob: float = 25.0,
+        qco_enforcement_ratio: float = 0.80,
+        tariff_anti_dumping_pct: float = 0.35,
+        msme_vulnerability_index: float = 0.50,
+        domestic_pli_scale: float = 0.75,
+        cluster_supply_chain_density: float = 0.70,
+    ) -> Dict[str, Any]:
+        cost = max(1.0, float(marginal_cost_global))
+        fob = max(0.1, float(dumped_price_fob))
+        qco = max(0.0, min(1.0, float(qco_enforcement_ratio)))
+        tariff = max(0.0, min(1.0, float(tariff_anti_dumping_pct)))
+        vuln = max(0.05, min(1.0, float(msme_vulnerability_index)))
+        pli = max(0.0, min(1.0, float(domestic_pli_scale)))
+        cluster = max(0.0, min(1.0, float(cluster_supply_chain_density)))
+
+        dumping_margin = max(0.0, min(1.0, (cost - fob) / (cost + 1e-6)))
+        protective_coverage = min(2.0, (qco + tariff) / (vuln + 1e-6))
+
+        z = 2.6 * protective_coverage + 2.4 * pli - 3.5 * dumping_margin - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_DOMESTIC_MANUFACTURING_SHIELD"
+            verdict = "PREDATORY_IMPORT_SURGE_NEUTRALIZED"
+            rationale = (
+                f"Fortified industrial shield ({score:.4f}): High QCO enforcement ({qco:.2f}) and PLI scaling ({pli:.2f}) "
+                f"insulate domestic MSME clusters from severe foreign dumping margin ({dumping_margin:.2%})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_QCO_TARIFF_PROTECTIVE_STABILITY"
+            verdict = "ADEQUATE_MSME_DEFENSIVE_RESILIENCE"
+            rationale = (
+                f"Robust protection ({score:.4f}): Protective coverage ({protective_coverage:.2f}) prevents structural market loss, "
+                f"though ongoing non-market subsidies require continuous tariff calibration."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_MSME_MARGIN_COMPRESSION"
+            verdict = "ELEVATED_DOMESTIC_INDUSTRY_EROSION_RISK"
+            rationale = (
+                f"Contested margin compression ({score:.4f}): Unchecked dumping ({dumping_margin:.2%}) outpaces QCO coverage, "
+                f"threatening low-margin domestic consumer product clusters."
+            )
+        else:
+            tier = "CRITICAL_INDUSTRIAL_DECAY_AND_DUMPING_TRAP"
+            verdict = "ACUTE_SUPPLY_CHAIN_HOLLOWING_EXPOSURE"
+            rationale = (
+                f"Critical industrial decay ({score:.4f}): Extreme predatory pricing overwhelms weak protective barriers, "
+                f"causing terminal hollowing out of domestic manufacturing capability."
+            )
+
+        msme_survival_idx = round(min(1.0, (score * 0.55) + (cluster * 0.45)), 4)
+
+        return {
+            "industrial_resilience_score": score,
+            "dumping_margin": round(dumping_margin, 4),
+            "protective_coverage_ratio": round(protective_coverage, 4),
+            "qco_enforcement_ratio": round(qco, 4),
+            "tariff_anti_dumping_pct": round(tariff, 4),
+            "domestic_pli_scale": round(pli, 4),
+            "cluster_supply_chain_density": round(cluster, 4),
+            "msme_cluster_survival_index": msme_survival_idx,
+            "industrial_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_manufacturing_shielded": score >= 0.55,
+        }
+
+
+class SuccessionContinuitySieve:
+    """
+    Phase 311: Evaluates political leadership succession stability, policy durability,
+    and macroeconomic CapEx schedule resilience across transition scenarios.
+    
+    Mathematical Formulation:
+      ratio = institutional_cadre_alignment / (factional_rupture_friction + eps)
+      z = 2.8 * (ratio / 2.5) + 2.5 * capex_statutory_durability - 2.8 * electoral_populist_volatility - 0.4
+      S_Succession_Continuity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        institutional_cadre_alignment: float = 0.85,
+        factional_rupture_friction: float = 0.20,
+        capex_statutory_durability: float = 0.80,
+        electoral_populist_volatility: float = 0.25,
+    ) -> Dict[str, Any]:
+        cadre = max(0.0, min(1.0, float(institutional_cadre_alignment)))
+        friction = max(0.0, min(1.0, float(factional_rupture_friction)))
+        capex = max(0.0, min(1.0, float(capex_statutory_durability)))
+        volatility = max(0.0, min(1.0, float(electoral_populist_volatility)))
+
+        ratio = min(5.0, cadre / (friction + 1e-6))
+        z = 2.8 * (ratio / 2.5) + 2.5 * capex - 2.8 * volatility - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SUCCESSION_CONTINUITY"
+            verdict = "SEAMLESS_CADRE_AND_CAPEX_STABILITY"
+            rationale = (
+                f"Fortified succession ({score:.4f}): Cadre institutional cohesion ({cadre:.2f}) and multi-year statutory "
+                f"CapEx anchoring ({capex:.2f}) insulate macroeconomic growth from leadership transitions."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_POLICY_DURABILITY"
+            verdict = "MANAGED_POLITICAL_SUCCESSION"
+            rationale = (
+                f"Robust durability ({score:.4f}): Institutional structures successfully absorb transition friction."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_TRANSITION_FRICTION"
+            verdict = "ELEVATED_CAPEX_AND_FDI_UNCERTAINTY"
+            rationale = (
+                f"Contested succession ({score:.4f}): Factional uncertainty ({friction:.2f}) prompts foreign capital "
+                f"allocation delays."
+            )
+        else:
+            tier = "ACUTE_SUCCESSION_RUPTURE_RISK"
+            verdict = "CRITICAL_POLICY_INSTABILITY_SPIRAL"
+            rationale = (
+                f"Critical rupture ({score:.4f}): Internal ideological warfare threatens domestic economic continuity."
+            )
+
+        policy_idx = round(min(1.0, (score * 0.65) + (capex * 0.35)), 4)
+
+        return {
+            "succession_continuity_score": score,
+            "cadre_to_friction_ratio": round(ratio, 4),
+            "institutional_cadre_alignment": round(cadre, 4),
+            "factional_rupture_friction": round(friction, 4),
+            "capex_statutory_durability": round(capex, 4),
+            "electoral_populist_volatility": round(volatility, 4),
+            "policy_durability_index": policy_idx,
+            "succession_continuity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_succession_resilient": score >= 0.55,
+        }
+
+
 
 ```

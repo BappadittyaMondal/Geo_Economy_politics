@@ -91,6 +91,20 @@ class BureaucraticInertiaLens:
 
             metrics["claims_evaluated"] = len(claims)
 
+        # Phase 287: Wire SubNationalBureaucraticFrictionSieve
+        bur_meta = getattr(summit, "metadata", {}) or {}
+        bur_params = bur_meta.get("bureaucratic_friction", {}) if isinstance(bur_meta, dict) else {}
+        _bur_res = SubNationalBureaucraticFrictionSieve.calculate_administrative_velocity(
+            executive_clarity=bur_params.get("executive_clarity", 0.75),
+            statutory_de_registration=bur_params.get("statutory_de_registration", 0.70),
+            file_looping_latency=bur_params.get("file_looping_latency", 0.35),
+            pil_stay_order_drag=bur_params.get("pil_stay_order_drag", 0.30),
+        )
+        metrics["administrative_velocity_score"] = _bur_res["administrative_velocity_score"]
+        metrics["bureaucratic_friction_drag"] = _bur_res["bureaucratic_friction_drag"]
+        metrics["pil_lawfare_resistance_index"] = _bur_res["pil_lawfare_resistance_index"]
+        metrics["administrative_velocity_tier"] = _bur_res["administrative_velocity_tier"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -180,3 +194,76 @@ class BureaucraticRollbackModel:
         }
 
 
+
+
+class SubNationalBureaucraticFrictionSieve:
+    """
+    Phase 287: Sub-National Bureaucratic Friction Sieve.
+    Quantifies administrative fifth-column resistance, procedural file-looping,
+    and Public Interest Litigation (PIL) legal weaponization stalling strategic infrastructure and defense corridor projects.
+    """
+
+    @classmethod
+    def calculate_administrative_velocity(
+        cls,
+        executive_clarity: float = 0.75,
+        statutory_de_registration: float = 0.70,
+        file_looping_latency: float = 0.35,
+        pil_stay_order_drag: float = 0.30,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Administrative Velocity Score using calibrated logistic sigmoid:
+            z = 2.8 * clarity + 2.5 * dereg - 3.0 * looping - 2.7 * pil - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        clarity = max(0.0, min(1.0, float(executive_clarity)))
+        dereg = max(0.0, min(1.0, float(statutory_de_registration)))
+        looping = max(0.0, min(1.0, float(file_looping_latency)))
+        pil = max(0.0, min(1.0, float(pil_stay_order_drag)))
+
+        z = 2.8 * clarity + 2.5 * dereg - 3.0 * looping - 2.7 * pil - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "DECISIVE_SOVEREIGN_EXECUTIVE_VELOCITY"
+            verdict = "FAST_TRACK_STATUTORY_EXECUTION_UNHINDERED"
+            rationale = (
+                f"Decisive executive velocity ({score:.4f}): High executive clarity ({clarity:.2f}) and proactive statutory "
+                f"de-registration ({dereg:.2f}) eradicate bureaucratic file-looping and frivolous PIL stay orders."
+            )
+        elif score >= 0.55:
+            tier = "MANAGEABLE_BUREAUCRATIC_FRICTION"
+            verdict = "PROCEDURAL_COMPLIANCE_WITH_CONTROLLED_LATENCY"
+            rationale = (
+                f"Manageable friction ({score:.4f}): Inter-ministerial coordination overcomes routine procedural resistance."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_JUDICIAL_ADMINISTRATIVE_GRIDLOCK"
+            verdict = "SUB_NATIONAL_PIL_LAWFARE_DELAYING_CAPEX"
+            rationale = (
+                f"Contested gridlock ({score:.4f}): Lawfare stay orders ({pil:.2f}) and file ping-pong stall critical defense projects."
+            )
+        else:
+            tier = "CRITICAL_DEEP_STATE_POLICY_PARALYSIS"
+            verdict = "TOTAL_ADMINISTRATIVE_FIFTH_COLUMN_VETO"
+            rationale = (
+                f"Critical paralysis ({score:.4f}): Severe file-looping ({looping:.2f}) and judicial injunctions freeze national strategy."
+            )
+
+        friction_drag = round(min(1.0, looping * 0.60 + pil * 0.40), 4)
+        pil_resilience = round(max(0.0, 1.0 - pil), 4)
+
+        return {
+            "administrative_velocity_score": score,
+            "executive_clarity": round(clarity, 4),
+            "statutory_de_registration": round(dereg, 4),
+            "file_looping_latency": round(looping, 4),
+            "pil_stay_order_drag": round(pil, 4),
+            "bureaucratic_friction_drag": friction_drag,
+            "pil_lawfare_resistance_index": pil_resilience,
+            "administrative_velocity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_executive_velocity_decisive": score >= 0.55,
+        }

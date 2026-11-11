@@ -429,6 +429,70 @@ class MilitaryReadinessLens:
         metrics["pnt_sovereignty_tier"] = _pnt_result["pnt_sovereignty_tier"]
         metrics["missile_cep_assurance"] = _pnt_result["missile_cep_assurance"]
 
+        # Phase 289: Wire ExtremeHighAltitudeAirliftLogisticsSieve
+        mr_meta = getattr(event, "metadata", {}) or {}
+        airlift_params = mr_meta.get("high_altitude_airlift", {}) if isinstance(mr_meta, dict) else {}
+        _airlift_res = ExtremeHighAltitudeAirliftLogisticsSieve.calculate_high_altitude_logistics(
+            heavy_airlift_capacity=airlift_params.get("heavy_airlift_capacity", 0.80),
+            winter_readiness=airlift_params.get("winter_readiness", 0.75),
+            elevation_meters=airlift_params.get("elevation_meters", 4154.0),
+            weather_friction=airlift_params.get("weather_friction", 0.30),
+        )
+        metrics["high_altitude_logistics_score"] = _airlift_res["high_altitude_logistics_score"]
+        metrics["alg_payload_retention_ratio"] = _airlift_res["alg_payload_retention_ratio"]
+        metrics["winter_mechanized_mobility_index"] = _airlift_res["winter_mechanized_mobility_index"]
+        metrics["high_altitude_logistics_tier"] = _airlift_res["high_altitude_logistics_tier"]
+
+        # Phase 283: Wire IslandEEZMaritimeNetSecuritySieve in MilitaryReadinessLens
+        from .geopolitical import IslandEEZMaritimeNetSecuritySieve
+        island_params_mr = mr_meta.get("island_net_security", {}) if isinstance(mr_meta, dict) else {}
+        _island_res_mr = IslandEEZMaritimeNetSecuritySieve.calculate_maritime_net_security(
+            basing_airgap_radius=island_params_mr.get("basing_airgap_radius", 0.75),
+            sagar_treaty_depth=island_params_mr.get("sagar_treaty_depth", 0.80),
+            coastal_radar_uptime=island_params_mr.get("coastal_radar_uptime", 0.85),
+            plan_dual_use_incursion=island_params_mr.get("plan_dual_use_incursion", 0.35),
+            host_nation_political_drift=island_params_mr.get("host_nation_political_drift", 0.25),
+        )
+        metrics.update({f"military_{k}": v for k, v in _island_res_mr.items()})
+
+        # Phase 288: Wire IndigenousGaNAESARadarSovereigntySieve in MilitaryReadinessLens
+        from .deep_tech import IndigenousGaNAESARadarSovereigntySieve
+        radar_params_mr = mr_meta.get("gan_radar", {}) if isinstance(mr_meta, dict) else {}
+        _radar_res_mr = IndigenousGaNAESARadarSovereigntySieve.calculate_gan_radar_sovereignty(
+            gan_trm_density=radar_params_mr.get("gan_trm_density", 0.75),
+            aesa_autonomy=radar_params_mr.get("aesa_autonomy", 0.80),
+            foreign_vendor_lockin=radar_params_mr.get("foreign_vendor_lockin", 0.25),
+            thermal_dissipation_drag=radar_params_mr.get("thermal_dissipation_drag", 0.20),
+        )
+        metrics.update({f"military_{k}": v for k, v in _radar_res_mr.items()})
+
+        # Phase 300: Wire MaritimeChokepointMalaccaDeterrenceSieve
+        mil_meta = getattr(event, "metadata", {}) or {}
+        malacca_params = mil_meta.get("malacca_chokepoint", {}) if isinstance(mil_meta, dict) else {}
+        _malacca_res = MaritimeChokepointMalaccaDeterrenceSieve.calculate(
+            adversary_malacca_energy_dependency_pct=malacca_params.get("adversary_malacca_energy_dependency_pct", 0.80),
+            anc_maritime_strike_readiness=malacca_params.get("anc_maritime_strike_readiness", 0.88),
+            adversary_escort_capacity_ratio=malacca_params.get("adversary_escort_capacity_ratio", 0.45),
+            great_nicobar_bastion_fortification=malacca_params.get("great_nicobar_bastion_fortification", 0.85),
+            interdiction_reaction_latency_hours=malacca_params.get("interdiction_reaction_latency_hours", 3.0),
+            submarine_picket_density=malacca_params.get("submarine_picket_density", 0.80),
+        )
+        metrics["maritime_chokepoint_deterrence_score"] = _malacca_res["maritime_chokepoint_deterrence_score"]
+        metrics["maritime_deterrence_tier"] = _malacca_res["maritime_deterrence_tier"]
+        metrics["maritime_chokepoint_veto_index"] = _malacca_res["maritime_chokepoint_veto_index"]
+
+        # Phase 315: Wire IndustrialAttritionSieve
+        att_params = mil_meta.get("industrial_attrition", {}) if isinstance(mil_meta, dict) else {}
+        _att_res = IndustrialAttritionSieve.calculate(
+            monthly_domestic_production=att_params.get("monthly_domestic_production", 0.85),
+            daily_combat_burn_rate=att_params.get("daily_combat_burn_rate", 0.30),
+            propellant_precursor_autonomy=att_params.get("propellant_precursor_autonomy", 0.80),
+            foreign_component_dependency=att_params.get("foreign_component_dependency", 0.20),
+        )
+        metrics["industrial_attrition_score"] = _att_res["industrial_attrition_score"]
+        metrics["industrial_attrition_tier"] = _att_res["industrial_attrition_tier"]
+        metrics["attrition_sustainability_index"] = _att_res["attrition_sustainability_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -655,3 +719,238 @@ class SovereignPNTNavigationAutonomySieve:
             "tactical_rationale": rationale,
             "is_pnt_sovereign": score >= 0.60,
         }
+
+
+class ExtremeHighAltitudeAirliftLogisticsSieve:
+    """
+    Phase 289: Extreme High-Altitude Airlift Logistics Sieve.
+    Quantifies high-altitude advanced landing ground (Nyoma 13,629 ft ALG, Daulat Beg Oldi) payload capacity,
+    thrust-derating curves under thin atmosphere, rapid armor/mechanized reinforcement deployment time,
+    and winter LAC escalation dominance.
+    """
+
+    @classmethod
+    def calculate_high_altitude_logistics(
+        cls,
+        heavy_airlift_capacity: float = 0.80,
+        winter_readiness: float = 0.75,
+        elevation_meters: float = 4154.0,
+        weather_friction: float = 0.30,
+    ) -> Dict[str, Any]:
+        """
+        Calculates High-Altitude Logistics Score using calibrated logistic sigmoid:
+            ThrustDerate = min(1.0, elevation_meters / 5000.0)
+            z = 3.0 * heavy + 2.5 * winter - 3.2 * ThrustDerate - 2.4 * weather - 0.2
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        heavy = max(0.0, min(1.0, float(heavy_airlift_capacity)))
+        winter = max(0.0, min(1.0, float(winter_readiness)))
+        elev = max(0.0, float(elevation_meters))
+        weather = max(0.0, min(1.0, float(weather_friction)))
+
+        thrust_derate = min(1.0, elev / 5000.0)
+        z = 3.0 * heavy + 2.5 * winter - 3.2 * thrust_derate - 2.4 * weather - 0.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_HIGH_ALTITUDE_AIRLIFT_SUPREMACY"
+            verdict = "RAPID_FORWARD_ARMOR_AND_TROOP_DEPLOYMENT_ASSURED"
+            rationale = (
+                f"Fortified high-altitude logistics ({score:.4f}): Heavy airlift capacity ({heavy:.2f}) and winter "
+                f"readiness ({winter:.2f}) at Nyoma/DBO ensure round-the-clock mechanized reinforcement dominance."
+            )
+        elif score >= 0.55:
+            tier = "SUSTAINABLE_FORWARD_ALG_OPERATIONS"
+            verdict = "RESILIENT_SUPPLY_CHAIN_MAINTAINED"
+            rationale = (
+                f"Sustainable operations ({score:.4f}): Robust transport fleet sustains forward garrisons despite elevation derating ({thrust_derate:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_ATMOSPHERIC_PAYLOAD_CONSTRAINTS"
+            verdict = "REDUCED_PAYLOAD_AND_WEATHER_SENSITIVITY"
+            rationale = (
+                f"Elevated constraints ({score:.4f}): Thin air payload penalties and inclement weather ({weather:.2f}) restrict sortie frequency."
+            )
+        else:
+            tier = "ACUTE_WINTER_ISOLATION_RISK"
+            verdict = "CRITICAL_LOGISTICS_STRANGULATION_HAZARD"
+            rationale = (
+                f"Acute isolation risk ({score:.4f}): Extreme elevation derate and weather paralyze forward airlifts, risking tactical cutoff."
+            )
+
+        payload_retention = round(max(0.0, 1.0 - thrust_derate * 0.60), 4)
+        mech_mobility = round(min(1.0, winter * 0.70 + heavy * 0.30), 4)
+
+        return {
+            "high_altitude_logistics_score": score,
+            "heavy_airlift_capacity": round(heavy, 4),
+            "winter_readiness": round(winter, 4),
+            "elevation_meters": round(elev, 2),
+            "weather_friction": round(weather, 4),
+            "thrust_derate": round(thrust_derate, 4),
+            "alg_payload_retention_ratio": payload_retention,
+            "winter_mechanized_mobility_index": mech_mobility,
+            "high_altitude_logistics_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_high_altitude_airlift_capable": score >= 0.55,
+        }
+
+
+class MaritimeChokepointMalaccaDeterrenceSieve:
+    """
+    Phase 300: Maritime Chokepoint Asymmetric Deterrence, Malacca Energy Vulnerability & Great Nicobar Bastion Sieve.
+    Quantifies Indian Navy escalation dominance over Chinese seaborne energy flows
+    transiting the Strait of Malacca (80% of Chinese seaborne crude oil),
+    evaluating Andaman and Nicobar Command (ANC) naval aviation strike radius, Great Nicobar dual-use bastion command,
+    and anti-access / area-denial (A2/AD) submarine interdiction readiness against adversary escort capacity.
+
+    Formulation:
+      MalaccaInterdictionRatio = min(2.0, (adversary_malacca_energy_dependency_pct * anc_maritime_strike_readiness) / (adversary_escort_capacity_ratio + 1e-6))
+      z = 3.0 * MalaccaInterdictionRatio + 2.5 * great_nicobar_bastion_fortification - 2.6 * (interdiction_reaction_latency_hours / 24.0) - 0.2
+      S_Maritime = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        adversary_malacca_energy_dependency_pct: float = 0.80,
+        anc_maritime_strike_readiness: float = 0.88,
+        adversary_escort_capacity_ratio: float = 0.45,
+        great_nicobar_bastion_fortification: float = 0.85,
+        interdiction_reaction_latency_hours: float = 3.0,
+        submarine_picket_density: float = 0.80,
+    ) -> Dict[str, Any]:
+        dep = max(0.0, min(1.0, float(adversary_malacca_energy_dependency_pct)))
+        strike = max(0.0, min(1.0, float(anc_maritime_strike_readiness)))
+        escort = max(0.05, min(2.0, float(adversary_escort_capacity_ratio)))
+        nicobar = max(0.0, min(1.0, float(great_nicobar_bastion_fortification)))
+        latency = max(0.5, float(interdiction_reaction_latency_hours))
+        sub = max(0.0, min(1.0, float(submarine_picket_density)))
+
+        interdiction_ratio = min(2.0, (dep * strike) / (escort + 1e-6))
+        norm_latency = min(2.0, latency / 24.0)
+
+        z = 3.0 * interdiction_ratio + 2.5 * nicobar - 2.6 * norm_latency - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_ASIMETRIC_MARITIME_STRANGLEHOLD"
+            verdict = "DECISIVE_SLOC_INTERDICTION_ESCALATION_DOMINANCE"
+            rationale = (
+                f"Fortified maritime dominance ({score:.4f}): Great Nicobar bastion ({nicobar:.2f}) and ANC strike readiness ({strike:.2f}) "
+                f"hold adversary's 80% Malacca energy transit ({dep:.2%}) at decisive risk, deterring continental aggression."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_CHOKEPOINT_DETERRENCE_STABLE"
+            verdict = "CREDIBLE_A2AD_DENIAL_CAPABILITY"
+            rationale = (
+                f"Robust deterrence ({score:.4f}): Maritime interdiction capability ({interdiction_ratio:.2f}) imposes severe costs, "
+                f"though ongoing PLAN carrier deployments require continuous submarine picket reinforcement."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_LITTORAL_INTERDICTION_INTERVAL"
+            verdict = "ELEVATED_ESCORT_PENETRATION_RISK"
+            rationale = (
+                f"Contested chokepoint ({score:.4f}): Adversary escort capabilities and logistics latency ({latency:.1f}h) "
+                f"partially dilute Indian naval interdiction leverage."
+            )
+        else:
+            tier = "CRITICAL_MARITIME_LEVERAGE_COLLAPSE"
+            verdict = "ACUTE_SLOC_CONTROL_DEFICIT"
+            rationale = (
+                f"Critical leverage collapse ({score:.4f}): Inadequate naval assets at Andaman & Nicobar Command "
+                f"forfeit the geographic advantage over adversary sea lanes of communication."
+            )
+
+        maritime_veto_idx = round(min(1.0, (score * 0.60) + (sub * 0.40)), 4)
+
+        return {
+            "maritime_chokepoint_deterrence_score": score,
+            "malacca_interdiction_ratio": round(interdiction_ratio, 4),
+            "adversary_malacca_energy_dependency_pct": round(dep, 4),
+            "anc_maritime_strike_readiness": round(strike, 4),
+            "adversary_escort_capacity_ratio": round(escort, 4),
+            "great_nicobar_bastion_fortification": round(nicobar, 4),
+            "interdiction_reaction_latency_hours": round(latency, 2),
+            "submarine_picket_density": round(sub, 4),
+            "maritime_chokepoint_veto_index": maritime_veto_idx,
+            "maritime_deterrence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_malacca_deterrence_credible": score >= 0.55,
+        }
+
+
+class IndustrialAttritionSieve:
+    """
+    Phase 315: Evaluates industrial manufacturing surge capacity (monthly shell/drone forging,
+    propellant precursors) against high-intensity combat burn rates, scoring 90-180 day sustainability.
+    
+    Mathematical Formulation:
+      burn_monthly = daily_combat_burn_rate * 30.0
+      ratio = monthly_domestic_production / (burn_monthly + eps)
+      z = 3.0 * (ratio / 2.5) + 2.6 * propellant_precursor_autonomy - 2.8 * foreign_component_dependency - 0.4
+      S_Industrial_Attrition = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        monthly_domestic_production: float = 0.85,
+        daily_combat_burn_rate: float = 0.30,
+        propellant_precursor_autonomy: float = 0.80,
+        foreign_component_dependency: float = 0.20,
+    ) -> Dict[str, Any]:
+        production = max(0.0, min(1.0, float(monthly_domestic_production)))
+        burn = max(0.0, min(1.0, float(daily_combat_burn_rate)))
+        propellant = max(0.0, min(1.0, float(propellant_precursor_autonomy)))
+        dependency = max(0.0, min(1.0, float(foreign_component_dependency)))
+
+        burn_monthly = max(0.05, burn * 1.5)
+        ratio = min(5.0, production / (burn_monthly + 1e-6))
+        z = 3.0 * (ratio / 2.5) + 2.6 * propellant - 2.8 * dependency - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_180_DAY_ATTRITION_RESILIENCE"
+            verdict = "INDEPENDENT_WAR_PRODUCTION_SURGE"
+            rationale = (
+                f"Fortified industrial attrition resilience ({score:.4f}): Domestic munitions forging ({production:.2f}) "
+                f"and chemical propellant autonomy ({propellant:.2f}) easily match combat expenditure, resisting foreign supply denial."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_90_DAY_SUSTAINABILITY"
+            verdict = "SUSTAINED_MEDIUM_INTENSITY_OPERATIONS"
+            rationale = (
+                f"Robust sustainability ({score:.4f}): Domestic production sustains extended frontline military combat."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_30_DAY_DEPLETION_RISK"
+            verdict = "AMMUNITION_STOCKPILE_EXHAUSTION_WARNING"
+            rationale = (
+                f"Contested industrial surge ({score:.4f}): High combat burn ({burn:.2f}) outpaces peacetime factory lines."
+            )
+        else:
+            tier = "ACUTE_AMMUNITION_STARVATION"
+            verdict = "CRITICAL_LOGISTICAL_COLLAPSE"
+            rationale = (
+                f"Critical attrition failure ({score:.4f}): Total reliance on foreign imports ({dependency:.2f}) paralyzes combat operations."
+            )
+
+        attrition_idx = round(min(1.0, (score * 0.65) + (propellant * 0.35)), 4)
+
+        return {
+            "industrial_attrition_score": score,
+            "production_to_burn_ratio": round(ratio, 4),
+            "monthly_domestic_production": round(production, 4),
+            "daily_combat_burn_rate": round(burn, 4),
+            "propellant_precursor_autonomy": round(propellant, 4),
+            "foreign_component_dependency": round(dependency, 4),
+            "attrition_sustainability_index": attrition_idx,
+            "industrial_attrition_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_attrition_sustainable": score >= 0.55,
+        }
+
+

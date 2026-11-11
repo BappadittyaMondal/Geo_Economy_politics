@@ -8,6 +8,7 @@ and regional rivalries (LAC standoff, Gulf balance, Horn of Africa frictions).
 """
 
 from typing import Any, Dict, List, Optional
+import math
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
 
@@ -183,6 +184,35 @@ class GeopoliticalLens:
         metrics["host_sanctuary_lawfare_exposure"] = _diaspora_res["host_sanctuary_lawfare_exposure"]
         metrics["diaspora_sanctuary_tier"] = _diaspora_res["diaspora_sanctuary_tier"]
 
+        # Phase 283: Wire IslandEEZMaritimeNetSecuritySieve
+        island_params = geo_meta.get("island_net_security", {}) if isinstance(geo_meta, dict) else {}
+        _island_res = IslandEEZMaritimeNetSecuritySieve.calculate_maritime_net_security(
+            basing_airgap_radius=island_params.get("basing_airgap_radius", 0.75),
+            sagar_treaty_depth=island_params.get("sagar_treaty_depth", 0.80),
+            coastal_radar_uptime=island_params.get("coastal_radar_uptime", 0.85),
+            plan_dual_use_incursion=island_params.get("plan_dual_use_incursion", 0.35),
+            host_nation_political_drift=island_params.get("host_nation_political_drift", 0.25),
+        )
+        metrics["maritime_net_security_score"] = _island_res["maritime_net_security_score"]
+        metrics["maritime_bastion_tier"] = _island_res["maritime_bastion_tier"]
+        metrics["chinese_hydrographic_threat_index"] = _island_res["chinese_hydrographic_threat_index"]
+        metrics["agalega_surveillance_readiness"] = _island_res["agalega_surveillance_readiness"]
+
+        # Phase 295: Wire TransHimalayanHydrologicalDeterrenceSieve
+        hydro_params = geo_meta.get("trans_himalayan_hydrology", {}) if isinstance(geo_meta, dict) else {}
+        _hydro_res = TransHimalayanHydrologicalDeterrenceSieve.calculate(
+            buffer_storage_bcm=hydro_params.get("buffer_storage_bcm", 9.0),
+            threat_surge_volume_bcm=hydro_params.get("threat_surge_volume_bcm", 10.0),
+            lean_season_flow_parity=hydro_params.get("lean_season_flow_parity", 0.85),
+            ngo_subversion_index=hydro_params.get("ngo_subversion_index", 0.25),
+            proxy_political_obstruction=hydro_params.get("proxy_political_obstruction", 0.20),
+            state_counter_sabotage=hydro_params.get("state_counter_sabotage", 0.75),
+            malacca_counter_leverage_readiness=hydro_params.get("malacca_counter_leverage_readiness", 0.88),
+        )
+        metrics["hydro_deterrence_score"] = _hydro_res["hydro_deterrence_score"]
+        metrics["hydrologic_sovereignty_tier"] = _hydro_res["hydrologic_sovereignty_tier"]
+        metrics["asymmetric_escalation_parity"] = _hydro_res["asymmetric_escalation_parity"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -338,5 +368,169 @@ class DiasporaSanctuaryLawfareSieve:
             "tactical_rationale": rationale,
             "is_sanctuary_coercive": threat >= 0.55,
         }
+
+
+class IslandEEZMaritimeNetSecuritySieve:
+    """
+    Phase 283: Island EEZ Maritime Net Security Sieve.
+    Models Southwest Indian Ocean Maritime Domain Awareness (MDA), Net Security Provider posture
+    across island littoral states (Mauritius, Seychelles, Maldives, Sri Lanka), Agaléga surveillance
+    patrol radius (P-8I coverage), and Chinese dual-use hydrographic/research vessel interdiction.
+    """
+
+    @classmethod
+    def calculate_maritime_net_security(
+        cls,
+        basing_airgap_radius: float = 0.75,
+        sagar_treaty_depth: float = 0.80,
+        coastal_radar_uptime: float = 0.85,
+        plan_dual_use_incursion: float = 0.35,
+        host_nation_political_drift: float = 0.25,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Maritime Net Security Score using calibrated logistic sigmoid:
+            z = 2.8 * basing + 2.6 * sagar + 2.2 * radar - 3.2 * plan - 2.5 * drift - 0.4
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        basing = max(0.0, min(1.0, float(basing_airgap_radius)))
+        sagar = max(0.0, min(1.0, float(sagar_treaty_depth)))
+        radar = max(0.0, min(1.0, float(coastal_radar_uptime)))
+        plan = max(0.0, min(1.0, float(plan_dual_use_incursion)))
+        drift = max(0.0, min(1.0, float(host_nation_political_drift)))
+
+        z = 2.8 * basing + 2.6 * sagar + 2.2 * radar - 3.2 * plan - 2.5 * drift - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_IOR_MARITIME_BASTION"
+            verdict = "DOMINANT_SOUTHWEST_IOR_NET_SECURITY_PROVIDER"
+            rationale = (
+                f"Fortified maritime bastion ({score:.4f}): Agaléga airgap radius ({basing:.2f}) and SAGAR treaty "
+                f"depth ({sagar:.2f}) establish dominant P-8I surveillance and choke Chinese hydrographic incursions."
+            )
+        elif score >= 0.55:
+            tier = "SUSTAINED_NET_SECURITY_SUPERIORITY"
+            verdict = "RESILIENT_LITTORAL_RADAR_AND_PATROL_COVERAGE"
+            rationale = (
+                f"Sustained superiority ({score:.4f}): High radar uptime ({radar:.2f}) offsets moderate host nation "
+                f"political drift ({drift:.2f}); maintains stable EEZ deterrence."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_ISLAND_LITTORAL_PRESSURE"
+            verdict = "ESCALATING_DUAL_USE_RESEARCH_SURVEILLANCE"
+            rationale = (
+                f"Contested pressure ({score:.4f}): Chinese dual-use research vessel incursions ({plan:.2f}) and political "
+                f"drift ({drift:.2f}) threaten forward maritime basing access."
+            )
+        else:
+            tier = "CRITICAL_CHINESE_CHOKEPOINT_ENCIRCLEMENT"
+            verdict = "ACUTE_LITTORAL_BASING_DENIAL_RISK"
+            rationale = (
+                f"Critical encirclement ({score:.4f}): High PLAN dual-use penetration ({plan:.2f}) and hostile political drift "
+                f"compromise southwest IOR chokepoint security."
+            )
+
+        surv_readiness = round(min(1.0, basing * 0.90 + radar * 0.10), 4)
+        threat_idx = round(min(1.0, plan * 0.70 + drift * 0.30), 4)
+
+        return {
+            "maritime_net_security_score": score,
+            "basing_airgap_radius": round(basing, 4),
+            "sagar_treaty_depth": round(sagar, 4),
+            "coastal_radar_uptime": round(radar, 4),
+            "plan_dual_use_incursion": round(plan, 4),
+            "host_nation_political_drift": round(drift, 4),
+            "agalega_surveillance_readiness": surv_readiness,
+            "chinese_hydrographic_threat_index": threat_idx,
+            "maritime_bastion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_bastion_secure": score >= 0.55,
+        }
+
+
+class TransHimalayanHydrologicalDeterrenceSieve:
+    """
+    Phase 295: Trans-Himalayan Hydrological Warfare, Buffer Reservoir Sizing & Hybrid Sabotage Resistance Sieve.
+    Quantifies Chinese upstream damming weaponization (Medog / Great Bend Yarlung Tsangpo 60,000 MW mega-dam)
+    against Indian downstream counter-deterrence (Upper Siang 11,000 MW multipurpose buffer reservoir),
+    incorporating hybrid subversion risks (foreign-funded NGO fear-mongering and political obstruction).
+
+    Formulation:
+      SurgeAbsorb = min(2.0, buffer_storage_bcm / (threat_surge_volume_bcm + 1e-6))
+      SabotageRisk = max(0.0, min(1.0, 0.45 * ngo_subversion_index + 0.35 * proxy_political_obstruction - 0.30 * state_counter_sabotage))
+      z = 2.8 * SurgeAbsorb + 2.5 * lean_season_flow_parity - 3.2 * SabotageRisk - 0.4
+      S_Hydro = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        buffer_storage_bcm: float = 9.0,
+        threat_surge_volume_bcm: float = 10.0,
+        lean_season_flow_parity: float = 0.85,
+        ngo_subversion_index: float = 0.25,
+        proxy_political_obstruction: float = 0.20,
+        state_counter_sabotage: float = 0.75,
+        malacca_counter_leverage_readiness: float = 0.88,
+    ) -> Dict[str, Any]:
+        buf = max(0.0, float(buffer_storage_bcm))
+        surge = max(0.001, float(threat_surge_volume_bcm))
+        flow = max(0.0, min(1.0, float(lean_season_flow_parity)))
+        ngo = max(0.0, min(1.0, float(ngo_subversion_index)))
+        proxy = max(0.0, min(1.0, float(proxy_political_obstruction)))
+        counter = max(0.0, min(1.0, float(state_counter_sabotage)))
+        malacca = max(0.0, min(1.0, float(malacca_counter_leverage_readiness)))
+
+        surge_absorb = min(2.0, buf / (surge + 1e-6))
+        sabotage_risk = max(0.0, min(1.0, 0.45 * ngo + 0.35 * proxy - 0.30 * counter))
+
+        z = 2.8 * surge_absorb + 2.5 * flow - 3.2 * sabotage_risk - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_HYDROLOGIC_BUFFER_SOVEREIGNTY"
+            verdict = "STRATEGIC_SURGE_ABSORPTION_CERTIFIED"
+            rationale = (
+                f"Fortified sovereignty ({score:.4f}): Upper Siang buffer capacity ({buf:.1f} BCM) "
+                f"neutralizes Chinese Medog upstream surge threats while domestic sabotage risk ({sabotage_risk:.2f}) is contained."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_TRANSHIMALAYAN_DETERRENCE_STABLE"
+            verdict = "ADEQUATE_FLOOD_BUFFER_AND_LEAN_FLOW"
+            rationale = (
+                f"Robust deterrence ({score:.4f}): Buffer absorption ({surge_absorb:.2f}) provides adequate defense, "
+                f"but ongoing NGO narrative friction requires active state communication."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_DOWNSTREAM_RIPARIAN_VULNERABILITY"
+            verdict = "ELEVATED_FLASH_FLOOD_AND_DROUGHT_RISK"
+            rationale = (
+                f"Contested vulnerability ({score:.4f}): Subversion friction ({sabotage_risk:.2f}) stalls buffer reservoir execution, "
+                f"exposing Assam-Arunachal river basins to upstream manipulation."
+            )
+        else:
+            tier = "CRITICAL_HYDRAULIC_BLACKMAIL_EXPOSURE"
+            verdict = "ACUTE_CATASTROPHIC_SURGE_DEFICIT"
+            rationale = (
+                f"Critical exposure ({score:.4f}): Inadequate buffer storage and high sabotage paralysis "
+                f"leave northeast India defenseless against weaponized hydrologic releases."
+            )
+
+        asymmetric_ratio = round(min(1.0, (score * 0.60) + (malacca * 0.40)), 4)
+
+        return {
+            "hydro_deterrence_score": score,
+            "surge_absorption_ratio": round(surge_absorb, 4),
+            "lean_season_flow_parity": round(flow, 4),
+            "hybrid_sabotage_risk": round(sabotage_risk, 4),
+            "malacca_counter_leverage_readiness": round(malacca, 4),
+            "asymmetric_escalation_parity": asymmetric_ratio,
+            "hydrologic_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_buffer_fortified": score >= 0.55,
+        }
+
 
 ```

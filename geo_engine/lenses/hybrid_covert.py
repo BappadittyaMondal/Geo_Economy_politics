@@ -200,6 +200,33 @@ class HybridCovertLens:
             airgap_cyber_defense_score=hc_sab.get("airgap_cyber_defense_score", 0.70),
         )
         metrics.update({f"hybrid_{k}": v for k, v in _hc_ref_res.items()})
+
+        # Phase 285: Wire InterAgencyCounterSubversionSynergySieve
+        subv_params = hyb_meta.get("counter_subversion", {}) if isinstance(hyb_meta, dict) else {}
+        _subv_res = InterAgencyCounterSubversionSynergySieve.calculate_counter_subversion(
+            inter_agency_data_sharing=subv_params.get("inter_agency_data_sharing", 0.80),
+            asset_attachment_speed=subv_params.get("asset_attachment_speed", 0.75),
+            hawala_volume=subv_params.get("hawala_volume", 0.30),
+            diaspora_sanctuary_drag=subv_params.get("diaspora_sanctuary_drag", 0.40),
+        )
+        metrics["counter_subversion_score"] = _subv_res["counter_subversion_score"]
+        metrics["inter_agency_velocity_index"] = _subv_res["inter_agency_velocity_index"]
+        metrics["hawala_disruption_efficiency"] = _subv_res["hawala_disruption_efficiency"]
+        metrics["counter_subversion_tier"] = _subv_res["counter_subversion_tier"]
+
+        # Phase 294: Wire DeepStateBlackProjectIntelligenceSieve
+        bp_params = hyb_meta.get("black_projects", {}) if isinstance(hyb_meta, dict) else {}
+        _bp_res = DeepStateBlackProjectIntelligenceSieve.calculate_black_project_resilience(
+            compartmentalization_depth=bp_params.get("compartmentalization_depth", 0.80),
+            early_warning_cushion=bp_params.get("early_warning_cushion", 0.85),
+            c4isr_latency=bp_params.get("c4isr_latency", 0.25),
+            foreign_penetration_risk=bp_params.get("foreign_penetration_risk", 0.20),
+        )
+        metrics["black_project_resilience_score"] = _bp_res["black_project_resilience_score"]
+        metrics["sap_compartmentalization_index"] = _bp_res["sap_compartmentalization_index"]
+        metrics["c4isr_warning_latency_margin"] = _bp_res["c4isr_warning_latency_margin"]
+        metrics["covert_deterrence_tier"] = _bp_res["covert_deterrence_tier"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -749,4 +776,155 @@ class SubConventionalProxyWarfareSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_proxy_attrition_acute": threat >= 0.55,
+        }
+
+
+class InterAgencyCounterSubversionSynergySieve:
+    """
+    Phase 285: Inter-Agency Counter-Subversion Synergy Sieve.
+    Models synchronized operational velocity across intelligence, kinetic, economic,
+    and statutory law enforcement agencies (NIA, CBI, ED, IB, FIU-IND) targeting
+    extraterritorial gangster-terror-narco funding pipelines and FCRA non-compliant foreign conduits.
+    """
+
+    @classmethod
+    def calculate_counter_subversion(
+        cls,
+        inter_agency_data_sharing: float = 0.80,
+        asset_attachment_speed: float = 0.75,
+        hawala_volume: float = 0.30,
+        diaspora_sanctuary_drag: float = 0.40,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Counter-Subversion Readiness Score using calibrated logistic sigmoid:
+            z = 2.6 * sharing + 2.8 * attachment - 3.0 * hawala - 2.5 * sanctuary - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        sharing = max(0.0, min(1.0, float(inter_agency_data_sharing)))
+        attach = max(0.0, min(1.0, float(asset_attachment_speed)))
+        hawala = max(0.0, min(1.0, float(hawala_volume)))
+        sanc = max(0.0, min(1.0, float(diaspora_sanctuary_drag)))
+
+        z = 2.6 * sharing + 2.8 * attach - 3.0 * hawala - 2.5 * sanc - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "PROACTIVE_OFFENSIVE_DEFENSE_SUPREMACY"
+            verdict = "SYNCHRONIZED_MULTI_AGENCY_SUBVERSION_DISRUPTION"
+            rationale = (
+                f"Proactive supremacy ({score:.4f}): Seamless inter-agency data sharing ({sharing:.2f}) and rapid ED/NIA asset "
+                f"attachment ({attach:.2f}) decapitate terror-gangster-hawala syndicates."
+            )
+        elif score >= 0.55:
+            tier = "COORDINATED_INTER_AGENCY_DISRUPTION"
+            verdict = "EFFECTIVE_FINANCIAL_AND_INTELLIGENCE_CONTAINMENT"
+            rationale = (
+                f"Coordinated disruption ({score:.4f}): FIU-IND and IB tracking successfully constrains domestic subversion, "
+                f"absorbing moderate external diaspora sanctuary drag ({sanc:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "ASYMMETRIC_HYBRID_SECURITY_FRICTION"
+            verdict = "INTER_AGENCY_SILO_FRICTION_IMPEDING_INTERDICTION"
+            rationale = (
+                f"Asymmetric friction ({score:.4f}): Sluggish asset attachments and persistent hawala conduits ({hawala:.2f}) "
+                f"slow response velocity against foreign covert conduits."
+            )
+        else:
+            tier = "ACUTE_SUBVERSIVE_PENETRATION_VULNERABILITY"
+            verdict = "UNCOORDINATED_ENFORCEMENT_SECURITY_DEFICIT"
+            rationale = (
+                f"Acute vulnerability ({score:.4f}): Severe inter-agency friction and uninhibited dark hawala flows ({hawala:.2f}) "
+                f"expose critical internal security nodes."
+            )
+
+        velocity_idx = round(min(1.0, sharing * 0.60 + attach * 0.40), 4)
+        hawala_disrupt = round(max(0.0, 1.0 - hawala), 4)
+
+        return {
+            "counter_subversion_score": score,
+            "inter_agency_data_sharing": round(sharing, 4),
+            "asset_attachment_speed": round(attach, 4),
+            "hawala_volume": round(hawala, 4),
+            "diaspora_sanctuary_drag": round(sanc, 4),
+            "inter_agency_velocity_index": velocity_idx,
+            "hawala_disruption_efficiency": hawala_disrupt,
+            "counter_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_counter_subversion_ready": score >= 0.55,
+        }
+
+
+class DeepStateBlackProjectIntelligenceSieve:
+    """
+    Phase 294: Deep-State Black Project Intelligence Sieve.
+    Models covert black-budget R&D, compartmentalized special access programs (SAP),
+    C4ISR nuclear launch warning latency, and sovereign intelligence resilience against foreign deep-state subversion.
+    """
+
+    @classmethod
+    def calculate_black_project_resilience(
+        cls,
+        compartmentalization_depth: float = 0.80,
+        early_warning_cushion: float = 0.85,
+        c4isr_latency: float = 0.25,
+        foreign_penetration_risk: float = 0.20,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Black Project Resilience Score using calibrated logistic sigmoid:
+            z = 2.8 * compart + 2.6 * early - 3.2 * latency - 2.8 * penet - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        compart = max(0.0, min(1.0, float(compartmentalization_depth)))
+        early = max(0.0, min(1.0, float(early_warning_cushion)))
+        latency = max(0.0, min(1.0, float(c4isr_latency)))
+        penet = max(0.0, min(1.0, float(foreign_penetration_risk)))
+
+        z = 2.8 * compart + 2.6 * early - 3.2 * latency - 2.8 * penet - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_AIRGAPPED_STRATEGIC_BLACK_PROGRAM"
+            verdict = "AIRGAPPED_SPECIAL_ACCESS_PROGRAM_SUPREMACY"
+            rationale = (
+                f"Fortified black program ({score:.4f}): Deep compartmentalization ({compart:.2f}) and generous early warning "
+                f"cushion ({early:.2f}) protect sovereign deterrence R&D and command-and-control continuity."
+            )
+        elif score >= 0.55:
+            tier = "COMPARTMENTALIZED_DETERRENCE_STABILITY"
+            verdict = "FUNCTIONAL_C4ISR_SURVIVABILITY"
+            rationale = (
+                f"Compartmentalized stability ({score:.4f}): Controlled foreign penetration risk ({penet:.2f}) ensures "
+                f"adequate nuclear alert cushion and intelligence integrity."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_C4ISR_LATENCY_VULNERABILITY"
+            verdict = "EXCESSIVE_DECISION_LATENCY_IN_EARLY_WARNING"
+            rationale = (
+                f"Elevated latency ({score:.4f}): C4ISR decision delays ({latency:.2f}) compress launch response timelines."
+            )
+        else:
+            tier = "CRITICAL_EARLY_WARNING_COMPROMISE"
+            verdict = "ACUTE_STRATEGIC_PROGRAM_LEAKAGE"
+            rationale = (
+                f"Critical compromise ({score:.4f}): Compromised compartmentalization and high penetration risk ({penet:.2f}) "
+                f"endanger strategic deterrence survivability."
+            )
+
+        warning_margin = round(early - latency, 4)
+
+        return {
+            "black_project_resilience_score": score,
+            "compartmentalization_depth": round(compart, 4),
+            "early_warning_cushion": round(early, 4),
+            "c4isr_latency": round(latency, 4),
+            "foreign_penetration_risk": round(penet, 4),
+            "sap_compartmentalization_index": round(compart, 4),
+            "c4isr_warning_latency_margin": warning_margin,
+            "covert_deterrence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_black_program_resilient": score >= 0.55,
         }

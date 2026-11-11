@@ -153,6 +153,16 @@ class CashFlowLens:
                 g7_custody_exposure_pct=gold_params.get("g7_custody_exposure_pct", 0.40),
             )
             metrics.update(_gold_res)
+
+            # Phase 286: Wire CommercialBankAssetQualityAndCRARSieve
+            bank_params = det_meta.get("bank_asset_quality", {}) if isinstance(det_meta, dict) else {}
+            _bank_res = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
+                crar_ratio=bank_params.get("crar_ratio", 0.80),
+                provision_coverage=bank_params.get("provision_coverage", 0.75),
+                net_npa_ratio=bank_params.get("net_npa_ratio", 0.15),
+                mtm_treasury_exposure=bank_params.get("mtm_treasury_exposure", 0.20),
+            )
+            metrics.update(_bank_res)
     
             if claims:
                 banking_npa_claims = [
@@ -320,6 +330,27 @@ class CashFlowLens:
         )
         metrics.update(_gold_res)
 
+        # Phase 286: Wire CommercialBankAssetQualityAndCRARSieve
+        bank_params = det_meta.get("bank_asset_quality", {}) if isinstance(det_meta, dict) else {}
+        _bank_res = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
+            crar_ratio=bank_params.get("crar_ratio", 0.80),
+            provision_coverage=bank_params.get("provision_coverage", 0.75),
+            net_npa_ratio=bank_params.get("net_npa_ratio", 0.15),
+            mtm_treasury_exposure=bank_params.get("mtm_treasury_exposure", 0.20),
+        )
+        metrics.update(_bank_res)
+
+        # Phase 316: Wire ImperialDebtOverreachSieve
+        debt_params = det_meta.get("imperial_debt_overreach", {}) if isinstance(det_meta, dict) else {}
+        _debt_res = ImperialDebtOverreachSieve.calculate(
+            debt_service_annual=debt_params.get("debt_service_annual", 0.85),
+            annual_defense_budget=debt_params.get("annual_defense_budget", 0.35),
+            public_debt_to_gdp=debt_params.get("public_debt_to_gdp", 0.80),
+            fiscal_revenue_headroom=debt_params.get("fiscal_revenue_headroom", 0.20),
+        )
+        metrics["imperial_debt_overreach_score"] = _debt_res["imperial_debt_overreach_score"]
+        metrics["imperial_debt_overreach_tier"] = _debt_res["imperial_debt_overreach_tier"]
+        metrics["fiscal_basing_retrenchment_index"] = _debt_res["fiscal_basing_retrenchment_index"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -725,5 +756,148 @@ class SovereignGoldRepatriationSieve:
             "bullion_immunity_verdict": verdict,
             "is_reserve_immunity_secure": score >= 0.55,
         }
+
+
+class CommercialBankAssetQualityAndCRARSieve:
+    """
+    Phase 286: Commercial Bank Asset Quality & CRAR Sieve.
+    Quantifies sovereign commercial bank balance sheet fortress: Capital to Risk-Weighted Assets Ratios (CRAR > 16.5%),
+    Net Non-Performing Asset (NNPA) ratios, Provision Coverage Ratios (PCR), and insulation from Western mark-to-market bond losses.
+    """
+
+    @classmethod
+    def calculate_banking_fortress(
+        cls,
+        crar_ratio: float = 0.80,
+        provision_coverage: float = 0.75,
+        net_npa_ratio: float = 0.15,
+        mtm_treasury_exposure: float = 0.20,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Banking Fortress Score using calibrated logistic sigmoid:
+            z = 2.8 * crar + 2.5 * provision - 3.2 * npa - 2.6 * mtm - 0.2
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        crar = max(0.0, min(1.0, float(crar_ratio)))
+        pcr = max(0.0, min(1.0, float(provision_coverage)))
+        npa = max(0.0, min(1.0, float(net_npa_ratio)))
+        mtm = max(0.0, min(1.0, float(mtm_treasury_exposure)))
+
+        z = 2.8 * crar + 2.5 * pcr - 3.2 * npa - 2.6 * mtm - 0.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SOVEREIGN_BANKING_FORTRESS"
+            verdict = "PRISTINE_BANK_BALANCE_SHEETS_INSULATED_FROM_WESTERN_RUNS"
+            rationale = (
+                f"Fortified banking fortress ({score:.4f}): Robust CRAR adequacy ({crar:.2f}) and high provision coverage ({pcr:.2f}) "
+                f"with minimal NNPA ({npa:.2f}) fully insulate banking system from SVB-style duration and liquidity shocks."
+            )
+        elif score >= 0.55:
+            tier = "SOUND_DOMESTIC_BALANCE_SHEET"
+            verdict = "RESILIENT_DOMESTIC_CREDIT_CAPACITY"
+            rationale = (
+                f"Sound balance sheet ({score:.4f}): Healthy capitalization buffers absorb localized stress without systemic impairment."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_DURATION_MISMATCH_EXPOSURE"
+            verdict = "TREASURY_MTM_VULNERABILITY_ACCELERATING"
+            rationale = (
+                f"Elevated duration mismatch ({score:.4f}): Higher bond yield volatility ({mtm:.2f}) exerts drag on bank net worth."
+            )
+        else:
+            tier = "CRITICAL_BANKING_LIQUIDITY_RUN_RISK"
+            verdict = "SYSTEMIC_INSOLVENCY_AND_NON_PERFORMING_SPIRAL"
+            rationale = (
+                f"Critical liquidity risk ({score:.4f}): High bad loan ratios ({npa:.2f}) and unhedged Treasury losses threaten solvency."
+            )
+
+        npa_cushion = round(max(0.0, pcr - npa), 4)
+
+        return {
+            "banking_fortress_score": score,
+            "crar_ratio": round(crar, 4),
+            "provision_coverage": round(pcr, 4),
+            "net_npa_ratio": round(npa, 4),
+            "mtm_treasury_exposure": round(mtm, 4),
+            "crar_capital_adequacy_index": round(crar, 4),
+            "non_performing_asset_cushion": npa_cushion,
+            "banking_resilience_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_banking_resilient": score >= 0.55,
+        }
+
+
+class ImperialDebtOverreachSieve:
+    """
+    Phase 316: Evaluates the fiscal sustainability of global military basing and power projection,
+    modeling debt-service crowding-out of defense budgets and inevitable force retrenchment.
+    
+    Mathematical Formulation:
+      ratio = debt_service_annual / (annual_defense_budget + eps)
+      z = 3.0 * (ratio / 2.5) + 2.5 * public_debt_to_gdp - 3.2 * fiscal_revenue_headroom - 0.3
+      S_Imperial_Debt_Overreach = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        debt_service_annual: float = 0.85,
+        annual_defense_budget: float = 0.35,
+        public_debt_to_gdp: float = 0.80,
+        fiscal_revenue_headroom: float = 0.20,
+    ) -> Dict[str, Any]:
+        service = max(0.0, min(1.0, float(debt_service_annual)))
+        defense = max(0.0, min(1.0, float(annual_defense_budget)))
+        debt_gdp = max(0.0, min(1.0, float(public_debt_to_gdp)))
+        headroom = max(0.0, min(1.0, float(fiscal_revenue_headroom)))
+
+        ratio = min(5.0, service / (defense + 1e-6))
+        z = 3.0 * (ratio / 2.5) + 2.5 * debt_gdp - 3.2 * headroom - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "TERMINAL_FISCAL_RETRENCHMENT_IMMINENT"
+            verdict = "INEVITABLE_GLOBAL_BASING_WITHDRAWAL"
+            rationale = (
+                f"Terminal fiscal retrenchment ({score:.4f}): Debt service ({service:.2f}) completely crowds out the defense "
+                f"budget ({defense:.2f}) under elevated debt-to-GDP ({debt_gdp:.2f}), making overseas bases financially unviable."
+            )
+        elif score >= 0.55:
+            tier = "ELEVATED_BASING_AUSTERITY_PRESSURE"
+            verdict = "FORCE_STRUCTURE_DOWNSIZING"
+            rationale = (
+                f"Elevated austerity ({score:.4f}): Fiscal crowding-out forces reduction in forward-deployed military deployments."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_DEFENSE_DEBT_BALANCING"
+            verdict = "STRAINED_FISCAL_MILITARY_EQUILIBRIUM"
+            rationale = (
+                f"Contested fiscal position ({score:.4f}): Moderate debt service requires deficit financing to maintain basing."
+            )
+        else:
+            tier = "FISCALLY_STABLE_MILITARY_PROJECTION"
+            verdict = "SUSTAINABLE_GLOBAL_EXPEDITIONARY_POWER"
+            rationale = (
+                f"Fiscally stable ({score:.4f}): Robust tax headroom ({headroom:.2f}) easily finances expeditionary defense."
+            )
+
+        retrenchment_idx = round(min(1.0, (score * 0.65) + (debt_gdp * 0.35)), 4)
+
+        return {
+            "imperial_debt_overreach_score": score,
+            "debt_service_to_defense_ratio": round(ratio, 4),
+            "debt_service_annual": round(service, 4),
+            "annual_defense_budget": round(defense, 4),
+            "public_debt_to_gdp": round(debt_gdp, 4),
+            "fiscal_revenue_headroom": round(headroom, 4),
+            "fiscal_basing_retrenchment_index": retrenchment_idx,
+            "imperial_debt_overreach_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_retrenchment_imminent": score >= 0.55,
+        }
+
 
 ```

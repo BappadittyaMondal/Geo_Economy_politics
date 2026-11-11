@@ -145,6 +145,33 @@ class DigitalSovereigntyLens:
             circular_loop_risk=agent_params_ds.get("circular_loop_risk", 0.20),
         )
         metrics.update({f"digital_{k}": v for k, v in _ds_agent.items()})
+
+        # Phase 284: Wire ProgrammableCBDCSurveillanceSieve
+        cbdc_params = ds_meta.get("cbdc_surveillance", {}) if isinstance(ds_meta, dict) else {}
+        _cbdc_res = ProgrammableCBDCSurveillanceSieve.calculate_monetary_autonomy(
+            cash_retention_ratio=cbdc_params.get("cash_retention_ratio", 0.70),
+            open_protocol_interop=cbdc_params.get("open_protocol_interop", 0.85),
+            cbdc_programmability=cbdc_params.get("cbdc_programmability", 0.30),
+            surveillance_centralization=cbdc_params.get("surveillance_centralization", 0.35),
+        )
+        metrics["monetary_autonomy_score"] = _cbdc_res["monetary_autonomy_score"]
+        metrics["digital_enclosure_tier"] = _cbdc_res["digital_enclosure_tier"]
+        metrics["programmable_coercion_risk"] = _cbdc_res["programmable_coercion_risk"]
+        metrics["open_stack_resilience_index"] = _cbdc_res["open_stack_resilience_index"]
+
+        # Phase 290: Wire BigTechAlgorithmicSovereigntySieve
+        algo_params = ds_meta.get("algorithmic_sovereignty", {}) if isinstance(ds_meta, dict) else {}
+        _algo_res = BigTechAlgorithmicSovereigntySieve.calculate_algorithmic_sovereignty(
+            statutory_enforcement=algo_params.get("statutory_enforcement", 0.75),
+            data_localization=algo_params.get("data_localization", 0.80),
+            algorithmic_nudging=algo_params.get("algorithmic_nudging", 0.35),
+            shadow_banning_intensity=algo_params.get("shadow_banning_intensity", 0.30),
+        )
+        metrics["algorithmic_sovereignty_score"] = _algo_res["algorithmic_sovereignty_score"]
+        metrics["data_localization_enforcement_index"] = _algo_res["data_localization_enforcement_index"]
+        metrics["platform_shadowban_exposure"] = _algo_res["platform_shadowban_exposure"]
+        metrics["algorithmic_sovereignty_tier"] = _algo_res["algorithmic_sovereignty_tier"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -695,4 +722,154 @@ class StrategicMetallurgySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_metallurgy_autonomous": score >= 0.60
+        }
+
+
+class ProgrammableCBDCSurveillanceSieve:
+    """
+    Phase 284: Programmable CBDC Surveillance Sieve.
+    Quantifies civil liberty and sovereign monetary freedom risk under Western programmable CBDCs
+    and mandatory digital identity regimes vs open, interoperable, non-custodial stacks
+    (India's UPI and sovereign cash/bullion preservation).
+    """
+
+    @classmethod
+    def calculate_monetary_autonomy(
+        cls,
+        cash_retention_ratio: float = 0.70,
+        open_protocol_interop: float = 0.85,
+        cbdc_programmability: float = 0.30,
+        surveillance_centralization: float = 0.35,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Monetary Autonomy Score using calibrated logistic sigmoid:
+            z = 3.0 * cash + 2.8 * open - 3.5 * cbdc - 2.8 * surveillance - 0.5
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        cash = max(0.0, min(1.0, float(cash_retention_ratio)))
+        open_proto = max(0.0, min(1.0, float(open_protocol_interop)))
+        cbdc = max(0.0, min(1.0, float(cbdc_programmability)))
+        surv = max(0.0, min(1.0, float(surveillance_centralization)))
+
+        z = 3.0 * cash + 2.8 * open_proto - 3.5 * cbdc - 2.8 * surv - 0.5
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SOVEREIGN_MONETARY_FREEDOM"
+            verdict = "OPEN_INTEROPERABLE_SOVEREIGN_STACK_PRESERVED"
+            rationale = (
+                f"Fortified monetary freedom ({score:.4f}): Open protocol interoperability ({open_proto:.2f}) and strong "
+                f"cash retention ({cash:.2f}) defeat centralized CBDC programmable surveillance and coercion vectors."
+            )
+        elif score >= 0.55:
+            tier = "RESILIENT_DECENTRALIZED_PAYMENT_STACK"
+            verdict = "FUNCTIONAL_DPI_WITH_CONTROLLED_PROGRAMMABILITY"
+            rationale = (
+                f"Resilient payment stack ({score:.4f}): UPI-style open protocols successfully buffer against coercive "
+                f"digital identity mandates and monetary expiration constraints."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_PROGRAMMABLE_SURVEILLANCE_RISK"
+            verdict = "CENTRALIZED_CBDC_CONDITIONALITY_CREEP"
+            rationale = (
+                f"Elevated surveillance risk ({score:.4f}): Creeping programmable conditionality ({cbdc:.2f}) threatens "
+                f"user privacy and transactional autonomy."
+            )
+        else:
+            tier = "ACUTE_DIGITAL_ENCLOSURE_PRISON"
+            verdict = "COERCIVE_PROGRAMMABLE_WALLET_CAPTURE"
+            rationale = (
+                f"Acute digital enclosure ({score:.4f}): High programmability ({cbdc:.2f}) and total surveillance "
+                f"centralization ({surv:.2f}) impose dystopian monetary behavioral controls."
+            )
+
+        coercion_risk = round(min(1.0, cbdc * 0.60 + surv * 0.40), 4)
+        open_resilience = round(min(1.0, open_proto * 0.70 + cash * 0.30), 4)
+
+        return {
+            "monetary_autonomy_score": score,
+            "cash_retention_ratio": round(cash, 4),
+            "open_protocol_interop": round(open_proto, 4),
+            "cbdc_programmability": round(cbdc, 4),
+            "surveillance_centralization": round(surv, 4),
+            "programmable_coercion_risk": coercion_risk,
+            "open_stack_resilience_index": open_resilience,
+            "digital_enclosure_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_monetarily_autonomous": score >= 0.55,
+        }
+
+
+class BigTechAlgorithmicSovereigntySieve:
+    """
+    Phase 290: Big Tech Algorithmic Sovereignty Sieve.
+    Models platform algorithmic shadow-banning, cognitive behavioral nudging,
+    compliance with DPDP Act 2023 / Section 69A IT Act, domestic FIR enforcement velocity,
+    and sovereign data localization.
+    """
+
+    @classmethod
+    def calculate_algorithmic_sovereignty(
+        cls,
+        statutory_enforcement: float = 0.75,
+        data_localization: float = 0.80,
+        algorithmic_nudging: float = 0.35,
+        shadow_banning_intensity: float = 0.30,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Algorithmic Sovereignty Score using calibrated logistic sigmoid:
+            z = 2.8 * enforce + 2.6 * local - 3.2 * nudging - 2.8 * shadow - 0.4
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        enforce = max(0.0, min(1.0, float(statutory_enforcement)))
+        local = max(0.0, min(1.0, float(data_localization)))
+        nudging = max(0.0, min(1.0, float(algorithmic_nudging)))
+        shadow = max(0.0, min(1.0, float(shadow_banning_intensity)))
+
+        z = 2.8 * enforce + 2.6 * local - 3.2 * nudging - 2.8 * shadow - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_ALGORITHMIC_SOVEREIGNTY"
+            verdict = "SOVEREIGN_REGULATORY_MASTERY_OVER_BIG_TECH"
+            rationale = (
+                f"Fortified sovereignty ({score:.4f}): Assertive statutory enforcement ({enforce:.2f}) and strict data "
+                f"localization ({local:.2f}) neutralize foreign platform algorithmic election manipulation and shadow-banning."
+            )
+        elif score >= 0.55:
+            tier = "ACTIVE_REGULATORY_COMPLIANCE_OVERSIGHT"
+            verdict = "MANAGED_PLATFORM_SOVEREIGN_COMPLIANCE"
+            rationale = (
+                f"Active oversight ({score:.4f}): Robust legal notices and IT Act compliance check overt algorithmic nudging ({nudging:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_PLATFORM_COGNITIVE_BIAS"
+            verdict = "SUB_THRESHOLD_COGNITIVE_NUDGING_ACTIVE"
+            rationale = (
+                f"Contested bias ({score:.4f}): Unchecked platform shadow-banning ({shadow:.2f}) and subtle recommendation "
+                f"biases distort public discourse."
+            )
+        else:
+            tier = "ACUTE_BIG_TECH_COGNITIVE_ENCLOSURE"
+            verdict = "TOTAL_FOREIGN_ALGORITHMIC_CAPTURE"
+            rationale = (
+                f"Acute enclosure ({score:.4f}): Rampant algorithmic nudging ({nudging:.2f}) and suppressed domestic speech "
+                f"subjugate national information space to foreign tech monopolies."
+            )
+
+        return {
+            "algorithmic_sovereignty_score": score,
+            "statutory_enforcement": round(enforce, 4),
+            "data_localization": round(local, 4),
+            "algorithmic_nudging": round(nudging, 4),
+            "shadow_banning_intensity": round(shadow, 4),
+            "data_localization_enforcement_index": round(local, 4),
+            "platform_shadowban_exposure": round(shadow, 4),
+            "algorithmic_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_algorithmically_sovereign": score >= 0.55,
         }

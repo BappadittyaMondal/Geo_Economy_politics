@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `f61b287`
+- **Canonical Git Commit:** `2a07dc5`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: f61b287
+CANONICAL_COMMIT: 2a07dc5
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: f61b287
+CANONICAL_COMMIT: 2a07dc5
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: f61b287
+CANONICAL_COMMIT: 2a07dc5
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: f61b287
+CANONICAL_COMMIT: 2a07dc5
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: f61b287
+CANONICAL_COMMIT: 2a07dc5
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: f61b287
+CANONICAL_COMMIT: 2a07dc5
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -4361,6 +4361,363 @@ Every build is certified against 10 Anti-Drift Quality Gates:
 10. 100% test pass rate across all 572 tests in `tests/test_engine.py`.
 
 
+---
+
+## 🏛️ SECTION 105: IMPLEMENTATION & CERTIFICATION OF PHASES 283–294 — MARITIME NET SECURITY, ALGORITHMIC SOVEREIGNTY, BANKING FORTRESS, AND DEEP-STATE DETERRENCE
+
+**Timestamp:** November 8, 2026 | **Commit Head:**fa45f17 / Current | **Epistemic Certification:** Level-5 Full Sovereign Battle-Readiness  
+**Engineering Scope:** 12 Specialized Mathematical Sieves | 12 AST Intent Flags | 105+ Live Telemetry Channels | 121 Exported Sieve & Lens Symbols | 587 Certified Tests (100% Pass Rate)
+
+---
+
+### 1. Architectural Diagnosis & The 12 Additive Gaps Closed
+Microscopic DNA/RNA audit of incoming multi-domain expert intelligence (15 YouTube video analyses spanning Maj Gen Rajiv Narayanan, Sushil Kedia, Aadi Achint, Sumeet Jain, Indilinks, Abhi & Niyu, Vikas Khemani, Pankaj Bharadwaj, Ved Veer Arya, Annie Jacobsen, Ami Ganatra, and Palki Sharma) revealed 12 critical sub-threshold statecraft areas requiring machine-verifiable analytical quantification:
+
+1. **Southwest Indian Ocean Maritime Bastion (Phase 283):** Lack of closed-form quantification for India's Net Security Provider posture in island littoral states (Mauritius Agaléga, Seychelles, Maldives) against Chinese PLAN dual-use hydrographic intelligence gathering.
+2. **Programmable CBDC Surveillance Traps (Phase 284):** Absence of explicit models distinguishing sovereign non-custodial cash/bullion and open UPI protocols from Western programmable CBDCs equipped with geographic spending boundaries, expiry dates, and digital identity coercive tethering.
+3. **Inter-Agency Counter-Subversion Synergy (Phase 285):** Unmodeled operational friction across statutory enforcement (ED, NIA, CBI, IB, FIU-IND) against extraterritorial gangster-terror funding pipelines and FCRA non-compliant foreign subversion conduits.
+4. **Commercial Banking Fortress & Balance-Sheet Insulation (Phase 286):** Need for continuous tracking of domestic banking CRAR (>16.5%), provision coverage ratios (>75%), and NNPA levels (<0.7%) ensuring insulation from Western mark-to-market Treasury bond run contagions (SVB/Credit Suisse dynamics).
+5. **Sub-National Bureaucratic Friction & Judicial Lawfare (Phase 287):** Unquantified administrative file-looping, procedural paralysis, and PIL weaponization delaying strategic defense corridors and manufacturing capex.
+6. **Wide-Bandgap Gallium Nitride (GaN) AESA Radar Sovereignty (Phase 288):** Critical requirement to model domestic TRM power density, thermal dissipation efficiency, and complete elimination of foreign avionics export vetoes (ITAR/Thales).
+7. **Extreme High-Altitude Forward Airlift (Phase 289):** Need to quantify advanced landing ground (Nyoma 13,629 ft ALG, DBO) payload derating curves, thin atmosphere thrust loss, and winter mechanized reinforcement dominance across the LAC.
+8. **Big Tech Algorithmic Sovereignty (Phase 290):** Absence of statutory compliance modeling for social media platforms under the DPDP Act 2023 / Section 69A IT Act against covert algorithmic shadow-banning, behavioral nudging, and cognitive enclosure.
+9. **Sacred Economy & Pilgrimage MSME Multipliers (Phase 291):** Lack of economic modeling for sacred pilgrimage corridors (Ayodhya, Kashi, Ujjain, Tirupati) generating decentralized grassroots wealth, MSME employment, and retail bullion buffers free from centralized state expropriation.
+10. **Outward Direct Investment (ODI) & Distressed Asset Capture (Phase 292):** Need to quantify Indian multinational outward capital deployment acquiring distressed Western industrial/tech assets and repatriating foreign IP.
+11. **Archaeo-Astronomical & Epigraphic Triangulation (Phase 293):** Rigorous multi-pillar planetary conjunction retro-calculations, equinox precession alignments, and sediment stratigraphy mathematically refuting colonial 1500 BCE Aryan invasion distortions.
+12. **Deep-State Black Program Deterrence & C4ISR Alertness (Phase 294):** Absence of compartmentalized special access program (SAP) survivability modeling and C4ISR early-warning cushion against foreign intelligence penetration.
+
+---
+
+### 2. Mathematical Formulations & Calibrated Tiers
+
+#### Phase 283: `IslandEEZMaritimeNetSecuritySieve`
+- **Location:** `geo_engine/lenses/geopolitical.py` & `geo_engine/lenses/military_readiness.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{Basing}_{	ext{airgap\_radius}} + 2.6 \cdot 	ext{SAGAR}_{	ext{treaty\_depth}} + 2.2 \cdot 	ext{CoastalRadar}_{	ext{uptime}} - 3.2 \cdot 	ext{PLAN}_{	ext{dual\_use\_incursion}} - 2.5 \cdot 	ext{HostNation}_{	ext{political\_drift}} - 0.4$$
+  $$S_{	ext{Maritime\_Net\_Security}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_IOR_MARITIME_BASTION`, $\ge 0.55$ `SUSTAINED_NET_SECURITY_SUPERIORITY`, $\ge 0.35$ `CONTESTED_ISLAND_LITTORAL_PRESSURE`, $< 0.35$ `CRITICAL_CHINESE_CHOKEPOINT_ENCIRCLEMENT`.
+
+#### Phase 284: `ProgrammableCBDCSurveillanceSieve`
+- **Location:** `geo_engine/lenses/digital_sovereignty.py` & `geo_engine/lenses/cash_flow.py`
+- **Formulation:**
+  $$z = 3.0 \cdot 	ext{Cash}_{	ext{retention\_ratio}} + 2.8 \cdot 	ext{OpenProtocol}_{	ext{interop}} - 3.5 \cdot 	ext{CBDC}_{	ext{programmability}} - 2.8 \cdot 	ext{Surveillance}_{	ext{centralization}} - 0.5$$
+  $$S_{	ext{Monetary\_Autonomy}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_SOVEREIGN_MONETARY_FREEDOM`, $\ge 0.55$ `RESILIENT_DECENTRALIZED_PAYMENT_STACK`, $\ge 0.35$ `ELEVATED_PROGRAMMABLE_SURVEILLANCE_RISK`, $< 0.35$ `ACUTE_DIGITAL_ENCLOSURE_PRISON`.
+
+#### Phase 285: `InterAgencyCounterSubversionSynergySieve`
+- **Location:** `geo_engine/lenses/hybrid_covert.py` & `geo_engine/lenses/institutional_lawfare.py`
+- **Formulation:**
+  $$z = 2.6 \cdot 	ext{InterAgency}_{	ext{data\_sharing}} + 2.8 \cdot 	ext{AssetAttachment}_{	ext{speed}} - 3.0 \cdot 	ext{Hawala}_{	ext{volume}} - 2.5 \cdot 	ext{Diaspora}_{	ext{sanctuary\_drag}} - 0.3$$
+  $$S_{	ext{Counter\_Subversion\_Readiness}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `PROACTIVE_OFFENSIVE_DEFENSE_SUPREMACY`, $\ge 0.55$ `COORDINATED_INTER_AGENCY_DISRUPTION`, $\ge 0.35$ `ASYMMETRIC_HYBRID_SECURITY_FRICTION`, $< 0.35$ `ACUTE_SUBVERSIVE_PENETRATION_VULNERABILITY`.
+
+#### Phase 286: `CommercialBankAssetQualityAndCRARSieve`
+- **Location:** `geo_engine/lenses/cash_flow.py` & `geo_engine/lenses/geo_economist.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{CRAR}_{	ext{ratio}} + 2.5 \cdot 	ext{ProvisionCoverage} - 3.2 \cdot 	ext{NetNPA}_{	ext{ratio}} - 2.6 \cdot 	ext{MTM}_{	ext{treasury\_exposure}} - 0.2$$
+  $$S_{	ext{Banking\_Fortress}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_SOVEREIGN_BANKING_FORTRESS`, $\ge 0.55$ `SOUND_DOMESTIC_BALANCE_SHEET`, $\ge 0.35$ `ELEVATED_DURATION_MISMATCH_EXPOSURE`, $< 0.35$ `CRITICAL_BANKING_LIQUIDITY_RUN_RISK`.
+
+#### Phase 287: `SubNationalBureaucraticFrictionSieve`
+- **Location:** `geo_engine/lenses/bureaucratic_inertia.py` & `geo_engine/lenses/institutional_lawfare.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{ExecutiveClarity} + 2.5 \cdot 	ext{StatutoryDeRegistration} - 3.0 \cdot 	ext{FileLooping}_{	ext{latency}} - 2.7 \cdot 	ext{PIL}_{	ext{stay\_order\_drag}} - 0.3$$
+  $$S_{	ext{Administrative\_Velocity}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `DECISIVE_SOVEREIGN_EXECUTIVE_VELOCITY`, $\ge 0.55$ `MANAGEABLE_BUREAUCRATIC_FRICTION`, $\ge 0.35$ `CONTESTED_JUDICIAL_ADMINISTRATIVE_GRIDLOCK`, $< 0.35$ `CRITICAL_DEEP_STATE_POLICY_PARALYSIS`.
+
+#### Phase 288: `IndigenousGaNAESARadarSovereigntySieve`
+- **Location:** `geo_engine/lenses/deep_tech.py` & `geo_engine/lenses/military_readiness.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{GaN}_{	ext{TRM\_density}} + 2.6 \cdot 	ext{AESA}_{	ext{autonomy}} - 3.2 \cdot 	ext{ForeignVendor}_{	ext{lockin}} - 2.5 \cdot 	ext{ThermalDissipation}_{	ext{drag}} - 0.3$$
+  $$S_{	ext{GaN\_Radar\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `AUTONOMOUS_GaN_AESA_DOMINANCE`, $\ge 0.55$ `FUNCTIONAL_INDIGENOUS_RADAR_STACK`, $\ge 0.35$ `CONTESTED_FOREIGN_TRM_DEPENDENCY`, $< 0.35$ `CRITICAL_AVIONICS_IMPORT_VULNERABILITY`.
+
+#### Phase 289: `ExtremeHighAltitudeAirliftLogisticsSieve`
+- **Location:** `geo_engine/lenses/military_readiness.py` & `geo_engine/lenses/geopolitical.py`
+- **Formulation:**
+  $$	ext{ThrustDerate} = \min\left(1.0, rac{	ext{Elevation}_{	ext{meters}}}{5000.0}
+ight)$$
+  $$z = 3.0 \cdot 	ext{HeavyAirlift}_{	ext{capacity}} + 2.5 \cdot 	ext{WinterReadiness} - 3.2 \cdot 	ext{ThrustDerate} - 2.4 \cdot 	ext{WeatherFriction} - 0.2$$
+  $$S_{	ext{High\_Altitude\_Logistics}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_HIGH_ALTITUDE_AIRLIFT_SUPREMACY`, $\ge 0.55$ `SUSTAINABLE_FORWARD_ALG_OPERATIONS`, $\ge 0.35$ `ELEVATED_ATMOSPHERIC_PAYLOAD_CONSTRAINTS`, $< 0.35$ `ACUTE_WINTER_ISOLATION_RISK`.
+
+#### Phase 290: `BigTechAlgorithmicSovereigntySieve`
+- **Location:** `geo_engine/lenses/digital_sovereignty.py` & `geo_engine/lenses/propaganda.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{StatutoryEnforcement} + 2.6 \cdot 	ext{DataLocalization} - 3.2 \cdot 	ext{AlgorithmicNudging} - 2.8 \cdot 	ext{ShadowBanning}_{	ext{intensity}} - 0.4$$
+  $$S_{	ext{Algorithmic\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_ALGORITHMIC_SOVEREIGNTY`, $\ge 0.55$ `ACTIVE_REGULATORY_COMPLIANCE_OVERSIGHT`, $\ge 0.35$ `CONTESTED_PLATFORM_COGNITIVE_BIAS`, $< 0.35$ `ACUTE_BIG_TECH_COGNITIVE_ENCLOSURE`.
+
+#### Phase 291: `SacredEconomyReligiousTourismSieve`
+- **Location:** `geo_engine/lenses/civilizational.py` & `geo_engine/lenses/cash_flow.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{PilgrimFootfall}_{	ext{velocity}} + 2.5 \cdot 	ext{MSME}_{	ext{turnover}} + 2.2 \cdot 	ext{DecentralizedBullion} - 2.8 \cdot 	ext{StateExpropriation}_{	ext{drag}} - 0.3$$
+  $$S_{	ext{Sacred\_Economy}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `THRIVING_SACRED_CIVILIZATIONAL_ECONOMY`, $\ge 0.55$ `ROBUST_PILGRIMAGE_MSME_VELOCITY`, $\ge 0.35$ `CONTESTED_STATE_EXTRACTIVE_BURDEN`, $< 0.35$ `ACUTE_COMMERCIAL_DECAY_AND_EXPLOITATION`.
+
+#### Phase 292: `OutwardDirectInvestmentAssetCaptureSieve`
+- **Location:** `geo_engine/lenses/geo_economist.py` & `geo_engine/lenses/cash_flow.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{ODI}_{	ext{deployment}} + 2.5 \cdot 	ext{IP}_{	ext{repatriation}} - 2.6 \cdot 	ext{HostJurisdiction}_{	ext{protectionism}} - 2.4 \cdot 	ext{ForexVolatility} - 0.2$$
+  $$S_{	ext{Asset\_Capture}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `AGGRESSIVE_GLOBAL_STRATEGIC_ASSET_CAPTURE`, $\ge 0.55$ `PRUDENT_OUTWARD_CAPITAL_EXPANSION`, $\ge 0.35$ `VULNERABLE_FOREIGN_ACQUISITION_DRAG`, $< 0.35$ `CRITICAL_CAPITAL_TRAP_IN_DISTRESSED_ASSETS`.
+
+#### Phase 293: `ArchaeoAstronomicalEpigraphicDatingSieve`
+- **Location:** `geo_engine/lenses/history.py` & `geo_engine/lenses/civilizational.py`
+- **Formulation:**
+  $$z = 3.0 \cdot 	ext{PlanetaryConjunction}_{	ext{accuracy}} + 2.6 \cdot 	ext{SedimentStratigraphy} - 3.5 \cdot 	ext{TextualCompression}_{	ext{bias}} - 2.4 \cdot 	ext{DegeneracyDrag} - 0.5$$
+  $$S_{	ext{Archaeo\_Astronomy}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `RIGOROUS_ASTRONOMICAL_EPIGRAPHIC_CERTAINTY`, $\ge 0.55$ `HIGH_FIDELITY_CHRONOLOGICAL_CONCORDANCE`, $\ge 0.35$ `CONTESTED_POETIC_DEGENERACY_INTERVAL`, $< 0.35$ `COLONIAL_EUROCENTRIC_FABRICATION`.
+
+#### Phase 294: `DeepStateBlackProjectIntelligenceSieve`
+- **Location:** `geo_engine/lenses/hybrid_covert.py` & `geo_engine/lenses/deep_tech.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{Compartmentalization}_{	ext{depth}} + 2.6 \cdot 	ext{EarlyWarning}_{	ext{cushion}} - 3.2 \cdot 	ext{C4ISR}_{	ext{latency}} - 2.8 \cdot 	ext{ForeignPenetration}_{	ext{risk}} - 0.3$$
+  $$S_{	ext{Black\_Project\_Resilience}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_AIRGAPPED_STRATEGIC_BLACK_PROGRAM`, $\ge 0.55$ `COMPARTMENTALIZED_DETERRENCE_STABILITY`, $\ge 0.35$ `ELEVATED_C4ISR_LATENCY_VULNERABILITY`, $< 0.35$ `CRITICAL_EARLY_WARNING_COMPROMISE`.
+
+---
+
+### 3. Pipeline Synthesis & Cross-Domain Hardening
+1. **Dynamic AST Intent Extraction:** Expanded `StrategicQuery` dataclass in `geo_engine/core/query_parser.py` with 12 new boolean routing flags (`requires_island_net_security`, `requires_cbdc_surveillance`, `requires_interagency_synergy`, `requires_bank_crar`, `requires_bureaucratic_friction`, `requires_gan_radar`, `requires_high_altitude_airlift`, `requires_bigtech_algorithmic_sovereignty`, `requires_sacred_economy`, `requires_outward_asset_capture`, `requires_archaeo_astronomy`, `requires_black_projects`).
+2. **Master Strategic Resilience Matrix:** Incorporated all 12 metrics into `SummitSynthesizer.strategic_resilience_matrix`, scaling live observable telemetry channels from 93 to 105+.
+3. **Module Packaging Hygiene:** Updated `geo_engine/lenses/__init__.py`, expanding exported analytical symbols from 109 to 121 with zero symbol namespace collisions.
+4. **Automated Test Scaling:** Appended `TestPhases283to294SievesAndTelemetry` to `tests/test_engine.py` (15 new unit and integration tests), expanding the certified passing test suite from 572 to 587 tests (100% pass rate).
+5. **Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`consolidate_5_files`, `consolidate_50_files`, `dist_ai/core_5`, `dist_ai/deep_50`) through `scripts/build_canonical_bundles.py` with all 10 Gates certified green.
+
+
+---
+
+## Section 106: Phases 295–300 Sovereign Defense & Asymmetric Counter-Deterrence Engine Expansion
+
+### 1. Architectural Motivation & Geostrategic Alignment
+Derived from the comprehensive 8-target multi-council intelligence audit, Phases 295–300 operationalize six previously unmodeled physical, economic, cognitive, and maritime defense vectors:
+1. **Trans-Himalayan Hydrological Deterrence:** Countering Chinese upstream diversion/damming at the Great Bend of Yarlung Tsangpo (Medog 60,000 MW mega-dam) via Indian downstream buffer storage (Upper Siang 11,000 MW multipurpose reservoir), while neutralizing hybrid domestic NGO subversion.
+2. **Predatory Overcapacity Dumping & MSME Shield:** Protecting Indian manufacturing from severe mercantilist deflationary price shocks (Canton Fair ₹9 diapers, ₹70 toys) via Bureau of Indian Standards (BIS) Quality Control Orders (QCOs), calibrated anti-dumping tariffs, and domestic PLI scaling.
+3. **Epistemic Apaurusheya Civilizational Sovereignty:** Solidifying foundational civilizational self-confidence by grounding the engine in primary Indic Shastric ontology (*Apaurusheyatva* = authorless, trans-temporal sonic cosmic vibration / *Rta* / *Sabda Pramana*), neutralizing colonial philological distortions and modern secular semantic dilution.
+4. **Sacred Heritage Encroachment & Topographic Fort Defense:** Defending the tactical military-topographical command and civilizational sanctity of Chhatrapati Shivaji Maharaj's hilltop forts in Maharashtra (Vishalgad, Lohagad, Raigad) against demographic and unauthorized shrine encroachments.
+5. **Narrative Inversion & 5GW Cognitive Immunity:** Quantifying 5th-Generation cognitive warfare manifested through popular entertainment narrative inversions (*Ravanayana* tropes, glamorization of destructive antagonists), and measuring the commercial elasticity of organized consumer boycotts.
+6. **Maritime Chokepoint Malacca Deterrence:** Projecting asymmetric escalation dominance over Chinese seaborne energy flows transiting the Strait of Malacca (80% of Chinese crude oil imports) via the Andaman & Nicobar Command (ANC) naval aviation strike radius and Great Nicobar dual-use transshipment bastion.
+
+---
+
+### 2. Analytical Sieve Specifications & Mathematical Formulations
+
+#### Phase 295: `TransHimalayanHydrologicalDeterrenceSieve`
+- **Location:** `geo_engine/lenses/geopolitical.py`
+- **Formulation:**
+  $$z = 2.8 \cdot rac{V_{\text{buffer}}}{V_{\text{threat\_surge}} + \epsilon} + 2.5 \cdot D_{\text{flow\_parity}} - 3.2 \cdot R_{\text{sabotage}} - 0.4$$
+  $$S_{\text{Hydro\_Deterrence}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_HYDROLOGIC_BUFFER_SOVEREIGNTY`, $\ge 0.55$ `ROBUST_TRANSHIMALAYAN_DETERRENCE_STABLE`, $\ge 0.35$ `CONTESTED_DOWNSTREAM_RIPARIAN_VULNERABILITY`, $< 0.35$ `CRITICAL_HYDRAULIC_BLACKMAIL_EXPOSURE`.
+
+#### Phase 296: `PredatoryOvercapacityDumpingSieve`
+- **Location:** `geo_engine/lenses/geo_economist.py`
+- **Formulation:**
+  $$z = 2.6 \cdot \frac{\text{QCO}_{\text{coverage}} + \text{Tariff}_{\text{anti-dumping}}}{\text{Vulnerability}_{\text{msme}} + \epsilon} + 2.4 \cdot \text{PLI}_{\text{scale}} - 3.5 \cdot \text{DumpingMargin} - 0.3$$
+  $$S_{\text{Industrial\_Resilience}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_DOMESTIC_MANUFACTURING_SHIELD`, $\ge 0.55$ `ROBUST_QCO_TARIFF_PROTECTIVE_STABILITY`, $\ge 0.35$ `CONTESTED_MSME_MARGIN_COMPRESSION`, $< 0.35$ `CRITICAL_INDUSTRIAL_DECAY_AND_DUMPING_TRAP`.
+
+#### Phase 297: `EpistemicApaurusheyaCivilizationalSieve`
+- **Location:** `geo_engine/lenses/civilizational.py`
+- **Formulation:**
+  $$z = 3.0 \cdot \frac{S_{\text{primary\_shastra}} \cdot C_{\text{sanskrit\_fidelity}}}{S_{\text{colonial\_distortion}} + \epsilon} + 2.4 \cdot I_{\text{intergen\_transmission}} - 2.8 \cdot D_{\text{secular\_dilution}} - 0.5$$
+  $$S_{\text{Epistemic\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_APAURUSHEYA_EPISTEMIC_SOVEREIGNTY`, $\ge 0.55$ `ROBUST_INDIC_KNOWLEDGE_TRADITION_RESILIENCE`, $\ge 0.35$ `CONTESTED_PHILOLOGICAL_SUBVERSION_INTERVAL`, $< 0.35$ `CRITICAL_EPISTEMIC_COLONIZATION_AND_AMNESIA`.
+
+#### Phase 298: `SacredHeritageEncroachmentSieve`
+- **Location:** `geo_engine/lenses/institutional_lawfare.py`
+- **Formulation:**
+  $$z = 2.8 \cdot E_{\text{asi\_enforcement}} + 2.5 \cdot P_{\text{topographic\_command}} - 3.6 \cdot \frac{A_{\text{encroached}}}{A_{\text{total\_heritage}} + \epsilon} - 2.4 \cdot V_{\text{vote\_bank\_appeasement}} - 0.3$$
+  $$S_{\text{Heritage\_Defense}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_HERITAGE_SOVEREIGNTY`, $\ge 0.55$ `ROBUST_FORT_DEFENSE_STABLE`, $\ge 0.35$ `CONTESTED_GRAYZONE_ENCROACHMENT_RISK`, $< 0.35$ `CRITICAL_HERITAGE_DESECRATION_AND_ERASURE`.
+
+#### Phase 299: `NarrativeInversionSubversionSieve`
+- **Location:** `geo_engine/lenses/propaganda.py`
+- **Formulation:**
+  $$z = 2.8 \cdot \frac{\Delta \text{Revenue}_{\text{boycott}}}{\text{Budget}_{\text{production}} + \epsilon} + 2.4 \cdot M_{\text{canonical\_integrity}} - 3.4 \cdot \text{InversionIndex} - 0.4$$
+  $$S_{\text{Narrative\_Immunity}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_CIVILIZATIONAL_NARRATIVE_IMMUNITY`, $\ge 0.55$ `ROBUST_PUBLIC_DISCERNMENT_RESILIENT`, $\ge 0.35$ `CONTESTED_POP_CULTURE_REVISIONISM_INTERVAL`, $< 0.35$ `CRITICAL_CIVILIZATIONAL_AMNESIA_AND_CAPTURE`.
+
+#### Phase 300: `MaritimeChokepointMalaccaDeterrenceSieve`
+- **Location:** `geo_engine/lenses/military_readiness.py`
+- **Formulation:**
+  $$z = 3.0 \cdot (V_{\text{malacca\_energy}} \cdot R_{\text{anc\_interdiction}}) + 2.5 \cdot B_{\text{great\_nicobar\_bastion}} - 2.6 \cdot T_{\text{reaction\_latency}} - 0.2$$
+  $$S_{\text{Maritime\_Deterrence}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_ASIMETRIC_MARITIME_STRANGLEHOLD`, $\ge 0.55$ `ROBUST_CHOKEPOINT_DETERRENCE_STABLE`, $\ge 0.35$ `CONTESTED_LITTORAL_INTERDICTION_INTERVAL`, $< 0.35$ `CRITICAL_MARITIME_LEVERAGE_COLLAPSE`.
+
+---
+
+### 3. Pipeline Synthesis & Cross-Domain Hardening
+1. **Dynamic AST Intent Extraction:** Expanded `StrategicQuery` dataclass in `geo_engine/core/query_parser.py` with 6 new boolean routing flags (`requires_trans_himalayan_hydrology`, `requires_predatory_dumping`, `requires_apaurusheya_epistemic`, `requires_sacred_heritage_encroachment`, `requires_narrative_inversion`, `requires_malacca_chokepoint`).
+2. **Master Strategic Resilience Matrix:** Incorporated all 6 metrics into `SummitSynthesizer.strategic_resilience_matrix`, scaling live observable telemetry channels from 105+ to 111+.
+3. **Module Packaging Hygiene:** Updated `geo_engine/lenses/__init__.py`, expanding exported analytical symbols from 121 to 127 with zero symbol namespace collisions.
+4. **Automated Test Scaling:** Appended `TestPhases295to300SievesAndTelemetry` to `tests/test_engine.py` (9 new unit and integration tests), expanding the certified passing test suite from 587 to 596 tests (100% pass rate).
+5. **Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`consolidate_5_files`, `consolidate_50_files`, `dist_ai/core_5`, `dist_ai/deep_50`) through `scripts/build_canonical_bundles.py` with all 10 Gates certified green.
+---
+
+## Section 107: Phases 301–307 Sovereign Civilizational, Legal & Quantum Decision Architecture Expansion
+
+### 1. Architectural Motivation & Geostrategic Alignment
+Operationalizing seven critical civilizational, legal, and cognitive defense vectors derived from the multi-council forensic audit:
+1. **Ritual Ecological Subversion & Environmental Lawfare:** Quantifying the asymmetric judicial and regulatory burdens imposed on indigenous Hindu rituals (Diwali firecrackers, Dahi Handi, Jallikattu) relative to continuous baseline industrial emissions and vehicular pollution.
+2. **Dharmic Constitutionalism & Decolonial Jurisprudence:** Measuring the institutional durability of constitutional jurisprudence by evaluating the concordance between borrowed Euro-Christian constitutional morality and indigenous civilizational *Sanskriti* (*Rajdharma*, *Dharma* as supreme justice).
+3. **Historical Demystification & Sandarshan:** Quantifying historical truth-telling (*Sandarshan*) by stripping away post-independence political deification (*Mahatma-ism*), evaluating archival evidence regarding Khilafat appeasement, silence on Moplah atrocities, and the causal acceleration of 1947 Partition.
+4. **Canonical Epic Fidelity & Pop-Culture Subversion:** Evaluating the divergence of commercial cinematic adaptations from primary canonical Sanskrit sources (Valmiki Ramayana), scoring revisionist narrative inversion tropes vs canonical fidelity and consumer boycott elasticity.
+5. **Theological Realism & Apostasy Counter-Radicalization:** Modeling literalist scriptural exclusivity (Surah 3:85) vs syncretic political constructs ('Sanatani Muslim'), tracking the velocity of the grassroots ex-Muslim movement (*Irtidad*) as an organic internal counter-radicalization indicator.
+6. **Aurobindonian Spiritual Integration:** Modeling the decentralized spiritual integration of peripheral civilizational bastions (Bengal, Assam, Kerala) via Sri Aurobindo\'s Sanatan framework vs the frictions created by purely political, centralizing nationalism.
+7. **Shastric Dietary Plurality & Sampradaya Harmony:** Modeling authentic traditional diversity in dietary customs across different Hindu traditions (Shakta/Tantric ritual offerings in Kamakhya/Bengal/Mithila vs Vaishnava strict vegetarianism), debunking colonial homogenizations.
+8. **Quantum Decision Theory (QDT) & Dynamic Epistemic Gating:** Defeating linear accumulator dilution by implementing dynamic epistemic attention routing, and modeling non-commutative diplomatic choices and civilizational interference terms (\sqrt{P_1 P_2}\cos\theta$).
+
+---
+
+### 2. Analytical Sieve Specifications & Mathematical Formulations
+
+#### Phase 301: RitualEcologicalSubversionSieve
+- **Location:** geo_engine/lenses/institutional_lawfare.py
+- **Formulation:**
+  z = 2.8 \cdot \frac{E_{\text{baseline\_industrial}}}{E_{\text{ritual\_pulsed}} + \epsilon} + 2.5 \cdot T_{\text{shastric\_grounding}} - 3.4 \cdot J_{\text{selective\_prohibition\_intensity}} - 0.4
+  S_{\text{Ritual\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ FORTIFIED_RITUAL_SOVEREIGNTY, $\ge 0.55$ ROBUST_SHATRIC_TRADITION_RESILIENT, $\ge 0.35$ CONTESTED_JUDICIAL_OVERREACH_RISK, $< 0.35$ CRITICAL_CIVILIZATIONAL_RITUAL_ENCLOSURE.
+
+#### Phase 302: DharmicConstitutionalismSieve
+- **Location:** geo_engine/lenses/institutional_lawfare.py
+- **Formulation:**
+  z = 3.0 \cdot \frac{C_{\text{indigenous\_civilizational\_continuity}}}{C_{\text{colonial\_borrowed\_dogma}} + \epsilon} + 2.4 \cdot D_{\text{decolonial\_jurisprudence}} - 2.8 \cdot V_{\text{vote\_bank\_fetishism}} - 0.5
+  S_{\text{Dharmic\_Constitutionalism}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ FORTIFIED_DHARMIC_CONSTITUTIONALISM, $\ge 0.55$ DECOLONIAL_JURISPRUDENCE_EMERGENT, $\ge 0.35$ CONTESTED_POST_COLONIAL_LEGAL_FRICTION, $< 0.35$ ACUTE_CIVILIZATIONAL_CONSTITUTIONAL_ALIENATION.
+
+#### Phase 303: HistoricalDemystificationPartitionSieve
+- **Location:** geo_engine/lenses/history.py
+- **Formulation:**
+  z = 2.8 \cdot \frac{D_{\text{empirical\_archival\_evidence}}}{D_{\text{mythological\_deification}} + \epsilon} + 2.6 \cdot P_{\text{khilafat\_appeasement\_cost}} - 3.2 \cdot S_{\text{secular\_historical\_amnesia}} - 0.3
+  S_{\text{Historical\_Sandarshan}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ OBJECTIVE_HISTORICAL_SANDARSHAN, $\ge 0.55$ ARCHIVAL_DEMOPOLITIZATION_STABLE, $\ge 0.35$ CONTESTED_MYTHOLOGICAL_NARRATIVE_BIAS, $< 0.35$ TOTAL_SECULAR_HISTORICAL_AMNESIA.
+
+#### Phase 304: CanonicalEpicFidelitySieve
+- **Location:** geo_engine/lenses/propaganda.py
+- **Formulation:**
+  z = 3.2 \cdot \frac{T_{\text{primary\_valmiki\_fidelity}}}{T_{\text{marxist\_pop\_revisionism}} + \epsilon} + 2.5 \cdot B_{\text{consumer\_boycott\_elasticity}} - 3.5 \cdot I_{\text{inversion\_index}} - 0.4
+  S_{\text{Canonical\_Fidelity}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ PRISTINE_CANONICAL_FIDELITY, $\ge 0.55$ ROBUST_PRIMARY_SOURCE_RESILIENCE, $\ge 0.35$ CONTESTED_POP_CULTURE_DILUTION, $< 0.35$ TERMINAL_NARRATIVE_INVERSION_CAPTURE.
+
+#### Phase 305: TheologicalIncompatibilityApostasySieve
+- **Location:** geo_engine/lenses/demographic_infiltration.py
+- **Formulation:**
+  z = 2.8 \cdot A_{\text{ex\_muslim\_apostasy\_velocity}} + 2.6 \cdot E_{\text{scriptural\_demystification}} - 3.2 \cdot D_{\text{dogmatic\_indoctrination}} - 0.3
+  S_{\text{Theological\_Realism}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ HIGH_THEOLOGICAL_CLARITY_AND_REFORM, $\ge 0.55$ ORGANIC_APOSTASY_COUNTER_RADICALIZATION, $\ge 0.35$ CONTESTED_SYNCRETIC_ILLUSION_DRAG, $< 0.35$ ACUTE_DOGMATIC_RADICALIZATION_TRAP.
+
+#### Phase 306: AurobindonianSpiritualIntegrationSieve
+- **Location:** geo_engine/lenses/civilizational.py
+- **Formulation:**
+  z = 3.0 \cdot \frac{I_{\text{aurobindonian\_spiritual\_plurality}}}{I_{\text{centralized\_political\_hegemony}} + \epsilon} + 2.6 \cdot S_{\text{shakta\_tantric\_regional\_harmony}} - 2.5 \cdot F_{\text{sub\_national\_friction}} - 0.4
+  S_{\text{Spiritual\_Integration}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ HARMONIOUS_AUROBINDONIAN_INTEGRATION, $\ge 0.55$ DECENTRALIZED_SANATAN_RESILIENCE, $\ge 0.35$ CONTESTED_REGIONAL_POLITICAL_FRICTION, $< 0.35$ ACUTE_PERIPHERAL_ALIENATION.
+
+#### Phase 307: ShastricDietaryPluralitySieve
+- **Location:** geo_engine/lenses/civilizational.py
+- **Formulation:**
+  z = 2.8 \cdot P_{\text{shastric\_sampradaya\_plurality}} + 2.4 \cdot T_{\text{tantric\_vedic\_harmonization}} - 3.0 \cdot D_{\text{colonial\_dietary\_dogmatism}} - 0.3
+  S_{\text{Dietary\_Plurality}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ RIGOROUS_SHASTRIC_PLURALITY_HARMONY, $\ge 0.55$ ROBUST_REGIONAL_SAMPRADAYA_RESILIENCE, $\ge 0.35$ CONTESTED_SECTARIAN_DIETARY_FRICTION, $< 0.35$ COLONIAL_HOMOGENIZING_DISTORTION.
+
+---
+
+### 3. Pipeline Synthesis & Cross-Domain Hardening
+1. **Dynamic AST Intent Extraction:** Expanded StrategicQuery dataclass in geo_engine/core/query_parser.py with 7 new boolean routing flags (
+equires_ritual_ecological_sovereignty, 
+equires_dharmic_constitutionalism, 
+equires_partition_demystification, 
+equires_canonical_epic_fidelity, 
+equires_theological_apostasy_velocity, 
+equires_aurobindonian_integration, 
+equires_shastric_dietary_plurality).
+2. **Master Strategic Resilience Matrix:** Incorporated all 7 metrics + Quantum Decision Theory interference term (\sqrt{P_1 P_2}\cos\theta$) into SummitSynthesizer.strategic_resilience_matrix, scaling live observable telemetry channels from 111+ to 118+.
+3. **Module Packaging Hygiene:** Updated geo_engine/lenses/__init__.py, expanding exported analytical symbols from 127 to 134 with zero symbol namespace collisions.
+4. **Automated Test Scaling:** Appended TestPhases301to307SievesAndQuantumGating to 	ests/test_engine.py (10 new unit and integration tests), expanding the certified passing test suite from 596 to 606 tests (100% pass rate).
+5. **Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (consolidate_5_files, consolidate_50_files, dist_ai/core_5, dist_ai/deep_50) through scripts/build_canonical_bundles.py with all 10 Gates certified green.
+
+---
+
+### 4. Comprehensive Project Evolutionary Journey Summary
+From its origin as a multilateral summit de-sanitization script to a sovereign 20-domain civilization-state intelligence engine:
+- **Foundational Architecture (Phases 1–50):** Established the 5-Tier Epistemic Response Protocol (Physical Reality > Financial Flows > Sovereign Redlines > Kinesics > Diplomatic Communiqu\u00e9s). Built initial lenses for hydrocarbon logistics, trade imbalances, and diplomatic postures.
+- **Supply Chains & Strategic Geography (Phases 51–150):** Introduced deep-tech sovereignty, semiconductor fabs, critical minerals refining moats, subsea internet cable defense, and satellite communication constellations.
+- **Civilizational Statecraft & Decolonization (Phases 151–250):** Operationalized Kautilyan Rajdharma, Sacred Geography, legal warfare (FATF lawfare, temple endowment state control), and currency autonomy (RBI gold repatriation, rupee bilateral settlement).
+- **Asymmetric Deterrence & Cognitive Immunity (Phases 251–300):** Addressed unmodeled asymmetric vulnerabilities: trans-Himalayan mega-dam diversion, predatory industrial dumping, hilltop fort topography defense, 5GW entertainment narrative inversion, and Malacca Strait naval aviation deterrence.
+- **Quantum Statecraft & Civilizational Realism (Phases 301–307):** Solved linear accumulator dilution via dynamic epistemic gating, incorporated Quantum Decision Theory interference, and solidified legal, historical, and ritual sovereignty.
+---
+
+## Section 108: Strategic Council Archetype Expansion: Sadhguru (Jaggi Vasudev)
+
+### 1. Architectural Motivation & Geostrategic Alignment
+Incorporating Sadhguru (Jaggi Vasudev) into the core Strategic Council and Civilizational Epistemic Council fills a foundational gap in classical geopolitical and economic modeling:
+1. **Biosphere & Soil Foundation (Save Soil / Conscious Planet):** Foundational realization that national security, economic prosperity, and military stability rest entirely on living soil (minimum 3–6% organic content) and river basin health (Cauvery Calling). Ecological degradation directly triggers agricultural collapse, nutritional deficits, involuntary mass migration, and water warfare.
+2. **Conscious Statecraft & Inner Well-Being (Inner Engineering / Adiyogi):** Transcends dogmatic political polarizations by framing Sanatan civilizational heritage as an exploratory, empirical technology of consciousness and inner balance (*Yoga*), projecting Indic soft power globally across elite multilateral forums (WEF Davos, UN COP, Oxford, Harvard) without apology.
+3. **Temple Autonomy & Sacred Economy (Free Temples Movement):** Champions the liberation of consecrated Hindu temple institutions from state bureaucratic expropriation, restoring them as autonomous epicenters of local community health, arts, spiritual energy, and decentralized sacred economies.
+4. **Maryada Purushottama Civilizational Restraint:** Articulates Sri Rama not as an action-movie caricature, but as the supreme embodiment of *Maryada* (moral restraint, balance, and duty under extreme personal suffering), providing a stabilizing ethical compass for 21st-century leadership.
+
+---
+
+### 2. Implementation & Subsystem Integration
+1. **Persona Narrator Archetype (geo_engine/arbitration/persona_narrator.py):**
+   - Registered sadhguru in PersonaNarrator.ARCHETYPES with doctrinal axis *Biosphere Soil Security, Consecrated Cultural Spaces & Inner Consciousness Sovereignty*.
+   - Configured high-priority lens weighting: FoodSecurityLens (1.9), CivilizationalLens (1.8), InstitutionalLawfareLens (1.5), PropagandaLens (1.4), DeepTechLens (1.3), GeoEconomistLens (1.3).
+   - Expanded Strategic Council from 13 to 14 operational archetypes (*Chaturdasha Council*).
+2. **Civilizational Epistemic Council (CivilizationalCouncil):**
+   - Integrated the 7th orthogonal evaluation perspective: sadhguru_ecologist (*Conscious Ecologist & Yogic Realist*).
+   - Evaluates both secular geopolitical statecraft and cultural/millenarian discourses through the lens of human conscious responsibility and living ecological baselines.
+3. **Cognitive Speaker Profiler (geo_engine/core/speaker_profiler.py):**
+   - Added ECOLOGICAL_CONSCIOUSNESS_REALISM to SpeakerArchetype enum.
+   - Registered canonical profile PROF-SADHGURU with core frameworks (Save Soil, Adiyogi, Free Temples, Cauvery Calling) and baseline reliability weight 0.94.
+4. **CLI & User Interface (geo_engine/cli.py):**
+   - Added sadhguru to CLI --persona options across udit, dashboard, lenses, and query commands.
+5. **Automated Verification (	ests/test_engine.py):**
+   - Added 	est_sadhguru_strategic_council_archetype, 	est_sadhguru_speaker_profile, and 	est_sadhguru_civilizational_council_perspective.
+   - Scaled verified pytest suite from 606 to 609 tests (100% passing green).
+   - Recompiled all canonical distribution bundles (consolidate_5_files, consolidate_50_files, dist_ai/core_5, dist_ai/deep_50) through scripts/build_canonical_bundles.py with all 10 Anti-Drift Quality Gates certified green.
+
+
+---
+
+## Section 109: Phases 309–317 Sovereign Historiographical, Military & Geo-Economic Sieves Implementation
+
+### 1. Architectural Motivation & Geostrategic Alignment
+The implementation of Phases 309 through 317 directly incorporates the deep forensic audit of 24 YouTube historical, military, and geopolitical channels (Harry Sahota, Jaipur Literature Festival, LevelUp Karan Chugh, Namit Explains, Abhijit Chavda, Dilli Chalo, RkR History, All History, Free Documentary History, The History Underground, Best History Documentaries, Serious History, Gaurav Thakur - GSF, Timeline Channel, Epic History TV). 
+
+To prevent circular oscillation ("wheel-spinning") and theoretical drift, every insight was distilled into closed-form, deterministic mathematical models with sigmoidal scoring ($S = \sigma(z)$) and integrated into the engine's epistemic hierarchy:
+1. **Archival Primary Evidence vs. Academic Gatekeeping (Phases 309 & 310):** Prioritizes primary inscriptional epigraphy and contemporaneous revenue rolls over secondary ideological narratives. Quantifies institutional narrative curation and ideological exclusion in foreign-funded literary festivals and think tanks.
+2. **Succession Durability & Pan-Indic Linguistic Synthesis (Phases 311 & 312):** Evaluates political succession friction and statutory durability of infrastructure capital expenditures (CapEx/FDI). Quantifies the organic phonetic and syntactic convergence across Indo-Aryan, Dravidian, and Munda language families (*Sprachbund*) to defeat linguistic balkanization agendas.
+3. **Indigenous STEM Authenticity & Subaltern Memory (Phases 313 & 314):** Demands physical archaeological and metallurgical evidence (Wootz crucible steel, Zawar zinc smelting, Sulba Sutras mathematics) to separate genuine civilizational scientific breakthroughs from internet mythology. Ingests physical hero stones (*Viragals*) and village folk resistance oral traditions erased by colonial and court records.
+4. **Industrial Attrition Sustainment & Imperial Debt Retrenchment (Phases 315 & 316):** Formulates the production-to-burn ratio for 90-to-180 day high-intensity conventional warfare (forging shells, drone fabrication, chemical propellant precursors). Models fiscal debt-servicing crowding out of expeditionary defense budgets, predicting unavoidable imperial retrenchment when debt service eclipses baseline military expenditure.
+5. **Colonial Drain Extraction Accounting (Phase 317):** Models the historical $45 trillion wealth drain siphoned via Council Bills and forced tariff deindustrialization, quantifying its long-term impact on domestic capital formation.
+
+---
+
+### 2. Implementation & Subsystem Integration
+1. **Historiographical, Military & Economic Lens Modules (geo_engine/lenses/):**
+   - `ArchivalPrimarySourceSieve`, `SubalternMemorySieve`, and `ColonialDrainExtractionSieve` wired into `HistoryLens.evaluate` metrics and implemented in `geo_engine/lenses/history.py`.
+   - `AcademicGatekeepingSieve` wired into `PropagandaLens.evaluate` metrics and implemented in `geo_engine/lenses/propaganda.py`.
+   - `SuccessionContinuitySieve` wired into `GeoEconomistLens.evaluate` metrics and implemented in `geo_engine/lenses/geo_economist.py`.
+   - `LinguisticSprachbundSieve` wired into `CivilizationalLens.evaluate` metrics and implemented in `geo_engine/lenses/civilizational.py`.
+   - `IndigenousSTEMAuthenticitySieve` wired into `DeepTechLens.evaluate` metrics and implemented in `geo_engine/lenses/deep_tech.py`.
+   - `IndustrialAttritionSieve` wired into `MilitaryReadinessLens.evaluate` metrics and implemented in `geo_engine/lenses/military_readiness.py`.
+   - `ImperialDebtOverreachSieve` wired into `CashFlowLens.evaluate` metrics and implemented in `geo_engine/lenses/cash_flow.py`.
+2. **Lens Registry Export Scaling (geo_engine/lenses/__init__.py):**
+   - Exported all 9 sieves into `__all__`, scaling verified lens exports from 134 to 143 symbols.
+3. **Dynamic AST Query Parser (geo_engine/core/query_parser.py):**
+   - Added 9 boolean routing flags to `StrategicQuery` (`requires_archival_primary_source`, `requires_academic_gatekeeping`, `requires_succession_continuity`, `requires_linguistic_sprachbund`, `requires_indigenous_stem`, `requires_subaltern_memory`, `requires_industrial_attrition`, `requires_imperial_debt_overreach`, `requires_colonial_drain_extraction`).
+   - Wired keyword matching rules and automatic lens activation in `QueryParser.parse`.
+4. **Strategic Resilience Matrix Synthesis (geo_engine/arbitration/synthesizer.py):**
+   - Wired all 9 new sieve metrics into `SummitSynthesizer.strategic_resilience_matrix`, scaling live synthesis telemetry to 129 channels.
+5. **Automated Verification Suite (tests/test_engine.py):**
+   - Added `TestPhases309to317SievesAndQuantumSynthesis` (12 unit and integration tests).
+   - Full test suite scaled to 621 tests passing (100% green, zero regressions).
+6. **Canonical Distribution Bundles (scripts/build_canonical_bundles.py):**
+   - Recompiled all canonical distribution bundles across `consolidate_5_files/`, `consolidate_50_files/`, `dist_ai/core_5/`, `dist_ai/deep_50/`, and `dist_ai/all_in_one/`.
+   - All 10 Anti-Drift Quality Gates verified and certified green.
+
+
 
 ================================================================================
 # SPECIFICATION: 07_LICENSE_APACHE2.md
@@ -4881,6 +5238,20 @@ class BureaucraticInertiaLens:
 
             metrics["claims_evaluated"] = len(claims)
 
+        # Phase 287: Wire SubNationalBureaucraticFrictionSieve
+        bur_meta = getattr(summit, "metadata", {}) or {}
+        bur_params = bur_meta.get("bureaucratic_friction", {}) if isinstance(bur_meta, dict) else {}
+        _bur_res = SubNationalBureaucraticFrictionSieve.calculate_administrative_velocity(
+            executive_clarity=bur_params.get("executive_clarity", 0.75),
+            statutory_de_registration=bur_params.get("statutory_de_registration", 0.70),
+            file_looping_latency=bur_params.get("file_looping_latency", 0.35),
+            pil_stay_order_drag=bur_params.get("pil_stay_order_drag", 0.30),
+        )
+        metrics["administrative_velocity_score"] = _bur_res["administrative_velocity_score"]
+        metrics["bureaucratic_friction_drag"] = _bur_res["bureaucratic_friction_drag"]
+        metrics["pil_lawfare_resistance_index"] = _bur_res["pil_lawfare_resistance_index"]
+        metrics["administrative_velocity_tier"] = _bur_res["administrative_velocity_tier"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -4970,6 +5341,79 @@ class BureaucraticRollbackModel:
         }
 
 
+
+
+class SubNationalBureaucraticFrictionSieve:
+    """
+    Phase 287: Sub-National Bureaucratic Friction Sieve.
+    Quantifies administrative fifth-column resistance, procedural file-looping,
+    and Public Interest Litigation (PIL) legal weaponization stalling strategic infrastructure and defense corridor projects.
+    """
+
+    @classmethod
+    def calculate_administrative_velocity(
+        cls,
+        executive_clarity: float = 0.75,
+        statutory_de_registration: float = 0.70,
+        file_looping_latency: float = 0.35,
+        pil_stay_order_drag: float = 0.30,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Administrative Velocity Score using calibrated logistic sigmoid:
+            z = 2.8 * clarity + 2.5 * dereg - 3.0 * looping - 2.7 * pil - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        clarity = max(0.0, min(1.0, float(executive_clarity)))
+        dereg = max(0.0, min(1.0, float(statutory_de_registration)))
+        looping = max(0.0, min(1.0, float(file_looping_latency)))
+        pil = max(0.0, min(1.0, float(pil_stay_order_drag)))
+
+        z = 2.8 * clarity + 2.5 * dereg - 3.0 * looping - 2.7 * pil - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "DECISIVE_SOVEREIGN_EXECUTIVE_VELOCITY"
+            verdict = "FAST_TRACK_STATUTORY_EXECUTION_UNHINDERED"
+            rationale = (
+                f"Decisive executive velocity ({score:.4f}): High executive clarity ({clarity:.2f}) and proactive statutory "
+                f"de-registration ({dereg:.2f}) eradicate bureaucratic file-looping and frivolous PIL stay orders."
+            )
+        elif score >= 0.55:
+            tier = "MANAGEABLE_BUREAUCRATIC_FRICTION"
+            verdict = "PROCEDURAL_COMPLIANCE_WITH_CONTROLLED_LATENCY"
+            rationale = (
+                f"Manageable friction ({score:.4f}): Inter-ministerial coordination overcomes routine procedural resistance."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_JUDICIAL_ADMINISTRATIVE_GRIDLOCK"
+            verdict = "SUB_NATIONAL_PIL_LAWFARE_DELAYING_CAPEX"
+            rationale = (
+                f"Contested gridlock ({score:.4f}): Lawfare stay orders ({pil:.2f}) and file ping-pong stall critical defense projects."
+            )
+        else:
+            tier = "CRITICAL_DEEP_STATE_POLICY_PARALYSIS"
+            verdict = "TOTAL_ADMINISTRATIVE_FIFTH_COLUMN_VETO"
+            rationale = (
+                f"Critical paralysis ({score:.4f}): Severe file-looping ({looping:.2f}) and judicial injunctions freeze national strategy."
+            )
+
+        friction_drag = round(min(1.0, looping * 0.60 + pil * 0.40), 4)
+        pil_resilience = round(max(0.0, 1.0 - pil), 4)
+
+        return {
+            "administrative_velocity_score": score,
+            "executive_clarity": round(clarity, 4),
+            "statutory_de_registration": round(dereg, 4),
+            "file_looping_latency": round(looping, 4),
+            "pil_stay_order_drag": round(pil, 4),
+            "bureaucratic_friction_drag": friction_drag,
+            "pil_lawfare_resistance_index": pil_resilience,
+            "administrative_velocity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_executive_velocity_decisive": score >= 0.55,
+        }
 
 ```
 
@@ -5133,6 +5577,16 @@ class CashFlowLens:
                 g7_custody_exposure_pct=gold_params.get("g7_custody_exposure_pct", 0.40),
             )
             metrics.update(_gold_res)
+
+            # Phase 286: Wire CommercialBankAssetQualityAndCRARSieve
+            bank_params = det_meta.get("bank_asset_quality", {}) if isinstance(det_meta, dict) else {}
+            _bank_res = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
+                crar_ratio=bank_params.get("crar_ratio", 0.80),
+                provision_coverage=bank_params.get("provision_coverage", 0.75),
+                net_npa_ratio=bank_params.get("net_npa_ratio", 0.15),
+                mtm_treasury_exposure=bank_params.get("mtm_treasury_exposure", 0.20),
+            )
+            metrics.update(_bank_res)
     
             if claims:
                 banking_npa_claims = [
@@ -5300,6 +5754,27 @@ class CashFlowLens:
         )
         metrics.update(_gold_res)
 
+        # Phase 286: Wire CommercialBankAssetQualityAndCRARSieve
+        bank_params = det_meta.get("bank_asset_quality", {}) if isinstance(det_meta, dict) else {}
+        _bank_res = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
+            crar_ratio=bank_params.get("crar_ratio", 0.80),
+            provision_coverage=bank_params.get("provision_coverage", 0.75),
+            net_npa_ratio=bank_params.get("net_npa_ratio", 0.15),
+            mtm_treasury_exposure=bank_params.get("mtm_treasury_exposure", 0.20),
+        )
+        metrics.update(_bank_res)
+
+        # Phase 316: Wire ImperialDebtOverreachSieve
+        debt_params = det_meta.get("imperial_debt_overreach", {}) if isinstance(det_meta, dict) else {}
+        _debt_res = ImperialDebtOverreachSieve.calculate(
+            debt_service_annual=debt_params.get("debt_service_annual", 0.85),
+            annual_defense_budget=debt_params.get("annual_defense_budget", 0.35),
+            public_debt_to_gdp=debt_params.get("public_debt_to_gdp", 0.80),
+            fiscal_revenue_headroom=debt_params.get("fiscal_revenue_headroom", 0.20),
+        )
+        metrics["imperial_debt_overreach_score"] = _debt_res["imperial_debt_overreach_score"]
+        metrics["imperial_debt_overreach_tier"] = _debt_res["imperial_debt_overreach_tier"]
+        metrics["fiscal_basing_retrenchment_index"] = _debt_res["fiscal_basing_retrenchment_index"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -5706,6 +6181,149 @@ class SovereignGoldRepatriationSieve:
             "is_reserve_immunity_secure": score >= 0.55,
         }
 
+
+class CommercialBankAssetQualityAndCRARSieve:
+    """
+    Phase 286: Commercial Bank Asset Quality & CRAR Sieve.
+    Quantifies sovereign commercial bank balance sheet fortress: Capital to Risk-Weighted Assets Ratios (CRAR > 16.5%),
+    Net Non-Performing Asset (NNPA) ratios, Provision Coverage Ratios (PCR), and insulation from Western mark-to-market bond losses.
+    """
+
+    @classmethod
+    def calculate_banking_fortress(
+        cls,
+        crar_ratio: float = 0.80,
+        provision_coverage: float = 0.75,
+        net_npa_ratio: float = 0.15,
+        mtm_treasury_exposure: float = 0.20,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Banking Fortress Score using calibrated logistic sigmoid:
+            z = 2.8 * crar + 2.5 * provision - 3.2 * npa - 2.6 * mtm - 0.2
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        crar = max(0.0, min(1.0, float(crar_ratio)))
+        pcr = max(0.0, min(1.0, float(provision_coverage)))
+        npa = max(0.0, min(1.0, float(net_npa_ratio)))
+        mtm = max(0.0, min(1.0, float(mtm_treasury_exposure)))
+
+        z = 2.8 * crar + 2.5 * pcr - 3.2 * npa - 2.6 * mtm - 0.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SOVEREIGN_BANKING_FORTRESS"
+            verdict = "PRISTINE_BANK_BALANCE_SHEETS_INSULATED_FROM_WESTERN_RUNS"
+            rationale = (
+                f"Fortified banking fortress ({score:.4f}): Robust CRAR adequacy ({crar:.2f}) and high provision coverage ({pcr:.2f}) "
+                f"with minimal NNPA ({npa:.2f}) fully insulate banking system from SVB-style duration and liquidity shocks."
+            )
+        elif score >= 0.55:
+            tier = "SOUND_DOMESTIC_BALANCE_SHEET"
+            verdict = "RESILIENT_DOMESTIC_CREDIT_CAPACITY"
+            rationale = (
+                f"Sound balance sheet ({score:.4f}): Healthy capitalization buffers absorb localized stress without systemic impairment."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_DURATION_MISMATCH_EXPOSURE"
+            verdict = "TREASURY_MTM_VULNERABILITY_ACCELERATING"
+            rationale = (
+                f"Elevated duration mismatch ({score:.4f}): Higher bond yield volatility ({mtm:.2f}) exerts drag on bank net worth."
+            )
+        else:
+            tier = "CRITICAL_BANKING_LIQUIDITY_RUN_RISK"
+            verdict = "SYSTEMIC_INSOLVENCY_AND_NON_PERFORMING_SPIRAL"
+            rationale = (
+                f"Critical liquidity risk ({score:.4f}): High bad loan ratios ({npa:.2f}) and unhedged Treasury losses threaten solvency."
+            )
+
+        npa_cushion = round(max(0.0, pcr - npa), 4)
+
+        return {
+            "banking_fortress_score": score,
+            "crar_ratio": round(crar, 4),
+            "provision_coverage": round(pcr, 4),
+            "net_npa_ratio": round(npa, 4),
+            "mtm_treasury_exposure": round(mtm, 4),
+            "crar_capital_adequacy_index": round(crar, 4),
+            "non_performing_asset_cushion": npa_cushion,
+            "banking_resilience_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_banking_resilient": score >= 0.55,
+        }
+
+
+class ImperialDebtOverreachSieve:
+    """
+    Phase 316: Evaluates the fiscal sustainability of global military basing and power projection,
+    modeling debt-service crowding-out of defense budgets and inevitable force retrenchment.
+    
+    Mathematical Formulation:
+      ratio = debt_service_annual / (annual_defense_budget + eps)
+      z = 3.0 * (ratio / 2.5) + 2.5 * public_debt_to_gdp - 3.2 * fiscal_revenue_headroom - 0.3
+      S_Imperial_Debt_Overreach = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        debt_service_annual: float = 0.85,
+        annual_defense_budget: float = 0.35,
+        public_debt_to_gdp: float = 0.80,
+        fiscal_revenue_headroom: float = 0.20,
+    ) -> Dict[str, Any]:
+        service = max(0.0, min(1.0, float(debt_service_annual)))
+        defense = max(0.0, min(1.0, float(annual_defense_budget)))
+        debt_gdp = max(0.0, min(1.0, float(public_debt_to_gdp)))
+        headroom = max(0.0, min(1.0, float(fiscal_revenue_headroom)))
+
+        ratio = min(5.0, service / (defense + 1e-6))
+        z = 3.0 * (ratio / 2.5) + 2.5 * debt_gdp - 3.2 * headroom - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "TERMINAL_FISCAL_RETRENCHMENT_IMMINENT"
+            verdict = "INEVITABLE_GLOBAL_BASING_WITHDRAWAL"
+            rationale = (
+                f"Terminal fiscal retrenchment ({score:.4f}): Debt service ({service:.2f}) completely crowds out the defense "
+                f"budget ({defense:.2f}) under elevated debt-to-GDP ({debt_gdp:.2f}), making overseas bases financially unviable."
+            )
+        elif score >= 0.55:
+            tier = "ELEVATED_BASING_AUSTERITY_PRESSURE"
+            verdict = "FORCE_STRUCTURE_DOWNSIZING"
+            rationale = (
+                f"Elevated austerity ({score:.4f}): Fiscal crowding-out forces reduction in forward-deployed military deployments."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_DEFENSE_DEBT_BALANCING"
+            verdict = "STRAINED_FISCAL_MILITARY_EQUILIBRIUM"
+            rationale = (
+                f"Contested fiscal position ({score:.4f}): Moderate debt service requires deficit financing to maintain basing."
+            )
+        else:
+            tier = "FISCALLY_STABLE_MILITARY_PROJECTION"
+            verdict = "SUSTAINABLE_GLOBAL_EXPEDITIONARY_POWER"
+            rationale = (
+                f"Fiscally stable ({score:.4f}): Robust tax headroom ({headroom:.2f}) easily finances expeditionary defense."
+            )
+
+        retrenchment_idx = round(min(1.0, (score * 0.65) + (debt_gdp * 0.35)), 4)
+
+        return {
+            "imperial_debt_overreach_score": score,
+            "debt_service_to_defense_ratio": round(ratio, 4),
+            "debt_service_annual": round(service, 4),
+            "annual_defense_budget": round(defense, 4),
+            "public_debt_to_gdp": round(debt_gdp, 4),
+            "fiscal_revenue_headroom": round(headroom, 4),
+            "fiscal_basing_retrenchment_index": retrenchment_idx,
+            "imperial_debt_overreach_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_retrenchment_imminent": score >= 0.55,
+        }
+
+
 ```
 
 
@@ -5976,6 +6594,83 @@ class CivilizationalLens:
             narrative_delegitimation_pressure=dharmic_params.get("narrative_delegitimation_pressure", 0.40),
         )
         metrics.update(_dharmic_res)
+
+        # Phase 291: Wire SacredEconomyReligiousTourismSieve
+        sacred_params = civ_meta.get("sacred_economy", {}) if isinstance(civ_meta, dict) else {}
+        _sacred_res = SacredEconomyReligiousTourismSieve.calculate_sacred_economy(
+            pilgrim_footfall_velocity=sacred_params.get("pilgrim_footfall_velocity", 0.80),
+            msme_turnover=sacred_params.get("msme_turnover", 0.75),
+            decentralized_bullion=sacred_params.get("decentralized_bullion", 0.70),
+            state_expropriation_drag=sacred_params.get("state_expropriation_drag", 0.30),
+        )
+        metrics["sacred_economy_multiplier_score"] = _sacred_res["sacred_economy_multiplier_score"]
+        metrics["pilgrimage_msme_velocity_index"] = _sacred_res["pilgrimage_msme_velocity_index"]
+        metrics["decentralized_bullion_growth"] = _sacred_res["decentralized_bullion_growth"]
+        metrics["sacred_economy_tier"] = _sacred_res["sacred_economy_tier"]
+
+        # Phase 293: Wire ArchaeoAstronomicalEpigraphicDatingSieve in CivilizationalLens
+        from .history import ArchaeoAstronomicalEpigraphicDatingSieve
+        astro_params_c = civ_meta.get("archaeo_astronomy", {}) if isinstance(civ_meta, dict) else {}
+        _astro_res_c = ArchaeoAstronomicalEpigraphicDatingSieve.calculate_archaeo_astronomy(
+            planetary_conjunction_accuracy=astro_params_c.get("planetary_conjunction_accuracy", 0.85),
+            sediment_stratigraphy=astro_params_c.get("sediment_stratigraphy", 0.80),
+            textual_compression_bias=astro_params_c.get("textual_compression_bias", 0.25),
+            degeneracy_drag=astro_params_c.get("degeneracy_drag", 0.20),
+        )
+        metrics.update({f"civ_{k}": v for k, v in _astro_res_c.items()})
+
+        # Phase 297: Wire EpistemicApaurusheyaCivilizationalSieve
+        epistemic_params = civ_meta.get("apaurusheya_epistemic", {}) if isinstance(civ_meta, dict) else {}
+        _epistemic_res = EpistemicApaurusheyaCivilizationalSieve.calculate(
+            shastric_ontology_adherence=epistemic_params.get("shastric_ontology_adherence", 0.85),
+            sanskrit_hermeneutic_fidelity=epistemic_params.get("sanskrit_hermeneutic_fidelity", 0.90),
+            intergenerational_transmission=epistemic_params.get("intergenerational_transmission", 0.75),
+            colonial_philological_bias=epistemic_params.get("colonial_philological_bias", 0.20),
+            secular_semantic_dilution=epistemic_params.get("secular_semantic_dilution", 0.25),
+            gurukul_indic_pedagogy_depth=epistemic_params.get("gurukul_indic_pedagogy_depth", 0.70),
+        )
+        metrics["epistemic_sovereignty_score"] = _epistemic_res["epistemic_sovereignty_score"]
+        metrics["epistemic_sovereignty_tier"] = _epistemic_res["epistemic_sovereignty_tier"]
+        metrics["epistemic_autonomy_ratio"] = _epistemic_res["epistemic_autonomy_ratio"]
+
+        # Phase 306: Wire AurobindonianSpiritualIntegrationSieve
+        auro_params = civ_meta.get("aurobindonian_integration", {}) if isinstance(civ_meta, dict) else {}
+        _auro_res = AurobindonianSpiritualIntegrationSieve.calculate(
+            aurobindonian_spiritual_plurality=auro_params.get("aurobindonian_spiritual_plurality", 0.85),
+            centralized_political_hegemony_drag=auro_params.get("centralized_political_hegemony_drag", 0.25),
+            shakta_tantric_regional_harmony=auro_params.get("shakta_tantric_regional_harmony", 0.80),
+            sub_national_linguistic_friction=auro_params.get("sub_national_linguistic_friction", 0.20),
+            civilizational_sacred_geography_depth=auro_params.get("civilizational_sacred_geography_depth", 0.85),
+        )
+        metrics["spiritual_integration_score"] = _auro_res["spiritual_integration_score"]
+        metrics["spiritual_integration_tier"] = _auro_res["spiritual_integration_tier"]
+        metrics["integral_civilizational_unity_index"] = _auro_res["integral_civilizational_unity_index"]
+
+        # Phase 307: Wire ShastricDietaryPluralitySieve
+        diet_params = civ_meta.get("shastric_dietary_plurality", {}) if isinstance(civ_meta, dict) else {}
+        _diet_res = ShastricDietaryPluralitySieve.calculate(
+            shastric_sampradaya_plurality=diet_params.get("shastric_sampradaya_plurality", 0.85),
+            tantric_vedic_harmonization=diet_params.get("tantric_vedic_harmonization", 0.80),
+            colonial_dietary_dogmatism_drag=diet_params.get("colonial_dietary_dogmatism_drag", 0.20),
+            regional_culinary_sacredness=diet_params.get("regional_culinary_sacredness", 0.85),
+            sectarian_orthodoxy_friction=diet_params.get("sectarian_orthodoxy_friction", 0.20),
+        )
+        metrics["dietary_plurality_score"] = _diet_res["dietary_plurality_score"]
+        metrics["dietary_plurality_tier"] = _diet_res["dietary_plurality_tier"]
+        metrics["shastric_cohesion_index"] = _diet_res["shastric_cohesion_index"]
+
+        # Phase 312: Wire LinguisticSprachbundSieve
+        ling_params = civ_meta.get("linguistic_sprachbund", {}) if isinstance(civ_meta, dict) else {}
+        _ling_res = LinguisticSprachbundSieve.calculate(
+            retroflex_phonological_sharing=ling_params.get("retroflex_phonological_sharing", 0.85),
+            munda_dravidian_vedic_loanwords=ling_params.get("munda_dravidian_vedic_loanwords", 0.80),
+            syntactic_convergence=ling_params.get("syntactic_convergence", 0.85),
+            secessionist_balkanization_drag=ling_params.get("secessionist_balkanization_drag", 0.20),
+        )
+        metrics["linguistic_sprachbund_score"] = _ling_res["linguistic_sprachbund_score"]
+        metrics["linguistic_sprachbund_tier"] = _ling_res["linguistic_sprachbund_tier"]
+        metrics["civilizational_sprachbund_index"] = _ling_res["civilizational_sprachbund_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -6937,6 +7632,384 @@ class DharmicSoftPowerCulturalSovereigntySieve:
             "is_dharmic_sovereignty_resilient": score >= 0.55,
         }
 
+
+class SacredEconomyReligiousTourismSieve:
+    """
+    Phase 291: Sacred Economy & Religious Tourism Sieve.
+    Models local economic multiplier from sacred pilgrimage corridors (Ayodhya, Kashi, Ujjain, Tirupati),
+    MSME employment generation, decentralized retail bullion accumulation, and fiscal autonomy from centralized secular expropriation.
+    """
+
+    @classmethod
+    def calculate_sacred_economy(
+        cls,
+        pilgrim_footfall_velocity: float = 0.80,
+        msme_turnover: float = 0.75,
+        decentralized_bullion: float = 0.70,
+        state_expropriation_drag: float = 0.30,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Sacred Economy Multiplier Score using calibrated logistic sigmoid:
+            z = 2.8 * footfall + 2.5 * msme + 2.2 * bullion - 2.8 * exprop - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        footfall = max(0.0, min(1.0, float(pilgrim_footfall_velocity)))
+        msme = max(0.0, min(1.0, float(msme_turnover)))
+        bullion = max(0.0, min(1.0, float(decentralized_bullion)))
+        exprop = max(0.0, min(1.0, float(state_expropriation_drag)))
+
+        z = 2.8 * footfall + 2.5 * msme + 2.2 * bullion - 2.8 * exprop - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "THRIVING_SACRED_CIVILIZATIONAL_ECONOMY"
+            verdict = "DECENTRALIZED_TEMPLE_LED_ECONOMIC_RENAISSANCE"
+            rationale = (
+                f"Thriving sacred economy ({score:.4f}): Massive pilgrim footfall ({footfall:.2f}) and grassroots MSME "
+                f"turnover ({msme:.2f}) generate self-sustaining local wealth, insusceptible to global fiat shocks."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_PILGRIMAGE_MSME_VELOCITY"
+            verdict = "EXPANDING_TEMPLE_TOWN_SERVICES_ECOSYSTEM"
+            rationale = (
+                f"Robust pilgrimage velocity ({score:.4f}): Solid local hospitality, artisan employment, and retail bullion demand."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_STATE_EXTRACTIVE_BURDEN"
+            verdict = "EXCESSIVE_STATE_TEMPLE_FUND_DIVERSION"
+            rationale = (
+                f"Contested state burden ({score:.4f}): State expropriation ({exprop:.2f}) diverts sacred community wealth away from local MSMEs."
+            )
+        else:
+            tier = "ACUTE_COMMERCIAL_DECAY_AND_EXPLOITATION"
+            verdict = "COMMERCIALIZED_DEVALUATION_OF_SACRED_HERITAGE"
+            rationale = (
+                f"Acute decay ({score:.4f}): Heavy bureaucratic rent-seeking and state expropriation strangle traditional pilgrimage livelihoods."
+            )
+
+        return {
+            "sacred_economy_multiplier_score": score,
+            "pilgrim_footfall_velocity": round(footfall, 4),
+            "msme_turnover": round(msme, 4),
+            "decentralized_bullion": round(bullion, 4),
+            "state_expropriation_drag": round(exprop, 4),
+            "pilgrimage_msme_velocity_index": round(msme, 4),
+            "decentralized_bullion_growth": round(bullion, 4),
+            "sacred_economy_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_sacred_economy_thriving": score >= 0.55,
+        }
+
+
+class EpistemicApaurusheyaCivilizationalSieve:
+    """
+    Phase 297: Shastric Epistemic Sovereignty, Apaurusheyatva & Anti-Philological Distortion Sieve.
+    Quantifies civilizational epistemic self-confidence by evaluating adherence to primary Indic Shastric epistemology
+    (Apaurusheyatva = authorless, eternal cosmic principles / Rta / Sabda Pramana),
+    measuring intergenerational knowledge transmission, and calculating cognitive immunity against
+    colonial/orientalist philological distortions and modern secular semantic dilution.
+
+    Formulation:
+      EpistemicAutonomy = min(2.5, (shastric_ontology_adherence * sanskrit_hermeneutic_fidelity) / (colonial_philological_bias + 1e-6))
+      z = 3.0 * EpistemicAutonomy + 2.4 * intergenerational_transmission - 2.8 * secular_semantic_dilution - 0.5
+      S_Epistemic = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        shastric_ontology_adherence: float = 0.85,
+        sanskrit_hermeneutic_fidelity: float = 0.90,
+        intergenerational_transmission: float = 0.75,
+        colonial_philological_bias: float = 0.20,
+        secular_semantic_dilution: float = 0.25,
+        gurukul_indic_pedagogy_depth: float = 0.70,
+    ) -> Dict[str, Any]:
+        shastra = max(0.0, min(1.0, float(shastric_ontology_adherence)))
+        sans = max(0.0, min(1.0, float(sanskrit_hermeneutic_fidelity)))
+        inter = max(0.0, min(1.0, float(intergenerational_transmission)))
+        col = max(0.01, min(1.0, float(colonial_philological_bias)))
+        dil = max(0.0, min(1.0, float(secular_semantic_dilution)))
+        ped = max(0.0, min(1.0, float(gurukul_indic_pedagogy_depth)))
+
+        autonomy = min(2.5, (shastra * sans) / (col + 1e-6))
+        z = 3.0 * autonomy + 2.4 * inter - 2.8 * dil - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_APAURUSHEYA_EPISTEMIC_SOVEREIGNTY"
+            verdict = "UNSHAKABLE_SHASTRIC_ONTOLOGICAL_FOUNDATION"
+            rationale = (
+                f"Fortified epistemic sovereignty ({score:.4f}): High fidelity to primary Sanskrit sources ({sans:.2f}) "
+                f"and robust Apaurusheyatva grounding completely neutralize colonial philological biases ({col:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_INDIC_KNOWLEDGE_TRADITION_RESILIENCE"
+            verdict = "ADEQUATE_EPISTEMIC_HERMENEUTIC_DEFENSE"
+            rationale = (
+                f"Robust resilience ({score:.4f}): Authentic shastric scholarship ({autonomy:.2f}) withstands external narrative attacks, "
+                f"though ongoing secular dilution ({dil:.2f}) requires institutional pedagogy reinforcement."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_PHILOLOGICAL_SUBVERSION_INTERVAL"
+            verdict = "ELEVATED_COLONIAL_CHRONOLOGICAL_DISTORTION"
+            rationale = (
+                f"Contested subversion ({score:.4f}): Eurocentric chronological compression and semantic dilution "
+                f"erode civilizational self-confidence in elite educational institutions."
+            )
+        else:
+            tier = "CRITICAL_EPISTEMIC_COLONIZATION_AND_AMNESIA"
+            verdict = "ACUTE_CIVILIZATIONAL_ROOTLESSNESS_COLLAPSE"
+            rationale = (
+                f"Critical epistemic colonization ({score:.4f}): Total subservience to distorted orientalist translations "
+                f"destroys foundational civilizational continuity and epistemic autonomy."
+            )
+
+        civilizational_memory_idx = round(min(1.0, (score * 0.60) + (ped * 0.40)), 4)
+
+        return {
+            "epistemic_sovereignty_score": score,
+            "epistemic_autonomy_ratio": round(autonomy, 4),
+            "shastric_ontology_adherence": round(shastra, 4),
+            "sanskrit_hermeneutic_fidelity": round(sans, 4),
+            "intergenerational_transmission": round(inter, 4),
+            "colonial_philological_bias": round(col, 4),
+            "secular_semantic_dilution": round(dil, 4),
+            "gurukul_indic_pedagogy_depth": round(ped, 4),
+            "civilizational_memory_index": civilizational_memory_idx,
+            "epistemic_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_epistemically_sovereign": score >= 0.55,
+        }
+
+
+class AurobindonianSpiritualIntegrationSieve:
+    """
+    Phase 306: Models the decentralized spiritual integration of peripheral civilizational bastions
+    (Bengal, Assam, Kerala) via Sri Aurobindo's Sanatan framework vs the frictions created by
+    purely political, centralizing Savarkarite nationalism.
+    
+    Mathematical Formulation:
+      ratio = aurobindonian_spiritual_plurality / (centralized_political_hegemony_drag + eps)
+      z = 3.0 * (ratio / 2.5) + 2.6 * shakta_tantric_regional_harmony - 2.5 * sub_national_linguistic_friction - 0.4
+      S_Spiritual_Integration = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        aurobindonian_spiritual_plurality: float = 0.85,
+        centralized_political_hegemony_drag: float = 0.25,
+        shakta_tantric_regional_harmony: float = 0.80,
+        sub_national_linguistic_friction: float = 0.20,
+        civilizational_sacred_geography_depth: float = 0.85,
+    ) -> Dict[str, Any]:
+        spiritual = max(0.0, min(1.0, float(aurobindonian_spiritual_plurality)))
+        hegemony = max(0.0, min(1.0, float(centralized_political_hegemony_drag)))
+        harmony = max(0.0, min(1.0, float(shakta_tantric_regional_harmony)))
+        friction = max(0.0, min(1.0, float(sub_national_linguistic_friction)))
+        geography = max(0.0, min(1.0, float(civilizational_sacred_geography_depth)))
+
+        ratio = min(5.0, spiritual / (hegemony + 1e-6))
+        z = 3.0 * (ratio / 2.5) + 2.6 * harmony - 2.5 * friction - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "HARMONIOUS_AUROBINDONIAN_INTEGRATION"
+            verdict = "DECENTRALIZED_SANATAN_SPIRITUAL_UNITY"
+            rationale = (
+                f"Harmonious spiritual integration ({score:.4f}): Decentralized Aurobindonian vision ({spiritual:.2f}) "
+                f"effortlessly integrates regional bastions (Bengal, Assam) through sacred geography ({geography:.2f}), "
+                f"avoiding artificial homogenizing friction ({friction:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "DECENTRALIZED_SANATAN_RESILIENCE"
+            verdict = "ORGANIC_REGIONAL_CIVILIZATIONAL_COHESION"
+            rationale = (
+                f"Robust spiritual resilience ({score:.4f}): Local traditions harmonize with pan-Indic civilizational consciousness, "
+                f"countering polarizing political centralization."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_REGIONAL_POLITICAL_FRICTION"
+            verdict = "ELEVATED_SUB_NATIONAL_POLITICAL_ALIENATION"
+            rationale = (
+                f"Contested integration ({score:.4f}): Rigid political centralism creates linguistic and cultural friction "
+                f"in non-Hindi peripheral regions ({friction:.2f})."
+            )
+        else:
+            tier = "ACUTE_PERIPHERAL_ALIENATION"
+            verdict = "CRITICAL_CIVILIZATIONAL_FRAGMENTATION_RISK"
+            rationale = (
+                f"Acute peripheral alienation ({score:.4f}): Heavy-handed political homogenization alienates regional spiritual "
+                f"centers, opening vulnerabilities for subversive separatism."
+            )
+
+        integral_unity_idx = round(min(1.0, (score * 0.65) + (harmony * 0.35)), 4)
+
+        return {
+            "spiritual_integration_score": score,
+            "spiritual_to_hegemony_ratio": round(ratio, 4),
+            "aurobindonian_spiritual_plurality": round(spiritual, 4),
+            "centralized_political_hegemony_drag": round(hegemony, 4),
+            "shakta_tantric_regional_harmony": round(harmony, 4),
+            "sub_national_linguistic_friction": round(friction, 4),
+            "civilizational_sacred_geography_depth": round(geography, 4),
+            "integral_civilizational_unity_index": integral_unity_idx,
+            "spiritual_integration_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_spiritually_integrated": score >= 0.55,
+        }
+
+
+class ShastricDietaryPluralitySieve:
+    """
+    Phase 307: Models authentic Shastric plurality of dietary practices in Sanatan Dharma
+    (Shakta/Tantric ritual offerings in Kamakhya/Bengal/Mithila vs Vaishnava strict vegetarianism),
+    dispelling colonial/westernized false homogenizations.
+    
+    Mathematical Formulation:
+      z = 2.8 * shastric_sampradaya_plurality + 2.4 * tantric_vedic_harmonization
+          - 3.0 * colonial_dietary_dogmatism_drag - 1.8 * sectarian_orthodoxy_friction - 0.3
+      S_Dietary_Plurality = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        shastric_sampradaya_plurality: float = 0.85,
+        tantric_vedic_harmonization: float = 0.80,
+        colonial_dietary_dogmatism_drag: float = 0.20,
+        regional_culinary_sacredness: float = 0.85,
+        sectarian_orthodoxy_friction: float = 0.20,
+    ) -> Dict[str, Any]:
+        plurality = max(0.0, min(1.0, float(shastric_sampradaya_plurality)))
+        tantric = max(0.0, min(1.0, float(tantric_vedic_harmonization)))
+        colonial = max(0.0, min(1.0, float(colonial_dietary_dogmatism_drag)))
+        sacred = max(0.0, min(1.0, float(regional_culinary_sacredness)))
+        friction = max(0.0, min(1.0, float(sectarian_orthodoxy_friction)))
+
+        z = 2.8 * plurality + 2.4 * tantric - 3.0 * colonial - 1.8 * friction - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "RIGOROUS_SHASTRIC_PLURALITY_HARMONY"
+            verdict = "AUTHENTIC_SAMPRADAYA_DIVERSITY_CONFIRMED"
+            rationale = (
+                f"Rigorous Shastric plurality ({score:.4f}): Shakta/Tantric and Vaishnava customs co-exist in scriptural harmony ({tantric:.2f}), "
+                f"completely refuting colonial homogenizing narratives ({colonial:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_REGIONAL_SAMPRADAYA_RESILIENCE"
+            verdict = "RESILIENT_LOCAL_TRADITIONAL_LEGITIMACY"
+            rationale = (
+                f"Robust resilience ({score:.4f}): Indigenous communities maintain sacred dietary traditions ({sacred:.2f}) "
+                f"despite sectarian misunderstandings ({friction:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_SECTARIAN_DIETARY_FRICTION"
+            verdict = "ELEVATED_INTRA_DHARMIC_DOGMATIC_TENSION"
+            rationale = (
+                f"Contested dietary discourse ({score:.4f}): Ahimsa-absolutism creates artificial fault lines with Shakta "
+                f"and coastal ritual traditions, weakening civilizational solidarity."
+            )
+        else:
+            tier = "COLONIAL_HOMOGENIZING_DISTORTION"
+            verdict = "TOTAL_MISINTERPRETATION_OF_INDIC_PLURALISM"
+            rationale = (
+                f"Colonial distortion ({score:.4f}): Imposition of monochromatic religious rules destroys genuine Vedic-Agamic "
+                f"pluralism, playing into external divide-and-rule strategies."
+            )
+
+        shastric_cohesion_idx = round(min(1.0, (score * 0.60) + (plurality * 0.40)), 4)
+
+        return {
+            "dietary_plurality_score": score,
+            "shastric_sampradaya_plurality": round(plurality, 4),
+            "tantric_vedic_harmonization": round(tantric, 4),
+            "colonial_dietary_dogmatism_drag": round(colonial, 4),
+            "regional_culinary_sacredness": round(sacred, 4),
+            "sectarian_orthodoxy_friction": round(friction, 4),
+            "shastric_cohesion_index": shastric_cohesion_idx,
+            "dietary_plurality_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_shastrically_plural": score >= 0.55,
+        }
+
+
+class LinguisticSprachbundSieve:
+    """
+    Phase 312: Evaluates the Indian Sprachbund (linguistic convergence zone) across phonetics
+    (retroflex sharing), shared agricultural roots (Munda/Dravidian/Vedic), and syntax,
+    scoring resilience against linguistic balkanization agendas.
+    
+    Mathematical Formulation:
+      z = 3.0 * retroflex_phonological_sharing + 2.6 * munda_dravidian_vedic_loanwords + 2.4 * syntactic_convergence - 3.5 * secessionist_balkanization_drag - 0.3
+      S_Linguistic_Sprachbund = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        retroflex_phonological_sharing: float = 0.85,
+        munda_dravidian_vedic_loanwords: float = 0.80,
+        syntactic_convergence: float = 0.85,
+        secessionist_balkanization_drag: float = 0.20,
+    ) -> Dict[str, Any]:
+        retroflex = max(0.0, min(1.0, float(retroflex_phonological_sharing)))
+        loanwords = max(0.0, min(1.0, float(munda_dravidian_vedic_loanwords)))
+        syntax = max(0.0, min(1.0, float(syntactic_convergence)))
+        balkanization = max(0.0, min(1.0, float(secessionist_balkanization_drag)))
+
+        z = 3.0 * retroflex + 2.6 * loanwords + 2.4 * syntax - 3.5 * balkanization - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "PRISTINE_SPRACHBUND_CONVERGENCE"
+            verdict = "DEEP_PAN_INDIC_LINGUISTIC_COHESION"
+            rationale = (
+                f"Pristine linguistic convergence ({score:.4f}): Universal retroflex phonology ({retroflex:.2f}) and deep "
+                f"lexical sharing ({loanwords:.2f}) demonstrate thousands of years of organic civilizational synthesis, "
+                f"decisively neutralizing balkanization narratives ({balkanization:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_CIVILIZATIONAL_LINGUISTIC_UNITY"
+            verdict = "ORGANIC_SYNCRETIC_SYNTAX_RESILIENT"
+            rationale = (
+                f"Robust linguistic unity ({score:.4f}): Shared grammatical structures maintain national cohesion."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_DIALECTAL_FRICTION"
+            verdict = "ELEVATED_LINGUISTIC_SEPARATISM_RISK"
+            rationale = (
+                f"Contested linguistic space ({score:.4f}): Foreign-funded language politics ({balkanization:.2f}) exploit "
+                f"regional variations to promote mutual suspicion."
+            )
+        else:
+            tier = "ACUTE_LINGUISTIC_BALKANIZATION"
+            verdict = "SYSTEMIC_REGIONAL_FRAGMENTATION"
+            rationale = (
+                f"Acute balkanization ({score:.4f}): Severe language conflict threatens internal trade and communication."
+            )
+
+        sprachbund_idx = round(min(1.0, (score * 0.65) + (syntax * 0.35)), 4)
+
+        return {
+            "linguistic_sprachbund_score": score,
+            "retroflex_phonological_sharing": round(retroflex, 4),
+            "munda_dravidian_vedic_loanwords": round(loanwords, 4),
+            "syntactic_convergence": round(syntax, 4),
+            "secessionist_balkanization_drag": round(balkanization, 4),
+            "civilizational_sprachbund_index": sprachbund_idx,
+            "linguistic_sprachbund_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_linguistically_convergent": score >= 0.55,
+        }
+
+
+
+
 ```
 
 
@@ -7549,6 +8622,43 @@ class DeepTechLens:
             sectoral_banking_auto_delta_pct=rot_params_dt.get("sectoral_banking_auto_delta_pct", 0.038),
         )
         metrics.update({f"tech_{k}": v for k, v in _dt_rot.items()})
+
+        # Phase 288: Wire IndigenousGaNAESARadarSovereigntySieve
+        radar_params = tech_meta.get("gan_radar", {}) if isinstance(tech_meta, dict) else {}
+        _radar_res = IndigenousGaNAESARadarSovereigntySieve.calculate_gan_radar_sovereignty(
+            gan_trm_density=radar_params.get("gan_trm_density", 0.75),
+            aesa_autonomy=radar_params.get("aesa_autonomy", 0.80),
+            foreign_vendor_lockin=radar_params.get("foreign_vendor_lockin", 0.25),
+            thermal_dissipation_drag=radar_params.get("thermal_dissipation_drag", 0.20),
+        )
+        metrics["gan_radar_sovereignty_score"] = _radar_res["gan_radar_sovereignty_score"]
+        metrics["trm_power_density_index"] = _radar_res["trm_power_density_index"]
+        metrics["foreign_avionics_lockin_risk"] = _radar_res["foreign_avionics_lockin_risk"]
+        metrics["gan_radar_tier"] = _radar_res["gan_radar_tier"]
+
+        # Phase 294: Cross-wire DeepStateBlackProjectIntelligenceSieve
+        from .hybrid_covert import DeepStateBlackProjectIntelligenceSieve
+        bp_params_dt = tech_meta.get("black_projects", {}) if isinstance(tech_meta, dict) else {}
+        _bp_res_dt = DeepStateBlackProjectIntelligenceSieve.calculate_black_project_resilience(
+            compartmentalization_depth=bp_params_dt.get("compartmentalization_depth", 0.80),
+            early_warning_cushion=bp_params_dt.get("early_warning_cushion", 0.85),
+            c4isr_latency=bp_params_dt.get("c4isr_latency", 0.25),
+            foreign_penetration_risk=bp_params_dt.get("foreign_penetration_risk", 0.20),
+        )
+        metrics.update({f"deeptech_{k}": v for k, v in _bp_res_dt.items()})
+
+        # Phase 313: Wire IndigenousSTEMAuthenticitySieve
+        stem_params = tech_meta.get("indigenous_stem", {}) if isinstance(tech_meta, dict) else {}
+        _stem_res = IndigenousSTEMAuthenticitySieve.calculate(
+            physical_metallurgical_archaeology=stem_params.get("physical_metallurgical_archaeology", 0.85),
+            unverified_internet_mythology=stem_params.get("unverified_internet_mythology", 0.20),
+            manuscript_mathematical_rigor=stem_params.get("manuscript_mathematical_rigor", 0.85),
+            conspiratorial_pseudoscience=stem_params.get("conspiratorial_pseudoscience", 0.15),
+        )
+        metrics["indigenous_stem_score"] = _stem_res["indigenous_stem_score"]
+        metrics["stem_authenticity_tier"] = _stem_res["stem_authenticity_tier"]
+        metrics["empirical_stem_validation_index"] = _stem_res["empirical_stem_validation_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -7857,6 +8967,151 @@ class MultiAgentGroupChatConsensusSieve:
             "is_consensus_deterministic": score >= 0.55,
         }
 
+
+class IndigenousGaNAESARadarSovereigntySieve:
+    """
+    Phase 288: Indigenous GaN AESA Radar Sovereignty Sieve.
+    Models wide-bandgap Gallium Nitride (GaN) semiconductor fabrication autonomy,
+    Transmit/Receive Module (TRM) thermal efficiency and power density, AESA radar electronic
+    counter-countermeasures (ECCM), and elimination of foreign export vetoes (ITAR/Thales).
+    """
+
+    @classmethod
+    def calculate_gan_radar_sovereignty(
+        cls,
+        gan_trm_density: float = 0.75,
+        aesa_autonomy: float = 0.80,
+        foreign_vendor_lockin: float = 0.25,
+        thermal_dissipation_drag: float = 0.20,
+    ) -> Dict[str, Any]:
+        """
+        Calculates GaN Radar Sovereignty Score using calibrated logistic sigmoid:
+            z = 2.8 * trm + 2.6 * aesa - 3.2 * foreign - 2.5 * thermal - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        trm = max(0.0, min(1.0, float(gan_trm_density)))
+        aesa = max(0.0, min(1.0, float(aesa_autonomy)))
+        foreign = max(0.0, min(1.0, float(foreign_vendor_lockin)))
+        thermal = max(0.0, min(1.0, float(thermal_dissipation_drag)))
+
+        z = 2.8 * trm + 2.6 * aesa - 3.2 * foreign - 2.5 * thermal - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "AUTONOMOUS_GaN_AESA_DOMINANCE"
+            verdict = "SOVEREIGN_WIDE_BANDGAP_RADAR_SUPREMACY"
+            rationale = (
+                f"Autonomous GaN dominance ({score:.4f}): High TRM density ({trm:.2f}) and complete AESA autonomy ({aesa:.2f}) "
+                f"eliminate foreign component vetoes and ensure world-class airborne/naval radar range."
+            )
+        elif score >= 0.55:
+            tier = "FUNCTIONAL_INDIGENOUS_RADAR_STACK"
+            verdict = "RESILIENT_DOMESTIC_AVIONICS_INTEGRATION"
+            rationale = (
+                f"Functional radar stack ({score:.4f}): Indigenous radar architecture achieves operational parity with low foreign lockin."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_FOREIGN_TRM_DEPENDENCY"
+            verdict = "SEMICONDUCTOR_CHOKEPOINT_VULNERABILITY"
+            rationale = (
+                f"Contested dependency ({score:.4f}): Foreign vendor lockin ({foreign:.2f}) subjects frontline fighters to export denial."
+            )
+        else:
+            tier = "CRITICAL_AVIONICS_IMPORT_VULNERABILITY"
+            verdict = "TOTAL_FOREIGN_RADAR_IMPORT_DEPENDENCE"
+            rationale = (
+                f"Critical vulnerability ({score:.4f}): Inability to fabricate GaN TRMs paralyses indigenous 4.5/5th gen fighter production."
+            )
+
+        return {
+            "gan_radar_sovereignty_score": score,
+            "gan_trm_density": round(trm, 4),
+            "aesa_autonomy": round(aesa, 4),
+            "foreign_vendor_lockin": round(foreign, 4),
+            "thermal_dissipation_drag": round(thermal, 4),
+            "trm_power_density_index": round(trm, 4),
+            "foreign_avionics_lockin_risk": round(foreign, 4),
+            "gan_radar_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_radar_sovereign": score >= 0.55,
+        }
+
+
+class IndigenousSTEMAuthenticitySieve:
+    """
+    Phase 313: Verifies authentic historical Indian science and technology (Wootz crucible steel,
+    Zawar zinc smelting, Sulba Sutras geometry, Aryabhata/Brahmagupta mathematics) using physical
+    archaeology and primary manuscripts, filtering out modern conspiratorial internet pseudoscience.
+    
+    Mathematical Formulation:
+      ratio = physical_metallurgical_archaeology / (unverified_internet_mythology + eps)
+      z = 3.2 * (ratio / 2.5) + 2.8 * manuscript_mathematical_rigor - 3.0 * conspiratorial_pseudoscience - 0.4
+      S_STEM_Authenticity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        physical_metallurgical_archaeology: float = 0.85,
+        unverified_internet_mythology: float = 0.20,
+        manuscript_mathematical_rigor: float = 0.85,
+        conspiratorial_pseudoscience: float = 0.15,
+    ) -> Dict[str, Any]:
+        archaeology = max(0.0, min(1.0, float(physical_metallurgical_archaeology)))
+        mythology = max(0.0, min(1.0, float(unverified_internet_mythology)))
+        manuscript = max(0.0, min(1.0, float(manuscript_mathematical_rigor)))
+        pseudo = max(0.0, min(1.0, float(conspiratorial_pseudoscience)))
+
+        ratio = min(5.0, archaeology / (mythology + 1e-6))
+        z = 3.2 * (ratio / 2.5) + 2.8 * manuscript - 3.0 * pseudo - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "RIGOROUS_PHYSICAL_STEM_VALIDATION"
+            verdict = "AUTHENTIC_EMPIRICAL_HERITAGE"
+            rationale = (
+                f"Rigorous physical STEM validation ({score:.4f}): Hard archaeological artifacts ({archaeology:.2f}) and primary "
+                f"mathematical manuscripts ({manuscript:.2f}) substantiate authentic indigenous breakthroughs, decisively "
+                f"rejecting internet pseudoscience ({pseudo:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_EMPIRICAL_HERITAGE"
+            verdict = "VERIFIED_INDIGENOUS_INNOVATION"
+            rationale = (
+                f"Robust empirical heritage ({score:.4f}): Documented technical achievements hold international scientific credibility."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_PSEUDOSCIENTIFIC_RISK"
+            verdict = "ELEVATED_MYTHOLOGICAL_CONTAMINATION"
+            rationale = (
+                f"Contested science ({score:.4f}): Unverified internet claims ({mythology:.2f}) undermine the credibility of "
+                f"authentic historical contributions."
+            )
+        else:
+            tier = "DELUSIONAL_MYTHOLOGICAL_DISTORTION"
+            verdict = "TOTAL_CREDIBILITY_COLLAPSE"
+            rationale = (
+                f"Delusional pseudoscience ({score:.4f}): Conspiratorial claims completely destroy civilizational scientific standing."
+            )
+
+        stem_idx = round(min(1.0, (score * 0.65) + (archaeology * 0.35)), 4)
+
+        return {
+            "indigenous_stem_score": score,
+            "archaeology_to_myth_ratio": round(ratio, 4),
+            "physical_metallurgical_archaeology": round(archaeology, 4),
+            "unverified_internet_mythology": round(mythology, 4),
+            "manuscript_mathematical_rigor": round(manuscript, 4),
+            "conspiratorial_pseudoscience": round(pseudo, 4),
+            "empirical_stem_validation_index": stem_idx,
+            "stem_authenticity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_stem_authentic": score >= 0.55,
+        }
+
+
 ```
 
 
@@ -8032,6 +9287,20 @@ class DemographicInfiltrationLens:
         )
         metrics.update(_bd_result)
 
+        # Phase 305: Wire TheologicalIncompatibilityApostasySieve
+        demo_meta = getattr(event, "metadata", {}) or {}
+        theol_params = demo_meta.get("theological_apostasy", {}) if isinstance(demo_meta, dict) else {}
+        _theol_res = TheologicalIncompatibilityApostasySieve.calculate(
+            ex_muslim_apostasy_velocity=theol_params.get("ex_muslim_apostasy_velocity", 0.70),
+            scriptural_demystification_rate=theol_params.get("scriptural_demystification_rate", 0.75),
+            dogmatic_indoctrination_pressure=theol_params.get("dogmatic_indoctrination_pressure", 0.30),
+            syncretic_illusion_drag=theol_params.get("syncretic_illusion_drag", 0.25),
+            grassroots_ex_muslim_reach=theol_params.get("grassroots_ex_muslim_reach", 0.65),
+        )
+        metrics["theological_realism_score"] = _theol_res["theological_realism_score"]
+        metrics["theological_realism_tier"] = _theol_res["theological_realism_tier"]
+        metrics["counter_radicalization_index"] = _theol_res["counter_radicalization_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -8110,6 +9379,83 @@ class StatutoryBorderDemographySieve:
             "tactical_rationale": rationale,
             "is_demographic_sovereignty_secure": score >= 0.60
         }
+
+
+class TheologicalIncompatibilityApostasySieve:
+    """
+    Phase 305: Models the theological exclusivity of literalist scripture vs syncretic political
+    constructs, tracking the velocity of the grassroots ex-Muslim apostasy movement (Irtidad)
+    as an organic internal counter-radicalization indicator.
+    
+    Mathematical Formulation:
+      z = 2.8 * ex_muslim_apostasy_velocity + 2.6 * scriptural_demystification_rate
+          - 3.2 * dogmatic_indoctrination_pressure - 1.8 * syncretic_illusion_drag - 0.3
+      S_Theological_Realism = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        ex_muslim_apostasy_velocity: float = 0.70,
+        scriptural_demystification_rate: float = 0.75,
+        dogmatic_indoctrination_pressure: float = 0.30,
+        syncretic_illusion_drag: float = 0.25,
+        grassroots_ex_muslim_reach: float = 0.65,
+    ) -> Dict[str, Any]:
+        import math
+        apostasy = max(0.0, min(1.0, float(ex_muslim_apostasy_velocity)))
+        demyst = max(0.0, min(1.0, float(scriptural_demystification_rate)))
+        indoctrination = max(0.0, min(1.0, float(dogmatic_indoctrination_pressure)))
+        syncretic = max(0.0, min(1.0, float(syncretic_illusion_drag)))
+        reach = max(0.0, min(1.0, float(grassroots_ex_muslim_reach)))
+
+        z = 2.8 * apostasy + 2.6 * demyst - 3.2 * indoctrination - 1.8 * syncretic - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "HIGH_THEOLOGICAL_CLARITY_AND_REFORM"
+            verdict = "ORGANIC_INTERNAL_ENLIGHTENMENT_EXPANDING"
+            rationale = (
+                f"High theological clarity ({score:.4f}): Rapid growth in ex-Muslim apostasy velocity ({apostasy:.2f}) "
+                f"and open scriptural demystification ({demyst:.2f}) decisively challenge literalist dogmatic hegemony ({indoctrination:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ORGANIC_APOSTASY_COUNTER_RADICALIZATION"
+            verdict = "ACTIVE_GRASSROOTS_SECULAR_DISSENT"
+            rationale = (
+                f"Organic counter-radicalization ({score:.4f}): Emerging digital platforms ({reach:.2f}) foster internal debate, "
+                f"gradually eroding dogmatic enforcement despite political syncretic myths ({syncretic:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_SYNCRETIC_ILLUSION_DRAG"
+            verdict = "ELEVATED_DOGMATIC_RESISTANCE_TO_REFORM"
+            rationale = (
+                f"Contested theological reform ({score:.4f}): Dogmatic institutions actively suppress apostates while "
+                f"superficial syncretic narratives delay critical structural understanding."
+            )
+        else:
+            tier = "ACUTE_DOGMATIC_RADICALIZATION_TRAP"
+            verdict = "TOTAL_THEOLOGICAL_EXCLUSION_AND_CENSORSHIP"
+            rationale = (
+                f"Acute dogmatic entrapment ({score:.4f}): Pervasive blasphemy fears and institutional intimidation completely "
+                f"silence dissent, entrenching theological exclusivity and social tension."
+            )
+
+        counter_radicalization_idx = round(min(1.0, (score * 0.60) + (reach * 0.40)), 4)
+
+        return {
+            "theological_realism_score": score,
+            "ex_muslim_apostasy_velocity": round(apostasy, 4),
+            "scriptural_demystification_rate": round(demyst, 4),
+            "dogmatic_indoctrination_pressure": round(indoctrination, 4),
+            "syncretic_illusion_drag": round(syncretic, 4),
+            "grassroots_ex_muslim_reach": round(reach, 4),
+            "counter_radicalization_index": counter_radicalization_idx,
+            "theological_realism_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_theological_reform_active": score >= 0.55,
+        }
+
 
 ```
 
@@ -8268,6 +9614,33 @@ class DigitalSovereigntyLens:
             circular_loop_risk=agent_params_ds.get("circular_loop_risk", 0.20),
         )
         metrics.update({f"digital_{k}": v for k, v in _ds_agent.items()})
+
+        # Phase 284: Wire ProgrammableCBDCSurveillanceSieve
+        cbdc_params = ds_meta.get("cbdc_surveillance", {}) if isinstance(ds_meta, dict) else {}
+        _cbdc_res = ProgrammableCBDCSurveillanceSieve.calculate_monetary_autonomy(
+            cash_retention_ratio=cbdc_params.get("cash_retention_ratio", 0.70),
+            open_protocol_interop=cbdc_params.get("open_protocol_interop", 0.85),
+            cbdc_programmability=cbdc_params.get("cbdc_programmability", 0.30),
+            surveillance_centralization=cbdc_params.get("surveillance_centralization", 0.35),
+        )
+        metrics["monetary_autonomy_score"] = _cbdc_res["monetary_autonomy_score"]
+        metrics["digital_enclosure_tier"] = _cbdc_res["digital_enclosure_tier"]
+        metrics["programmable_coercion_risk"] = _cbdc_res["programmable_coercion_risk"]
+        metrics["open_stack_resilience_index"] = _cbdc_res["open_stack_resilience_index"]
+
+        # Phase 290: Wire BigTechAlgorithmicSovereigntySieve
+        algo_params = ds_meta.get("algorithmic_sovereignty", {}) if isinstance(ds_meta, dict) else {}
+        _algo_res = BigTechAlgorithmicSovereigntySieve.calculate_algorithmic_sovereignty(
+            statutory_enforcement=algo_params.get("statutory_enforcement", 0.75),
+            data_localization=algo_params.get("data_localization", 0.80),
+            algorithmic_nudging=algo_params.get("algorithmic_nudging", 0.35),
+            shadow_banning_intensity=algo_params.get("shadow_banning_intensity", 0.30),
+        )
+        metrics["algorithmic_sovereignty_score"] = _algo_res["algorithmic_sovereignty_score"]
+        metrics["data_localization_enforcement_index"] = _algo_res["data_localization_enforcement_index"]
+        metrics["platform_shadowban_exposure"] = _algo_res["platform_shadowban_exposure"]
+        metrics["algorithmic_sovereignty_tier"] = _algo_res["algorithmic_sovereignty_tier"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -8818,6 +10191,156 @@ class StrategicMetallurgySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_metallurgy_autonomous": score >= 0.60
+        }
+
+
+class ProgrammableCBDCSurveillanceSieve:
+    """
+    Phase 284: Programmable CBDC Surveillance Sieve.
+    Quantifies civil liberty and sovereign monetary freedom risk under Western programmable CBDCs
+    and mandatory digital identity regimes vs open, interoperable, non-custodial stacks
+    (India's UPI and sovereign cash/bullion preservation).
+    """
+
+    @classmethod
+    def calculate_monetary_autonomy(
+        cls,
+        cash_retention_ratio: float = 0.70,
+        open_protocol_interop: float = 0.85,
+        cbdc_programmability: float = 0.30,
+        surveillance_centralization: float = 0.35,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Monetary Autonomy Score using calibrated logistic sigmoid:
+            z = 3.0 * cash + 2.8 * open - 3.5 * cbdc - 2.8 * surveillance - 0.5
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        cash = max(0.0, min(1.0, float(cash_retention_ratio)))
+        open_proto = max(0.0, min(1.0, float(open_protocol_interop)))
+        cbdc = max(0.0, min(1.0, float(cbdc_programmability)))
+        surv = max(0.0, min(1.0, float(surveillance_centralization)))
+
+        z = 3.0 * cash + 2.8 * open_proto - 3.5 * cbdc - 2.8 * surv - 0.5
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SOVEREIGN_MONETARY_FREEDOM"
+            verdict = "OPEN_INTEROPERABLE_SOVEREIGN_STACK_PRESERVED"
+            rationale = (
+                f"Fortified monetary freedom ({score:.4f}): Open protocol interoperability ({open_proto:.2f}) and strong "
+                f"cash retention ({cash:.2f}) defeat centralized CBDC programmable surveillance and coercion vectors."
+            )
+        elif score >= 0.55:
+            tier = "RESILIENT_DECENTRALIZED_PAYMENT_STACK"
+            verdict = "FUNCTIONAL_DPI_WITH_CONTROLLED_PROGRAMMABILITY"
+            rationale = (
+                f"Resilient payment stack ({score:.4f}): UPI-style open protocols successfully buffer against coercive "
+                f"digital identity mandates and monetary expiration constraints."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_PROGRAMMABLE_SURVEILLANCE_RISK"
+            verdict = "CENTRALIZED_CBDC_CONDITIONALITY_CREEP"
+            rationale = (
+                f"Elevated surveillance risk ({score:.4f}): Creeping programmable conditionality ({cbdc:.2f}) threatens "
+                f"user privacy and transactional autonomy."
+            )
+        else:
+            tier = "ACUTE_DIGITAL_ENCLOSURE_PRISON"
+            verdict = "COERCIVE_PROGRAMMABLE_WALLET_CAPTURE"
+            rationale = (
+                f"Acute digital enclosure ({score:.4f}): High programmability ({cbdc:.2f}) and total surveillance "
+                f"centralization ({surv:.2f}) impose dystopian monetary behavioral controls."
+            )
+
+        coercion_risk = round(min(1.0, cbdc * 0.60 + surv * 0.40), 4)
+        open_resilience = round(min(1.0, open_proto * 0.70 + cash * 0.30), 4)
+
+        return {
+            "monetary_autonomy_score": score,
+            "cash_retention_ratio": round(cash, 4),
+            "open_protocol_interop": round(open_proto, 4),
+            "cbdc_programmability": round(cbdc, 4),
+            "surveillance_centralization": round(surv, 4),
+            "programmable_coercion_risk": coercion_risk,
+            "open_stack_resilience_index": open_resilience,
+            "digital_enclosure_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_monetarily_autonomous": score >= 0.55,
+        }
+
+
+class BigTechAlgorithmicSovereigntySieve:
+    """
+    Phase 290: Big Tech Algorithmic Sovereignty Sieve.
+    Models platform algorithmic shadow-banning, cognitive behavioral nudging,
+    compliance with DPDP Act 2023 / Section 69A IT Act, domestic FIR enforcement velocity,
+    and sovereign data localization.
+    """
+
+    @classmethod
+    def calculate_algorithmic_sovereignty(
+        cls,
+        statutory_enforcement: float = 0.75,
+        data_localization: float = 0.80,
+        algorithmic_nudging: float = 0.35,
+        shadow_banning_intensity: float = 0.30,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Algorithmic Sovereignty Score using calibrated logistic sigmoid:
+            z = 2.8 * enforce + 2.6 * local - 3.2 * nudging - 2.8 * shadow - 0.4
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        enforce = max(0.0, min(1.0, float(statutory_enforcement)))
+        local = max(0.0, min(1.0, float(data_localization)))
+        nudging = max(0.0, min(1.0, float(algorithmic_nudging)))
+        shadow = max(0.0, min(1.0, float(shadow_banning_intensity)))
+
+        z = 2.8 * enforce + 2.6 * local - 3.2 * nudging - 2.8 * shadow - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_ALGORITHMIC_SOVEREIGNTY"
+            verdict = "SOVEREIGN_REGULATORY_MASTERY_OVER_BIG_TECH"
+            rationale = (
+                f"Fortified sovereignty ({score:.4f}): Assertive statutory enforcement ({enforce:.2f}) and strict data "
+                f"localization ({local:.2f}) neutralize foreign platform algorithmic election manipulation and shadow-banning."
+            )
+        elif score >= 0.55:
+            tier = "ACTIVE_REGULATORY_COMPLIANCE_OVERSIGHT"
+            verdict = "MANAGED_PLATFORM_SOVEREIGN_COMPLIANCE"
+            rationale = (
+                f"Active oversight ({score:.4f}): Robust legal notices and IT Act compliance check overt algorithmic nudging ({nudging:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_PLATFORM_COGNITIVE_BIAS"
+            verdict = "SUB_THRESHOLD_COGNITIVE_NUDGING_ACTIVE"
+            rationale = (
+                f"Contested bias ({score:.4f}): Unchecked platform shadow-banning ({shadow:.2f}) and subtle recommendation "
+                f"biases distort public discourse."
+            )
+        else:
+            tier = "ACUTE_BIG_TECH_COGNITIVE_ENCLOSURE"
+            verdict = "TOTAL_FOREIGN_ALGORITHMIC_CAPTURE"
+            rationale = (
+                f"Acute enclosure ({score:.4f}): Rampant algorithmic nudging ({nudging:.2f}) and suppressed domestic speech "
+                f"subjugate national information space to foreign tech monopolies."
+            )
+
+        return {
+            "algorithmic_sovereignty_score": score,
+            "statutory_enforcement": round(enforce, 4),
+            "data_localization": round(local, 4),
+            "algorithmic_nudging": round(nudging, 4),
+            "shadow_banning_intensity": round(shadow, 4),
+            "data_localization_enforcement_index": round(local, 4),
+            "platform_shadowban_exposure": round(shadow, 4),
+            "algorithmic_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_algorithmically_sovereign": score >= 0.55,
         }
 
 ```
@@ -9641,6 +11164,59 @@ class GeoEconomistLens:
             sectoral_banking_auto_delta_pct=rot_params.get("sectoral_banking_auto_delta_pct", 0.038),
         )
         metrics.update(_rot_res)
+
+        # Phase 292: Wire OutwardDirectInvestmentAssetCaptureSieve
+        odi_params = ge_meta.get("outward_asset_capture", {}) if isinstance(ge_meta, dict) else {}
+        _odi_res = OutwardDirectInvestmentAssetCaptureSieve.calculate_asset_capture(
+            odi_deployment=odi_params.get("odi_deployment", 0.75),
+            ip_repatriation=odi_params.get("ip_repatriation", 0.70),
+            host_jurisdiction_protectionism=odi_params.get("host_jurisdiction_protectionism", 0.35),
+            forex_volatility=odi_params.get("forex_volatility", 0.25),
+        )
+        metrics["asset_capture_score"] = _odi_res["asset_capture_score"]
+        metrics["odi_capital_efficiency_index"] = _odi_res["odi_capital_efficiency_index"]
+        metrics["ip_repatriation_ratio"] = _odi_res["ip_repatriation_ratio"]
+        metrics["asset_capture_tier"] = _odi_res["asset_capture_tier"]
+
+        # Phase 286: Wire CommercialBankAssetQualityAndCRARSieve in GeoEconomistLens
+        from .cash_flow import CommercialBankAssetQualityAndCRARSieve
+        bank_params_ge = ge_meta.get("bank_asset_quality", {}) if isinstance(ge_meta, dict) else {}
+        _bank_res_ge = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
+            crar_ratio=bank_params_ge.get("crar_ratio", 0.80),
+            provision_coverage=bank_params_ge.get("provision_coverage", 0.75),
+            net_npa_ratio=bank_params_ge.get("net_npa_ratio", 0.15),
+            mtm_treasury_exposure=bank_params_ge.get("mtm_treasury_exposure", 0.20),
+        )
+        metrics.update({f"economist_{k}": v for k, v in _bank_res_ge.items()})
+
+        # Phase 296: Wire PredatoryOvercapacityDumpingSieve
+        dump_params = ge_meta.get("predatory_dumping", {}) if isinstance(ge_meta, dict) else {}
+        _dump_res = PredatoryOvercapacityDumpingSieve.calculate(
+            marginal_cost_global=dump_params.get("marginal_cost_global", 100.0),
+            dumped_price_fob=dump_params.get("dumped_price_fob", 25.0),
+            qco_enforcement_ratio=dump_params.get("qco_enforcement_ratio", 0.80),
+            tariff_anti_dumping_pct=dump_params.get("tariff_anti_dumping_pct", 0.35),
+            msme_vulnerability_index=dump_params.get("msme_vulnerability_index", 0.50),
+            domestic_pli_scale=dump_params.get("domestic_pli_scale", 0.75),
+            cluster_supply_chain_density=dump_params.get("cluster_supply_chain_density", 0.70),
+        )
+        metrics["industrial_resilience_score"] = _dump_res["industrial_resilience_score"]
+        metrics["industrial_sovereignty_tier"] = _dump_res["industrial_sovereignty_tier"]
+        metrics["dumping_margin"] = _dump_res["dumping_margin"]
+        metrics["protective_coverage_ratio"] = _dump_res["protective_coverage_ratio"]
+
+        # Phase 311: Wire SuccessionContinuitySieve
+        succ_params = ge_meta.get("succession_continuity", {}) if isinstance(ge_meta, dict) else {}
+        _succ_res = SuccessionContinuitySieve.calculate(
+            institutional_cadre_alignment=succ_params.get("institutional_cadre_alignment", 0.85),
+            factional_rupture_friction=succ_params.get("factional_rupture_friction", 0.20),
+            capex_statutory_durability=succ_params.get("capex_statutory_durability", 0.80),
+            electoral_populist_volatility=succ_params.get("electoral_populist_volatility", 0.25),
+        )
+        metrics["succession_continuity_score"] = _succ_res["succession_continuity_score"]
+        metrics["succession_continuity_tier"] = _succ_res["succession_continuity_tier"]
+        metrics["policy_durability_index"] = _succ_res["policy_durability_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -10203,6 +11779,235 @@ class SectoralCapitalRotationAndGridConstraintSieve:
             "sectoral_rotation_verdict": verdict,
         }
 
+
+class OutwardDirectInvestmentAssetCaptureSieve:
+    """
+    Phase 292: Outward Direct Investment Asset Capture Sieve.
+    Quantifies Indian multinational overseas direct investment (ODI), opportunistic acquisition
+    of distressed Western industrial/tech assets, global intellectual property repatriation,
+    and corporate balance-sheet resilience.
+    """
+
+    @classmethod
+    def calculate_asset_capture(
+        cls,
+        odi_deployment: float = 0.75,
+        ip_repatriation: float = 0.70,
+        host_jurisdiction_protectionism: float = 0.35,
+        forex_volatility: float = 0.25,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Asset Capture Score using calibrated logistic sigmoid:
+            z = 2.8 * odi + 2.5 * ip - 2.6 * prot - 2.4 * forex - 0.2
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        odi = max(0.0, min(1.0, float(odi_deployment)))
+        ip = max(0.0, min(1.0, float(ip_repatriation)))
+        prot = max(0.0, min(1.0, float(host_jurisdiction_protectionism)))
+        forex = max(0.0, min(1.0, float(forex_volatility)))
+
+        z = 2.8 * odi + 2.5 * ip - 2.6 * prot - 2.4 * forex - 0.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "AGGRESSIVE_GLOBAL_STRATEGIC_ASSET_CAPTURE"
+            verdict = "SOVEREIGN_MULTINATIONAL_OUTWARD_EXPANSION_DOMINANCE"
+            rationale = (
+                f"Aggressive asset capture ({score:.4f}): Robust ODI deployment ({odi:.2f}) and aggressive IP "
+                f"repatriation ({ip:.2f}) acquire critical Western industrial technologies at distressed valuations."
+            )
+        elif score >= 0.55:
+            tier = "PRUDENT_OUTWARD_CAPITAL_EXPANSION"
+            verdict = "STRATEGIC_GLOBAL_FOOTPRINT_CONSOLIDATION"
+            rationale = (
+                f"Prudent outward expansion ({score:.4f}): Disciplined capital deployment navigates protectionist barriers ({prot:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "VULNERABLE_FOREIGN_ACQUISITION_DRAG"
+            verdict = "REGULATORY_SCRUTINY_STALLING_CROSS_BORDER_MA"
+            rationale = (
+                f"Vulnerable acquisition drag ({score:.4f}): Host nation FDI screening and currency swings ({forex:.2f}) impede deals."
+            )
+        else:
+            tier = "CRITICAL_CAPITAL_TRAP_IN_DISTRESSED_ASSETS"
+            verdict = "SEVERE_EXPROPRIATION_AND_WRITE_DOWN_EXPOSURE"
+            rationale = (
+                f"Critical capital trap ({score:.4f}): Severe regulatory hostility and forex collapse threaten overseas investments."
+            )
+
+        return {
+            "asset_capture_score": score,
+            "odi_deployment": round(odi, 4),
+            "ip_repatriation": round(ip, 4),
+            "host_jurisdiction_protectionism": round(prot, 4),
+            "forex_volatility": round(forex, 4),
+            "odi_capital_efficiency_index": round(odi, 4),
+            "ip_repatriation_ratio": round(ip, 4),
+            "asset_capture_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_asset_capture_aggressive": score >= 0.55,
+        }
+
+
+class PredatoryOvercapacityDumpingSieve:
+    """
+    Phase 296: Mercantilist Industrial Overcapacity, Predatory Price Dumping & MSME Shield Sieve.
+    Quantifies foreign state-subsidized overcapacity dumping (e.g. Canton Fair Phase 3 price shocks),
+    evaluating domestic MSME margin erosion, and calculating protective resilience via Quality Control Orders (QCOs),
+    anti-dumping tariffs, and Production Linked Incentive (PLI) domestic scaling.
+
+    Formulation:
+      DumpingMargin = max(0.0, min(1.0, (marginal_cost_global - dumped_price_fob) / (marginal_cost_global + 1e-6)))
+      ProtectiveCoverage = min(2.0, (qco_enforcement_ratio + tariff_anti_dumping_pct) / (msme_vulnerability_index + 1e-6))
+      z = 2.6 * ProtectiveCoverage + 2.4 * domestic_pli_scale - 3.5 * DumpingMargin - 0.3
+      S_Industrial = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        marginal_cost_global: float = 100.0,
+        dumped_price_fob: float = 25.0,
+        qco_enforcement_ratio: float = 0.80,
+        tariff_anti_dumping_pct: float = 0.35,
+        msme_vulnerability_index: float = 0.50,
+        domestic_pli_scale: float = 0.75,
+        cluster_supply_chain_density: float = 0.70,
+    ) -> Dict[str, Any]:
+        cost = max(1.0, float(marginal_cost_global))
+        fob = max(0.1, float(dumped_price_fob))
+        qco = max(0.0, min(1.0, float(qco_enforcement_ratio)))
+        tariff = max(0.0, min(1.0, float(tariff_anti_dumping_pct)))
+        vuln = max(0.05, min(1.0, float(msme_vulnerability_index)))
+        pli = max(0.0, min(1.0, float(domestic_pli_scale)))
+        cluster = max(0.0, min(1.0, float(cluster_supply_chain_density)))
+
+        dumping_margin = max(0.0, min(1.0, (cost - fob) / (cost + 1e-6)))
+        protective_coverage = min(2.0, (qco + tariff) / (vuln + 1e-6))
+
+        z = 2.6 * protective_coverage + 2.4 * pli - 3.5 * dumping_margin - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_DOMESTIC_MANUFACTURING_SHIELD"
+            verdict = "PREDATORY_IMPORT_SURGE_NEUTRALIZED"
+            rationale = (
+                f"Fortified industrial shield ({score:.4f}): High QCO enforcement ({qco:.2f}) and PLI scaling ({pli:.2f}) "
+                f"insulate domestic MSME clusters from severe foreign dumping margin ({dumping_margin:.2%})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_QCO_TARIFF_PROTECTIVE_STABILITY"
+            verdict = "ADEQUATE_MSME_DEFENSIVE_RESILIENCE"
+            rationale = (
+                f"Robust protection ({score:.4f}): Protective coverage ({protective_coverage:.2f}) prevents structural market loss, "
+                f"though ongoing non-market subsidies require continuous tariff calibration."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_MSME_MARGIN_COMPRESSION"
+            verdict = "ELEVATED_DOMESTIC_INDUSTRY_EROSION_RISK"
+            rationale = (
+                f"Contested margin compression ({score:.4f}): Unchecked dumping ({dumping_margin:.2%}) outpaces QCO coverage, "
+                f"threatening low-margin domestic consumer product clusters."
+            )
+        else:
+            tier = "CRITICAL_INDUSTRIAL_DECAY_AND_DUMPING_TRAP"
+            verdict = "ACUTE_SUPPLY_CHAIN_HOLLOWING_EXPOSURE"
+            rationale = (
+                f"Critical industrial decay ({score:.4f}): Extreme predatory pricing overwhelms weak protective barriers, "
+                f"causing terminal hollowing out of domestic manufacturing capability."
+            )
+
+        msme_survival_idx = round(min(1.0, (score * 0.55) + (cluster * 0.45)), 4)
+
+        return {
+            "industrial_resilience_score": score,
+            "dumping_margin": round(dumping_margin, 4),
+            "protective_coverage_ratio": round(protective_coverage, 4),
+            "qco_enforcement_ratio": round(qco, 4),
+            "tariff_anti_dumping_pct": round(tariff, 4),
+            "domestic_pli_scale": round(pli, 4),
+            "cluster_supply_chain_density": round(cluster, 4),
+            "msme_cluster_survival_index": msme_survival_idx,
+            "industrial_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_manufacturing_shielded": score >= 0.55,
+        }
+
+
+class SuccessionContinuitySieve:
+    """
+    Phase 311: Evaluates political leadership succession stability, policy durability,
+    and macroeconomic CapEx schedule resilience across transition scenarios.
+    
+    Mathematical Formulation:
+      ratio = institutional_cadre_alignment / (factional_rupture_friction + eps)
+      z = 2.8 * (ratio / 2.5) + 2.5 * capex_statutory_durability - 2.8 * electoral_populist_volatility - 0.4
+      S_Succession_Continuity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        institutional_cadre_alignment: float = 0.85,
+        factional_rupture_friction: float = 0.20,
+        capex_statutory_durability: float = 0.80,
+        electoral_populist_volatility: float = 0.25,
+    ) -> Dict[str, Any]:
+        cadre = max(0.0, min(1.0, float(institutional_cadre_alignment)))
+        friction = max(0.0, min(1.0, float(factional_rupture_friction)))
+        capex = max(0.0, min(1.0, float(capex_statutory_durability)))
+        volatility = max(0.0, min(1.0, float(electoral_populist_volatility)))
+
+        ratio = min(5.0, cadre / (friction + 1e-6))
+        z = 2.8 * (ratio / 2.5) + 2.5 * capex - 2.8 * volatility - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SUCCESSION_CONTINUITY"
+            verdict = "SEAMLESS_CADRE_AND_CAPEX_STABILITY"
+            rationale = (
+                f"Fortified succession ({score:.4f}): Cadre institutional cohesion ({cadre:.2f}) and multi-year statutory "
+                f"CapEx anchoring ({capex:.2f}) insulate macroeconomic growth from leadership transitions."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_POLICY_DURABILITY"
+            verdict = "MANAGED_POLITICAL_SUCCESSION"
+            rationale = (
+                f"Robust durability ({score:.4f}): Institutional structures successfully absorb transition friction."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_TRANSITION_FRICTION"
+            verdict = "ELEVATED_CAPEX_AND_FDI_UNCERTAINTY"
+            rationale = (
+                f"Contested succession ({score:.4f}): Factional uncertainty ({friction:.2f}) prompts foreign capital "
+                f"allocation delays."
+            )
+        else:
+            tier = "ACUTE_SUCCESSION_RUPTURE_RISK"
+            verdict = "CRITICAL_POLICY_INSTABILITY_SPIRAL"
+            rationale = (
+                f"Critical rupture ({score:.4f}): Internal ideological warfare threatens domestic economic continuity."
+            )
+
+        policy_idx = round(min(1.0, (score * 0.65) + (capex * 0.35)), 4)
+
+        return {
+            "succession_continuity_score": score,
+            "cadre_to_friction_ratio": round(ratio, 4),
+            "institutional_cadre_alignment": round(cadre, 4),
+            "factional_rupture_friction": round(friction, 4),
+            "capex_statutory_durability": round(capex, 4),
+            "electoral_populist_volatility": round(volatility, 4),
+            "policy_durability_index": policy_idx,
+            "succession_continuity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_succession_resilient": score >= 0.55,
+        }
+
+
+
 ```
 
 
@@ -10220,6 +12025,7 @@ and regional rivalries (LAC standoff, Gulf balance, Horn of Africa frictions).
 """
 
 from typing import Any, Dict, List, Optional
+import math
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
 
@@ -10395,6 +12201,35 @@ class GeopoliticalLens:
         metrics["host_sanctuary_lawfare_exposure"] = _diaspora_res["host_sanctuary_lawfare_exposure"]
         metrics["diaspora_sanctuary_tier"] = _diaspora_res["diaspora_sanctuary_tier"]
 
+        # Phase 283: Wire IslandEEZMaritimeNetSecuritySieve
+        island_params = geo_meta.get("island_net_security", {}) if isinstance(geo_meta, dict) else {}
+        _island_res = IslandEEZMaritimeNetSecuritySieve.calculate_maritime_net_security(
+            basing_airgap_radius=island_params.get("basing_airgap_radius", 0.75),
+            sagar_treaty_depth=island_params.get("sagar_treaty_depth", 0.80),
+            coastal_radar_uptime=island_params.get("coastal_radar_uptime", 0.85),
+            plan_dual_use_incursion=island_params.get("plan_dual_use_incursion", 0.35),
+            host_nation_political_drift=island_params.get("host_nation_political_drift", 0.25),
+        )
+        metrics["maritime_net_security_score"] = _island_res["maritime_net_security_score"]
+        metrics["maritime_bastion_tier"] = _island_res["maritime_bastion_tier"]
+        metrics["chinese_hydrographic_threat_index"] = _island_res["chinese_hydrographic_threat_index"]
+        metrics["agalega_surveillance_readiness"] = _island_res["agalega_surveillance_readiness"]
+
+        # Phase 295: Wire TransHimalayanHydrologicalDeterrenceSieve
+        hydro_params = geo_meta.get("trans_himalayan_hydrology", {}) if isinstance(geo_meta, dict) else {}
+        _hydro_res = TransHimalayanHydrologicalDeterrenceSieve.calculate(
+            buffer_storage_bcm=hydro_params.get("buffer_storage_bcm", 9.0),
+            threat_surge_volume_bcm=hydro_params.get("threat_surge_volume_bcm", 10.0),
+            lean_season_flow_parity=hydro_params.get("lean_season_flow_parity", 0.85),
+            ngo_subversion_index=hydro_params.get("ngo_subversion_index", 0.25),
+            proxy_political_obstruction=hydro_params.get("proxy_political_obstruction", 0.20),
+            state_counter_sabotage=hydro_params.get("state_counter_sabotage", 0.75),
+            malacca_counter_leverage_readiness=hydro_params.get("malacca_counter_leverage_readiness", 0.88),
+        )
+        metrics["hydro_deterrence_score"] = _hydro_res["hydro_deterrence_score"]
+        metrics["hydrologic_sovereignty_tier"] = _hydro_res["hydrologic_sovereignty_tier"]
+        metrics["asymmetric_escalation_parity"] = _hydro_res["asymmetric_escalation_parity"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -10551,6 +12386,170 @@ class DiasporaSanctuaryLawfareSieve:
             "is_sanctuary_coercive": threat >= 0.55,
         }
 
+
+class IslandEEZMaritimeNetSecuritySieve:
+    """
+    Phase 283: Island EEZ Maritime Net Security Sieve.
+    Models Southwest Indian Ocean Maritime Domain Awareness (MDA), Net Security Provider posture
+    across island littoral states (Mauritius, Seychelles, Maldives, Sri Lanka), Agaléga surveillance
+    patrol radius (P-8I coverage), and Chinese dual-use hydrographic/research vessel interdiction.
+    """
+
+    @classmethod
+    def calculate_maritime_net_security(
+        cls,
+        basing_airgap_radius: float = 0.75,
+        sagar_treaty_depth: float = 0.80,
+        coastal_radar_uptime: float = 0.85,
+        plan_dual_use_incursion: float = 0.35,
+        host_nation_political_drift: float = 0.25,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Maritime Net Security Score using calibrated logistic sigmoid:
+            z = 2.8 * basing + 2.6 * sagar + 2.2 * radar - 3.2 * plan - 2.5 * drift - 0.4
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        basing = max(0.0, min(1.0, float(basing_airgap_radius)))
+        sagar = max(0.0, min(1.0, float(sagar_treaty_depth)))
+        radar = max(0.0, min(1.0, float(coastal_radar_uptime)))
+        plan = max(0.0, min(1.0, float(plan_dual_use_incursion)))
+        drift = max(0.0, min(1.0, float(host_nation_political_drift)))
+
+        z = 2.8 * basing + 2.6 * sagar + 2.2 * radar - 3.2 * plan - 2.5 * drift - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_IOR_MARITIME_BASTION"
+            verdict = "DOMINANT_SOUTHWEST_IOR_NET_SECURITY_PROVIDER"
+            rationale = (
+                f"Fortified maritime bastion ({score:.4f}): Agaléga airgap radius ({basing:.2f}) and SAGAR treaty "
+                f"depth ({sagar:.2f}) establish dominant P-8I surveillance and choke Chinese hydrographic incursions."
+            )
+        elif score >= 0.55:
+            tier = "SUSTAINED_NET_SECURITY_SUPERIORITY"
+            verdict = "RESILIENT_LITTORAL_RADAR_AND_PATROL_COVERAGE"
+            rationale = (
+                f"Sustained superiority ({score:.4f}): High radar uptime ({radar:.2f}) offsets moderate host nation "
+                f"political drift ({drift:.2f}); maintains stable EEZ deterrence."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_ISLAND_LITTORAL_PRESSURE"
+            verdict = "ESCALATING_DUAL_USE_RESEARCH_SURVEILLANCE"
+            rationale = (
+                f"Contested pressure ({score:.4f}): Chinese dual-use research vessel incursions ({plan:.2f}) and political "
+                f"drift ({drift:.2f}) threaten forward maritime basing access."
+            )
+        else:
+            tier = "CRITICAL_CHINESE_CHOKEPOINT_ENCIRCLEMENT"
+            verdict = "ACUTE_LITTORAL_BASING_DENIAL_RISK"
+            rationale = (
+                f"Critical encirclement ({score:.4f}): High PLAN dual-use penetration ({plan:.2f}) and hostile political drift "
+                f"compromise southwest IOR chokepoint security."
+            )
+
+        surv_readiness = round(min(1.0, basing * 0.90 + radar * 0.10), 4)
+        threat_idx = round(min(1.0, plan * 0.70 + drift * 0.30), 4)
+
+        return {
+            "maritime_net_security_score": score,
+            "basing_airgap_radius": round(basing, 4),
+            "sagar_treaty_depth": round(sagar, 4),
+            "coastal_radar_uptime": round(radar, 4),
+            "plan_dual_use_incursion": round(plan, 4),
+            "host_nation_political_drift": round(drift, 4),
+            "agalega_surveillance_readiness": surv_readiness,
+            "chinese_hydrographic_threat_index": threat_idx,
+            "maritime_bastion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_bastion_secure": score >= 0.55,
+        }
+
+
+class TransHimalayanHydrologicalDeterrenceSieve:
+    """
+    Phase 295: Trans-Himalayan Hydrological Warfare, Buffer Reservoir Sizing & Hybrid Sabotage Resistance Sieve.
+    Quantifies Chinese upstream damming weaponization (Medog / Great Bend Yarlung Tsangpo 60,000 MW mega-dam)
+    against Indian downstream counter-deterrence (Upper Siang 11,000 MW multipurpose buffer reservoir),
+    incorporating hybrid subversion risks (foreign-funded NGO fear-mongering and political obstruction).
+
+    Formulation:
+      SurgeAbsorb = min(2.0, buffer_storage_bcm / (threat_surge_volume_bcm + 1e-6))
+      SabotageRisk = max(0.0, min(1.0, 0.45 * ngo_subversion_index + 0.35 * proxy_political_obstruction - 0.30 * state_counter_sabotage))
+      z = 2.8 * SurgeAbsorb + 2.5 * lean_season_flow_parity - 3.2 * SabotageRisk - 0.4
+      S_Hydro = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        buffer_storage_bcm: float = 9.0,
+        threat_surge_volume_bcm: float = 10.0,
+        lean_season_flow_parity: float = 0.85,
+        ngo_subversion_index: float = 0.25,
+        proxy_political_obstruction: float = 0.20,
+        state_counter_sabotage: float = 0.75,
+        malacca_counter_leverage_readiness: float = 0.88,
+    ) -> Dict[str, Any]:
+        buf = max(0.0, float(buffer_storage_bcm))
+        surge = max(0.001, float(threat_surge_volume_bcm))
+        flow = max(0.0, min(1.0, float(lean_season_flow_parity)))
+        ngo = max(0.0, min(1.0, float(ngo_subversion_index)))
+        proxy = max(0.0, min(1.0, float(proxy_political_obstruction)))
+        counter = max(0.0, min(1.0, float(state_counter_sabotage)))
+        malacca = max(0.0, min(1.0, float(malacca_counter_leverage_readiness)))
+
+        surge_absorb = min(2.0, buf / (surge + 1e-6))
+        sabotage_risk = max(0.0, min(1.0, 0.45 * ngo + 0.35 * proxy - 0.30 * counter))
+
+        z = 2.8 * surge_absorb + 2.5 * flow - 3.2 * sabotage_risk - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_HYDROLOGIC_BUFFER_SOVEREIGNTY"
+            verdict = "STRATEGIC_SURGE_ABSORPTION_CERTIFIED"
+            rationale = (
+                f"Fortified sovereignty ({score:.4f}): Upper Siang buffer capacity ({buf:.1f} BCM) "
+                f"neutralizes Chinese Medog upstream surge threats while domestic sabotage risk ({sabotage_risk:.2f}) is contained."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_TRANSHIMALAYAN_DETERRENCE_STABLE"
+            verdict = "ADEQUATE_FLOOD_BUFFER_AND_LEAN_FLOW"
+            rationale = (
+                f"Robust deterrence ({score:.4f}): Buffer absorption ({surge_absorb:.2f}) provides adequate defense, "
+                f"but ongoing NGO narrative friction requires active state communication."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_DOWNSTREAM_RIPARIAN_VULNERABILITY"
+            verdict = "ELEVATED_FLASH_FLOOD_AND_DROUGHT_RISK"
+            rationale = (
+                f"Contested vulnerability ({score:.4f}): Subversion friction ({sabotage_risk:.2f}) stalls buffer reservoir execution, "
+                f"exposing Assam-Arunachal river basins to upstream manipulation."
+            )
+        else:
+            tier = "CRITICAL_HYDRAULIC_BLACKMAIL_EXPOSURE"
+            verdict = "ACUTE_CATASTROPHIC_SURGE_DEFICIT"
+            rationale = (
+                f"Critical exposure ({score:.4f}): Inadequate buffer storage and high sabotage paralysis "
+                f"leave northeast India defenseless against weaponized hydrologic releases."
+            )
+
+        asymmetric_ratio = round(min(1.0, (score * 0.60) + (malacca * 0.40)), 4)
+
+        return {
+            "hydro_deterrence_score": score,
+            "surge_absorption_ratio": round(surge_absorb, 4),
+            "lean_season_flow_parity": round(flow, 4),
+            "hybrid_sabotage_risk": round(sabotage_risk, 4),
+            "malacca_counter_leverage_readiness": round(malacca, 4),
+            "asymmetric_escalation_parity": asymmetric_ratio,
+            "hydrologic_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_buffer_fortified": score >= 0.55,
+        }
+
+
 ```
 
 
@@ -10654,6 +12653,68 @@ class HistoryLens:
             epigraphy_concordance=triang_params.get("epigraphy_concordance", 0.70),
         )
         metrics.update(_triang_res)
+
+        # Phase 293: Wire ArchaeoAstronomicalEpigraphicDatingSieve
+        astro_dating_params = hist_meta.get("archaeo_astronomy", {}) if isinstance(hist_meta, dict) else {}
+        _astro_dating_res = ArchaeoAstronomicalEpigraphicDatingSieve.calculate_archaeo_astronomy(
+            planetary_conjunction_accuracy=astro_dating_params.get("planetary_conjunction_accuracy", 0.85),
+            sediment_stratigraphy=astro_dating_params.get("sediment_stratigraphy", 0.80),
+            textual_compression_bias=astro_dating_params.get("textual_compression_bias", 0.25),
+            degeneracy_drag=astro_dating_params.get("degeneracy_drag", 0.20),
+        )
+        metrics["archaeo_astronomical_dating_score"] = _astro_dating_res["archaeo_astronomical_dating_score"]
+        metrics["planetary_ephemeris_accuracy"] = _astro_dating_res["planetary_ephemeris_accuracy"]
+        metrics["chronological_concordance_index"] = _astro_dating_res["chronological_concordance_index"]
+        metrics["vedic_chronology_tier"] = _astro_dating_res["vedic_chronology_tier"]
+
+        # Phase 303: Wire HistoricalDemystificationPartitionSieve
+        part_params = hist_meta.get("partition_demystification", {}) if isinstance(hist_meta, dict) else {}
+        _part_res = HistoricalDemystificationPartitionSieve.calculate(
+            empirical_archival_evidence=part_params.get("empirical_archival_evidence", 0.85),
+            mythological_deification_drag=part_params.get("mythological_deification_drag", 0.25),
+            khilafat_appeasement_cost=part_params.get("khilafat_appeasement_cost", 0.80),
+            secular_historical_amnesia=part_params.get("secular_historical_amnesia", 0.20),
+            primary_source_neutrality=part_params.get("primary_source_neutrality", 0.85),
+        )
+        metrics["historical_sandarshan_score"] = _part_res["historical_sandarshan_score"]
+        metrics["historical_truth_tier"] = _part_res["historical_truth_tier"]
+        metrics["archival_veracity_index"] = _part_res["archival_veracity_index"]
+
+        # Phase 309: Wire ArchivalPrimarySourceSieve
+        arch_params = hist_meta.get("archival_primary_source", {}) if isinstance(hist_meta, dict) else {}
+        _arch_res = ArchivalPrimarySourceSieve.calculate(
+            primary_epigraphy=arch_params.get("primary_epigraphy", 0.85),
+            secondary_academic_narrative=arch_params.get("secondary_academic_narrative", 0.25),
+            contemporary_revenue_records=arch_params.get("contemporary_revenue_records", 0.80),
+            postcolonial_speculative_bias=arch_params.get("postcolonial_speculative_bias", 0.20),
+        )
+        metrics["archival_fidelity_score"] = _arch_res["archival_fidelity_score"]
+        metrics["archival_fidelity_tier"] = _arch_res["archival_fidelity_tier"]
+        metrics["primary_epigraphic_index"] = _arch_res["primary_epigraphic_index"]
+
+        # Phase 314: Wire SubalternMemorySieve
+        sub_params = hist_meta.get("subaltern_memory", {}) if isinstance(hist_meta, dict) else {}
+        _sub_res = SubalternMemorySieve.calculate(
+            hero_stones_density=sub_params.get("hero_stones_density", 0.80),
+            oral_folk_resistance=sub_params.get("oral_folk_resistance", 0.75),
+            colonial_official_erasure=sub_params.get("colonial_official_erasure", 0.30),
+        )
+        metrics["subaltern_memory_score"] = _sub_res["subaltern_memory_score"]
+        metrics["subaltern_memory_tier"] = _sub_res["subaltern_memory_tier"]
+        metrics["subaltern_resilience_index"] = _sub_res["subaltern_resilience_index"]
+
+        # Phase 317: Wire ColonialDrainExtractionSieve
+        drain_params = hist_meta.get("colonial_drain_extraction", {}) if isinstance(hist_meta, dict) else {}
+        _drain_res = ColonialDrainExtractionSieve.calculate(
+            council_bills_drain_nominal=drain_params.get("council_bills_drain_nominal", 0.85),
+            domestic_capital_formation=drain_params.get("domestic_capital_formation", 0.30),
+            forced_tariff_deindustrialization=drain_params.get("forced_tariff_deindustrialization", 0.80),
+            reinvested_infrastructure_mitigation=drain_params.get("reinvested_infrastructure_mitigation", 0.15),
+        )
+        metrics["colonial_drain_score"] = _drain_res["colonial_drain_score"]
+        metrics["colonial_drain_tier"] = _drain_res["colonial_drain_tier"]
+        metrics["sovereign_drain_extraction_index"] = _drain_res["sovereign_drain_extraction_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -10822,6 +12883,367 @@ class MultidisciplinaryEpistemicTriangulationSieve:
             "triangulation_verdict": verdict,
             "is_triangulation_conclusive": score >= 0.55,
         }
+
+
+class ArchaeoAstronomicalEpigraphicDatingSieve:
+    """
+    Phase 293: Archaeo-Astronomical & Epigraphic Dating Sieve.
+    Enforces atomic multi-pillar planetary conjunction triangulation, retro-calculation
+    algorithms for ancient equinoxes/solstices, stratigraphic sedimentology correlation,
+    and mathematical refutation of colonial 1500 BCE invasion dogma.
+    """
+
+    @classmethod
+    def calculate_archaeo_astronomy(
+        cls,
+        planetary_conjunction_accuracy: float = 0.85,
+        sediment_stratigraphy: float = 0.80,
+        textual_compression_bias: float = 0.25,
+        degeneracy_drag: float = 0.20,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Archaeo-Astronomical Dating Score using calibrated logistic sigmoid:
+            z = 3.0 * conjunction + 2.6 * sediment - 3.5 * compression - 2.4 * degeneracy - 0.5
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        conj = max(0.0, min(1.0, float(planetary_conjunction_accuracy)))
+        sed = max(0.0, min(1.0, float(sediment_stratigraphy)))
+        comp = max(0.0, min(1.0, float(textual_compression_bias)))
+        deg = max(0.0, min(1.0, float(degeneracy_drag)))
+
+        z = 3.0 * conj + 2.6 * sed - 3.5 * comp - 2.4 * deg - 0.5
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "RIGOROUS_ASTRONOMICAL_EPIGRAPHIC_CERTAINTY"
+            verdict = "MULTI_PILLAR_CHRONOLOGICAL_CONCORDANCE_VERIFIED"
+            rationale = (
+                f"Rigorous certainty ({score:.4f}): Precise planetary conjunction alignments ({conj:.2f}) and sediment "
+                f"stratigraphy ({sed:.2f}) demolish colonial artificial timeline compressions."
+            )
+        elif score >= 0.55:
+            tier = "HIGH_FIDELITY_CHRONOLOGICAL_CONCORDANCE"
+            verdict = "CONCORDANT_EPIGRAPHIC_AND_STELLAR_MATCH"
+            rationale = (
+                f"High-fidelity concordance ({score:.4f}): Astronomical observations align closely with epigraphic and archaeological records."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_POETIC_DEGENERACY_INTERVAL"
+            verdict = "ELEVATED_METAPHORICAL_INTERPOLATION_RISK"
+            rationale = (
+                f"Contested interval ({score:.4f}): Textual compression bias ({comp:.2f}) creates chronological uncertainty."
+            )
+        else:
+            tier = "COLONIAL_EUROCENTRIC_FABRICATION"
+            verdict = "UNSCIENTIFIC_MAX_MULLER_TIMELINE_DISTORTION"
+            rationale = (
+                f"Colonial distortion ({score:.4f}): High compression bias and zero empirical backing preserve obsolete 19th-century dogma."
+            )
+
+        concordance_idx = round(min(1.0, sed * 0.60 + conj * 0.40), 4)
+
+        return {
+            "archaeo_astronomical_dating_score": score,
+            "planetary_conjunction_accuracy": round(conj, 4),
+            "sediment_stratigraphy": round(sed, 4),
+            "textual_compression_bias": round(comp, 4),
+            "degeneracy_drag": round(deg, 4),
+            "planetary_ephemeris_accuracy": round(conj, 4),
+            "chronological_concordance_index": concordance_idx,
+            "vedic_chronology_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_chronologically_rigorous": score >= 0.55,
+        }
+
+
+class HistoricalDemystificationPartitionSieve:
+    """
+    Phase 303: Quantifies historical truth-telling (Sandarshan) by stripping away political deification
+    (Mahatma-ism), evaluating archival evidence regarding Khilafat appeasement, silence on Moplah atrocities,
+    and the causal acceleration of 1947 Partition.
+    
+    Mathematical Formulation:
+      ratio = empirical_archival_evidence / (mythological_deification_drag + eps)
+      z = 2.8 * (ratio / 2.5) + 2.6 * khilafat_appeasement_cost - 3.2 * secular_historical_amnesia - 0.3
+      S_Historical_Sandarshan = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        empirical_archival_evidence: float = 0.85,
+        mythological_deification_drag: float = 0.25,
+        khilafat_appeasement_cost: float = 0.80,
+        secular_historical_amnesia: float = 0.20,
+        primary_source_neutrality: float = 0.85,
+    ) -> Dict[str, Any]:
+        archival = max(0.0, min(1.0, float(empirical_archival_evidence)))
+        myth = max(0.0, min(1.0, float(mythological_deification_drag)))
+        khilafat = max(0.0, min(1.0, float(khilafat_appeasement_cost)))
+        amnesia = max(0.0, min(1.0, float(secular_historical_amnesia)))
+        neutrality = max(0.0, min(1.0, float(primary_source_neutrality)))
+
+        ratio = min(5.0, archival / (myth + 1e-6))
+        z = 2.8 * (ratio / 2.5) + 2.6 * khilafat - 3.2 * amnesia - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "OBJECTIVE_HISTORICAL_SANDARSHAN"
+            verdict = "RIGOROUS_ARCHIVAL_DEMORALIZATION_AND_TRUTH_TELLING"
+            rationale = (
+                f"Objective historical Sandarshan ({score:.4f}): Archival documentation ({archival:.2f}) rigorously exposes "
+                f"the catastrophic cost of Khilafat appeasement ({khilafat:.2f}) and dispels political deification myths ({myth:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ARCHIVAL_DEMOPOLITIZATION_STABLE"
+            verdict = "EMERGING_EMPIRICAL_HISTORIOGRAPHY"
+            rationale = (
+                f"Archival stability ({score:.4f}): Primary historical sources progressively challenge sanitized secular narratives, "
+                f"though institutional inertia ({amnesia:.2f}) persists."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_MYTHOLOGICAL_NARRATIVE_BIAS"
+            verdict = "POLITICAL_DEIFICATION_DRAG"
+            rationale = (
+                f"Contested narrative ({score:.4f}): Post-independence state hagiography obscures causal drivers of Partition, "
+                f"distorting strategic civilizational memory."
+            )
+        else:
+            tier = "TOTAL_SECULAR_HISTORICAL_AMNESIA"
+            verdict = "TOTAL_TABOO_DRIVEN_HISTORICAL_CENSORSHIP"
+            rationale = (
+                f"Critical amnesia ({score:.4f}): Pervasive taboos censor historical records of communal violence and appeasement, "
+                f"leaving society vulnerable to repeated geopolitical errors."
+            )
+
+        archival_veracity_idx = round(min(1.0, (score * 0.60) + (neutrality * 0.40)), 4)
+
+        return {
+            "historical_sandarshan_score": score,
+            "archival_to_myth_ratio": round(ratio, 4),
+            "empirical_archival_evidence": round(archival, 4),
+            "mythological_deification_drag": round(myth, 4),
+            "khilafat_appeasement_cost": round(khilafat, 4),
+            "secular_historical_amnesia": round(amnesia, 4),
+            "primary_source_neutrality": round(neutrality, 4),
+            "archival_veracity_index": archival_veracity_idx,
+            "historical_truth_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_historically_demystified": score >= 0.55,
+        }
+
+
+class ArchivalPrimarySourceSieve:
+    """
+    Phase 309: Evaluates the weighting of primary archival evidence (contemporary inscriptions,
+    copper plates, Persian/Kannada Inam revenue registers) vs secondary academic commentaries.
+    
+    Mathematical Formulation:
+      ratio = primary_epigraphy / (secondary_academic_narrative + eps)
+      z = 3.2 * (ratio / 2.5) + 2.5 * contemporary_revenue_records - 3.0 * postcolonial_speculative_bias - 0.4
+      S_Archival_Fidelity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        primary_epigraphy: float = 0.85,
+        secondary_academic_narrative: float = 0.25,
+        contemporary_revenue_records: float = 0.80,
+        postcolonial_speculative_bias: float = 0.20,
+    ) -> Dict[str, Any]:
+        epigraphy = max(0.0, min(1.0, float(primary_epigraphy)))
+        secondary = max(0.0, min(1.0, float(secondary_academic_narrative)))
+        revenue = max(0.0, min(1.0, float(contemporary_revenue_records)))
+        bias = max(0.0, min(1.0, float(postcolonial_speculative_bias)))
+
+        ratio = min(5.0, epigraphy / (secondary + 1e-6))
+        z = 3.2 * (ratio / 2.5) + 2.5 * revenue - 3.0 * bias - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "PRISTINE_PRIMARY_ARCHIVAL_GROUNDING"
+            verdict = "PRIMARY_EPIGRAPHIC_SUPREMACY"
+            rationale = (
+                f"Pristine archival grounding ({score:.4f}): Inscriptional evidence ({epigraphy:.2f}) and contemporaneous "
+                f"revenue records ({revenue:.2f}) decisively invalidate speculative secondary commentary ({secondary:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_DOCUMENTARY_FIDELITY"
+            verdict = "SUBSTANTIAL_ARCHIVAL_SUPPORT"
+            rationale = (
+                f"Robust documentary fidelity ({score:.4f}): Primary records provide resilient evidentiary anchoring, "
+                f"resisting revisionist ideological drift."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_SECONDARY_BIAS_RISK"
+            verdict = "ELEVATED_SPECULATIVE_COMMENTARY_DRAG"
+            rationale = (
+                f"Contested historiography ({score:.4f}): Lack of direct primary epigraphy allows secondary narrative "
+                f"extrapolations ({bias:.2f}) to distort historical event assessment."
+            )
+        else:
+            tier = "TOTAL_HISTORIOGRAPHICAL_FABRICATION"
+            verdict = "CRITICAL_PRIMARY_SOURCE_DEFICIT"
+            rationale = (
+                f"Severe archival deficit ({score:.4f}): Complete absence of inscriptional backing enables total "
+                f"historiographical fabrication."
+            )
+
+        epigraphic_idx = round(min(1.0, (score * 0.65) + (epigraphy * 0.35)), 4)
+
+        return {
+            "archival_fidelity_score": score,
+            "epigraphic_to_secondary_ratio": round(ratio, 4),
+            "primary_epigraphy": round(epigraphy, 4),
+            "secondary_academic_narrative": round(secondary, 4),
+            "contemporary_revenue_records": round(revenue, 4),
+            "postcolonial_speculative_bias": round(bias, 4),
+            "primary_epigraphic_index": epigraphic_idx,
+            "archival_fidelity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_archivally_grounded": score >= 0.55,
+        }
+
+
+class SubalternMemorySieve:
+    """
+    Phase 314: Ingests physical artifacts (Hero Stones / Viragals, local shrines) and oral traditions
+    to cross-examine and correct official state or colonial administrative accounts.
+    
+    Mathematical Formulation:
+      z = 2.8 * hero_stones_density + 2.6 * oral_folk_resistance - 3.0 * colonial_official_erasure - 0.4
+      S_Subaltern_Memory = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        hero_stones_density: float = 0.80,
+        oral_folk_resistance: float = 0.75,
+        colonial_official_erasure: float = 0.30,
+    ) -> Dict[str, Any]:
+        hero = max(0.0, min(1.0, float(hero_stones_density)))
+        oral = max(0.0, min(1.0, float(oral_folk_resistance)))
+        erasure = max(0.0, min(1.0, float(colonial_official_erasure)))
+
+        z = 2.8 * hero + 2.6 * oral - 3.0 * erasure - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_SUBALTERN_MEMORY"
+            verdict = "RESILIENT_COMMUNITY_HISTORICAL_CONTINUITY"
+            rationale = (
+                f"Fortified subaltern memory ({score:.4f}): Dense physical hero stones ({hero:.2f}) and living oral traditions "
+                f"({oral:.2f}) successfully preserve battlefield sacrifices erased by colonial annals ({erasure:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_ORAL_RESISTANCE_TRUTH"
+            verdict = "EFFECTIVE_FOLK_EVIDENTIARY_ANCHOR"
+            rationale = (
+                f"Robust oral resistance ({score:.4f}): Local cultural memory provides verifiable historical truth-telling."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_FOLKLORE_AMNESIA"
+            verdict = "EROSION_OF_LOCAL_TACTICAL_HERITAGE"
+            rationale = (
+                f"Contested memory ({score:.4f}): Urbanization and colonial historiographical bias ({erasure:.2f}) erode "
+                f"indigenous resistance recollections."
+            )
+        else:
+            tier = "EXTINCTION_OF_LOCAL_HERITAGE"
+            verdict = "TOTAL_HISTORICAL_DELETION"
+            rationale = (
+                f"Critical memory loss ({score:.4f}): Complete loss of oral and in-situ hero stones leaves society "
+                f"historically disarmed."
+            )
+
+        subaltern_idx = round(min(1.0, (score * 0.60) + (hero * 0.40)), 4)
+
+        return {
+            "subaltern_memory_score": score,
+            "hero_stones_density": round(hero, 4),
+            "oral_folk_resistance": round(oral, 4),
+            "colonial_official_erasure": round(erasure, 4),
+            "subaltern_resilience_index": subaltern_idx,
+            "subaltern_memory_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_subaltern_memory_preserved": score >= 0.55,
+        }
+
+
+class ColonialDrainExtractionSieve:
+    """
+    Phase 317: Factors in historical wealth extraction coefficients ($45 trillion drain via Council Bills)
+    into long-term capital formation and sovereign industrial trajectory modeling.
+    
+    Mathematical Formulation:
+      ratio = council_bills_drain_nominal / (domestic_capital_formation + eps)
+      z = 3.2 * (ratio / 2.5) + 2.6 * forced_tariff_deindustrialization - 2.8 * reinvested_infrastructure_mitigation - 0.4
+      S_Colonial_Drain_Extraction = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        council_bills_drain_nominal: float = 0.85,
+        domestic_capital_formation: float = 0.30,
+        forced_tariff_deindustrialization: float = 0.80,
+        reinvested_infrastructure_mitigation: float = 0.15,
+    ) -> Dict[str, Any]:
+        drain = max(0.0, min(1.0, float(council_bills_drain_nominal)))
+        capital = max(0.0, min(1.0, float(domestic_capital_formation)))
+        tariff = max(0.0, min(1.0, float(forced_tariff_deindustrialization)))
+        reinvest = max(0.0, min(1.0, float(reinvested_infrastructure_mitigation)))
+
+        ratio = min(5.0, drain / (capital + 1e-6))
+        z = 3.2 * (ratio / 2.5) + 2.6 * tariff - 2.8 * reinvest - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "CATASTROPHIC_WEALTH_DRAIN_COEFFICIENT"
+            verdict = "SEVERE_SYSTEMIC_SURPLUS_SIPHON"
+            rationale = (
+                f"Catastrophic drain ({score:.4f}): Unilateral export surplus siphoned via Council Bills ({drain:.2f}) "
+                f"and forced tariff asymmetries ({tariff:.2f}) systematically crippled domestic capital formation ({capital:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "SEVERE_CAPITAL_STARVATION"
+            verdict = "ACCELERATED_DEINDUSTRIALIZATION"
+            rationale = (
+                f"Severe capital starvation ({score:.4f}): Substantial colonial fiscal extraction stunted indigenous manufacturing capacity."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_COLONIAL_ECONOMIC_DISTORTION"
+            verdict = "MODERATE_FISCAL_ASYMMETRY"
+            rationale = (
+                f"Contested economic distortion ({score:.4f}): Colonial trade policies created chronic structural imbalances."
+            )
+        else:
+            tier = "MINIMAL_SYSTEMIC_EXTRACTION"
+            verdict = "AUTONOMOUS_CAPITAL_ACCUMULATION"
+            rationale = (
+                f"Minimal extraction ({score:.4f}): Domestic capital formation outpaced external trade leakage."
+            )
+
+        sovereign_drain_idx = round(min(1.0, (score * 0.65) + (tariff * 0.35)), 4)
+
+        return {
+            "colonial_drain_score": score,
+            "drain_to_capital_ratio": round(ratio, 4),
+            "council_bills_drain_nominal": round(drain, 4),
+            "domestic_capital_formation": round(capital, 4),
+            "forced_tariff_deindustrialization": round(tariff, 4),
+            "reinvested_infrastructure_mitigation": round(reinvest, 4),
+            "sovereign_drain_extraction_index": sovereign_drain_idx,
+            "colonial_drain_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_colonial_drain_critical": score >= 0.55,
+        }
+
+
 
 ```
 
@@ -11035,6 +13457,33 @@ class HybridCovertLens:
             airgap_cyber_defense_score=hc_sab.get("airgap_cyber_defense_score", 0.70),
         )
         metrics.update({f"hybrid_{k}": v for k, v in _hc_ref_res.items()})
+
+        # Phase 285: Wire InterAgencyCounterSubversionSynergySieve
+        subv_params = hyb_meta.get("counter_subversion", {}) if isinstance(hyb_meta, dict) else {}
+        _subv_res = InterAgencyCounterSubversionSynergySieve.calculate_counter_subversion(
+            inter_agency_data_sharing=subv_params.get("inter_agency_data_sharing", 0.80),
+            asset_attachment_speed=subv_params.get("asset_attachment_speed", 0.75),
+            hawala_volume=subv_params.get("hawala_volume", 0.30),
+            diaspora_sanctuary_drag=subv_params.get("diaspora_sanctuary_drag", 0.40),
+        )
+        metrics["counter_subversion_score"] = _subv_res["counter_subversion_score"]
+        metrics["inter_agency_velocity_index"] = _subv_res["inter_agency_velocity_index"]
+        metrics["hawala_disruption_efficiency"] = _subv_res["hawala_disruption_efficiency"]
+        metrics["counter_subversion_tier"] = _subv_res["counter_subversion_tier"]
+
+        # Phase 294: Wire DeepStateBlackProjectIntelligenceSieve
+        bp_params = hyb_meta.get("black_projects", {}) if isinstance(hyb_meta, dict) else {}
+        _bp_res = DeepStateBlackProjectIntelligenceSieve.calculate_black_project_resilience(
+            compartmentalization_depth=bp_params.get("compartmentalization_depth", 0.80),
+            early_warning_cushion=bp_params.get("early_warning_cushion", 0.85),
+            c4isr_latency=bp_params.get("c4isr_latency", 0.25),
+            foreign_penetration_risk=bp_params.get("foreign_penetration_risk", 0.20),
+        )
+        metrics["black_project_resilience_score"] = _bp_res["black_project_resilience_score"]
+        metrics["sap_compartmentalization_index"] = _bp_res["sap_compartmentalization_index"]
+        metrics["c4isr_warning_latency_margin"] = _bp_res["c4isr_warning_latency_margin"]
+        metrics["covert_deterrence_tier"] = _bp_res["covert_deterrence_tier"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -11586,6 +14035,157 @@ class SubConventionalProxyWarfareSieve:
             "is_proxy_attrition_acute": threat >= 0.55,
         }
 
+
+class InterAgencyCounterSubversionSynergySieve:
+    """
+    Phase 285: Inter-Agency Counter-Subversion Synergy Sieve.
+    Models synchronized operational velocity across intelligence, kinetic, economic,
+    and statutory law enforcement agencies (NIA, CBI, ED, IB, FIU-IND) targeting
+    extraterritorial gangster-terror-narco funding pipelines and FCRA non-compliant foreign conduits.
+    """
+
+    @classmethod
+    def calculate_counter_subversion(
+        cls,
+        inter_agency_data_sharing: float = 0.80,
+        asset_attachment_speed: float = 0.75,
+        hawala_volume: float = 0.30,
+        diaspora_sanctuary_drag: float = 0.40,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Counter-Subversion Readiness Score using calibrated logistic sigmoid:
+            z = 2.6 * sharing + 2.8 * attachment - 3.0 * hawala - 2.5 * sanctuary - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        sharing = max(0.0, min(1.0, float(inter_agency_data_sharing)))
+        attach = max(0.0, min(1.0, float(asset_attachment_speed)))
+        hawala = max(0.0, min(1.0, float(hawala_volume)))
+        sanc = max(0.0, min(1.0, float(diaspora_sanctuary_drag)))
+
+        z = 2.6 * sharing + 2.8 * attach - 3.0 * hawala - 2.5 * sanc - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "PROACTIVE_OFFENSIVE_DEFENSE_SUPREMACY"
+            verdict = "SYNCHRONIZED_MULTI_AGENCY_SUBVERSION_DISRUPTION"
+            rationale = (
+                f"Proactive supremacy ({score:.4f}): Seamless inter-agency data sharing ({sharing:.2f}) and rapid ED/NIA asset "
+                f"attachment ({attach:.2f}) decapitate terror-gangster-hawala syndicates."
+            )
+        elif score >= 0.55:
+            tier = "COORDINATED_INTER_AGENCY_DISRUPTION"
+            verdict = "EFFECTIVE_FINANCIAL_AND_INTELLIGENCE_CONTAINMENT"
+            rationale = (
+                f"Coordinated disruption ({score:.4f}): FIU-IND and IB tracking successfully constrains domestic subversion, "
+                f"absorbing moderate external diaspora sanctuary drag ({sanc:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "ASYMMETRIC_HYBRID_SECURITY_FRICTION"
+            verdict = "INTER_AGENCY_SILO_FRICTION_IMPEDING_INTERDICTION"
+            rationale = (
+                f"Asymmetric friction ({score:.4f}): Sluggish asset attachments and persistent hawala conduits ({hawala:.2f}) "
+                f"slow response velocity against foreign covert conduits."
+            )
+        else:
+            tier = "ACUTE_SUBVERSIVE_PENETRATION_VULNERABILITY"
+            verdict = "UNCOORDINATED_ENFORCEMENT_SECURITY_DEFICIT"
+            rationale = (
+                f"Acute vulnerability ({score:.4f}): Severe inter-agency friction and uninhibited dark hawala flows ({hawala:.2f}) "
+                f"expose critical internal security nodes."
+            )
+
+        velocity_idx = round(min(1.0, sharing * 0.60 + attach * 0.40), 4)
+        hawala_disrupt = round(max(0.0, 1.0 - hawala), 4)
+
+        return {
+            "counter_subversion_score": score,
+            "inter_agency_data_sharing": round(sharing, 4),
+            "asset_attachment_speed": round(attach, 4),
+            "hawala_volume": round(hawala, 4),
+            "diaspora_sanctuary_drag": round(sanc, 4),
+            "inter_agency_velocity_index": velocity_idx,
+            "hawala_disruption_efficiency": hawala_disrupt,
+            "counter_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_counter_subversion_ready": score >= 0.55,
+        }
+
+
+class DeepStateBlackProjectIntelligenceSieve:
+    """
+    Phase 294: Deep-State Black Project Intelligence Sieve.
+    Models covert black-budget R&D, compartmentalized special access programs (SAP),
+    C4ISR nuclear launch warning latency, and sovereign intelligence resilience against foreign deep-state subversion.
+    """
+
+    @classmethod
+    def calculate_black_project_resilience(
+        cls,
+        compartmentalization_depth: float = 0.80,
+        early_warning_cushion: float = 0.85,
+        c4isr_latency: float = 0.25,
+        foreign_penetration_risk: float = 0.20,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Black Project Resilience Score using calibrated logistic sigmoid:
+            z = 2.8 * compart + 2.6 * early - 3.2 * latency - 2.8 * penet - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        compart = max(0.0, min(1.0, float(compartmentalization_depth)))
+        early = max(0.0, min(1.0, float(early_warning_cushion)))
+        latency = max(0.0, min(1.0, float(c4isr_latency)))
+        penet = max(0.0, min(1.0, float(foreign_penetration_risk)))
+
+        z = 2.8 * compart + 2.6 * early - 3.2 * latency - 2.8 * penet - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_AIRGAPPED_STRATEGIC_BLACK_PROGRAM"
+            verdict = "AIRGAPPED_SPECIAL_ACCESS_PROGRAM_SUPREMACY"
+            rationale = (
+                f"Fortified black program ({score:.4f}): Deep compartmentalization ({compart:.2f}) and generous early warning "
+                f"cushion ({early:.2f}) protect sovereign deterrence R&D and command-and-control continuity."
+            )
+        elif score >= 0.55:
+            tier = "COMPARTMENTALIZED_DETERRENCE_STABILITY"
+            verdict = "FUNCTIONAL_C4ISR_SURVIVABILITY"
+            rationale = (
+                f"Compartmentalized stability ({score:.4f}): Controlled foreign penetration risk ({penet:.2f}) ensures "
+                f"adequate nuclear alert cushion and intelligence integrity."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_C4ISR_LATENCY_VULNERABILITY"
+            verdict = "EXCESSIVE_DECISION_LATENCY_IN_EARLY_WARNING"
+            rationale = (
+                f"Elevated latency ({score:.4f}): C4ISR decision delays ({latency:.2f}) compress launch response timelines."
+            )
+        else:
+            tier = "CRITICAL_EARLY_WARNING_COMPROMISE"
+            verdict = "ACUTE_STRATEGIC_PROGRAM_LEAKAGE"
+            rationale = (
+                f"Critical compromise ({score:.4f}): Compromised compartmentalization and high penetration risk ({penet:.2f}) "
+                f"endanger strategic deterrence survivability."
+            )
+
+        warning_margin = round(early - latency, 4)
+
+        return {
+            "black_project_resilience_score": score,
+            "compartmentalization_depth": round(compart, 4),
+            "early_warning_cushion": round(early, 4),
+            "c4isr_latency": round(latency, 4),
+            "foreign_penetration_risk": round(penet, 4),
+            "sap_compartmentalization_index": round(compart, 4),
+            "c4isr_warning_latency_margin": warning_margin,
+            "covert_deterrence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_black_program_resilient": score >= 0.55,
+        }
+
 ```
 
 
@@ -12083,6 +14683,69 @@ class InstitutionalLawfareLens:
             narrative_delegitimation_pressure=dharmic_params_l.get("narrative_delegitimation_pressure", 0.40),
         )
         metrics.update({f"lawfare_{k}": v for k, v in _dharmic_res_l.items()})
+
+        # Phase 285: Wire InterAgencyCounterSubversionSynergySieve in InstitutionalLawfareLens
+        from .hybrid_covert import InterAgencyCounterSubversionSynergySieve
+        subv_params_il = law_meta.get("counter_subversion", {}) if isinstance(law_meta, dict) else {}
+        _subv_res_il = InterAgencyCounterSubversionSynergySieve.calculate_counter_subversion(
+            inter_agency_data_sharing=subv_params_il.get("inter_agency_data_sharing", 0.80),
+            asset_attachment_speed=subv_params_il.get("asset_attachment_speed", 0.75),
+            hawala_volume=subv_params_il.get("hawala_volume", 0.30),
+            diaspora_sanctuary_drag=subv_params_il.get("diaspora_sanctuary_drag", 0.40),
+        )
+        metrics.update({f"lawfare_{k}": v for k, v in _subv_res_il.items()})
+
+        # Phase 287: Wire SubNationalBureaucraticFrictionSieve in InstitutionalLawfareLens
+        from .bureaucratic_inertia import SubNationalBureaucraticFrictionSieve
+        bur_params_il = law_meta.get("bureaucratic_friction", {}) if isinstance(law_meta, dict) else {}
+        _bur_res_il = SubNationalBureaucraticFrictionSieve.calculate_administrative_velocity(
+            executive_clarity=bur_params_il.get("executive_clarity", 0.75),
+            statutory_de_registration=bur_params_il.get("statutory_de_registration", 0.70),
+            file_looping_latency=bur_params_il.get("file_looping_latency", 0.35),
+            pil_stay_order_drag=bur_params_il.get("pil_stay_order_drag", 0.30),
+        )
+        metrics.update({f"lawfare_{k}": v for k, v in _bur_res_il.items()})
+
+        # Phase 298: Wire SacredHeritageEncroachmentSieve
+        heritage_params = law_meta.get("sacred_heritage", {}) if isinstance(law_meta, dict) else {}
+        _heritage_res = SacredHeritageEncroachmentSieve.calculate(
+            illegal_shrine_area_sqm=heritage_params.get("illegal_shrine_area_sqm", 1200.0),
+            total_heritage_area_sqm=heritage_params.get("total_heritage_area_sqm", 50000.0),
+            asi_statutory_enforcement=heritage_params.get("asi_statutory_enforcement", 0.85),
+            topographic_command_value=heritage_params.get("topographic_command_value", 0.90),
+            vote_bank_appeasement_drag=heritage_params.get("vote_bank_appeasement_drag", 0.20),
+            citizen_vigilance_reporting=heritage_params.get("citizen_vigilance_reporting", 0.80),
+        )
+        metrics["heritage_defense_score"] = _heritage_res["heritage_defense_score"]
+        metrics["heritage_protection_tier"] = _heritage_res["heritage_protection_tier"]
+        metrics["topographic_heritage_integrity_index"] = _heritage_res["topographic_heritage_integrity_index"]
+
+        # Phase 301: Wire RitualEcologicalSubversionSieve
+        ritual_params = law_meta.get("ritual_ecological", {}) if isinstance(law_meta, dict) else {}
+        _ritual_res = RitualEcologicalSubversionSieve.calculate(
+            baseline_industrial_emissions_aqi=ritual_params.get("baseline_industrial_emissions_aqi", 280.0),
+            ritual_pulsed_emissions_aqi=ritual_params.get("ritual_pulsed_emissions_aqi", 35.0),
+            shastric_grounding_fidelity=ritual_params.get("shastric_grounding_fidelity", 0.85),
+            selective_prohibition_intensity=ritual_params.get("selective_prohibition_intensity", 0.25),
+            continuous_vehicular_industrial_share=ritual_params.get("continuous_vehicular_industrial_share", 0.82),
+        )
+        metrics["ritual_sovereignty_score"] = _ritual_res["ritual_sovereignty_score"]
+        metrics["ritual_sovereignty_tier"] = _ritual_res["ritual_sovereignty_tier"]
+        metrics["ecological_proportionality_index"] = _ritual_res["ecological_proportionality_index"]
+
+        # Phase 302: Wire DharmicConstitutionalismSieve
+        dharmic_const_params = law_meta.get("dharmic_constitutionalism", {}) if isinstance(law_meta, dict) else {}
+        _dharmic_const_res = DharmicConstitutionalismSieve.calculate(
+            indigenous_civilizational_continuity=dharmic_const_params.get("indigenous_civilizational_continuity", 0.85),
+            colonial_borrowed_dogma=dharmic_const_params.get("colonial_borrowed_dogma", 0.25),
+            decolonial_jurisprudence_depth=dharmic_const_params.get("decolonial_jurisprudence_depth", 0.80),
+            vote_bank_fetishism_drag=dharmic_const_params.get("vote_bank_fetishism_drag", 0.20),
+            dharma_rajdharma_judicial_fidelity=dharmic_const_params.get("dharma_rajdharma_judicial_fidelity", 0.82),
+        )
+        metrics["dharmic_constitutionalism_score"] = _dharmic_const_res["dharmic_constitutionalism_score"]
+        metrics["dharmic_constitutionalism_tier"] = _dharmic_const_res["dharmic_constitutionalism_tier"]
+        metrics["constitutional_authenticity_index"] = _dharmic_const_res["constitutional_authenticity_index"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -13224,6 +15887,246 @@ class SubRegionalElectoralPolarizationSieve:
             "is_electoral_governance_stable": score >= 0.55
         }
 
+
+class SacredHeritageEncroachmentSieve:
+    """
+    Phase 298: Sacred Heritage Preservation, Hilltop Fort Topography & Anti-Encroachment Sieve.
+    Quantifies physical and demographic encroachments on historical and sacred fortifications
+    (e.g. Chhatrapati Shivaji Maharaj's hilltop forts in Maharashtra: Vishalgad, Lohagad, Raigad),
+    evaluating the tactical military-topographic value of heritage forts, illegal religious shrine density,
+    and calculating Archaeological Survey of India (ASI) statutory enforcement vs vote-bank appeasement drag.
+
+    Formulation:
+      EncroachmentPressure = min(1.0, (illegal_shrine_area_sqm) / (total_heritage_area_sqm + 1e-6))
+      z = 2.8 * asi_statutory_enforcement + 2.5 * topographic_command_value - 3.6 * EncroachmentPressure - 2.4 * vote_bank_appeasement_drag - 0.3
+      S_Heritage = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        illegal_shrine_area_sqm: float = 1200.0,
+        total_heritage_area_sqm: float = 50000.0,
+        asi_statutory_enforcement: float = 0.85,
+        topographic_command_value: float = 0.90,
+        vote_bank_appeasement_drag: float = 0.20,
+        citizen_vigilance_reporting: float = 0.80,
+    ) -> Dict[str, Any]:
+        shrine_area = max(0.0, float(illegal_shrine_area_sqm))
+        tot_area = max(100.0, float(total_heritage_area_sqm))
+        asi = max(0.0, min(1.0, float(asi_statutory_enforcement)))
+        topo = max(0.0, min(1.0, float(topographic_command_value)))
+        appease = max(0.0, min(1.0, float(vote_bank_appeasement_drag)))
+        vigilance = max(0.0, min(1.0, float(citizen_vigilance_reporting)))
+
+        encroach_pressure = min(1.0, shrine_area / (tot_area + 1e-6))
+        z = 2.8 * asi + 2.5 * topo - 3.6 * encroach_pressure - 2.4 * appease - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_HERITAGE_SOVEREIGNTY"
+            verdict = "RIGOROUS_ARCHAEOLOGICAL_AND_STATUTORY_PROTECTION"
+            rationale = (
+                f"Fortified heritage protection ({score:.4f}): Robust ASI statutory enforcement ({asi:.2f}) and citizen vigilance "
+                f"safeguard high-command topographic fortifications ({topo:.2f}) with minimal encroachment ({encroach_pressure:.2%})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_FORT_DEFENSE_STABLE"
+            verdict = "ACTIVE_DEMOLITION_AND_RESTORATION_EFFORTS"
+            rationale = (
+                f"Robust defense ({score:.4f}): Legal enforcement actively counters illegal shrines, "
+                f"though ongoing appeasement pressure ({appease:.2f}) requires continuous judicial oversight."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_GRAYZONE_ENCROACHMENT_RISK"
+            verdict = "ELEVATED_ILLEGAL_STRUCTURE_OCCUPATION"
+            rationale = (
+                f"Contested heritage ({score:.4f}): Political vote-bank appeasement stalls eviction notices, "
+                f"allowing strategic hilltop fortification areas to be encroached."
+            )
+        else:
+            tier = "CRITICAL_HERITAGE_DESECRATION_AND_ERASURE"
+            verdict = "ACUTE_TACTICAL_AND_CIVILIZATIONAL_OCCUPATION"
+            rationale = (
+                f"Critical heritage erasure ({score:.4f}): Unchecked unauthorized shrines and bureaucratic inertia "
+                f"compromise both historical memory and tactical geographic topography."
+            )
+
+        topographic_integrity_idx = round(min(1.0, (score * 0.65) + (vigilance * 0.35)), 4)
+
+        return {
+            "heritage_defense_score": score,
+            "encroachment_pressure_ratio": round(encroach_pressure, 4),
+            "illegal_shrine_area_sqm": round(shrine_area, 2),
+            "total_heritage_area_sqm": round(tot_area, 2),
+            "asi_statutory_enforcement": round(asi, 4),
+            "topographic_command_value": round(topo, 4),
+            "vote_bank_appeasement_drag": round(appease, 4),
+            "citizen_vigilance_reporting": round(vigilance, 4),
+            "topographic_heritage_integrity_index": topographic_integrity_idx,
+            "heritage_protection_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_heritage_fortified": score >= 0.55,
+        }
+
+
+class RitualEcologicalSubversionSieve:
+    """
+    Phase 301: Quantifies selective judicial and regulatory burdens imposed on indigenous Hindu rituals
+    (Diwali firecrackers, Dahi Handi, Jallikattu) relative to continuous baseline industrial emissions
+    and non-Hindu festival impacts.
+    
+    Mathematical Formulation:
+      ratio = baseline_industrial_emissions / (ritual_pulsed_emissions + eps)
+      z = 2.8 * (ratio / 5.0) + 2.5 * shastric_grounding - 3.4 * selective_prohibition - 0.4
+      S_Ritual_Sovereignty = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        baseline_industrial_emissions_aqi: float = 280.0,
+        ritual_pulsed_emissions_aqi: float = 35.0,
+        shastric_grounding_fidelity: float = 0.85,
+        selective_prohibition_intensity: float = 0.25,
+        continuous_vehicular_industrial_share: float = 0.82,
+    ) -> Dict[str, Any]:
+        base_aqi = max(10.0, float(baseline_industrial_emissions_aqi))
+        ritual_aqi = max(1.0, float(ritual_pulsed_emissions_aqi))
+        shastra = max(0.0, min(1.0, float(shastric_grounding_fidelity)))
+        prohib = max(0.0, min(1.0, float(selective_prohibition_intensity)))
+        vehicular = max(0.0, min(1.0, float(continuous_vehicular_industrial_share)))
+
+        ratio = min(10.0, base_aqi / (ritual_aqi + 1e-6))
+        z = 2.8 * (ratio / 5.0) + 2.5 * shastra - 3.4 * prohib - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_RITUAL_SOVEREIGNTY"
+            verdict = "INDIGENOUS_RITUAL_PRACTICE_PROTECTED_AND_VALIDATED"
+            rationale = (
+                f"Fortified ritual sovereignty ({score:.4f}): Continuous industrial/vehicular emissions ({vehicular:.2%}) "
+                f"dwarf seasonal pulsed ritual impact (ratio {ratio:.1f}x), preserving shastric festival rights ({shastra:.2f}) "
+                f"against selective regulatory overreach ({prohib:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_SHATRIC_TRADITION_RESILIENT"
+            verdict = "EVIDENCE_BASED_ENVIRONMENTAL_HARMONIZATION"
+            rationale = (
+                f"Robust resilience ({score:.4f}): Statutory and community awareness counters selective bans, "
+                f"though judicial scrutiny requires ongoing forensic air-quality data presentation."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_JUDICIAL_OVERREACH_RISK"
+            verdict = "ASYMMETRIC_SEASONAL_RITUAL_REGULATION"
+            rationale = (
+                f"Contested ritual freedom ({score:.4f}): Selective judicial bans target cultural festivities "
+                f"while ignoring perennial point-source industrial pollution ({base_aqi:.1f} AQI)."
+            )
+        else:
+            tier = "CRITICAL_CIVILIZATIONAL_RITUAL_ENCLOSURE"
+            verdict = "ACUTE_INDIGENOUS_CULTURAL_CRIMINALIZATION"
+            rationale = (
+                f"Critical ritual enclosure ({score:.4f}): Pervasive lawfare criminalizes millennia-old traditions "
+                f"under selective ecological pretexts, eroding civilizational cultural continuity."
+            )
+
+        proportionality_idx = round(min(1.0, (score * 0.60) + (vehicular * 0.40)), 4)
+
+        return {
+            "ritual_sovereignty_score": score,
+            "baseline_to_ritual_emissions_ratio": round(ratio, 4),
+            "baseline_industrial_aqi": round(base_aqi, 2),
+            "ritual_pulsed_aqi": round(ritual_aqi, 2),
+            "shastric_grounding_fidelity": round(shastra, 4),
+            "selective_prohibition_intensity": round(prohib, 4),
+            "continuous_vehicular_industrial_share": round(vehicular, 4),
+            "ecological_proportionality_index": proportionality_idx,
+            "ritual_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_ritual_sovereign": score >= 0.55,
+        }
+
+
+class DharmicConstitutionalismSieve:
+    """
+    Phase 302: Measures the structural durability of constitutional jurisprudence by evaluating
+    the harmony between Euro-Christian borrowed constitutional morality and indigenous civilizational
+    Sanskriti (Rajdharma, Dharma as supreme justice).
+    
+    Mathematical Formulation:
+      ratio = indigenous_civilizational_continuity / (colonial_borrowed_dogma + eps)
+      z = 3.0 * (ratio / 2.5) + 2.4 * decolonial_jurisprudence - 2.8 * vote_bank_fetishism - 0.5
+      S_Dharmic_Constitutionalism = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        indigenous_civilizational_continuity: float = 0.85,
+        colonial_borrowed_dogma: float = 0.25,
+        decolonial_jurisprudence_depth: float = 0.80,
+        vote_bank_fetishism_drag: float = 0.20,
+        dharma_rajdharma_judicial_fidelity: float = 0.82,
+    ) -> Dict[str, Any]:
+        indig = max(0.0, min(1.0, float(indigenous_civilizational_continuity)))
+        colon = max(0.0, min(1.0, float(colonial_borrowed_dogma)))
+        decolon = max(0.0, min(1.0, float(decolonial_jurisprudence_depth)))
+        votebank = max(0.0, min(1.0, float(vote_bank_fetishism_drag)))
+        dharma = max(0.0, min(1.0, float(dharma_rajdharma_judicial_fidelity)))
+
+        ratio = min(5.0, indig / (colon + 1e-6))
+        z = 3.0 * (ratio / 2.5) + 2.4 * decolon - 2.8 * votebank - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_DHARMIC_CONSTITUTIONALISM"
+            verdict = "SOVEREIGN_INDIGENOUS_JURISPRUDENCE_CONSOLIDATED"
+            rationale = (
+                f"Fortified Dharmic constitutionalism ({score:.4f}): Indigenous legal foundations ({indig:.2f}) "
+                f"and Rajdharma principles ({dharma:.2f}) successfully supersede borrowed colonial dogmas ({colon:.2f}) "
+                f"with robust decolonial judicial reasoning ({decolon:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "DECOLONIAL_JURISPRUDENCE_EMERGENT"
+            verdict = "PROGRESSIVE_CIVILIZATIONAL_LEGAL_REALIGNMENT"
+            rationale = (
+                f"Emergent decolonial jurisprudence ({score:.4f}): Dharmic jurisprudential precedents gain institutional traction, "
+                f"countering political vote-bank opportunism ({votebank:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_POST_COLONIAL_LEGAL_FRICTION"
+            verdict = "EUROCENTRIC_CONSTITUTIONAL_MORALITY_TENSION"
+            rationale = (
+                f"Contested legal friction ({score:.4f}): Transplanted Western constitutional doctrines create friction "
+                f"with native ethos, resulting in unpredictable judicial interventions."
+            )
+        else:
+            tier = "ACUTE_CIVILIZATIONAL_CONSTITUTIONAL_ALIENATION"
+            verdict = "TOTAL_COLONIAL_INSTITUTIONAL_HEGEMONY"
+            rationale = (
+                f"Acute constitutional alienation ({score:.4f}): Legal institutions operate entirely divorced from "
+                f"indigenous civilizational reality, imposing alien doctrines that trigger societal instability."
+            )
+
+        constitutional_authenticity_idx = round(min(1.0, (score * 0.65) + (dharma * 0.35)), 4)
+
+        return {
+            "dharmic_constitutionalism_score": score,
+            "civilizational_to_colonial_ratio": round(ratio, 4),
+            "indigenous_civilizational_continuity": round(indig, 4),
+            "colonial_borrowed_dogma": round(colon, 4),
+            "decolonial_jurisprudence_depth": round(decolon, 4),
+            "vote_bank_fetishism_drag": round(votebank, 4),
+            "dharma_rajdharma_judicial_fidelity": round(dharma, 4),
+            "constitutional_authenticity_index": constitutional_authenticity_idx,
+            "dharmic_constitutionalism_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_dharmic_constitutional": score >= 0.55,
+        }
+
+
+
 ```
 
 
@@ -13971,6 +16874,70 @@ class MilitaryReadinessLens:
         metrics["pnt_sovereignty_tier"] = _pnt_result["pnt_sovereignty_tier"]
         metrics["missile_cep_assurance"] = _pnt_result["missile_cep_assurance"]
 
+        # Phase 289: Wire ExtremeHighAltitudeAirliftLogisticsSieve
+        mr_meta = getattr(event, "metadata", {}) or {}
+        airlift_params = mr_meta.get("high_altitude_airlift", {}) if isinstance(mr_meta, dict) else {}
+        _airlift_res = ExtremeHighAltitudeAirliftLogisticsSieve.calculate_high_altitude_logistics(
+            heavy_airlift_capacity=airlift_params.get("heavy_airlift_capacity", 0.80),
+            winter_readiness=airlift_params.get("winter_readiness", 0.75),
+            elevation_meters=airlift_params.get("elevation_meters", 4154.0),
+            weather_friction=airlift_params.get("weather_friction", 0.30),
+        )
+        metrics["high_altitude_logistics_score"] = _airlift_res["high_altitude_logistics_score"]
+        metrics["alg_payload_retention_ratio"] = _airlift_res["alg_payload_retention_ratio"]
+        metrics["winter_mechanized_mobility_index"] = _airlift_res["winter_mechanized_mobility_index"]
+        metrics["high_altitude_logistics_tier"] = _airlift_res["high_altitude_logistics_tier"]
+
+        # Phase 283: Wire IslandEEZMaritimeNetSecuritySieve in MilitaryReadinessLens
+        from .geopolitical import IslandEEZMaritimeNetSecuritySieve
+        island_params_mr = mr_meta.get("island_net_security", {}) if isinstance(mr_meta, dict) else {}
+        _island_res_mr = IslandEEZMaritimeNetSecuritySieve.calculate_maritime_net_security(
+            basing_airgap_radius=island_params_mr.get("basing_airgap_radius", 0.75),
+            sagar_treaty_depth=island_params_mr.get("sagar_treaty_depth", 0.80),
+            coastal_radar_uptime=island_params_mr.get("coastal_radar_uptime", 0.85),
+            plan_dual_use_incursion=island_params_mr.get("plan_dual_use_incursion", 0.35),
+            host_nation_political_drift=island_params_mr.get("host_nation_political_drift", 0.25),
+        )
+        metrics.update({f"military_{k}": v for k, v in _island_res_mr.items()})
+
+        # Phase 288: Wire IndigenousGaNAESARadarSovereigntySieve in MilitaryReadinessLens
+        from .deep_tech import IndigenousGaNAESARadarSovereigntySieve
+        radar_params_mr = mr_meta.get("gan_radar", {}) if isinstance(mr_meta, dict) else {}
+        _radar_res_mr = IndigenousGaNAESARadarSovereigntySieve.calculate_gan_radar_sovereignty(
+            gan_trm_density=radar_params_mr.get("gan_trm_density", 0.75),
+            aesa_autonomy=radar_params_mr.get("aesa_autonomy", 0.80),
+            foreign_vendor_lockin=radar_params_mr.get("foreign_vendor_lockin", 0.25),
+            thermal_dissipation_drag=radar_params_mr.get("thermal_dissipation_drag", 0.20),
+        )
+        metrics.update({f"military_{k}": v for k, v in _radar_res_mr.items()})
+
+        # Phase 300: Wire MaritimeChokepointMalaccaDeterrenceSieve
+        mil_meta = getattr(event, "metadata", {}) or {}
+        malacca_params = mil_meta.get("malacca_chokepoint", {}) if isinstance(mil_meta, dict) else {}
+        _malacca_res = MaritimeChokepointMalaccaDeterrenceSieve.calculate(
+            adversary_malacca_energy_dependency_pct=malacca_params.get("adversary_malacca_energy_dependency_pct", 0.80),
+            anc_maritime_strike_readiness=malacca_params.get("anc_maritime_strike_readiness", 0.88),
+            adversary_escort_capacity_ratio=malacca_params.get("adversary_escort_capacity_ratio", 0.45),
+            great_nicobar_bastion_fortification=malacca_params.get("great_nicobar_bastion_fortification", 0.85),
+            interdiction_reaction_latency_hours=malacca_params.get("interdiction_reaction_latency_hours", 3.0),
+            submarine_picket_density=malacca_params.get("submarine_picket_density", 0.80),
+        )
+        metrics["maritime_chokepoint_deterrence_score"] = _malacca_res["maritime_chokepoint_deterrence_score"]
+        metrics["maritime_deterrence_tier"] = _malacca_res["maritime_deterrence_tier"]
+        metrics["maritime_chokepoint_veto_index"] = _malacca_res["maritime_chokepoint_veto_index"]
+
+        # Phase 315: Wire IndustrialAttritionSieve
+        att_params = mil_meta.get("industrial_attrition", {}) if isinstance(mil_meta, dict) else {}
+        _att_res = IndustrialAttritionSieve.calculate(
+            monthly_domestic_production=att_params.get("monthly_domestic_production", 0.85),
+            daily_combat_burn_rate=att_params.get("daily_combat_burn_rate", 0.30),
+            propellant_precursor_autonomy=att_params.get("propellant_precursor_autonomy", 0.80),
+            foreign_component_dependency=att_params.get("foreign_component_dependency", 0.20),
+        )
+        metrics["industrial_attrition_score"] = _att_res["industrial_attrition_score"]
+        metrics["industrial_attrition_tier"] = _att_res["industrial_attrition_tier"]
+        metrics["attrition_sustainability_index"] = _att_res["attrition_sustainability_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -14197,6 +17164,241 @@ class SovereignPNTNavigationAutonomySieve:
             "tactical_rationale": rationale,
             "is_pnt_sovereign": score >= 0.60,
         }
+
+
+class ExtremeHighAltitudeAirliftLogisticsSieve:
+    """
+    Phase 289: Extreme High-Altitude Airlift Logistics Sieve.
+    Quantifies high-altitude advanced landing ground (Nyoma 13,629 ft ALG, Daulat Beg Oldi) payload capacity,
+    thrust-derating curves under thin atmosphere, rapid armor/mechanized reinforcement deployment time,
+    and winter LAC escalation dominance.
+    """
+
+    @classmethod
+    def calculate_high_altitude_logistics(
+        cls,
+        heavy_airlift_capacity: float = 0.80,
+        winter_readiness: float = 0.75,
+        elevation_meters: float = 4154.0,
+        weather_friction: float = 0.30,
+    ) -> Dict[str, Any]:
+        """
+        Calculates High-Altitude Logistics Score using calibrated logistic sigmoid:
+            ThrustDerate = min(1.0, elevation_meters / 5000.0)
+            z = 3.0 * heavy + 2.5 * winter - 3.2 * ThrustDerate - 2.4 * weather - 0.2
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        heavy = max(0.0, min(1.0, float(heavy_airlift_capacity)))
+        winter = max(0.0, min(1.0, float(winter_readiness)))
+        elev = max(0.0, float(elevation_meters))
+        weather = max(0.0, min(1.0, float(weather_friction)))
+
+        thrust_derate = min(1.0, elev / 5000.0)
+        z = 3.0 * heavy + 2.5 * winter - 3.2 * thrust_derate - 2.4 * weather - 0.2
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_HIGH_ALTITUDE_AIRLIFT_SUPREMACY"
+            verdict = "RAPID_FORWARD_ARMOR_AND_TROOP_DEPLOYMENT_ASSURED"
+            rationale = (
+                f"Fortified high-altitude logistics ({score:.4f}): Heavy airlift capacity ({heavy:.2f}) and winter "
+                f"readiness ({winter:.2f}) at Nyoma/DBO ensure round-the-clock mechanized reinforcement dominance."
+            )
+        elif score >= 0.55:
+            tier = "SUSTAINABLE_FORWARD_ALG_OPERATIONS"
+            verdict = "RESILIENT_SUPPLY_CHAIN_MAINTAINED"
+            rationale = (
+                f"Sustainable operations ({score:.4f}): Robust transport fleet sustains forward garrisons despite elevation derating ({thrust_derate:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "ELEVATED_ATMOSPHERIC_PAYLOAD_CONSTRAINTS"
+            verdict = "REDUCED_PAYLOAD_AND_WEATHER_SENSITIVITY"
+            rationale = (
+                f"Elevated constraints ({score:.4f}): Thin air payload penalties and inclement weather ({weather:.2f}) restrict sortie frequency."
+            )
+        else:
+            tier = "ACUTE_WINTER_ISOLATION_RISK"
+            verdict = "CRITICAL_LOGISTICS_STRANGULATION_HAZARD"
+            rationale = (
+                f"Acute isolation risk ({score:.4f}): Extreme elevation derate and weather paralyze forward airlifts, risking tactical cutoff."
+            )
+
+        payload_retention = round(max(0.0, 1.0 - thrust_derate * 0.60), 4)
+        mech_mobility = round(min(1.0, winter * 0.70 + heavy * 0.30), 4)
+
+        return {
+            "high_altitude_logistics_score": score,
+            "heavy_airlift_capacity": round(heavy, 4),
+            "winter_readiness": round(winter, 4),
+            "elevation_meters": round(elev, 2),
+            "weather_friction": round(weather, 4),
+            "thrust_derate": round(thrust_derate, 4),
+            "alg_payload_retention_ratio": payload_retention,
+            "winter_mechanized_mobility_index": mech_mobility,
+            "high_altitude_logistics_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_high_altitude_airlift_capable": score >= 0.55,
+        }
+
+
+class MaritimeChokepointMalaccaDeterrenceSieve:
+    """
+    Phase 300: Maritime Chokepoint Asymmetric Deterrence, Malacca Energy Vulnerability & Great Nicobar Bastion Sieve.
+    Quantifies Indian Navy escalation dominance over Chinese seaborne energy flows
+    transiting the Strait of Malacca (80% of Chinese seaborne crude oil),
+    evaluating Andaman and Nicobar Command (ANC) naval aviation strike radius, Great Nicobar dual-use bastion command,
+    and anti-access / area-denial (A2/AD) submarine interdiction readiness against adversary escort capacity.
+
+    Formulation:
+      MalaccaInterdictionRatio = min(2.0, (adversary_malacca_energy_dependency_pct * anc_maritime_strike_readiness) / (adversary_escort_capacity_ratio + 1e-6))
+      z = 3.0 * MalaccaInterdictionRatio + 2.5 * great_nicobar_bastion_fortification - 2.6 * (interdiction_reaction_latency_hours / 24.0) - 0.2
+      S_Maritime = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        adversary_malacca_energy_dependency_pct: float = 0.80,
+        anc_maritime_strike_readiness: float = 0.88,
+        adversary_escort_capacity_ratio: float = 0.45,
+        great_nicobar_bastion_fortification: float = 0.85,
+        interdiction_reaction_latency_hours: float = 3.0,
+        submarine_picket_density: float = 0.80,
+    ) -> Dict[str, Any]:
+        dep = max(0.0, min(1.0, float(adversary_malacca_energy_dependency_pct)))
+        strike = max(0.0, min(1.0, float(anc_maritime_strike_readiness)))
+        escort = max(0.05, min(2.0, float(adversary_escort_capacity_ratio)))
+        nicobar = max(0.0, min(1.0, float(great_nicobar_bastion_fortification)))
+        latency = max(0.5, float(interdiction_reaction_latency_hours))
+        sub = max(0.0, min(1.0, float(submarine_picket_density)))
+
+        interdiction_ratio = min(2.0, (dep * strike) / (escort + 1e-6))
+        norm_latency = min(2.0, latency / 24.0)
+
+        z = 3.0 * interdiction_ratio + 2.5 * nicobar - 2.6 * norm_latency - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_ASIMETRIC_MARITIME_STRANGLEHOLD"
+            verdict = "DECISIVE_SLOC_INTERDICTION_ESCALATION_DOMINANCE"
+            rationale = (
+                f"Fortified maritime dominance ({score:.4f}): Great Nicobar bastion ({nicobar:.2f}) and ANC strike readiness ({strike:.2f}) "
+                f"hold adversary's 80% Malacca energy transit ({dep:.2%}) at decisive risk, deterring continental aggression."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_CHOKEPOINT_DETERRENCE_STABLE"
+            verdict = "CREDIBLE_A2AD_DENIAL_CAPABILITY"
+            rationale = (
+                f"Robust deterrence ({score:.4f}): Maritime interdiction capability ({interdiction_ratio:.2f}) imposes severe costs, "
+                f"though ongoing PLAN carrier deployments require continuous submarine picket reinforcement."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_LITTORAL_INTERDICTION_INTERVAL"
+            verdict = "ELEVATED_ESCORT_PENETRATION_RISK"
+            rationale = (
+                f"Contested chokepoint ({score:.4f}): Adversary escort capabilities and logistics latency ({latency:.1f}h) "
+                f"partially dilute Indian naval interdiction leverage."
+            )
+        else:
+            tier = "CRITICAL_MARITIME_LEVERAGE_COLLAPSE"
+            verdict = "ACUTE_SLOC_CONTROL_DEFICIT"
+            rationale = (
+                f"Critical leverage collapse ({score:.4f}): Inadequate naval assets at Andaman & Nicobar Command "
+                f"forfeit the geographic advantage over adversary sea lanes of communication."
+            )
+
+        maritime_veto_idx = round(min(1.0, (score * 0.60) + (sub * 0.40)), 4)
+
+        return {
+            "maritime_chokepoint_deterrence_score": score,
+            "malacca_interdiction_ratio": round(interdiction_ratio, 4),
+            "adversary_malacca_energy_dependency_pct": round(dep, 4),
+            "anc_maritime_strike_readiness": round(strike, 4),
+            "adversary_escort_capacity_ratio": round(escort, 4),
+            "great_nicobar_bastion_fortification": round(nicobar, 4),
+            "interdiction_reaction_latency_hours": round(latency, 2),
+            "submarine_picket_density": round(sub, 4),
+            "maritime_chokepoint_veto_index": maritime_veto_idx,
+            "maritime_deterrence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_malacca_deterrence_credible": score >= 0.55,
+        }
+
+
+class IndustrialAttritionSieve:
+    """
+    Phase 315: Evaluates industrial manufacturing surge capacity (monthly shell/drone forging,
+    propellant precursors) against high-intensity combat burn rates, scoring 90-180 day sustainability.
+    
+    Mathematical Formulation:
+      burn_monthly = daily_combat_burn_rate * 30.0
+      ratio = monthly_domestic_production / (burn_monthly + eps)
+      z = 3.0 * (ratio / 2.5) + 2.6 * propellant_precursor_autonomy - 2.8 * foreign_component_dependency - 0.4
+      S_Industrial_Attrition = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        monthly_domestic_production: float = 0.85,
+        daily_combat_burn_rate: float = 0.30,
+        propellant_precursor_autonomy: float = 0.80,
+        foreign_component_dependency: float = 0.20,
+    ) -> Dict[str, Any]:
+        production = max(0.0, min(1.0, float(monthly_domestic_production)))
+        burn = max(0.0, min(1.0, float(daily_combat_burn_rate)))
+        propellant = max(0.0, min(1.0, float(propellant_precursor_autonomy)))
+        dependency = max(0.0, min(1.0, float(foreign_component_dependency)))
+
+        burn_monthly = max(0.05, burn * 1.5)
+        ratio = min(5.0, production / (burn_monthly + 1e-6))
+        z = 3.0 * (ratio / 2.5) + 2.6 * propellant - 2.8 * dependency - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_180_DAY_ATTRITION_RESILIENCE"
+            verdict = "INDEPENDENT_WAR_PRODUCTION_SURGE"
+            rationale = (
+                f"Fortified industrial attrition resilience ({score:.4f}): Domestic munitions forging ({production:.2f}) "
+                f"and chemical propellant autonomy ({propellant:.2f}) easily match combat expenditure, resisting foreign supply denial."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_90_DAY_SUSTAINABILITY"
+            verdict = "SUSTAINED_MEDIUM_INTENSITY_OPERATIONS"
+            rationale = (
+                f"Robust sustainability ({score:.4f}): Domestic production sustains extended frontline military combat."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_30_DAY_DEPLETION_RISK"
+            verdict = "AMMUNITION_STOCKPILE_EXHAUSTION_WARNING"
+            rationale = (
+                f"Contested industrial surge ({score:.4f}): High combat burn ({burn:.2f}) outpaces peacetime factory lines."
+            )
+        else:
+            tier = "ACUTE_AMMUNITION_STARVATION"
+            verdict = "CRITICAL_LOGISTICAL_COLLAPSE"
+            rationale = (
+                f"Critical attrition failure ({score:.4f}): Total reliance on foreign imports ({dependency:.2f}) paralyzes combat operations."
+            )
+
+        attrition_idx = round(min(1.0, (score * 0.65) + (propellant * 0.35)), 4)
+
+        return {
+            "industrial_attrition_score": score,
+            "production_to_burn_ratio": round(ratio, 4),
+            "monthly_domestic_production": round(production, 4),
+            "daily_combat_burn_rate": round(burn, 4),
+            "propellant_precursor_autonomy": round(propellant, 4),
+            "foreign_component_dependency": round(dependency, 4),
+            "attrition_sustainability_index": attrition_idx,
+            "industrial_attrition_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_attrition_sustainable": score >= 0.55,
+        }
+
+
 
 ```
 
@@ -14692,6 +17894,58 @@ class PropagandaLens:
             epigraphy_concordance=triang_params_p.get("epigraphy_concordance", 0.70),
         )
         metrics.update({f"propaganda_{k}": v for k, v in _prop_triang.items()})
+
+        # Phase 290: Wire BigTechAlgorithmicSovereigntySieve in PropagandaLens
+        from .digital_sovereignty import BigTechAlgorithmicSovereigntySieve
+        algo_params_p = prop_meta.get("algorithmic_sovereignty", {}) if isinstance(prop_meta, dict) else {}
+        _algo_res_p = BigTechAlgorithmicSovereigntySieve.calculate_algorithmic_sovereignty(
+            statutory_enforcement=algo_params_p.get("statutory_enforcement", 0.75),
+            data_localization=algo_params_p.get("data_localization", 0.80),
+            algorithmic_nudging=algo_params_p.get("algorithmic_nudging", 0.35),
+            shadow_banning_intensity=algo_params_p.get("shadow_banning_intensity", 0.30),
+        )
+        metrics.update({f"propaganda_{k}": v for k, v in _algo_res_p.items()})
+
+        # Phase 299: Wire NarrativeInversionSubversionSieve
+        narr_meta = getattr(summit, "metadata", {}) or {}
+        narr_params = narr_meta.get("narrative_inversion", {}) if isinstance(narr_meta, dict) else {}
+        _narr_res = NarrativeInversionSubversionSieve.calculate(
+            villain_glamorization=narr_params.get("villain_glamorization", 0.80),
+            sacred_archetype_dilution=narr_params.get("sacred_archetype_dilution", 0.75),
+            linguistic_profanation=narr_params.get("linguistic_profanation", 0.65),
+            canonical_epic_integrity=narr_params.get("canonical_epic_integrity", 0.85),
+            revenue_loss_from_boycott_cr=narr_params.get("revenue_loss_from_boycott_cr", 400.0),
+            production_budget_cr=narr_params.get("production_budget_cr", 500.0),
+            alternative_media_rebuttal_reach=narr_params.get("alternative_media_rebuttal_reach", 0.80),
+        )
+        metrics["narrative_immunity_score"] = _narr_res["narrative_immunity_score"]
+        metrics["narrative_defense_tier"] = _narr_res["narrative_defense_tier"]
+        metrics["narrative_counter_strike_index"] = _narr_res["narrative_counter_strike_index"]
+
+        # Phase 304: Wire CanonicalEpicFidelitySieve
+        epic_params = narr_meta.get("canonical_epic_fidelity", {}) if isinstance(narr_meta, dict) else {}
+        _epic_res = CanonicalEpicFidelitySieve.calculate(
+            primary_valmiki_fidelity=epic_params.get("primary_valmiki_fidelity", 0.85),
+            marxist_pop_revisionism=epic_params.get("marxist_pop_revisionism", 0.20),
+            consumer_boycott_elasticity=epic_params.get("consumer_boycott_elasticity", 0.75),
+            dialogue_profanation_index=epic_params.get("dialogue_profanation_index", 0.15),
+            cinematic_box_office_penalty=epic_params.get("cinematic_box_office_penalty", 0.70),
+        )
+        metrics["canonical_fidelity_score"] = _epic_res["canonical_fidelity_score"]
+        metrics["canonical_fidelity_tier"] = _epic_res["canonical_fidelity_tier"]
+        metrics["canonical_fidelity_resilience_index"] = _epic_res["canonical_fidelity_resilience_index"]
+
+        # Phase 310: Wire AcademicGatekeepingSieve
+        gate_params = narr_meta.get("academic_gatekeeping", {}) if isinstance(narr_meta, dict) else {}
+        _gate_res = AcademicGatekeepingSieve.calculate(
+            foreign_donor_alignment=gate_params.get("foreign_donor_alignment", 0.75),
+            panelist_ideological_exclusion=gate_params.get("panelist_ideological_exclusion", 0.70),
+            native_sovereign_voice_presence=gate_params.get("native_sovereign_voice_presence", 0.25),
+        )
+        metrics["academic_gatekeeping_score"] = _gate_res["academic_gatekeeping_score"]
+        metrics["academic_gatekeeping_tier"] = _gate_res["academic_gatekeeping_tier"]
+        metrics["narrative_colonization_index"] = _gate_res["narrative_colonization_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -15093,6 +18347,237 @@ class CognitiveCorticalResilienceSieve:
             "is_cognitive_immune": score >= 0.55
         }
 
+
+class NarrativeInversionSubversionSieve:
+    """
+    Phase 299: Entertainment Narrative Inversion, Moral Taxonomy Subversion & Boycott Elasticity Sieve.
+    Quantifies 5th-Generation cognitive warfare manifested through entertainment narrative inversions
+    (e.g. converting classical epics into revisionist inversion tropes, glorifying destructive antagonists,
+    diluting Dharmic virtues, and eroding canonical Sanskrit kinship vocabulary),
+    and calculates civilizational consumer boycott commercial elasticity against production budgets.
+
+    Formulation:
+      InversionIndex = min(1.0, 0.40 * villain_glamorization + 0.35 * sacred_archetype_dilution + 0.25 * linguistic_profanation)
+      BoycottElasticity = min(2.0, revenue_loss_from_boycott_cr / (production_budget_cr + 1e-6))
+      z = 2.8 * BoycottElasticity + 2.4 * canonical_epic_integrity - 3.4 * InversionIndex - 0.4
+      S_Narrative = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        villain_glamorization: float = 0.80,
+        sacred_archetype_dilution: float = 0.75,
+        linguistic_profanation: float = 0.65,
+        canonical_epic_integrity: float = 0.85,
+        revenue_loss_from_boycott_cr: float = 400.0,
+        production_budget_cr: float = 500.0,
+        alternative_media_rebuttal_reach: float = 0.80,
+    ) -> Dict[str, Any]:
+        villain = max(0.0, min(1.0, float(villain_glamorization)))
+        dilute = max(0.0, min(1.0, float(sacred_archetype_dilution)))
+        profane = max(0.0, min(1.0, float(linguistic_profanation)))
+        integrity = max(0.0, min(1.0, float(canonical_epic_integrity)))
+        loss = max(0.0, float(revenue_loss_from_boycott_cr))
+        budget = max(1.0, float(production_budget_cr))
+        rebuttal = max(0.0, min(1.0, float(alternative_media_rebuttal_reach)))
+
+        inversion_idx = min(1.0, 0.40 * villain + 0.35 * dilute + 0.25 * profane)
+        boycott_elasticity = min(2.0, loss / (budget + 1e-6))
+
+        z = 2.8 * boycott_elasticity + 2.4 * integrity - 3.4 * inversion_idx - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_CIVILIZATIONAL_NARRATIVE_IMMUNITY"
+            verdict = "DECISIVE_COMMERCIAL_REBUTTAL_OF_SUBVERSION"
+            rationale = (
+                f"Fortified narrative immunity ({score:.4f}): Severe consumer boycott impact ({boycott_elasticity:.2f}x budget loss) "
+                f"and robust canonical literacy dismantle deliberate narrative inversion attempts."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_PUBLIC_DISCERNMENT_RESILIENT"
+            verdict = "ACTIVE_CONSUMER_RESISTANCE_CONTAINING_EROSION"
+            rationale = (
+                f"Robust resistance ({score:.4f}): Boycott friction inflicts commercial penalties on revisionist media, "
+                f"though ongoing youth entertainment consumption requires persistent shastric literacy campaigns."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_POP_CULTURE_REVISIONISM_INTERVAL"
+            verdict = "ELEVATED_COGNITIVE_TAXONOMY_CORROSION"
+            rationale = (
+                f"Contested pop-culture space ({score:.4f}): High-budget promotion of inverted archetypes ({inversion_idx:.2f}) "
+                f"infiltrates impressionable demographics despite nascent citizen pushback."
+            )
+        else:
+            tier = "CRITICAL_CIVILIZATIONAL_AMNESIA_AND_CAPTURE"
+            verdict = "ACUTE_MORAL_INVERSION_NORMALIZATION"
+            rationale = (
+                f"Critical narrative capture ({score:.4f}): Unopposed commercial glamorization of anti-dharmic villains "
+                f"normalizes moral inversion and severs civilizational identity."
+            )
+
+        counter_strike_idx = round(min(1.0, (score * 0.60) + (rebuttal * 0.40)), 4)
+
+        return {
+            "narrative_immunity_score": score,
+            "inversion_index": round(inversion_idx, 4),
+            "boycott_commercial_elasticity": round(boycott_elasticity, 4),
+            "villain_glamorization": round(villain, 4),
+            "sacred_archetype_dilution": round(dilute, 4),
+            "linguistic_profanation": round(profane, 4),
+            "canonical_epic_integrity": round(integrity, 4),
+            "alternative_media_rebuttal_reach": round(rebuttal, 4),
+            "narrative_counter_strike_index": counter_strike_idx,
+            "narrative_defense_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_narrative_immune": score >= 0.55,
+        }
+
+
+class CanonicalEpicFidelitySieve:
+    """
+    Phase 304: Evaluates the divergence of commercial cinematic adaptations from primary canonical
+    Sanskrit sources (Valmiki Ramayana), scoring revisionist narrative inversion tropes (Marxist Ravana,
+    diluted Rama) vs canonical fidelity and consumer boycott commercial elasticity.
+    
+    Mathematical Formulation:
+      ratio = primary_valmiki_fidelity / (marxist_pop_revisionism + eps)
+      z = 3.2 * (ratio / 2.5) + 2.5 * consumer_boycott_elasticity - 3.5 * dialogue_profanation_index - 0.4
+      S_Canonical_Fidelity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        primary_valmiki_fidelity: float = 0.85,
+        marxist_pop_revisionism: float = 0.20,
+        consumer_boycott_elasticity: float = 0.75,
+        dialogue_profanation_index: float = 0.15,
+        cinematic_box_office_penalty: float = 0.70,
+    ) -> Dict[str, Any]:
+        valmiki = max(0.0, min(1.0, float(primary_valmiki_fidelity)))
+        marxist = max(0.0, min(1.0, float(marxist_pop_revisionism)))
+        boycott = max(0.0, min(1.0, float(consumer_boycott_elasticity)))
+        profane = max(0.0, min(1.0, float(dialogue_profanation_index)))
+        penalty = max(0.0, min(1.0, float(cinematic_box_office_penalty)))
+
+        ratio = min(5.0, valmiki / (marxist + 1e-6))
+        z = 3.2 * (ratio / 2.5) + 2.5 * boycott - 3.5 * profane - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "PRISTINE_CANONICAL_FIDELITY"
+            verdict = "RIGOROUS_VALMIKI_ITIHASA_PRESERVATION"
+            rationale = (
+                f"Pristine canonical fidelity ({score:.4f}): High fidelity to Sanskrit primary sources ({valmiki:.2f}) "
+                f"and assertive audience pushback ({boycott:.2f}) decisively defeat revisionist distortions ({marxist:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_PRIMARY_SOURCE_RESILIENCE"
+            verdict = "ACTIVE_CONSUMER_REJECTION_OF_DISTORTIONS"
+            rationale = (
+                f"Robust resilience ({score:.4f}): Commercial box office penalties ({penalty:.2f}) enforce respect for canonical epics, "
+                f"though ongoing pop-culture liberties require vigilant scriptural auditing."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_POP_CULTURE_DILUTION"
+            verdict = "ELEVATED_CINEMATIC_REVISIONISM_PRESSURE"
+            rationale = (
+                f"Contested fidelity ({score:.4f}): Commercial cinema injects anachronistic dialogues ({profane:.2f}) "
+                f"and distorts epic characterizations to cater to secularized marketing."
+            )
+        else:
+            tier = "TERMINAL_NARRATIVE_INVERSION_CAPTURE"
+            verdict = "TOTAL_MYTHOLOGICAL_DEFACEMENT"
+            rationale = (
+                f"Terminal inversion ({score:.4f}): Unchecked Marxist revisionism reframes foundational Dharmic epics "
+                f"into caricature, severely alienating civilizational self-understanding."
+            )
+
+        fidelity_resilience_idx = round(min(1.0, (score * 0.65) + (penalty * 0.35)), 4)
+
+        return {
+            "canonical_fidelity_score": score,
+            "fidelity_to_revisionism_ratio": round(ratio, 4),
+            "primary_valmiki_fidelity": round(valmiki, 4),
+            "marxist_pop_revisionism": round(marxist, 4),
+            "consumer_boycott_elasticity": round(boycott, 4),
+            "dialogue_profanation_index": round(profane, 4),
+            "cinematic_box_office_penalty": round(penalty, 4),
+            "canonical_fidelity_resilience_index": fidelity_resilience_idx,
+            "canonical_fidelity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_canonically_faithful": score >= 0.55,
+        }
+
+
+class AcademicGatekeepingSieve:
+    """
+    Phase 310: Evaluates institutional narrative gatekeeping in foreign-funded literary festivals,
+    university humanities departments, and think-tank curation.
+    
+    Mathematical Formulation:
+      z = 3.0 * foreign_donor_alignment + 2.6 * panelist_ideological_exclusion - 3.2 * native_sovereign_voice_presence - 0.3
+      S_Academic_Gatekeeping = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        foreign_donor_alignment: float = 0.75,
+        panelist_ideological_exclusion: float = 0.70,
+        native_sovereign_voice_presence: float = 0.25,
+    ) -> Dict[str, Any]:
+        donor = max(0.0, min(1.0, float(foreign_donor_alignment)))
+        exclusion = max(0.0, min(1.0, float(panelist_ideological_exclusion)))
+        voice = max(0.0, min(1.0, float(native_sovereign_voice_presence)))
+
+        z = 3.0 * donor + 2.6 * exclusion - 3.2 * voice - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "SEVERE_INSTITUTIONAL_NARRATIVE_CAPTURE"
+            verdict = "SYSTEMIC_WESTERN_GATEKEEPING_DOMINANCE"
+            rationale = (
+                f"Severe gatekeeping ({score:.4f}): Foreign donor alignment ({donor:.2f}) and exclusionary curation "
+                f"({exclusion:.2f}) completely suppress native sovereign perspectives ({voice:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ELEVATED_ACADEMIC_GATEKEEPING"
+            verdict = "ASYMMETRIC_INSTITUTIONAL_BIAS"
+            rationale = (
+                f"Elevated gatekeeping ({score:.4f}): Subtle narrative filtering marginalizes indigenous historiographical claims."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_LITERARY_PLURALITY"
+            verdict = "EMERGENT_DECOLONIAL_CHALLENGE"
+            rationale = (
+                f"Contested discourse ({score:.4f}): Native scholars effectively challenge foreign-funded consensus."
+            )
+        else:
+            tier = "OPEN_AUTHENTIC_INTELLECTUAL_DISCOURSE"
+            verdict = "ROBUST_EPISTEMIC_SOVEREIGNTY"
+            rationale = (
+                f"Open discourse ({score:.4f}): Native intellectual traditions freely counter external hegemony."
+            )
+
+        colonization_idx = round(min(1.0, (score * 0.70) + (donor * 0.30)), 4)
+
+        return {
+            "academic_gatekeeping_score": score,
+            "foreign_donor_alignment": round(donor, 4),
+            "panelist_ideological_exclusion": round(exclusion, 4),
+            "native_sovereign_voice_presence": round(voice, 4),
+            "narrative_colonization_index": colonization_idx,
+            "academic_gatekeeping_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_gatekeeping_severe": score >= 0.55,
+        }
+
+
+
+
 ```
 
 
@@ -15422,7 +18907,7 @@ class AbyssalHydrospatialSovereigntySieve:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `f61b287`
+- **Canonical Git Commit:** `2a07dc5`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

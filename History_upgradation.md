@@ -3675,3 +3675,359 @@ Every build is certified against 10 Anti-Drift Quality Gates:
 8. Deterministic git hash embedding
 9. Token budget compliance ($\le 150,000$ words)
 10. 100% test pass rate across all 572 tests in `tests/test_engine.py`.
+
+
+---
+
+## 🏛️ SECTION 105: IMPLEMENTATION & CERTIFICATION OF PHASES 283–294 — MARITIME NET SECURITY, ALGORITHMIC SOVEREIGNTY, BANKING FORTRESS, AND DEEP-STATE DETERRENCE
+
+**Timestamp:** November 8, 2026 | **Commit Head:**fa45f17 / Current | **Epistemic Certification:** Level-5 Full Sovereign Battle-Readiness  
+**Engineering Scope:** 12 Specialized Mathematical Sieves | 12 AST Intent Flags | 105+ Live Telemetry Channels | 121 Exported Sieve & Lens Symbols | 587 Certified Tests (100% Pass Rate)
+
+---
+
+### 1. Architectural Diagnosis & The 12 Additive Gaps Closed
+Microscopic DNA/RNA audit of incoming multi-domain expert intelligence (15 YouTube video analyses spanning Maj Gen Rajiv Narayanan, Sushil Kedia, Aadi Achint, Sumeet Jain, Indilinks, Abhi & Niyu, Vikas Khemani, Pankaj Bharadwaj, Ved Veer Arya, Annie Jacobsen, Ami Ganatra, and Palki Sharma) revealed 12 critical sub-threshold statecraft areas requiring machine-verifiable analytical quantification:
+
+1. **Southwest Indian Ocean Maritime Bastion (Phase 283):** Lack of closed-form quantification for India's Net Security Provider posture in island littoral states (Mauritius Agaléga, Seychelles, Maldives) against Chinese PLAN dual-use hydrographic intelligence gathering.
+2. **Programmable CBDC Surveillance Traps (Phase 284):** Absence of explicit models distinguishing sovereign non-custodial cash/bullion and open UPI protocols from Western programmable CBDCs equipped with geographic spending boundaries, expiry dates, and digital identity coercive tethering.
+3. **Inter-Agency Counter-Subversion Synergy (Phase 285):** Unmodeled operational friction across statutory enforcement (ED, NIA, CBI, IB, FIU-IND) against extraterritorial gangster-terror funding pipelines and FCRA non-compliant foreign subversion conduits.
+4. **Commercial Banking Fortress & Balance-Sheet Insulation (Phase 286):** Need for continuous tracking of domestic banking CRAR (>16.5%), provision coverage ratios (>75%), and NNPA levels (<0.7%) ensuring insulation from Western mark-to-market Treasury bond run contagions (SVB/Credit Suisse dynamics).
+5. **Sub-National Bureaucratic Friction & Judicial Lawfare (Phase 287):** Unquantified administrative file-looping, procedural paralysis, and PIL weaponization delaying strategic defense corridors and manufacturing capex.
+6. **Wide-Bandgap Gallium Nitride (GaN) AESA Radar Sovereignty (Phase 288):** Critical requirement to model domestic TRM power density, thermal dissipation efficiency, and complete elimination of foreign avionics export vetoes (ITAR/Thales).
+7. **Extreme High-Altitude Forward Airlift (Phase 289):** Need to quantify advanced landing ground (Nyoma 13,629 ft ALG, DBO) payload derating curves, thin atmosphere thrust loss, and winter mechanized reinforcement dominance across the LAC.
+8. **Big Tech Algorithmic Sovereignty (Phase 290):** Absence of statutory compliance modeling for social media platforms under the DPDP Act 2023 / Section 69A IT Act against covert algorithmic shadow-banning, behavioral nudging, and cognitive enclosure.
+9. **Sacred Economy & Pilgrimage MSME Multipliers (Phase 291):** Lack of economic modeling for sacred pilgrimage corridors (Ayodhya, Kashi, Ujjain, Tirupati) generating decentralized grassroots wealth, MSME employment, and retail bullion buffers free from centralized state expropriation.
+10. **Outward Direct Investment (ODI) & Distressed Asset Capture (Phase 292):** Need to quantify Indian multinational outward capital deployment acquiring distressed Western industrial/tech assets and repatriating foreign IP.
+11. **Archaeo-Astronomical & Epigraphic Triangulation (Phase 293):** Rigorous multi-pillar planetary conjunction retro-calculations, equinox precession alignments, and sediment stratigraphy mathematically refuting colonial 1500 BCE Aryan invasion distortions.
+12. **Deep-State Black Program Deterrence & C4ISR Alertness (Phase 294):** Absence of compartmentalized special access program (SAP) survivability modeling and C4ISR early-warning cushion against foreign intelligence penetration.
+
+---
+
+### 2. Mathematical Formulations & Calibrated Tiers
+
+#### Phase 283: `IslandEEZMaritimeNetSecuritySieve`
+- **Location:** `geo_engine/lenses/geopolitical.py` & `geo_engine/lenses/military_readiness.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{Basing}_{	ext{airgap\_radius}} + 2.6 \cdot 	ext{SAGAR}_{	ext{treaty\_depth}} + 2.2 \cdot 	ext{CoastalRadar}_{	ext{uptime}} - 3.2 \cdot 	ext{PLAN}_{	ext{dual\_use\_incursion}} - 2.5 \cdot 	ext{HostNation}_{	ext{political\_drift}} - 0.4$$
+  $$S_{	ext{Maritime\_Net\_Security}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_IOR_MARITIME_BASTION`, $\ge 0.55$ `SUSTAINED_NET_SECURITY_SUPERIORITY`, $\ge 0.35$ `CONTESTED_ISLAND_LITTORAL_PRESSURE`, $< 0.35$ `CRITICAL_CHINESE_CHOKEPOINT_ENCIRCLEMENT`.
+
+#### Phase 284: `ProgrammableCBDCSurveillanceSieve`
+- **Location:** `geo_engine/lenses/digital_sovereignty.py` & `geo_engine/lenses/cash_flow.py`
+- **Formulation:**
+  $$z = 3.0 \cdot 	ext{Cash}_{	ext{retention\_ratio}} + 2.8 \cdot 	ext{OpenProtocol}_{	ext{interop}} - 3.5 \cdot 	ext{CBDC}_{	ext{programmability}} - 2.8 \cdot 	ext{Surveillance}_{	ext{centralization}} - 0.5$$
+  $$S_{	ext{Monetary\_Autonomy}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_SOVEREIGN_MONETARY_FREEDOM`, $\ge 0.55$ `RESILIENT_DECENTRALIZED_PAYMENT_STACK`, $\ge 0.35$ `ELEVATED_PROGRAMMABLE_SURVEILLANCE_RISK`, $< 0.35$ `ACUTE_DIGITAL_ENCLOSURE_PRISON`.
+
+#### Phase 285: `InterAgencyCounterSubversionSynergySieve`
+- **Location:** `geo_engine/lenses/hybrid_covert.py` & `geo_engine/lenses/institutional_lawfare.py`
+- **Formulation:**
+  $$z = 2.6 \cdot 	ext{InterAgency}_{	ext{data\_sharing}} + 2.8 \cdot 	ext{AssetAttachment}_{	ext{speed}} - 3.0 \cdot 	ext{Hawala}_{	ext{volume}} - 2.5 \cdot 	ext{Diaspora}_{	ext{sanctuary\_drag}} - 0.3$$
+  $$S_{	ext{Counter\_Subversion\_Readiness}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `PROACTIVE_OFFENSIVE_DEFENSE_SUPREMACY`, $\ge 0.55$ `COORDINATED_INTER_AGENCY_DISRUPTION`, $\ge 0.35$ `ASYMMETRIC_HYBRID_SECURITY_FRICTION`, $< 0.35$ `ACUTE_SUBVERSIVE_PENETRATION_VULNERABILITY`.
+
+#### Phase 286: `CommercialBankAssetQualityAndCRARSieve`
+- **Location:** `geo_engine/lenses/cash_flow.py` & `geo_engine/lenses/geo_economist.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{CRAR}_{	ext{ratio}} + 2.5 \cdot 	ext{ProvisionCoverage} - 3.2 \cdot 	ext{NetNPA}_{	ext{ratio}} - 2.6 \cdot 	ext{MTM}_{	ext{treasury\_exposure}} - 0.2$$
+  $$S_{	ext{Banking\_Fortress}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_SOVEREIGN_BANKING_FORTRESS`, $\ge 0.55$ `SOUND_DOMESTIC_BALANCE_SHEET`, $\ge 0.35$ `ELEVATED_DURATION_MISMATCH_EXPOSURE`, $< 0.35$ `CRITICAL_BANKING_LIQUIDITY_RUN_RISK`.
+
+#### Phase 287: `SubNationalBureaucraticFrictionSieve`
+- **Location:** `geo_engine/lenses/bureaucratic_inertia.py` & `geo_engine/lenses/institutional_lawfare.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{ExecutiveClarity} + 2.5 \cdot 	ext{StatutoryDeRegistration} - 3.0 \cdot 	ext{FileLooping}_{	ext{latency}} - 2.7 \cdot 	ext{PIL}_{	ext{stay\_order\_drag}} - 0.3$$
+  $$S_{	ext{Administrative\_Velocity}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `DECISIVE_SOVEREIGN_EXECUTIVE_VELOCITY`, $\ge 0.55$ `MANAGEABLE_BUREAUCRATIC_FRICTION`, $\ge 0.35$ `CONTESTED_JUDICIAL_ADMINISTRATIVE_GRIDLOCK`, $< 0.35$ `CRITICAL_DEEP_STATE_POLICY_PARALYSIS`.
+
+#### Phase 288: `IndigenousGaNAESARadarSovereigntySieve`
+- **Location:** `geo_engine/lenses/deep_tech.py` & `geo_engine/lenses/military_readiness.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{GaN}_{	ext{TRM\_density}} + 2.6 \cdot 	ext{AESA}_{	ext{autonomy}} - 3.2 \cdot 	ext{ForeignVendor}_{	ext{lockin}} - 2.5 \cdot 	ext{ThermalDissipation}_{	ext{drag}} - 0.3$$
+  $$S_{	ext{GaN\_Radar\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `AUTONOMOUS_GaN_AESA_DOMINANCE`, $\ge 0.55$ `FUNCTIONAL_INDIGENOUS_RADAR_STACK`, $\ge 0.35$ `CONTESTED_FOREIGN_TRM_DEPENDENCY`, $< 0.35$ `CRITICAL_AVIONICS_IMPORT_VULNERABILITY`.
+
+#### Phase 289: `ExtremeHighAltitudeAirliftLogisticsSieve`
+- **Location:** `geo_engine/lenses/military_readiness.py` & `geo_engine/lenses/geopolitical.py`
+- **Formulation:**
+  $$	ext{ThrustDerate} = \min\left(1.0, rac{	ext{Elevation}_{	ext{meters}}}{5000.0}ight)$$
+  $$z = 3.0 \cdot 	ext{HeavyAirlift}_{	ext{capacity}} + 2.5 \cdot 	ext{WinterReadiness} - 3.2 \cdot 	ext{ThrustDerate} - 2.4 \cdot 	ext{WeatherFriction} - 0.2$$
+  $$S_{	ext{High\_Altitude\_Logistics}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_HIGH_ALTITUDE_AIRLIFT_SUPREMACY`, $\ge 0.55$ `SUSTAINABLE_FORWARD_ALG_OPERATIONS`, $\ge 0.35$ `ELEVATED_ATMOSPHERIC_PAYLOAD_CONSTRAINTS`, $< 0.35$ `ACUTE_WINTER_ISOLATION_RISK`.
+
+#### Phase 290: `BigTechAlgorithmicSovereigntySieve`
+- **Location:** `geo_engine/lenses/digital_sovereignty.py` & `geo_engine/lenses/propaganda.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{StatutoryEnforcement} + 2.6 \cdot 	ext{DataLocalization} - 3.2 \cdot 	ext{AlgorithmicNudging} - 2.8 \cdot 	ext{ShadowBanning}_{	ext{intensity}} - 0.4$$
+  $$S_{	ext{Algorithmic\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_ALGORITHMIC_SOVEREIGNTY`, $\ge 0.55$ `ACTIVE_REGULATORY_COMPLIANCE_OVERSIGHT`, $\ge 0.35$ `CONTESTED_PLATFORM_COGNITIVE_BIAS`, $< 0.35$ `ACUTE_BIG_TECH_COGNITIVE_ENCLOSURE`.
+
+#### Phase 291: `SacredEconomyReligiousTourismSieve`
+- **Location:** `geo_engine/lenses/civilizational.py` & `geo_engine/lenses/cash_flow.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{PilgrimFootfall}_{	ext{velocity}} + 2.5 \cdot 	ext{MSME}_{	ext{turnover}} + 2.2 \cdot 	ext{DecentralizedBullion} - 2.8 \cdot 	ext{StateExpropriation}_{	ext{drag}} - 0.3$$
+  $$S_{	ext{Sacred\_Economy}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `THRIVING_SACRED_CIVILIZATIONAL_ECONOMY`, $\ge 0.55$ `ROBUST_PILGRIMAGE_MSME_VELOCITY`, $\ge 0.35$ `CONTESTED_STATE_EXTRACTIVE_BURDEN`, $< 0.35$ `ACUTE_COMMERCIAL_DECAY_AND_EXPLOITATION`.
+
+#### Phase 292: `OutwardDirectInvestmentAssetCaptureSieve`
+- **Location:** `geo_engine/lenses/geo_economist.py` & `geo_engine/lenses/cash_flow.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{ODI}_{	ext{deployment}} + 2.5 \cdot 	ext{IP}_{	ext{repatriation}} - 2.6 \cdot 	ext{HostJurisdiction}_{	ext{protectionism}} - 2.4 \cdot 	ext{ForexVolatility} - 0.2$$
+  $$S_{	ext{Asset\_Capture}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `AGGRESSIVE_GLOBAL_STRATEGIC_ASSET_CAPTURE`, $\ge 0.55$ `PRUDENT_OUTWARD_CAPITAL_EXPANSION`, $\ge 0.35$ `VULNERABLE_FOREIGN_ACQUISITION_DRAG`, $< 0.35$ `CRITICAL_CAPITAL_TRAP_IN_DISTRESSED_ASSETS`.
+
+#### Phase 293: `ArchaeoAstronomicalEpigraphicDatingSieve`
+- **Location:** `geo_engine/lenses/history.py` & `geo_engine/lenses/civilizational.py`
+- **Formulation:**
+  $$z = 3.0 \cdot 	ext{PlanetaryConjunction}_{	ext{accuracy}} + 2.6 \cdot 	ext{SedimentStratigraphy} - 3.5 \cdot 	ext{TextualCompression}_{	ext{bias}} - 2.4 \cdot 	ext{DegeneracyDrag} - 0.5$$
+  $$S_{	ext{Archaeo\_Astronomy}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `RIGOROUS_ASTRONOMICAL_EPIGRAPHIC_CERTAINTY`, $\ge 0.55$ `HIGH_FIDELITY_CHRONOLOGICAL_CONCORDANCE`, $\ge 0.35$ `CONTESTED_POETIC_DEGENERACY_INTERVAL`, $< 0.35$ `COLONIAL_EUROCENTRIC_FABRICATION`.
+
+#### Phase 294: `DeepStateBlackProjectIntelligenceSieve`
+- **Location:** `geo_engine/lenses/hybrid_covert.py` & `geo_engine/lenses/deep_tech.py`
+- **Formulation:**
+  $$z = 2.8 \cdot 	ext{Compartmentalization}_{	ext{depth}} + 2.6 \cdot 	ext{EarlyWarning}_{	ext{cushion}} - 3.2 \cdot 	ext{C4ISR}_{	ext{latency}} - 2.8 \cdot 	ext{ForeignPenetration}_{	ext{risk}} - 0.3$$
+  $$S_{	ext{Black\_Project\_Resilience}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_AIRGAPPED_STRATEGIC_BLACK_PROGRAM`, $\ge 0.55$ `COMPARTMENTALIZED_DETERRENCE_STABILITY`, $\ge 0.35$ `ELEVATED_C4ISR_LATENCY_VULNERABILITY`, $< 0.35$ `CRITICAL_EARLY_WARNING_COMPROMISE`.
+
+---
+
+### 3. Pipeline Synthesis & Cross-Domain Hardening
+1. **Dynamic AST Intent Extraction:** Expanded `StrategicQuery` dataclass in `geo_engine/core/query_parser.py` with 12 new boolean routing flags (`requires_island_net_security`, `requires_cbdc_surveillance`, `requires_interagency_synergy`, `requires_bank_crar`, `requires_bureaucratic_friction`, `requires_gan_radar`, `requires_high_altitude_airlift`, `requires_bigtech_algorithmic_sovereignty`, `requires_sacred_economy`, `requires_outward_asset_capture`, `requires_archaeo_astronomy`, `requires_black_projects`).
+2. **Master Strategic Resilience Matrix:** Incorporated all 12 metrics into `SummitSynthesizer.strategic_resilience_matrix`, scaling live observable telemetry channels from 93 to 105+.
+3. **Module Packaging Hygiene:** Updated `geo_engine/lenses/__init__.py`, expanding exported analytical symbols from 109 to 121 with zero symbol namespace collisions.
+4. **Automated Test Scaling:** Appended `TestPhases283to294SievesAndTelemetry` to `tests/test_engine.py` (15 new unit and integration tests), expanding the certified passing test suite from 572 to 587 tests (100% pass rate).
+5. **Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`consolidate_5_files`, `consolidate_50_files`, `dist_ai/core_5`, `dist_ai/deep_50`) through `scripts/build_canonical_bundles.py` with all 10 Gates certified green.
+
+
+---
+
+## Section 106: Phases 295–300 Sovereign Defense & Asymmetric Counter-Deterrence Engine Expansion
+
+### 1. Architectural Motivation & Geostrategic Alignment
+Derived from the comprehensive 8-target multi-council intelligence audit, Phases 295–300 operationalize six previously unmodeled physical, economic, cognitive, and maritime defense vectors:
+1. **Trans-Himalayan Hydrological Deterrence:** Countering Chinese upstream diversion/damming at the Great Bend of Yarlung Tsangpo (Medog 60,000 MW mega-dam) via Indian downstream buffer storage (Upper Siang 11,000 MW multipurpose reservoir), while neutralizing hybrid domestic NGO subversion.
+2. **Predatory Overcapacity Dumping & MSME Shield:** Protecting Indian manufacturing from severe mercantilist deflationary price shocks (Canton Fair ₹9 diapers, ₹70 toys) via Bureau of Indian Standards (BIS) Quality Control Orders (QCOs), calibrated anti-dumping tariffs, and domestic PLI scaling.
+3. **Epistemic Apaurusheya Civilizational Sovereignty:** Solidifying foundational civilizational self-confidence by grounding the engine in primary Indic Shastric ontology (*Apaurusheyatva* = authorless, trans-temporal sonic cosmic vibration / *Rta* / *Sabda Pramana*), neutralizing colonial philological distortions and modern secular semantic dilution.
+4. **Sacred Heritage Encroachment & Topographic Fort Defense:** Defending the tactical military-topographical command and civilizational sanctity of Chhatrapati Shivaji Maharaj's hilltop forts in Maharashtra (Vishalgad, Lohagad, Raigad) against demographic and unauthorized shrine encroachments.
+5. **Narrative Inversion & 5GW Cognitive Immunity:** Quantifying 5th-Generation cognitive warfare manifested through popular entertainment narrative inversions (*Ravanayana* tropes, glamorization of destructive antagonists), and measuring the commercial elasticity of organized consumer boycotts.
+6. **Maritime Chokepoint Malacca Deterrence:** Projecting asymmetric escalation dominance over Chinese seaborne energy flows transiting the Strait of Malacca (80% of Chinese crude oil imports) via the Andaman & Nicobar Command (ANC) naval aviation strike radius and Great Nicobar dual-use transshipment bastion.
+
+---
+
+### 2. Analytical Sieve Specifications & Mathematical Formulations
+
+#### Phase 295: `TransHimalayanHydrologicalDeterrenceSieve`
+- **Location:** `geo_engine/lenses/geopolitical.py`
+- **Formulation:**
+  $$z = 2.8 \cdot rac{V_{\text{buffer}}}{V_{\text{threat\_surge}} + \epsilon} + 2.5 \cdot D_{\text{flow\_parity}} - 3.2 \cdot R_{\text{sabotage}} - 0.4$$
+  $$S_{\text{Hydro\_Deterrence}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_HYDROLOGIC_BUFFER_SOVEREIGNTY`, $\ge 0.55$ `ROBUST_TRANSHIMALAYAN_DETERRENCE_STABLE`, $\ge 0.35$ `CONTESTED_DOWNSTREAM_RIPARIAN_VULNERABILITY`, $< 0.35$ `CRITICAL_HYDRAULIC_BLACKMAIL_EXPOSURE`.
+
+#### Phase 296: `PredatoryOvercapacityDumpingSieve`
+- **Location:** `geo_engine/lenses/geo_economist.py`
+- **Formulation:**
+  $$z = 2.6 \cdot \frac{\text{QCO}_{\text{coverage}} + \text{Tariff}_{\text{anti-dumping}}}{\text{Vulnerability}_{\text{msme}} + \epsilon} + 2.4 \cdot \text{PLI}_{\text{scale}} - 3.5 \cdot \text{DumpingMargin} - 0.3$$
+  $$S_{\text{Industrial\_Resilience}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_DOMESTIC_MANUFACTURING_SHIELD`, $\ge 0.55$ `ROBUST_QCO_TARIFF_PROTECTIVE_STABILITY`, $\ge 0.35$ `CONTESTED_MSME_MARGIN_COMPRESSION`, $< 0.35$ `CRITICAL_INDUSTRIAL_DECAY_AND_DUMPING_TRAP`.
+
+#### Phase 297: `EpistemicApaurusheyaCivilizationalSieve`
+- **Location:** `geo_engine/lenses/civilizational.py`
+- **Formulation:**
+  $$z = 3.0 \cdot \frac{S_{\text{primary\_shastra}} \cdot C_{\text{sanskrit\_fidelity}}}{S_{\text{colonial\_distortion}} + \epsilon} + 2.4 \cdot I_{\text{intergen\_transmission}} - 2.8 \cdot D_{\text{secular\_dilution}} - 0.5$$
+  $$S_{\text{Epistemic\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_APAURUSHEYA_EPISTEMIC_SOVEREIGNTY`, $\ge 0.55$ `ROBUST_INDIC_KNOWLEDGE_TRADITION_RESILIENCE`, $\ge 0.35$ `CONTESTED_PHILOLOGICAL_SUBVERSION_INTERVAL`, $< 0.35$ `CRITICAL_EPISTEMIC_COLONIZATION_AND_AMNESIA`.
+
+#### Phase 298: `SacredHeritageEncroachmentSieve`
+- **Location:** `geo_engine/lenses/institutional_lawfare.py`
+- **Formulation:**
+  $$z = 2.8 \cdot E_{\text{asi\_enforcement}} + 2.5 \cdot P_{\text{topographic\_command}} - 3.6 \cdot \frac{A_{\text{encroached}}}{A_{\text{total\_heritage}} + \epsilon} - 2.4 \cdot V_{\text{vote\_bank\_appeasement}} - 0.3$$
+  $$S_{\text{Heritage\_Defense}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_HERITAGE_SOVEREIGNTY`, $\ge 0.55$ `ROBUST_FORT_DEFENSE_STABLE`, $\ge 0.35$ `CONTESTED_GRAYZONE_ENCROACHMENT_RISK`, $< 0.35$ `CRITICAL_HERITAGE_DESECRATION_AND_ERASURE`.
+
+#### Phase 299: `NarrativeInversionSubversionSieve`
+- **Location:** `geo_engine/lenses/propaganda.py`
+- **Formulation:**
+  $$z = 2.8 \cdot \frac{\Delta \text{Revenue}_{\text{boycott}}}{\text{Budget}_{\text{production}} + \epsilon} + 2.4 \cdot M_{\text{canonical\_integrity}} - 3.4 \cdot \text{InversionIndex} - 0.4$$
+  $$S_{\text{Narrative\_Immunity}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_CIVILIZATIONAL_NARRATIVE_IMMUNITY`, $\ge 0.55$ `ROBUST_PUBLIC_DISCERNMENT_RESILIENT`, $\ge 0.35$ `CONTESTED_POP_CULTURE_REVISIONISM_INTERVAL`, $< 0.35$ `CRITICAL_CIVILIZATIONAL_AMNESIA_AND_CAPTURE`.
+
+#### Phase 300: `MaritimeChokepointMalaccaDeterrenceSieve`
+- **Location:** `geo_engine/lenses/military_readiness.py`
+- **Formulation:**
+  $$z = 3.0 \cdot (V_{\text{malacca\_energy}} \cdot R_{\text{anc\_interdiction}}) + 2.5 \cdot B_{\text{great\_nicobar\_bastion}} - 2.6 \cdot T_{\text{reaction\_latency}} - 0.2$$
+  $$S_{\text{Maritime\_Deterrence}} = \sigma(z) \in [0.0, 1.0]$$
+- **Tiers:** $\ge 0.75$ `FORTIFIED_ASIMETRIC_MARITIME_STRANGLEHOLD`, $\ge 0.55$ `ROBUST_CHOKEPOINT_DETERRENCE_STABLE`, $\ge 0.35$ `CONTESTED_LITTORAL_INTERDICTION_INTERVAL`, $< 0.35$ `CRITICAL_MARITIME_LEVERAGE_COLLAPSE`.
+
+---
+
+### 3. Pipeline Synthesis & Cross-Domain Hardening
+1. **Dynamic AST Intent Extraction:** Expanded `StrategicQuery` dataclass in `geo_engine/core/query_parser.py` with 6 new boolean routing flags (`requires_trans_himalayan_hydrology`, `requires_predatory_dumping`, `requires_apaurusheya_epistemic`, `requires_sacred_heritage_encroachment`, `requires_narrative_inversion`, `requires_malacca_chokepoint`).
+2. **Master Strategic Resilience Matrix:** Incorporated all 6 metrics into `SummitSynthesizer.strategic_resilience_matrix`, scaling live observable telemetry channels from 105+ to 111+.
+3. **Module Packaging Hygiene:** Updated `geo_engine/lenses/__init__.py`, expanding exported analytical symbols from 121 to 127 with zero symbol namespace collisions.
+4. **Automated Test Scaling:** Appended `TestPhases295to300SievesAndTelemetry` to `tests/test_engine.py` (9 new unit and integration tests), expanding the certified passing test suite from 587 to 596 tests (100% pass rate).
+5. **Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (`consolidate_5_files`, `consolidate_50_files`, `dist_ai/core_5`, `dist_ai/deep_50`) through `scripts/build_canonical_bundles.py` with all 10 Gates certified green.
+---
+
+## Section 107: Phases 301–307 Sovereign Civilizational, Legal & Quantum Decision Architecture Expansion
+
+### 1. Architectural Motivation & Geostrategic Alignment
+Operationalizing seven critical civilizational, legal, and cognitive defense vectors derived from the multi-council forensic audit:
+1. **Ritual Ecological Subversion & Environmental Lawfare:** Quantifying the asymmetric judicial and regulatory burdens imposed on indigenous Hindu rituals (Diwali firecrackers, Dahi Handi, Jallikattu) relative to continuous baseline industrial emissions and vehicular pollution.
+2. **Dharmic Constitutionalism & Decolonial Jurisprudence:** Measuring the institutional durability of constitutional jurisprudence by evaluating the concordance between borrowed Euro-Christian constitutional morality and indigenous civilizational *Sanskriti* (*Rajdharma*, *Dharma* as supreme justice).
+3. **Historical Demystification & Sandarshan:** Quantifying historical truth-telling (*Sandarshan*) by stripping away post-independence political deification (*Mahatma-ism*), evaluating archival evidence regarding Khilafat appeasement, silence on Moplah atrocities, and the causal acceleration of 1947 Partition.
+4. **Canonical Epic Fidelity & Pop-Culture Subversion:** Evaluating the divergence of commercial cinematic adaptations from primary canonical Sanskrit sources (Valmiki Ramayana), scoring revisionist narrative inversion tropes vs canonical fidelity and consumer boycott elasticity.
+5. **Theological Realism & Apostasy Counter-Radicalization:** Modeling literalist scriptural exclusivity (Surah 3:85) vs syncretic political constructs ('Sanatani Muslim'), tracking the velocity of the grassroots ex-Muslim movement (*Irtidad*) as an organic internal counter-radicalization indicator.
+6. **Aurobindonian Spiritual Integration:** Modeling the decentralized spiritual integration of peripheral civilizational bastions (Bengal, Assam, Kerala) via Sri Aurobindo\'s Sanatan framework vs the frictions created by purely political, centralizing nationalism.
+7. **Shastric Dietary Plurality & Sampradaya Harmony:** Modeling authentic traditional diversity in dietary customs across different Hindu traditions (Shakta/Tantric ritual offerings in Kamakhya/Bengal/Mithila vs Vaishnava strict vegetarianism), debunking colonial homogenizations.
+8. **Quantum Decision Theory (QDT) & Dynamic Epistemic Gating:** Defeating linear accumulator dilution by implementing dynamic epistemic attention routing, and modeling non-commutative diplomatic choices and civilizational interference terms (\sqrt{P_1 P_2}\cos\theta$).
+
+---
+
+### 2. Analytical Sieve Specifications & Mathematical Formulations
+
+#### Phase 301: RitualEcologicalSubversionSieve
+- **Location:** geo_engine/lenses/institutional_lawfare.py
+- **Formulation:**
+  z = 2.8 \cdot \frac{E_{\text{baseline\_industrial}}}{E_{\text{ritual\_pulsed}} + \epsilon} + 2.5 \cdot T_{\text{shastric\_grounding}} - 3.4 \cdot J_{\text{selective\_prohibition\_intensity}} - 0.4
+  S_{\text{Ritual\_Sovereignty}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ FORTIFIED_RITUAL_SOVEREIGNTY, $\ge 0.55$ ROBUST_SHATRIC_TRADITION_RESILIENT, $\ge 0.35$ CONTESTED_JUDICIAL_OVERREACH_RISK, $< 0.35$ CRITICAL_CIVILIZATIONAL_RITUAL_ENCLOSURE.
+
+#### Phase 302: DharmicConstitutionalismSieve
+- **Location:** geo_engine/lenses/institutional_lawfare.py
+- **Formulation:**
+  z = 3.0 \cdot \frac{C_{\text{indigenous\_civilizational\_continuity}}}{C_{\text{colonial\_borrowed\_dogma}} + \epsilon} + 2.4 \cdot D_{\text{decolonial\_jurisprudence}} - 2.8 \cdot V_{\text{vote\_bank\_fetishism}} - 0.5
+  S_{\text{Dharmic\_Constitutionalism}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ FORTIFIED_DHARMIC_CONSTITUTIONALISM, $\ge 0.55$ DECOLONIAL_JURISPRUDENCE_EMERGENT, $\ge 0.35$ CONTESTED_POST_COLONIAL_LEGAL_FRICTION, $< 0.35$ ACUTE_CIVILIZATIONAL_CONSTITUTIONAL_ALIENATION.
+
+#### Phase 303: HistoricalDemystificationPartitionSieve
+- **Location:** geo_engine/lenses/history.py
+- **Formulation:**
+  z = 2.8 \cdot \frac{D_{\text{empirical\_archival\_evidence}}}{D_{\text{mythological\_deification}} + \epsilon} + 2.6 \cdot P_{\text{khilafat\_appeasement\_cost}} - 3.2 \cdot S_{\text{secular\_historical\_amnesia}} - 0.3
+  S_{\text{Historical\_Sandarshan}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ OBJECTIVE_HISTORICAL_SANDARSHAN, $\ge 0.55$ ARCHIVAL_DEMOPOLITIZATION_STABLE, $\ge 0.35$ CONTESTED_MYTHOLOGICAL_NARRATIVE_BIAS, $< 0.35$ TOTAL_SECULAR_HISTORICAL_AMNESIA.
+
+#### Phase 304: CanonicalEpicFidelitySieve
+- **Location:** geo_engine/lenses/propaganda.py
+- **Formulation:**
+  z = 3.2 \cdot \frac{T_{\text{primary\_valmiki\_fidelity}}}{T_{\text{marxist\_pop\_revisionism}} + \epsilon} + 2.5 \cdot B_{\text{consumer\_boycott\_elasticity}} - 3.5 \cdot I_{\text{inversion\_index}} - 0.4
+  S_{\text{Canonical\_Fidelity}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ PRISTINE_CANONICAL_FIDELITY, $\ge 0.55$ ROBUST_PRIMARY_SOURCE_RESILIENCE, $\ge 0.35$ CONTESTED_POP_CULTURE_DILUTION, $< 0.35$ TERMINAL_NARRATIVE_INVERSION_CAPTURE.
+
+#### Phase 305: TheologicalIncompatibilityApostasySieve
+- **Location:** geo_engine/lenses/demographic_infiltration.py
+- **Formulation:**
+  z = 2.8 \cdot A_{\text{ex\_muslim\_apostasy\_velocity}} + 2.6 \cdot E_{\text{scriptural\_demystification}} - 3.2 \cdot D_{\text{dogmatic\_indoctrination}} - 0.3
+  S_{\text{Theological\_Realism}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ HIGH_THEOLOGICAL_CLARITY_AND_REFORM, $\ge 0.55$ ORGANIC_APOSTASY_COUNTER_RADICALIZATION, $\ge 0.35$ CONTESTED_SYNCRETIC_ILLUSION_DRAG, $< 0.35$ ACUTE_DOGMATIC_RADICALIZATION_TRAP.
+
+#### Phase 306: AurobindonianSpiritualIntegrationSieve
+- **Location:** geo_engine/lenses/civilizational.py
+- **Formulation:**
+  z = 3.0 \cdot \frac{I_{\text{aurobindonian\_spiritual\_plurality}}}{I_{\text{centralized\_political\_hegemony}} + \epsilon} + 2.6 \cdot S_{\text{shakta\_tantric\_regional\_harmony}} - 2.5 \cdot F_{\text{sub\_national\_friction}} - 0.4
+  S_{\text{Spiritual\_Integration}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ HARMONIOUS_AUROBINDONIAN_INTEGRATION, $\ge 0.55$ DECENTRALIZED_SANATAN_RESILIENCE, $\ge 0.35$ CONTESTED_REGIONAL_POLITICAL_FRICTION, $< 0.35$ ACUTE_PERIPHERAL_ALIENATION.
+
+#### Phase 307: ShastricDietaryPluralitySieve
+- **Location:** geo_engine/lenses/civilizational.py
+- **Formulation:**
+  z = 2.8 \cdot P_{\text{shastric\_sampradaya\_plurality}} + 2.4 \cdot T_{\text{tantric\_vedic\_harmonization}} - 3.0 \cdot D_{\text{colonial\_dietary\_dogmatism}} - 0.3
+  S_{\text{Dietary\_Plurality}} = \sigma(z) \in [0.0, 1.0]
+- **Tiers:** $\ge 0.75$ RIGOROUS_SHASTRIC_PLURALITY_HARMONY, $\ge 0.55$ ROBUST_REGIONAL_SAMPRADAYA_RESILIENCE, $\ge 0.35$ CONTESTED_SECTARIAN_DIETARY_FRICTION, $< 0.35$ COLONIAL_HOMOGENIZING_DISTORTION.
+
+---
+
+### 3. Pipeline Synthesis & Cross-Domain Hardening
+1. **Dynamic AST Intent Extraction:** Expanded StrategicQuery dataclass in geo_engine/core/query_parser.py with 7 new boolean routing flags (
+equires_ritual_ecological_sovereignty, 
+equires_dharmic_constitutionalism, 
+equires_partition_demystification, 
+equires_canonical_epic_fidelity, 
+equires_theological_apostasy_velocity, 
+equires_aurobindonian_integration, 
+equires_shastric_dietary_plurality).
+2. **Master Strategic Resilience Matrix:** Incorporated all 7 metrics + Quantum Decision Theory interference term (\sqrt{P_1 P_2}\cos\theta$) into SummitSynthesizer.strategic_resilience_matrix, scaling live observable telemetry channels from 111+ to 118+.
+3. **Module Packaging Hygiene:** Updated geo_engine/lenses/__init__.py, expanding exported analytical symbols from 127 to 134 with zero symbol namespace collisions.
+4. **Automated Test Scaling:** Appended TestPhases301to307SievesAndQuantumGating to 	ests/test_engine.py (10 new unit and integration tests), expanding the certified passing test suite from 596 to 606 tests (100% pass rate).
+5. **Anti-Drift Quality Gates:** Recompiled canonical distribution bundles (consolidate_5_files, consolidate_50_files, dist_ai/core_5, dist_ai/deep_50) through scripts/build_canonical_bundles.py with all 10 Gates certified green.
+
+---
+
+### 4. Comprehensive Project Evolutionary Journey Summary
+From its origin as a multilateral summit de-sanitization script to a sovereign 20-domain civilization-state intelligence engine:
+- **Foundational Architecture (Phases 1–50):** Established the 5-Tier Epistemic Response Protocol (Physical Reality > Financial Flows > Sovereign Redlines > Kinesics > Diplomatic Communiqu\u00e9s). Built initial lenses for hydrocarbon logistics, trade imbalances, and diplomatic postures.
+- **Supply Chains & Strategic Geography (Phases 51–150):** Introduced deep-tech sovereignty, semiconductor fabs, critical minerals refining moats, subsea internet cable defense, and satellite communication constellations.
+- **Civilizational Statecraft & Decolonization (Phases 151–250):** Operationalized Kautilyan Rajdharma, Sacred Geography, legal warfare (FATF lawfare, temple endowment state control), and currency autonomy (RBI gold repatriation, rupee bilateral settlement).
+- **Asymmetric Deterrence & Cognitive Immunity (Phases 251–300):** Addressed unmodeled asymmetric vulnerabilities: trans-Himalayan mega-dam diversion, predatory industrial dumping, hilltop fort topography defense, 5GW entertainment narrative inversion, and Malacca Strait naval aviation deterrence.
+- **Quantum Statecraft & Civilizational Realism (Phases 301–307):** Solved linear accumulator dilution via dynamic epistemic gating, incorporated Quantum Decision Theory interference, and solidified legal, historical, and ritual sovereignty.
+---
+
+## Section 108: Strategic Council Archetype Expansion: Sadhguru (Jaggi Vasudev)
+
+### 1. Architectural Motivation & Geostrategic Alignment
+Incorporating Sadhguru (Jaggi Vasudev) into the core Strategic Council and Civilizational Epistemic Council fills a foundational gap in classical geopolitical and economic modeling:
+1. **Biosphere & Soil Foundation (Save Soil / Conscious Planet):** Foundational realization that national security, economic prosperity, and military stability rest entirely on living soil (minimum 3–6% organic content) and river basin health (Cauvery Calling). Ecological degradation directly triggers agricultural collapse, nutritional deficits, involuntary mass migration, and water warfare.
+2. **Conscious Statecraft & Inner Well-Being (Inner Engineering / Adiyogi):** Transcends dogmatic political polarizations by framing Sanatan civilizational heritage as an exploratory, empirical technology of consciousness and inner balance (*Yoga*), projecting Indic soft power globally across elite multilateral forums (WEF Davos, UN COP, Oxford, Harvard) without apology.
+3. **Temple Autonomy & Sacred Economy (Free Temples Movement):** Champions the liberation of consecrated Hindu temple institutions from state bureaucratic expropriation, restoring them as autonomous epicenters of local community health, arts, spiritual energy, and decentralized sacred economies.
+4. **Maryada Purushottama Civilizational Restraint:** Articulates Sri Rama not as an action-movie caricature, but as the supreme embodiment of *Maryada* (moral restraint, balance, and duty under extreme personal suffering), providing a stabilizing ethical compass for 21st-century leadership.
+
+---
+
+### 2. Implementation & Subsystem Integration
+1. **Persona Narrator Archetype (geo_engine/arbitration/persona_narrator.py):**
+   - Registered sadhguru in PersonaNarrator.ARCHETYPES with doctrinal axis *Biosphere Soil Security, Consecrated Cultural Spaces & Inner Consciousness Sovereignty*.
+   - Configured high-priority lens weighting: FoodSecurityLens (1.9), CivilizationalLens (1.8), InstitutionalLawfareLens (1.5), PropagandaLens (1.4), DeepTechLens (1.3), GeoEconomistLens (1.3).
+   - Expanded Strategic Council from 13 to 14 operational archetypes (*Chaturdasha Council*).
+2. **Civilizational Epistemic Council (CivilizationalCouncil):**
+   - Integrated the 7th orthogonal evaluation perspective: sadhguru_ecologist (*Conscious Ecologist & Yogic Realist*).
+   - Evaluates both secular geopolitical statecraft and cultural/millenarian discourses through the lens of human conscious responsibility and living ecological baselines.
+3. **Cognitive Speaker Profiler (geo_engine/core/speaker_profiler.py):**
+   - Added ECOLOGICAL_CONSCIOUSNESS_REALISM to SpeakerArchetype enum.
+   - Registered canonical profile PROF-SADHGURU with core frameworks (Save Soil, Adiyogi, Free Temples, Cauvery Calling) and baseline reliability weight 0.94.
+4. **CLI & User Interface (geo_engine/cli.py):**
+   - Added sadhguru to CLI --persona options across udit, dashboard, lenses, and query commands.
+5. **Automated Verification (	ests/test_engine.py):**
+   - Added 	est_sadhguru_strategic_council_archetype, 	est_sadhguru_speaker_profile, and 	est_sadhguru_civilizational_council_perspective.
+   - Scaled verified pytest suite from 606 to 609 tests (100% passing green).
+   - Recompiled all canonical distribution bundles (consolidate_5_files, consolidate_50_files, dist_ai/core_5, dist_ai/deep_50) through scripts/build_canonical_bundles.py with all 10 Anti-Drift Quality Gates certified green.
+
+
+---
+
+## Section 109: Phases 309–317 Sovereign Historiographical, Military & Geo-Economic Sieves Implementation
+
+### 1. Architectural Motivation & Geostrategic Alignment
+The implementation of Phases 309 through 317 directly incorporates the deep forensic audit of 24 YouTube historical, military, and geopolitical channels (Harry Sahota, Jaipur Literature Festival, LevelUp Karan Chugh, Namit Explains, Abhijit Chavda, Dilli Chalo, RkR History, All History, Free Documentary History, The History Underground, Best History Documentaries, Serious History, Gaurav Thakur - GSF, Timeline Channel, Epic History TV). 
+
+To prevent circular oscillation ("wheel-spinning") and theoretical drift, every insight was distilled into closed-form, deterministic mathematical models with sigmoidal scoring ($S = \sigma(z)$) and integrated into the engine's epistemic hierarchy:
+1. **Archival Primary Evidence vs. Academic Gatekeeping (Phases 309 & 310):** Prioritizes primary inscriptional epigraphy and contemporaneous revenue rolls over secondary ideological narratives. Quantifies institutional narrative curation and ideological exclusion in foreign-funded literary festivals and think tanks.
+2. **Succession Durability & Pan-Indic Linguistic Synthesis (Phases 311 & 312):** Evaluates political succession friction and statutory durability of infrastructure capital expenditures (CapEx/FDI). Quantifies the organic phonetic and syntactic convergence across Indo-Aryan, Dravidian, and Munda language families (*Sprachbund*) to defeat linguistic balkanization agendas.
+3. **Indigenous STEM Authenticity & Subaltern Memory (Phases 313 & 314):** Demands physical archaeological and metallurgical evidence (Wootz crucible steel, Zawar zinc smelting, Sulba Sutras mathematics) to separate genuine civilizational scientific breakthroughs from internet mythology. Ingests physical hero stones (*Viragals*) and village folk resistance oral traditions erased by colonial and court records.
+4. **Industrial Attrition Sustainment & Imperial Debt Retrenchment (Phases 315 & 316):** Formulates the production-to-burn ratio for 90-to-180 day high-intensity conventional warfare (forging shells, drone fabrication, chemical propellant precursors). Models fiscal debt-servicing crowding out of expeditionary defense budgets, predicting unavoidable imperial retrenchment when debt service eclipses baseline military expenditure.
+5. **Colonial Drain Extraction Accounting (Phase 317):** Models the historical $45 trillion wealth drain siphoned via Council Bills and forced tariff deindustrialization, quantifying its long-term impact on domestic capital formation.
+
+---
+
+### 2. Implementation & Subsystem Integration
+1. **Historiographical, Military & Economic Lens Modules (geo_engine/lenses/):**
+   - `ArchivalPrimarySourceSieve`, `SubalternMemorySieve`, and `ColonialDrainExtractionSieve` wired into `HistoryLens.evaluate` metrics and implemented in `geo_engine/lenses/history.py`.
+   - `AcademicGatekeepingSieve` wired into `PropagandaLens.evaluate` metrics and implemented in `geo_engine/lenses/propaganda.py`.
+   - `SuccessionContinuitySieve` wired into `GeoEconomistLens.evaluate` metrics and implemented in `geo_engine/lenses/geo_economist.py`.
+   - `LinguisticSprachbundSieve` wired into `CivilizationalLens.evaluate` metrics and implemented in `geo_engine/lenses/civilizational.py`.
+   - `IndigenousSTEMAuthenticitySieve` wired into `DeepTechLens.evaluate` metrics and implemented in `geo_engine/lenses/deep_tech.py`.
+   - `IndustrialAttritionSieve` wired into `MilitaryReadinessLens.evaluate` metrics and implemented in `geo_engine/lenses/military_readiness.py`.
+   - `ImperialDebtOverreachSieve` wired into `CashFlowLens.evaluate` metrics and implemented in `geo_engine/lenses/cash_flow.py`.
+2. **Lens Registry Export Scaling (geo_engine/lenses/__init__.py):**
+   - Exported all 9 sieves into `__all__`, scaling verified lens exports from 134 to 143 symbols.
+3. **Dynamic AST Query Parser (geo_engine/core/query_parser.py):**
+   - Added 9 boolean routing flags to `StrategicQuery` (`requires_archival_primary_source`, `requires_academic_gatekeeping`, `requires_succession_continuity`, `requires_linguistic_sprachbund`, `requires_indigenous_stem`, `requires_subaltern_memory`, `requires_industrial_attrition`, `requires_imperial_debt_overreach`, `requires_colonial_drain_extraction`).
+   - Wired keyword matching rules and automatic lens activation in `QueryParser.parse`.
+4. **Strategic Resilience Matrix Synthesis (geo_engine/arbitration/synthesizer.py):**
+   - Wired all 9 new sieve metrics into `SummitSynthesizer.strategic_resilience_matrix`, scaling live synthesis telemetry to 129 channels.
+5. **Automated Verification Suite (tests/test_engine.py):**
+   - Added `TestPhases309to317SievesAndQuantumSynthesis` (12 unit and integration tests).
+   - Full test suite scaled to 621 tests passing (100% green, zero regressions).
+6. **Canonical Distribution Bundles (scripts/build_canonical_bundles.py):**
+   - Recompiled all canonical distribution bundles across `consolidate_5_files/`, `consolidate_50_files/`, `dist_ai/core_5/`, `dist_ai/deep_50/`, and `dist_ai/all_in_one/`.
+   - All 10 Anti-Drift Quality Gates verified and certified green.

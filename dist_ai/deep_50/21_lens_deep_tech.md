@@ -406,6 +406,43 @@ class DeepTechLens:
             sectoral_banking_auto_delta_pct=rot_params_dt.get("sectoral_banking_auto_delta_pct", 0.038),
         )
         metrics.update({f"tech_{k}": v for k, v in _dt_rot.items()})
+
+        # Phase 288: Wire IndigenousGaNAESARadarSovereigntySieve
+        radar_params = tech_meta.get("gan_radar", {}) if isinstance(tech_meta, dict) else {}
+        _radar_res = IndigenousGaNAESARadarSovereigntySieve.calculate_gan_radar_sovereignty(
+            gan_trm_density=radar_params.get("gan_trm_density", 0.75),
+            aesa_autonomy=radar_params.get("aesa_autonomy", 0.80),
+            foreign_vendor_lockin=radar_params.get("foreign_vendor_lockin", 0.25),
+            thermal_dissipation_drag=radar_params.get("thermal_dissipation_drag", 0.20),
+        )
+        metrics["gan_radar_sovereignty_score"] = _radar_res["gan_radar_sovereignty_score"]
+        metrics["trm_power_density_index"] = _radar_res["trm_power_density_index"]
+        metrics["foreign_avionics_lockin_risk"] = _radar_res["foreign_avionics_lockin_risk"]
+        metrics["gan_radar_tier"] = _radar_res["gan_radar_tier"]
+
+        # Phase 294: Cross-wire DeepStateBlackProjectIntelligenceSieve
+        from .hybrid_covert import DeepStateBlackProjectIntelligenceSieve
+        bp_params_dt = tech_meta.get("black_projects", {}) if isinstance(tech_meta, dict) else {}
+        _bp_res_dt = DeepStateBlackProjectIntelligenceSieve.calculate_black_project_resilience(
+            compartmentalization_depth=bp_params_dt.get("compartmentalization_depth", 0.80),
+            early_warning_cushion=bp_params_dt.get("early_warning_cushion", 0.85),
+            c4isr_latency=bp_params_dt.get("c4isr_latency", 0.25),
+            foreign_penetration_risk=bp_params_dt.get("foreign_penetration_risk", 0.20),
+        )
+        metrics.update({f"deeptech_{k}": v for k, v in _bp_res_dt.items()})
+
+        # Phase 313: Wire IndigenousSTEMAuthenticitySieve
+        stem_params = tech_meta.get("indigenous_stem", {}) if isinstance(tech_meta, dict) else {}
+        _stem_res = IndigenousSTEMAuthenticitySieve.calculate(
+            physical_metallurgical_archaeology=stem_params.get("physical_metallurgical_archaeology", 0.85),
+            unverified_internet_mythology=stem_params.get("unverified_internet_mythology", 0.20),
+            manuscript_mathematical_rigor=stem_params.get("manuscript_mathematical_rigor", 0.85),
+            conspiratorial_pseudoscience=stem_params.get("conspiratorial_pseudoscience", 0.15),
+        )
+        metrics["indigenous_stem_score"] = _stem_res["indigenous_stem_score"]
+        metrics["stem_authenticity_tier"] = _stem_res["stem_authenticity_tier"]
+        metrics["empirical_stem_validation_index"] = _stem_res["empirical_stem_validation_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -713,5 +750,150 @@ class MultiAgentGroupChatConsensusSieve:
             "agent_consensus_verdict": verdict,
             "is_consensus_deterministic": score >= 0.55,
         }
+
+
+class IndigenousGaNAESARadarSovereigntySieve:
+    """
+    Phase 288: Indigenous GaN AESA Radar Sovereignty Sieve.
+    Models wide-bandgap Gallium Nitride (GaN) semiconductor fabrication autonomy,
+    Transmit/Receive Module (TRM) thermal efficiency and power density, AESA radar electronic
+    counter-countermeasures (ECCM), and elimination of foreign export vetoes (ITAR/Thales).
+    """
+
+    @classmethod
+    def calculate_gan_radar_sovereignty(
+        cls,
+        gan_trm_density: float = 0.75,
+        aesa_autonomy: float = 0.80,
+        foreign_vendor_lockin: float = 0.25,
+        thermal_dissipation_drag: float = 0.20,
+    ) -> Dict[str, Any]:
+        """
+        Calculates GaN Radar Sovereignty Score using calibrated logistic sigmoid:
+            z = 2.8 * trm + 2.6 * aesa - 3.2 * foreign - 2.5 * thermal - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        trm = max(0.0, min(1.0, float(gan_trm_density)))
+        aesa = max(0.0, min(1.0, float(aesa_autonomy)))
+        foreign = max(0.0, min(1.0, float(foreign_vendor_lockin)))
+        thermal = max(0.0, min(1.0, float(thermal_dissipation_drag)))
+
+        z = 2.8 * trm + 2.6 * aesa - 3.2 * foreign - 2.5 * thermal - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "AUTONOMOUS_GaN_AESA_DOMINANCE"
+            verdict = "SOVEREIGN_WIDE_BANDGAP_RADAR_SUPREMACY"
+            rationale = (
+                f"Autonomous GaN dominance ({score:.4f}): High TRM density ({trm:.2f}) and complete AESA autonomy ({aesa:.2f}) "
+                f"eliminate foreign component vetoes and ensure world-class airborne/naval radar range."
+            )
+        elif score >= 0.55:
+            tier = "FUNCTIONAL_INDIGENOUS_RADAR_STACK"
+            verdict = "RESILIENT_DOMESTIC_AVIONICS_INTEGRATION"
+            rationale = (
+                f"Functional radar stack ({score:.4f}): Indigenous radar architecture achieves operational parity with low foreign lockin."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_FOREIGN_TRM_DEPENDENCY"
+            verdict = "SEMICONDUCTOR_CHOKEPOINT_VULNERABILITY"
+            rationale = (
+                f"Contested dependency ({score:.4f}): Foreign vendor lockin ({foreign:.2f}) subjects frontline fighters to export denial."
+            )
+        else:
+            tier = "CRITICAL_AVIONICS_IMPORT_VULNERABILITY"
+            verdict = "TOTAL_FOREIGN_RADAR_IMPORT_DEPENDENCE"
+            rationale = (
+                f"Critical vulnerability ({score:.4f}): Inability to fabricate GaN TRMs paralyses indigenous 4.5/5th gen fighter production."
+            )
+
+        return {
+            "gan_radar_sovereignty_score": score,
+            "gan_trm_density": round(trm, 4),
+            "aesa_autonomy": round(aesa, 4),
+            "foreign_vendor_lockin": round(foreign, 4),
+            "thermal_dissipation_drag": round(thermal, 4),
+            "trm_power_density_index": round(trm, 4),
+            "foreign_avionics_lockin_risk": round(foreign, 4),
+            "gan_radar_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_radar_sovereign": score >= 0.55,
+        }
+
+
+class IndigenousSTEMAuthenticitySieve:
+    """
+    Phase 313: Verifies authentic historical Indian science and technology (Wootz crucible steel,
+    Zawar zinc smelting, Sulba Sutras geometry, Aryabhata/Brahmagupta mathematics) using physical
+    archaeology and primary manuscripts, filtering out modern conspiratorial internet pseudoscience.
+    
+    Mathematical Formulation:
+      ratio = physical_metallurgical_archaeology / (unverified_internet_mythology + eps)
+      z = 3.2 * (ratio / 2.5) + 2.8 * manuscript_mathematical_rigor - 3.0 * conspiratorial_pseudoscience - 0.4
+      S_STEM_Authenticity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        physical_metallurgical_archaeology: float = 0.85,
+        unverified_internet_mythology: float = 0.20,
+        manuscript_mathematical_rigor: float = 0.85,
+        conspiratorial_pseudoscience: float = 0.15,
+    ) -> Dict[str, Any]:
+        archaeology = max(0.0, min(1.0, float(physical_metallurgical_archaeology)))
+        mythology = max(0.0, min(1.0, float(unverified_internet_mythology)))
+        manuscript = max(0.0, min(1.0, float(manuscript_mathematical_rigor)))
+        pseudo = max(0.0, min(1.0, float(conspiratorial_pseudoscience)))
+
+        ratio = min(5.0, archaeology / (mythology + 1e-6))
+        z = 3.2 * (ratio / 2.5) + 2.8 * manuscript - 3.0 * pseudo - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "RIGOROUS_PHYSICAL_STEM_VALIDATION"
+            verdict = "AUTHENTIC_EMPIRICAL_HERITAGE"
+            rationale = (
+                f"Rigorous physical STEM validation ({score:.4f}): Hard archaeological artifacts ({archaeology:.2f}) and primary "
+                f"mathematical manuscripts ({manuscript:.2f}) substantiate authentic indigenous breakthroughs, decisively "
+                f"rejecting internet pseudoscience ({pseudo:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_EMPIRICAL_HERITAGE"
+            verdict = "VERIFIED_INDIGENOUS_INNOVATION"
+            rationale = (
+                f"Robust empirical heritage ({score:.4f}): Documented technical achievements hold international scientific credibility."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_PSEUDOSCIENTIFIC_RISK"
+            verdict = "ELEVATED_MYTHOLOGICAL_CONTAMINATION"
+            rationale = (
+                f"Contested science ({score:.4f}): Unverified internet claims ({mythology:.2f}) undermine the credibility of "
+                f"authentic historical contributions."
+            )
+        else:
+            tier = "DELUSIONAL_MYTHOLOGICAL_DISTORTION"
+            verdict = "TOTAL_CREDIBILITY_COLLAPSE"
+            rationale = (
+                f"Delusional pseudoscience ({score:.4f}): Conspiratorial claims completely destroy civilizational scientific standing."
+            )
+
+        stem_idx = round(min(1.0, (score * 0.65) + (archaeology * 0.35)), 4)
+
+        return {
+            "indigenous_stem_score": score,
+            "archaeology_to_myth_ratio": round(ratio, 4),
+            "physical_metallurgical_archaeology": round(archaeology, 4),
+            "unverified_internet_mythology": round(mythology, 4),
+            "manuscript_mathematical_rigor": round(manuscript, 4),
+            "conspiratorial_pseudoscience": round(pseudo, 4),
+            "empirical_stem_validation_index": stem_idx,
+            "stem_authenticity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_stem_authentic": score >= 0.55,
+        }
+
 
 ```

@@ -140,6 +140,27 @@ class PersonaNarrator:
                 "institutional mimicry and Western-dominated human rights lawfare designed to hollow out native sovereignty."
             )
         },
+        "sadhguru": {
+            "name": "Ecological Vitality, Conscious Statecraft & Temple Autonomy Realist (Sadhguru Tradition)",
+            "doctrinal_axis": "Biosphere Soil Security, Consecrated Cultural Spaces & Inner Consciousness Sovereignty",
+            "lens_weights": {
+                "FoodSecurityLens": 1.9,
+                "CivilizationalLens": 1.8,
+                "InstitutionalLawfareLens": 1.5,
+                "PropagandaLens": 1.4,
+                "DeepTechLens": 1.3,
+                "GeoEconomistLens": 1.3,
+            },
+            "conceptual_framing": (
+                "An ecological and consciousness-first statecraft framework: the foundational bedrock of all "
+                "economic prosperity, national security, and civilizational longevity is living soil (minimum 3-6% organic matter) "
+                "and revitalized river basins (Save Soil / Cauvery Calling). Without ecological security, food supply collapses, "
+                "triggering mass displacement, civil unrest, and resource conflicts. Simultaneously demands the liberation of consecrated "
+                "temple institutions from state bureaucratic control (Free Temples) to restore native cultural and economic vitality, "
+                "while projecting Sanatan civilizational wisdom globally as an empirical, non-dogmatic technology of consciousness "
+                "and Maryada Purushottama moral restraint."
+            ),
+        },
         "rizwan_ahmed": {
             "name": "Forensic Courtroom Cross-Examiner & Criminal Law Realist (Dr. Syed Rizwan Ahmed Tradition)",
             "doctrinal_axis": "Adversarial Evidentiary Cross-Examination, Statutory Due Process & Criminal Procedure Demolition",
@@ -373,6 +394,24 @@ class PersonaNarrator:
                 "Deconstruct colonial statutory and treaty traps that compromise native cultural sovereignty or sacred geography.",
                 "Anchor national legal standing in primary inscriptional, archaeological, and epigraphic historical evidence.",
                 "Resist transnational human rights lawfare mechanisms designed to weaponize domestic fault lines."
+            ]
+
+        elif key == "sadhguru":
+            takeaway = (
+                "From the perspective of ecological foundation, inner consciousness, and sacred geography, "
+                "no nation can sustain sovereign statecraft, economic power, or military defense if its foundational ecology collapses. "
+                "Living soil (a minimum of 3-6% organic content) and flowing, healthy rivers (Save Soil / Cauvery Calling) are the physical "
+                "prerequisites for food security, peace, and human sanity. When soil dies, agriculture collapses, forcing mass migration, "
+                "civil unrest, and resource conflicts. Simultaneously, statecraft must protect civilizational consciousness: "
+                "Hindu temples must be liberated from state bureaucratic expropriation (Free Temples) to revive their role as consecrated "
+                "centers of community well-being, culture, and sacred local economies. Sanatan Dharma is not an organized belief system "
+                "or dogma; it is an exploratory, empirical technology of consciousness, self-realization, and Maryada Purushottama balance."
+            )
+            recommendations = [
+                "Mandate soil organic content revitalization (minimum 3-6%) as a core national security and food sovereignty imperative.",
+                "Dismantle state bureaucratic control over Hindu temples, returning consecrated sacred spaces to decentralized community custody.",
+                "Project Indic civilizational soft power globally as a universal, scientific technology of consciousness rather than dogmatic belief.",
+                "Embed psychological balance and de-polarization into national governance to foster high-clarity leadership."
             ]
 
         elif key == "rizwan_ahmed":
@@ -616,13 +655,24 @@ class CivilizationalCouncil:
                         "Translates high-level civilizational ideals into relentless ground-level execution: manufacturing turnaround velocity, "
                         "border infrastructure completion, agricultural self-sufficiency, and disciplined national productivity."
                     )
+                },
+                "sadhguru_ecologist": {
+                    "role": "Conscious Ecologist & Yogic Realist (Sadhguru Perspective)",
+                    "guiding_maxim": "Living soil is the bedrock of civilization; consciousness is the master technology.",
+                    "verdict": (
+                        "Audits the foundational physical ecological and psychological baseline: living soil (3-6% organic matter) "
+                        "and revitalized river basins are the non-negotiable physical prerequisites for food sovereignty, social peace, "
+                        "and national endurance. Statecraft must liberate consecrated temple spaces from bureaucratic control to restore "
+                        "community sacred economies, while projecting Indic yogic wisdom globally as a non-dogmatic technology of consciousness."
+                    )
                 }
             }
             guidance = [
                 "Ground all foreign policy in Kautilya's Ṣaḍguṇya and multi-vector strategic autonomy.",
                 "Prioritize domestic physical self-reliance (energy, critical minerals, chips) over paper treaties.",
                 "Maintain Abhaya: resist extraterritorial coercive sanctions through bilateral currency clearing.",
-                "Execute relentlessly: translate civilizational confidence into industrial turnaround velocity."
+                "Execute relentlessly: translate civilizational confidence into industrial turnaround velocity.",
+                "Regenerate ecological foundations: prioritize living soil (minimum 3-6% organic content) and river basin vitality."
             ]
         else:
             # Apocalyptic / Millenarian / Pseudoscience Deconstruction Perspectives
@@ -681,13 +731,24 @@ class CivilizationalCouncil:
                         "family responsibility, and national resilience. One's duty is purposeful action in the world (*Karma Yoga*), "
                         "not passive surrender to unverified apocalyptic narratives."
                     )
+                },
+                "sadhguru_ecologist": {
+                    "role": "Conscious Ecologist & Yogic Realist (Sadhguru Perspective)",
+                    "guiding_maxim": "True well-being is created from within; do not outsource life to fear and superstition.",
+                    "verdict": (
+                        "Deconstructs apocalyptic fear-mongering by emphasizing conscious human responsibility: the future of this planet is not "
+                        "determined by superstitious doom clocks, but by how consciously we act right now. When human beings operate in compulsive "
+                        "fear, they degrade their minds and their ecology. True spiritual technology creates joyful, conscious, and responsible "
+                        "individuals dedicated to regenerating soil, environment, and civilizational vitality."
+                    )
                 }
             }
             guidance = [
                 "Do not succumb to fear-driven millenarianism; anchor yourself in primary canon (Surya Siddhanta, Mahabharata).",
                 "Separate authentic Bhakti spiritual literature from post-1970s commercial chapbook interpolations.",
                 "Recognize the algorithmic business model: apocalyptic titles monetize human anxiety for viral retention.",
-                "Practice Purushartha and Karma Yoga: focus on education, character, and strategic deterrence over fatalistic doom."
+                "Practice Purushartha and Karma Yoga: focus on education, character, and strategic deterrence over fatalistic doom.",
+                "Transform fear into conscious ecological responsibility: regenerate soil vitality and environmental sustainability."
             ]
 
         return {

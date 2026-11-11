@@ -60,6 +60,40 @@ class StrategicQuery(BaseModel):
     requires_soil_resilience: bool = False
     requires_dharmic_sovereignty: bool = False
     requires_sectoral_rotation: bool = False
+    requires_island_net_security: bool = False
+    requires_cbdc_surveillance: bool = False
+    requires_interagency_synergy: bool = False
+    requires_bank_crar: bool = False
+    requires_bureaucratic_friction: bool = False
+    requires_gan_radar: bool = False
+    requires_high_altitude_airlift: bool = False
+    requires_bigtech_algorithmic_sovereignty: bool = False
+    requires_sacred_economy: bool = False
+    requires_outward_asset_capture: bool = False
+    requires_archaeo_astronomy: bool = False
+    requires_black_projects: bool = False
+    requires_trans_himalayan_hydrology: bool = False
+    requires_predatory_dumping: bool = False
+    requires_apaurusheya_epistemic: bool = False
+    requires_sacred_heritage_encroachment: bool = False
+    requires_narrative_inversion: bool = False
+    requires_malacca_chokepoint: bool = False
+    requires_ritual_ecological_sovereignty: bool = False
+    requires_dharmic_constitutionalism: bool = False
+    requires_partition_demystification: bool = False
+    requires_canonical_epic_fidelity: bool = False
+    requires_theological_apostasy_velocity: bool = False
+    requires_aurobindonian_integration: bool = False
+    requires_shastric_dietary_plurality: bool = False
+    requires_archival_primary_source: bool = False
+    requires_academic_gatekeeping: bool = False
+    requires_succession_continuity: bool = False
+    requires_linguistic_sprachbund: bool = False
+    requires_indigenous_stem: bool = False
+    requires_subaltern_memory: bool = False
+    requires_industrial_attrition: bool = False
+    requires_imperial_debt_overreach: bool = False
+    requires_colonial_drain_extraction: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -331,6 +365,40 @@ class QueryParser:
         req_soil = any(cls.matches_keyword(text_lower, kw) for kw in ["soil resilience", "save soil", "soil organic carbon", "soc", "topsoil", "agroforestry", "desertification"])
         req_dharmic_sov = any(cls.matches_keyword(text_lower, kw) for kw in ["dharmic soft power", "free tn temples", "temple autonomy", "hr&ce", "cultural decolonization", "spiritual diplomacy"])
         req_sec_rot = any(cls.matches_keyword(text_lower, kw) for kw in ["sectoral rotation", "grid saturation", "data center grid", "ai capex", "index illusion", "hyperscaler capex", "sensex 2000"])
+        req_island_sec = any(cls.matches_keyword(text_lower, kw) for kw in ["island net security", "eez surveillance", "agalega", "maritime bastion", "hydrographic vessel", "plan incursion", "sagar"])
+        req_cbdc_surv = any(cls.matches_keyword(text_lower, kw) for kw in ["cbdc surveillance", "programmable cbdc", "monetary autonomy", "digital enclosure", "programmable money", "cash retention"])
+        req_interagency = any(cls.matches_keyword(text_lower, kw) for kw in ["inter-agency synergy", "counter subversion", "nia cbi ed", "fiu-ind", "hawala crackdown", "gangster-terror", "fcra subversion"])
+        req_bank_crar = any(cls.matches_keyword(text_lower, kw) for kw in ["bank crar", "asset quality", "crar ratio", "banking fortress", "net npa", "provision coverage", "treasury mtm"])
+        req_bur_fric = any(cls.matches_keyword(text_lower, kw) for kw in ["bureaucratic friction", "administrative velocity", "file looping", "pil lawfare", "sub-national inertia", "statutory de-registration"])
+        req_gan_radar = any(cls.matches_keyword(text_lower, kw) for kw in ["gan radar", "gallium nitride", "aesa radar", "trm density", "radar sovereignty", "indigenous aesa", "wide bandgap"])
+        req_high_airlift = any(cls.matches_keyword(text_lower, kw) for kw in ["nyoma alg", "high altitude airlift", "thrust derating", "daulat beg oldi", "winter lac logistics", "heavy airlift"])
+        req_algo_sov = any(cls.matches_keyword(text_lower, kw) for kw in ["algorithmic sovereignty", "big tech sovereignty", "shadow banning", "algorithmic nudging", "dpdp enforcement", "meta fir", "section 69a"])
+        req_sacred_econ = any(cls.matches_keyword(text_lower, kw) for kw in ["sacred economy", "pilgrimage tourism", "ayodhya economy", "kashi corridor", "religious tourism multiplier", "temple msme"])
+        req_outward_odi = any(cls.matches_keyword(text_lower, kw) for kw in ["outward direct investment", "odi asset capture", "western asset acquisition", "ip repatriation", "distressed asset capture", "corporate odi"])
+        req_archaeo_astro = any(cls.matches_keyword(text_lower, kw) for kw in ["archaeo-astronomy", "planetary conjunction", "epigraphic dating", "ved veer arya", "vedic astronomy", "equinox retro-calculation", "sediment stratigraphy"])
+        req_black_proj = any(cls.matches_keyword(text_lower, kw) for kw in ["black project", "special access program", "c4isr early warning", "deep state black", "nuclear alert cushion", "annie jacobsen"])
+        req_trans_hydro = any(cls.matches_keyword(text_lower, kw) for kw in ["yarlung tsangpo", "upper siang", "medog dam", "trans-himalayan hydrology", "hydrological warfare", "buffer reservoir", "brahmaputra dam"])
+        req_pred_dumping = any(cls.matches_keyword(text_lower, kw) for kw in ["canton fair", "predatory dumping", "overcapacity dumping", "qco enforcement", "diaper dumping", "toy dumping", "anti-dumping duty"])
+        req_apaurusheya = any(cls.matches_keyword(text_lower, kw) for kw in ["apaurusheya", "apaurusheyatva", "shastric ontology", "vedic epistemology", "colonial philology", "ramnath jha", "sabda pramana"])
+        req_heritage_encroach = any(cls.matches_keyword(text_lower, kw) for kw in ["heritage encroachment", "shivaji forts", "vishalgad", "lohagad", "mazar encroachment", "hilltop fort", "asi enforcement"])
+        req_narr_inversion = any(cls.matches_keyword(text_lower, kw) for kw in ["narrative inversion", "ravanayana", "villain glamorization", "moral taxonomy inversion", "consumer boycott", "cinema subversion"])
+        req_malacca = any(cls.matches_keyword(text_lower, kw) for kw in ["malacca strait", "great nicobar bastion", "anc strike", "malacca deterrence", "chokepoint veto", "chinese sloc"])
+        req_ritual_eco = any(cls.matches_keyword(text_lower, kw) for kw in ["ritual ecological", "diwali firecrackers", "selective prohibition", "festival ban", "shastric ritual", "environmental lawfare", "firecracker ban"])
+        req_dharmic_const = any(cls.matches_keyword(text_lower, kw) for kw in ["dharmic constitutionalism", "rajdharma", "decolonial jurisprudence", "borrowed constitutional dogma", "civilizational sanskriti", "decolonial law"])
+        req_part_demyst = any(cls.matches_keyword(text_lower, kw) for kw in ["partition demystification", "historical sandarshan", "khilafat appeasement", "moplah atrocities", "mahatma-ism", "demystify partition", "partition causality"])
+        req_epic_fidelity = any(cls.matches_keyword(text_lower, kw) for kw in ["canonical epic fidelity", "valmiki ramayana", "cinematic subversion", "adipurush", "marxist pop revisionism", "epic fidelity", "canonical fidelity"])
+        req_theol_apostasy = any(cls.matches_keyword(text_lower, kw) for kw in ["theological incompatibility", "ex-muslim", "apostasy velocity", "irtidad", "surah 3:85", "sanatani muslim myth", "scriptural exclusivity"])
+        req_aurobindo_integ = any(cls.matches_keyword(text_lower, kw) for kw in ["aurobindonian integration", "sri aurobindo", "spiritual integration", "shakta tantric harmony", "decentralized sanatan", "regional bastions", "integral nationalism"])
+        req_shastric_diet = any(cls.matches_keyword(text_lower, kw) for kw in ["shastric dietary plurality", "dietary plurality", "shakta offering", "kamakhya dietary", "vaishnava vegetarianism", "culinary pluralism", "tantric offering"])
+        req_archival_source = any(cls.matches_keyword(text_lower, kw) for kw in ["archival primary source", "primary epigraphy", "copper plate inscription", "inam register", "archival fidelity", "archival evidence"])
+        req_academic_gate = any(cls.matches_keyword(text_lower, kw) for kw in ["academic gatekeeping", "literary festival gatekeeping", "foreign donor alignment", "narrative colonization", "think tank gatekeeping"])
+        req_succ_cont = any(cls.matches_keyword(text_lower, kw) for kw in ["succession continuity", "leadership succession", "modi to yogi", "political transition risk", "capex statutory durability", "cadre alignment"])
+        req_ling_sprach = any(cls.matches_keyword(text_lower, kw) for kw in ["linguistic sprachbund", "sprachbund convergence", "sanskrit and tamil", "proto-dravidian", "munda loanwords", "linguistic balkanization", "retroflex phonology"])
+        req_indig_stem = any(cls.matches_keyword(text_lower, kw) for kw in ["indigenous stem", "wootz steel", "zawar zinc", "ancient indian metallurgy", "stem authenticity", "mathematical manuscript", "sulba sutras"])
+        req_subalt_mem = any(cls.matches_keyword(text_lower, kw) for kw in ["subaltern memory", "hero stones", "viragals", "oral folk resistance", "village memorial", "subaltern history"])
+        req_ind_attr = any(cls.matches_keyword(text_lower, kw) for kw in ["industrial attrition", "ammunition burn rate", "shell production surge", "drone fabrication capacity", "propellant precursor", "180-day attrition"])
+        req_imp_debt = any(cls.matches_keyword(text_lower, kw) for kw in ["imperial debt overreach", "debt-to-gdp military", "basing retrenchment", "fiscal crowding out defense", "imperial overstretch"])
+        req_col_drain = any(cls.matches_keyword(text_lower, kw) for kw in ["colonial drain extraction", "council bills drain", "45 trillion drain", "deindustrialization tariff", "colonial wealth drain"])
 
         if req_pnt and "military_readiness" not in active_lenses:
             active_lenses.append("military_readiness")
@@ -378,6 +446,74 @@ class QueryParser:
             active_lenses.append("civilizational")
         if req_sec_rot and "geo_economist" not in active_lenses:
             active_lenses.append("geo_economist")
+        if req_island_sec and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_cbdc_surv and "digital_sovereignty" not in active_lenses:
+            active_lenses.append("digital_sovereignty")
+        if req_interagency and "hybrid_covert" not in active_lenses:
+            active_lenses.append("hybrid_covert")
+        if req_bank_crar and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_bur_fric and "bureaucratic_inertia" not in active_lenses:
+            active_lenses.append("bureaucratic_inertia")
+        if req_gan_radar and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if req_high_airlift and "military_readiness" not in active_lenses:
+            active_lenses.append("military_readiness")
+        if req_algo_sov and "digital_sovereignty" not in active_lenses:
+            active_lenses.append("digital_sovereignty")
+        if req_sacred_econ and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_outward_odi and "geo_economist" not in active_lenses:
+            active_lenses.append("geo_economist")
+        if req_archaeo_astro and "history" not in active_lenses:
+            active_lenses.append("history")
+        if req_black_proj and "hybrid_covert" not in active_lenses:
+            active_lenses.append("hybrid_covert")
+        if req_trans_hydro and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_pred_dumping and "geo_economist" not in active_lenses:
+            active_lenses.append("geo_economist")
+        if req_apaurusheya and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_heritage_encroach and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_narr_inversion and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if req_malacca and "military_readiness" not in active_lenses:
+            active_lenses.append("military_readiness")
+        if req_ritual_eco and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_dharmic_const and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_part_demyst and "history" not in active_lenses:
+            active_lenses.append("history")
+        if req_epic_fidelity and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if req_theol_apostasy and "demographic_infiltration" not in active_lenses:
+            active_lenses.append("demographic_infiltration")
+        if req_aurobindo_integ and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_shastric_diet and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_archival_source and "history" not in active_lenses:
+            active_lenses.append("history")
+        if req_academic_gate and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if req_succ_cont and "geo_economist" not in active_lenses:
+            active_lenses.append("geo_economist")
+        if req_ling_sprach and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_indig_stem and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if req_subalt_mem and "history" not in active_lenses:
+            active_lenses.append("history")
+        if req_ind_attr and "military_readiness" not in active_lenses:
+            active_lenses.append("military_readiness")
+        if req_imp_debt and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_col_drain and "history" not in active_lenses:
+            active_lenses.append("history")
 
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
@@ -442,6 +578,40 @@ class QueryParser:
             requires_soil_resilience=req_soil,
             requires_dharmic_sovereignty=req_dharmic_sov,
             requires_sectoral_rotation=req_sec_rot,
+            requires_island_net_security=req_island_sec,
+            requires_cbdc_surveillance=req_cbdc_surv,
+            requires_interagency_synergy=req_interagency,
+            requires_bank_crar=req_bank_crar,
+            requires_bureaucratic_friction=req_bur_fric,
+            requires_gan_radar=req_gan_radar,
+            requires_high_altitude_airlift=req_high_airlift,
+            requires_bigtech_algorithmic_sovereignty=req_algo_sov,
+            requires_sacred_economy=req_sacred_econ,
+            requires_outward_asset_capture=req_outward_odi,
+            requires_archaeo_astronomy=req_archaeo_astro,
+            requires_black_projects=req_black_proj,
+            requires_trans_himalayan_hydrology=req_trans_hydro,
+            requires_predatory_dumping=req_pred_dumping,
+            requires_apaurusheya_epistemic=req_apaurusheya,
+            requires_sacred_heritage_encroachment=req_heritage_encroach,
+            requires_narrative_inversion=req_narr_inversion,
+            requires_malacca_chokepoint=req_malacca,
+            requires_ritual_ecological_sovereignty=req_ritual_eco,
+            requires_dharmic_constitutionalism=req_dharmic_const,
+            requires_partition_demystification=req_part_demyst,
+            requires_canonical_epic_fidelity=req_epic_fidelity,
+            requires_theological_apostasy_velocity=req_theol_apostasy,
+            requires_aurobindonian_integration=req_aurobindo_integ,
+            requires_shastric_dietary_plurality=req_shastric_diet,
+            requires_archival_primary_source=req_archival_source,
+            requires_academic_gatekeeping=req_academic_gate,
+            requires_succession_continuity=req_succ_cont,
+            requires_linguistic_sprachbund=req_ling_sprach,
+            requires_indigenous_stem=req_indig_stem,
+            requires_subaltern_memory=req_subalt_mem,
+            requires_industrial_attrition=req_ind_attr,
+            requires_imperial_debt_overreach=req_imp_debt,
+            requires_colonial_drain_extraction=req_col_drain,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

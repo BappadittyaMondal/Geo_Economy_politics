@@ -418,6 +418,69 @@ class InstitutionalLawfareLens:
             narrative_delegitimation_pressure=dharmic_params_l.get("narrative_delegitimation_pressure", 0.40),
         )
         metrics.update({f"lawfare_{k}": v for k, v in _dharmic_res_l.items()})
+
+        # Phase 285: Wire InterAgencyCounterSubversionSynergySieve in InstitutionalLawfareLens
+        from .hybrid_covert import InterAgencyCounterSubversionSynergySieve
+        subv_params_il = law_meta.get("counter_subversion", {}) if isinstance(law_meta, dict) else {}
+        _subv_res_il = InterAgencyCounterSubversionSynergySieve.calculate_counter_subversion(
+            inter_agency_data_sharing=subv_params_il.get("inter_agency_data_sharing", 0.80),
+            asset_attachment_speed=subv_params_il.get("asset_attachment_speed", 0.75),
+            hawala_volume=subv_params_il.get("hawala_volume", 0.30),
+            diaspora_sanctuary_drag=subv_params_il.get("diaspora_sanctuary_drag", 0.40),
+        )
+        metrics.update({f"lawfare_{k}": v for k, v in _subv_res_il.items()})
+
+        # Phase 287: Wire SubNationalBureaucraticFrictionSieve in InstitutionalLawfareLens
+        from .bureaucratic_inertia import SubNationalBureaucraticFrictionSieve
+        bur_params_il = law_meta.get("bureaucratic_friction", {}) if isinstance(law_meta, dict) else {}
+        _bur_res_il = SubNationalBureaucraticFrictionSieve.calculate_administrative_velocity(
+            executive_clarity=bur_params_il.get("executive_clarity", 0.75),
+            statutory_de_registration=bur_params_il.get("statutory_de_registration", 0.70),
+            file_looping_latency=bur_params_il.get("file_looping_latency", 0.35),
+            pil_stay_order_drag=bur_params_il.get("pil_stay_order_drag", 0.30),
+        )
+        metrics.update({f"lawfare_{k}": v for k, v in _bur_res_il.items()})
+
+        # Phase 298: Wire SacredHeritageEncroachmentSieve
+        heritage_params = law_meta.get("sacred_heritage", {}) if isinstance(law_meta, dict) else {}
+        _heritage_res = SacredHeritageEncroachmentSieve.calculate(
+            illegal_shrine_area_sqm=heritage_params.get("illegal_shrine_area_sqm", 1200.0),
+            total_heritage_area_sqm=heritage_params.get("total_heritage_area_sqm", 50000.0),
+            asi_statutory_enforcement=heritage_params.get("asi_statutory_enforcement", 0.85),
+            topographic_command_value=heritage_params.get("topographic_command_value", 0.90),
+            vote_bank_appeasement_drag=heritage_params.get("vote_bank_appeasement_drag", 0.20),
+            citizen_vigilance_reporting=heritage_params.get("citizen_vigilance_reporting", 0.80),
+        )
+        metrics["heritage_defense_score"] = _heritage_res["heritage_defense_score"]
+        metrics["heritage_protection_tier"] = _heritage_res["heritage_protection_tier"]
+        metrics["topographic_heritage_integrity_index"] = _heritage_res["topographic_heritage_integrity_index"]
+
+        # Phase 301: Wire RitualEcologicalSubversionSieve
+        ritual_params = law_meta.get("ritual_ecological", {}) if isinstance(law_meta, dict) else {}
+        _ritual_res = RitualEcologicalSubversionSieve.calculate(
+            baseline_industrial_emissions_aqi=ritual_params.get("baseline_industrial_emissions_aqi", 280.0),
+            ritual_pulsed_emissions_aqi=ritual_params.get("ritual_pulsed_emissions_aqi", 35.0),
+            shastric_grounding_fidelity=ritual_params.get("shastric_grounding_fidelity", 0.85),
+            selective_prohibition_intensity=ritual_params.get("selective_prohibition_intensity", 0.25),
+            continuous_vehicular_industrial_share=ritual_params.get("continuous_vehicular_industrial_share", 0.82),
+        )
+        metrics["ritual_sovereignty_score"] = _ritual_res["ritual_sovereignty_score"]
+        metrics["ritual_sovereignty_tier"] = _ritual_res["ritual_sovereignty_tier"]
+        metrics["ecological_proportionality_index"] = _ritual_res["ecological_proportionality_index"]
+
+        # Phase 302: Wire DharmicConstitutionalismSieve
+        dharmic_const_params = law_meta.get("dharmic_constitutionalism", {}) if isinstance(law_meta, dict) else {}
+        _dharmic_const_res = DharmicConstitutionalismSieve.calculate(
+            indigenous_civilizational_continuity=dharmic_const_params.get("indigenous_civilizational_continuity", 0.85),
+            colonial_borrowed_dogma=dharmic_const_params.get("colonial_borrowed_dogma", 0.25),
+            decolonial_jurisprudence_depth=dharmic_const_params.get("decolonial_jurisprudence_depth", 0.80),
+            vote_bank_fetishism_drag=dharmic_const_params.get("vote_bank_fetishism_drag", 0.20),
+            dharma_rajdharma_judicial_fidelity=dharmic_const_params.get("dharma_rajdharma_judicial_fidelity", 0.82),
+        )
+        metrics["dharmic_constitutionalism_score"] = _dharmic_const_res["dharmic_constitutionalism_score"]
+        metrics["dharmic_constitutionalism_tier"] = _dharmic_const_res["dharmic_constitutionalism_tier"]
+        metrics["constitutional_authenticity_index"] = _dharmic_const_res["constitutional_authenticity_index"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -1558,5 +1621,245 @@ class SubRegionalElectoralPolarizationSieve:
             "electoral_stability_verdict": verdict,
             "is_electoral_governance_stable": score >= 0.55
         }
+
+
+class SacredHeritageEncroachmentSieve:
+    """
+    Phase 298: Sacred Heritage Preservation, Hilltop Fort Topography & Anti-Encroachment Sieve.
+    Quantifies physical and demographic encroachments on historical and sacred fortifications
+    (e.g. Chhatrapati Shivaji Maharaj's hilltop forts in Maharashtra: Vishalgad, Lohagad, Raigad),
+    evaluating the tactical military-topographic value of heritage forts, illegal religious shrine density,
+    and calculating Archaeological Survey of India (ASI) statutory enforcement vs vote-bank appeasement drag.
+
+    Formulation:
+      EncroachmentPressure = min(1.0, (illegal_shrine_area_sqm) / (total_heritage_area_sqm + 1e-6))
+      z = 2.8 * asi_statutory_enforcement + 2.5 * topographic_command_value - 3.6 * EncroachmentPressure - 2.4 * vote_bank_appeasement_drag - 0.3
+      S_Heritage = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        illegal_shrine_area_sqm: float = 1200.0,
+        total_heritage_area_sqm: float = 50000.0,
+        asi_statutory_enforcement: float = 0.85,
+        topographic_command_value: float = 0.90,
+        vote_bank_appeasement_drag: float = 0.20,
+        citizen_vigilance_reporting: float = 0.80,
+    ) -> Dict[str, Any]:
+        shrine_area = max(0.0, float(illegal_shrine_area_sqm))
+        tot_area = max(100.0, float(total_heritage_area_sqm))
+        asi = max(0.0, min(1.0, float(asi_statutory_enforcement)))
+        topo = max(0.0, min(1.0, float(topographic_command_value)))
+        appease = max(0.0, min(1.0, float(vote_bank_appeasement_drag)))
+        vigilance = max(0.0, min(1.0, float(citizen_vigilance_reporting)))
+
+        encroach_pressure = min(1.0, shrine_area / (tot_area + 1e-6))
+        z = 2.8 * asi + 2.5 * topo - 3.6 * encroach_pressure - 2.4 * appease - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_HERITAGE_SOVEREIGNTY"
+            verdict = "RIGOROUS_ARCHAEOLOGICAL_AND_STATUTORY_PROTECTION"
+            rationale = (
+                f"Fortified heritage protection ({score:.4f}): Robust ASI statutory enforcement ({asi:.2f}) and citizen vigilance "
+                f"safeguard high-command topographic fortifications ({topo:.2f}) with minimal encroachment ({encroach_pressure:.2%})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_FORT_DEFENSE_STABLE"
+            verdict = "ACTIVE_DEMOLITION_AND_RESTORATION_EFFORTS"
+            rationale = (
+                f"Robust defense ({score:.4f}): Legal enforcement actively counters illegal shrines, "
+                f"though ongoing appeasement pressure ({appease:.2f}) requires continuous judicial oversight."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_GRAYZONE_ENCROACHMENT_RISK"
+            verdict = "ELEVATED_ILLEGAL_STRUCTURE_OCCUPATION"
+            rationale = (
+                f"Contested heritage ({score:.4f}): Political vote-bank appeasement stalls eviction notices, "
+                f"allowing strategic hilltop fortification areas to be encroached."
+            )
+        else:
+            tier = "CRITICAL_HERITAGE_DESECRATION_AND_ERASURE"
+            verdict = "ACUTE_TACTICAL_AND_CIVILIZATIONAL_OCCUPATION"
+            rationale = (
+                f"Critical heritage erasure ({score:.4f}): Unchecked unauthorized shrines and bureaucratic inertia "
+                f"compromise both historical memory and tactical geographic topography."
+            )
+
+        topographic_integrity_idx = round(min(1.0, (score * 0.65) + (vigilance * 0.35)), 4)
+
+        return {
+            "heritage_defense_score": score,
+            "encroachment_pressure_ratio": round(encroach_pressure, 4),
+            "illegal_shrine_area_sqm": round(shrine_area, 2),
+            "total_heritage_area_sqm": round(tot_area, 2),
+            "asi_statutory_enforcement": round(asi, 4),
+            "topographic_command_value": round(topo, 4),
+            "vote_bank_appeasement_drag": round(appease, 4),
+            "citizen_vigilance_reporting": round(vigilance, 4),
+            "topographic_heritage_integrity_index": topographic_integrity_idx,
+            "heritage_protection_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_heritage_fortified": score >= 0.55,
+        }
+
+
+class RitualEcologicalSubversionSieve:
+    """
+    Phase 301: Quantifies selective judicial and regulatory burdens imposed on indigenous Hindu rituals
+    (Diwali firecrackers, Dahi Handi, Jallikattu) relative to continuous baseline industrial emissions
+    and non-Hindu festival impacts.
+    
+    Mathematical Formulation:
+      ratio = baseline_industrial_emissions / (ritual_pulsed_emissions + eps)
+      z = 2.8 * (ratio / 5.0) + 2.5 * shastric_grounding - 3.4 * selective_prohibition - 0.4
+      S_Ritual_Sovereignty = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        baseline_industrial_emissions_aqi: float = 280.0,
+        ritual_pulsed_emissions_aqi: float = 35.0,
+        shastric_grounding_fidelity: float = 0.85,
+        selective_prohibition_intensity: float = 0.25,
+        continuous_vehicular_industrial_share: float = 0.82,
+    ) -> Dict[str, Any]:
+        base_aqi = max(10.0, float(baseline_industrial_emissions_aqi))
+        ritual_aqi = max(1.0, float(ritual_pulsed_emissions_aqi))
+        shastra = max(0.0, min(1.0, float(shastric_grounding_fidelity)))
+        prohib = max(0.0, min(1.0, float(selective_prohibition_intensity)))
+        vehicular = max(0.0, min(1.0, float(continuous_vehicular_industrial_share)))
+
+        ratio = min(10.0, base_aqi / (ritual_aqi + 1e-6))
+        z = 2.8 * (ratio / 5.0) + 2.5 * shastra - 3.4 * prohib - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_RITUAL_SOVEREIGNTY"
+            verdict = "INDIGENOUS_RITUAL_PRACTICE_PROTECTED_AND_VALIDATED"
+            rationale = (
+                f"Fortified ritual sovereignty ({score:.4f}): Continuous industrial/vehicular emissions ({vehicular:.2%}) "
+                f"dwarf seasonal pulsed ritual impact (ratio {ratio:.1f}x), preserving shastric festival rights ({shastra:.2f}) "
+                f"against selective regulatory overreach ({prohib:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_SHATRIC_TRADITION_RESILIENT"
+            verdict = "EVIDENCE_BASED_ENVIRONMENTAL_HARMONIZATION"
+            rationale = (
+                f"Robust resilience ({score:.4f}): Statutory and community awareness counters selective bans, "
+                f"though judicial scrutiny requires ongoing forensic air-quality data presentation."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_JUDICIAL_OVERREACH_RISK"
+            verdict = "ASYMMETRIC_SEASONAL_RITUAL_REGULATION"
+            rationale = (
+                f"Contested ritual freedom ({score:.4f}): Selective judicial bans target cultural festivities "
+                f"while ignoring perennial point-source industrial pollution ({base_aqi:.1f} AQI)."
+            )
+        else:
+            tier = "CRITICAL_CIVILIZATIONAL_RITUAL_ENCLOSURE"
+            verdict = "ACUTE_INDIGENOUS_CULTURAL_CRIMINALIZATION"
+            rationale = (
+                f"Critical ritual enclosure ({score:.4f}): Pervasive lawfare criminalizes millennia-old traditions "
+                f"under selective ecological pretexts, eroding civilizational cultural continuity."
+            )
+
+        proportionality_idx = round(min(1.0, (score * 0.60) + (vehicular * 0.40)), 4)
+
+        return {
+            "ritual_sovereignty_score": score,
+            "baseline_to_ritual_emissions_ratio": round(ratio, 4),
+            "baseline_industrial_aqi": round(base_aqi, 2),
+            "ritual_pulsed_aqi": round(ritual_aqi, 2),
+            "shastric_grounding_fidelity": round(shastra, 4),
+            "selective_prohibition_intensity": round(prohib, 4),
+            "continuous_vehicular_industrial_share": round(vehicular, 4),
+            "ecological_proportionality_index": proportionality_idx,
+            "ritual_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_ritual_sovereign": score >= 0.55,
+        }
+
+
+class DharmicConstitutionalismSieve:
+    """
+    Phase 302: Measures the structural durability of constitutional jurisprudence by evaluating
+    the harmony between Euro-Christian borrowed constitutional morality and indigenous civilizational
+    Sanskriti (Rajdharma, Dharma as supreme justice).
+    
+    Mathematical Formulation:
+      ratio = indigenous_civilizational_continuity / (colonial_borrowed_dogma + eps)
+      z = 3.0 * (ratio / 2.5) + 2.4 * decolonial_jurisprudence - 2.8 * vote_bank_fetishism - 0.5
+      S_Dharmic_Constitutionalism = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        indigenous_civilizational_continuity: float = 0.85,
+        colonial_borrowed_dogma: float = 0.25,
+        decolonial_jurisprudence_depth: float = 0.80,
+        vote_bank_fetishism_drag: float = 0.20,
+        dharma_rajdharma_judicial_fidelity: float = 0.82,
+    ) -> Dict[str, Any]:
+        indig = max(0.0, min(1.0, float(indigenous_civilizational_continuity)))
+        colon = max(0.0, min(1.0, float(colonial_borrowed_dogma)))
+        decolon = max(0.0, min(1.0, float(decolonial_jurisprudence_depth)))
+        votebank = max(0.0, min(1.0, float(vote_bank_fetishism_drag)))
+        dharma = max(0.0, min(1.0, float(dharma_rajdharma_judicial_fidelity)))
+
+        ratio = min(5.0, indig / (colon + 1e-6))
+        z = 3.0 * (ratio / 2.5) + 2.4 * decolon - 2.8 * votebank - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_DHARMIC_CONSTITUTIONALISM"
+            verdict = "SOVEREIGN_INDIGENOUS_JURISPRUDENCE_CONSOLIDATED"
+            rationale = (
+                f"Fortified Dharmic constitutionalism ({score:.4f}): Indigenous legal foundations ({indig:.2f}) "
+                f"and Rajdharma principles ({dharma:.2f}) successfully supersede borrowed colonial dogmas ({colon:.2f}) "
+                f"with robust decolonial judicial reasoning ({decolon:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "DECOLONIAL_JURISPRUDENCE_EMERGENT"
+            verdict = "PROGRESSIVE_CIVILIZATIONAL_LEGAL_REALIGNMENT"
+            rationale = (
+                f"Emergent decolonial jurisprudence ({score:.4f}): Dharmic jurisprudential precedents gain institutional traction, "
+                f"countering political vote-bank opportunism ({votebank:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_POST_COLONIAL_LEGAL_FRICTION"
+            verdict = "EUROCENTRIC_CONSTITUTIONAL_MORALITY_TENSION"
+            rationale = (
+                f"Contested legal friction ({score:.4f}): Transplanted Western constitutional doctrines create friction "
+                f"with native ethos, resulting in unpredictable judicial interventions."
+            )
+        else:
+            tier = "ACUTE_CIVILIZATIONAL_CONSTITUTIONAL_ALIENATION"
+            verdict = "TOTAL_COLONIAL_INSTITUTIONAL_HEGEMONY"
+            rationale = (
+                f"Acute constitutional alienation ({score:.4f}): Legal institutions operate entirely divorced from "
+                f"indigenous civilizational reality, imposing alien doctrines that trigger societal instability."
+            )
+
+        constitutional_authenticity_idx = round(min(1.0, (score * 0.65) + (dharma * 0.35)), 4)
+
+        return {
+            "dharmic_constitutionalism_score": score,
+            "civilizational_to_colonial_ratio": round(ratio, 4),
+            "indigenous_civilizational_continuity": round(indig, 4),
+            "colonial_borrowed_dogma": round(colon, 4),
+            "decolonial_jurisprudence_depth": round(decolon, 4),
+            "vote_bank_fetishism_drag": round(votebank, 4),
+            "dharma_rajdharma_judicial_fidelity": round(dharma, 4),
+            "constitutional_authenticity_index": constitutional_authenticity_idx,
+            "dharmic_constitutionalism_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_dharmic_constitutional": score >= 0.55,
+        }
+
+
 
 ```

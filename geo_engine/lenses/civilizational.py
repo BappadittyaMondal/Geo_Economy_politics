@@ -258,6 +258,83 @@ class CivilizationalLens:
             narrative_delegitimation_pressure=dharmic_params.get("narrative_delegitimation_pressure", 0.40),
         )
         metrics.update(_dharmic_res)
+
+        # Phase 291: Wire SacredEconomyReligiousTourismSieve
+        sacred_params = civ_meta.get("sacred_economy", {}) if isinstance(civ_meta, dict) else {}
+        _sacred_res = SacredEconomyReligiousTourismSieve.calculate_sacred_economy(
+            pilgrim_footfall_velocity=sacred_params.get("pilgrim_footfall_velocity", 0.80),
+            msme_turnover=sacred_params.get("msme_turnover", 0.75),
+            decentralized_bullion=sacred_params.get("decentralized_bullion", 0.70),
+            state_expropriation_drag=sacred_params.get("state_expropriation_drag", 0.30),
+        )
+        metrics["sacred_economy_multiplier_score"] = _sacred_res["sacred_economy_multiplier_score"]
+        metrics["pilgrimage_msme_velocity_index"] = _sacred_res["pilgrimage_msme_velocity_index"]
+        metrics["decentralized_bullion_growth"] = _sacred_res["decentralized_bullion_growth"]
+        metrics["sacred_economy_tier"] = _sacred_res["sacred_economy_tier"]
+
+        # Phase 293: Wire ArchaeoAstronomicalEpigraphicDatingSieve in CivilizationalLens
+        from .history import ArchaeoAstronomicalEpigraphicDatingSieve
+        astro_params_c = civ_meta.get("archaeo_astronomy", {}) if isinstance(civ_meta, dict) else {}
+        _astro_res_c = ArchaeoAstronomicalEpigraphicDatingSieve.calculate_archaeo_astronomy(
+            planetary_conjunction_accuracy=astro_params_c.get("planetary_conjunction_accuracy", 0.85),
+            sediment_stratigraphy=astro_params_c.get("sediment_stratigraphy", 0.80),
+            textual_compression_bias=astro_params_c.get("textual_compression_bias", 0.25),
+            degeneracy_drag=astro_params_c.get("degeneracy_drag", 0.20),
+        )
+        metrics.update({f"civ_{k}": v for k, v in _astro_res_c.items()})
+
+        # Phase 297: Wire EpistemicApaurusheyaCivilizationalSieve
+        epistemic_params = civ_meta.get("apaurusheya_epistemic", {}) if isinstance(civ_meta, dict) else {}
+        _epistemic_res = EpistemicApaurusheyaCivilizationalSieve.calculate(
+            shastric_ontology_adherence=epistemic_params.get("shastric_ontology_adherence", 0.85),
+            sanskrit_hermeneutic_fidelity=epistemic_params.get("sanskrit_hermeneutic_fidelity", 0.90),
+            intergenerational_transmission=epistemic_params.get("intergenerational_transmission", 0.75),
+            colonial_philological_bias=epistemic_params.get("colonial_philological_bias", 0.20),
+            secular_semantic_dilution=epistemic_params.get("secular_semantic_dilution", 0.25),
+            gurukul_indic_pedagogy_depth=epistemic_params.get("gurukul_indic_pedagogy_depth", 0.70),
+        )
+        metrics["epistemic_sovereignty_score"] = _epistemic_res["epistemic_sovereignty_score"]
+        metrics["epistemic_sovereignty_tier"] = _epistemic_res["epistemic_sovereignty_tier"]
+        metrics["epistemic_autonomy_ratio"] = _epistemic_res["epistemic_autonomy_ratio"]
+
+        # Phase 306: Wire AurobindonianSpiritualIntegrationSieve
+        auro_params = civ_meta.get("aurobindonian_integration", {}) if isinstance(civ_meta, dict) else {}
+        _auro_res = AurobindonianSpiritualIntegrationSieve.calculate(
+            aurobindonian_spiritual_plurality=auro_params.get("aurobindonian_spiritual_plurality", 0.85),
+            centralized_political_hegemony_drag=auro_params.get("centralized_political_hegemony_drag", 0.25),
+            shakta_tantric_regional_harmony=auro_params.get("shakta_tantric_regional_harmony", 0.80),
+            sub_national_linguistic_friction=auro_params.get("sub_national_linguistic_friction", 0.20),
+            civilizational_sacred_geography_depth=auro_params.get("civilizational_sacred_geography_depth", 0.85),
+        )
+        metrics["spiritual_integration_score"] = _auro_res["spiritual_integration_score"]
+        metrics["spiritual_integration_tier"] = _auro_res["spiritual_integration_tier"]
+        metrics["integral_civilizational_unity_index"] = _auro_res["integral_civilizational_unity_index"]
+
+        # Phase 307: Wire ShastricDietaryPluralitySieve
+        diet_params = civ_meta.get("shastric_dietary_plurality", {}) if isinstance(civ_meta, dict) else {}
+        _diet_res = ShastricDietaryPluralitySieve.calculate(
+            shastric_sampradaya_plurality=diet_params.get("shastric_sampradaya_plurality", 0.85),
+            tantric_vedic_harmonization=diet_params.get("tantric_vedic_harmonization", 0.80),
+            colonial_dietary_dogmatism_drag=diet_params.get("colonial_dietary_dogmatism_drag", 0.20),
+            regional_culinary_sacredness=diet_params.get("regional_culinary_sacredness", 0.85),
+            sectarian_orthodoxy_friction=diet_params.get("sectarian_orthodoxy_friction", 0.20),
+        )
+        metrics["dietary_plurality_score"] = _diet_res["dietary_plurality_score"]
+        metrics["dietary_plurality_tier"] = _diet_res["dietary_plurality_tier"]
+        metrics["shastric_cohesion_index"] = _diet_res["shastric_cohesion_index"]
+
+        # Phase 312: Wire LinguisticSprachbundSieve
+        ling_params = civ_meta.get("linguistic_sprachbund", {}) if isinstance(civ_meta, dict) else {}
+        _ling_res = LinguisticSprachbundSieve.calculate(
+            retroflex_phonological_sharing=ling_params.get("retroflex_phonological_sharing", 0.85),
+            munda_dravidian_vedic_loanwords=ling_params.get("munda_dravidian_vedic_loanwords", 0.80),
+            syntactic_convergence=ling_params.get("syntactic_convergence", 0.85),
+            secessionist_balkanization_drag=ling_params.get("secessionist_balkanization_drag", 0.20),
+        )
+        metrics["linguistic_sprachbund_score"] = _ling_res["linguistic_sprachbund_score"]
+        metrics["linguistic_sprachbund_tier"] = _ling_res["linguistic_sprachbund_tier"]
+        metrics["civilizational_sprachbund_index"] = _ling_res["civilizational_sprachbund_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1218,3 +1295,381 @@ class DharmicSoftPowerCulturalSovereigntySieve:
             "dharmic_sovereignty_verdict": verdict,
             "is_dharmic_sovereignty_resilient": score >= 0.55,
         }
+
+
+class SacredEconomyReligiousTourismSieve:
+    """
+    Phase 291: Sacred Economy & Religious Tourism Sieve.
+    Models local economic multiplier from sacred pilgrimage corridors (Ayodhya, Kashi, Ujjain, Tirupati),
+    MSME employment generation, decentralized retail bullion accumulation, and fiscal autonomy from centralized secular expropriation.
+    """
+
+    @classmethod
+    def calculate_sacred_economy(
+        cls,
+        pilgrim_footfall_velocity: float = 0.80,
+        msme_turnover: float = 0.75,
+        decentralized_bullion: float = 0.70,
+        state_expropriation_drag: float = 0.30,
+    ) -> Dict[str, Any]:
+        """
+        Calculates Sacred Economy Multiplier Score using calibrated logistic sigmoid:
+            z = 2.8 * footfall + 2.5 * msme + 2.2 * bullion - 2.8 * exprop - 0.3
+            score = 1 / (1 + exp(-z))
+        """
+        import math
+        footfall = max(0.0, min(1.0, float(pilgrim_footfall_velocity)))
+        msme = max(0.0, min(1.0, float(msme_turnover)))
+        bullion = max(0.0, min(1.0, float(decentralized_bullion)))
+        exprop = max(0.0, min(1.0, float(state_expropriation_drag)))
+
+        z = 2.8 * footfall + 2.5 * msme + 2.2 * bullion - 2.8 * exprop - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "THRIVING_SACRED_CIVILIZATIONAL_ECONOMY"
+            verdict = "DECENTRALIZED_TEMPLE_LED_ECONOMIC_RENAISSANCE"
+            rationale = (
+                f"Thriving sacred economy ({score:.4f}): Massive pilgrim footfall ({footfall:.2f}) and grassroots MSME "
+                f"turnover ({msme:.2f}) generate self-sustaining local wealth, insusceptible to global fiat shocks."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_PILGRIMAGE_MSME_VELOCITY"
+            verdict = "EXPANDING_TEMPLE_TOWN_SERVICES_ECOSYSTEM"
+            rationale = (
+                f"Robust pilgrimage velocity ({score:.4f}): Solid local hospitality, artisan employment, and retail bullion demand."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_STATE_EXTRACTIVE_BURDEN"
+            verdict = "EXCESSIVE_STATE_TEMPLE_FUND_DIVERSION"
+            rationale = (
+                f"Contested state burden ({score:.4f}): State expropriation ({exprop:.2f}) diverts sacred community wealth away from local MSMEs."
+            )
+        else:
+            tier = "ACUTE_COMMERCIAL_DECAY_AND_EXPLOITATION"
+            verdict = "COMMERCIALIZED_DEVALUATION_OF_SACRED_HERITAGE"
+            rationale = (
+                f"Acute decay ({score:.4f}): Heavy bureaucratic rent-seeking and state expropriation strangle traditional pilgrimage livelihoods."
+            )
+
+        return {
+            "sacred_economy_multiplier_score": score,
+            "pilgrim_footfall_velocity": round(footfall, 4),
+            "msme_turnover": round(msme, 4),
+            "decentralized_bullion": round(bullion, 4),
+            "state_expropriation_drag": round(exprop, 4),
+            "pilgrimage_msme_velocity_index": round(msme, 4),
+            "decentralized_bullion_growth": round(bullion, 4),
+            "sacred_economy_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_sacred_economy_thriving": score >= 0.55,
+        }
+
+
+class EpistemicApaurusheyaCivilizationalSieve:
+    """
+    Phase 297: Shastric Epistemic Sovereignty, Apaurusheyatva & Anti-Philological Distortion Sieve.
+    Quantifies civilizational epistemic self-confidence by evaluating adherence to primary Indic Shastric epistemology
+    (Apaurusheyatva = authorless, eternal cosmic principles / Rta / Sabda Pramana),
+    measuring intergenerational knowledge transmission, and calculating cognitive immunity against
+    colonial/orientalist philological distortions and modern secular semantic dilution.
+
+    Formulation:
+      EpistemicAutonomy = min(2.5, (shastric_ontology_adherence * sanskrit_hermeneutic_fidelity) / (colonial_philological_bias + 1e-6))
+      z = 3.0 * EpistemicAutonomy + 2.4 * intergenerational_transmission - 2.8 * secular_semantic_dilution - 0.5
+      S_Epistemic = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        shastric_ontology_adherence: float = 0.85,
+        sanskrit_hermeneutic_fidelity: float = 0.90,
+        intergenerational_transmission: float = 0.75,
+        colonial_philological_bias: float = 0.20,
+        secular_semantic_dilution: float = 0.25,
+        gurukul_indic_pedagogy_depth: float = 0.70,
+    ) -> Dict[str, Any]:
+        shastra = max(0.0, min(1.0, float(shastric_ontology_adherence)))
+        sans = max(0.0, min(1.0, float(sanskrit_hermeneutic_fidelity)))
+        inter = max(0.0, min(1.0, float(intergenerational_transmission)))
+        col = max(0.01, min(1.0, float(colonial_philological_bias)))
+        dil = max(0.0, min(1.0, float(secular_semantic_dilution)))
+        ped = max(0.0, min(1.0, float(gurukul_indic_pedagogy_depth)))
+
+        autonomy = min(2.5, (shastra * sans) / (col + 1e-6))
+        z = 3.0 * autonomy + 2.4 * inter - 2.8 * dil - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_APAURUSHEYA_EPISTEMIC_SOVEREIGNTY"
+            verdict = "UNSHAKABLE_SHASTRIC_ONTOLOGICAL_FOUNDATION"
+            rationale = (
+                f"Fortified epistemic sovereignty ({score:.4f}): High fidelity to primary Sanskrit sources ({sans:.2f}) "
+                f"and robust Apaurusheyatva grounding completely neutralize colonial philological biases ({col:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_INDIC_KNOWLEDGE_TRADITION_RESILIENCE"
+            verdict = "ADEQUATE_EPISTEMIC_HERMENEUTIC_DEFENSE"
+            rationale = (
+                f"Robust resilience ({score:.4f}): Authentic shastric scholarship ({autonomy:.2f}) withstands external narrative attacks, "
+                f"though ongoing secular dilution ({dil:.2f}) requires institutional pedagogy reinforcement."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_PHILOLOGICAL_SUBVERSION_INTERVAL"
+            verdict = "ELEVATED_COLONIAL_CHRONOLOGICAL_DISTORTION"
+            rationale = (
+                f"Contested subversion ({score:.4f}): Eurocentric chronological compression and semantic dilution "
+                f"erode civilizational self-confidence in elite educational institutions."
+            )
+        else:
+            tier = "CRITICAL_EPISTEMIC_COLONIZATION_AND_AMNESIA"
+            verdict = "ACUTE_CIVILIZATIONAL_ROOTLESSNESS_COLLAPSE"
+            rationale = (
+                f"Critical epistemic colonization ({score:.4f}): Total subservience to distorted orientalist translations "
+                f"destroys foundational civilizational continuity and epistemic autonomy."
+            )
+
+        civilizational_memory_idx = round(min(1.0, (score * 0.60) + (ped * 0.40)), 4)
+
+        return {
+            "epistemic_sovereignty_score": score,
+            "epistemic_autonomy_ratio": round(autonomy, 4),
+            "shastric_ontology_adherence": round(shastra, 4),
+            "sanskrit_hermeneutic_fidelity": round(sans, 4),
+            "intergenerational_transmission": round(inter, 4),
+            "colonial_philological_bias": round(col, 4),
+            "secular_semantic_dilution": round(dil, 4),
+            "gurukul_indic_pedagogy_depth": round(ped, 4),
+            "civilizational_memory_index": civilizational_memory_idx,
+            "epistemic_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_epistemically_sovereign": score >= 0.55,
+        }
+
+
+class AurobindonianSpiritualIntegrationSieve:
+    """
+    Phase 306: Models the decentralized spiritual integration of peripheral civilizational bastions
+    (Bengal, Assam, Kerala) via Sri Aurobindo's Sanatan framework vs the frictions created by
+    purely political, centralizing Savarkarite nationalism.
+    
+    Mathematical Formulation:
+      ratio = aurobindonian_spiritual_plurality / (centralized_political_hegemony_drag + eps)
+      z = 3.0 * (ratio / 2.5) + 2.6 * shakta_tantric_regional_harmony - 2.5 * sub_national_linguistic_friction - 0.4
+      S_Spiritual_Integration = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        aurobindonian_spiritual_plurality: float = 0.85,
+        centralized_political_hegemony_drag: float = 0.25,
+        shakta_tantric_regional_harmony: float = 0.80,
+        sub_national_linguistic_friction: float = 0.20,
+        civilizational_sacred_geography_depth: float = 0.85,
+    ) -> Dict[str, Any]:
+        spiritual = max(0.0, min(1.0, float(aurobindonian_spiritual_plurality)))
+        hegemony = max(0.0, min(1.0, float(centralized_political_hegemony_drag)))
+        harmony = max(0.0, min(1.0, float(shakta_tantric_regional_harmony)))
+        friction = max(0.0, min(1.0, float(sub_national_linguistic_friction)))
+        geography = max(0.0, min(1.0, float(civilizational_sacred_geography_depth)))
+
+        ratio = min(5.0, spiritual / (hegemony + 1e-6))
+        z = 3.0 * (ratio / 2.5) + 2.6 * harmony - 2.5 * friction - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "HARMONIOUS_AUROBINDONIAN_INTEGRATION"
+            verdict = "DECENTRALIZED_SANATAN_SPIRITUAL_UNITY"
+            rationale = (
+                f"Harmonious spiritual integration ({score:.4f}): Decentralized Aurobindonian vision ({spiritual:.2f}) "
+                f"effortlessly integrates regional bastions (Bengal, Assam) through sacred geography ({geography:.2f}), "
+                f"avoiding artificial homogenizing friction ({friction:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "DECENTRALIZED_SANATAN_RESILIENCE"
+            verdict = "ORGANIC_REGIONAL_CIVILIZATIONAL_COHESION"
+            rationale = (
+                f"Robust spiritual resilience ({score:.4f}): Local traditions harmonize with pan-Indic civilizational consciousness, "
+                f"countering polarizing political centralization."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_REGIONAL_POLITICAL_FRICTION"
+            verdict = "ELEVATED_SUB_NATIONAL_POLITICAL_ALIENATION"
+            rationale = (
+                f"Contested integration ({score:.4f}): Rigid political centralism creates linguistic and cultural friction "
+                f"in non-Hindi peripheral regions ({friction:.2f})."
+            )
+        else:
+            tier = "ACUTE_PERIPHERAL_ALIENATION"
+            verdict = "CRITICAL_CIVILIZATIONAL_FRAGMENTATION_RISK"
+            rationale = (
+                f"Acute peripheral alienation ({score:.4f}): Heavy-handed political homogenization alienates regional spiritual "
+                f"centers, opening vulnerabilities for subversive separatism."
+            )
+
+        integral_unity_idx = round(min(1.0, (score * 0.65) + (harmony * 0.35)), 4)
+
+        return {
+            "spiritual_integration_score": score,
+            "spiritual_to_hegemony_ratio": round(ratio, 4),
+            "aurobindonian_spiritual_plurality": round(spiritual, 4),
+            "centralized_political_hegemony_drag": round(hegemony, 4),
+            "shakta_tantric_regional_harmony": round(harmony, 4),
+            "sub_national_linguistic_friction": round(friction, 4),
+            "civilizational_sacred_geography_depth": round(geography, 4),
+            "integral_civilizational_unity_index": integral_unity_idx,
+            "spiritual_integration_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_spiritually_integrated": score >= 0.55,
+        }
+
+
+class ShastricDietaryPluralitySieve:
+    """
+    Phase 307: Models authentic Shastric plurality of dietary practices in Sanatan Dharma
+    (Shakta/Tantric ritual offerings in Kamakhya/Bengal/Mithila vs Vaishnava strict vegetarianism),
+    dispelling colonial/westernized false homogenizations.
+    
+    Mathematical Formulation:
+      z = 2.8 * shastric_sampradaya_plurality + 2.4 * tantric_vedic_harmonization
+          - 3.0 * colonial_dietary_dogmatism_drag - 1.8 * sectarian_orthodoxy_friction - 0.3
+      S_Dietary_Plurality = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        shastric_sampradaya_plurality: float = 0.85,
+        tantric_vedic_harmonization: float = 0.80,
+        colonial_dietary_dogmatism_drag: float = 0.20,
+        regional_culinary_sacredness: float = 0.85,
+        sectarian_orthodoxy_friction: float = 0.20,
+    ) -> Dict[str, Any]:
+        plurality = max(0.0, min(1.0, float(shastric_sampradaya_plurality)))
+        tantric = max(0.0, min(1.0, float(tantric_vedic_harmonization)))
+        colonial = max(0.0, min(1.0, float(colonial_dietary_dogmatism_drag)))
+        sacred = max(0.0, min(1.0, float(regional_culinary_sacredness)))
+        friction = max(0.0, min(1.0, float(sectarian_orthodoxy_friction)))
+
+        z = 2.8 * plurality + 2.4 * tantric - 3.0 * colonial - 1.8 * friction - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "RIGOROUS_SHASTRIC_PLURALITY_HARMONY"
+            verdict = "AUTHENTIC_SAMPRADAYA_DIVERSITY_CONFIRMED"
+            rationale = (
+                f"Rigorous Shastric plurality ({score:.4f}): Shakta/Tantric and Vaishnava customs co-exist in scriptural harmony ({tantric:.2f}), "
+                f"completely refuting colonial homogenizing narratives ({colonial:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_REGIONAL_SAMPRADAYA_RESILIENCE"
+            verdict = "RESILIENT_LOCAL_TRADITIONAL_LEGITIMACY"
+            rationale = (
+                f"Robust resilience ({score:.4f}): Indigenous communities maintain sacred dietary traditions ({sacred:.2f}) "
+                f"despite sectarian misunderstandings ({friction:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_SECTARIAN_DIETARY_FRICTION"
+            verdict = "ELEVATED_INTRA_DHARMIC_DOGMATIC_TENSION"
+            rationale = (
+                f"Contested dietary discourse ({score:.4f}): Ahimsa-absolutism creates artificial fault lines with Shakta "
+                f"and coastal ritual traditions, weakening civilizational solidarity."
+            )
+        else:
+            tier = "COLONIAL_HOMOGENIZING_DISTORTION"
+            verdict = "TOTAL_MISINTERPRETATION_OF_INDIC_PLURALISM"
+            rationale = (
+                f"Colonial distortion ({score:.4f}): Imposition of monochromatic religious rules destroys genuine Vedic-Agamic "
+                f"pluralism, playing into external divide-and-rule strategies."
+            )
+
+        shastric_cohesion_idx = round(min(1.0, (score * 0.60) + (plurality * 0.40)), 4)
+
+        return {
+            "dietary_plurality_score": score,
+            "shastric_sampradaya_plurality": round(plurality, 4),
+            "tantric_vedic_harmonization": round(tantric, 4),
+            "colonial_dietary_dogmatism_drag": round(colonial, 4),
+            "regional_culinary_sacredness": round(sacred, 4),
+            "sectarian_orthodoxy_friction": round(friction, 4),
+            "shastric_cohesion_index": shastric_cohesion_idx,
+            "dietary_plurality_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_shastrically_plural": score >= 0.55,
+        }
+
+
+class LinguisticSprachbundSieve:
+    """
+    Phase 312: Evaluates the Indian Sprachbund (linguistic convergence zone) across phonetics
+    (retroflex sharing), shared agricultural roots (Munda/Dravidian/Vedic), and syntax,
+    scoring resilience against linguistic balkanization agendas.
+    
+    Mathematical Formulation:
+      z = 3.0 * retroflex_phonological_sharing + 2.6 * munda_dravidian_vedic_loanwords + 2.4 * syntactic_convergence - 3.5 * secessionist_balkanization_drag - 0.3
+      S_Linguistic_Sprachbund = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        retroflex_phonological_sharing: float = 0.85,
+        munda_dravidian_vedic_loanwords: float = 0.80,
+        syntactic_convergence: float = 0.85,
+        secessionist_balkanization_drag: float = 0.20,
+    ) -> Dict[str, Any]:
+        retroflex = max(0.0, min(1.0, float(retroflex_phonological_sharing)))
+        loanwords = max(0.0, min(1.0, float(munda_dravidian_vedic_loanwords)))
+        syntax = max(0.0, min(1.0, float(syntactic_convergence)))
+        balkanization = max(0.0, min(1.0, float(secessionist_balkanization_drag)))
+
+        z = 3.0 * retroflex + 2.6 * loanwords + 2.4 * syntax - 3.5 * balkanization - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "PRISTINE_SPRACHBUND_CONVERGENCE"
+            verdict = "DEEP_PAN_INDIC_LINGUISTIC_COHESION"
+            rationale = (
+                f"Pristine linguistic convergence ({score:.4f}): Universal retroflex phonology ({retroflex:.2f}) and deep "
+                f"lexical sharing ({loanwords:.2f}) demonstrate thousands of years of organic civilizational synthesis, "
+                f"decisively neutralizing balkanization narratives ({balkanization:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_CIVILIZATIONAL_LINGUISTIC_UNITY"
+            verdict = "ORGANIC_SYNCRETIC_SYNTAX_RESILIENT"
+            rationale = (
+                f"Robust linguistic unity ({score:.4f}): Shared grammatical structures maintain national cohesion."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_DIALECTAL_FRICTION"
+            verdict = "ELEVATED_LINGUISTIC_SEPARATISM_RISK"
+            rationale = (
+                f"Contested linguistic space ({score:.4f}): Foreign-funded language politics ({balkanization:.2f}) exploit "
+                f"regional variations to promote mutual suspicion."
+            )
+        else:
+            tier = "ACUTE_LINGUISTIC_BALKANIZATION"
+            verdict = "SYSTEMIC_REGIONAL_FRAGMENTATION"
+            rationale = (
+                f"Acute balkanization ({score:.4f}): Severe language conflict threatens internal trade and communication."
+            )
+
+        sprachbund_idx = round(min(1.0, (score * 0.65) + (syntax * 0.35)), 4)
+
+        return {
+            "linguistic_sprachbund_score": score,
+            "retroflex_phonological_sharing": round(retroflex, 4),
+            "munda_dravidian_vedic_loanwords": round(loanwords, 4),
+            "syntactic_convergence": round(syntax, 4),
+            "secessionist_balkanization_drag": round(balkanization, 4),
+            "civilizational_sprachbund_index": sprachbund_idx,
+            "linguistic_sprachbund_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_linguistically_convergent": score >= 0.55,
+        }
+
+
+

@@ -166,6 +166,20 @@ class DemographicInfiltrationLens:
         )
         metrics.update(_bd_result)
 
+        # Phase 305: Wire TheologicalIncompatibilityApostasySieve
+        demo_meta = getattr(event, "metadata", {}) or {}
+        theol_params = demo_meta.get("theological_apostasy", {}) if isinstance(demo_meta, dict) else {}
+        _theol_res = TheologicalIncompatibilityApostasySieve.calculate(
+            ex_muslim_apostasy_velocity=theol_params.get("ex_muslim_apostasy_velocity", 0.70),
+            scriptural_demystification_rate=theol_params.get("scriptural_demystification_rate", 0.75),
+            dogmatic_indoctrination_pressure=theol_params.get("dogmatic_indoctrination_pressure", 0.30),
+            syncretic_illusion_drag=theol_params.get("syncretic_illusion_drag", 0.25),
+            grassroots_ex_muslim_reach=theol_params.get("grassroots_ex_muslim_reach", 0.65),
+        )
+        metrics["theological_realism_score"] = _theol_res["theological_realism_score"]
+        metrics["theological_realism_tier"] = _theol_res["theological_realism_tier"]
+        metrics["counter_radicalization_index"] = _theol_res["counter_radicalization_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -244,5 +258,82 @@ class StatutoryBorderDemographySieve:
             "tactical_rationale": rationale,
             "is_demographic_sovereignty_secure": score >= 0.60
         }
+
+
+class TheologicalIncompatibilityApostasySieve:
+    """
+    Phase 305: Models the theological exclusivity of literalist scripture vs syncretic political
+    constructs, tracking the velocity of the grassroots ex-Muslim apostasy movement (Irtidad)
+    as an organic internal counter-radicalization indicator.
+    
+    Mathematical Formulation:
+      z = 2.8 * ex_muslim_apostasy_velocity + 2.6 * scriptural_demystification_rate
+          - 3.2 * dogmatic_indoctrination_pressure - 1.8 * syncretic_illusion_drag - 0.3
+      S_Theological_Realism = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        ex_muslim_apostasy_velocity: float = 0.70,
+        scriptural_demystification_rate: float = 0.75,
+        dogmatic_indoctrination_pressure: float = 0.30,
+        syncretic_illusion_drag: float = 0.25,
+        grassroots_ex_muslim_reach: float = 0.65,
+    ) -> Dict[str, Any]:
+        import math
+        apostasy = max(0.0, min(1.0, float(ex_muslim_apostasy_velocity)))
+        demyst = max(0.0, min(1.0, float(scriptural_demystification_rate)))
+        indoctrination = max(0.0, min(1.0, float(dogmatic_indoctrination_pressure)))
+        syncretic = max(0.0, min(1.0, float(syncretic_illusion_drag)))
+        reach = max(0.0, min(1.0, float(grassroots_ex_muslim_reach)))
+
+        z = 2.8 * apostasy + 2.6 * demyst - 3.2 * indoctrination - 1.8 * syncretic - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "HIGH_THEOLOGICAL_CLARITY_AND_REFORM"
+            verdict = "ORGANIC_INTERNAL_ENLIGHTENMENT_EXPANDING"
+            rationale = (
+                f"High theological clarity ({score:.4f}): Rapid growth in ex-Muslim apostasy velocity ({apostasy:.2f}) "
+                f"and open scriptural demystification ({demyst:.2f}) decisively challenge literalist dogmatic hegemony ({indoctrination:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ORGANIC_APOSTASY_COUNTER_RADICALIZATION"
+            verdict = "ACTIVE_GRASSROOTS_SECULAR_DISSENT"
+            rationale = (
+                f"Organic counter-radicalization ({score:.4f}): Emerging digital platforms ({reach:.2f}) foster internal debate, "
+                f"gradually eroding dogmatic enforcement despite political syncretic myths ({syncretic:.2f})."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_SYNCRETIC_ILLUSION_DRAG"
+            verdict = "ELEVATED_DOGMATIC_RESISTANCE_TO_REFORM"
+            rationale = (
+                f"Contested theological reform ({score:.4f}): Dogmatic institutions actively suppress apostates while "
+                f"superficial syncretic narratives delay critical structural understanding."
+            )
+        else:
+            tier = "ACUTE_DOGMATIC_RADICALIZATION_TRAP"
+            verdict = "TOTAL_THEOLOGICAL_EXCLUSION_AND_CENSORSHIP"
+            rationale = (
+                f"Acute dogmatic entrapment ({score:.4f}): Pervasive blasphemy fears and institutional intimidation completely "
+                f"silence dissent, entrenching theological exclusivity and social tension."
+            )
+
+        counter_radicalization_idx = round(min(1.0, (score * 0.60) + (reach * 0.40)), 4)
+
+        return {
+            "theological_realism_score": score,
+            "ex_muslim_apostasy_velocity": round(apostasy, 4),
+            "scriptural_demystification_rate": round(demyst, 4),
+            "dogmatic_indoctrination_pressure": round(indoctrination, 4),
+            "syncretic_illusion_drag": round(syncretic, 4),
+            "grassroots_ex_muslim_reach": round(reach, 4),
+            "counter_radicalization_index": counter_radicalization_idx,
+            "theological_realism_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_theological_reform_active": score >= 0.55,
+        }
+
 
 ```

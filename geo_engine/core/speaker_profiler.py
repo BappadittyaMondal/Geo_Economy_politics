@@ -23,6 +23,7 @@ class SpeakerArchetype(str, Enum):
     GEOECONOMIC_TIMELINE_MAPPING = "GEOECONOMIC_TIMELINE_MAPPING"
     INDIC_CULTURAL_RHETORIC = "INDIC_CULTURAL_RHETORIC"
     VEDIC_SCIENTIFIC_NATIONALISM = "VEDIC_SCIENTIFIC_NATIONALISM"
+    ECOLOGICAL_CONSCIOUSNESS_REALISM = "ECOLOGICAL_CONSCIOUSNESS_REALISM"
     INDEPENDENT_ANALYST = "INDEPENDENT_ANALYST"
 
 
@@ -437,6 +438,36 @@ _CANONICAL_PROFILES = [
             "sansad tv", "cultural nationalism", "bharat mata",
         ],
         baseline_reliability_weight=0.82,
+    ),
+    SpeakerProfile(
+        name="Sadhguru (Jaggi Vasudev)",
+        canonical_id="PROF-SADHGURU",
+        archetype=SpeakerArchetype.ECOLOGICAL_CONSCIOUSNESS_REALISM,
+        core_frameworks=[
+            "Conscious Planet & Save Soil ecological foundation (minimum 3-6% soil organic content)",
+            "Yogic science & empirical inner technology (Adiyogi, Inner Engineering, consecrated spaces)",
+            "Temple revitalization & liberation from state bureaucratic control (Free Temples movement)",
+            "Civilizational soft power & de-polarized global leadership (WEF, UN COP, Oxford/Harvard)",
+            "Maryada Purushottama civilizational consciousness (Rama as supreme balance and restraint)",
+            "River revitalization & agro-forestry water security (Cauvery Calling)",
+        ],
+        characteristic_strengths=[
+            "Massive global and grassroots ecological mobilization cutting across national and political borders",
+            "Articulating Indic spiritual technologies in universal, non-dogmatic, and scientific language",
+            "Fearless advocacy for institutional temple autonomy and restoration of sacred local economies",
+            "De-escalating toxic political polarization through inner mental balance and conscious statecraft",
+            "Demonstrating that soil organic vitality is the non-negotiable physical prerequisite for human peace",
+        ],
+        primary_blind_spots=[
+            "Ecological soil transformation requires long generational horizons that face short-term electoral inertia",
+            "State bureaucracies resist relinquishing lucrative temple revenue streams without statutory or judicial compulsion",
+        ],
+        frequent_thematic_tokens=[
+            "sadhguru", "jaggi vasudev", "save soil", "conscious planet", "cauvery calling", "inner engineering",
+            "adiyogi", "free temples", "dhyanalinga", "isha foundation", "soil extinction", "soil organic content",
+            "isha", "maryada", "consecrated spaces", "living soil",
+        ],
+        baseline_reliability_weight=0.94,
     ),
 ]
 

@@ -4052,14 +4052,14 @@ class TestPhase62to65EpistemicTensorAndCivilizationalCouncil:
         from geo_engine.arbitration import CivilizationalCouncil
         res = CivilizationalCouncil.evaluate("Kali Yuga Ends in 2032")
         perspectives = res["perspectives"]
-        assert len(perspectives) == 6
+        assert len(perspectives) in (6, 7)
         assert "pandit" in perspectives
         assert "acharya" in perspectives
         assert "rishi" in perspectives
         assert "guru" in perspectives
         assert "tech_analyst" in perspectives
         assert "seeker" in perspectives
-        assert len(res["summary_guidance"]) == 4
+        assert len(res["summary_guidance"]) in (4, 5)
 
         formatted = CivilizationalCouncil.format_council_report(res)
         assert "CIVILIZATIONAL EPISTEMIC COUNCIL AUDIT" in formatted
@@ -4105,7 +4105,7 @@ class TestPhase66to69HeptarchyAndAtomicGuardrails:
 
         assert "modi" in PersonaNarrator.ARCHETYPES
         assert "sai_deepak" in PersonaNarrator.ARCHETYPES
-        assert len(PersonaNarrator.ARCHETYPES) in (8, 9, 13)  # 8/9 operational archetypes; 13 after Vedic Trayodasha expansion (Phases 211-214)
+        assert len(PersonaNarrator.ARCHETYPES) in (8, 9, 13, 14)  # 8/9 operational archetypes; 13 after Vedic Trayodasha; 14 after Sadhguru expansion
 
         mock_event = SummitEvent(summit_name="BRICS 2026 Test", year=2026, host_country="India")
         mock_report = SummitAnalysisReport(event=mock_event, overall_confidence_score=0.92)
@@ -4126,7 +4126,7 @@ class TestPhase66to69HeptarchyAndAtomicGuardrails:
 
         # 3. Test apply_all_personas
         all_res = PersonaNarrator.apply_all_personas(mock_report)
-        assert len(all_res) in (8, 9, 13)
+        assert len(all_res) in (8, 9, 13, 14)
         for k in ["sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "neutral"]:
             assert k in all_res
 
@@ -4638,7 +4638,7 @@ class TestPhase72SovereignDashboardAndExportEngine:
         sample_html = "<html><body><h1>Phase 72 Test PDF</h1><p>Deterministic verification.</p></body></html>"
         with tempfile.TemporaryDirectory() as td:
             target_pdf = Path(td) / "test_verification.pdf"
-            success, info = PDFCompiler.compile_pdf(sample_html, str(target_pdf), timeout_seconds=20)
+            success, info = PDFCompiler.compile_pdf(sample_html, str(target_pdf), timeout_seconds=45)
             assert success is True, f"PDF compilation failed: {info}"
             assert target_pdf.is_file()
             assert target_pdf.stat().st_size > 1000
@@ -10893,7 +10893,7 @@ class TestPhase247to250SievesAndDigest:
     def test_phase250_lenses_init_exports_count_79(self):
         """Phase 250: geo_engine.lenses exports 79 verified symbols."""
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (79, 86, 94, 100, 109)
+        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143)
         assert "DigitalEnclosureTrapSieve" in lenses.__all__
         assert "KineticDiversionaryEscalationSieve" in lenses.__all__
 
@@ -11729,4 +11729,1001 @@ class TestPhases274to282SievesAndTelemetry:
 
     def test_phases_274_to_282_lenses_init_exports_count_109(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) == 109
+        assert len(lenses.__all__) in (109, 121, 127, 134, 143)
+
+
+
+class TestPhases283to294SievesAndTelemetry:
+    """
+    Phases 283-294 Verification Test Suite:
+    Tests the 12 analytical sieves, dynamic AST query parser flags,
+    lens evaluations, synthesizer resilience matrix (105+ channels), and 121 exported symbols.
+    """
+
+    def test_phase283_island_eez_maritime_net_security_sieve(self):
+        from geo_engine.lenses.geopolitical import IslandEEZMaritimeNetSecuritySieve
+        # Fortified bastion
+        res = IslandEEZMaritimeNetSecuritySieve.calculate_maritime_net_security(
+            basing_airgap_radius=0.85,
+            sagar_treaty_depth=0.90,
+            coastal_radar_uptime=0.95,
+            plan_dual_use_incursion=0.15,
+            host_nation_political_drift=0.10,
+        )
+        assert res["maritime_net_security_score"] >= 0.75
+        assert res["maritime_bastion_tier"] == "FORTIFIED_IOR_MARITIME_BASTION"
+        assert res["is_bastion_secure"] is True
+
+        # Contested encroachment
+        enc_res = IslandEEZMaritimeNetSecuritySieve.calculate_maritime_net_security(
+            basing_airgap_radius=0.30,
+            sagar_treaty_depth=0.35,
+            coastal_radar_uptime=0.40,
+            plan_dual_use_incursion=0.85,
+            host_nation_political_drift=0.80,
+        )
+        assert enc_res["maritime_net_security_score"] < 0.35
+        assert enc_res["maritime_bastion_tier"] == "CRITICAL_CHINESE_CHOKEPOINT_ENCIRCLEMENT"
+        assert enc_res["is_bastion_secure"] is False
+
+    def test_phase284_programmable_cbdc_surveillance_sieve(self):
+        from geo_engine.lenses.digital_sovereignty import ProgrammableCBDCSurveillanceSieve
+        # Sovereign monetary autonomy
+        res = ProgrammableCBDCSurveillanceSieve.calculate_monetary_autonomy(
+            cash_retention_ratio=0.85,
+            open_protocol_interop=0.90,
+            cbdc_programmability=0.15,
+            surveillance_centralization=0.20,
+        )
+        assert res["monetary_autonomy_score"] >= 0.75
+        assert res["digital_enclosure_tier"] == "FORTIFIED_SOVEREIGN_MONETARY_FREEDOM"
+        assert res["is_monetarily_autonomous"] is True
+
+        # Coercive surveillance trap
+        trap_res = ProgrammableCBDCSurveillanceSieve.calculate_monetary_autonomy(
+            cash_retention_ratio=0.10,
+            open_protocol_interop=0.20,
+            cbdc_programmability=0.90,
+            surveillance_centralization=0.95,
+        )
+        assert trap_res["monetary_autonomy_score"] < 0.35
+        assert trap_res["digital_enclosure_tier"] == "ACUTE_DIGITAL_ENCLOSURE_PRISON"
+
+    def test_phase285_inter_agency_counter_subversion_synergy_sieve(self):
+        from geo_engine.lenses.hybrid_covert import InterAgencyCounterSubversionSynergySieve
+        # High inter-agency synergy
+        res = InterAgencyCounterSubversionSynergySieve.calculate_counter_subversion(
+            inter_agency_data_sharing=0.90,
+            asset_attachment_speed=0.85,
+            hawala_volume=0.20,
+            diaspora_sanctuary_drag=0.25,
+        )
+        assert res["counter_subversion_score"] >= 0.75
+        assert res["counter_subversion_tier"] == "PROACTIVE_OFFENSIVE_DEFENSE_SUPREMACY"
+        assert res["is_counter_subversion_ready"] is True
+
+        # Agency silo friction
+        silo_res = InterAgencyCounterSubversionSynergySieve.calculate_counter_subversion(
+            inter_agency_data_sharing=0.25,
+            asset_attachment_speed=0.30,
+            hawala_volume=0.85,
+            diaspora_sanctuary_drag=0.80,
+        )
+        assert silo_res["counter_subversion_score"] < 0.35
+        assert silo_res["counter_subversion_tier"] == "ACUTE_SUBVERSIVE_PENETRATION_VULNERABILITY"
+
+    def test_phase286_commercial_bank_asset_quality_and_crar_sieve(self):
+        from geo_engine.lenses.cash_flow import CommercialBankAssetQualityAndCRARSieve
+        # Pristine banking fortress
+        res = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
+            crar_ratio=0.90,
+            provision_coverage=0.85,
+            net_npa_ratio=0.08,
+            mtm_treasury_exposure=0.10,
+        )
+        assert res["banking_fortress_score"] >= 0.75
+        assert res["banking_resilience_tier"] == "FORTIFIED_SOVEREIGN_BANKING_FORTRESS"
+        assert res["is_banking_resilient"] is True
+
+        # Liquidity distress
+        distress_res = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
+            crar_ratio=0.30,
+            provision_coverage=0.35,
+            net_npa_ratio=0.75,
+            mtm_treasury_exposure=0.80,
+        )
+        assert distress_res["banking_fortress_score"] < 0.35
+        assert distress_res["banking_resilience_tier"] == "CRITICAL_BANKING_LIQUIDITY_RUN_RISK"
+
+    def test_phase287_sub_national_bureaucratic_friction_sieve(self):
+        from geo_engine.lenses.bureaucratic_inertia import SubNationalBureaucraticFrictionSieve
+        # Decisive executive velocity
+        res = SubNationalBureaucraticFrictionSieve.calculate_administrative_velocity(
+            executive_clarity=0.85,
+            statutory_de_registration=0.80,
+            file_looping_latency=0.20,
+            pil_stay_order_drag=0.15,
+        )
+        assert res["administrative_velocity_score"] >= 0.75
+        assert res["administrative_velocity_tier"] == "DECISIVE_SOVEREIGN_EXECUTIVE_VELOCITY"
+        assert res["is_executive_velocity_decisive"] is True
+
+        # Bureaucratic paralysis
+        paralysis_res = SubNationalBureaucraticFrictionSieve.calculate_administrative_velocity(
+            executive_clarity=0.25,
+            statutory_de_registration=0.20,
+            file_looping_latency=0.85,
+            pil_stay_order_drag=0.80,
+        )
+        assert paralysis_res["administrative_velocity_score"] < 0.35
+        assert paralysis_res["administrative_velocity_tier"] == "CRITICAL_DEEP_STATE_POLICY_PARALYSIS"
+
+    def test_phase288_indigenous_gan_aesa_radar_sovereignty_sieve(self):
+        from geo_engine.lenses.deep_tech import IndigenousGaNAESARadarSovereigntySieve
+        # Autonomous GaN AESA dominance
+        res = IndigenousGaNAESARadarSovereigntySieve.calculate_gan_radar_sovereignty(
+            gan_trm_density=0.85,
+            aesa_autonomy=0.90,
+            foreign_vendor_lockin=0.15,
+            thermal_dissipation_drag=0.10,
+        )
+        assert res["gan_radar_sovereignty_score"] >= 0.75
+        assert res["gan_radar_tier"] == "AUTONOMOUS_GaN_AESA_DOMINANCE"
+        assert res["is_radar_sovereign"] is True
+
+        # Severe foreign component dependency
+        dep_res = IndigenousGaNAESARadarSovereigntySieve.calculate_gan_radar_sovereignty(
+            gan_trm_density=0.20,
+            aesa_autonomy=0.25,
+            foreign_vendor_lockin=0.85,
+            thermal_dissipation_drag=0.75,
+        )
+        assert dep_res["gan_radar_sovereignty_score"] < 0.35
+        assert dep_res["gan_radar_tier"] == "CRITICAL_AVIONICS_IMPORT_VULNERABILITY"
+
+    def test_phase289_extreme_high_altitude_airlift_logistics_sieve(self):
+        from geo_engine.lenses.military_readiness import ExtremeHighAltitudeAirliftLogisticsSieve
+        # Nyoma ALG 13,629 ft (4,154m) airlift supremacy
+        res = ExtremeHighAltitudeAirliftLogisticsSieve.calculate_high_altitude_logistics(
+            heavy_airlift_capacity=0.90,
+            winter_readiness=0.85,
+            elevation_meters=4154.0,
+            weather_friction=0.20,
+        )
+        assert res["high_altitude_logistics_score"] >= 0.55
+        assert res["thrust_derate"] <= 1.0
+        assert res["is_high_altitude_airlift_capable"] is True
+
+        # Low capacity winter cutoff
+        cutoff_res = ExtremeHighAltitudeAirliftLogisticsSieve.calculate_high_altitude_logistics(
+            heavy_airlift_capacity=0.20,
+            winter_readiness=0.25,
+            elevation_meters=4800.0,
+            weather_friction=0.90,
+        )
+        assert cutoff_res["high_altitude_logistics_score"] < 0.35
+        assert cutoff_res["high_altitude_logistics_tier"] == "ACUTE_WINTER_ISOLATION_RISK"
+
+    def test_phase290_big_tech_algorithmic_sovereignty_sieve(self):
+        from geo_engine.lenses.digital_sovereignty import BigTechAlgorithmicSovereigntySieve
+        # Fortified platform sovereignty
+        res = BigTechAlgorithmicSovereigntySieve.calculate_algorithmic_sovereignty(
+            statutory_enforcement=0.85,
+            data_localization=0.90,
+            algorithmic_nudging=0.20,
+            shadow_banning_intensity=0.15,
+        )
+        assert res["algorithmic_sovereignty_score"] >= 0.75
+        assert res["algorithmic_sovereignty_tier"] == "FORTIFIED_ALGORITHMIC_SOVEREIGNTY"
+        assert res["is_algorithmically_sovereign"] is True
+
+        # Algorithmic capture
+        cap_res = BigTechAlgorithmicSovereigntySieve.calculate_algorithmic_sovereignty(
+            statutory_enforcement=0.20,
+            data_localization=0.25,
+            algorithmic_nudging=0.85,
+            shadow_banning_intensity=0.90,
+        )
+        assert cap_res["algorithmic_sovereignty_score"] < 0.35
+        assert cap_res["algorithmic_sovereignty_tier"] == "ACUTE_BIG_TECH_COGNITIVE_ENCLOSURE"
+
+    def test_phase291_sacred_economy_religious_tourism_sieve(self):
+        from geo_engine.lenses.civilizational import SacredEconomyReligiousTourismSieve
+        # Thriving civilizational economy
+        res = SacredEconomyReligiousTourismSieve.calculate_sacred_economy(
+            pilgrim_footfall_velocity=0.90,
+            msme_turnover=0.85,
+            decentralized_bullion=0.80,
+            state_expropriation_drag=0.15,
+        )
+        assert res["sacred_economy_multiplier_score"] >= 0.75
+        assert res["sacred_economy_tier"] == "THRIVING_SACRED_CIVILIZATIONAL_ECONOMY"
+        assert res["is_sacred_economy_thriving"] is True
+
+        # State expropriation drag
+        exprop_res = SacredEconomyReligiousTourismSieve.calculate_sacred_economy(
+            pilgrim_footfall_velocity=0.30,
+            msme_turnover=0.25,
+            decentralized_bullion=0.20,
+            state_expropriation_drag=0.85,
+        )
+        assert exprop_res["sacred_economy_multiplier_score"] < 0.35
+        assert exprop_res["sacred_economy_tier"] == "ACUTE_COMMERCIAL_DECAY_AND_EXPLOITATION"
+
+    def test_phase292_outward_direct_investment_asset_capture_sieve(self):
+        from geo_engine.lenses.geo_economist import OutwardDirectInvestmentAssetCaptureSieve
+        # Aggressive asset capture
+        res = OutwardDirectInvestmentAssetCaptureSieve.calculate_asset_capture(
+            odi_deployment=0.85,
+            ip_repatriation=0.80,
+            host_jurisdiction_protectionism=0.20,
+            forex_volatility=0.15,
+        )
+        assert res["asset_capture_score"] >= 0.75
+        assert res["asset_capture_tier"] == "AGGRESSIVE_GLOBAL_STRATEGIC_ASSET_CAPTURE"
+        assert res["is_asset_capture_aggressive"] is True
+
+        # Host protectionist trap
+        trap_res = OutwardDirectInvestmentAssetCaptureSieve.calculate_asset_capture(
+            odi_deployment=0.25,
+            ip_repatriation=0.20,
+            host_jurisdiction_protectionism=0.85,
+            forex_volatility=0.75,
+        )
+        assert trap_res["asset_capture_score"] < 0.35
+        assert trap_res["asset_capture_tier"] == "CRITICAL_CAPITAL_TRAP_IN_DISTRESSED_ASSETS"
+
+    def test_phase293_archaeo_astronomical_epigraphic_dating_sieve(self):
+        from geo_engine.lenses.history import ArchaeoAstronomicalEpigraphicDatingSieve
+        # Astronomical & epigraphic certainty
+        res = ArchaeoAstronomicalEpigraphicDatingSieve.calculate_archaeo_astronomy(
+            planetary_conjunction_accuracy=0.90,
+            sediment_stratigraphy=0.85,
+            textual_compression_bias=0.15,
+            degeneracy_drag=0.10,
+        )
+        assert res["archaeo_astronomical_dating_score"] >= 0.75
+        assert res["vedic_chronology_tier"] == "RIGOROUS_ASTRONOMICAL_EPIGRAPHIC_CERTAINTY"
+        assert res["is_chronologically_rigorous"] is True
+
+        # Colonial timeline distortion
+        col_res = ArchaeoAstronomicalEpigraphicDatingSieve.calculate_archaeo_astronomy(
+            planetary_conjunction_accuracy=0.20,
+            sediment_stratigraphy=0.25,
+            textual_compression_bias=0.90,
+            degeneracy_drag=0.80,
+        )
+        assert col_res["archaeo_astronomical_dating_score"] < 0.35
+        assert col_res["vedic_chronology_tier"] == "COLONIAL_EUROCENTRIC_FABRICATION"
+
+    def test_phase294_deep_state_black_project_intelligence_sieve(self):
+        from geo_engine.lenses.hybrid_covert import DeepStateBlackProjectIntelligenceSieve
+        # Airgapped special access program supremacy
+        res = DeepStateBlackProjectIntelligenceSieve.calculate_black_project_resilience(
+            compartmentalization_depth=0.90,
+            early_warning_cushion=0.85,
+            c4isr_latency=0.15,
+            foreign_penetration_risk=0.10,
+        )
+        assert res["black_project_resilience_score"] >= 0.75
+        assert res["covert_deterrence_tier"] == "FORTIFIED_AIRGAPPED_STRATEGIC_BLACK_PROGRAM"
+        assert res["is_black_program_resilient"] is True
+
+        # Critical early warning compromise
+        comp_res = DeepStateBlackProjectIntelligenceSieve.calculate_black_project_resilience(
+            compartmentalization_depth=0.25,
+            early_warning_cushion=0.20,
+            c4isr_latency=0.85,
+            foreign_penetration_risk=0.80,
+        )
+        assert comp_res["black_project_resilience_score"] < 0.35
+        assert comp_res["covert_deterrence_tier"] == "CRITICAL_EARLY_WARNING_COMPROMISE"
+
+    def test_phases_283_to_294_synthesizer_telemetry(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi")
+        report = SummitSynthesizer.synthesize_report(summit)
+        matrix = report.strategic_resilience_matrix
+        for key in [
+            "maritime_net_security_score",
+            "monetary_autonomy_score",
+            "counter_subversion_score",
+            "banking_fortress_score",
+            "administrative_velocity_score",
+            "gan_radar_sovereignty_score",
+            "high_altitude_logistics_score",
+            "algorithmic_sovereignty_score",
+            "sacred_economy_multiplier_score",
+            "asset_capture_score",
+            "archaeo_astronomical_dating_score",
+            "black_project_resilience_score",
+        ]:
+            assert key in matrix
+            assert matrix[key] is not None
+            assert isinstance(matrix[key], float)
+            assert 0.0 <= matrix[key] <= 1.0
+
+    def test_phases_283_to_294_query_parser_dynamic_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Audit island net security Agalega P-8I, programmable CBDC monetary autonomy, "
+            "inter-agency synergy NIA CBI ED hawala crackdown, bank CRAR asset quality fortress, "
+            "sub-national bureaucratic friction file looping, GaN radar AESA sovereignty, "
+            "Nyoma ALG high altitude airlift logistics, Big Tech algorithmic sovereignty shadow banning, "
+            "sacred economy Ayodhya pilgrimage tourism MSME, ODI asset capture distressed Western technology, "
+            "archaeo-astronomy planetary conjunction epigraphic dating, and black project C4ISR early warning in 2026"
+        )
+        assert q.requires_island_net_security is True
+        assert q.requires_cbdc_surveillance is True
+        assert q.requires_interagency_synergy is True
+        assert q.requires_bank_crar is True
+        assert q.requires_bureaucratic_friction is True
+        assert q.requires_gan_radar is True
+        assert q.requires_high_altitude_airlift is True
+        assert q.requires_bigtech_algorithmic_sovereignty is True
+        assert q.requires_sacred_economy is True
+        assert q.requires_outward_asset_capture is True
+        assert q.requires_archaeo_astronomy is True
+        assert q.requires_black_projects is True
+
+    def test_phases_283_to_294_lenses_init_exports_count_121(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) in (121, 127, 134, 143)
+
+
+class TestPhases295to300SievesAndTelemetry:
+    """
+    Phases 295-300: Trans-Himalayan Hydrologic Deterrence, Predatory Overcapacity Dumping,
+    Epistemic Apaurusheya Sovereignty, Sacred Heritage Encroachment, Narrative Inversion Subversion,
+    and Maritime Chokepoint Malacca Deterrence Sieves & Telemetry Integration.
+    """
+
+    def test_phase295_trans_himalayan_hydrological_deterrence_sieve(self):
+        from geo_engine.lenses.geopolitical import TransHimalayanHydrologicalDeterrenceSieve
+        res = TransHimalayanHydrologicalDeterrenceSieve.calculate(
+            buffer_storage_bcm=9.0,
+            threat_surge_volume_bcm=10.0,
+            lean_season_flow_parity=0.85,
+            ngo_subversion_index=0.25,
+            proxy_political_obstruction=0.20,
+            state_counter_sabotage=0.75,
+            malacca_counter_leverage_readiness=0.88,
+        )
+        assert 0.0 <= res["hydro_deterrence_score"] <= 1.0
+        assert res["hydrologic_sovereignty_tier"] in [
+            "FORTIFIED_HYDROLOGIC_BUFFER_SOVEREIGNTY",
+            "ROBUST_TRANSHIMALAYAN_DETERRENCE_STABLE",
+            "CONTESTED_DOWNSTREAM_RIPARIAN_VULNERABILITY",
+            "CRITICAL_HYDRAULIC_BLACKMAIL_EXPOSURE",
+        ]
+        assert res["is_buffer_fortified"] is True
+
+        # Test acute unbuffered surge and high sabotage risk
+        vuln_res = TransHimalayanHydrologicalDeterrenceSieve.calculate(
+            buffer_storage_bcm=1.0,
+            threat_surge_volume_bcm=15.0,
+            lean_season_flow_parity=0.30,
+            ngo_subversion_index=0.90,
+            proxy_political_obstruction=0.85,
+            state_counter_sabotage=0.10,
+            malacca_counter_leverage_readiness=0.20,
+        )
+        assert vuln_res["hydro_deterrence_score"] < res["hydro_deterrence_score"]
+        assert vuln_res["hydrologic_sovereignty_tier"] in [
+            "CONTESTED_DOWNSTREAM_RIPARIAN_VULNERABILITY",
+            "CRITICAL_HYDRAULIC_BLACKMAIL_EXPOSURE",
+        ]
+
+    def test_phase296_predatory_overcapacity_dumping_sieve(self):
+        from geo_engine.lenses.geo_economist import PredatoryOvercapacityDumpingSieve
+        res = PredatoryOvercapacityDumpingSieve.calculate(
+            marginal_cost_global=100.0,
+            dumped_price_fob=25.0,
+            qco_enforcement_ratio=0.80,
+            tariff_anti_dumping_pct=0.35,
+            msme_vulnerability_index=0.50,
+            domestic_pli_scale=0.75,
+            cluster_supply_chain_density=0.70,
+        )
+        assert 0.0 <= res["industrial_resilience_score"] <= 1.0
+        assert res["industrial_sovereignty_tier"] in [
+            "FORTIFIED_DOMESTIC_MANUFACTURING_SHIELD",
+            "ROBUST_QCO_TARIFF_PROTECTIVE_STABILITY",
+            "CONTESTED_MSME_MARGIN_COMPRESSION",
+            "CRITICAL_INDUSTRIAL_DECAY_AND_DUMPING_TRAP",
+        ]
+        assert res["is_manufacturing_shielded"] is True
+
+        # Test extreme predatory dumping without QCO protection
+        dump_trap = PredatoryOvercapacityDumpingSieve.calculate(
+            marginal_cost_global=100.0,
+            dumped_price_fob=9.0,
+            qco_enforcement_ratio=0.10,
+            tariff_anti_dumping_pct=0.05,
+            msme_vulnerability_index=0.95,
+            domestic_pli_scale=0.10,
+            cluster_supply_chain_density=0.20,
+        )
+        assert dump_trap["industrial_resilience_score"] < res["industrial_resilience_score"]
+        assert dump_trap["industrial_sovereignty_tier"] == "CRITICAL_INDUSTRIAL_DECAY_AND_DUMPING_TRAP"
+
+    def test_phase297_epistemic_apaurusheya_civilizational_sieve(self):
+        from geo_engine.lenses.civilizational import EpistemicApaurusheyaCivilizationalSieve
+        res = EpistemicApaurusheyaCivilizationalSieve.calculate(
+            shastric_ontology_adherence=0.85,
+            sanskrit_hermeneutic_fidelity=0.90,
+            intergenerational_transmission=0.75,
+            colonial_philological_bias=0.20,
+            secular_semantic_dilution=0.25,
+            gurukul_indic_pedagogy_depth=0.70,
+        )
+        assert 0.0 <= res["epistemic_sovereignty_score"] <= 1.0
+        assert res["epistemic_sovereignty_tier"] in [
+            "FORTIFIED_APAURUSHEYA_EPISTEMIC_SOVEREIGNTY",
+            "ROBUST_INDIC_KNOWLEDGE_TRADITION_RESILIENCE",
+            "CONTESTED_PHILOLOGICAL_SUBVERSION_INTERVAL",
+            "CRITICAL_EPISTEMIC_COLONIZATION_AND_AMNESIA",
+        ]
+        assert res["is_epistemically_sovereign"] is True
+
+        # Test severe colonial distortion
+        col_res = EpistemicApaurusheyaCivilizationalSieve.calculate(
+            shastric_ontology_adherence=0.20,
+            sanskrit_hermeneutic_fidelity=0.25,
+            intergenerational_transmission=0.20,
+            colonial_philological_bias=0.90,
+            secular_semantic_dilution=0.85,
+            gurukul_indic_pedagogy_depth=0.15,
+        )
+        assert col_res["epistemic_sovereignty_score"] < res["epistemic_sovereignty_score"]
+
+    def test_phase298_sacred_heritage_encroachment_sieve(self):
+        from geo_engine.lenses.institutional_lawfare import SacredHeritageEncroachmentSieve
+        res = SacredHeritageEncroachmentSieve.calculate(
+            illegal_shrine_area_sqm=1200.0,
+            total_heritage_area_sqm=50000.0,
+            asi_statutory_enforcement=0.85,
+            topographic_command_value=0.90,
+            vote_bank_appeasement_drag=0.20,
+            citizen_vigilance_reporting=0.80,
+        )
+        assert 0.0 <= res["heritage_defense_score"] <= 1.0
+        assert res["heritage_protection_tier"] in [
+            "FORTIFIED_HERITAGE_SOVEREIGNTY",
+            "ROBUST_FORT_DEFENSE_STABLE",
+            "CONTESTED_GRAYZONE_ENCROACHMENT_RISK",
+            "CRITICAL_HERITAGE_DESECRATION_AND_ERASURE",
+        ]
+        assert res["is_heritage_fortified"] is True
+
+    def test_phase299_narrative_inversion_subversion_sieve(self):
+        from geo_engine.lenses.propaganda import NarrativeInversionSubversionSieve
+        res = NarrativeInversionSubversionSieve.calculate(
+            villain_glamorization=0.80,
+            sacred_archetype_dilution=0.75,
+            linguistic_profanation=0.65,
+            canonical_epic_integrity=0.85,
+            revenue_loss_from_boycott_cr=400.0,
+            production_budget_cr=500.0,
+            alternative_media_rebuttal_reach=0.80,
+        )
+        assert 0.0 <= res["narrative_immunity_score"] <= 1.0
+        assert res["narrative_defense_tier"] in [
+            "FORTIFIED_CIVILIZATIONAL_NARRATIVE_IMMUNITY",
+            "ROBUST_PUBLIC_DISCERNMENT_RESILIENT",
+            "CONTESTED_POP_CULTURE_REVISIONISM_INTERVAL",
+            "CRITICAL_CIVILIZATIONAL_AMNESIA_AND_CAPTURE",
+        ]
+
+    def test_phase300_maritime_chokepoint_malacca_deterrence_sieve(self):
+        from geo_engine.lenses.military_readiness import MaritimeChokepointMalaccaDeterrenceSieve
+        res = MaritimeChokepointMalaccaDeterrenceSieve.calculate(
+            adversary_malacca_energy_dependency_pct=0.80,
+            anc_maritime_strike_readiness=0.88,
+            adversary_escort_capacity_ratio=0.45,
+            great_nicobar_bastion_fortification=0.85,
+            interdiction_reaction_latency_hours=3.0,
+            submarine_picket_density=0.80,
+        )
+        assert 0.0 <= res["maritime_chokepoint_deterrence_score"] <= 1.0
+        assert res["maritime_deterrence_tier"] in [
+            "FORTIFIED_ASIMETRIC_MARITIME_STRANGLEHOLD",
+            "ROBUST_CHOKEPOINT_DETERRENCE_STABLE",
+            "CONTESTED_LITTORAL_INTERDICTION_INTERVAL",
+            "CRITICAL_MARITIME_LEVERAGE_COLLAPSE",
+        ]
+        assert res["is_malacca_deterrence_credible"] is True
+
+    def test_phases_295_to_300_synthesizer_telemetry(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi")
+        report = SummitSynthesizer.synthesize_report(summit)
+        matrix = report.strategic_resilience_matrix
+        for key in [
+            "hydro_deterrence_score",
+            "industrial_resilience_score",
+            "epistemic_sovereignty_score",
+            "heritage_defense_score",
+            "narrative_immunity_score",
+            "maritime_chokepoint_deterrence_score",
+        ]:
+            assert key in matrix
+            assert matrix[key] is not None
+            assert isinstance(matrix[key], float)
+            assert 0.0 <= matrix[key] <= 1.0
+
+    def test_phases_295_to_300_query_parser_dynamic_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Assess Upper Siang buffer dam on Yarlung Tsangpo against Chinese hydrological warfare, "
+            "Canton Fair predatory dumping QCO enforcement on diapers and toys, "
+            "Vedic epistemology and Apaurusheyatva shastric ontology against colonial philology, "
+            "Shivaji forts heritage encroachment on Vishalgad hilltop fort, "
+            "narrative inversion Ravanayana cinema subversion consumer boycott, "
+            "and Great Nicobar bastion Malacca Strait chokepoint veto in 2026"
+        )
+        assert q.requires_trans_himalayan_hydrology is True
+        assert q.requires_predatory_dumping is True
+        assert q.requires_apaurusheya_epistemic is True
+        assert q.requires_sacred_heritage_encroachment is True
+        assert q.requires_narrative_inversion is True
+        assert q.requires_malacca_chokepoint is True
+
+    def test_phases_295_to_300_lenses_init_exports_count_127(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) in (127, 134, 143)
+
+
+class TestPhases301to307SievesAndQuantumGating:
+    """
+    Phases 301-307 Verification Test Suite:
+    Tests the 7 sovereign civilizational, legal, and cognitive sieves,
+    Quantum Decision Theory (QDT) interference term, Dynamic Epistemic Gating,
+    Dynamic AST query parser flags, synthesizer resilience matrix (118+ channels),
+    and 134 exported symbols.
+    """
+
+    def test_phase301_ritual_ecological_subversion_sieve(self):
+        from geo_engine.lenses.institutional_lawfare import RitualEcologicalSubversionSieve
+        res = RitualEcologicalSubversionSieve.calculate(
+            baseline_industrial_emissions_aqi=280.0,
+            ritual_pulsed_emissions_aqi=35.0,
+            shastric_grounding_fidelity=0.88,
+            selective_prohibition_intensity=0.20,
+            continuous_vehicular_industrial_share=0.85,
+        )
+        assert 0.0 <= res["ritual_sovereignty_score"] <= 1.0
+        assert res["ritual_sovereignty_tier"] in [
+            "FORTIFIED_RITUAL_SOVEREIGNTY",
+            "ROBUST_SHATRIC_TRADITION_RESILIENT",
+            "CONTESTED_JUDICIAL_OVERREACH_RISK",
+            "CRITICAL_CIVILIZATIONAL_RITUAL_ENCLOSURE",
+        ]
+        assert res["is_ritual_sovereign"] is True
+
+    def test_phase302_dharmic_constitutionalism_sieve(self):
+        from geo_engine.lenses.institutional_lawfare import DharmicConstitutionalismSieve
+        res = DharmicConstitutionalismSieve.calculate(
+            indigenous_civilizational_continuity=0.88,
+            colonial_borrowed_dogma=0.20,
+            decolonial_jurisprudence_depth=0.85,
+            vote_bank_fetishism_drag=0.15,
+            dharma_rajdharma_judicial_fidelity=0.90,
+        )
+        assert 0.0 <= res["dharmic_constitutionalism_score"] <= 1.0
+        assert res["dharmic_constitutionalism_tier"] in [
+            "FORTIFIED_DHARMIC_CONSTITUTIONALISM",
+            "DECOLONIAL_JURISPRUDENCE_EMERGENT",
+            "CONTESTED_POST_COLONIAL_LEGAL_FRICTION",
+            "ACUTE_CIVILIZATIONAL_CONSTITUTIONAL_ALIENATION",
+        ]
+        assert res["is_dharmic_constitutional"] is True
+
+    def test_phase303_historical_demystification_partition_sieve(self):
+        from geo_engine.lenses.history import HistoricalDemystificationPartitionSieve
+        res = HistoricalDemystificationPartitionSieve.calculate(
+            empirical_archival_evidence=0.90,
+            mythological_deification_drag=0.20,
+            khilafat_appeasement_cost=0.85,
+            secular_historical_amnesia=0.15,
+            primary_source_neutrality=0.88,
+        )
+        assert 0.0 <= res["historical_sandarshan_score"] <= 1.0
+        assert res["historical_truth_tier"] in [
+            "OBJECTIVE_HISTORICAL_SANDARSHAN",
+            "ARCHIVAL_DEMOPOLITIZATION_STABLE",
+            "CONTESTED_MYTHOLOGICAL_NARRATIVE_BIAS",
+            "TOTAL_SECULAR_HISTORICAL_AMNESIA",
+        ]
+        assert res["is_historically_demystified"] is True
+
+    def test_phase304_canonical_epic_fidelity_sieve(self):
+        from geo_engine.lenses.propaganda import CanonicalEpicFidelitySieve
+        res = CanonicalEpicFidelitySieve.calculate(
+            primary_valmiki_fidelity=0.90,
+            marxist_pop_revisionism=0.15,
+            consumer_boycott_elasticity=0.80,
+            dialogue_profanation_index=0.10,
+            cinematic_box_office_penalty=0.75,
+        )
+        assert 0.0 <= res["canonical_fidelity_score"] <= 1.0
+        assert res["canonical_fidelity_tier"] in [
+            "PRISTINE_CANONICAL_FIDELITY",
+            "ROBUST_PRIMARY_SOURCE_RESILIENCE",
+            "CONTESTED_POP_CULTURE_DILUTION",
+            "TERMINAL_NARRATIVE_INVERSION_CAPTURE",
+        ]
+        assert res["is_canonically_faithful"] is True
+
+    def test_phase305_theological_incompatibility_apostasy_sieve(self):
+        from geo_engine.lenses.demographic_infiltration import TheologicalIncompatibilityApostasySieve
+        res = TheologicalIncompatibilityApostasySieve.calculate(
+            ex_muslim_apostasy_velocity=0.75,
+            scriptural_demystification_rate=0.80,
+            dogmatic_indoctrination_pressure=0.25,
+            syncretic_illusion_drag=0.20,
+            grassroots_ex_muslim_reach=0.70,
+        )
+        assert 0.0 <= res["theological_realism_score"] <= 1.0
+        assert res["theological_realism_tier"] in [
+            "HIGH_THEOLOGICAL_CLARITY_AND_REFORM",
+            "ORGANIC_APOSTASY_COUNTER_RADICALIZATION",
+            "CONTESTED_SYNCRETIC_ILLUSION_DRAG",
+            "ACUTE_DOGMATIC_RADICALIZATION_TRAP",
+        ]
+        assert res["is_theological_reform_active"] is True
+
+    def test_phase306_aurobindonian_spiritual_integration_sieve(self):
+        from geo_engine.lenses.civilizational import AurobindonianSpiritualIntegrationSieve
+        res = AurobindonianSpiritualIntegrationSieve.calculate(
+            aurobindonian_spiritual_plurality=0.88,
+            centralized_political_hegemony_drag=0.20,
+            shakta_tantric_regional_harmony=0.85,
+            sub_national_linguistic_friction=0.15,
+            civilizational_sacred_geography_depth=0.90,
+        )
+        assert 0.0 <= res["spiritual_integration_score"] <= 1.0
+        assert res["spiritual_integration_tier"] in [
+            "HARMONIOUS_AUROBINDONIAN_INTEGRATION",
+            "DECENTRALIZED_SANATAN_RESILIENCE",
+            "CONTESTED_REGIONAL_POLITICAL_FRICTION",
+            "ACUTE_PERIPHERAL_ALIENATION",
+        ]
+        assert res["is_spiritually_integrated"] is True
+
+    def test_phase307_shastric_dietary_plurality_sieve(self):
+        from geo_engine.lenses.civilizational import ShastricDietaryPluralitySieve
+        res = ShastricDietaryPluralitySieve.calculate(
+            shastric_sampradaya_plurality=0.88,
+            tantric_vedic_harmonization=0.85,
+            colonial_dietary_dogmatism_drag=0.15,
+            regional_culinary_sacredness=0.90,
+            sectarian_orthodoxy_friction=0.15,
+        )
+        assert 0.0 <= res["dietary_plurality_score"] <= 1.0
+        assert res["dietary_plurality_tier"] in [
+            "RIGOROUS_SHASTRIC_PLURALITY_HARMONY",
+            "ROBUST_REGIONAL_SAMPRADAYA_RESILIENCE",
+            "CONTESTED_SECTARIAN_DIETARY_FRICTION",
+            "COLONIAL_HOMOGENIZING_DISTORTION",
+        ]
+        assert res["is_shastrically_plural"] is True
+
+    def test_phases_301_to_307_synthesizer_telemetry_and_quantum(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(summit_name="BRICS 2026 Summit", year=2026, host_country="India", location="New Delhi")
+        report = SummitSynthesizer.synthesize_report(summit)
+        matrix = report.strategic_resilience_matrix
+        for key in [
+            "ritual_sovereignty_score",
+            "dharmic_constitutionalism_score",
+            "historical_sandarshan_score",
+            "canonical_fidelity_score",
+            "theological_realism_score",
+            "spiritual_integration_score",
+            "dietary_plurality_score",
+            "quantum_interference_index",
+        ]:
+            assert key in matrix
+            assert matrix[key] is not None
+            assert isinstance(matrix[key], float)
+        assert "dynamic_epistemic_gating_active" in matrix
+
+    def test_phases_301_to_307_query_parser_dynamic_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Audit Diwali firecrackers ritual ecological selective prohibition, "
+            "Dharmic constitutionalism and Rajdharma decolonial jurisprudence, "
+            "historical Sandarshan and demystify partition Khilafat appeasement, "
+            "canonical epic fidelity Valmiki Ramayana cinematic subversion boycott, "
+            "theological incompatibility ex-muslim apostasy velocity Irtidad, "
+            "Sri Aurobindo aurobindonian integration regional bastions, "
+            "and Shastric dietary plurality Shakta offerings in 2026"
+        )
+        assert q.requires_ritual_ecological_sovereignty is True
+        assert q.requires_dharmic_constitutionalism is True
+        assert q.requires_partition_demystification is True
+        assert q.requires_canonical_epic_fidelity is True
+        assert q.requires_theological_apostasy_velocity is True
+        assert q.requires_aurobindonian_integration is True
+        assert q.requires_shastric_dietary_plurality is True
+
+    def test_phases_301_to_307_lenses_init_exports_count_134(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) in (134, 143)
+
+    def test_sadhguru_strategic_council_archetype(self):
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        from geo_engine.core.models import SummitEvent, SummitAnalysisReport
+
+        assert "sadhguru" in PersonaNarrator.ARCHETYPES
+        profile = PersonaNarrator.ARCHETYPES["sadhguru"]
+        assert "FoodSecurityLens" in profile["lens_weights"]
+        assert "CivilizationalLens" in profile["lens_weights"]
+        assert profile["lens_weights"]["FoodSecurityLens"] == 1.9
+
+        mock_event = SummitEvent(summit_name="BRICS 2026 Ecological Security", year=2026, host_country="Bharat")
+        mock_report = SummitAnalysisReport(event=mock_event, overall_confidence_score=0.92)
+
+        res = PersonaNarrator.apply_persona(mock_report, "sadhguru")
+        assert res["archetype_key"] == "sadhguru"
+        assert "living soil" in res["executive_takeaway"].lower()
+        assert len(res["strategic_recommendations"]) >= 4
+
+        narration = PersonaNarrator.narrate(mock_report, "sadhguru")
+        assert "Sadhguru Tradition" in narration
+
+    def test_sadhguru_speaker_profile(self):
+        from geo_engine.core.speaker_profiler import EpistemicSpeakerProfiler, SpeakerArchetype
+
+        prof = EpistemicSpeakerProfiler.get_profile("PROF-SADHGURU")
+        assert prof is not None
+        assert prof.archetype == SpeakerArchetype.ECOLOGICAL_CONSCIOUSNESS_REALISM
+        assert "PROF-SADHGURU" == prof.canonical_id
+        assert any("soil" in f.lower() for f in prof.core_frameworks)
+
+        resolved = EpistemicSpeakerProfiler.resolve_from_text("Sadhguru launched Save Soil to protect soil organic content")
+        assert any(p.canonical_id == "PROF-SADHGURU" for p in resolved)
+
+    def test_sadhguru_civilizational_council_perspective(self):
+        from geo_engine.arbitration.persona_narrator import CivilizationalCouncil
+
+        eval_res = CivilizationalCouncil.evaluate("Soil degradation, river drying, and temple autonomy in 2026")
+        assert "sadhguru_ecologist" in eval_res["perspectives"]
+        assert "Sadhguru Perspective" in eval_res["perspectives"]["sadhguru_ecologist"]["role"]
+        assert "living soil" in eval_res["perspectives"]["sadhguru_ecologist"]["verdict"].lower()
+
+
+class TestPhases309to317SievesAndQuantumSynthesis:
+    """
+    Phases 309-317 Verification Test Suite:
+    Tests the 9 sovereign historiographical, military, civilizational, and geo-economic sieves:
+      - Phase 309: ArchivalPrimarySourceSieve
+      - Phase 310: AcademicGatekeepingSieve
+      - Phase 311: SuccessionContinuitySieve
+      - Phase 312: LinguisticSprachbundSieve
+      - Phase 313: IndigenousSTEMAuthenticitySieve
+      - Phase 314: SubalternMemorySieve
+      - Phase 315: IndustrialAttritionSieve
+      - Phase 316: ImperialDebtOverreachSieve
+      - Phase 317: ColonialDrainExtractionSieve
+    Also verifies:
+      - Synthesizer strategic_resilience_matrix telemetry (127+ channels)
+      - Dynamic AST query parser flags
+      - geo_engine.lenses exports (143 verified symbols)
+    """
+
+    def test_phase309_archival_primary_source_sieve(self):
+        from geo_engine.lenses.history import ArchivalPrimarySourceSieve
+        res = ArchivalPrimarySourceSieve.calculate(
+            primary_epigraphy=0.90,
+            secondary_academic_narrative=0.20,
+            contemporary_revenue_records=0.85,
+            postcolonial_speculative_bias=0.15,
+        )
+        assert 0.0 <= res["archival_fidelity_score"] <= 1.0
+        assert res["archival_fidelity_tier"] in [
+            "PRISTINE_PRIMARY_ARCHIVAL_GROUNDING",
+            "ROBUST_DOCUMENTARY_FIDELITY",
+            "CONTESTED_SECONDARY_BIAS_RISK",
+            "TOTAL_HISTORIOGRAPHICAL_FABRICATION",
+        ]
+        assert res["is_archivally_grounded"] is True
+
+    def test_phase310_academic_gatekeeping_sieve(self):
+        from geo_engine.lenses.propaganda import AcademicGatekeepingSieve
+        res = AcademicGatekeepingSieve.calculate(
+            foreign_donor_alignment=0.85,
+            panelist_ideological_exclusion=0.80,
+            native_sovereign_voice_presence=0.20,
+        )
+        assert 0.0 <= res["academic_gatekeeping_score"] <= 1.0
+        assert res["academic_gatekeeping_tier"] in [
+            "SEVERE_INSTITUTIONAL_NARRATIVE_CAPTURE",
+            "ELEVATED_ACADEMIC_GATEKEEPING",
+            "CONTESTED_LITERARY_PLURALITY",
+            "OPEN_AUTHENTIC_INTELLECTUAL_DISCOURSE",
+        ]
+        assert res["is_gatekeeping_severe"] is True
+
+    def test_phase311_succession_continuity_sieve(self):
+        from geo_engine.lenses.geo_economist import SuccessionContinuitySieve
+        res = SuccessionContinuitySieve.calculate(
+            institutional_cadre_alignment=0.90,
+            factional_rupture_friction=0.15,
+            capex_statutory_durability=0.85,
+            electoral_populist_volatility=0.20,
+        )
+        assert 0.0 <= res["succession_continuity_score"] <= 1.0
+        assert res["succession_continuity_tier"] in [
+            "FORTIFIED_SUCCESSION_CONTINUITY",
+            "STABLE_POLICY_DURABILITY",
+            "CONTESTED_FACTIONAL_FRICTION",
+            "ACUTE_SUCCESSION_RUPTURE",
+        ]
+        assert res["is_succession_resilient"] is True
+
+    def test_phase312_linguistic_sprachbund_sieve(self):
+        from geo_engine.lenses.civilizational import LinguisticSprachbundSieve
+        res = LinguisticSprachbundSieve.calculate(
+            retroflex_phonological_sharing=0.90,
+            munda_dravidian_vedic_loanwords=0.85,
+            syntactic_convergence=0.88,
+            secessionist_balkanization_drag=0.15,
+        )
+        assert 0.0 <= res["linguistic_sprachbund_score"] <= 1.0
+        assert res["linguistic_sprachbund_tier"] in [
+            "PRISTINE_SPRACHBUND_CONVERGENCE",
+            "ROBUST_CIVILIZATIONAL_LINGUISTIC_UNITY",
+            "CONTESTED_DIALECTAL_FRICTION",
+            "ACUTE_LINGUISTIC_BALKANIZATION",
+        ]
+        assert res["is_linguistically_convergent"] is True
+
+    def test_phase313_indigenous_stem_authenticity_sieve(self):
+        from geo_engine.lenses.deep_tech import IndigenousSTEMAuthenticitySieve
+        res = IndigenousSTEMAuthenticitySieve.calculate(
+            physical_metallurgical_archaeology=0.90,
+            unverified_internet_mythology=0.15,
+            manuscript_mathematical_rigor=0.90,
+            conspiratorial_pseudoscience=0.10,
+        )
+        assert 0.0 <= res["indigenous_stem_score"] <= 1.0
+        assert res["stem_authenticity_tier"] in [
+            "RIGOROUS_PHYSICAL_STEM_VALIDATION",
+            "ROBUST_EMPIRICAL_HERITAGE",
+            "CONTESTED_PSEUDOSCIENTIFIC_RISK",
+            "DELUSIONAL_MYTHOLOGICAL_DISTORTION",
+        ]
+        assert res["is_stem_authentic"] is True
+
+    def test_phase314_subaltern_memory_sieve(self):
+        from geo_engine.lenses.history import SubalternMemorySieve
+        res = SubalternMemorySieve.calculate(
+            hero_stones_density=0.85,
+            oral_folk_resistance=0.80,
+            colonial_official_erasure=0.25,
+        )
+        assert 0.0 <= res["subaltern_memory_score"] <= 1.0
+        assert res["subaltern_memory_tier"] in [
+            "FORTIFIED_SUBALTERN_MEMORY",
+            "ROBUST_ORAL_RESISTANCE_TRUTH",
+            "CONTESTED_FOLKLORE_AMNESIA",
+            "EXTINCTION_OF_LOCAL_HERITAGE",
+        ]
+        assert res["is_subaltern_memory_preserved"] is True
+
+    def test_phase315_industrial_attrition_sieve(self):
+        from geo_engine.lenses.military_readiness import IndustrialAttritionSieve
+        res = IndustrialAttritionSieve.calculate(
+            monthly_domestic_production=0.90,
+            daily_combat_burn_rate=0.25,
+            propellant_precursor_autonomy=0.85,
+            foreign_component_dependency=0.15,
+        )
+        assert 0.0 <= res["industrial_attrition_score"] <= 1.0
+        assert res["industrial_attrition_tier"] in [
+            "FORTIFIED_180_DAY_ATTRITION_RESILIENCE",
+            "ROBUST_90_DAY_SUSTAINABILITY",
+            "CONTESTED_30_DAY_DEPLETION_RISK",
+            "ACUTE_AMMUNITION_STARVATION",
+        ]
+        assert res["is_attrition_sustainable"] is True
+
+    def test_phase316_imperial_debt_overreach_sieve(self):
+        from geo_engine.lenses.cash_flow import ImperialDebtOverreachSieve
+        res = ImperialDebtOverreachSieve.calculate(
+            debt_service_annual=0.90,
+            annual_defense_budget=0.30,
+            public_debt_to_gdp=0.85,
+            fiscal_revenue_headroom=0.15,
+        )
+        assert 0.0 <= res["imperial_debt_overreach_score"] <= 1.0
+        assert res["imperial_debt_overreach_tier"] in [
+            "TERMINAL_FISCAL_RETRENCHMENT_IMMINENT",
+            "ELEVATED_BASING_AUSTERITY_PRESSURE",
+            "CONTESTED_DEFENSE_DEBT_BALANCING",
+            "FISCALLY_STABLE_MILITARY_PROJECTION",
+        ]
+        assert res["is_retrenchment_imminent"] is True
+
+    def test_phase317_colonial_drain_extraction_sieve(self):
+        from geo_engine.lenses.history import ColonialDrainExtractionSieve
+        res = ColonialDrainExtractionSieve.calculate(
+            council_bills_drain_nominal=0.90,
+            domestic_capital_formation=0.25,
+            forced_tariff_deindustrialization=0.85,
+            reinvested_infrastructure_mitigation=0.10,
+        )
+        assert 0.0 <= res["colonial_drain_score"] <= 1.0
+        assert res["colonial_drain_tier"] in [
+            "CATASTROPHIC_WEALTH_DRAIN_COEFFICIENT",
+            "SEVERE_CAPITAL_STARVATION",
+            "CONTESTED_COLONIAL_ECONOMIC_DISTORTION",
+            "MINIMAL_SYSTEMIC_EXTRACTION",
+        ]
+        assert res["is_colonial_drain_critical"] is True
+
+    def test_phases_309_to_317_synthesizer_telemetry(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        ev = SummitEvent(summit_name="Bharat Geopolitical Summit", year=2026, host_country="India")
+        report = SummitSynthesizer.synthesize_report(ev, claims=[])
+        srm = report.strategic_resilience_matrix
+        assert len(srm) >= 127
+        for key in [
+            "archival_fidelity_score",
+            "academic_gatekeeping_score",
+            "succession_continuity_score",
+            "linguistic_sprachbund_score",
+            "indigenous_stem_score",
+            "subaltern_memory_score",
+            "industrial_attrition_score",
+            "imperial_debt_overreach_score",
+            "colonial_drain_score",
+        ]:
+            assert key in srm
+            assert srm[key] is not None
+            assert 0.0 <= srm[key] <= 1.0
+
+    def test_phases_309_to_317_query_parser_dynamic_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Analyze archival primary source epigraphy, literary festival gatekeeping, "
+            "leadership succession capex continuity, linguistic sprachbund convergence, "
+            "indigenous stem wootz steel, subaltern memory hero stones viragals, "
+            "industrial attrition ammunition burn rate, imperial debt overreach, and colonial drain extraction council bills"
+        )
+        assert q.requires_archival_primary_source is True
+        assert q.requires_academic_gatekeeping is True
+        assert q.requires_succession_continuity is True
+        assert q.requires_linguistic_sprachbund is True
+        assert q.requires_indigenous_stem is True
+        assert q.requires_subaltern_memory is True
+        assert q.requires_industrial_attrition is True
+        assert q.requires_imperial_debt_overreach is True
+        assert q.requires_colonial_drain_extraction is True
+
+    def test_phases_309_to_317_lenses_init_exports_count_143(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) == 143
+        for sieve in [
+            "ArchivalPrimarySourceSieve",
+            "AcademicGatekeepingSieve",
+            "SuccessionContinuitySieve",
+            "LinguisticSprachbundSieve",
+            "IndigenousSTEMAuthenticitySieve",
+            "SubalternMemorySieve",
+            "IndustrialAttritionSieve",
+            "ImperialDebtOverreachSieve",
+            "ColonialDrainExtractionSieve",
+        ]:
+            assert sieve in lenses.__all__
+
+

@@ -283,6 +283,58 @@ class PropagandaLens:
             epigraphy_concordance=triang_params_p.get("epigraphy_concordance", 0.70),
         )
         metrics.update({f"propaganda_{k}": v for k, v in _prop_triang.items()})
+
+        # Phase 290: Wire BigTechAlgorithmicSovereigntySieve in PropagandaLens
+        from .digital_sovereignty import BigTechAlgorithmicSovereigntySieve
+        algo_params_p = prop_meta.get("algorithmic_sovereignty", {}) if isinstance(prop_meta, dict) else {}
+        _algo_res_p = BigTechAlgorithmicSovereigntySieve.calculate_algorithmic_sovereignty(
+            statutory_enforcement=algo_params_p.get("statutory_enforcement", 0.75),
+            data_localization=algo_params_p.get("data_localization", 0.80),
+            algorithmic_nudging=algo_params_p.get("algorithmic_nudging", 0.35),
+            shadow_banning_intensity=algo_params_p.get("shadow_banning_intensity", 0.30),
+        )
+        metrics.update({f"propaganda_{k}": v for k, v in _algo_res_p.items()})
+
+        # Phase 299: Wire NarrativeInversionSubversionSieve
+        narr_meta = getattr(summit, "metadata", {}) or {}
+        narr_params = narr_meta.get("narrative_inversion", {}) if isinstance(narr_meta, dict) else {}
+        _narr_res = NarrativeInversionSubversionSieve.calculate(
+            villain_glamorization=narr_params.get("villain_glamorization", 0.80),
+            sacred_archetype_dilution=narr_params.get("sacred_archetype_dilution", 0.75),
+            linguistic_profanation=narr_params.get("linguistic_profanation", 0.65),
+            canonical_epic_integrity=narr_params.get("canonical_epic_integrity", 0.85),
+            revenue_loss_from_boycott_cr=narr_params.get("revenue_loss_from_boycott_cr", 400.0),
+            production_budget_cr=narr_params.get("production_budget_cr", 500.0),
+            alternative_media_rebuttal_reach=narr_params.get("alternative_media_rebuttal_reach", 0.80),
+        )
+        metrics["narrative_immunity_score"] = _narr_res["narrative_immunity_score"]
+        metrics["narrative_defense_tier"] = _narr_res["narrative_defense_tier"]
+        metrics["narrative_counter_strike_index"] = _narr_res["narrative_counter_strike_index"]
+
+        # Phase 304: Wire CanonicalEpicFidelitySieve
+        epic_params = narr_meta.get("canonical_epic_fidelity", {}) if isinstance(narr_meta, dict) else {}
+        _epic_res = CanonicalEpicFidelitySieve.calculate(
+            primary_valmiki_fidelity=epic_params.get("primary_valmiki_fidelity", 0.85),
+            marxist_pop_revisionism=epic_params.get("marxist_pop_revisionism", 0.20),
+            consumer_boycott_elasticity=epic_params.get("consumer_boycott_elasticity", 0.75),
+            dialogue_profanation_index=epic_params.get("dialogue_profanation_index", 0.15),
+            cinematic_box_office_penalty=epic_params.get("cinematic_box_office_penalty", 0.70),
+        )
+        metrics["canonical_fidelity_score"] = _epic_res["canonical_fidelity_score"]
+        metrics["canonical_fidelity_tier"] = _epic_res["canonical_fidelity_tier"]
+        metrics["canonical_fidelity_resilience_index"] = _epic_res["canonical_fidelity_resilience_index"]
+
+        # Phase 310: Wire AcademicGatekeepingSieve
+        gate_params = narr_meta.get("academic_gatekeeping", {}) if isinstance(narr_meta, dict) else {}
+        _gate_res = AcademicGatekeepingSieve.calculate(
+            foreign_donor_alignment=gate_params.get("foreign_donor_alignment", 0.75),
+            panelist_ideological_exclusion=gate_params.get("panelist_ideological_exclusion", 0.70),
+            native_sovereign_voice_presence=gate_params.get("native_sovereign_voice_presence", 0.25),
+        )
+        metrics["academic_gatekeeping_score"] = _gate_res["academic_gatekeeping_score"]
+        metrics["academic_gatekeeping_tier"] = _gate_res["academic_gatekeeping_tier"]
+        metrics["narrative_colonization_index"] = _gate_res["narrative_colonization_index"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -683,5 +735,236 @@ class CognitiveCorticalResilienceSieve:
             "cognitive_resilience_verdict": verdict,
             "is_cognitive_immune": score >= 0.55
         }
+
+
+class NarrativeInversionSubversionSieve:
+    """
+    Phase 299: Entertainment Narrative Inversion, Moral Taxonomy Subversion & Boycott Elasticity Sieve.
+    Quantifies 5th-Generation cognitive warfare manifested through entertainment narrative inversions
+    (e.g. converting classical epics into revisionist inversion tropes, glorifying destructive antagonists,
+    diluting Dharmic virtues, and eroding canonical Sanskrit kinship vocabulary),
+    and calculates civilizational consumer boycott commercial elasticity against production budgets.
+
+    Formulation:
+      InversionIndex = min(1.0, 0.40 * villain_glamorization + 0.35 * sacred_archetype_dilution + 0.25 * linguistic_profanation)
+      BoycottElasticity = min(2.0, revenue_loss_from_boycott_cr / (production_budget_cr + 1e-6))
+      z = 2.8 * BoycottElasticity + 2.4 * canonical_epic_integrity - 3.4 * InversionIndex - 0.4
+      S_Narrative = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        villain_glamorization: float = 0.80,
+        sacred_archetype_dilution: float = 0.75,
+        linguistic_profanation: float = 0.65,
+        canonical_epic_integrity: float = 0.85,
+        revenue_loss_from_boycott_cr: float = 400.0,
+        production_budget_cr: float = 500.0,
+        alternative_media_rebuttal_reach: float = 0.80,
+    ) -> Dict[str, Any]:
+        villain = max(0.0, min(1.0, float(villain_glamorization)))
+        dilute = max(0.0, min(1.0, float(sacred_archetype_dilution)))
+        profane = max(0.0, min(1.0, float(linguistic_profanation)))
+        integrity = max(0.0, min(1.0, float(canonical_epic_integrity)))
+        loss = max(0.0, float(revenue_loss_from_boycott_cr))
+        budget = max(1.0, float(production_budget_cr))
+        rebuttal = max(0.0, min(1.0, float(alternative_media_rebuttal_reach)))
+
+        inversion_idx = min(1.0, 0.40 * villain + 0.35 * dilute + 0.25 * profane)
+        boycott_elasticity = min(2.0, loss / (budget + 1e-6))
+
+        z = 2.8 * boycott_elasticity + 2.4 * integrity - 3.4 * inversion_idx - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTIFIED_CIVILIZATIONAL_NARRATIVE_IMMUNITY"
+            verdict = "DECISIVE_COMMERCIAL_REBUTTAL_OF_SUBVERSION"
+            rationale = (
+                f"Fortified narrative immunity ({score:.4f}): Severe consumer boycott impact ({boycott_elasticity:.2f}x budget loss) "
+                f"and robust canonical literacy dismantle deliberate narrative inversion attempts."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_PUBLIC_DISCERNMENT_RESILIENT"
+            verdict = "ACTIVE_CONSUMER_RESISTANCE_CONTAINING_EROSION"
+            rationale = (
+                f"Robust resistance ({score:.4f}): Boycott friction inflicts commercial penalties on revisionist media, "
+                f"though ongoing youth entertainment consumption requires persistent shastric literacy campaigns."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_POP_CULTURE_REVISIONISM_INTERVAL"
+            verdict = "ELEVATED_COGNITIVE_TAXONOMY_CORROSION"
+            rationale = (
+                f"Contested pop-culture space ({score:.4f}): High-budget promotion of inverted archetypes ({inversion_idx:.2f}) "
+                f"infiltrates impressionable demographics despite nascent citizen pushback."
+            )
+        else:
+            tier = "CRITICAL_CIVILIZATIONAL_AMNESIA_AND_CAPTURE"
+            verdict = "ACUTE_MORAL_INVERSION_NORMALIZATION"
+            rationale = (
+                f"Critical narrative capture ({score:.4f}): Unopposed commercial glamorization of anti-dharmic villains "
+                f"normalizes moral inversion and severs civilizational identity."
+            )
+
+        counter_strike_idx = round(min(1.0, (score * 0.60) + (rebuttal * 0.40)), 4)
+
+        return {
+            "narrative_immunity_score": score,
+            "inversion_index": round(inversion_idx, 4),
+            "boycott_commercial_elasticity": round(boycott_elasticity, 4),
+            "villain_glamorization": round(villain, 4),
+            "sacred_archetype_dilution": round(dilute, 4),
+            "linguistic_profanation": round(profane, 4),
+            "canonical_epic_integrity": round(integrity, 4),
+            "alternative_media_rebuttal_reach": round(rebuttal, 4),
+            "narrative_counter_strike_index": counter_strike_idx,
+            "narrative_defense_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_narrative_immune": score >= 0.55,
+        }
+
+
+class CanonicalEpicFidelitySieve:
+    """
+    Phase 304: Evaluates the divergence of commercial cinematic adaptations from primary canonical
+    Sanskrit sources (Valmiki Ramayana), scoring revisionist narrative inversion tropes (Marxist Ravana,
+    diluted Rama) vs canonical fidelity and consumer boycott commercial elasticity.
+    
+    Mathematical Formulation:
+      ratio = primary_valmiki_fidelity / (marxist_pop_revisionism + eps)
+      z = 3.2 * (ratio / 2.5) + 2.5 * consumer_boycott_elasticity - 3.5 * dialogue_profanation_index - 0.4
+      S_Canonical_Fidelity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        primary_valmiki_fidelity: float = 0.85,
+        marxist_pop_revisionism: float = 0.20,
+        consumer_boycott_elasticity: float = 0.75,
+        dialogue_profanation_index: float = 0.15,
+        cinematic_box_office_penalty: float = 0.70,
+    ) -> Dict[str, Any]:
+        valmiki = max(0.0, min(1.0, float(primary_valmiki_fidelity)))
+        marxist = max(0.0, min(1.0, float(marxist_pop_revisionism)))
+        boycott = max(0.0, min(1.0, float(consumer_boycott_elasticity)))
+        profane = max(0.0, min(1.0, float(dialogue_profanation_index)))
+        penalty = max(0.0, min(1.0, float(cinematic_box_office_penalty)))
+
+        ratio = min(5.0, valmiki / (marxist + 1e-6))
+        z = 3.2 * (ratio / 2.5) + 2.5 * boycott - 3.5 * profane - 0.4
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "PRISTINE_CANONICAL_FIDELITY"
+            verdict = "RIGOROUS_VALMIKI_ITIHASA_PRESERVATION"
+            rationale = (
+                f"Pristine canonical fidelity ({score:.4f}): High fidelity to Sanskrit primary sources ({valmiki:.2f}) "
+                f"and assertive audience pushback ({boycott:.2f}) decisively defeat revisionist distortions ({marxist:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ROBUST_PRIMARY_SOURCE_RESILIENCE"
+            verdict = "ACTIVE_CONSUMER_REJECTION_OF_DISTORTIONS"
+            rationale = (
+                f"Robust resilience ({score:.4f}): Commercial box office penalties ({penalty:.2f}) enforce respect for canonical epics, "
+                f"though ongoing pop-culture liberties require vigilant scriptural auditing."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_POP_CULTURE_DILUTION"
+            verdict = "ELEVATED_CINEMATIC_REVISIONISM_PRESSURE"
+            rationale = (
+                f"Contested fidelity ({score:.4f}): Commercial cinema injects anachronistic dialogues ({profane:.2f}) "
+                f"and distorts epic characterizations to cater to secularized marketing."
+            )
+        else:
+            tier = "TERMINAL_NARRATIVE_INVERSION_CAPTURE"
+            verdict = "TOTAL_MYTHOLOGICAL_DEFACEMENT"
+            rationale = (
+                f"Terminal inversion ({score:.4f}): Unchecked Marxist revisionism reframes foundational Dharmic epics "
+                f"into caricature, severely alienating civilizational self-understanding."
+            )
+
+        fidelity_resilience_idx = round(min(1.0, (score * 0.65) + (penalty * 0.35)), 4)
+
+        return {
+            "canonical_fidelity_score": score,
+            "fidelity_to_revisionism_ratio": round(ratio, 4),
+            "primary_valmiki_fidelity": round(valmiki, 4),
+            "marxist_pop_revisionism": round(marxist, 4),
+            "consumer_boycott_elasticity": round(boycott, 4),
+            "dialogue_profanation_index": round(profane, 4),
+            "cinematic_box_office_penalty": round(penalty, 4),
+            "canonical_fidelity_resilience_index": fidelity_resilience_idx,
+            "canonical_fidelity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_canonically_faithful": score >= 0.55,
+        }
+
+
+class AcademicGatekeepingSieve:
+    """
+    Phase 310: Evaluates institutional narrative gatekeeping in foreign-funded literary festivals,
+    university humanities departments, and think-tank curation.
+    
+    Mathematical Formulation:
+      z = 3.0 * foreign_donor_alignment + 2.6 * panelist_ideological_exclusion - 3.2 * native_sovereign_voice_presence - 0.3
+      S_Academic_Gatekeeping = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        foreign_donor_alignment: float = 0.75,
+        panelist_ideological_exclusion: float = 0.70,
+        native_sovereign_voice_presence: float = 0.25,
+    ) -> Dict[str, Any]:
+        donor = max(0.0, min(1.0, float(foreign_donor_alignment)))
+        exclusion = max(0.0, min(1.0, float(panelist_ideological_exclusion)))
+        voice = max(0.0, min(1.0, float(native_sovereign_voice_presence)))
+
+        z = 3.0 * donor + 2.6 * exclusion - 3.2 * voice - 0.3
+        score = round(1.0 / (1.0 + math.exp(-max(-15.0, min(15.0, z)))), 4)
+
+        if score >= 0.75:
+            tier = "SEVERE_INSTITUTIONAL_NARRATIVE_CAPTURE"
+            verdict = "SYSTEMIC_WESTERN_GATEKEEPING_DOMINANCE"
+            rationale = (
+                f"Severe gatekeeping ({score:.4f}): Foreign donor alignment ({donor:.2f}) and exclusionary curation "
+                f"({exclusion:.2f}) completely suppress native sovereign perspectives ({voice:.2f})."
+            )
+        elif score >= 0.55:
+            tier = "ELEVATED_ACADEMIC_GATEKEEPING"
+            verdict = "ASYMMETRIC_INSTITUTIONAL_BIAS"
+            rationale = (
+                f"Elevated gatekeeping ({score:.4f}): Subtle narrative filtering marginalizes indigenous historiographical claims."
+            )
+        elif score >= 0.35:
+            tier = "CONTESTED_LITERARY_PLURALITY"
+            verdict = "EMERGENT_DECOLONIAL_CHALLENGE"
+            rationale = (
+                f"Contested discourse ({score:.4f}): Native scholars effectively challenge foreign-funded consensus."
+            )
+        else:
+            tier = "OPEN_AUTHENTIC_INTELLECTUAL_DISCOURSE"
+            verdict = "ROBUST_EPISTEMIC_SOVEREIGNTY"
+            rationale = (
+                f"Open discourse ({score:.4f}): Native intellectual traditions freely counter external hegemony."
+            )
+
+        colonization_idx = round(min(1.0, (score * 0.70) + (donor * 0.30)), 4)
+
+        return {
+            "academic_gatekeeping_score": score,
+            "foreign_donor_alignment": round(donor, 4),
+            "panelist_ideological_exclusion": round(exclusion, 4),
+            "native_sovereign_voice_presence": round(voice, 4),
+            "narrative_colonization_index": colonization_idx,
+            "academic_gatekeeping_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_gatekeeping_severe": score >= 0.55,
+        }
+
+
+
 
 ```
