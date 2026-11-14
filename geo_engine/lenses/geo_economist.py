@@ -264,6 +264,22 @@ class GeoEconomistLens:
         metrics["succession_continuity_tier"] = _succ_res["succession_continuity_tier"]
         metrics["policy_durability_index"] = _succ_res["policy_durability_index"]
 
+        geo_econ_meta = getattr(summit, 'metadata', {}) or {}
+        # Phases 348, 353: TBML & Strategic CapEx Impact Sieve Evaluations
+        _tbl_res = TradeBasedMoneyLaunderingSieve.evaluate(
+            customs_remittance_discrepancy=geo_econ_meta.get("customs_remittance_discrepancy", 0.25),
+            gst_eway_divergence=geo_econ_meta.get("gst_eway_divergence", 0.20),
+            port_clearance_verification=geo_econ_meta.get("port_clearance_verification", 0.80),
+        )
+        metrics["trade_based_money_laundering_score"] = _tbl_res["trade_based_money_laundering_score"]
+
+        _sci_res = SovereignStrategicCapExImpactSieve.evaluate(
+            capex_multiplier_scale=geo_econ_meta.get("capex_multiplier_scale", 0.75),
+            supply_chain_criticality=geo_econ_meta.get("supply_chain_criticality", 0.80),
+            receivership_remedy_viability=geo_econ_meta.get("receivership_remedy_viability", 0.85),
+        )
+        metrics["sovereign_strategic_capex_impact_score"] = _sci_res["sovereign_strategic_capex_impact_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1103,4 +1119,99 @@ class InfrastructureCapExMultiplierSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_high_multiplier_active": score >= 0.75,
+        }
+
+# ============================================================================
+# PHASES 348, 353: TBML & STRATEGIC CAPEX IMPACT SIEVES
+# ============================================================================
+
+class TradeBasedMoneyLaunderingSieve:
+    """
+    Phase 348: Evaluates Trade-Based Money Laundering (TBML) by triangulating declared ICEGATE customs declarations,
+    GSTN domestic tax e-way bills, and outward bank foreign remittances.
+    """
+    @staticmethod
+    def evaluate(
+        customs_remittance_discrepancy: float = 0.25,
+        gst_eway_divergence: float = 0.20,
+        port_clearance_verification: float = 0.80,
+    ) -> dict:
+        c_disc = max(0.0, min(1.0, float(customs_remittance_discrepancy)))
+        g_div = max(0.0, min(1.0, float(gst_eway_divergence)))
+        p_ver = max(0.0, min(1.0, float(port_clearance_verification)))
+
+        z = 3.5 * c_disc + 3.0 * g_div - 2.8 * p_ver - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SEVERE_TRADE_BASED_MONEY_LAUNDERING_ANOMALY"
+            verdict = "ILLICIT_CAPITAL_FLIGHT_DISGUISED_AS_TRADE"
+            rationale = (
+                f"Severe invoice divergence ({score:.4f}): Discrepancy between bank remittances and ICEGATE values ({c_disc:.2f}) "
+                f"signals round-tripping or tax evasion."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_LOGISTICS_VALUATION_DISCREPANCY"
+            verdict = "CUSTOMS_RECONCILIATION_AUDIT_RECOMMENDED"
+            rationale = f"Moderate valuation mismatch ({score:.4f}): Timing lags or exchange-rate fluctuations in trade billing."
+        else:
+            tier = "VERIFIED_CUSTOMS_GST_RECONCILIATION"
+            verdict = "COMPLIANT_PHYSICAL_TRADE_CONFIRMED"
+            rationale = f"Clean trade reconciliation ({score:.4f}): Port clearances ({p_ver:.2f}) match tax and bank flows."
+
+        return {
+            "trade_based_money_laundering_score": score,
+            "customs_remittance_discrepancy": round(c_disc, 4),
+            "gst_eway_divergence": round(g_div, 4),
+            "port_clearance_verification": round(p_ver, 4),
+            "tbml_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_tbml_severe": score >= 0.70,
+        }
+
+
+class SovereignStrategicCapExImpactSieve:
+    """
+    Phase 353: Evaluates whether an immediate judicial freeze on an accused enterprise causes catastrophic
+    macroeconomic supply-chain paralysis vs. recommending curative receivership (Satyam model).
+    """
+    @staticmethod
+    def evaluate(
+        capex_multiplier_scale: float = 0.75,
+        supply_chain_criticality: float = 0.80,
+        receivership_remedy_viability: float = 0.85,
+    ) -> dict:
+        c_mult = max(0.0, min(1.0, float(capex_multiplier_scale)))
+        s_crit = max(0.0, min(1.0, float(supply_chain_criticality)))
+        r_viab = max(0.0, min(1.0, float(receivership_remedy_viability)))
+
+        z = 3.5 * c_mult + 2.8 * s_crit - 2.6 * r_viab - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SYSTEMIC_SOVEREIGN_INFRASTRUCTURE_ASSET"
+            verdict = "CURATIVE_RECEIVERSHIP_MANDATED_AVOID_LIQUIDATION"
+            rationale = (
+                f"High systemic footprint ({score:.4f}): Critical supply chain role ({s_crit:.2f}) requires separating individual promoter "
+                f"penalties from asset continuity (Satyam/IL&FS doctrine)."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_ECONOMIC_SPILLOVER"
+            verdict = "STRUCTURED_ESCROW_AND_SUPERVISED_MANAGEMENT"
+            rationale = f"Moderate spillover ({score:.4f}): Ring-fence operating units while judicial inquiry proceeds."
+        else:
+            tier = "NON_SYSTEMIC_DISCRETE_COMMERCIAL_ENTITY"
+            verdict = "STANDARD_JUDICIAL_LIQUIDATION_UNCONSTRAINED"
+            rationale = f"Low systemic contagion ({score:.4f}): Standard commercial insolvency proceedings can proceed without sovereign risk."
+
+        return {
+            "sovereign_strategic_capex_impact_score": score,
+            "capex_multiplier_scale": round(c_mult, 4),
+            "supply_chain_criticality": round(s_crit, 4),
+            "receivership_remedy_viability": round(r_viab, 4),
+            "capex_impact_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_curative_receivership_recommended": score >= 0.70,
         }

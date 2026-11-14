@@ -1601,6 +1601,13 @@ def main():
     verify_parser = subparsers.add_parser("verify", help="Run Evidence Intelligence & Fact Verification on statement or text")
     verify_parser.add_argument("statement", help="Statement, claim, speech excerpt, or article to verify")
 
+    whistle_parser = subparsers.add_parser("whistle", help="Evaluate whistleblower payload, provenance, debt contagion & retributive liability")
+    whistle_parser.add_argument("dossier_text", help="Whistleblower narrative, leaked memo, or transcript")
+    whistle_parser.add_argument("--title", default="Whistleblower Disclosure", help="Title of the disclosure")
+    whistle_parser.add_argument("--target", default="Target Enterprise", help="Target entity or organization")
+    whistle_parser.add_argument("--domain", default="CORPORATE", choices=["CORPORATE", "DEFENSE", "ECOLOGY", "FINANCIAL", "HEALTHCARE", "HERITAGE"], help="Sectoral domain")
+    whistle_parser.add_argument("--bsa-cert", action="store_true", help="Flag if electronic record certificate under BSA 2023 Sec 63 is present")
+
     try:
 
         args = parser.parse_args()
@@ -1667,6 +1674,46 @@ def main():
         elif args.command == "mcp":
             from .mcp import run_stdio_server
             run_stdio_server()
+        elif args.command == "whistle":
+            import os
+            from .arbitration.whistleblower import WhistleblowerDossier, SatyamevaSuchakaPipeline
+            from rich.console import Console
+            from rich.panel import Panel
+            from rich.table import Table
+
+            console = Console()
+            dossier = WhistleblowerDossier(
+                dossier_id="DOSSIER-" + os.urandom(4).hex().upper(),
+                title=getattr(args, "title", "Whistleblower Disclosure"),
+                target_entity=getattr(args, "target", "Target Enterprise"),
+                domain=getattr(args, "domain", "CORPORATE"),
+                narrative_text=args.dossier_text,
+                has_bsa_cert=getattr(args, "bsa_cert", False),
+            )
+            eval_res = SatyamevaSuchakaPipeline.evaluate_dossier(dossier)
+            console.print(Panel(
+                f"[bold cyan]SATYAMEVA-SUCHAKA 2.0: WHISTLEBLOWER & FORENSIC SPEECH AUDIT[/bold cyan]\n"
+                f"Target: [bold yellow]{eval_res.target_entity}[/bold yellow] | Domain: [bold green]{eval_res.domain}[/bold green]\n"
+                f"Epistemic Classification: [bold]{eval_res.epistemic_classification}[/bold]\n"
+                f"Composite Authenticity Index: [bold magenta]{eval_res.composite_sovereign_authenticity_index:.4f}[/bold magenta]\n"
+                f"Operational Action: {eval_res.operational_action}",
+                title="Sovereign Whistleblower Evaluation",
+                border_style="cyan"
+            ))
+
+            t = Table(title="Analysis of Competing Hypotheses (ACH) - Whistleblower Truth State")
+            t.add_column("Causal Hypothesis", style="bold")
+            t.add_column("Probability", justify="right")
+            for h, prob in eval_res.competing_hypotheses.items():
+                t.add_row(h, f"{prob * 100:.2f}%")
+            console.print(t)
+
+            tc = Table(title="Sovereign Multi-Domain Council Perspectives")
+            tc.add_column("Council Member", style="bold yellow")
+            tc.add_column("Strategic Analysis & Directive")
+            for member, comment in eval_res.council_perspectives.items():
+                tc.add_row(member.replace("_", " "), comment)
+            console.print(tc)
         elif args.command == "verify":
             render_fact_verification(args.statement)
         elif args.command == "quantum":

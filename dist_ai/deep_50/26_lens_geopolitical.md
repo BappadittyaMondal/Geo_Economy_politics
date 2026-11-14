@@ -223,6 +223,14 @@ class GeopoliticalLens:
         metrics["hydrologic_sovereignty_tier"] = _hydro_res["hydrologic_sovereignty_tier"]
         metrics["asymmetric_escalation_parity"] = _hydro_res["asymmetric_escalation_parity"]
 
+                # Phase 339: Adversary Timing Correlation Sieve Evaluation
+        _atc_res = AdversaryTimingCorrelationSieve.evaluate(
+            timing_proximity=geo_meta.get("timing_proximity", 0.30),
+            summit_sensitivity=geo_meta.get("summit_sensitivity", 0.40),
+            organic_reporting_lag=geo_meta.get("organic_reporting_lag", 0.70),
+        )
+        metrics["adversary_timing_correlation_score"] = _atc_res["adversary_timing_correlation_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -591,6 +599,55 @@ class BlackSwanDisruptionSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_black_swan_vulnerable": score >= 0.70,
+        }
+
+# ============================================================================
+# PHASE 339: ADVERSARY TIMING CORRELATION SIEVE
+# ============================================================================
+
+class AdversaryTimingCorrelationSieve:
+    """
+    Phase 339: Evaluates temporal correlation between disclosure dates and major sovereign events
+    (bilateral summits, trade pact ratifications, sovereign bond auctions, national elections).
+    """
+    @staticmethod
+    def evaluate(
+        timing_proximity: float = 0.30,
+        summit_sensitivity: float = 0.40,
+        organic_reporting_lag: float = 0.70,
+    ) -> dict:
+        t_prox = max(0.0, min(1.0, float(timing_proximity)))
+        s_sens = max(0.0, min(1.0, float(summit_sensitivity)))
+        o_lag = max(0.0, min(1.0, float(organic_reporting_lag)))
+
+        z = 3.8 * t_prox + 2.7 * s_sens - 2.5 * o_lag - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "COORDINATED_GEOPOLITICAL_LAWFARE_TIMING"
+            verdict = "HIGH_PROBABILITY_OF_ORCHESTRATED_ATTACK"
+            rationale = (
+                f"Acute timing alignment ({score:.4f}): Release proximity ({t_prox:.2f}) and summit sensitivity ({s_sens:.2f}) "
+                f"strongly diverge from organic whistleblowing cycles."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_TEMPORAL_COINCIDENCE"
+            verdict = "ELEVATED_SITUATIONAL_AWARENESS"
+            rationale = f"Moderate timing overlap ({score:.4f}): Coincides with sensitive political milestones but lacks proven coordination."
+        else:
+            tier = "ORGANIC_AUTONOMOUS_DISCLOSURE"
+            verdict = "LOW_TIMING_CORRELATION_CONFIRMED"
+            rationale = f"Organic dissemination ({score:.4f}): Normal reporting lag ({o_lag:.2f}) with zero strategic summit alignment."
+
+        return {
+            "adversary_timing_correlation_score": score,
+            "timing_proximity_index": round(t_prox, 4),
+            "summit_sensitivity_index": round(s_sens, 4),
+            "organic_reporting_lag": round(o_lag, 4),
+            "timing_correlation_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_timing_coordinated": score >= 0.70,
         }
 
 ```

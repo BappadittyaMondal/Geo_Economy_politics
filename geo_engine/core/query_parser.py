@@ -114,6 +114,22 @@ class StrategicQuery(BaseModel):
     requires_black_swan_disruption: bool = False
     requires_sovereign_gold_velocity: bool = False
     requires_geopolitical_speech_forensics: bool = False
+    requires_sovereign_public_interest: bool = False
+    requires_adversary_timing_correlation: bool = False
+    requires_documentary_provenance: bool = False
+    requires_bear_raid_derivative: bool = False
+    requires_offshore_debt_covenant: bool = False
+    requires_exfiltration_sanctuary: bool = False
+    requires_retaliation_threat: bool = False
+    requires_vigilance_remedy: bool = False
+    requires_speech_kinesic_chromatic: bool = False
+    requires_speech_omission: bool = False
+    requires_tbml_customs: bool = False
+    requires_defense_scada_tamper: bool = False
+    requires_cultural_sacrality_breach: bool = False
+    requires_perjury_retributive_liability: bool = False
+    requires_qdt_whistleblower: bool = False
+    requires_sovereign_capex_impact: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -439,6 +455,22 @@ class QueryParser:
         req_black_swan = any(cls.matches_keyword(text_lower, kw) for kw in ["black swan disruption", "extreme value theory shock", "shock tail risk index", "infrastructure coupling density", "systemic black swan cascade"])
         req_sovereign_gold_vel = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign gold repatriation velocity", "bullion repatriation velocity", "repatriated bullion metric", "bank of england gold repatriation", "vault repatriation velocity"])
         req_speech_forensics = any(cls.matches_keyword(text_lower, kw) for kw in ["geopolitical speech forensics", "speech signal divergence", "lexical divergence index", "deliberate omission density", "between the lines speech"])
+        req_sov_pub_int = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign public interest", "yogakshema public welfare", "casualty threat index", "toxic ecological dumping", "whistleblower public interest"])
+        req_adv_timing = any(cls.matches_keyword(text_lower, kw) for kw in ["adversary timing correlation", "summit timing correlation", "coordinated timing leak", "orchestrated timing leak", "summit sensitivity timing"])
+        req_doc_prov = any(cls.matches_keyword(text_lower, kw) for kw in ["documentary provenance authenticity", "bsa 2023 section 63", "bsa section 63", "electronic record certificate", "typographical anomaly ratio"])
+        req_bear_raid = any(cls.matches_keyword(text_lower, kw) for kw in ["bear raid derivative", "p-notes short concentration", "put volume spike leak", "predatory short seller coordination", "bear raid options"])
+        req_debt_cov = any(cls.matches_keyword(text_lower, kw) for kw in ["offshore debt covenant contagion", "eurodollar syndicated loan default", "bank letter of credit freeze", "cross default clause leak", "debt covenant squeeze"])
+        req_exfil_sanc = any(cls.matches_keyword(text_lower, kw) for kw in ["exfiltration and foreign sanctuary", "asylum pipeline", "embassy sanctuary proximity", "foreign intelligence exfiltration", "visa pre-clearance leak"])
+        req_retal_threat = any(cls.matches_keyword(text_lower, kw) for kw in ["retaliation threat and opsec", "whistleblower physical intimidation", "asymmetric slapp lawsuit", "witness protection mandate", "retaliation threat score"])
+        req_vigil_rem = any(cls.matches_keyword(text_lower, kw) for kw in ["vigilance statutory remedy", "cvc whistleblower", "lokpal statutory remedy", "sfio corporate investigation", "sebi informant reward"])
+        req_kinesic_chrom = any(cls.matches_keyword(text_lower, kw) for kw in ["speech kinesic and chromatic", "facs deception marker", "vocal pitch jitter", "chromatic incongruence", "dress color semiotics"])
+        req_speech_omit = any(cls.matches_keyword(text_lower, kw) for kw in ["speech omission and negative space", "deliberate omission density", "taboo topic suppression", "negative space omission", "what was refused to say"])
+        req_tbml = any(cls.matches_keyword(text_lower, kw) for kw in ["trade based money laundering", "icegate customs remittance discrepancy", "gst eway divergence", "invoice round tripping", "tbml capital flight"])
+        req_scada_tamp = any(cls.matches_keyword(text_lower, kw) for kw in ["defense scada and firmware tamper", "microcode backdoor", "scada plc tampering", "firmware hash deviation", "trojan hardware firmware"])
+        req_cult_sac = any(cls.matches_keyword(text_lower, kw) for kw in ["cultural heritage and sacrality breach", "temple asset misappropriation", "antiquities illicit auction", "sacral space encroachment", "temple land waqf"])
+        req_perj_liab = any(cls.matches_keyword(text_lower, kw) for kw in ["perjury risk and retributive liability", "bns section 229 230", "bns section 229", "malicious slander liability", "retributive perjury penalty"])
+        req_qdt_whistle = any(cls.matches_keyword(text_lower, kw) for kw in ["qdt whistleblower cognitive state", "quantum decision disclosure", "duty fear interference", "constructive duty interference", "whistleblower cognitive state"])
+        req_capex_imp = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign strategic capex impact", "curative receivership", "satyam model receivership", "capex multiplier freeze", "receivership remedy viability"])
 
         if req_pnt and "military_readiness" not in active_lenses:
             active_lenses.append("military_readiness")
@@ -672,6 +704,22 @@ class QueryParser:
             requires_black_swan_disruption=req_black_swan,
             requires_sovereign_gold_velocity=req_sovereign_gold_vel,
             requires_geopolitical_speech_forensics=req_speech_forensics,
+            requires_sovereign_public_interest=req_sov_pub_int,
+            requires_adversary_timing_correlation=req_adv_timing,
+            requires_documentary_provenance=req_doc_prov,
+            requires_bear_raid_derivative=req_bear_raid,
+            requires_offshore_debt_covenant=req_debt_cov,
+            requires_exfiltration_sanctuary=req_exfil_sanc,
+            requires_retaliation_threat=req_retal_threat,
+            requires_vigilance_remedy=req_vigil_rem,
+            requires_speech_kinesic_chromatic=req_kinesic_chrom,
+            requires_speech_omission=req_speech_omit,
+            requires_tbml_customs=req_tbml,
+            requires_defense_scada_tamper=req_scada_tamp,
+            requires_cultural_sacrality_breach=req_cult_sac,
+            requires_perjury_retributive_liability=req_perj_liab,
+            requires_qdt_whistleblower=req_qdt_whistle,
+            requires_sovereign_capex_impact=req_capex_imp,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

@@ -1,6 +1,7 @@
 # LENS SPECIFICATION: KINESICS
 
 ```python
+import math
 """
 Lens 6: Diplomatic Kinesics & Body Language Forensics.
 Deconstructs leader interactions by strictly subtracting compulsory state protocol choreography,
@@ -227,6 +228,16 @@ class KinesicsLens:
             "semiotic_alignment_tier": sartorial_audit["semiotic_alignment_tier"]
         }
 
+                # Phase 346: Speech Kinesic and Chromatic Forensics Sieve Evaluation
+        k_meta = getattr(event, "metadata", {}) if 'event' in locals() else {}
+        _skc_res = SpeechKinesicAndChromaticForensicsSieve.evaluate(
+            facs_deception_marker=k_meta.get("facs_deception_marker", 0.30),
+            vocal_pitch_jitter=k_meta.get("vocal_pitch_jitter", 0.25),
+            chromatic_incongruence=k_meta.get("chromatic_incongruence", 0.35),
+            autonomic_baseline_stability=k_meta.get("autonomic_baseline_stability", 0.70),
+        )
+        metrics["speech_kinesic_and_chromatic_forensics_score"] = _skc_res["speech_kinesic_and_chromatic_forensics_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=round((avg_warmth * 2.0) - 1.0, 2), # Map 0..1 to -1..1
@@ -296,5 +307,56 @@ class SartorialSemioticSieve:
             "forensic_semiotic_verdict": verdict
         }
 
+# ============================================================================
+# PHASE 346: SPEECH KINESIC AND CHROMATIC FORENSICS SIEVE
+# ============================================================================
+
+class SpeechKinesicAndChromaticForensicsSieve:
+    """
+    Phase 346: Evaluates Paul Ekman Action Units (AU14/15/17), fundamental frequency ($F_0$) vocal pitch jitter,
+    and chromatic (attire color) semiotic dissonance to detect deception, duress, or deepfakes.
+    """
+    @staticmethod
+    def evaluate(
+        facs_deception_marker: float = 0.30,
+        vocal_pitch_jitter: float = 0.25,
+        chromatic_incongruence: float = 0.35,
+        autonomic_baseline_stability: float = 0.70,
+    ) -> dict:
+        f_decept = max(0.0, min(1.0, float(facs_deception_marker)))
+        v_jit = max(0.0, min(1.0, float(vocal_pitch_jitter)))
+        c_incong = max(0.0, min(1.0, float(chromatic_incongruence)))
+        a_stab = max(0.0, min(1.0, float(autonomic_baseline_stability)))
+
+        z = 3.2 * f_decept + 2.8 * v_jit + 2.4 * c_incong - 2.6 * a_stab - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_KINESIC_CHROMATIC_DECEPTION_DETECTED"
+            verdict = "HIGH_PROBABILITY_OF_DURESS_OR_SYNTHETIC_SPEECH"
+            rationale = (
+                f"Severe behavioral dissonance ({score:.4f}): Involuntary micro-expressions ({f_decept:.2f}), vocal tremor ({v_jit:.2f}) "
+                f"and chromatic signaling contradict declared narrative."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_AFFECTIVE_COGNITIVE_STRESS"
+            verdict = "ELEVATED_SPEAKER_TENSION_VERIFIED"
+            rationale = f"Moderate stress markers ({score:.4f}): Normal emotional agitation during whistleblower disclosure."
+        else:
+            tier = "CONGRUENT_AUTONOMIC_BASELINE"
+            verdict = "HIGH_VERACITY_KINESIC_PROVENANCE"
+            rationale = f"Congruent delivery ({score:.4f}): Stable vocal prosody and autonomic baseline ({a_stab:.2f}) support authenticity."
+
+        return {
+            "speech_kinesic_and_chromatic_forensics_score": score,
+            "facs_deception_marker": round(f_decept, 4),
+            "vocal_pitch_jitter": round(v_jit, 4),
+            "chromatic_incongruence": round(c_incong, 4),
+            "autonomic_baseline_stability": round(a_stab, 4),
+            "kinesic_chromatic_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_kinesic_deception_high": score >= 0.70,
+        }
 
 ```

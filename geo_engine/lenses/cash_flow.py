@@ -384,6 +384,22 @@ class CashFlowLens:
         metrics["imperial_debt_overreach_tier"] = _debt_res["imperial_debt_overreach_tier"]
         metrics["fiscal_basing_retrenchment_index"] = _debt_res["fiscal_basing_retrenchment_index"]
 
+        cf_meta = getattr(summit, 'metadata', {}) or {}
+        # Phases 341, 342: Bear Raid Derivative & Offshore Debt Covenant Sieve Evaluations
+        _brd_res = BearRaidDerivativeForensicsSieve.evaluate(
+            put_volume_spike=cf_meta.get("put_volume_spike", 0.25),
+            pnote_short_concentration=cf_meta.get("pnote_short_concentration", 0.20),
+            normal_hedging_ratio=cf_meta.get("normal_hedging_ratio", 0.80),
+        )
+        metrics["bear_raid_derivative_forensics_score"] = _brd_res["bear_raid_derivative_forensics_score"]
+
+        _odc_res = OffshoreDebtCovenantContagionSieve.evaluate(
+            cross_default_exposure=cf_meta.get("cross_default_exposure", 0.30),
+            lc_credit_freeze=cf_meta.get("lc_credit_freeze", 0.25),
+            sovereign_liquidity_backstop=cf_meta.get("sovereign_liquidity_backstop", 0.80),
+        )
+        metrics["offshore_debt_covenant_contagion_score"] = _odc_res["offshore_debt_covenant_contagion_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=clamped_alignment,
@@ -1143,4 +1159,99 @@ class SovereignGoldRepatriationVelocitySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_repatriation_velocity_high": score >= 0.75,
+        }
+
+# ============================================================================
+# PHASES 341, 342: BEAR RAID DERIVATIVE & OFFSHORE DEBT COVENANT SIEVES
+# ============================================================================
+
+class BearRaidDerivativeForensicsSieve:
+    """
+    Phase 341: Evaluates pre-leak options open-interest spikes, offshore P-Notes short concentration,
+    and derivative bear-raid positioning targeting domestic capital markets.
+    """
+    @staticmethod
+    def evaluate(
+        put_volume_spike: float = 0.25,
+        pnote_short_concentration: float = 0.20,
+        normal_hedging_ratio: float = 0.80,
+    ) -> dict:
+        p_spike = max(0.0, min(1.0, float(put_volume_spike)))
+        s_conc = max(0.0, min(1.0, float(pnote_short_concentration)))
+        n_hedge = max(0.0, min(1.0, float(normal_hedging_ratio)))
+
+        z = 3.5 * p_spike + 3.0 * s_conc - 2.6 * n_hedge - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_OFFSHORE_BEAR_RAID_ACTIVE"
+            verdict = "PREDATORY_SHORT_SELLER_COORDINATION_CONFIRMED"
+            rationale = (
+                f"Severe derivative anomaly ({score:.4f}): Anomalous put volume ({p_spike:.2f}) and P-Note concentration ({s_conc:.2f}) "
+                f"indicate predatory market manipulation preceding narrative release."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_DERIVATIVE_VOLATILITY"
+            verdict = "MARKET_MAKER_DEFENSIVE_POSITIONING"
+            rationale = f"Elevated hedging ({score:.4f}): Increased derivative activity amidst general market risk aversion."
+        else:
+            tier = "NORMAL_MARKET_EQUILIBRIUM"
+            verdict = "ZERO_BEAR_RAID_SIGNALS_DETECTED"
+            rationale = f"Orderly capital flows ({score:.4f}): Normal hedging volume ({n_hedge:.2f}) with zero predatory short spikes."
+
+        return {
+            "bear_raid_derivative_forensics_score": score,
+            "put_volume_spike_index": round(p_spike, 4),
+            "pnote_short_concentration": round(s_conc, 4),
+            "normal_hedging_ratio": round(n_hedge, 4),
+            "bear_raid_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_bear_raid_active": score >= 0.70,
+        }
+
+
+class OffshoreDebtCovenantContagionSieve:
+    """
+    Phase 342: Evaluates Eurodollar syndicated loan cross-defaults, bank Letter-of-Credit freezes,
+    and sovereign liquidity backstops against offshore financial contagion.
+    """
+    @staticmethod
+    def evaluate(
+        cross_default_exposure: float = 0.30,
+        lc_credit_freeze: float = 0.25,
+        sovereign_liquidity_backstop: float = 0.80,
+    ) -> dict:
+        c_exp = max(0.0, min(1.0, float(cross_default_exposure)))
+        lc_frz = max(0.0, min(1.0, float(lc_credit_freeze)))
+        s_back = max(0.0, min(1.0, float(sovereign_liquidity_backstop)))
+
+        z = 3.4 * c_exp + 2.9 * lc_frz - 2.8 * s_back - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SEVERE_OFFSHORE_DEBT_COVENANT_CONTAGION"
+            verdict = "IMMEDIATE_SOVEREIGN_FX_INTERVENTION_REQUIRED"
+            rationale = (
+                f"Critical debt contagion ({score:.4f}): Cross-default clauses ({c_exp:.2f}) and LC freeze ({lc_frz:.2f}) "
+                f"threaten offshore dollar solvency."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_LIQUIDITY_SQUEEZE"
+            verdict = "COMMERCIAL_BANK_REFINANCING_FEASIBLE"
+            rationale = f"Manageable liquidity strain ({score:.4f}): Debt roll-over manageable via bilateral credit lines."
+        else:
+            tier = "RESILIENT_OFFSHORE_BALANCE_SHEET"
+            verdict = "SOLVENT_WITH_AMPLE_DOMESTIC_BACKSTOPS"
+            rationale = f"High solvency ({score:.4f}): Strong sovereign liquidity reserves ({s_back:.2f}) buffer offshore credit shocks."
+
+        return {
+            "offshore_debt_covenant_contagion_score": score,
+            "cross_default_exposure": round(c_exp, 4),
+            "lc_credit_freeze_index": round(lc_frz, 4),
+            "sovereign_liquidity_backstop": round(s_back, 4),
+            "debt_covenant_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_debt_contagion_severe": score >= 0.70,
         }

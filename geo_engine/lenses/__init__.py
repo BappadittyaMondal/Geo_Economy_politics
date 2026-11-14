@@ -1,79 +1,245 @@
 """
-The 20-Lens Analytical Matrix.
-Provides specialized evaluators for deep-tech, history, civilizational statecraft,
-geo-economics, geopolitics, kinesics, cash flow, propaganda, petro-logistics,
-bureaucratic inertia, digital sovereignty, hybrid/covert warfare, India timeline,
-demographic infiltration, critical minerals, institutional lawfare, food security,
-military readiness, subsea cables, and astro-politics space defense.
+Unified lens registry for all sovereign analytical lenses.
 """
-
 from typing import List, Type, Any
 
-from .deep_tech import DeepTechLens, STEMCapitalDilutionSieve, QuantumInformationSieve, SovereignLongevityDemographySieve, CognitiveSovereigntyAntahkaranaSieve, FrontierAIRegulatoryCaptureSieve, FastBreederNuclearFuelAutonomySieve, MultiAgentGroupChatConsensusSieve, IndigenousGaNAESARadarSovereigntySieve, IndigenousSTEMAuthenticitySieve
-from .history import HistoryLens, SubNationalInsurgencyIncubationSieve, ArchaeoAstronomicalChronologySieve, MultidisciplinaryEpistemicTriangulationSieve, ArchaeoAstronomicalEpigraphicDatingSieve, HistoricalDemystificationPartitionSieve, ArchivalPrimarySourceSieve, SubalternMemorySieve, ColonialDrainExtractionSieve
-from .civilizational import (
-    CivilizationalLens,
-    CulturalGrayzoneSieve,
-    SacredCalendarProvocationSieve,
-    UrbanInsurrectionRiskSieve,
-    CivilizationalKshatraSieve,
-    CulturalGrayzoneLegitimacySieve,
-    CulturalReligiousGrayzoneMicroSignalSieve,
-    EpistemicTextualTriangulationSieve,
-    AntiquityPlunderRepatriationSieve,
-    PaleogenomicDemographicContinuitySieve,
-    DharmicSoftPowerCulturalSovereigntySieve,
-    SacredEconomyReligiousTourismSieve,
-    EpistemicApaurusheyaCivilizationalSieve,
-    AurobindonianSpiritualIntegrationSieve,
-    ShastricDietaryPluralitySieve,
-    LinguisticSprachbundSieve,
-)
-from .geo_economist import GeoEconomistLens, MultilateralCurrencySettlementSieve, NationalChampionSovereignSieve, SupplyChainVacuumCaptureSieve, OffshoreCapitalMagnetismSieve, ResourceCurseSieve, SovereignDebtContagionSieve, SectoralCapitalRotationAndGridConstraintSieve, OutwardDirectInvestmentAssetCaptureSieve, PredatoryOvercapacityDumpingSieve, SuccessionContinuitySieve
-from .geopolitical import GeopoliticalLens, ChokepointKineticSieve, TripartiteCoherenceSieve, DiasporaSanctuaryLawfareSieve, IslandEEZMaritimeNetSecuritySieve, TransHimalayanHydrologicalDeterrenceSieve
-from .kinesics import KinesicsLens, SartorialSemioticSieve
-from .cash_flow import CashFlowLens, DigitalEnclosureTrapSieve, BullionPaperArbitrageDislocationSieve, PreciousMetalSovereignArbitrageSieve, SovereignBalanceSheetShieldSieve, DomesticHNWICapitalFormationSieve, SovereignGoldRepatriationSieve, CommercialBankAssetQualityAndCRARSieve, ImperialDebtOverreachSieve
-from .propaganda import PropagandaLens, AntitheticalRhetoricSieve, CognitivePanicMonetizationFilter, CognitiveSovereigntySieve, PedagogicalHaloSmugglingSieve, EliteMediaCognitiveCaptureSieve, CognitiveCorticalResilienceSieve, NarrativeInversionSubversionSieve, CanonicalEpicFidelitySieve, AcademicGatekeepingSieve
-from .petro_logistics import PetroLogisticsLens, ChokepointHydrocarbonInterdictionSieve, CriticalRefineryCyberKineticSabotageSieve
-from .bureaucratic_inertia import BureaucraticInertiaLens, BureaucraticRollbackModel, SubNationalBureaucraticFrictionSieve
-from .digital_sovereignty import (
-    DigitalSovereigntyLens,
-    TechSovereigntySieve,
-    ImperialSubversionPipesSieve,
-    ProtocolLayerSovereigntySieve,
-    CorporateAstroturfingSieve,
-    IndigenousHardwareTechMoatSieve,
-    StrategicMetallurgySieve,
-    ProgrammableCBDCSurveillanceSieve,
-    BigTechAlgorithmicSovereigntySieve,
-)
-from .hybrid_covert import HybridCovertLens, ExtraterritorialSovereignAsymmetrySieve, DiplomaticCounterIntelSieve, NuclearAmbiguitySieve, NuclearMineralEspionageSieve, AsymmetricHostageCoercionSieve, SubConventionalProxyWarfareSieve, InterAgencyCounterSubversionSynergySieve, DeepStateBlackProjectIntelligenceSieve
-from .india_timeline import IndiaTimelineLens
-from .demographic_infiltration import DemographicInfiltrationLens, DiasporaBacklashSieve, StatutoryBorderDemographySieve, TheologicalIncompatibilityApostasySieve
-from .critical_minerals import CriticalMineralsLens, CriticalMineralsRefiningCrisisSieve
-from .institutional_lawfare import (
-    InstitutionalLawfareLens,
-    SubNationalEndowmentSieve,
-    IntraCivilizationalFaultlineSieve,
-    CulturalReligiousGrayzoneSieve,
-    JudicialSubversionSieve,
-    CoercionPremiumSieve,
-    CrowdCascadeThresholdSieve,
-    StateMachiavellianSieve,
-    SovereignPowerHierarchySieve,
-    DataSovereigntyMediaLawfareSieve,
-    StreetLawfareSieve,
-    UNSCVetoAsymmetrySieve,
-    SubRegionalElectoralPolarizationSieve,
-    SacredHeritageEncroachmentSieve,
-    RitualEcologicalSubversionSieve,
-    DharmicConstitutionalismSieve,
+from .astro_politics import (
+    AstroPoliticsLens,
+    AstroSovereigntySieve,
 )
 
-from .food_security import FoodSecurityLens, EnergyFertilizerChokepointSieve, AgrarianWaterCartelSieve, RiparianResilienceSieve, TrophicBiosecurityCascadeSieve, HydrologicalWeaponizationBufferSieve, BiosphereThermodynamicSoilResilienceSieve
-from .military_readiness import MilitaryReadinessLens, AvionicsSovereigntySieve, AsymmetricInterceptionSieve, MaritimeForwardBasingSieve, HighAltitudeAeroDefenseSieve, KineticDiversionaryEscalationSieve, SovereignPNTNavigationAutonomySieve, ExtremeHighAltitudeAirliftLogisticsSieve, MaritimeChokepointMalaccaDeterrenceSieve, IndustrialAttritionSieve
-from .subsea_cables import SubseaCablesLens, SubseaCableSovereigntySieve, AbyssalHydrospatialSovereigntySieve
-from .astro_politics import AstroPoliticsLens, AstroSovereigntySieve
+from .bureaucratic_inertia import (
+    BureaucraticInertiaLens,
+    BureaucraticRollbackModel,
+    SubNationalBureaucraticFrictionSieve,
+)
+
+from .cash_flow import (
+    CashFlowLens,
+    BaselGoldAllocationSieve,
+    BearRaidDerivativeForensicsSieve,
+    BullionPaperArbitrageDislocationSieve,
+    ClassicalBullionInflowTradeSieve,
+    CommercialBankAssetQualityAndCRARSieve,
+    DigitalEnclosureTrapSieve,
+    DomesticHNWICapitalFormationSieve,
+    EurodollarShadowLiquiditySieve,
+    ImperialDebtOverreachSieve,
+    OffshoreDebtCovenantContagionSieve,
+    PreciousMetalSovereignArbitrageSieve,
+    SovereignBalanceSheetShieldSieve,
+    SovereignGoldRepatriationSieve,
+    SovereignGoldRepatriationVelocitySieve,
+)
+
+from .civilizational import (
+    CivilizationalLens,
+    AntiquityPlunderRepatriationSieve,
+    ApaurusheyaMnemonicFidelitySieve,
+    AurobindonianSpiritualIntegrationSieve,
+    CivilizationalKshatraSieve,
+    CulturalGrayzoneLegitimacySieve,
+    CulturalGrayzoneSieve,
+    CulturalHeritageAndSacralityBreachSieve,
+    CulturalReligiousGrayzoneMicroSignalSieve,
+    DharmicSoftPowerCulturalSovereigntySieve,
+    EpistemicApaurusheyaCivilizationalSieve,
+    EpistemicTextualTriangulationSieve,
+    LinguisticSprachbundSieve,
+    PaleogenomicDemographicContinuitySieve,
+    PuranicMetaphysicalBoundarySieve,
+    SacredCalendarProvocationSieve,
+    SacredEconomyReligiousTourismSieve,
+    ShastricDietaryPluralitySieve,
+    UrbanInsurrectionRiskSieve,
+    VedicEtymologicalDecolonizationSieve,
+)
+
+from .critical_minerals import (
+    CriticalMineralsLens,
+    CriticalMineralsRefiningCrisisSieve,
+)
+
+from .deep_tech import (
+    DeepTechLens,
+    CognitiveSovereigntyAntahkaranaSieve,
+    DefenseSCADAAndFirmwareTamperSieve,
+    FastBreederNuclearFuelAutonomySieve,
+    FrontierAIRegulatoryCaptureSieve,
+    IndigenousGaNAESARadarSovereigntySieve,
+    IndigenousSTEMAuthenticitySieve,
+    MultiAgentGroupChatConsensusSieve,
+    QDTWhistleblowerCognitiveStateSieve,
+    QuantumEntangledSpacetimeSieve,
+    QuantumInformationSieve,
+    STEMCapitalDilutionSieve,
+    SemiconductorAntitrustHardwareSieve,
+    SovereignLongevityDemographySieve,
+)
+
+from .demographic_infiltration import (
+    DemographicInfiltrationLens,
+    DiasporaBacklashSieve,
+    StatutoryBorderDemographySieve,
+    TheologicalIncompatibilityApostasySieve,
+)
+
+from .digital_sovereignty import (
+    DigitalSovereigntyLens,
+    BigTechAlgorithmicSovereigntySieve,
+    CorporateAstroturfingSieve,
+    CryptographicDecentralizationSieve,
+    ImperialSubversionPipesSieve,
+    IndigenousHardwareTechMoatSieve,
+    ProgrammableCBDCSurveillanceSieve,
+    ProtocolLayerSovereigntySieve,
+    StrategicMetallurgySieve,
+    TechSovereigntySieve,
+)
+
+from .food_security import (
+    FoodSecurityLens,
+    AgrarianWaterCartelSieve,
+    BiosphereThermodynamicSoilResilienceSieve,
+    EnergyFertilizerChokepointSieve,
+    HydrologicalWeaponizationBufferSieve,
+    RiparianResilienceSieve,
+    TrophicBiosecurityCascadeSieve,
+)
+
+from .geo_economist import (
+    GeoEconomistLens,
+    InfrastructureCapExMultiplierSieve,
+    MultilateralCurrencySettlementSieve,
+    NationalChampionSovereignSieve,
+    OffshoreCapitalMagnetismSieve,
+    OutwardDirectInvestmentAssetCaptureSieve,
+    PredatoryOvercapacityDumpingSieve,
+    ResourceCurseSieve,
+    SectoralCapitalRotationAndGridConstraintSieve,
+    SovereignDebtContagionSieve,
+    SovereignStrategicCapExImpactSieve,
+    SuccessionContinuitySieve,
+    SupplyChainVacuumCaptureSieve,
+    TradeBasedMoneyLaunderingSieve,
+)
+
+from .geopolitical import (
+    GeopoliticalLens,
+    AdversaryTimingCorrelationSieve,
+    BlackSwanDisruptionSieve,
+    ChokepointKineticSieve,
+    DiasporaSanctuaryLawfareSieve,
+    IslandEEZMaritimeNetSecuritySieve,
+    TransHimalayanHydrologicalDeterrenceSieve,
+    TripartiteCoherenceSieve,
+)
+
+from .history import (
+    HistoryLens,
+    ArchaeoAstronomicalChronologySieve,
+    ArchaeoAstronomicalEpigraphicDatingSieve,
+    ArchivalPrimarySourceSieve,
+    ColonialDrainExtractionSieve,
+    HistoricalDemystificationPartitionSieve,
+    KishkindhaGlobalGeographySieve,
+    MultidisciplinaryEpistemicTriangulationSieve,
+    SubNationalInsurgencyIncubationSieve,
+    SubalternMemorySieve,
+)
+
+from .hybrid_covert import (
+    HybridCovertLens,
+    AsymmetricHostageCoercionSieve,
+    DeepStateBlackProjectIntelligenceSieve,
+    DiplomaticCounterIntelSieve,
+    ExfiltrationAndForeignSanctuarySieve,
+    ExtraterritorialSovereignAsymmetrySieve,
+    InterAgencyCounterSubversionSynergySieve,
+    MitrokhinDeepStatePenetrationSieve,
+    NuclearAmbiguitySieve,
+    NuclearMineralEspionageSieve,
+    RetaliationThreatAndOpSecSieve,
+    SubConventionalProxyWarfareSieve,
+    TransnationalFCRAEcclesiasticalSieve,
+)
+
+from .india_timeline import (
+    IndiaTimelineLens,
+)
+
+from .institutional_lawfare import (
+    InstitutionalLawfareLens,
+    AsymmetricStatutoryLawfareSieve,
+    CoercionPremiumSieve,
+    CrowdCascadeThresholdSieve,
+    CulturalReligiousGrayzoneSieve,
+    DataSovereigntyMediaLawfareSieve,
+    DharmicConstitutionalismSieve,
+    DocumentaryProvenanceAuthenticitySieve,
+    IntraCivilizationalFaultlineSieve,
+    JudicialSubversionSieve,
+    PerjuryRiskAndRetributiveLiabilitySieve,
+    RitualEcologicalSubversionSieve,
+    SacredHeritageEncroachmentSieve,
+    SovereignPowerHierarchySieve,
+    SovereignPublicInterestSieve,
+    StateMachiavellianSieve,
+    StreetLawfareSieve,
+    SubNationalEndowmentSieve,
+    SubRegionalElectoralPolarizationSieve,
+    UNSCVetoAsymmetrySieve,
+    VigilanceStatutoryRemedySieve,
+)
+
+from .kinesics import (
+    KinesicsLens,
+    SartorialSemioticSieve,
+    SpeechKinesicAndChromaticForensicsSieve,
+)
+
+from .military_readiness import (
+    MilitaryReadinessLens,
+    AsymmetricInterceptionSieve,
+    AvionicsSovereigntySieve,
+    ExtremeHighAltitudeAirliftLogisticsSieve,
+    HighAltitudeAeroDefenseSieve,
+    IndustrialAttritionSieve,
+    KineticDiversionaryEscalationSieve,
+    MaritimeChokepointMalaccaDeterrenceSieve,
+    MaritimeForwardBasingSieve,
+    SovereignPNTNavigationAutonomySieve,
+)
+
+from .petro_logistics import (
+    PetroLogisticsLens,
+    ChokepointHydrocarbonInterdictionSieve,
+    CriticalRefineryCyberKineticSabotageSieve,
+    HormuzEnergyEscalationSieve,
+)
+
+from .propaganda import (
+    PropagandaLens,
+    AcademicGatekeepingSieve,
+    AntitheticalRhetoricSieve,
+    CanonicalEpicFidelitySieve,
+    CinematicIconographySacralitySieve,
+    CognitiveCorticalResilienceSieve,
+    CognitivePanicMonetizationFilter,
+    CognitiveSovereigntySieve,
+    EliteMediaCognitiveCaptureSieve,
+    GeopoliticalSpeechForensicsSieve,
+    NarrativeInversionSubversionSieve,
+    PedagogicalHaloSmugglingSieve,
+    PolemicsVsEmpiricalRatioSieve,
+    SpeechOmissionAndNegativeSpaceSieve,
+)
+
+from .subsea_cables import (
+    SubseaCablesLens,
+    AbyssalHydrospatialSovereigntySieve,
+    SubseaCableSovereigntySieve,
+)
 
 LENS_REGISTRY: List[Type[Any]] = [
     DeepTechLens,
@@ -262,7 +428,20 @@ __all__ = [
     "BlackSwanDisruptionSieve",
     "SovereignGoldRepatriationVelocitySieve",
     "GeopoliticalSpeechForensicsSieve",
+    "SovereignPublicInterestSieve",
+    "DocumentaryProvenanceAuthenticitySieve",
+    "VigilanceStatutoryRemedySieve",
+    "PerjuryRiskAndRetributiveLiabilitySieve",
+    "AdversaryTimingCorrelationSieve",
+    "BearRaidDerivativeForensicsSieve",
+    "OffshoreDebtCovenantContagionSieve",
+    "ExfiltrationAndForeignSanctuarySieve",
+    "RetaliationThreatAndOpSecSieve",
+    "SpeechKinesicAndChromaticForensicsSieve",
+    "SpeechOmissionAndNegativeSpaceSieve",
+    "TradeBasedMoneyLaunderingSieve",
+    "SovereignStrategicCapExImpactSieve",
+    "DefenseSCADAAndFirmwareTamperSieve",
+    "QDTWhistleblowerCognitiveStateSieve",
+    "CulturalHeritageAndSacralityBreachSieve",
 ]
-
-
-

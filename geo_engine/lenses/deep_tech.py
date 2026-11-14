@@ -458,6 +458,22 @@ class DeepTechLens:
         metrics["stem_authenticity_tier"] = _stem_res["stem_authenticity_tier"]
         metrics["empirical_stem_validation_index"] = _stem_res["empirical_stem_validation_index"]
 
+        deep_meta = getattr(summit, 'metadata', {}) or {}
+        # Phases 349, 352: Defense SCADA & QDT Cognitive State Sieve Evaluations
+        _dst_res = DefenseSCADAAndFirmwareTamperSieve.evaluate(
+            firmware_hash_deviation=deep_meta.get("firmware_hash_deviation", 0.20),
+            unauthorized_microcode_call=deep_meta.get("unauthorized_microcode_call", 0.15),
+            cryptographic_signing_validity=deep_meta.get("cryptographic_signing_validity", 0.85),
+        )
+        metrics["defense_scada_and_firmware_tamper_score"] = _dst_res["defense_scada_and_firmware_tamper_score"]
+
+        _qdt_res = QDTWhistleblowerCognitiveStateSieve.evaluate(
+            psi_duty=deep_meta.get("psi_duty", 0.70),
+            psi_fear=deep_meta.get("psi_fear", 0.50),
+            theta_retaliation_rad=deep_meta.get("theta_retaliation_rad", 1.05),
+        )
+        metrics["qdt_whistleblower_cognitive_state_score"] = _qdt_res["qdt_whistleblower_cognitive_state_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -1008,4 +1024,106 @@ class SemiconductorAntitrustHardwareSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_silicon_monopoly_critical": score >= 0.70,
+        }
+
+# ============================================================================
+# PHASES 349, 352: DEFENSE SCADA & QDT COGNITIVE STATE SIEVES
+# ============================================================================
+
+class DefenseSCADAAndFirmwareTamperSieve:
+    """
+    Phase 349: Evaluates insider disclosures regarding microcode backdoors, SCADA PLC tampering,
+    and defense firmware vulnerabilities in critical sovereign infrastructure.
+    """
+    @staticmethod
+    def evaluate(
+        firmware_hash_deviation: float = 0.20,
+        unauthorized_microcode_call: float = 0.15,
+        cryptographic_signing_validity: float = 0.85,
+    ) -> dict:
+        f_dev = max(0.0, min(1.0, float(firmware_hash_deviation)))
+        u_call = max(0.0, min(1.0, float(unauthorized_microcode_call)))
+        c_sign = max(0.0, min(1.0, float(cryptographic_signing_validity)))
+
+        z = 3.6 * f_dev + 3.2 * u_call - 3.0 * c_sign - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_DEFENSE_FIRMWARE_BACKDOOR_DETECTED"
+            verdict = "IMMEDIATE_AIR_GAP_AND_MICROCODE_AUDIT_MANDATED"
+            rationale = (
+                f"Severe firmware compromise ({score:.4f}): Hash deviations ({f_dev:.2f}) and unauthorized microcode calls ({u_call:.2f}) "
+                f"indicate Trojan hardware or malicious supply-chain implant."
+            )
+        elif score >= 0.45:
+            tier = "POTENTIAL_CONFIG_DRIFT_OR_FIRMWARE_DEFECT"
+            verdict = "SECONDARY_HARDWARE_INTEGRITY_CHECK_REQUIRED"
+            rationale = f"Moderate firmware anomaly ({score:.4f}): Requires bench testing against gold-master cryptographic hashes."
+        else:
+            tier = "VERIFIED_FIRMWARE_AND_SCADA_INTEGRITY"
+            verdict = "CERTIFIED_CRYPTOGRAPHIC_PROVENANCE"
+            rationale = f"Secure microcode ({score:.4f}): Valid signing ({c_sign:.2f}) verifies untouched factory firmware."
+
+        return {
+            "defense_scada_and_firmware_tamper_score": score,
+            "firmware_hash_deviation": round(f_dev, 4),
+            "unauthorized_microcode_call": round(u_call, 4),
+            "cryptographic_signing_validity": round(c_sign, 4),
+            "scada_tamper_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_firmware_tampered": score >= 0.70,
+        }
+
+
+class QDTWhistleblowerCognitiveStateSieve:
+    """
+    Phase 352: Evaluates Quantum Decision Theory (QDT) cognitive state superposition, modeling
+    the quantum-like interference between ethical duty (|psi_duty>) and fear of retaliation (|psi_fear>).
+    P(Disclose) = |psi_duty|^2 + |psi_fear|^2 + 2 * |psi_duty| * |psi_fear| * cos(theta_retaliation).
+    """
+    @staticmethod
+    def evaluate(
+        psi_duty: float = 0.70,
+        psi_fear: float = 0.50,
+        theta_retaliation_rad: float = 1.05,
+    ) -> dict:
+        p_duty = max(0.0, min(1.0, float(psi_duty)))
+        p_fear = max(0.0, min(1.0, float(psi_fear)))
+        theta = float(theta_retaliation_rad)
+
+        prob_classical = p_duty**2 + p_fear**2
+        interference = 2.0 * p_duty * p_fear * math.cos(theta)
+        p_qdt = max(0.0, min(1.0, prob_classical + interference))
+
+        z = 3.4 * p_qdt - 1.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CONSTRUCTIVE_DUTY_INTERFERENCE_BREAKTHROUGH"
+            verdict = "DETERMINED_PUBLIC_INTEREST_DISCLOSURE"
+            rationale = (
+                f"Constructive cognitive interference ({score:.4f}): Moral duty overcomes retaliation fear "
+                f"(Interference term: {interference:.4f}). Insider disclosure is authentic and resolute."
+            )
+        elif score >= 0.40:
+            tier = "SUPERPOSITION_PARALYSIS_UNDER_DURESS"
+            verdict = "HIGH_VULNERABILITY_TO_INTIMIDATION"
+            rationale = f"Cognitive oscillation ({score:.4f}): Retaliation anxiety interfering with disclosure momentum."
+        else:
+            tier = "DESTRUCTIVE_FEAR_INTERFERENCE_COLLAPSE"
+            verdict = "DISCLOSURE_SUPPRESSED_OR_RECANTED"
+            rationale = f"Fear dominance ({score:.4f}): Destructive interference ({interference:.4f}) suppresses testimony."
+
+        return {
+            "qdt_whistleblower_cognitive_state_score": score,
+            "qdt_disclosure_probability": round(p_qdt, 4),
+            "quantum_interference_term": round(interference, 4),
+            "ethical_duty_amplitude": round(p_duty, 4),
+            "retaliation_fear_amplitude": round(p_fear, 4),
+            "interference_angle_rad": round(theta, 4),
+            "cognitive_state_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_duty_interference_constructive": score >= 0.70,
         }

@@ -38,6 +38,12 @@ from .causal_graph import (
     EpistemicKnowledgeGraph,
 )
 
+from .whistleblower import (
+    WhistleblowerDossier,
+    WhistleblowerEvaluation,
+    SatyamevaSuchakaPipeline,
+)
+
 __all__ = [
     "NegativeSpaceDiffEngine",
     "DenseSemanticIndex",
@@ -67,5 +73,8 @@ __all__ = [
     "LaymanSynthesizer",
     "StatisticalManipulationEvaluation",
     "StatisticalManipulationSieve",
+    "WhistleblowerDossier",
+    "WhistleblowerEvaluation",
+    "SatyamevaSuchakaPipeline",
 ]
 

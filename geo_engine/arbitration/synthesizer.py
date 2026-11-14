@@ -418,6 +418,7 @@ class SummitSynthesizer:
         )
 
         # Tier 3: Kinesics Forensics
+        kinesic_eval: Optional[Any] = None
         if kinesic_observations is None:
             if fixture_mode:
                 kinesic_eval = KinesicsLens.evaluate(summit)
@@ -814,6 +815,23 @@ class SummitSynthesizer:
             "black_swan_vulnerability_score": geo_eval.hard_metrics.get("black_swan_disruption_score") if geo_eval and "black_swan_disruption_score" in geo_eval.hard_metrics else None,
             "bullion_repatriation_velocity_score": cash_eval.hard_metrics.get("sovereign_gold_repatriation_velocity_score") if cash_eval and "sovereign_gold_repatriation_velocity_score" in cash_eval.hard_metrics else None,
             "speech_signal_divergence_score": propaganda_eval.hard_metrics.get("geopolitical_speech_forensics_score") if propaganda_eval and "geopolitical_speech_forensics_score" in propaganda_eval.hard_metrics else None,
+            # Phases 338-353: Sovereign Whistleblower & Forensic Speech Intelligence Sieves
+            "sovereign_public_interest_score": lawfare_eval.hard_metrics.get("sovereign_public_interest_score") if lawfare_eval and "sovereign_public_interest_score" in lawfare_eval.hard_metrics else None,
+            "adversary_timing_correlation_score": geo_eval.hard_metrics.get("adversary_timing_correlation_score") if geo_eval and "adversary_timing_correlation_score" in geo_eval.hard_metrics else None,
+            "documentary_provenance_authenticity_score": lawfare_eval.hard_metrics.get("documentary_provenance_authenticity_score") if lawfare_eval and "documentary_provenance_authenticity_score" in lawfare_eval.hard_metrics else None,
+            "bear_raid_derivative_forensics_score": cash_eval.hard_metrics.get("bear_raid_derivative_forensics_score") if cash_eval and "bear_raid_derivative_forensics_score" in cash_eval.hard_metrics else None,
+            "offshore_debt_covenant_contagion_score": cash_eval.hard_metrics.get("offshore_debt_covenant_contagion_score") if cash_eval and "offshore_debt_covenant_contagion_score" in cash_eval.hard_metrics else None,
+            "exfiltration_and_foreign_sanctuary_score": hybrid_eval.hard_metrics.get("exfiltration_and_foreign_sanctuary_score") if hybrid_eval and "exfiltration_and_foreign_sanctuary_score" in hybrid_eval.hard_metrics else None,
+            "retaliation_threat_and_opsec_score": hybrid_eval.hard_metrics.get("retaliation_threat_and_opsec_score") if hybrid_eval and "retaliation_threat_and_opsec_score" in hybrid_eval.hard_metrics else None,
+            "vigilance_statutory_remedy_score": lawfare_eval.hard_metrics.get("vigilance_statutory_remedy_score") if lawfare_eval and "vigilance_statutory_remedy_score" in lawfare_eval.hard_metrics else None,
+            "speech_kinesic_and_chromatic_forensics_score": kinesic_eval.hard_metrics.get("speech_kinesic_and_chromatic_forensics_score") if kinesic_eval and "speech_kinesic_and_chromatic_forensics_score" in kinesic_eval.hard_metrics else None,
+            "speech_omission_and_negative_space_score": propaganda_eval.hard_metrics.get("speech_omission_and_negative_space_score") if propaganda_eval and "speech_omission_and_negative_space_score" in propaganda_eval.hard_metrics else None,
+            "trade_based_money_laundering_score": geo_economist_eval.hard_metrics.get("trade_based_money_laundering_score") if geo_economist_eval and "trade_based_money_laundering_score" in geo_economist_eval.hard_metrics else None,
+            "defense_scada_and_firmware_tamper_score": deep_tech_eval.hard_metrics.get("defense_scada_and_firmware_tamper_score") if deep_tech_eval and "defense_scada_and_firmware_tamper_score" in deep_tech_eval.hard_metrics else None,
+            "cultural_heritage_and_sacrality_breach_score": civ_eval.hard_metrics.get("cultural_heritage_and_sacrality_breach_score") if civ_eval and "cultural_heritage_and_sacrality_breach_score" in civ_eval.hard_metrics else None,
+            "perjury_risk_and_retributive_liability_score": lawfare_eval.hard_metrics.get("perjury_risk_and_retributive_liability_score") if lawfare_eval and "perjury_risk_and_retributive_liability_score" in lawfare_eval.hard_metrics else None,
+            "qdt_whistleblower_cognitive_state_score": deep_tech_eval.hard_metrics.get("qdt_whistleblower_cognitive_state_score") if deep_tech_eval and "qdt_whistleblower_cognitive_state_score" in deep_tech_eval.hard_metrics else None,
+            "sovereign_strategic_capex_impact_score": geo_economist_eval.hard_metrics.get("sovereign_strategic_capex_impact_score") if geo_economist_eval and "sovereign_strategic_capex_impact_score" in geo_economist_eval.hard_metrics else None,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

@@ -245,6 +245,22 @@ class HybridCovertLens:
         metrics["c4isr_warning_latency_margin"] = _bp_res["c4isr_warning_latency_margin"]
         metrics["covert_deterrence_tier"] = _bp_res["covert_deterrence_tier"]
 
+                # Phases 343, 344: Exfiltration & Retaliation Threat Sieve Evaluations
+        _efs_res = ExfiltrationAndForeignSanctuarySieve.evaluate(
+            visa_pre_clearance=hc_meta.get("visa_pre_clearance", 0.20),
+            embassy_sanctuary_proximity=hc_meta.get("embassy_sanctuary_proximity", 0.15),
+            offshore_retainer=hc_meta.get("offshore_retainer", 0.20),
+            domestic_residence_commitment=hc_meta.get("domestic_residence_commitment", 0.85),
+        )
+        metrics["exfiltration_and_foreign_sanctuary_score"] = _efs_res["exfiltration_and_foreign_sanctuary_score"]
+
+        _rto_res = RetaliationThreatAndOpSecSieve.evaluate(
+            physical_intimidation=hc_meta.get("physical_intimidation", 0.30),
+            slapp_litigation_asymmetry=hc_meta.get("slapp_litigation_asymmetry", 0.40),
+            statutory_police_protection=hc_meta.get("statutory_police_protection", 0.70),
+        )
+        metrics["retaliation_threat_and_opsec_score"] = _rto_res["retaliation_threat_and_opsec_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1044,4 +1060,102 @@ class TransnationalFCRAEcclesiasticalSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_fcra_subversion_severe": score >= 0.65,
+        }
+
+# ============================================================================
+# PHASES 343, 344: EXFILTRATION & WHISTLEBLOWER OPSEC SIEVES
+# ============================================================================
+
+class ExfiltrationAndForeignSanctuarySieve:
+    """
+    Phase 343: Evaluates asylum pipelines, pre-arranged foreign visas, embassy sanctuary proximity,
+    and offshore intermediary retainers indicating foreign intelligence extraction coordination.
+    """
+    @staticmethod
+    def evaluate(
+        visa_pre_clearance: float = 0.20,
+        embassy_sanctuary_proximity: float = 0.15,
+        offshore_retainer: float = 0.20,
+        domestic_residence_commitment: float = 0.85,
+    ) -> dict:
+        v_pre = max(0.0, min(1.0, float(visa_pre_clearance)))
+        e_sanc = max(0.0, min(1.0, float(embassy_sanctuary_proximity)))
+        o_ret = max(0.0, min(1.0, float(offshore_retainer)))
+        d_res = max(0.0, min(1.0, float(domestic_residence_commitment)))
+
+        z = 3.6 * v_pre + 3.0 * e_sanc + 2.5 * o_ret - 2.8 * d_res - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACTIVE_FOREIGN_INTELLIGENCE_EXFILTRATION_PIPELINE"
+            verdict = "COVERT_EXTRACTION_COLLUSION_CONFIRMED"
+            rationale = (
+                f"Severe exfiltration markers ({score:.4f}): Pre-arranged visas ({v_pre:.2f}) and embassy sanctuary proximity ({e_sanc:.2f}) "
+                f"indicate orchestrated foreign intelligence asset extraction."
+            )
+        elif score >= 0.45:
+            tier = "SUSPECT_OFFSHORE_TIES"
+            verdict = "ELEVATED_BORDER_AND_TRANSIT_SCRUTINY"
+            rationale = f"Elevated exfiltration risk ({score:.4f}): Offshore retainers require financial counter-intelligence audit."
+        else:
+            tier = "AUTHENTIC_DOMESTIC_RESIDENCY"
+            verdict = "ZERO_FOREIGN_EXTRACTION_INDICATORS"
+            rationale = f"Domestic integrity ({score:.4f}): Deep residency commitment ({d_res:.2f}) with zero foreign asylum ties."
+
+        return {
+            "exfiltration_and_foreign_sanctuary_score": score,
+            "visa_pre_clearance_index": round(v_pre, 4),
+            "embassy_sanctuary_proximity": round(e_sanc, 4),
+            "offshore_retainer_index": round(o_ret, 4),
+            "domestic_residence_commitment": round(d_res, 4),
+            "exfiltration_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_exfiltration_active": score >= 0.70,
+        }
+
+
+class RetaliationThreatAndOpSecSieve:
+    """
+    Phase 344: Evaluates physical intimidation, asymmetric SLAPP litigation, and operational security
+    to calculate the whistleblower safety protection index.
+    """
+    @staticmethod
+    def evaluate(
+        physical_intimidation: float = 0.30,
+        slapp_litigation_asymmetry: float = 0.40,
+        statutory_police_protection: float = 0.70,
+    ) -> dict:
+        p_intim = max(0.0, min(1.0, float(physical_intimidation)))
+        s_slapp = max(0.0, min(1.0, float(slapp_litigation_asymmetry)))
+        s_prot = max(0.0, min(1.0, float(statutory_police_protection)))
+
+        z = 3.5 * p_intim + 3.0 * s_slapp - 2.8 * s_prot - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_RETALIATION_AND_PHYSICAL_JEOPARDY"
+            verdict = "IMMEDIATE_WITNESS_PROTECTION_MANDATE"
+            rationale = (
+                f"Extreme danger to insider ({score:.4f}): Physical intimidation ({p_intim:.2f}) and asymmetric SLAPP lawsuits ({s_slapp:.2f}) "
+                f"demand sealed identity and active state security."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_CORPORATE_RETALIATION_RISK"
+            verdict = "STATUTORY_WHISTLEBLOWER_LEGAL_COUNSEL"
+            rationale = f"Moderate jeopardy ({score:.4f}): Employment termination / civil litigation threats require legal shield."
+        else:
+            tier = "PROTECTED_OR_SECURE_OPERATING_ENVIRONMENT"
+            verdict = "ROBUST_STATUTORY_PROTECTIONS_ACTIVE"
+            rationale = f"Low retaliation threat ({score:.4f}): Institutional security ({s_prot:.2f}) mitigates intimidation risks."
+
+        return {
+            "retaliation_threat_and_opsec_score": score,
+            "physical_intimidation_index": round(p_intim, 4),
+            "slapp_litigation_asymmetry": round(s_slapp, 4),
+            "statutory_police_protection": round(s_prot, 4),
+            "retaliation_threat_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_retaliation_threat_acute": score >= 0.70,
         }

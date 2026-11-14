@@ -361,6 +361,14 @@ class PropagandaLens:
         metrics["academic_gatekeeping_tier"] = _gate_res["academic_gatekeeping_tier"]
         metrics["narrative_colonization_index"] = _gate_res["narrative_colonization_index"]
 
+                # Phase 347: Speech Omission and Negative Space Sieve Evaluation
+        _son_res = SpeechOmissionAndNegativeSpaceSieve.evaluate(
+            deliberate_omission_density=prop_meta.get("deliberate_omission_density", 0.35),
+            taboo_topic_suppression=prop_meta.get("taboo_topic_suppression", 0.40),
+            comprehensive_coverage_ratio=prop_meta.get("comprehensive_coverage_ratio", 0.65),
+        )
+        metrics["speech_omission_and_negative_space_score"] = _son_res["speech_omission_and_negative_space_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1136,6 +1144,55 @@ class GeopoliticalSpeechForensicsSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_doctrinal_shift_signaled": score >= 0.70,
+        }
+
+# ============================================================================
+# PHASE 347: SPEECH OMISSION AND NEGATIVE SPACE SIEVE
+# ============================================================================
+
+class SpeechOmissionAndNegativeSpaceSieve:
+    """
+    Phase 347: Evaluates negative space in political discourse and whistleblower leaks—identifying
+    deliberately omitted facts, avoided geopolitical partners, and censored balance-sheet lines.
+    """
+    @staticmethod
+    def evaluate(
+        deliberate_omission_density: float = 0.35,
+        taboo_topic_suppression: float = 0.40,
+        comprehensive_coverage_ratio: float = 0.65,
+    ) -> dict:
+        d_omit = max(0.0, min(1.0, float(deliberate_omission_density)))
+        t_supp = max(0.0, min(1.0, float(taboo_topic_suppression)))
+        c_cov = max(0.0, min(1.0, float(comprehensive_coverage_ratio)))
+
+        z = 3.4 * d_omit + 2.8 * t_supp - 2.7 * c_cov - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_NEGATIVE_SPACE_OMISSION_CENSORSHIP"
+            verdict = "STRATEGIC_CONCEALMENT_ACTIVE"
+            rationale = (
+                f"Severe information omission ({score:.4f}): Calculated evasion of critical topics ({t_supp:.2f}) "
+                f"indicates selective disclosure designed to frame narrative."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_RHETORICAL_FILTERING"
+            verdict = "TACTICAL_PR_PRUNING"
+            rationale = f"Moderate omissions ({score:.4f}): Non-essential topics pruned for audience brevity."
+        else:
+            tier = "COMPREHENSIVE_TRANSPARENT_COVERAGE"
+            verdict = "UNFILTERED_FACTUAL_DISCLOSURE"
+            rationale = f"High transparency ({score:.4f}): Broad coverage ({c_cov:.2f}) without systematic omission of sensitive topics."
+
+        return {
+            "speech_omission_and_negative_space_score": score,
+            "deliberate_omission_density": round(d_omit, 4),
+            "taboo_topic_suppression": round(t_supp, 4),
+            "comprehensive_coverage_ratio": round(c_cov, 4),
+            "negative_space_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_omission_severe": score >= 0.70,
         }
 
 ```

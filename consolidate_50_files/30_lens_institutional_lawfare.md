@@ -491,6 +491,37 @@ class InstitutionalLawfareLens:
         metrics["dharmic_constitutionalism_tier"] = _dharmic_const_res["dharmic_constitutionalism_tier"]
         metrics["constitutional_authenticity_index"] = _dharmic_const_res["constitutional_authenticity_index"]
 
+                # Phases 338, 340, 345, 351: Whistleblower & Statutory Vigilance Sieve Evaluations
+        _spi_res = SovereignPublicInterestSieve.evaluate(
+            casualty_threat=law_meta.get("casualty_threat", 0.20),
+            ecological_damage=law_meta.get("ecological_damage", 0.25),
+            retail_capital_loss=law_meta.get("retail_capital_loss", 0.30),
+            corporate_sensationalism=law_meta.get("corporate_sensationalism", 0.20),
+        )
+        metrics["sovereign_public_interest_score"] = _spi_res["sovereign_public_interest_score"]
+
+        _dpa_res = DocumentaryProvenanceAuthenticitySieve.evaluate(
+            cryptographic_hash_match=law_meta.get("cryptographic_hash_match", 0.85),
+            device_certificate_provenance=law_meta.get("device_certificate_provenance", 0.80),
+            typographical_anomaly_ratio=law_meta.get("typographical_anomaly_ratio", 0.15),
+            source_chain_of_custody=law_meta.get("source_chain_of_custody", 0.75),
+        )
+        metrics["documentary_provenance_authenticity_score"] = _dpa_res["documentary_provenance_authenticity_score"]
+
+        _vsr_res = VigilanceStatutoryRemedySieve.evaluate(
+            jurisdictional_fit=law_meta.get("jurisdictional_fit", 0.80),
+            statutory_safeguard_score=law_meta.get("statutory_safeguard_score", 0.75),
+            jurisdictional_ambiguity=law_meta.get("jurisdictional_ambiguity", 0.20),
+        )
+        metrics["vigilance_statutory_remedy_score"] = _vsr_res["vigilance_statutory_remedy_score"]
+
+        _prr_res = PerjuryRiskAndRetributiveLiabilitySieve.evaluate(
+            fabricated_claim_ratio=law_meta.get("fabricated_claim_ratio", 0.20),
+            malicious_intent_score=law_meta.get("malicious_intent_score", 0.25),
+            substantiated_evidence_ratio=law_meta.get("substantiated_evidence_ratio", 0.80),
+        )
+        metrics["perjury_risk_and_retributive_liability_score"] = _prr_res["perjury_risk_and_retributive_liability_score"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -1918,6 +1949,195 @@ class AsymmetricStatutoryLawfareSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_lawfare_extortion_acute": score >= 0.70,
+        }
+
+# ============================================================================
+# PHASES 338, 340, 345, 351: WHISTLEBLOWER & STATUTORY VIGILANCE FORENSIC SIEVES
+# ============================================================================
+
+class SovereignPublicInterestSieve:
+    """
+    Phase 338: Evaluates public interest vs. corporate sensationalism.
+    Quantifies Yogakshema welfare, casualty risks, toxic ecological dumping, and retail investor capital loss.
+    """
+    @staticmethod
+    def evaluate(
+        casualty_threat: float = 0.20,
+        ecological_damage: float = 0.25,
+        retail_capital_loss: float = 0.30,
+        corporate_sensationalism: float = 0.20,
+    ) -> dict:
+        c_threat = max(0.0, min(1.0, float(casualty_threat)))
+        e_dam = max(0.0, min(1.0, float(ecological_damage)))
+        r_loss = max(0.0, min(1.0, float(retail_capital_loss)))
+        c_sens = max(0.0, min(1.0, float(corporate_sensationalism)))
+
+        z = 3.5 * c_threat + 3.0 * e_dam + 2.5 * r_loss - 2.8 * c_sens - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_PUBLIC_SAFETY_AND_WELFARE_JEOPARDY"
+            verdict = "CRITICAL_SOVEREIGN_INTERVENTION_REQUIRED"
+            rationale = (
+                f"High public interest urgency ({score:.4f}): Severe physical casualty ({c_threat:.2f}) or ecological threat ({e_dam:.2f}) "
+                f"overshadows sensationalism ({c_sens:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_PUBLIC_INTEREST_AUDIT"
+            verdict = "REGULATORY_INVESTIGATION_WARRANTED"
+            rationale = f"Moderate public interest ({score:.4f}): Financial/ecological concerns require statutory verification."
+        else:
+            tier = "CORPORATE_PR_SENSATIONALISM_DOMINANT"
+            verdict = "LOW_PUBLIC_WELFARE_JEOPARDY"
+            rationale = f"Low public urgency ({score:.4f}): Sensation/reputational posturing ({c_sens:.2f}) outweighs verified hazard."
+
+        return {
+            "sovereign_public_interest_score": score,
+            "casualty_threat_index": round(c_threat, 4),
+            "ecological_damage_index": round(e_dam, 4),
+            "retail_capital_loss_index": round(r_loss, 4),
+            "corporate_sensationalism_index": round(c_sens, 4),
+            "public_interest_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_public_interest_acute": score >= 0.70,
+        }
+
+
+class DocumentaryProvenanceAuthenticitySieve:
+    """
+    Phase 340: Evaluates digital records under the Bharatiya Sakshya Adhiniyam (BSA), 2023 (Sections 61-63).
+    Assesses cryptographic hash consistency, device certificate provenance, and typographical anomalies.
+    """
+    @staticmethod
+    def evaluate(
+        cryptographic_hash_match: float = 0.85,
+        device_certificate_provenance: float = 0.80,
+        typographical_anomaly_ratio: float = 0.15,
+        source_chain_of_custody: float = 0.75,
+    ) -> dict:
+        h_match = max(0.0, min(1.0, float(cryptographic_hash_match)))
+        d_cert = max(0.0, min(1.0, float(device_certificate_provenance)))
+        t_anom = max(0.0, min(1.0, float(typographical_anomaly_ratio)))
+        c_cust = max(0.0, min(1.0, float(source_chain_of_custody)))
+
+        z = 3.2 * h_match + 2.8 * d_cert + 2.4 * c_cust - 3.5 * t_anom - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "CERTIFIED_PRIMARY_ELECTRONIC_EVIDENCE"
+            verdict = "BSA_SECTION_63_COMPLIANT_ADMISSIBLE"
+            rationale = (
+                f"Robust evidentiary authenticity ({score:.4f}): Cryptographic hashes ({h_match:.2f}) and device certs ({d_cert:.2f}) "
+                f"verify chain of custody with minimal typographical anomaly ({t_anom:.2f})."
+            )
+        elif score >= 0.50:
+            tier = "PROBABLE_GENUINE_WITH_PROCEDURAL_DEFECTS"
+            verdict = "CORROBORATING_FORENSIC_DEPOSIT_REQUIRED"
+            rationale = f"Probable authenticity ({score:.4f}): Evidentiary weight intact but requires secondary electronic certification."
+        else:
+            tier = "FABRICATED_OR_TAMPERED_ELECTRONIC_RECORD"
+            verdict = "BSA_INADMISSIBLE_SUSPECT_PAYLOAD"
+            rationale = f"Suspect provenance ({score:.4f}): High typographical anomalies ({t_anom:.2f}) or missing cryptographic trail."
+
+        return {
+            "documentary_provenance_authenticity_score": score,
+            "cryptographic_hash_match": round(h_match, 4),
+            "device_certificate_provenance": round(d_cert, 4),
+            "typographical_anomaly_ratio": round(t_anom, 4),
+            "source_chain_of_custody": round(c_cust, 4),
+            "bsa_evidentiary_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_bsa_compliant": score >= 0.75,
+        }
+
+
+class VigilanceStatutoryRemedySieve:
+    """
+    Phase 345: Evaluates statutory vigilance jurisdiction alignment (CVC, Lokpal, SFIO, SEBI Informant, ED).
+    """
+    @staticmethod
+    def evaluate(
+        jurisdictional_fit: float = 0.80,
+        statutory_safeguard_score: float = 0.75,
+        jurisdictional_ambiguity: float = 0.20,
+    ) -> dict:
+        j_fit = max(0.0, min(1.0, float(jurisdictional_fit)))
+        s_safe = max(0.0, min(1.0, float(statutory_safeguard_score)))
+        j_amb = max(0.0, min(1.0, float(jurisdictional_ambiguity)))
+
+        z = 3.0 * j_fit + 2.5 * s_safe - 2.8 * j_amb - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DIRECT_STATUTORY_REMEDY_CLEAR"
+            verdict = "STATUTORY_VIGILANCE_ESCALATION_ACTIVE"
+            rationale = f"Clear statutory pathway ({score:.4f}): Strong jurisdictional alignment ({j_fit:.2f}) under CVC/SFIO/SEBI."
+        elif score >= 0.45:
+            tier = "OVERLAPPING_JURISDICTION_INTER_AGENCY"
+            verdict = "MULTI_AGENCY_JOINT_COORDINATION_NEEDED"
+            rationale = f"Overlapping mandates ({score:.4f}): Moderate jurisdictional ambiguity ({j_amb:.2f}) requires coordination."
+        else:
+            tier = "EXTRALIKELY_OR_DEFICIENT_JURISDICTION"
+            verdict = "CIVIL_REMEDY_OR_PRELIMINARY_DISMISSAL"
+            rationale = f"Deficient statutory fit ({score:.4f}): Subject matter falls outside primary vigilance agencies."
+
+        return {
+            "vigilance_statutory_remedy_score": score,
+            "jurisdictional_fit_index": round(j_fit, 4),
+            "statutory_safeguard_score": round(s_safe, 4),
+            "jurisdictional_ambiguity_index": round(j_amb, 4),
+            "vigilance_remedy_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_vigilance_remedy_viable": score >= 0.70,
+        }
+
+
+class PerjuryRiskAndRetributiveLiabilitySieve:
+    """
+    Phase 351: Evaluates retributive civil and criminal perjury liability under Bharatiya Nyaya Sanhita (BNS), 2023 (Sec 229, 230).
+    Ensures accusers have personal liability against bad-faith extortion and slander.
+    """
+    @staticmethod
+    def evaluate(
+        fabricated_claim_ratio: float = 0.20,
+        malicious_intent_score: float = 0.25,
+        substantiated_evidence_ratio: float = 0.80,
+    ) -> dict:
+        f_ratio = max(0.0, min(1.0, float(fabricated_claim_ratio)))
+        m_intent = max(0.0, min(1.0, float(malicious_intent_score)))
+        s_evid = max(0.0, min(1.0, float(substantiated_evidence_ratio)))
+
+        z = 3.6 * f_ratio + 3.0 * m_intent - 3.2 * s_evid - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.65:
+            tier = "HIGH_RETRIBUTIVE_PERJURY_LIABILITY"
+            verdict = "BNS_SECTION_229_230_PROSECUTION_WARRANTED"
+            rationale = (
+                f"Severe perjury risk ({score:.4f}): Fabricated allegations ({f_ratio:.2f}) and malicious intent ({m_intent:.2f}) "
+                f"warrant retributive legal liability against malicious accusers."
+            )
+        elif score >= 0.40:
+            tier = "UNCORROBORATED_BUT_BONAFIDE_DOUBT"
+            verdict = "CAUTIONARY_SCRUTINY_WITHOUT_PENAL_ACTION"
+            rationale = f"Unproven assertions ({score:.4f}): Insufficient substantiation ({s_evid:.2f}) but lacks proven malice."
+        else:
+            tier = "PROTECTED_GOOD_FAITH_DISCLOSURE"
+            verdict = "IMMUNITY_FROM_RETRIBUTIVE_ACTION"
+            rationale = f"Good-faith whistleblower ({score:.4f}): High evidentiary backing ({s_evid:.2f}) guarantees statutory immunity."
+
+        return {
+            "perjury_risk_and_retributive_liability_score": score,
+            "fabricated_claim_ratio": round(f_ratio, 4),
+            "malicious_intent_score": round(m_intent, 4),
+            "substantiated_evidence_ratio": round(s_evid, 4),
+            "perjury_liability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_perjury_liability_high": score >= 0.65,
         }
 
 ```

@@ -10893,7 +10893,7 @@ class TestPhase247to250SievesAndDigest:
     def test_phase250_lenses_init_exports_count_79(self):
         """Phase 250: geo_engine.lenses exports 79 verified symbols."""
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163)
+        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179)
         assert "DigitalEnclosureTrapSieve" in lenses.__all__
         assert "KineticDiversionaryEscalationSieve" in lenses.__all__
 
@@ -11729,7 +11729,7 @@ class TestPhases274to282SievesAndTelemetry:
 
     def test_phases_274_to_282_lenses_init_exports_count_109(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163)
+        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179)
 
 
 
@@ -12069,7 +12069,7 @@ class TestPhases283to294SievesAndTelemetry:
 
     def test_phases_283_to_294_lenses_init_exports_count_121(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (121, 127, 134, 143, 163)
+        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179)
 
 
 class TestPhases295to300SievesAndTelemetry:
@@ -12274,7 +12274,7 @@ class TestPhases295to300SievesAndTelemetry:
 
     def test_phases_295_to_300_lenses_init_exports_count_127(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (127, 134, 143, 163)
+        assert len(lenses.__all__) in (127, 134, 143, 163, 179)
 
 
 class TestPhases301to307SievesAndQuantumGating:
@@ -12455,7 +12455,7 @@ class TestPhases301to307SievesAndQuantumGating:
 
     def test_phases_301_to_307_lenses_init_exports_count_134(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (134, 143, 163)
+        assert len(lenses.__all__) in (134, 143, 163, 179)
 
     def test_sadhguru_strategic_council_archetype(self):
         from geo_engine.arbitration.persona_narrator import PersonaNarrator
@@ -12712,7 +12712,7 @@ class TestPhases309to317SievesAndQuantumSynthesis:
 
     def test_phases_309_to_317_lenses_init_exports_count_143(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (143, 163)
+        assert len(lenses.__all__) in (143, 163, 179)
         for sieve in [
             "ArchivalPrimarySourceSieve",
             "AcademicGatekeepingSieve",
@@ -12968,7 +12968,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
         s = SummitEvent(summit_id="s_318_337", title="Forensic Multi-Domain Summit", date=datetime.now(), host_country="India", participant_countries=["India", "Global"])
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) == 149
+        assert len(srm) in (149, 165)
         for key in [
             "basel_gold_allocation_score",
             "mnemonic_fidelity_score",
@@ -13032,7 +13032,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
 
     def test_phases_318_to_337_lenses_init_exports_count_163(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) == 163
+        assert len(lenses.__all__) in (163, 179)
         for sieve in [
             "BaselGoldAllocationSieve",
             "ApaurusheyaMnemonicFidelitySieve",
@@ -13056,3 +13056,240 @@ class TestPhases318to337SievesAndForensicSynthesis:
             "GeopoliticalSpeechForensicsSieve",
         ]:
             assert sieve in lenses.__all__
+class TestPhases338to353WhistleblowerAndForensicSynthesis:
+    """Automated verification suite for Phases 338-353: Satyameva-Suchaka 2.0 Whistleblower Forensics."""
+
+    def test_phase338_sovereign_public_interest_sieve(self):
+        from geo_engine.lenses import SovereignPublicInterestSieve
+        res = SovereignPublicInterestSieve.evaluate(
+            casualty_threat=0.85, ecological_damage=0.80, retail_capital_loss=0.70, corporate_sensationalism=0.15
+        )
+        assert 0.0 <= res["sovereign_public_interest_score"] <= 1.0
+        assert res["is_public_interest_acute"] is True
+        assert res["public_interest_tier"] == "ACUTE_PUBLIC_SAFETY_AND_WELFARE_JEOPARDY"
+
+    def test_phase339_adversary_timing_correlation_sieve(self):
+        from geo_engine.lenses import AdversaryTimingCorrelationSieve
+        res = AdversaryTimingCorrelationSieve.evaluate(
+            timing_proximity=0.90, summit_sensitivity=0.85, organic_reporting_lag=0.10
+        )
+        assert 0.0 <= res["adversary_timing_correlation_score"] <= 1.0
+        assert res["is_timing_coordinated"] is True
+        assert res["timing_correlation_tier"] == "COORDINATED_GEOPOLITICAL_LAWFARE_TIMING"
+
+    def test_phase340_documentary_provenance_authenticity_sieve(self):
+        from geo_engine.lenses import DocumentaryProvenanceAuthenticitySieve
+        res = DocumentaryProvenanceAuthenticitySieve.evaluate(
+            cryptographic_hash_match=0.95, device_certificate_provenance=0.90, typographical_anomaly_ratio=0.05, source_chain_of_custody=0.85
+        )
+        assert 0.0 <= res["documentary_provenance_authenticity_score"] <= 1.0
+        assert res["is_bsa_compliant"] is True
+        assert res["bsa_evidentiary_tier"] == "CERTIFIED_PRIMARY_ELECTRONIC_EVIDENCE"
+
+    def test_phase341_bear_raid_derivative_forensics_sieve(self):
+        from geo_engine.lenses import BearRaidDerivativeForensicsSieve
+        res = BearRaidDerivativeForensicsSieve.evaluate(
+            put_volume_spike=0.90, pnote_short_concentration=0.85, normal_hedging_ratio=0.20
+        )
+        assert 0.0 <= res["bear_raid_derivative_forensics_score"] <= 1.0
+        assert res["is_bear_raid_active"] is True
+        assert res["bear_raid_tier"] == "ACUTE_OFFSHORE_BEAR_RAID_ACTIVE"
+
+    def test_phase342_offshore_debt_covenant_contagion_sieve(self):
+        from geo_engine.lenses import OffshoreDebtCovenantContagionSieve
+        res = OffshoreDebtCovenantContagionSieve.evaluate(
+            cross_default_exposure=0.85, lc_credit_freeze=0.80, sovereign_liquidity_backstop=0.20
+        )
+        assert 0.0 <= res["offshore_debt_covenant_contagion_score"] <= 1.0
+        assert res["is_debt_contagion_severe"] is True
+        assert res["debt_covenant_tier"] == "SEVERE_OFFSHORE_DEBT_COVENANT_CONTAGION"
+
+    def test_phase343_exfiltration_and_foreign_sanctuary_sieve(self):
+        from geo_engine.lenses import ExfiltrationAndForeignSanctuarySieve
+        res = ExfiltrationAndForeignSanctuarySieve.evaluate(
+            visa_pre_clearance=0.90, embassy_sanctuary_proximity=0.85, offshore_retainer=0.80, domestic_residence_commitment=0.15
+        )
+        assert 0.0 <= res["exfiltration_and_foreign_sanctuary_score"] <= 1.0
+        assert res["is_exfiltration_active"] is True
+        assert res["exfiltration_tier"] == "ACTIVE_FOREIGN_INTELLIGENCE_EXFILTRATION_PIPELINE"
+
+    def test_phase344_retaliation_threat_and_opsec_sieve(self):
+        from geo_engine.lenses import RetaliationThreatAndOpSecSieve
+        res = RetaliationThreatAndOpSecSieve.evaluate(
+            physical_intimidation=0.90, slapp_litigation_asymmetry=0.85, statutory_police_protection=0.20
+        )
+        assert 0.0 <= res["retaliation_threat_and_opsec_score"] <= 1.0
+        assert res["is_retaliation_threat_acute"] is True
+        assert res["retaliation_threat_tier"] == "ACUTE_RETALIATION_AND_PHYSICAL_JEOPARDY"
+
+    def test_phase345_vigilance_statutory_remedy_sieve(self):
+        from geo_engine.lenses import VigilanceStatutoryRemedySieve
+        res = VigilanceStatutoryRemedySieve.evaluate(
+            jurisdictional_fit=0.90, statutory_safeguard_score=0.85, jurisdictional_ambiguity=0.10
+        )
+        assert 0.0 <= res["vigilance_statutory_remedy_score"] <= 1.0
+        assert res["is_vigilance_remedy_viable"] is True
+        assert res["vigilance_remedy_tier"] == "DIRECT_STATUTORY_REMEDY_CLEAR"
+
+    def test_phase346_speech_kinesic_and_chromatic_forensics_sieve(self):
+        from geo_engine.lenses import SpeechKinesicAndChromaticForensicsSieve
+        res = SpeechKinesicAndChromaticForensicsSieve.evaluate(
+            facs_deception_marker=0.85, vocal_pitch_jitter=0.80, chromatic_incongruence=0.75, autonomic_baseline_stability=0.20
+        )
+        assert 0.0 <= res["speech_kinesic_and_chromatic_forensics_score"] <= 1.0
+        assert res["is_kinesic_deception_high"] is True
+        assert res["kinesic_chromatic_tier"] == "ACUTE_KINESIC_CHROMATIC_DECEPTION_DETECTED"
+
+    def test_phase347_speech_omission_and_negative_space_sieve(self):
+        from geo_engine.lenses import SpeechOmissionAndNegativeSpaceSieve
+        res = SpeechOmissionAndNegativeSpaceSieve.evaluate(
+            deliberate_omission_density=0.85, taboo_topic_suppression=0.80, comprehensive_coverage_ratio=0.15
+        )
+        assert 0.0 <= res["speech_omission_and_negative_space_score"] <= 1.0
+        assert res["is_omission_severe"] is True
+        assert res["negative_space_tier"] == "ACUTE_NEGATIVE_SPACE_OMISSION_CENSORSHIP"
+
+    def test_phase348_trade_based_money_laundering_sieve(self):
+        from geo_engine.lenses import TradeBasedMoneyLaunderingSieve
+        res = TradeBasedMoneyLaunderingSieve.evaluate(
+            customs_remittance_discrepancy=0.85, gst_eway_divergence=0.80, port_clearance_verification=0.15
+        )
+        assert 0.0 <= res["trade_based_money_laundering_score"] <= 1.0
+        assert res["is_tbml_severe"] is True
+        assert res["tbml_tier"] == "SEVERE_TRADE_BASED_MONEY_LAUNDERING_ANOMALY"
+
+    def test_phase349_defense_scada_and_firmware_tamper_sieve(self):
+        from geo_engine.lenses import DefenseSCADAAndFirmwareTamperSieve
+        res = DefenseSCADAAndFirmwareTamperSieve.evaluate(
+            firmware_hash_deviation=0.85, unauthorized_microcode_call=0.80, cryptographic_signing_validity=0.15
+        )
+        assert 0.0 <= res["defense_scada_and_firmware_tamper_score"] <= 1.0
+        assert res["is_firmware_tampered"] is True
+        assert res["scada_tamper_tier"] == "CRITICAL_DEFENSE_FIRMWARE_BACKDOOR_DETECTED"
+
+    def test_phase350_cultural_heritage_and_sacrality_breach_sieve(self):
+        from geo_engine.lenses import CulturalHeritageAndSacralityBreachSieve
+        res = CulturalHeritageAndSacralityBreachSieve.evaluate(
+            antiquities_illicit_auction_score=0.85, sacral_space_encroachment=0.80, archaeological_survey_protection=0.20
+        )
+        assert 0.0 <= res["cultural_heritage_and_sacrality_breach_score"] <= 1.0
+        assert res["is_sacrality_breached"] is True
+        assert res["sacrality_breach_tier"] == "SEVERE_CULTURAL_HERITAGE_AND_SACRALITY_BREACH"
+
+    def test_phase351_perjury_risk_and_retributive_liability_sieve(self):
+        from geo_engine.lenses import PerjuryRiskAndRetributiveLiabilitySieve
+        res = PerjuryRiskAndRetributiveLiabilitySieve.evaluate(
+            fabricated_claim_ratio=0.85, malicious_intent_score=0.80, substantiated_evidence_ratio=0.15
+        )
+        assert 0.0 <= res["perjury_risk_and_retributive_liability_score"] <= 1.0
+        assert res["is_perjury_liability_high"] is True
+        assert res["perjury_liability_tier"] == "HIGH_RETRIBUTIVE_PERJURY_LIABILITY"
+
+    def test_phase352_qdt_whistleblower_cognitive_state_sieve(self):
+        from geo_engine.lenses import QDTWhistleblowerCognitiveStateSieve
+        res = QDTWhistleblowerCognitiveStateSieve.evaluate(
+            psi_duty=0.90, psi_fear=0.40, theta_retaliation_rad=0.30
+        )
+        assert 0.0 <= res["qdt_whistleblower_cognitive_state_score"] <= 1.0
+        assert res["is_duty_interference_constructive"] is True
+        assert res["cognitive_state_tier"] == "CONSTRUCTIVE_DUTY_INTERFERENCE_BREAKTHROUGH"
+
+    def test_phase353_sovereign_strategic_capex_impact_sieve(self):
+        from geo_engine.lenses import SovereignStrategicCapExImpactSieve
+        res = SovereignStrategicCapExImpactSieve.evaluate(
+            capex_multiplier_scale=0.90, supply_chain_criticality=0.85, receivership_remedy_viability=0.20
+        )
+        assert 0.0 <= res["sovereign_strategic_capex_impact_score"] <= 1.0
+        assert res["is_curative_receivership_recommended"] is True
+        assert res["capex_impact_tier"] == "SYSTEMIC_SOVEREIGN_INFRASTRUCTURE_ASSET"
+
+    def test_satyameva_suchaka_pipeline_end_to_end(self):
+        from geo_engine.arbitration.whistleblower import WhistleblowerDossier, SatyamevaSuchakaPipeline
+        dossier = WhistleblowerDossier(
+            dossier_id="DOSSIER-TEST-99",
+            title="Sovereign Infrastructure Quality Audit",
+            target_entity="National Transit Consortium",
+            domain="CORPORATE",
+            narrative_text="Detailed inspection reveals metallurgical testing fraud in rail expansion.",
+            has_bsa_cert=True,
+            casualty_threat=0.80,
+            substantiated_evidence_ratio=0.85,
+        )
+        evaluation = SatyamevaSuchakaPipeline.evaluate_dossier(dossier)
+        assert evaluation.dossier_id == "DOSSIER-TEST-99"
+        assert 0.0 <= evaluation.composite_sovereign_authenticity_index <= 1.0
+        assert len(evaluation.competing_hypotheses) == 4
+        assert len(evaluation.council_perspectives) == 7
+        assert "Ajit_Doval" in evaluation.council_perspectives
+        assert "PM_Narendra_Modi" in evaluation.council_perspectives
+
+    def test_phases_338_to_353_query_parser_dynamic_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "whistleblower public interest leak with bsa 2023 section 63 electronic record certificate, "
+            "bear raid derivative options open interest spike, and offshore debt covenant contagion."
+        )
+        assert q.requires_sovereign_public_interest is True
+        assert q.requires_documentary_provenance is True
+        assert q.requires_bear_raid_derivative is True
+        assert q.requires_offshore_debt_covenant is True
+
+    def test_phases_338_to_353_synthesizer_telemetry_165_channels(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        s = SummitEvent(
+            event_id="EVT-TEST-WHISTLE-165",
+            name="Sovereign Whistleblower Synthesis Summit",
+            year=2026,
+            host_country="India",
+            member_states=["India", "Russia", "Brazil", "South_Africa"],
+            headline_commitments_usd=10.0,
+            communique_text="Vigilance and sovereign public interest audit.",
+            metadata={}
+        )
+        res = SummitSynthesizer.synthesize(s)
+        srm = res.strategic_resilience_matrix
+        assert len(srm) == 165
+        for ch in [
+            "sovereign_public_interest_score",
+            "adversary_timing_correlation_score",
+            "documentary_provenance_authenticity_score",
+            "bear_raid_derivative_forensics_score",
+            "offshore_debt_covenant_contagion_score",
+            "exfiltration_and_foreign_sanctuary_score",
+            "retaliation_threat_and_opsec_score",
+            "vigilance_statutory_remedy_score",
+            "speech_kinesic_and_chromatic_forensics_score",
+            "speech_omission_and_negative_space_score",
+            "trade_based_money_laundering_score",
+            "defense_scada_and_firmware_tamper_score",
+            "cultural_heritage_and_sacrality_breach_score",
+            "perjury_risk_and_retributive_liability_score",
+            "qdt_whistleblower_cognitive_state_score",
+            "sovereign_strategic_capex_impact_score",
+        ]:
+            assert ch in srm
+
+    def test_phases_338_to_353_lenses_init_exports_count_179(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) == 179
+        for sieve in [
+            "SovereignPublicInterestSieve",
+            "AdversaryTimingCorrelationSieve",
+            "DocumentaryProvenanceAuthenticitySieve",
+            "BearRaidDerivativeForensicsSieve",
+            "OffshoreDebtCovenantContagionSieve",
+            "ExfiltrationAndForeignSanctuarySieve",
+            "RetaliationThreatAndOpSecSieve",
+            "VigilanceStatutoryRemedySieve",
+            "SpeechKinesicAndChromaticForensicsSieve",
+            "SpeechOmissionAndNegativeSpaceSieve",
+            "TradeBasedMoneyLaunderingSieve",
+            "DefenseSCADAAndFirmwareTamperSieve",
+            "CulturalHeritageAndSacralityBreachSieve",
+            "PerjuryRiskAndRetributiveLiabilitySieve",
+            "QDTWhistleblowerCognitiveStateSieve",
+            "SovereignStrategicCapExImpactSieve",
+        ]:
+            assert sieve in lenses.__all__
+            assert getattr(lenses, sieve, None) is not None

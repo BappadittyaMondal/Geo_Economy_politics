@@ -4088,3 +4088,54 @@ To prevent circular oscillation ("wheel-spinning") and theoretical drift, every 
 6. **Canonical Distribution Bundles (`scripts/build_canonical_bundles.py`):**
    - Recompiled all canonical distribution bundles across `consolidate_5_files/`, `consolidate_50_files/`, `dist_ai/core_5/`, `dist_ai/deep_50/`, and `dist_ai/all_in_one/`.
    - All 10 Anti-Drift Quality Gates verified and certified 100% green.
+---
+
+## Section 111: Phases 338–353 Satyameva-Suchaka 2.0 Sovereign Whistleblower, Forensic Speech & Micro-Signal Intelligence Engine
+
+### 1. Doctrinal Motivation & Geostrategic Alignment
+The implementation of Phases 338 through 353 establishes the **Satyameva-Suchaka 2.0 Engine** within the sovereign intelligence core. Drawing from Kautilya's *Arthashastra* (*Suchaka* informant protection and *Upadha-Pariksha* triple-verification), the *Bharatiya Sakshya Adhiniyam (BSA), 2023* (Sections 61–63 electronic record admissibility), and the *Bharatiya Nyaya Sanhita (BNS), 2023* (Sections 229–230 retributive perjury liability), the subsystem solves the fundamental asymmetry of insider leaks and corporate/state disclosures:
+1. **Dharmic Whistleblower Protection:** Protecting authentic insiders exposing public health hazards, toxic ecological effluents, defense firmware tampering, banking NPA looting, and ancient temple asset smuggling.
+2. **Asymmetric Lawfare Neutralization:** Filtering out timed, foreign-funded economic hit-jobs, bear-raids coordinated with offshore P-Notes/GIFT Nifty derivatives, and Eurodollar syndicated loan cross-default triggers designed to bankrupt Indian national champions.
+3. **Speech & Kinesic Negative Space Forensics:** Micro-signal analysis capturing involuntary facial micro-expressions (Paul Ekman FACS AUs), fundamental frequency vocal pitch jitter ($F_0$), sartorial (dress color) semiotics, and calculated negative space omissions in prominent diplomatic speeches.
+
+### 2. Comprehensive Inventory of Implemented Sieves (Phases 338–353)
+
+| Phase | Sieve Identifier | Host Module | Mathematical / Doctrinal Model |
+| :--- | :--- | :--- | :--- |
+| **Phase 338** | `SovereignPublicInterestSieve` | `institutional_lawfare.py` | Yogakshema public welfare & toxic contamination casualty index ($S = \sigma(z) \in [0, 1]$). |
+| **Phase 339** | `AdversaryTimingCorrelationSieve` | `geopolitical.py` | Temporal proximity correlation with sovereign summits, trade pacts & bond auctions. |
+| **Phase 340** | `DocumentaryProvenanceAuthenticitySieve` | `institutional_lawfare.py` | BSA 2023 Sec 61–63 cryptographic hash consistency & typographical anomaly detection. |
+| **Phase 341** | `BearRaidDerivativeForensicsSieve` | `cash_flow.py` | Pre-leak options open-interest put spikes & offshore P-Notes short concentration. |
+| **Phase 342** | `OffshoreDebtCovenantContagionSieve` | `cash_flow.py` | Eurodollar syndicated loan cross-defaults & Bank Letter-of-Credit freeze elasticity. |
+| **Phase 343** | `ExfiltrationAndForeignSanctuarySieve` | `hybrid_covert.py` | Foreign asylum pipelines, pre-arranged visas, embassy proximity & offshore trust retainers. |
+| **Phase 344** | `RetaliationThreatAndOpSecSieve` | `hybrid_covert.py` | Asymmetric SLAPP litigation threat, physical intimidation & witness protection index. |
+| **Phase 345** | `VigilanceStatutoryRemedySieve` | `institutional_lawfare.py` | Institutional vigilance routing across CVC, Lokpal, SFIO, SEBI Informant, and ED. |
+| **Phase 346** | `SpeechKinesicAndChromaticForensicsSieve` | `kinesics.py` | Paul Ekman FACS Action Units (AU14/15/17), pitch jitter ($F_0$) & dress color semiotics. |
+| **Phase 347** | `SpeechOmissionAndNegativeSpaceSieve` | `propaganda.py` | Negative space keyword omission & deliberate diplomatic topic avoidance ratio. |
+| **Phase 348** | `TradeBasedMoneyLaunderingSieve` | `geo_economist.py` | ICEGATE customs vs GSTN e-way bills vs bank foreign remittance triangulation. |
+| **Phase 349** | `DefenseSCADAAndFirmwareTamperSieve` | `deep_tech.py` | Microcode backdoors, SCADA PLC tampering & defense firmware signing integrity. |
+| **Phase 350** | `CulturalHeritageAndSacralityBreachSieve` | `civilizational.py` | Temple asset misappropriation, illicit antiquities auctions & waqf space encroachments. |
+| **Phase 351** | `PerjuryRiskAndRetributiveLiabilitySieve` | `institutional_lawfare.py` | BNS 2023 Sec 229/230 retributive civil & criminal perjury liability for malicious slander. |
+| **Phase 352** | `QDTWhistleblowerCognitiveStateSieve` | `deep_tech.py` | Quantum Decision Theory Hilbert state-space superposition ($P(	ext{Disclose}) = |\psi_d|^2 + |\psi_f|^2 + 2|\psi_d||\psi_f|\cos	heta$). |
+| **Phase 353** | `SovereignStrategicCapExImpactSieve` | `geo_economist.py` | Macroeconomic multiplier friction of corporate freeze vs. curative receivership (Satyam model). |
+
+### 3. Subsystem Architecture & Scaling Metrics
+1. **Pipeline Coordinator (`geo_engine/arbitration/whistleblower.py`):**
+   - Implemented `WhistleblowerDossier`, `WhistleblowerEvaluation`, and `SatyamevaSuchakaPipeline`.
+   - Executes Analysis of Competing Hypotheses (ACH) across 4 candidate states: `GENUINE_PUBLIC_INTEREST_WHISTLEBLOWING`, `COORDINATED_OFFSHORE_BEAR_RAID`, `FOREIGN_INTELLIGENCE_HYBRID_SABOTAGE`, and `MALICIOUS_DOMESTIC_SLANDER_EXTORTION`.
+   - Projects strategic assessments across 7 sovereign council archetypes (Ajit Doval, Dr. S. Jaishankar, Dr. Ankit Shah, Sanjeev Sanyal, J. Sai Deepak, Dr. Anand Ranganathan, PM Narendra Modi).
+2. **Command Line Interface (`geo_engine/cli.py`):**
+   - Added `whistle` sub-command supporting text dossiers, sectoral domains (`CORPORATE`, `DEFENSE`, `ECOLOGY`, `FINANCIAL`, `HEALTHCARE`, `HERITAGE`), and BSA 2023 certification flags.
+3. **Lens Registry Export Scaling (`geo_engine/lenses/__init__.py`):**
+   - Exported all 16 sieves into `__all__`, scaling verified lens exports from 163 to **179 symbols**.
+4. **Dynamic AST Query Parser (`geo_engine/core/query_parser.py`):**
+   - Added 16 dynamic boolean AST routing flags to `StrategicQuery` and automated keyword matching in `QueryParser.parse`.
+5. **Strategic Resilience Matrix Synthesis (`geo_engine/arbitration/synthesizer.py`):**
+   - Wired all 16 new telemetry channels into `SummitSynthesizer.strategic_resilience_matrix`, scaling live synthesis telemetry from 149 to **165 channels**.
+6. **Automated Verification Suite (`tests/test_engine.py`):**
+   - Added `TestPhases338to353WhistleblowerAndForensicSynthesis` (19 unit and integration tests).
+   - Full test suite scaled from 644 to **664 tests passing (100% green, 0 regressions)**.
+7. **Canonical Distribution Bundles (`scripts/build_canonical_bundles.py`):**
+   - Core-5 Bundle compiled (5 files in `dist_ai/core_5/` and `consolidate_5_files/`).
+   - Deep-50 Bundle compiled (32 files in `dist_ai/deep_50/` and `consolidate_50_files/`).
+   - All 10 Anti-Drift Quality Gates verified and certified 100% green.

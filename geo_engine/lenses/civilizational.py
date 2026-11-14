@@ -360,6 +360,14 @@ class CivilizationalLens:
         metrics["linguistic_sprachbund_tier"] = _ling_res["linguistic_sprachbund_tier"]
         metrics["civilizational_sprachbund_index"] = _ling_res["civilizational_sprachbund_index"]
 
+                # Phase 350: Cultural Heritage and Sacrality Breach Sieve Evaluation
+        _chs_res = CulturalHeritageAndSacralityBreachSieve.evaluate(
+            antiquities_illicit_auction_score=civ_meta.get("antiquities_illicit_auction_score", 0.25),
+            sacral_space_encroachment=civ_meta.get("sacral_space_encroachment", 0.30),
+            archaeological_survey_protection=civ_meta.get("archaeological_survey_protection", 0.75),
+        )
+        metrics["cultural_heritage_and_sacrality_breach_score"] = _chs_res["cultural_heritage_and_sacrality_breach_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1847,4 +1855,53 @@ class PuranicMetaphysicalBoundarySieve:
             "metaphysical_boundary_tier": tier,
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
+        }
+
+# ============================================================================
+# PHASE 350: CULTURAL HERITAGE AND SACRALITY BREACH SIEVE
+# ============================================================================
+
+class CulturalHeritageAndSacralityBreachSieve:
+    """
+    Phase 350: Evaluates insider disclosures regarding temple asset misappropriation, illicit antiquities auction trails,
+    and waqf/institutional encroachment on sacred Sanatan spaces.
+    """
+    @staticmethod
+    def evaluate(
+        antiquities_illicit_auction_score: float = 0.25,
+        sacral_space_encroachment: float = 0.30,
+        archaeological_survey_protection: float = 0.75,
+    ) -> dict:
+        a_auct = max(0.0, min(1.0, float(antiquities_illicit_auction_score)))
+        s_enc = max(0.0, min(1.0, float(sacral_space_encroachment)))
+        a_prot = max(0.0, min(1.0, float(archaeological_survey_protection)))
+
+        z = 3.5 * a_auct + 3.0 * s_enc - 2.8 * a_prot - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SEVERE_CULTURAL_HERITAGE_AND_SACRALITY_BREACH"
+            verdict = "CIVILIZATIONAL_HERITAGE_TASKFORCE_DISPATCH_REQUIRED"
+            rationale = (
+                f"Severe sacrality desecration ({score:.4f}): Antiquities smuggling ({a_auct:.2f}) or temple land encroachment ({s_enc:.2f}) "
+                f"breaches statutory and civilizational protection."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_HERITAGE_MAINTENANCE_NEGLECT"
+            verdict = "STATUTORY_ARCHAEOLOGICAL_AUDIT_RECOMMENDED"
+            rationale = f"Moderate heritage risk ({score:.4f}): Inadequate custodial care requiring administrative review."
+        else:
+            tier = "ROBUST_SANATAN_SACRED_CUSTODIANSHIP"
+            verdict = "AUTHENTIC_HERITAGE_PRESERVATION_CONFIRMED"
+            rationale = f"Vigilant custodianship ({score:.4f}): Strong archaeological protections ({a_prot:.2f}) safeguard heritage."
+
+        return {
+            "cultural_heritage_and_sacrality_breach_score": score,
+            "antiquities_illicit_auction_score": round(a_auct, 4),
+            "sacral_space_encroachment": round(s_enc, 4),
+            "archaeological_survey_protection": round(a_prot, 4),
+            "sacrality_breach_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_sacrality_breached": score >= 0.70,
         }
