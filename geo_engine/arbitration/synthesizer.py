@@ -600,6 +600,30 @@ class SummitSynthesizer:
                 f"{ach_report.epistemic_warning}\n\n" + civilizational_inner_meaning.get("civilizational_core", "")
             )
 
+        # Phase 362: Dharmik Statecraft Tri-Pillar Integration
+        try:
+            from .dharmik_statecraft import DharmikStatecraftPipeline, DharmikStatecraftDossier
+            _d_pipe = DharmikStatecraftPipeline()
+            _target_ent = target_countries[0] if (target_countries and len(target_countries) > 0) else "Multilateral Adversary / Dollar Hegemon"
+            _d_meta = getattr(summit, "metadata", {}) or {}
+            _d_dossier = DharmikStatecraftDossier(
+                dossier_id=f"dh_{getattr(summit, 'summit_id', getattr(summit, 'event_id', 'event_001'))}",
+                title=getattr(summit, "title", getattr(summit, "name", "Multilateral Summit")),
+                target_nation_or_entity=_target_ent,
+                narrative_context=getattr(summit, "communique_text", getattr(summit, "description", "")),
+                swami_leadership_clarity=_d_meta.get("swami_leadership_clarity", 0.88),
+                kosha_treasury_depth=_d_meta.get("kosha_treasury_depth", 0.85),
+                danda_military_deterrence=_d_meta.get("danda_military_deterrence", 0.85),
+                peace_initiatives_exhausted_ratio=_d_meta.get("peace_initiatives_exhausted_ratio", 0.85),
+                sentimental_hesitation_moha=_d_meta.get("sentimental_hesitation_moha", 0.15),
+            )
+            _d_eval = _d_pipe.evaluate_scenario(_d_dossier)
+            civilizational_inner_meaning["dharmik_operational_directive"] = _d_eval.operational_directive
+            civilizational_inner_meaning["rajadharma_authorization_tier"] = _d_eval.rajadharma_authorization_tier
+            civilizational_inner_meaning["optimal_sadgunya_policy"] = _d_eval.optimal_sadgunya_policy
+        except Exception:
+            pass
+
         # Epistemic Arbitration Log
         arbitration_log = [
             f"[TEMPORAL_VALIDATION] Mode set to {mode.value.upper()}. {guidance}",

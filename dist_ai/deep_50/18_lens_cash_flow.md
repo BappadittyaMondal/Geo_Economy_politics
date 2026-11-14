@@ -163,6 +163,23 @@ class CashFlowLens:
                 mtm_treasury_exposure=bank_params.get("mtm_treasury_exposure", 0.20),
             )
             metrics.update(_bank_res)
+
+            # Phases 355 & 356: Wire BISHiddenFXSwapContagionSieve & OffshoreUBOShellDeAnonymizerSieve
+            _bis_res_e = BISHiddenFXSwapContagionSieve.evaluate(
+                ois_sofr_spread_bps=det_meta.get("ois_sofr_spread_bps", 25.0),
+                cross_currency_basis_spread_bps=det_meta.get("cross_currency_basis_spread_bps", 35.0),
+                off_balance_sheet_swap_ratio=det_meta.get("off_balance_sheet_swap_ratio", 0.35),
+                bilateral_swap_line_coverage=det_meta.get("bilateral_swap_line_coverage", 0.75),
+            )
+            metrics["bis_hidden_fx_swap_contagion_score"] = _bis_res_e["bis_hidden_fx_swap_contagion_score"]
+
+            _ubo_res_e = OffshoreUBOShellDeAnonymizerSieve.evaluate(
+                pnote_concentration_ratio=det_meta.get("pnote_concentration_ratio", 0.30),
+                tax_haven_layering_depth=det_meta.get("tax_haven_layering_depth", 2),
+                pre_leak_put_oi_growth=det_meta.get("pre_leak_put_oi_growth", 0.25),
+                ubo_transparency_score=det_meta.get("ubo_transparency_score", 0.80),
+            )
+            metrics["offshore_ubo_de_anonymizer_score"] = _ubo_res_e["offshore_ubo_de_anonymizer_score"]
     
             if claims:
                 banking_npa_claims = [
@@ -402,6 +419,23 @@ class CashFlowLens:
             sovereign_liquidity_backstop=cf_meta.get("sovereign_liquidity_backstop", 0.80),
         )
         metrics["offshore_debt_covenant_contagion_score"] = _odc_res["offshore_debt_covenant_contagion_score"]
+
+        # Phases 355 & 356: Wire BISHiddenFXSwapContagionSieve & OffshoreUBOShellDeAnonymizerSieve
+        _bis_res = BISHiddenFXSwapContagionSieve.evaluate(
+            ois_sofr_spread_bps=cf_meta.get("ois_sofr_spread_bps", 25.0),
+            cross_currency_basis_spread_bps=cf_meta.get("cross_currency_basis_spread_bps", 35.0),
+            off_balance_sheet_swap_ratio=cf_meta.get("off_balance_sheet_swap_ratio", 0.35),
+            bilateral_swap_line_coverage=cf_meta.get("bilateral_swap_line_coverage", 0.75),
+        )
+        metrics["bis_hidden_fx_swap_contagion_score"] = _bis_res["bis_hidden_fx_swap_contagion_score"]
+
+        _ubo_res = OffshoreUBOShellDeAnonymizerSieve.evaluate(
+            pnote_concentration_ratio=cf_meta.get("pnote_concentration_ratio", 0.30),
+            tax_haven_layering_depth=cf_meta.get("tax_haven_layering_depth", 2),
+            pre_leak_put_oi_growth=cf_meta.get("pre_leak_put_oi_growth", 0.25),
+            ubo_transparency_score=cf_meta.get("ubo_transparency_score", 0.80),
+        )
+        metrics["offshore_ubo_de_anonymizer_score"] = _ubo_res["offshore_ubo_de_anonymizer_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,

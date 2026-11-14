@@ -231,6 +231,19 @@ class GeopoliticalLens:
         )
         metrics["adversary_timing_correlation_score"] = _atc_res["adversary_timing_correlation_score"]
 
+        # Phase 360: Wire KautilyaMandalaShadgunyaSieve
+        _kms_res = KautilyaMandalaShadgunyaSieve.evaluate(
+            swami_leadership_clarity=geo_meta.get("swami_leadership_clarity", 0.85),
+            amatya_bureaucratic_integrity=geo_meta.get("amatya_bureaucratic_integrity", 0.75),
+            janapada_demographic_agriculture=geo_meta.get("janapada_demographic_agriculture", 0.80),
+            durga_fortification_dpi=geo_meta.get("durga_fortification_dpi", 0.80),
+            kosha_treasury_depth=geo_meta.get("kosha_treasury_depth", 0.85),
+            danda_military_deterrence=geo_meta.get("danda_military_deterrence", 0.85),
+            mitra_alliance_reliability=geo_meta.get("mitra_alliance_reliability", 0.70),
+            adversary_power_index=geo_meta.get("adversary_power_index", 0.70),
+        )
+        metrics["kautilya_saptanga_score"] = _kms_res["kautilya_saptanga_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,

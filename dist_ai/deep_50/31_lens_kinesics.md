@@ -238,6 +238,15 @@ class KinesicsLens:
         )
         metrics["speech_kinesic_and_chromatic_forensics_score"] = _skc_res["speech_kinesic_and_chromatic_forensics_score"]
 
+        # Phase 358: Wire KinesicContextualBaselineDriftSieve
+        _kbd_res = KinesicContextualBaselineDriftSieve.evaluate(
+            observed_micro_expression_intensity=k_meta.get("observed_micro_expression_intensity", 0.40),
+            cultural_expressiveness_norm=k_meta.get("cultural_expressiveness_norm", 0.50),
+            summit_pressure_elevation=k_meta.get("summit_pressure_elevation", 0.60),
+            individual_historical_stability=k_meta.get("individual_historical_stability", 0.75),
+        )
+        metrics["kinesic_contextual_baseline_drift_score"] = _kbd_res["kinesic_contextual_baseline_drift_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=round((avg_warmth * 2.0) - 1.0, 2), # Map 0..1 to -1..1

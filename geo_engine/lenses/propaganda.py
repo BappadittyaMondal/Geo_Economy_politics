@@ -366,6 +366,15 @@ class PropagandaLens:
         )
         metrics["speech_omission_and_negative_space_score"] = _son_res["speech_omission_and_negative_space_score"]
 
+        # Phase 357: Wire SpeechToBalanceSheetDivergenceTensor
+        _sbd_res = SpeechToBalanceSheetDivergenceTensor.evaluate(
+            claimed_multilateral_harmony=prop_meta.get("claimed_multilateral_harmony", 0.85),
+            bilateral_tariff_barrier_index=prop_meta.get("bilateral_tariff_barrier_index", 0.70),
+            capital_flight_inducement_score=prop_meta.get("capital_flight_inducement_score", 0.65),
+            physical_trade_delivery_ratio=prop_meta.get("physical_trade_delivery_ratio", 0.35),
+        )
+        metrics["speech_to_balance_sheet_divergence_score"] = _sbd_res["speech_to_balance_sheet_divergence_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,

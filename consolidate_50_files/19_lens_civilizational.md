@@ -371,6 +371,24 @@ class CivilizationalLens:
         )
         metrics["cultural_heritage_and_sacrality_breach_score"] = _chs_res["cultural_heritage_and_sacrality_breach_score"]
 
+        # Phases 359 & 361: Wire ChanakyaNeetiUpadhaIntegritySieve & KrishnaRajadharmaExhaustionSieve
+        _cnu_res = ChanakyaNeetiUpadhaIntegritySieve.evaluate(
+            dharmopadha_vulnerability=civ_meta.get("dharmopadha_vulnerability", 0.20),
+            arthopadha_vulnerability=civ_meta.get("arthopadha_vulnerability", 0.25),
+            kamopadha_vulnerability=civ_meta.get("kamopadha_vulnerability", 0.15),
+            bhayopadha_vulnerability=civ_meta.get("bhayopadha_vulnerability", 0.30),
+            mantra_gupti_secrecy_index=civ_meta.get("mantra_gupti_secrecy_index", 0.80),
+        )
+        metrics["chanakya_upadha_integrity_score"] = _cnu_res["chanakya_upadha_integrity_score"]
+
+        _kre_res = KrishnaRajadharmaExhaustionSieve.evaluate(
+            peace_initiatives_exhausted_ratio=civ_meta.get("peace_initiatives_exhausted_ratio", 0.85),
+            adversary_existential_hostility=civ_meta.get("adversary_existential_hostility", 0.80),
+            sentimental_hesitation_moha=civ_meta.get("sentimental_hesitation_moha", 0.20),
+            dharmic_svadharma_resolve=civ_meta.get("dharmic_svadharma_resolve", 0.85),
+        )
+        metrics["krishna_rajadharma_exhaustion_score"] = _kre_res["krishna_rajadharma_exhaustion_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,

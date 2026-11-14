@@ -13440,6 +13440,9 @@ class TestPhases355to365DharmikStatecraftAndInvisibleCashFlows:
             "krishna_rajadharma_exhaustion_score",
         ]:
             assert ch in srm
+            assert srm[ch] is not None
+            assert isinstance(srm[ch], float)
+        assert "dharmik_operational_directive" in res.civilizational_synthesis
 
     def test_phase365_event_store_dharmik_textual_anchors(self):
         from geo_engine.storage.event_store import EventStore
