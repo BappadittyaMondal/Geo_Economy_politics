@@ -304,6 +304,54 @@ class SatyamevaSuchakaPipeline:
                 f"Atmanirbharta & Yogakshema: Composite sovereign authenticity {composite_idx:.2f}. "
                 f"Protect public welfare ruthlessly without permitting foreign hybrid sabotage to derail national growth."
             ),
+            # Expanded Sovereign Epistemic Profiles
+            "Dr_Sudhanshu_Trivedi": (
+                f"Historical & Scriptural Epistemology: Neutralize semantic distortion. "
+                f"Verify primary textual/historical evidence and prevent foreign ideological colonization of domestic discourse."
+            ),
+            "Pushpendra_Kulshrestha": (
+                f"Media Syndicate & Grassroots Vigilance: Exfiltration score {s_efs:.2f}. "
+                f"Deconstruct foreign-funded media echo-chambers and expose fifth-column narrative warfare targeting national stability."
+            ),
+            "Dr_Syed_Rizwan_Ahmed": (
+                f"Forensic Courtroom Cross-Examination: Perjury liability risk {s_prr:.2f}, BSA score {s_dpa:.2f}. "
+                f"Enforce strict chain of custody and initiate BNS criminal perjury proceedings against motivated extortionists."
+            ),
+            "Neeraj_Atri": (
+                f"Primary Document & Archival Audit: Check primary customs/bank records against circular citation loops in NGO leaks."
+            ),
+            "Sadhguru_Jaggi_Vasudev": (
+                f"Ecological Vitality & Conscious Statecraft: Sacrality score {s_chs:.2f}. "
+                f"Safeguard fertile soil, river systems, and temple autonomy while maintaining non-ideological infrastructure growth."
+            ),
+            "Dr_Kumar_Vishwas": (
+                f"Rashtriya Cultural Consciousness: Protect national morale and retail citizen confidence from manufactured panic."
+            ),
+            "Srijan_Pal_Singh": (
+                f"Deep Tech & Kalam Mission-Mode Execution: SCADA tamper score {s_dst:.2f}. "
+                f"Air-gap critical ports and defense microcode; maintain technological self-reliance."
+            ),
+            "Dr_B_R_Ambedkar": (
+                f"Constitutional Morality & Institutional Antifragility: Enforce statutory regulatory oversight (SEBI/CAG/ED) "
+                f"to prevent both corporate cartel monopoly and foreign institutional coercion."
+            ),
+            # Classical Dharmic & Vedic Statecraft Archetypes
+            "Acharya_Chanakya_Kautilya": (
+                f"Arthashastra Statecraft: Ubhaya-vetana double-agent audit. Secure the Kosha (treasury) against bear-raids ({s_brd:.2f}) "
+                f"and strike asymmetric foreign adversaries using Sandhi-Vigraha equilibrium."
+            ),
+            "Sri_Krishna_Rajadharma": (
+                f"Rajadharma & Strategic Equilibrium: Overcome cognitive paralysis. Distinguish between genuine righteous reform "
+                f"and adharmic economic warfare disguised as virtue."
+            ),
+            "Vedic_Rishi_Pramana": (
+                f"Pramana Epistemology: Triangulate Pratyaksha (direct invoice/bank telemetry), Anumana (timing inference), "
+                f"and Shabda (verified cryptography) to dissolve narrative Maya."
+            ),
+            "Maryada_Purushottam_Sri_Ram": (
+                f"Ram Rajya Governance Ethics: Maintain total administrative transparency and Praja-Anuraga (citizen trust). "
+                f"Zero compromise on public safety and moral integrity."
+            ),
         }
 
         return WhistleblowerEvaluation(
