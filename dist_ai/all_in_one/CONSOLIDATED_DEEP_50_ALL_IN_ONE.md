@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `c1914f5`
+- **Canonical Git Commit:** `fe5c6d4`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: c1914f5
+CANONICAL_COMMIT: fe5c6d4
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: c1914f5
+CANONICAL_COMMIT: fe5c6d4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: c1914f5
+CANONICAL_COMMIT: fe5c6d4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: c1914f5
+CANONICAL_COMMIT: fe5c6d4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: c1914f5
+CANONICAL_COMMIT: fe5c6d4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: c1914f5
+CANONICAL_COMMIT: fe5c6d4
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -4853,6 +4853,49 @@ Phase 354 reconciles and unifies this into a **19-Member Sovereign & Dharmic Epi
 - **Command Line Interface (`geo_engine/cli.py`):** `whistle` sub-command displays all 19 council members cleanly in structured rich tables.
 - **Test Suite (`tests/test_engine.py`):** Certified `len(evaluation.council_perspectives) == 19`, 664 tests passing 100% green.
 
+---
+
+## Section 113: Phases 355–365 — Tri-Pillar Dharmik Statecraft Engine, Invisible Cash-Flow Forensics & Civilizational Precision Grounding
+
+### 1. Doctrinal Motivation & Strategic Realism
+Phases 355 through 365 operationalize the **Tri-Pillar Bharatiya Epistemic Core** and **Invisible Cash-Flow Forensics** across the sovereign intelligence engine. By transcending surface rhetoric, the system bridges the gap between public diplomatic speeches and underlying balance sheets, monetary plumbing, and classical Dharmic statecraft:
+1. **Invisible Cash-Flow Forensics (Dr. Ankit Shah Lens):**
+   - Unmasks the Bank for International Settlements (BIS) $80 trillion off-balance-sheet dollar swap liabilities and cross-currency basis spreads that weaponize liquidity crunches against the Indian Rupee and corporate bond covenants.
+   - De-anonymizes Category I/II Foreign Portfolio Investor (FPI) shell layering and Participatory Note (P-Note) short concentrations preceding coordinated media leaks.
+2. **Speech-to-Balance-Sheet Divergence Tensor (Dr. S. Jaishankar & Propaganda Lens):**
+   - Quantifies the divergence between declared multilateral harmony and physical balance-sheet reality (bilateral tariffs, Carbon Border Adjustment Mechanism/CBAM, and export controls).
+3. **Contextual Kinesic Baseline Drift (Ajit Doval Lens):**
+   - Normalizes Ekman FACS Action Units (AU14, AU15, AU17) and vocal pitch jitter ($F_0$) against cultural baselines and summit negotiation pressure.
+4. **Tri-Pillar Bharatiya Civilizational Core:**
+   - **Chāṇakya Nīti:** Formalizes the fourfold *Upadhā-Parīkṣā* (Dharmopadhā, Arthopadhā, Kāmopadhā, Bhayopadhā) ministerial integrity audit and *Mantra-Gupti* operational secrecy.
+   - **Kauṭilya Arthaśāstra:** Implements the 7-limb *Saptāṅga* sovereign health equation ($S = \sum w_i L_i$) and the 12-state *Rāja-Maṇḍala* 6-fold *Ṣaḍguṇya* policy selector (*Sandhi, Vigraha, Āsana, Yāna, Saṃśraya, Dvaidhībhāva*).
+   - **Bhagavān Śrī Kṛṣṇa:** Implements *Rājadharma* and the *Udyoga Parva* diplomatic exhaustion quotient ($E_{	ext{Peace}}$), eliminating sentimental hesitation (*Moha*) and authorizing asymmetric righteous retaliation (*Dharma-Yuddha / Āpaddharma*).
+
+### 2. Comprehensive Inventory of Implemented Sieves (Phases 355–365)
+
+| Phase | Sieve Identifier | Host Module | Mathematical / Doctrinal Model |
+| :--- | :--- | :--- | :--- |
+| **Phase 355** | `BISHiddenFXSwapContagionSieve` | `cash_flow.py` | Off-balance-sheet dollar swap obligations, OIS-SOFR basis spread & central bank swap line coverage. |
+| **Phase 356** | `OffshoreUBOShellDeAnonymizerSieve` | `cash_flow.py` | P-Note concentration, tax-haven layering depth & SEBI 2023 UBO look-through audit. |
+| **Phase 357** | `SpeechToBalanceSheetDivergenceTensor` | `propaganda.py` | Divergence between declared verbal harmony and physical trade tariffs, CBAM & capital flight incentives. |
+| **Phase 358** | `KinesicContextualBaselineDriftSieve` | `kinesics.py` | Culture-specific and summit-pressure baseline normalization of FACS Action Units and pitch jitter. |
+| **Phase 359** | `ChanakyaNeetiUpadhaIntegritySieve` | `civilizational.py` | Fourfold *Upadhā-Parīkṣā* vulnerability index ($U = 1.0 - \max(T_k)$) & *Mantra-Gupti* secrecy score. |
+| **Phase 360** | `KautilyaMandalaShadgunyaSieve` | `geopolitical.py` | 7-Limb *Saptāṅga* health index & 6-fold *Ṣaḍguṇya* foreign policy action recommender. |
+| **Phase 361** | `KrishnaRajadharmaExhaustionSieve` | `civilizational.py` | *Udyoga Parva* peace exhaustion quotient ($E_{	ext{Peace}}$), *Svadharmic* resolve & *Moha* elimination. |
+| **Phase 362** | `DharmikStatecraftPipeline` | `dharmik_statecraft.py` | Dedicated pipeline coordinator evaluating scenarios across the 3 pillars with 19-member council synthesis. |
+| **Phase 363** | AST Query Router Expansion | `query_parser.py` | Added 7 dynamic AST boolean routing flags to `StrategicQuery` and parsing logic. |
+| **Phase 364** | Strategic Resilience Matrix Scaling | `synthesizer.py` | Scaled live synthesis telemetry from 165 to **172 live channels**. |
+| **Phase 365** | SQLite Primary Textual Grounding | `event_store.py` | Created `dharmik_textual_anchors` table with indexed Sanskrit shlokas and English maxims. |
+
+### 3. Scaling & Quality Verification Metrics
+1. **Total Lens Exported Symbols (`geo_engine/lenses/__init__.py`):** Scaled from 179 to **186 symbols**.
+2. **Strategic Resilience Matrix Channels (`geo_engine/arbitration/synthesizer.py`):** Scaled from 165 to **172 live channels**.
+3. **AST Routing Grammar (`geo_engine/core/query_parser.py`):** 7 new boolean flags active and verified.
+4. **Command Line Interface (`geo_engine/cli.py`):** Added `dharmik` sub-command rendering Saptāṅga health, Ṣaḍguṇya policy, and 19-member council directives.
+5. **SQLite Scriptural Knowledge Store (`geo_engine/storage/event_store.py`):** Indexed primary shlokas across Chāṇakya Nīti, Arthaśāstra, and the Mahābhārata/Gītā.
+6. **Automated Verification Suite (`tests/test_engine.py`):** Scaled from 664 to **675 passed tests (100% green, 0 regressions)**.
+7. **Canonical Distribution Bundles (`scripts/build_canonical_bundles.py`):** Recompiled Core-5 (5 files) and Deep-50 (32 files), passing all 10 Anti-Drift Quality Gates.
+
 
 
 ================================================================================
@@ -6819,6 +6862,104 @@ class OffshoreDebtCovenantContagionSieve:
             "is_debt_contagion_severe": score >= 0.70,
         }
 
+
+class BISHiddenFXSwapContagionSieve:
+    """
+    Phase 355: Evaluates off-balance-sheet dollar forward and swap liabilities (BIS $80T shadow debt),
+    cross-currency basis swap margins, and central bank swap line coverage.
+    """
+    @staticmethod
+    def evaluate(
+        ois_sofr_spread_bps: float = 25.0,
+        cross_currency_basis_spread_bps: float = 35.0,
+        off_balance_sheet_swap_ratio: float = 0.35,
+        bilateral_swap_line_coverage: float = 0.75,
+    ) -> dict:
+        s_ois = max(0.0, float(ois_sofr_spread_bps)) / 100.0
+        s_basis = max(0.0, float(cross_currency_basis_spread_bps)) / 100.0
+        s_swap = max(0.0, min(1.0, float(off_balance_sheet_swap_ratio)))
+        s_cov = max(0.0, min(1.0, float(bilateral_swap_line_coverage)))
+
+        z = 2.8 * s_ois + 3.2 * s_basis + 2.5 * s_swap - 3.0 * s_cov - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SEVERE_OFFSHORE_DOLLAR_LIQUIDITY_SQUEEZE"
+            verdict = "ACTIVATE_RBI_FED_SWAP_AND_GSEC_REPO_FACILITY"
+            rationale = (
+                f"High synthetic dollar crunch ({score:.4f}): Basis spread ({cross_currency_basis_spread_bps:.1f} bps) "
+                f"and hidden swap leverage ({s_swap:.2f}) threaten systemic debt rollover."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_CROSS_CURRENCY_STRAIN"
+            verdict = "ENHANCE_DOMESTIC_EXPORT_EARNINGS_REPATRIATION"
+            rationale = f"Moderate dollar strain ({score:.4f}): Monitored roll-over with domestic FX liquidity."
+        else:
+            tier = "RESILIENT_OFFSHORE_DOLLAR_LIQUIDITY"
+            verdict = "NORMAL_LIQUIDITY_ADEQUACY"
+            rationale = f"Solvent FX plumbing ({score:.4f}): Ample central bank swap lines ({s_cov:.2f}) buffer offshore shocks."
+
+        return {
+            "bis_hidden_fx_swap_contagion_score": score,
+            "ois_sofr_spread_bps": round(float(ois_sofr_spread_bps), 2),
+            "cross_currency_basis_spread_bps": round(float(cross_currency_basis_spread_bps), 2),
+            "off_balance_sheet_swap_ratio": round(s_swap, 4),
+            "bilateral_swap_line_coverage": round(s_cov, 4),
+            "dollar_squeeze_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_fx_contagion_severe": score >= 0.70,
+        }
+
+
+class OffshoreUBOShellDeAnonymizerSieve:
+    """
+    Phase 356: De-anonymizes Ultimate Beneficial Ownership (UBO) layering in offshore Category I/II FPIs,
+    Participatory Notes (P-Notes), and front-running short syndicates.
+    """
+    @staticmethod
+    def evaluate(
+        pnote_concentration_ratio: float = 0.30,
+        tax_haven_layering_depth: int = 2,
+        pre_leak_put_oi_growth: float = 0.25,
+        ubo_transparency_score: float = 0.80,
+    ) -> dict:
+        p_conc = max(0.0, min(1.0, float(pnote_concentration_ratio)))
+        l_depth = max(1.0, min(6.0, float(tax_haven_layering_depth)))
+        p_growth = max(0.0, min(2.0, float(pre_leak_put_oi_growth)))
+        u_trans = max(0.0, min(1.0, float(ubo_transparency_score)))
+
+        z = 3.2 * p_conc + 0.5 * (l_depth - 1.0) + 2.4 * p_growth - 3.4 * u_trans - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "PREDATORY_OFFSHORE_SHELL_CONSORTIUM"
+            verdict = "ISSUE_SEBI_ED_PREVENTIVE_FREEZE_AND_LOOKTHROUGH_AUDIT"
+            rationale = (
+                f"High predatory short syndicate risk ({score:.4f}): Layering depth {int(l_depth)} and P-note concentration "
+                f"({p_conc:.2f}) point to coordinated bear-raid shell attack."
+            )
+        elif score >= 0.45:
+            tier = "SUSPICIOUS_OFFSHORE_CONCENTRATION"
+            verdict = "ENFORCE_STRICT_UBO_BENEFICIARY_DECLARATION"
+            rationale = f"Elevated shell obfuscation ({score:.4f}): Requires statutory look-through under SEBI 2023 regulations."
+        else:
+            tier = "COMPLIANT_TRANSPARENT_FPI_CAPITAL"
+            verdict = "AUTHENTIC_INSTITUTIONAL_INVESTMENT"
+            rationale = f"Transparent ownership ({score:.4f}): High UBO compliance ({u_trans:.2f}) with zero predatory short spikes."
+
+        return {
+            "offshore_ubo_de_anonymizer_score": score,
+            "pnote_concentration_ratio": round(p_conc, 4),
+            "tax_haven_layering_depth": int(l_depth),
+            "pre_leak_put_oi_growth": round(p_growth, 4),
+            "ubo_transparency_score": round(u_trans, 4),
+            "shell_layering_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_predatory_ubo_detected": score >= 0.70,
+        }
+
 ```
 
 
@@ -8735,6 +8876,111 @@ class CulturalHeritageAndSacralityBreachSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_sacrality_breached": score >= 0.70,
+        }
+
+
+class ChanakyaNeetiUpadhaIntegritySieve:
+    """
+    Phase 359: Formalizes Chāṇakya Nīti and Arthaśāstra (Book I Ch 10) fourfold Upadhā-Parīkṣā
+    (Dharmopadhā, Arthopadhā, Kāmopadhā, Bhayopadhā) and Mantra-Gupti (operational secrecy).
+    Audits official vulnerability to moral, monetary, hedonistic, and coercive subversion.
+    """
+    @staticmethod
+    def evaluate(
+        dharmopadha_vulnerability: float = 0.20,
+        arthopadha_vulnerability: float = 0.25,
+        kamopadha_vulnerability: float = 0.15,
+        bhayopadha_vulnerability: float = 0.30,
+        mantra_gupti_secrecy_index: float = 0.80,
+    ) -> dict:
+        d_vuln = max(0.0, min(1.0, float(dharmopadha_vulnerability)))
+        a_vuln = max(0.0, min(1.0, float(arthopadha_vulnerability)))
+        k_vuln = max(0.0, min(1.0, float(kamopadha_vulnerability)))
+        b_vuln = max(0.0, min(1.0, float(bhayopadha_vulnerability)))
+        m_sec = max(0.0, min(1.0, float(mantra_gupti_secrecy_index)))
+
+        composite_vulnerability = max(d_vuln, a_vuln, k_vuln, b_vuln)
+        z = 3.6 * composite_vulnerability + 2.4 * (1.0 - m_sec) - 0.8
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SEVERE_UPADHA_COMPROMISE_RISK"
+            verdict = "IMMEDIATE_SECURITY_CLEARANCE_REVOCATION_AND_ISOLATION"
+            rationale = (
+                f"Critical ministerial vulnerability ({score:.4f}): Elevated vulnerability in "
+                f"Dharma ({d_vuln:.2f}), Artha ({a_vuln:.2f}), or Bhaya ({b_vuln:.2f}) with compromised secrecy ({m_sec:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_VETTING_SCRUTINY_REQUIRED"
+            verdict = "APPLY_SECONDARY_SURVEILLANCE_AND_RESTRICT_SENSITIVE_BRIEFINGS"
+            rationale = f"Moderate integrity risk ({score:.4f}): Requires active surveillance under Chanakyan Upadha protocols."
+        else:
+            tier = "UNCOMPROMISED_AMATYA_INTEGRITY"
+            verdict = "VERIFIED_TRUSTWORTHY_HIGH_OFFICE_CLEARANCE"
+            rationale = f"High integrity ({score:.4f}): Minister demonstrates zero susceptibility across all four Upadhas and high Mantra-Gupti ({m_sec:.2f})."
+
+        return {
+            "chanakya_upadha_integrity_score": score,
+            "composite_upadha_vulnerability": round(composite_vulnerability, 4),
+            "dharmopadha_vulnerability": round(d_vuln, 4),
+            "arthopadha_vulnerability": round(a_vuln, 4),
+            "kamopadha_vulnerability": round(k_vuln, 4),
+            "bhayopadha_vulnerability": round(b_vuln, 4),
+            "mantra_gupti_secrecy_index": round(m_sec, 4),
+            "upadha_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_upadha_compromise_detected": score >= 0.70,
+        }
+
+
+class KrishnaRajadharmaExhaustionSieve:
+    """
+    Phase 361: Implements Bhagavān Śrī Kṛṣṇa's Rājadharma (Udyoga Parva peace exhaustion protocol)
+    and Bhagavad Gītā duty ethics. Formulates the mathematical boundary where peaceful conciliation
+    is exhausted and decisive righteous counter-warfare (Dharma-Yuddha / Āpaddharma) becomes mandatory.
+    """
+    @staticmethod
+    def evaluate(
+        peace_initiatives_exhausted_ratio: float = 0.85,
+        adversary_existential_hostility: float = 0.80,
+        sentimental_hesitation_moha: float = 0.20,
+        dharmic_svadharma_resolve: float = 0.85,
+    ) -> dict:
+        p_exh = max(0.0, min(1.0, float(peace_initiatives_exhausted_ratio)))
+        a_host = max(0.0, min(1.0, float(adversary_existential_hostility)))
+        s_moha = max(0.0, min(1.0, float(sentimental_hesitation_moha)))
+        d_res = max(0.0, min(1.0, float(dharmic_svadharma_resolve)))
+
+        z = 3.4 * p_exh + 3.0 * a_host + 2.5 * d_res - 3.2 * s_moha - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DHARMA_YUDDHA_RIGHTEOUS_RETALIATION_AUTHORIZED"
+            verdict = "EXHAUST_ALL_DIPLOMATIC_RETREAT_EXECUTE_DECISIVE_SOVEREIGN_COUNTERSTRIKE"
+            rationale = (
+                f"Righteous counter-strike authorized ({score:.4f}): Complete peace exhaustion ({p_exh:.2f}) and acute adversary "
+                f"hostility ({a_host:.2f}) mandate full asymmetric retaliation without sentimental hesitation (Moha: {s_moha:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "UDYOGA_DIPLOMATIC_OFFRAMP_ACTIVE"
+            verdict = "OFFER_MINIMUM_VIABLE_SOVEREIGN_TERMS_FIVE_VILLAGES_PROTOCOL"
+            rationale = f"Diplomatic exhaustion incomplete ({score:.4f}): Maintain active negotiations while preparing defensive mobilization."
+        else:
+            tier = "SHANTI_PARVA_CONCILIATION_PREVAILING"
+            verdict = "DIPLOMATIC_DE-ESCALATION_STABLE"
+            rationale = f"Peaceful equilibrium ({score:.4f}): Low adversary hostility permits continued dialogue."
+
+        return {
+            "krishna_rajadharma_exhaustion_score": score,
+            "peace_initiatives_exhausted_ratio": round(p_exh, 4),
+            "adversary_existential_hostility": round(a_host, 4),
+            "sentimental_hesitation_moha": round(s_moha, 4),
+            "dharmic_svadharma_resolve": round(d_res, 4),
+            "rajadharma_authorization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_righteous_retaliation_authorized": score >= 0.70,
         }
 
 ```
@@ -13861,6 +14107,78 @@ class AdversaryTimingCorrelationSieve:
             "is_timing_coordinated": score >= 0.70,
         }
 
+
+class KautilyaMandalaShadgunyaSieve:
+    """
+    Phase 360: Implements Kauṭilya's Arthaśāstra (Book VI & VII) Saptāṅga 7-limb sovereign statecraft
+    and Ṣaḍguṇya foreign policy recommender (Sandhi, Vigraha, Āsana, Yāna, Saṃśraya, Dvaidhībhāva).
+    Calculates state power equilibrium and prescribes optimal geopolitical strategy.
+    """
+    @staticmethod
+    def evaluate(
+        swami_leadership_clarity: float = 0.85,
+        amatya_bureaucratic_integrity: float = 0.75,
+        janapada_demographic_agriculture: float = 0.80,
+        durga_fortification_dpi: float = 0.80,
+        kosha_treasury_depth: float = 0.85,
+        danda_military_deterrence: float = 0.85,
+        mitra_alliance_reliability: float = 0.70,
+        adversary_power_index: float = 0.70,
+    ) -> dict:
+        s_swam = max(0.0, min(1.0, float(swami_leadership_clarity)))
+        s_amat = max(0.0, min(1.0, float(amatya_bureaucratic_integrity)))
+        s_jana = max(0.0, min(1.0, float(janapada_demographic_agriculture)))
+        s_durg = max(0.0, min(1.0, float(durga_fortification_dpi)))
+        s_kosh = max(0.0, min(1.0, float(kosha_treasury_depth)))
+        s_dand = max(0.0, min(1.0, float(danda_military_deterrence)))
+        s_mitr = max(0.0, min(1.0, float(mitra_alliance_reliability)))
+        a_pow = max(0.0, min(1.0, float(adversary_power_index)))
+
+        # Saptanga weighted linear index
+        saptanga_score = round(
+            0.18 * s_swam + 0.14 * s_amat + 0.14 * s_jana +
+            0.14 * s_durg + 0.16 * s_kosh + 0.14 * s_dand + 0.10 * s_mitr,
+            4
+        )
+        relative_delta = round(saptanga_score - a_pow, 4)
+
+        if relative_delta >= 0.25:
+            policy = "VIGRAHA"
+            tier = "DECISIVE_KAUTILYAN_HEGEMONIC_SUPERIORITY"
+            verdict = "EXECUTE_OFFENSIVE_CONTAINMENT_AND_EXPEDITION"
+            rationale = f"Overwhelming Saptanga strength ({saptanga_score:.4f} vs {a_pow:.2f}): Prescribes Vigraha to dismantle hostile alliances."
+        elif relative_delta >= 0.10:
+            policy = "YANA"
+            tier = "ASSERTIVE_SOVEREIGN_ADVANCEMENT"
+            verdict = "DEPLOY_MOBILIZATION_AND_ECONOMIC_EXPANSION"
+            rationale = f"Advantageous power balance (Delta: {relative_delta:+.2f}): Prescribes Yana to fortify forward infrastructure."
+        elif relative_delta >= -0.10:
+            policy = "DVAIDHIBHAVA"
+            tier = "EQUILIBRIUM_STRATEGIC_AMBIDEXTERITY"
+            verdict = "PURSUE_DUAL_POLICY_SANDHI_WITH_TRADE_VIGRAHA_WITH_DEFENSE"
+            rationale = f"Power parity (Delta: {relative_delta:+.2f}): Prescribes Dvaidhibhava—simultaneous economic engagement and border deterrence."
+        elif relative_delta >= -0.25:
+            policy = "ASANA"
+            tier = "CALCULATED_QUIETUDE_AND_INTERNAL_CONSOLIDATION"
+            verdict = "HOLD_POSITION_ACCUMULATE_KOSHA_AND_INTERNAL_CAPEX"
+            rationale = f"Marginal deficit (Delta: {relative_delta:+.2f}): Prescribes Asana—strategic patience while building treasury reserves."
+        else:
+            policy = "SAMSHRAYA"
+            tier = "ASYMMETRIC_VULNERABILITY_DEFICIT"
+            verdict = "SEEK_SHELTER_IN_POLYCENTRIC_DEFENSE_COALITIONS"
+            rationale = f"Acute power deficit (Delta: {relative_delta:+.2f}): Prescribes Samshraya with allied powers to deter aggression."
+
+        return {
+            "kautilya_saptanga_score": saptanga_score,
+            "adversary_power_index": round(a_pow, 4),
+            "relative_power_delta": relative_delta,
+            "optimal_sadgunya_policy": policy,
+            "saptanga_power_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_state_resilient": saptanga_score >= 0.70,
+        }
+
 ```
 
 
@@ -18372,6 +18690,58 @@ class SpeechKinesicAndChromaticForensicsSieve:
             "is_kinesic_deception_high": score >= 0.70,
         }
 
+
+class KinesicContextualBaselineDriftSieve:
+    """
+    Phase 358: Normalizes micro-kinesic and vocal jitter signals against cultural expressiveness norms,
+    high-stakes diplomatic summit pressure, and historical speaker baselines to prevent false positives.
+    """
+    @staticmethod
+    def evaluate(
+        observed_micro_expression_intensity: float = 0.40,
+        cultural_expressiveness_norm: float = 0.50,
+        summit_pressure_elevation: float = 0.60,
+        individual_historical_stability: float = 0.75,
+    ) -> dict:
+        o_int = max(0.0, min(1.0, float(observed_micro_expression_intensity)))
+        c_norm = max(0.0, min(1.0, float(cultural_expressiveness_norm)))
+        s_pres = max(0.0, min(1.0, float(summit_pressure_elevation)))
+        i_stab = max(0.0, min(1.0, float(individual_historical_stability)))
+
+        expected_baseline_stress = 0.35 * c_norm + 0.35 * s_pres
+        unexplained_drift = max(0.0, o_int - expected_baseline_stress)
+
+        z = 3.8 * unexplained_drift + 2.6 * (1.0 - i_stab) - 1.0
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ANOMALOUS_UNEXPLAINED_BASELINE_DRIFT"
+            verdict = "ACUTE_DECEPTION_OR_SEVERE_COGNITIVE_DISSONANCE"
+            rationale = (
+                f"Severe kinesic anomaly ({score:.4f}): Micro-signals ({o_int:.2f}) exceed cultural and summit baseline "
+                f"stress ({expected_baseline_stress:.2f}), confirming genuine deceit or psychological duress."
+            )
+        elif score >= 0.45:
+            tier = "CALIBRATED_SUMMIT_STRESS"
+            verdict = "EXPECTED_HIGH_STAKES_NEGOTIATION_TENSION"
+            rationale = f"Contextual stress ({score:.4f}): Jitter and micro-expressions align with high-stakes summit environment."
+        else:
+            tier = "ORGANIC_CULTURAL_CONGRUENCE"
+            verdict = "RELAXED_UNCONSTRAINED_DELIVERY"
+            rationale = f"Stable delivery ({score:.4f}): Kinesic output perfectly matches historical speaker baseline ({i_stab:.2f})."
+
+        return {
+            "kinesic_contextual_baseline_drift_score": score,
+            "observed_micro_expression_intensity": round(o_int, 4),
+            "cultural_expressiveness_norm": round(c_norm, 4),
+            "summit_pressure_elevation": round(s_pres, 4),
+            "individual_historical_stability": round(i_stab, 4),
+            "baseline_drift_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_anomalous_drift_detected": score >= 0.70,
+        }
+
 ```
 
 
@@ -20809,6 +21179,57 @@ class SpeechOmissionAndNegativeSpaceSieve:
             "is_omission_severe": score >= 0.70,
         }
 
+
+class SpeechToBalanceSheetDivergenceTensor:
+    """
+    Phase 357: Measures the acute divergence between public diplomatic/corporate rhetoric
+    and physical balance-sheet reality (bilateral tariffs, capital flight inducement, CBAM, and trade delivery).
+    Unmasks cognitive theater and economic warfare disguised as virtuous diplomacy.
+    """
+    @staticmethod
+    def evaluate(
+        claimed_multilateral_harmony: float = 0.85,
+        bilateral_tariff_barrier_index: float = 0.70,
+        capital_flight_inducement_score: float = 0.65,
+        physical_trade_delivery_ratio: float = 0.35,
+    ) -> dict:
+        c_harm = max(0.0, min(1.0, float(claimed_multilateral_harmony)))
+        t_barr = max(0.0, min(1.0, float(bilateral_tariff_barrier_index)))
+        c_flt = max(0.0, min(1.0, float(capital_flight_inducement_score)))
+        p_deliv = max(0.0, min(1.0, float(physical_trade_delivery_ratio)))
+
+        # High verbal harmony combined with hostile tariffs and capital flight = extreme divergence
+        z = 3.2 * t_barr + 2.8 * c_flt + 2.2 * c_harm - 3.2 * p_deliv - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_RHETORIC_BALANCE_SHEET_DIVERGENCE"
+            verdict = "COGNITIVE_WARFARE_THEATER_DISGUISING_ECONOMIC_SIEGE"
+            rationale = (
+                f"Severe hypocrisy divergence ({score:.4f}): Verbal partnership ({c_harm:.2f}) contradicts "
+                f"aggressive tariffs ({t_barr:.2f}) and capital flight inducement ({c_flt:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_DIPLOMATIC_HEDGING_GAP"
+            verdict = "POLITICAL_POSTURING_WITH_TRANSACTIONAL_FRICTION"
+            rationale = f"Moderate divergence ({score:.4f}): Rhetoric slightly outpaces real trade delivery ({p_deliv:.2f})."
+        else:
+            tier = "GROUNDED_EQUILIBRIUM"
+            verdict = "AUTHENTIC_RHETORIC_BACKED_BY_CAPITAL_FLOWS"
+            rationale = f"High alignment ({score:.4f}): Bilateral flows and trade commitments match public declarations."
+
+        return {
+            "speech_to_balance_sheet_divergence_score": score,
+            "claimed_multilateral_harmony": round(c_harm, 4),
+            "bilateral_tariff_barrier_index": round(t_barr, 4),
+            "capital_flight_inducement_score": round(c_flt, 4),
+            "physical_trade_delivery_ratio": round(p_deliv, 4),
+            "rhetoric_vs_flow_divergence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_hypocrisy_divergence_acute": score >= 0.70,
+        }
+
 ```
 
 
@@ -21138,7 +21559,7 @@ class AbyssalHydrospatialSovereigntySieve:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `c1914f5`
+- **Canonical Git Commit:** `fe5c6d4`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

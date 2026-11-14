@@ -355,3 +355,55 @@ class SpeechKinesicAndChromaticForensicsSieve:
             "tactical_rationale": rationale,
             "is_kinesic_deception_high": score >= 0.70,
         }
+
+
+class KinesicContextualBaselineDriftSieve:
+    """
+    Phase 358: Normalizes micro-kinesic and vocal jitter signals against cultural expressiveness norms,
+    high-stakes diplomatic summit pressure, and historical speaker baselines to prevent false positives.
+    """
+    @staticmethod
+    def evaluate(
+        observed_micro_expression_intensity: float = 0.40,
+        cultural_expressiveness_norm: float = 0.50,
+        summit_pressure_elevation: float = 0.60,
+        individual_historical_stability: float = 0.75,
+    ) -> dict:
+        o_int = max(0.0, min(1.0, float(observed_micro_expression_intensity)))
+        c_norm = max(0.0, min(1.0, float(cultural_expressiveness_norm)))
+        s_pres = max(0.0, min(1.0, float(summit_pressure_elevation)))
+        i_stab = max(0.0, min(1.0, float(individual_historical_stability)))
+
+        expected_baseline_stress = 0.35 * c_norm + 0.35 * s_pres
+        unexplained_drift = max(0.0, o_int - expected_baseline_stress)
+
+        z = 3.8 * unexplained_drift + 2.6 * (1.0 - i_stab) - 1.0
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ANOMALOUS_UNEXPLAINED_BASELINE_DRIFT"
+            verdict = "ACUTE_DECEPTION_OR_SEVERE_COGNITIVE_DISSONANCE"
+            rationale = (
+                f"Severe kinesic anomaly ({score:.4f}): Micro-signals ({o_int:.2f}) exceed cultural and summit baseline "
+                f"stress ({expected_baseline_stress:.2f}), confirming genuine deceit or psychological duress."
+            )
+        elif score >= 0.45:
+            tier = "CALIBRATED_SUMMIT_STRESS"
+            verdict = "EXPECTED_HIGH_STAKES_NEGOTIATION_TENSION"
+            rationale = f"Contextual stress ({score:.4f}): Jitter and micro-expressions align with high-stakes summit environment."
+        else:
+            tier = "ORGANIC_CULTURAL_CONGRUENCE"
+            verdict = "RELAXED_UNCONSTRAINED_DELIVERY"
+            rationale = f"Stable delivery ({score:.4f}): Kinesic output perfectly matches historical speaker baseline ({i_stab:.2f})."
+
+        return {
+            "kinesic_contextual_baseline_drift_score": score,
+            "observed_micro_expression_intensity": round(o_int, 4),
+            "cultural_expressiveness_norm": round(c_norm, 4),
+            "summit_pressure_elevation": round(s_pres, 4),
+            "individual_historical_stability": round(i_stab, 4),
+            "baseline_drift_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_anomalous_drift_detected": score >= 0.70,
+        }

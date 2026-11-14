@@ -1608,6 +1608,16 @@ def main():
     whistle_parser.add_argument("--domain", default="CORPORATE", choices=["CORPORATE", "DEFENSE", "ECOLOGY", "FINANCIAL", "HEALTHCARE", "HERITAGE"], help="Sectoral domain")
     whistle_parser.add_argument("--bsa-cert", action="store_true", help="Flag if electronic record certificate under BSA 2023 Sec 63 is present")
 
+    dharmik_parser = subparsers.add_parser("dharmik", help="Evaluate scenario under Chanakya Neeti, Kautilya Arthashastra, and Sri Krishna Rajadharma")
+    dharmik_parser.add_argument("scenario_text", help="Geopolitical, strategic, or treaty scenario text")
+    dharmik_parser.add_argument("--title", default="Strategic Statecraft Scenario", help="Scenario title")
+    dharmik_parser.add_argument("--target", default="Adversary / Partner State", help="Target nation or entity")
+    dharmik_parser.add_argument("--swami", type=float, default=0.85, help="Swami leadership clarity score (0.0 to 1.0)")
+    dharmik_parser.add_argument("--kosha", type=float, default=0.85, help="Kosha treasury depth score (0.0 to 1.0)")
+    dharmik_parser.add_argument("--danda", type=float, default=0.85, help="Danda military deterrence score (0.0 to 1.0)")
+    dharmik_parser.add_argument("--peace-exhausted", type=float, default=0.85, help="Peace initiatives exhausted ratio (0.0 to 1.0)")
+    dharmik_parser.add_argument("--moha", type=float, default=0.20, help="Sentimental hesitation Moha index (0.0 to 1.0)")
+
     try:
 
         args = parser.parse_args()
@@ -1711,6 +1721,50 @@ def main():
             tc = Table(title="Sovereign Multi-Domain Council Perspectives")
             tc.add_column("Council Member", style="bold yellow")
             tc.add_column("Strategic Analysis & Directive")
+            for member, comment in eval_res.council_perspectives.items():
+                tc.add_row(member.replace("_", " "), comment)
+            console.print(tc)
+        elif args.command == "dharmik":
+            import os
+            from .arbitration.dharmik_statecraft import DharmikStatecraftDossier, DharmikStatecraftPipeline
+            from rich.console import Console
+            from rich.panel import Panel
+            from rich.table import Table
+
+            console = Console()
+            dossier = DharmikStatecraftDossier(
+                dossier_id="DHARMIK-" + os.urandom(4).hex().upper(),
+                title=getattr(args, "title", "Strategic Statecraft Scenario"),
+                target_nation_or_entity=getattr(args, "target", "Adversary / Partner State"),
+                narrative_context=args.scenario_text,
+                swami_leadership_clarity=getattr(args, "swami", 0.85),
+                kosha_treasury_depth=getattr(args, "kosha", 0.85),
+                danda_military_deterrence=getattr(args, "danda", 0.85),
+                peace_initiatives_exhausted_ratio=getattr(args, "peace_exhausted", 0.85),
+                sentimental_hesitation_moha=getattr(args, "moha", 0.20),
+            )
+            eval_res = DharmikStatecraftPipeline.evaluate_scenario(dossier)
+            console.print(Panel(
+                f"[bold cyan]DHARMIK STATECRAFT ENGINE: TRI-PILLAR BHARATIYA EVALUATION[/bold cyan]\n"
+                f"Target: [bold yellow]{eval_res.target_nation_or_entity}[/bold yellow] | Policy: [bold green]{eval_res.optimal_sadgunya_policy}[/bold green]\n"
+                f"Saptāṅga Health Score: [bold]{eval_res.kautilya_saptanga_score:.4f}[/bold]\n"
+                f"Composite Sovereignty Index: [bold magenta]{eval_res.composite_dharmik_sovereignty_index:.4f}[/bold magenta]\n"
+                f"Rājadharma Authorization: [bold red]{eval_res.rajadharma_authorization_tier}[/bold red]\n"
+                f"Operational Directive: {eval_res.operational_directive}",
+                title="Tri-Pillar Dharmik Statecraft Evaluation",
+                border_style="yellow"
+            ))
+
+            t = Table(title="Competing Strategic Doctrines (ACH Normalization)")
+            t.add_column("Strategic Doctrine", style="bold")
+            t.add_column("Probability", justify="right")
+            for h, prob in eval_res.competing_strategic_doctrines.items():
+                t.add_row(h, f"{prob * 100:.2f}%")
+            console.print(t)
+
+            tc = Table(title="Complete 19-Member Sovereign Epistemic Council Directives")
+            tc.add_column("Council Member", style="bold yellow")
+            tc.add_column("Strategic Directive & Shastric Lens")
             for member, comment in eval_res.council_perspectives.items():
                 tc.add_row(member.replace("_", " "), comment)
             console.print(tc)

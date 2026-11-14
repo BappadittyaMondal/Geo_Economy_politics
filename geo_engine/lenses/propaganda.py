@@ -1191,3 +1191,54 @@ class SpeechOmissionAndNegativeSpaceSieve:
             "tactical_rationale": rationale,
             "is_omission_severe": score >= 0.70,
         }
+
+
+class SpeechToBalanceSheetDivergenceTensor:
+    """
+    Phase 357: Measures the acute divergence between public diplomatic/corporate rhetoric
+    and physical balance-sheet reality (bilateral tariffs, capital flight inducement, CBAM, and trade delivery).
+    Unmasks cognitive theater and economic warfare disguised as virtuous diplomacy.
+    """
+    @staticmethod
+    def evaluate(
+        claimed_multilateral_harmony: float = 0.85,
+        bilateral_tariff_barrier_index: float = 0.70,
+        capital_flight_inducement_score: float = 0.65,
+        physical_trade_delivery_ratio: float = 0.35,
+    ) -> dict:
+        c_harm = max(0.0, min(1.0, float(claimed_multilateral_harmony)))
+        t_barr = max(0.0, min(1.0, float(bilateral_tariff_barrier_index)))
+        c_flt = max(0.0, min(1.0, float(capital_flight_inducement_score)))
+        p_deliv = max(0.0, min(1.0, float(physical_trade_delivery_ratio)))
+
+        # High verbal harmony combined with hostile tariffs and capital flight = extreme divergence
+        z = 3.2 * t_barr + 2.8 * c_flt + 2.2 * c_harm - 3.2 * p_deliv - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_RHETORIC_BALANCE_SHEET_DIVERGENCE"
+            verdict = "COGNITIVE_WARFARE_THEATER_DISGUISING_ECONOMIC_SIEGE"
+            rationale = (
+                f"Severe hypocrisy divergence ({score:.4f}): Verbal partnership ({c_harm:.2f}) contradicts "
+                f"aggressive tariffs ({t_barr:.2f}) and capital flight inducement ({c_flt:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_DIPLOMATIC_HEDGING_GAP"
+            verdict = "POLITICAL_POSTURING_WITH_TRANSACTIONAL_FRICTION"
+            rationale = f"Moderate divergence ({score:.4f}): Rhetoric slightly outpaces real trade delivery ({p_deliv:.2f})."
+        else:
+            tier = "GROUNDED_EQUILIBRIUM"
+            verdict = "AUTHENTIC_RHETORIC_BACKED_BY_CAPITAL_FLOWS"
+            rationale = f"High alignment ({score:.4f}): Bilateral flows and trade commitments match public declarations."
+
+        return {
+            "speech_to_balance_sheet_divergence_score": score,
+            "claimed_multilateral_harmony": round(c_harm, 4),
+            "bilateral_tariff_barrier_index": round(t_barr, 4),
+            "capital_flight_inducement_score": round(c_flt, 4),
+            "physical_trade_delivery_ratio": round(p_deliv, 4),
+            "rhetoric_vs_flow_divergence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_hypocrisy_divergence_acute": score >= 0.70,
+        }

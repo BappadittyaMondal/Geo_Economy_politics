@@ -1259,4 +1259,102 @@ class OffshoreDebtCovenantContagionSieve:
             "is_debt_contagion_severe": score >= 0.70,
         }
 
+
+class BISHiddenFXSwapContagionSieve:
+    """
+    Phase 355: Evaluates off-balance-sheet dollar forward and swap liabilities (BIS $80T shadow debt),
+    cross-currency basis swap margins, and central bank swap line coverage.
+    """
+    @staticmethod
+    def evaluate(
+        ois_sofr_spread_bps: float = 25.0,
+        cross_currency_basis_spread_bps: float = 35.0,
+        off_balance_sheet_swap_ratio: float = 0.35,
+        bilateral_swap_line_coverage: float = 0.75,
+    ) -> dict:
+        s_ois = max(0.0, float(ois_sofr_spread_bps)) / 100.0
+        s_basis = max(0.0, float(cross_currency_basis_spread_bps)) / 100.0
+        s_swap = max(0.0, min(1.0, float(off_balance_sheet_swap_ratio)))
+        s_cov = max(0.0, min(1.0, float(bilateral_swap_line_coverage)))
+
+        z = 2.8 * s_ois + 3.2 * s_basis + 2.5 * s_swap - 3.0 * s_cov - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SEVERE_OFFSHORE_DOLLAR_LIQUIDITY_SQUEEZE"
+            verdict = "ACTIVATE_RBI_FED_SWAP_AND_GSEC_REPO_FACILITY"
+            rationale = (
+                f"High synthetic dollar crunch ({score:.4f}): Basis spread ({cross_currency_basis_spread_bps:.1f} bps) "
+                f"and hidden swap leverage ({s_swap:.2f}) threaten systemic debt rollover."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_CROSS_CURRENCY_STRAIN"
+            verdict = "ENHANCE_DOMESTIC_EXPORT_EARNINGS_REPATRIATION"
+            rationale = f"Moderate dollar strain ({score:.4f}): Monitored roll-over with domestic FX liquidity."
+        else:
+            tier = "RESILIENT_OFFSHORE_DOLLAR_LIQUIDITY"
+            verdict = "NORMAL_LIQUIDITY_ADEQUACY"
+            rationale = f"Solvent FX plumbing ({score:.4f}): Ample central bank swap lines ({s_cov:.2f}) buffer offshore shocks."
+
+        return {
+            "bis_hidden_fx_swap_contagion_score": score,
+            "ois_sofr_spread_bps": round(float(ois_sofr_spread_bps), 2),
+            "cross_currency_basis_spread_bps": round(float(cross_currency_basis_spread_bps), 2),
+            "off_balance_sheet_swap_ratio": round(s_swap, 4),
+            "bilateral_swap_line_coverage": round(s_cov, 4),
+            "dollar_squeeze_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_fx_contagion_severe": score >= 0.70,
+        }
+
+
+class OffshoreUBOShellDeAnonymizerSieve:
+    """
+    Phase 356: De-anonymizes Ultimate Beneficial Ownership (UBO) layering in offshore Category I/II FPIs,
+    Participatory Notes (P-Notes), and front-running short syndicates.
+    """
+    @staticmethod
+    def evaluate(
+        pnote_concentration_ratio: float = 0.30,
+        tax_haven_layering_depth: int = 2,
+        pre_leak_put_oi_growth: float = 0.25,
+        ubo_transparency_score: float = 0.80,
+    ) -> dict:
+        p_conc = max(0.0, min(1.0, float(pnote_concentration_ratio)))
+        l_depth = max(1.0, min(6.0, float(tax_haven_layering_depth)))
+        p_growth = max(0.0, min(2.0, float(pre_leak_put_oi_growth)))
+        u_trans = max(0.0, min(1.0, float(ubo_transparency_score)))
+
+        z = 3.2 * p_conc + 0.5 * (l_depth - 1.0) + 2.4 * p_growth - 3.4 * u_trans - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "PREDATORY_OFFSHORE_SHELL_CONSORTIUM"
+            verdict = "ISSUE_SEBI_ED_PREVENTIVE_FREEZE_AND_LOOKTHROUGH_AUDIT"
+            rationale = (
+                f"High predatory short syndicate risk ({score:.4f}): Layering depth {int(l_depth)} and P-note concentration "
+                f"({p_conc:.2f}) point to coordinated bear-raid shell attack."
+            )
+        elif score >= 0.45:
+            tier = "SUSPICIOUS_OFFSHORE_CONCENTRATION"
+            verdict = "ENFORCE_STRICT_UBO_BENEFICIARY_DECLARATION"
+            rationale = f"Elevated shell obfuscation ({score:.4f}): Requires statutory look-through under SEBI 2023 regulations."
+        else:
+            tier = "COMPLIANT_TRANSPARENT_FPI_CAPITAL"
+            verdict = "AUTHENTIC_INSTITUTIONAL_INVESTMENT"
+            rationale = f"Transparent ownership ({score:.4f}): High UBO compliance ({u_trans:.2f}) with zero predatory short spikes."
+
+        return {
+            "offshore_ubo_de_anonymizer_score": score,
+            "pnote_concentration_ratio": round(p_conc, 4),
+            "tax_haven_layering_depth": int(l_depth),
+            "pre_leak_put_oi_growth": round(p_growth, 4),
+            "ubo_transparency_score": round(u_trans, 4),
+            "shell_layering_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_predatory_ubo_detected": score >= 0.70,
+        }
+
 ```

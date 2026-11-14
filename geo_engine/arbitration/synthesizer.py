@@ -832,6 +832,14 @@ class SummitSynthesizer:
             "perjury_risk_and_retributive_liability_score": lawfare_eval.hard_metrics.get("perjury_risk_and_retributive_liability_score") if lawfare_eval and "perjury_risk_and_retributive_liability_score" in lawfare_eval.hard_metrics else None,
             "qdt_whistleblower_cognitive_state_score": deep_tech_eval.hard_metrics.get("qdt_whistleblower_cognitive_state_score") if deep_tech_eval and "qdt_whistleblower_cognitive_state_score" in deep_tech_eval.hard_metrics else None,
             "sovereign_strategic_capex_impact_score": geo_economist_eval.hard_metrics.get("sovereign_strategic_capex_impact_score") if geo_economist_eval and "sovereign_strategic_capex_impact_score" in geo_economist_eval.hard_metrics else None,
+            # Phases 355-364: Invisible Cash Flows & Dharmik Statecraft Sieves
+            "bis_hidden_fx_swap_contagion_score": cash_eval.hard_metrics.get("bis_hidden_fx_swap_contagion_score") if cash_eval and "bis_hidden_fx_swap_contagion_score" in cash_eval.hard_metrics else None,
+            "offshore_ubo_de_anonymizer_score": cash_eval.hard_metrics.get("offshore_ubo_de_anonymizer_score") if cash_eval and "offshore_ubo_de_anonymizer_score" in cash_eval.hard_metrics else None,
+            "speech_to_balance_sheet_divergence_score": propaganda_eval.hard_metrics.get("speech_to_balance_sheet_divergence_score") if propaganda_eval and "speech_to_balance_sheet_divergence_score" in propaganda_eval.hard_metrics else None,
+            "kinesic_contextual_baseline_drift_score": kinesic_eval.hard_metrics.get("kinesic_contextual_baseline_drift_score") if kinesic_eval and "kinesic_contextual_baseline_drift_score" in kinesic_eval.hard_metrics else None,
+            "chanakya_upadha_integrity_score": civ_eval.hard_metrics.get("chanakya_upadha_integrity_score") if civ_eval and "chanakya_upadha_integrity_score" in civ_eval.hard_metrics else None,
+            "kautilya_saptanga_score": geo_eval.hard_metrics.get("kautilya_saptanga_score") if geo_eval and "kautilya_saptanga_score" in geo_eval.hard_metrics else None,
+            "krishna_rajadharma_exhaustion_score": civ_eval.hard_metrics.get("krishna_rajadharma_exhaustion_score") if civ_eval and "krishna_rajadharma_exhaustion_score" in civ_eval.hard_metrics else None,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

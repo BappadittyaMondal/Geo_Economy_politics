@@ -144,6 +144,79 @@ class EventStore:
                     created_at TEXT NOT NULL
                 )
             """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS dharmik_textual_anchors (
+                    anchor_id TEXT PRIMARY KEY,
+                    source_tradition TEXT NOT NULL,
+                    canonical_reference TEXT NOT NULL,
+                    sanskrit_text TEXT NOT NULL,
+                    english_translation TEXT NOT NULL,
+                    strategic_statecraft_maxim TEXT NOT NULL,
+                    epistemic_tier TEXT DEFAULT 'TIER_1_CANONICAL'
+                )
+            """)
+
+            # Seed Phase 365: Tri-Pillar Bharatiya Statecraft Anchors
+            cursor.executemany("""
+                INSERT OR IGNORE INTO dharmik_textual_anchors
+                (anchor_id, source_tradition, canonical_reference, sanskrit_text, english_translation, strategic_statecraft_maxim, epistemic_tier)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "ANCHOR-CHANAKYA-UPADHA-01",
+                    "CHANAKYA_NEETI",
+                    "Arthaśāstra I.10 & Chāṇakya Nīti III",
+                    "Dharmopadhā-śuddhān dharmasthīyeṣu karmasu niyojayet; arthopadhā-śuddhān samāhartṛ-sannidhātṛ-karmasu.",
+                    "Those cleared through moral testing shall be appointed to judicial offices; those cleared through monetary testing shall oversee revenue and treasury.",
+                    "Fourfold secret integrity testing (Upadhā-Parīkṣā) must precede appointment to sensitive sovereign offices to eliminate insider treason.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-CHANAKYA-MANTRA-02",
+                    "CHANAKYA_NEETI",
+                    "Arthaśāstra I.15 & Chāṇakya Nīti VIII",
+                    "Mantra-bhedo hi sarva-kāryāṇi vināśayati; tasmān mantra-rakṣaṇe yatnam ātiṣṭhet.",
+                    "The leakage of state secrets destroys all royal enterprises; therefore, supreme diligence must be exercised in protecting operational secrecy.",
+                    "Mantra-Gupti (operational secrecy and counter-leakage) is the primary safeguard of sovereign decision-making.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KAUTILYA-SAPTANGA-01",
+                    "KAUTILYA_ARTHASHASTRA",
+                    "Arthaśāstra VI.1 (Prakṛti-Sampat)",
+                    "Svāmī amātya-janapada-durga-kośa-daṇḍa-mitrāṇi prakṛtayaḥ.",
+                    "The sovereign ruler, the ministerial bureaucracy, the rural-demographic territory, the fortified assets, the treasury, the military force, and the allies constitute the seven limbs.",
+                    "Sovereignty is an organic 7-limb system (Saptāṅga); a failure in treasury (Kośa) or fortifications (Durga) causes systemic collapse.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KAUTILYA-SHADGUNYA-02",
+                    "KAUTILYA_ARTHASHASTRA",
+                    "Arthaśāstra VII.1 (Ṣaḍguṇya-Samuddeśa)",
+                    "Ṣaḍguṇyasyoddeśaḥ: Sandhir vigraho 'sanaṃ yānaṃ saṃśrayo dvaidhībhāvaś ceti.",
+                    "The six methods of foreign policy are: peace alliance (Sandhi), active hostility (Vigraha), calculated quietude (Āsana), mobilization (Yāna), coalition shelter (Saṃśraya), and dual policy (Dvaidhībhāva).",
+                    "Inter-state diplomacy is a mathematical function of relative power equilibrium, not sentimental rhetoric.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KRISHNA-UDYOGA-01",
+                    "KRISHNA_GITA_MAHABHARATA",
+                    "Mahābhārata, Udyoga Parva 72.16 (Dūta-Vākya)",
+                    "Śamaṃ yadi na gṛhṇanti kauravā mat-prayojitāḥ; yuddham evānvagamiṣyanti kāla-pakvā iva drumāḥ.",
+                    "If the Kauravas refuse peace after my diplomatic embassy, they will inevitably face destruction like trees ripe for felling.",
+                    "Righteous kinetic retaliation (Dharma-Yuddha) is ethically justified only when all peaceful off-ramps (Five Villages Protocol) have been formally exhausted.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KRISHNA-GITA-SVADHARMA-02",
+                    "KRISHNA_GITA_MAHABHARATA",
+                    "Bhagavad Gītā 2.3 & 18.47",
+                    "Klaibyaṃ mā sma gamaḥ pārtha naitat tvayy upapadyate; kṣudraṃ hṛdaya-daurbalyaṃ tyaktvottiṣṭha parantapa.",
+                    "Yield not to unmanliness, O Partha; it is unworthy of thee. Cast off this petty faintheartedness and arise, O scorcher of foes.",
+                    "Sovereign statecraft requires overcoming cognitive paralysis (Moha); defending the realm (Svadharmic duty) supersedes personal pacifism.",
+                    "TIER_1_CANONICAL"
+                ),
+            ])
 
             # Seed Phase 53 baseline statutory clauses idempotently
             cursor.executemany("""
@@ -719,6 +792,79 @@ class EventStore:
                     created_at TEXT NOT NULL
                 )
             """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS dharmik_textual_anchors (
+                    anchor_id TEXT PRIMARY KEY,
+                    source_tradition TEXT NOT NULL,
+                    canonical_reference TEXT NOT NULL,
+                    sanskrit_text TEXT NOT NULL,
+                    english_translation TEXT NOT NULL,
+                    strategic_statecraft_maxim TEXT NOT NULL,
+                    epistemic_tier TEXT DEFAULT 'TIER_1_CANONICAL'
+                )
+            """)
+
+            # Seed Phase 365: Tri-Pillar Bharatiya Statecraft Anchors
+            cursor.executemany("""
+                INSERT OR IGNORE INTO dharmik_textual_anchors
+                (anchor_id, source_tradition, canonical_reference, sanskrit_text, english_translation, strategic_statecraft_maxim, epistemic_tier)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "ANCHOR-CHANAKYA-UPADHA-01",
+                    "CHANAKYA_NEETI",
+                    "Arthaśāstra I.10 & Chāṇakya Nīti III",
+                    "Dharmopadhā-śuddhān dharmasthīyeṣu karmasu niyojayet; arthopadhā-śuddhān samāhartṛ-sannidhātṛ-karmasu.",
+                    "Those cleared through moral testing shall be appointed to judicial offices; those cleared through monetary testing shall oversee revenue and treasury.",
+                    "Fourfold secret integrity testing (Upadhā-Parīkṣā) must precede appointment to sensitive sovereign offices to eliminate insider treason.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-CHANAKYA-MANTRA-02",
+                    "CHANAKYA_NEETI",
+                    "Arthaśāstra I.15 & Chāṇakya Nīti VIII",
+                    "Mantra-bhedo hi sarva-kāryāṇi vināśayati; tasmān mantra-rakṣaṇe yatnam ātiṣṭhet.",
+                    "The leakage of state secrets destroys all royal enterprises; therefore, supreme diligence must be exercised in protecting operational secrecy.",
+                    "Mantra-Gupti (operational secrecy and counter-leakage) is the primary safeguard of sovereign decision-making.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KAUTILYA-SAPTANGA-01",
+                    "KAUTILYA_ARTHASHASTRA",
+                    "Arthaśāstra VI.1 (Prakṛti-Sampat)",
+                    "Svāmī amātya-janapada-durga-kośa-daṇḍa-mitrāṇi prakṛtayaḥ.",
+                    "The sovereign ruler, the ministerial bureaucracy, the rural-demographic territory, the fortified assets, the treasury, the military force, and the allies constitute the seven limbs.",
+                    "Sovereignty is an organic 7-limb system (Saptāṅga); a failure in treasury (Kośa) or fortifications (Durga) causes systemic collapse.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KAUTILYA-SHADGUNYA-02",
+                    "KAUTILYA_ARTHASHASTRA",
+                    "Arthaśāstra VII.1 (Ṣaḍguṇya-Samuddeśa)",
+                    "Ṣaḍguṇyasyoddeśaḥ: Sandhir vigraho 'sanaṃ yānaṃ saṃśrayo dvaidhībhāvaś ceti.",
+                    "The six methods of foreign policy are: peace alliance (Sandhi), active hostility (Vigraha), calculated quietude (Āsana), mobilization (Yāna), coalition shelter (Saṃśraya), and dual policy (Dvaidhībhāva).",
+                    "Inter-state diplomacy is a mathematical function of relative power equilibrium, not sentimental rhetoric.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KRISHNA-UDYOGA-01",
+                    "KRISHNA_GITA_MAHABHARATA",
+                    "Mahābhārata, Udyoga Parva 72.16 (Dūta-Vākya)",
+                    "Śamaṃ yadi na gṛhṇanti kauravā mat-prayojitāḥ; yuddham evānvagamiṣyanti kāla-pakvā iva drumāḥ.",
+                    "If the Kauravas refuse peace after my diplomatic embassy, they will inevitably face destruction like trees ripe for felling.",
+                    "Righteous kinetic retaliation (Dharma-Yuddha) is ethically justified only when all peaceful off-ramps (Five Villages Protocol) have been formally exhausted.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KRISHNA-GITA-SVADHARMA-02",
+                    "KRISHNA_GITA_MAHABHARATA",
+                    "Bhagavad Gītā 2.3 & 18.47",
+                    "Klaibyaṃ mā sma gamaḥ pārtha naitat tvayy upapadyate; kṣudraṃ hṛdaya-daurbalyaṃ tyaktvottiṣṭha parantapa.",
+                    "Yield not to unmanliness, O Partha; it is unworthy of thee. Cast off this petty faintheartedness and arise, O scorcher of foes.",
+                    "Sovereign statecraft requires overcoming cognitive paralysis (Moha); defending the realm (Svadharmic duty) supersedes personal pacifism.",
+                    "TIER_1_CANONICAL"
+                ),
+            ])
 
             # Seed foundational historical events
             events_seed = [
@@ -3401,6 +3547,38 @@ class EventStore:
                 }
                 for r in rows
             ]
+
+    def lookup_dharmik_anchors(self, tradition: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Phase 365: Returns authentic Sanskrit scriptural and strategic statecraft anchors."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if tradition:
+                cursor.execute("""
+                    SELECT anchor_id, source_tradition, canonical_reference, sanskrit_text, english_translation, strategic_statecraft_maxim, epistemic_tier
+                    FROM dharmik_textual_anchors
+                    WHERE source_tradition = ?
+                    ORDER BY anchor_id ASC
+                """, (tradition,))
+            else:
+                cursor.execute("""
+                    SELECT anchor_id, source_tradition, canonical_reference, sanskrit_text, english_translation, strategic_statecraft_maxim, epistemic_tier
+                    FROM dharmik_textual_anchors
+                    ORDER BY anchor_id ASC
+                """)
+            rows = cursor.fetchall()
+            return [
+                {
+                    "anchor_id": r[0],
+                    "source_tradition": r[1],
+                    "canonical_reference": r[2],
+                    "sanskrit_text": r[3],
+                    "english_translation": r[4],
+                    "strategic_statecraft_maxim": r[5],
+                    "epistemic_tier": r[6],
+                }
+                for r in rows
+            ]
+
 
 
 

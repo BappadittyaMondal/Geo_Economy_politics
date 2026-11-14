@@ -130,6 +130,13 @@ class StrategicQuery(BaseModel):
     requires_perjury_retributive_liability: bool = False
     requires_qdt_whistleblower: bool = False
     requires_sovereign_capex_impact: bool = False
+    requires_bis_hidden_fx_swap: bool = False
+    requires_offshore_ubo_shell: bool = False
+    requires_speech_to_balance_sheet_divergence: bool = False
+    requires_kinesic_contextual_baseline: bool = False
+    requires_chanakya_neeti_upadha: bool = False
+    requires_kautilya_mandala_shadgunya: bool = False
+    requires_krishna_rajadharma_exhaustion: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -471,6 +478,24 @@ class QueryParser:
         req_perj_liab = any(cls.matches_keyword(text_lower, kw) for kw in ["perjury risk and retributive liability", "bns section 229 230", "bns section 229", "malicious slander liability", "retributive perjury penalty"])
         req_qdt_whistle = any(cls.matches_keyword(text_lower, kw) for kw in ["qdt whistleblower cognitive state", "quantum decision disclosure", "duty fear interference", "constructive duty interference", "whistleblower cognitive state"])
         req_capex_imp = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign strategic capex impact", "curative receivership", "satyam model receivership", "capex multiplier freeze", "receivership remedy viability"])
+        req_bis_fx = any(cls.matches_keyword(text_lower, kw) for kw in ["bis hidden fx", "hidden fx swap", "cross currency basis spread", "shadow dollar debt", "dollar funding stress", "ois sofr spread"])
+        req_ubo_shell = any(cls.matches_keyword(text_lower, kw) for kw in ["offshore ubo", "beneficial ownership shell", "pnote concentration", "category i fpi", "tax haven layering", "short syndicate de-anonymizer"])
+        req_speech_balsheet = any(cls.matches_keyword(text_lower, kw) for kw in ["speech to balance sheet divergence", "rhetoric vs balance sheet", "cbam tariff barrier", "verbal harmony divergence", "hypocrisy divergence"])
+        req_kinesic_baseline = any(cls.matches_keyword(text_lower, kw) for kw in ["kinesic contextual baseline", "baseline drift", "summit pressure elevation", "cultural expressiveness norm", "micro expression drift"])
+        req_chanakya_upadha = any(cls.matches_keyword(text_lower, kw) for kw in ["chanakya neeti upadha", "upadha pariksha", "mantra gupti", "dharmopadha", "arthopadha", "bhayopadha", "kamopadha integrity"])
+        req_kautilya_saptanga = any(cls.matches_keyword(text_lower, kw) for kw in ["kautilya mandala shadgunya", "saptanga 7-limb", "saptanga health", "shadgunya foreign policy", "sandhi vigraha", "raja mandala action"])
+        req_krishna_rajadharma = any(cls.matches_keyword(text_lower, kw) for kw in ["krishna rajadharma exhaustion", "udyoga parva peace exhaustion", "peace initiatives exhausted", "dharma yuddha retaliation", "svadharma resolve", "moha hesitation"])
+
+        if (req_bis_fx or req_ubo_shell) and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_speech_balsheet and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if req_kinesic_baseline and "kinesics" not in active_lenses:
+            active_lenses.append("kinesics")
+        if (req_chanakya_upadha or req_krishna_rajadharma) and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_kautilya_saptanga and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
 
         if req_pnt and "military_readiness" not in active_lenses:
             active_lenses.append("military_readiness")
@@ -720,6 +745,13 @@ class QueryParser:
             requires_perjury_retributive_liability=req_perj_liab,
             requires_qdt_whistleblower=req_qdt_whistle,
             requires_sovereign_capex_impact=req_capex_imp,
+            requires_bis_hidden_fx_swap=req_bis_fx,
+            requires_offshore_ubo_shell=req_ubo_shell,
+            requires_speech_to_balance_sheet_divergence=req_speech_balsheet,
+            requires_kinesic_contextual_baseline=req_kinesic_baseline,
+            requires_chanakya_neeti_upadha=req_chanakya_upadha,
+            requires_kautilya_mandala_shadgunya=req_kautilya_saptanga,
+            requires_krishna_rajadharma_exhaustion=req_krishna_rajadharma,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

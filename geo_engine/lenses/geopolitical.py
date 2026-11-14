@@ -646,3 +646,75 @@ class AdversaryTimingCorrelationSieve:
             "tactical_rationale": rationale,
             "is_timing_coordinated": score >= 0.70,
         }
+
+
+class KautilyaMandalaShadgunyaSieve:
+    """
+    Phase 360: Implements Kauṭilya's Arthaśāstra (Book VI & VII) Saptāṅga 7-limb sovereign statecraft
+    and Ṣaḍguṇya foreign policy recommender (Sandhi, Vigraha, Āsana, Yāna, Saṃśraya, Dvaidhībhāva).
+    Calculates state power equilibrium and prescribes optimal geopolitical strategy.
+    """
+    @staticmethod
+    def evaluate(
+        swami_leadership_clarity: float = 0.85,
+        amatya_bureaucratic_integrity: float = 0.75,
+        janapada_demographic_agriculture: float = 0.80,
+        durga_fortification_dpi: float = 0.80,
+        kosha_treasury_depth: float = 0.85,
+        danda_military_deterrence: float = 0.85,
+        mitra_alliance_reliability: float = 0.70,
+        adversary_power_index: float = 0.70,
+    ) -> dict:
+        s_swam = max(0.0, min(1.0, float(swami_leadership_clarity)))
+        s_amat = max(0.0, min(1.0, float(amatya_bureaucratic_integrity)))
+        s_jana = max(0.0, min(1.0, float(janapada_demographic_agriculture)))
+        s_durg = max(0.0, min(1.0, float(durga_fortification_dpi)))
+        s_kosh = max(0.0, min(1.0, float(kosha_treasury_depth)))
+        s_dand = max(0.0, min(1.0, float(danda_military_deterrence)))
+        s_mitr = max(0.0, min(1.0, float(mitra_alliance_reliability)))
+        a_pow = max(0.0, min(1.0, float(adversary_power_index)))
+
+        # Saptanga weighted linear index
+        saptanga_score = round(
+            0.18 * s_swam + 0.14 * s_amat + 0.14 * s_jana +
+            0.14 * s_durg + 0.16 * s_kosh + 0.14 * s_dand + 0.10 * s_mitr,
+            4
+        )
+        relative_delta = round(saptanga_score - a_pow, 4)
+
+        if relative_delta >= 0.25:
+            policy = "VIGRAHA"
+            tier = "DECISIVE_KAUTILYAN_HEGEMONIC_SUPERIORITY"
+            verdict = "EXECUTE_OFFENSIVE_CONTAINMENT_AND_EXPEDITION"
+            rationale = f"Overwhelming Saptanga strength ({saptanga_score:.4f} vs {a_pow:.2f}): Prescribes Vigraha to dismantle hostile alliances."
+        elif relative_delta >= 0.10:
+            policy = "YANA"
+            tier = "ASSERTIVE_SOVEREIGN_ADVANCEMENT"
+            verdict = "DEPLOY_MOBILIZATION_AND_ECONOMIC_EXPANSION"
+            rationale = f"Advantageous power balance (Delta: {relative_delta:+.2f}): Prescribes Yana to fortify forward infrastructure."
+        elif relative_delta >= -0.10:
+            policy = "DVAIDHIBHAVA"
+            tier = "EQUILIBRIUM_STRATEGIC_AMBIDEXTERITY"
+            verdict = "PURSUE_DUAL_POLICY_SANDHI_WITH_TRADE_VIGRAHA_WITH_DEFENSE"
+            rationale = f"Power parity (Delta: {relative_delta:+.2f}): Prescribes Dvaidhibhava—simultaneous economic engagement and border deterrence."
+        elif relative_delta >= -0.25:
+            policy = "ASANA"
+            tier = "CALCULATED_QUIETUDE_AND_INTERNAL_CONSOLIDATION"
+            verdict = "HOLD_POSITION_ACCUMULATE_KOSHA_AND_INTERNAL_CAPEX"
+            rationale = f"Marginal deficit (Delta: {relative_delta:+.2f}): Prescribes Asana—strategic patience while building treasury reserves."
+        else:
+            policy = "SAMSHRAYA"
+            tier = "ASYMMETRIC_VULNERABILITY_DEFICIT"
+            verdict = "SEEK_SHELTER_IN_POLYCENTRIC_DEFENSE_COALITIONS"
+            rationale = f"Acute power deficit (Delta: {relative_delta:+.2f}): Prescribes Samshraya with allied powers to deter aggression."
+
+        return {
+            "kautilya_saptanga_score": saptanga_score,
+            "adversary_power_index": round(a_pow, 4),
+            "relative_power_delta": relative_delta,
+            "optimal_sadgunya_policy": policy,
+            "saptanga_power_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_state_resilient": saptanga_score >= 0.70,
+        }

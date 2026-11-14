@@ -4168,3 +4168,46 @@ Phase 354 reconciles and unifies this into a **19-Member Sovereign & Dharmic Epi
 - **Pipeline Subsystem (`geo_engine/arbitration/whistleblower.py`):** Expanded `council_perspectives` to generate all 19 calibrated assessments dynamically.
 - **Command Line Interface (`geo_engine/cli.py`):** `whistle` sub-command displays all 19 council members cleanly in structured rich tables.
 - **Test Suite (`tests/test_engine.py`):** Certified `len(evaluation.council_perspectives) == 19`, 664 tests passing 100% green.
+
+---
+
+## Section 113: Phases 355–365 — Tri-Pillar Dharmik Statecraft Engine, Invisible Cash-Flow Forensics & Civilizational Precision Grounding
+
+### 1. Doctrinal Motivation & Strategic Realism
+Phases 355 through 365 operationalize the **Tri-Pillar Bharatiya Epistemic Core** and **Invisible Cash-Flow Forensics** across the sovereign intelligence engine. By transcending surface rhetoric, the system bridges the gap between public diplomatic speeches and underlying balance sheets, monetary plumbing, and classical Dharmic statecraft:
+1. **Invisible Cash-Flow Forensics (Dr. Ankit Shah Lens):**
+   - Unmasks the Bank for International Settlements (BIS) $80 trillion off-balance-sheet dollar swap liabilities and cross-currency basis spreads that weaponize liquidity crunches against the Indian Rupee and corporate bond covenants.
+   - De-anonymizes Category I/II Foreign Portfolio Investor (FPI) shell layering and Participatory Note (P-Note) short concentrations preceding coordinated media leaks.
+2. **Speech-to-Balance-Sheet Divergence Tensor (Dr. S. Jaishankar & Propaganda Lens):**
+   - Quantifies the divergence between declared multilateral harmony and physical balance-sheet reality (bilateral tariffs, Carbon Border Adjustment Mechanism/CBAM, and export controls).
+3. **Contextual Kinesic Baseline Drift (Ajit Doval Lens):**
+   - Normalizes Ekman FACS Action Units (AU14, AU15, AU17) and vocal pitch jitter ($F_0$) against cultural baselines and summit negotiation pressure.
+4. **Tri-Pillar Bharatiya Civilizational Core:**
+   - **Chāṇakya Nīti:** Formalizes the fourfold *Upadhā-Parīkṣā* (Dharmopadhā, Arthopadhā, Kāmopadhā, Bhayopadhā) ministerial integrity audit and *Mantra-Gupti* operational secrecy.
+   - **Kauṭilya Arthaśāstra:** Implements the 7-limb *Saptāṅga* sovereign health equation ($S = \sum w_i L_i$) and the 12-state *Rāja-Maṇḍala* 6-fold *Ṣaḍguṇya* policy selector (*Sandhi, Vigraha, Āsana, Yāna, Saṃśraya, Dvaidhībhāva*).
+   - **Bhagavān Śrī Kṛṣṇa:** Implements *Rājadharma* and the *Udyoga Parva* diplomatic exhaustion quotient ($E_{	ext{Peace}}$), eliminating sentimental hesitation (*Moha*) and authorizing asymmetric righteous retaliation (*Dharma-Yuddha / Āpaddharma*).
+
+### 2. Comprehensive Inventory of Implemented Sieves (Phases 355–365)
+
+| Phase | Sieve Identifier | Host Module | Mathematical / Doctrinal Model |
+| :--- | :--- | :--- | :--- |
+| **Phase 355** | `BISHiddenFXSwapContagionSieve` | `cash_flow.py` | Off-balance-sheet dollar swap obligations, OIS-SOFR basis spread & central bank swap line coverage. |
+| **Phase 356** | `OffshoreUBOShellDeAnonymizerSieve` | `cash_flow.py` | P-Note concentration, tax-haven layering depth & SEBI 2023 UBO look-through audit. |
+| **Phase 357** | `SpeechToBalanceSheetDivergenceTensor` | `propaganda.py` | Divergence between declared verbal harmony and physical trade tariffs, CBAM & capital flight incentives. |
+| **Phase 358** | `KinesicContextualBaselineDriftSieve` | `kinesics.py` | Culture-specific and summit-pressure baseline normalization of FACS Action Units and pitch jitter. |
+| **Phase 359** | `ChanakyaNeetiUpadhaIntegritySieve` | `civilizational.py` | Fourfold *Upadhā-Parīkṣā* vulnerability index ($U = 1.0 - \max(T_k)$) & *Mantra-Gupti* secrecy score. |
+| **Phase 360** | `KautilyaMandalaShadgunyaSieve` | `geopolitical.py` | 7-Limb *Saptāṅga* health index & 6-fold *Ṣaḍguṇya* foreign policy action recommender. |
+| **Phase 361** | `KrishnaRajadharmaExhaustionSieve` | `civilizational.py` | *Udyoga Parva* peace exhaustion quotient ($E_{	ext{Peace}}$), *Svadharmic* resolve & *Moha* elimination. |
+| **Phase 362** | `DharmikStatecraftPipeline` | `dharmik_statecraft.py` | Dedicated pipeline coordinator evaluating scenarios across the 3 pillars with 19-member council synthesis. |
+| **Phase 363** | AST Query Router Expansion | `query_parser.py` | Added 7 dynamic AST boolean routing flags to `StrategicQuery` and parsing logic. |
+| **Phase 364** | Strategic Resilience Matrix Scaling | `synthesizer.py` | Scaled live synthesis telemetry from 165 to **172 live channels**. |
+| **Phase 365** | SQLite Primary Textual Grounding | `event_store.py` | Created `dharmik_textual_anchors` table with indexed Sanskrit shlokas and English maxims. |
+
+### 3. Scaling & Quality Verification Metrics
+1. **Total Lens Exported Symbols (`geo_engine/lenses/__init__.py`):** Scaled from 179 to **186 symbols**.
+2. **Strategic Resilience Matrix Channels (`geo_engine/arbitration/synthesizer.py`):** Scaled from 165 to **172 live channels**.
+3. **AST Routing Grammar (`geo_engine/core/query_parser.py`):** 7 new boolean flags active and verified.
+4. **Command Line Interface (`geo_engine/cli.py`):** Added `dharmik` sub-command rendering Saptāṅga health, Ṣaḍguṇya policy, and 19-member council directives.
+5. **SQLite Scriptural Knowledge Store (`geo_engine/storage/event_store.py`):** Indexed primary shlokas across Chāṇakya Nīti, Arthaśāstra, and the Mahābhārata/Gītā.
+6. **Automated Verification Suite (`tests/test_engine.py`):** Scaled from 664 to **675 passed tests (100% green, 0 regressions)**.
+7. **Canonical Distribution Bundles (`scripts/build_canonical_bundles.py`):** Recompiled Core-5 (5 files) and Deep-50 (32 files), passing all 10 Anti-Drift Quality Gates.

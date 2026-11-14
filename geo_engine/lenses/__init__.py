@@ -18,6 +18,7 @@ from .cash_flow import (
     CashFlowLens,
     BaselGoldAllocationSieve,
     BearRaidDerivativeForensicsSieve,
+    BISHiddenFXSwapContagionSieve,
     BullionPaperArbitrageDislocationSieve,
     ClassicalBullionInflowTradeSieve,
     CommercialBankAssetQualityAndCRARSieve,
@@ -26,6 +27,7 @@ from .cash_flow import (
     EurodollarShadowLiquiditySieve,
     ImperialDebtOverreachSieve,
     OffshoreDebtCovenantContagionSieve,
+    OffshoreUBOShellDeAnonymizerSieve,
     PreciousMetalSovereignArbitrageSieve,
     SovereignBalanceSheetShieldSieve,
     SovereignGoldRepatriationSieve,
@@ -37,6 +39,7 @@ from .civilizational import (
     AntiquityPlunderRepatriationSieve,
     ApaurusheyaMnemonicFidelitySieve,
     AurobindonianSpiritualIntegrationSieve,
+    ChanakyaNeetiUpadhaIntegritySieve,
     CivilizationalKshatraSieve,
     CulturalGrayzoneLegitimacySieve,
     CulturalGrayzoneSieve,
@@ -45,6 +48,7 @@ from .civilizational import (
     DharmicSoftPowerCulturalSovereigntySieve,
     EpistemicApaurusheyaCivilizationalSieve,
     EpistemicTextualTriangulationSieve,
+    KrishnaRajadharmaExhaustionSieve,
     LinguisticSprachbundSieve,
     PaleogenomicDemographicContinuitySieve,
     PuranicMetaphysicalBoundarySieve,
@@ -131,6 +135,7 @@ from .geopolitical import (
     ChokepointKineticSieve,
     DiasporaSanctuaryLawfareSieve,
     IslandEEZMaritimeNetSecuritySieve,
+    KautilyaMandalaShadgunyaSieve,
     TransHimalayanHydrologicalDeterrenceSieve,
     TripartiteCoherenceSieve,
 )
@@ -194,6 +199,7 @@ from .institutional_lawfare import (
 
 from .kinesics import (
     KinesicsLens,
+    KinesicContextualBaselineDriftSieve,
     SartorialSemioticSieve,
     SpeechKinesicAndChromaticForensicsSieve,
 )
@@ -233,6 +239,7 @@ from .propaganda import (
     PedagogicalHaloSmugglingSieve,
     PolemicsVsEmpiricalRatioSieve,
     SpeechOmissionAndNegativeSpaceSieve,
+    SpeechToBalanceSheetDivergenceTensor,
 )
 
 from .subsea_cables import (
@@ -444,4 +451,11 @@ __all__ = [
     "DefenseSCADAAndFirmwareTamperSieve",
     "QDTWhistleblowerCognitiveStateSieve",
     "CulturalHeritageAndSacralityBreachSieve",
+    "BISHiddenFXSwapContagionSieve",
+    "OffshoreUBOShellDeAnonymizerSieve",
+    "SpeechToBalanceSheetDivergenceTensor",
+    "KinesicContextualBaselineDriftSieve",
+    "ChanakyaNeetiUpadhaIntegritySieve",
+    "KautilyaMandalaShadgunyaSieve",
+    "KrishnaRajadharmaExhaustionSieve",
 ]

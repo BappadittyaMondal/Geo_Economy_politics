@@ -1905,3 +1905,108 @@ class CulturalHeritageAndSacralityBreachSieve:
             "tactical_rationale": rationale,
             "is_sacrality_breached": score >= 0.70,
         }
+
+
+class ChanakyaNeetiUpadhaIntegritySieve:
+    """
+    Phase 359: Formalizes Chāṇakya Nīti and Arthaśāstra (Book I Ch 10) fourfold Upadhā-Parīkṣā
+    (Dharmopadhā, Arthopadhā, Kāmopadhā, Bhayopadhā) and Mantra-Gupti (operational secrecy).
+    Audits official vulnerability to moral, monetary, hedonistic, and coercive subversion.
+    """
+    @staticmethod
+    def evaluate(
+        dharmopadha_vulnerability: float = 0.20,
+        arthopadha_vulnerability: float = 0.25,
+        kamopadha_vulnerability: float = 0.15,
+        bhayopadha_vulnerability: float = 0.30,
+        mantra_gupti_secrecy_index: float = 0.80,
+    ) -> dict:
+        d_vuln = max(0.0, min(1.0, float(dharmopadha_vulnerability)))
+        a_vuln = max(0.0, min(1.0, float(arthopadha_vulnerability)))
+        k_vuln = max(0.0, min(1.0, float(kamopadha_vulnerability)))
+        b_vuln = max(0.0, min(1.0, float(bhayopadha_vulnerability)))
+        m_sec = max(0.0, min(1.0, float(mantra_gupti_secrecy_index)))
+
+        composite_vulnerability = max(d_vuln, a_vuln, k_vuln, b_vuln)
+        z = 3.6 * composite_vulnerability + 2.4 * (1.0 - m_sec) - 0.8
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SEVERE_UPADHA_COMPROMISE_RISK"
+            verdict = "IMMEDIATE_SECURITY_CLEARANCE_REVOCATION_AND_ISOLATION"
+            rationale = (
+                f"Critical ministerial vulnerability ({score:.4f}): Elevated vulnerability in "
+                f"Dharma ({d_vuln:.2f}), Artha ({a_vuln:.2f}), or Bhaya ({b_vuln:.2f}) with compromised secrecy ({m_sec:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_VETTING_SCRUTINY_REQUIRED"
+            verdict = "APPLY_SECONDARY_SURVEILLANCE_AND_RESTRICT_SENSITIVE_BRIEFINGS"
+            rationale = f"Moderate integrity risk ({score:.4f}): Requires active surveillance under Chanakyan Upadha protocols."
+        else:
+            tier = "UNCOMPROMISED_AMATYA_INTEGRITY"
+            verdict = "VERIFIED_TRUSTWORTHY_HIGH_OFFICE_CLEARANCE"
+            rationale = f"High integrity ({score:.4f}): Minister demonstrates zero susceptibility across all four Upadhas and high Mantra-Gupti ({m_sec:.2f})."
+
+        return {
+            "chanakya_upadha_integrity_score": score,
+            "composite_upadha_vulnerability": round(composite_vulnerability, 4),
+            "dharmopadha_vulnerability": round(d_vuln, 4),
+            "arthopadha_vulnerability": round(a_vuln, 4),
+            "kamopadha_vulnerability": round(k_vuln, 4),
+            "bhayopadha_vulnerability": round(b_vuln, 4),
+            "mantra_gupti_secrecy_index": round(m_sec, 4),
+            "upadha_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_upadha_compromise_detected": score >= 0.70,
+        }
+
+
+class KrishnaRajadharmaExhaustionSieve:
+    """
+    Phase 361: Implements Bhagavān Śrī Kṛṣṇa's Rājadharma (Udyoga Parva peace exhaustion protocol)
+    and Bhagavad Gītā duty ethics. Formulates the mathematical boundary where peaceful conciliation
+    is exhausted and decisive righteous counter-warfare (Dharma-Yuddha / Āpaddharma) becomes mandatory.
+    """
+    @staticmethod
+    def evaluate(
+        peace_initiatives_exhausted_ratio: float = 0.85,
+        adversary_existential_hostility: float = 0.80,
+        sentimental_hesitation_moha: float = 0.20,
+        dharmic_svadharma_resolve: float = 0.85,
+    ) -> dict:
+        p_exh = max(0.0, min(1.0, float(peace_initiatives_exhausted_ratio)))
+        a_host = max(0.0, min(1.0, float(adversary_existential_hostility)))
+        s_moha = max(0.0, min(1.0, float(sentimental_hesitation_moha)))
+        d_res = max(0.0, min(1.0, float(dharmic_svadharma_resolve)))
+
+        z = 3.4 * p_exh + 3.0 * a_host + 2.5 * d_res - 3.2 * s_moha - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DHARMA_YUDDHA_RIGHTEOUS_RETALIATION_AUTHORIZED"
+            verdict = "EXHAUST_ALL_DIPLOMATIC_RETREAT_EXECUTE_DECISIVE_SOVEREIGN_COUNTERSTRIKE"
+            rationale = (
+                f"Righteous counter-strike authorized ({score:.4f}): Complete peace exhaustion ({p_exh:.2f}) and acute adversary "
+                f"hostility ({a_host:.2f}) mandate full asymmetric retaliation without sentimental hesitation (Moha: {s_moha:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "UDYOGA_DIPLOMATIC_OFFRAMP_ACTIVE"
+            verdict = "OFFER_MINIMUM_VIABLE_SOVEREIGN_TERMS_FIVE_VILLAGES_PROTOCOL"
+            rationale = f"Diplomatic exhaustion incomplete ({score:.4f}): Maintain active negotiations while preparing defensive mobilization."
+        else:
+            tier = "SHANTI_PARVA_CONCILIATION_PREVAILING"
+            verdict = "DIPLOMATIC_DE-ESCALATION_STABLE"
+            rationale = f"Peaceful equilibrium ({score:.4f}): Low adversary hostility permits continued dialogue."
+
+        return {
+            "krishna_rajadharma_exhaustion_score": score,
+            "peace_initiatives_exhausted_ratio": round(p_exh, 4),
+            "adversary_existential_hostility": round(a_host, 4),
+            "sentimental_hesitation_moha": round(s_moha, 4),
+            "dharmic_svadharma_resolve": round(d_res, 4),
+            "rajadharma_authorization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_righteous_retaliation_authorized": score >= 0.70,
+        }

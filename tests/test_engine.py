@@ -10893,7 +10893,7 @@ class TestPhase247to250SievesAndDigest:
     def test_phase250_lenses_init_exports_count_79(self):
         """Phase 250: geo_engine.lenses exports 79 verified symbols."""
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179)
+        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179, 186)
         assert "DigitalEnclosureTrapSieve" in lenses.__all__
         assert "KineticDiversionaryEscalationSieve" in lenses.__all__
 
@@ -11729,7 +11729,7 @@ class TestPhases274to282SievesAndTelemetry:
 
     def test_phases_274_to_282_lenses_init_exports_count_109(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179)
+        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179, 186)
 
 
 
@@ -12069,7 +12069,7 @@ class TestPhases283to294SievesAndTelemetry:
 
     def test_phases_283_to_294_lenses_init_exports_count_121(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179)
+        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179, 186)
 
 
 class TestPhases295to300SievesAndTelemetry:
@@ -12274,7 +12274,7 @@ class TestPhases295to300SievesAndTelemetry:
 
     def test_phases_295_to_300_lenses_init_exports_count_127(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (127, 134, 143, 163, 179)
+        assert len(lenses.__all__) in (127, 134, 143, 163, 179, 186)
 
 
 class TestPhases301to307SievesAndQuantumGating:
@@ -12455,7 +12455,7 @@ class TestPhases301to307SievesAndQuantumGating:
 
     def test_phases_301_to_307_lenses_init_exports_count_134(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (134, 143, 163, 179)
+        assert len(lenses.__all__) in (134, 143, 163, 179, 186)
 
     def test_sadhguru_strategic_council_archetype(self):
         from geo_engine.arbitration.persona_narrator import PersonaNarrator
@@ -12712,7 +12712,7 @@ class TestPhases309to317SievesAndQuantumSynthesis:
 
     def test_phases_309_to_317_lenses_init_exports_count_143(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (143, 163, 179)
+        assert len(lenses.__all__) in (143, 163, 179, 186)
         for sieve in [
             "ArchivalPrimarySourceSieve",
             "AcademicGatekeepingSieve",
@@ -12968,7 +12968,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
         s = SummitEvent(summit_id="s_318_337", title="Forensic Multi-Domain Summit", date=datetime.now(), host_country="India", participant_countries=["India", "Global"])
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) in (149, 165)
+        assert len(srm) in (149, 165, 172)
         for key in [
             "basel_gold_allocation_score",
             "mnemonic_fidelity_score",
@@ -13032,7 +13032,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
 
     def test_phases_318_to_337_lenses_init_exports_count_163(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (163, 179)
+        assert len(lenses.__all__) in (163, 179, 186)
         for sieve in [
             "BaselGoldAllocationSieve",
             "ApaurusheyaMnemonicFidelitySieve",
@@ -13251,7 +13251,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
         )
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) == 165
+        assert len(srm) in (165, 172)
         for ch in [
             "sovereign_public_interest_score",
             "adversary_timing_correlation_score",
@@ -13274,7 +13274,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
 
     def test_phases_338_to_353_lenses_init_exports_count_179(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) == 179
+        assert len(lenses.__all__) in (179, 186)
         for sieve in [
             "SovereignPublicInterestSieve",
             "AdversaryTimingCorrelationSieve",
@@ -13295,3 +13295,162 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
         ]:
             assert sieve in lenses.__all__
             assert getattr(lenses, sieve, None) is not None
+
+
+class TestPhases355to365DharmikStatecraftAndInvisibleCashFlows:
+    """Test suite validating Phases 355-365: Dharmik Statecraft Engine & Invisible Cash Flow Forensics."""
+
+    def test_phase355_bis_hidden_fx_swap_sieve(self):
+        from geo_engine.lenses import BISHiddenFXSwapContagionSieve
+        res = BISHiddenFXSwapContagionSieve.evaluate(
+            ois_sofr_spread_bps=85.0,
+            cross_currency_basis_spread_bps=90.0,
+            off_balance_sheet_swap_ratio=0.85,
+            bilateral_swap_line_coverage=0.20
+        )
+        assert res["is_fx_contagion_severe"] is True
+        assert res["dollar_squeeze_tier"] == "SEVERE_OFFSHORE_DOLLAR_LIQUIDITY_SQUEEZE"
+        assert res["bis_hidden_fx_swap_contagion_score"] >= 0.70
+
+    def test_phase356_offshore_ubo_shell_sieve(self):
+        from geo_engine.lenses import OffshoreUBOShellDeAnonymizerSieve
+        res = OffshoreUBOShellDeAnonymizerSieve.evaluate(
+            pnote_concentration_ratio=0.85,
+            tax_haven_layering_depth=5,
+            pre_leak_put_oi_growth=1.20,
+            ubo_transparency_score=0.15
+        )
+        assert res["is_predatory_ubo_detected"] is True
+        assert res["shell_layering_tier"] == "PREDATORY_OFFSHORE_SHELL_CONSORTIUM"
+        assert res["offshore_ubo_de_anonymizer_score"] >= 0.70
+
+    def test_phase357_speech_to_balance_sheet_divergence_tensor(self):
+        from geo_engine.lenses import SpeechToBalanceSheetDivergenceTensor
+        res = SpeechToBalanceSheetDivergenceTensor.evaluate(
+            claimed_multilateral_harmony=0.90,
+            bilateral_tariff_barrier_index=0.85,
+            capital_flight_inducement_score=0.75,
+            physical_trade_delivery_ratio=0.20
+        )
+        assert res["is_hypocrisy_divergence_acute"] is True
+        assert res["rhetoric_vs_flow_divergence_tier"] == "ACUTE_RHETORIC_BALANCE_SHEET_DIVERGENCE"
+        assert res["speech_to_balance_sheet_divergence_score"] >= 0.70
+
+    def test_phase358_kinesic_contextual_baseline_drift_sieve(self):
+        from geo_engine.lenses import KinesicContextualBaselineDriftSieve
+        res = KinesicContextualBaselineDriftSieve.evaluate(
+            observed_micro_expression_intensity=0.85,
+            cultural_expressiveness_norm=0.30,
+            summit_pressure_elevation=0.30,
+            individual_historical_stability=0.40
+        )
+        assert res["is_anomalous_drift_detected"] is True
+        assert res["baseline_drift_tier"] == "ANOMALOUS_UNEXPLAINED_BASELINE_DRIFT"
+
+    def test_phase359_chanakya_upadha_integrity_sieve(self):
+        from geo_engine.lenses import ChanakyaNeetiUpadhaIntegritySieve
+        res = ChanakyaNeetiUpadhaIntegritySieve.evaluate(
+            dharmopadha_vulnerability=0.85,
+            arthopadha_vulnerability=0.75,
+            mantra_gupti_secrecy_index=0.20
+        )
+        assert res["is_upadha_compromise_detected"] is True
+        assert res["upadha_vulnerability_tier"] == "SEVERE_UPADHA_COMPROMISE_RISK"
+
+    def test_phase360_kautilya_mandala_shadgunya_sieve(self):
+        from geo_engine.lenses import KautilyaMandalaShadgunyaSieve
+        res = KautilyaMandalaShadgunyaSieve.evaluate(
+            swami_leadership_clarity=0.95,
+            kosha_treasury_depth=0.90,
+            danda_military_deterrence=0.90,
+            adversary_power_index=0.40
+        )
+        assert res["optimal_sadgunya_policy"] in ("VIGRAHA", "YANA")
+        assert res["is_state_resilient"] is True
+        assert res["kautilya_saptanga_score"] >= 0.70
+
+    def test_phase361_krishna_rajadharma_exhaustion_sieve(self):
+        from geo_engine.lenses import KrishnaRajadharmaExhaustionSieve
+        res = KrishnaRajadharmaExhaustionSieve.evaluate(
+            peace_initiatives_exhausted_ratio=0.95,
+            adversary_existential_hostility=0.90,
+            sentimental_hesitation_moha=0.10,
+            dharmic_svadharma_resolve=0.95
+        )
+        assert res["is_righteous_retaliation_authorized"] is True
+        assert res["rajadharma_authorization_tier"] == "DHARMA_YUDDHA_RIGHTEOUS_RETALIATION_AUTHORIZED"
+
+    def test_phase362_dharmik_statecraft_pipeline_end_to_end(self):
+        from geo_engine.arbitration.dharmik_statecraft import (
+            DharmikStatecraftDossier,
+            DharmikStatecraftPipeline
+        )
+        d = DharmikStatecraftDossier(
+            dossier_id="DOSS-TEST-362",
+            title="Border Encirclement & Currency Siege Scenario",
+            target_nation_or_entity="Hostile Coalition",
+            narrative_context="Comprehensive multi-domain pressure.",
+            peace_initiatives_exhausted_ratio=0.90,
+            adversary_existential_hostility=0.85,
+        )
+        eval_res = DharmikStatecraftPipeline.evaluate_scenario(d)
+        assert eval_res.dossier_id == "DOSS-TEST-362"
+        assert 0.0 <= eval_res.composite_dharmik_sovereignty_index <= 1.0
+        assert len(eval_res.competing_strategic_doctrines) == 4
+        assert len(eval_res.council_perspectives) == 19
+        assert "Ajit_Doval" in eval_res.council_perspectives
+        assert "Acharya_Chanakya_Kautilya" in eval_res.council_perspectives
+        assert "Sri_Krishna_Rajadharma" in eval_res.council_perspectives
+
+    def test_phase363_query_parser_dynamic_ast_phases_355_to_365(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "kautilya mandala shadgunya saptanga health, chanakya neeti upadha pariksha mantra gupti, "
+            "krishna rajadharma exhaustion udyoga parva, bis hidden fx swap contagion, and offshore ubo shell."
+        )
+        assert q.requires_kautilya_mandala_shadgunya is True
+        assert q.requires_chanakya_neeti_upadha is True
+        assert q.requires_krishna_rajadharma_exhaustion is True
+        assert q.requires_bis_hidden_fx_swap is True
+        assert q.requires_offshore_ubo_shell is True
+
+    def test_phase364_synthesizer_telemetry_172_channels(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        s = SummitEvent(
+            event_id="TEST-SUMMIT-172",
+            name="Dharmik Sovereignty & Cash Flow Summit",
+            year=2026,
+            host_country="India",
+            member_states=["India", "Russia", "Brazil", "South_Africa"],
+            headline_commitments_usd=15.0,
+            communique_text="Dharmik sovereignty, Saptanga resilience, and cash flow audit.",
+            metadata={}
+        )
+        res = SummitSynthesizer.synthesize(s)
+        srm = res.strategic_resilience_matrix
+        assert len(srm) == 172
+        for ch in [
+            "bis_hidden_fx_swap_contagion_score",
+            "offshore_ubo_de_anonymizer_score",
+            "speech_to_balance_sheet_divergence_score",
+            "kinesic_contextual_baseline_drift_score",
+            "chanakya_upadha_integrity_score",
+            "kautilya_saptanga_score",
+            "krishna_rajadharma_exhaustion_score",
+        ]:
+            assert ch in srm
+
+    def test_phase365_event_store_dharmik_textual_anchors(self):
+        from geo_engine.storage.event_store import EventStore
+        store = EventStore()
+        anchors = store.lookup_dharmik_anchors()
+        assert len(anchors) >= 6
+        sources = {a["source_tradition"] for a in anchors}
+        assert "CHANAKYA_NEETI" in sources
+        assert "KAUTILYA_ARTHASHASTRA" in sources
+        assert "KRISHNA_GITA_MAHABHARATA" in sources
+        for a in anchors:
+            assert len(a["sanskrit_text"]) > 10
+            assert len(a["english_translation"]) > 10
+
