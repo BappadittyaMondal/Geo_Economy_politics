@@ -1,3 +1,4 @@
+import math
 from .deep_tech import MultiAgentGroupChatConsensusSieve
 """
 Lens 11: Digital Sovereignty, Compute & Telecommunications Stack Lens.
@@ -168,6 +169,16 @@ class DigitalSovereigntyLens:
             shadow_banning_intensity=algo_params.get("shadow_banning_intensity", 0.30),
         )
         metrics["algorithmic_sovereignty_score"] = _algo_res["algorithmic_sovereignty_score"]
+
+        # Phase 332: Cryptographic Decentralization Sieve
+        dig_meta = getattr(summit, "metadata", {}) or {}
+        cd_params = dig_meta.get("crypto_decentralization", {}) if isinstance(dig_meta, dict) else {}
+        _cd_res = CryptographicDecentralizationSieve.calculate(
+            mathematical_scarcity_rigor=cd_params.get("mathematical_scarcity_rigor", 0.90),
+            decentralized_censorship_resistance=cd_params.get("decentralized_censorship_resistance", 0.85),
+            state_fiat_debasement=cd_params.get("state_fiat_debasement", 0.75),
+        )
+        metrics["cryptographic_decentralization_score"] = _cd_res["cryptographic_decentralization_score"]
         metrics["data_localization_enforcement_index"] = _algo_res["data_localization_enforcement_index"]
         metrics["platform_shadowban_exposure"] = _algo_res["platform_shadowban_exposure"]
         metrics["algorithmic_sovereignty_tier"] = _algo_res["algorithmic_sovereignty_tier"]
@@ -872,4 +883,53 @@ class BigTechAlgorithmicSovereigntySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_algorithmically_sovereign": score >= 0.55,
+        }
+class CryptographicDecentralizationSieve:
+    """
+    Phase 332: Models permissionless, proof-of-work mathematical scarcity (Bitcoin 21M cap) versus
+    inflationary fiat printing and centralized state surveillance (CBDC tracking), quantifying capital flight immunity.
+
+    Mathematical Formulation:
+      z = 3.0 * mathematical_scarcity_rigor + 2.8 * decentralized_censorship_resistance - 3.2 * state_fiat_debasement - 0.4
+      S_Crypto_Decentralization = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        mathematical_scarcity_rigor: float = 0.90,
+        decentralized_censorship_resistance: float = 0.85,
+        state_fiat_debasement: float = 0.75,
+    ) -> dict:
+        scarcity = max(0.0, min(1.0, float(mathematical_scarcity_rigor)))
+        resistance = max(0.0, min(1.0, float(decentralized_censorship_resistance)))
+        debasement = max(0.0, min(1.0, float(state_fiat_debasement)))
+
+        z = 3.0 * scarcity + 2.8 * resistance - 3.2 * debasement - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.65:
+            tier = "PERMISSONLESS_MATHEMATICAL_SCARCITY_FORTRESS"
+            verdict = "UNCENSORABLE_STORE_OF_VALUE"
+            rationale = (
+                f"High sovereign decentralization ({score:.4f}): Hard thermodynamic proof-of-work cap ({scarcity:.2f}) and "
+                f"censorship immunity ({resistance:.2f}) protect purchasing power against structural fiat debasement ({debasement:.2f})."
+            )
+        elif score >= 0.40:
+            tier = "CONTESTED_DIGITAL_ASSET_REGIME"
+            verdict = "REGULATORY_SURVEILLANCE_PRESSURE"
+            rationale = f"Contested asset class ({score:.4f}): High volatility and custodial compliance requirements."
+        else:
+            tier = "CENTRALIZED_FIAT_CBDC_TRAP"
+            verdict = "TOTAL_PROGRAMMABLE_SURVEILLANCE"
+            rationale = f"Centralized surveillance ({score:.4f}): Fiat debasement dominates without decentralized hedges."
+
+        return {
+            "cryptographic_decentralization_score": score,
+            "mathematical_scarcity_rigor": round(scarcity, 4),
+            "decentralized_censorship_resistance": round(resistance, 4),
+            "state_fiat_debasement": round(debasement, 4),
+            "crypto_decentralization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_permissionless_store_of_value": score >= 0.65,
         }

@@ -94,6 +94,26 @@ class StrategicQuery(BaseModel):
     requires_industrial_attrition: bool = False
     requires_imperial_debt_overreach: bool = False
     requires_colonial_drain_extraction: bool = False
+    requires_basel_gold: bool = False
+    requires_mnemonic_fidelity: bool = False
+    requires_mitrokhin_deep_state: bool = False
+    requires_puranic_boundary: bool = False
+    requires_polemics_ratio: bool = False
+    requires_kishkindha_geography: bool = False
+    requires_vedic_decolonization: bool = False
+    requires_quantum_spacetime: bool = False
+    requires_semiconductor_antitrust: bool = False
+    requires_fcra_ecclesiastical: bool = False
+    requires_cinematic_sacrality: bool = False
+    requires_infrastructure_capex_multiplier: bool = False
+    requires_classical_bullion_trade: bool = False
+    requires_asymmetric_statutory_lawfare: bool = False
+    requires_cryptographic_decentralization: bool = False
+    requires_hormuz_escalation: bool = False
+    requires_eurodollar_shadow_liquidity: bool = False
+    requires_black_swan_disruption: bool = False
+    requires_sovereign_gold_velocity: bool = False
+    requires_geopolitical_speech_forensics: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -399,6 +419,26 @@ class QueryParser:
         req_ind_attr = any(cls.matches_keyword(text_lower, kw) for kw in ["industrial attrition", "ammunition burn rate", "shell production surge", "drone fabrication capacity", "propellant precursor", "180-day attrition"])
         req_imp_debt = any(cls.matches_keyword(text_lower, kw) for kw in ["imperial debt overreach", "debt-to-gdp military", "basing retrenchment", "fiscal crowding out defense", "imperial overstretch"])
         req_col_drain = any(cls.matches_keyword(text_lower, kw) for kw in ["colonial drain extraction", "council bills drain", "45 trillion drain", "deindustrialization tariff", "colonial wealth drain"])
+        req_basel_gold = any(cls.matches_keyword(text_lower, kw) for kw in ["basel gold", "basel iii gold", "allocated bullion", "physical bullion tier 1", "paper gold derivative", "unbacked comex gold"])
+        req_mnemonic_fid = any(cls.matches_keyword(text_lower, kw) for kw in ["apaurusheya mnemonic", "ashta vikriti", "ghana patha", "jata patha", "oral mnemonic fidelity", "vedic checksum depth"])
+        req_mitrokhin_ds = any(cls.matches_keyword(text_lower, kw) for kw in ["mitrokhin archive", "deep state penetration", "national advisory council", "shadow cabinet subversion", "extra constitutional power"])
+        req_puranic_bound = any(cls.matches_keyword(text_lower, kw) for kw in ["puranic metaphysical boundary", "metaphysical mythos", "unverifiable metaphysical", "subjective mythos gating"])
+        req_polemics_ratio = any(cls.matches_keyword(text_lower, kw) for kw in ["polemics vs empirical", "polemical ridicule", "ad hominem density", "bad faith deflection", "polemical deflection"])
+        req_kishkindha_geo = any(cls.matches_keyword(text_lower, kw) for kw in ["kishkindha global geography", "sugriva atlas", "kishkindha kanda geography", "archaeo geographic exploration"])
+        req_vedic_decolon = any(cls.matches_keyword(text_lower, kw) for kw in ["vedic etymological decolonization", "paninian root", "yaska nirukta", "aghnya etymology", "medha etymology", "colonial lexical distortion"])
+        req_quantum_st = any(cls.matches_keyword(text_lower, kw) for kw in ["quantum entangled spacetime", "quantum decision theory", "non commutative decision", "cognitive interference term", "quantum decision dynamics"])
+        req_semi_antitrust = any(cls.matches_keyword(text_lower, kw) for kw in ["semiconductor antitrust", "gpu hardware monopoly", "cuda software lockin", "open silicon diversification", "silicon monopoly"])
+        req_fcra_eccles = any(cls.matches_keyword(text_lower, kw) for kw in ["transnational fcra ecclesiastical", "ecclesiastical inflow", "conversion velocity", "fcra audit enforcement", "fcra subversion"])
+        req_cinematic_sac = any(cls.matches_keyword(text_lower, kw) for kw in ["cinematic iconography sacrality", "desacralization index", "western fantasy trope divergence", "sacred iconography dilution", "canonical fidelity cinematic"])
+        req_infra_capex_mult = any(cls.matches_keyword(text_lower, kw) for kw in ["infrastructure capex multiplier", "public capex allocated", "capex to gdp ratio", "domestic procurement capex", "freight corridor capex"])
+        req_classical_bullion = any(cls.matches_keyword(text_lower, kw) for kw in ["classical bullion inflow", "bullion trade surplus", "vikramaditya gold drain", "roman gold drain", "export surplus bullion settlement"])
+        req_asym_lawfare = any(cls.matches_keyword(text_lower, kw) for kw in ["asymmetric statutory lawfare", "section 498a extortion", "matrimonial lawfare", "settlement extortion intensity", "statutory arrest asymmetry"])
+        req_crypto_decent = any(cls.matches_keyword(text_lower, kw) for kw in ["cryptographic decentralization", "permissionless mathematical scarcity", "bitcoin 21m cap", "decentralized censorship resistance", "fiat debasement hedge"])
+        req_hormuz_escal = any(cls.matches_keyword(text_lower, kw) for kw in ["hormuz energy escalation", "strait of hormuz interdiction", "chokepoint interdiction risk", "spr reserve buffer days", "hormuz vulnerability"])
+        req_eurodollar_drain = any(cls.matches_keyword(text_lower, kw) for kw in ["eurodollar shadow liquidity", "offshore dollar collateral squeeze", "cross currency basis spread", "eurodollar liquidity drain"])
+        req_black_swan = any(cls.matches_keyword(text_lower, kw) for kw in ["black swan disruption", "extreme value theory shock", "shock tail risk index", "infrastructure coupling density", "systemic black swan cascade"])
+        req_sovereign_gold_vel = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign gold repatriation velocity", "bullion repatriation velocity", "repatriated bullion metric", "bank of england gold repatriation", "vault repatriation velocity"])
+        req_speech_forensics = any(cls.matches_keyword(text_lower, kw) for kw in ["geopolitical speech forensics", "speech signal divergence", "lexical divergence index", "deliberate omission density", "between the lines speech"])
 
         if req_pnt and "military_readiness" not in active_lenses:
             active_lenses.append("military_readiness")
@@ -612,6 +652,26 @@ class QueryParser:
             requires_industrial_attrition=req_ind_attr,
             requires_imperial_debt_overreach=req_imp_debt,
             requires_colonial_drain_extraction=req_col_drain,
+            requires_basel_gold=req_basel_gold,
+            requires_mnemonic_fidelity=req_mnemonic_fid,
+            requires_mitrokhin_deep_state=req_mitrokhin_ds,
+            requires_puranic_boundary=req_puranic_bound,
+            requires_polemics_ratio=req_polemics_ratio,
+            requires_kishkindha_geography=req_kishkindha_geo,
+            requires_vedic_decolonization=req_vedic_decolon,
+            requires_quantum_spacetime=req_quantum_st,
+            requires_semiconductor_antitrust=req_semi_antitrust,
+            requires_fcra_ecclesiastical=req_fcra_eccles,
+            requires_cinematic_sacrality=req_cinematic_sac,
+            requires_infrastructure_capex_multiplier=req_infra_capex_mult,
+            requires_classical_bullion_trade=req_classical_bullion,
+            requires_asymmetric_statutory_lawfare=req_asym_lawfare,
+            requires_cryptographic_decentralization=req_crypto_decent,
+            requires_hormuz_escalation=req_hormuz_escal,
+            requires_eurodollar_shadow_liquidity=req_eurodollar_drain,
+            requires_black_swan_disruption=req_black_swan,
+            requires_sovereign_gold_velocity=req_sovereign_gold_vel,
+            requires_geopolitical_speech_forensics=req_speech_forensics,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

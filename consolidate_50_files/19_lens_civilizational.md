@@ -335,6 +335,31 @@ class CivilizationalLens:
             secessionist_balkanization_drag=ling_params.get("secessionist_balkanization_drag", 0.20),
         )
         metrics["linguistic_sprachbund_score"] = _ling_res["linguistic_sprachbund_score"]
+
+        # Phases 319, 321, 324: Apaurusheya Mnemonic, Puranic Boundary, Vedic Decolonization
+        mn_params = civ_meta.get("apaurusheya_mnemonic", {}) if isinstance(civ_meta, dict) else {}
+        _mn_res = ApaurusheyaMnemonicFidelitySieve.calculate(
+            mnemonic_checksum_depth=mn_params.get("mnemonic_checksum_depth", 0.95),
+            accent_pitch_retention=mn_params.get("accent_pitch_retention", 0.90),
+            colonial_philological_drift=mn_params.get("colonial_philological_drift", 0.15),
+        )
+        metrics["apaurusheya_mnemonic_fidelity_score"] = _mn_res["apaurusheya_mnemonic_fidelity_score"]
+
+        pb_params = civ_meta.get("puranic_boundary", {}) if isinstance(civ_meta, dict) else {}
+        _pb_res = PuranicMetaphysicalBoundarySieve.calculate(
+            verifiability_index=pb_params.get("verifiability_index", 0.10),
+            empirical_sensors=pb_params.get("empirical_sensors", 0.0),
+            subjective_claim_intensity=pb_params.get("subjective_claim_intensity", 0.85),
+        )
+        metrics["puranic_metaphysical_boundary_score"] = _pb_res["puranic_metaphysical_boundary_score"]
+
+        vd_params = civ_meta.get("vedic_decolonization", {}) if isinstance(civ_meta, dict) else {}
+        _vd_res = VedicEtymologicalDecolonizationSieve.calculate(
+            paninian_root_adherence=vd_params.get("paninian_root_adherence", 0.90),
+            contextual_shastric_harmony=vd_params.get("contextual_shastric_harmony", 0.85),
+            colonial_lexical_distortion=vd_params.get("colonial_lexical_distortion", 0.20),
+        )
+        metrics["vedic_etymological_decolonization_score"] = _vd_res["vedic_etymological_decolonization_score"]
         metrics["linguistic_sprachbund_tier"] = _ling_res["linguistic_sprachbund_tier"]
         metrics["civilizational_sprachbund_index"] = _ling_res["civilizational_sprachbund_index"]
 
@@ -1673,8 +1698,158 @@ class LinguisticSprachbundSieve:
             "tactical_rationale": rationale,
             "is_linguistically_convergent": score >= 0.55,
         }
+class ApaurusheyaMnemonicFidelitySieve:
+    """
+    Phase 319: Models the mathematical preservation rigor of 8-fold oral mnemonic systems
+    (Ashta-Vikriti algorithms: Jata, Mala, Shikha, Rekha, Dhvaja, Danda, Ratha, Ghana patha),
+    proving zero textual corruption across millennia and resisting colonial philological re-dating.
+
+    Mathematical Formulation:
+      z = 2.8 * mnemonic_checksum_depth + 2.6 * accent_pitch_retention - 3.0 * colonial_philological_drift - 0.3
+      S_Mnemonic_Fidelity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        mnemonic_checksum_depth: float = 0.95,
+        accent_pitch_retention: float = 0.90,
+        colonial_philological_drift: float = 0.15,
+    ) -> dict:
+        checksum = max(0.0, min(1.0, float(mnemonic_checksum_depth)))
+        accent = max(0.0, min(1.0, float(accent_pitch_retention)))
+        drift = max(0.0, min(1.0, float(colonial_philological_drift)))
+
+        z = 2.8 * checksum + 2.6 * accent - 3.0 * drift - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "UNBROKEN_APAURUSHEYA_TRANSMISSION"
+            verdict = "ZERO_TEXTUAL_CORRUPTION_CERTIFIED"
+            rationale = (
+                f"Mathematical mnemonic perfection ({score:.4f}): Ashta-vikriti combinatorial permutation matrices "
+                f"({checksum:.2f}) and svara accentuation ({accent:.2f}) guarantee 100% fidelity over millennia."
+            )
+        elif score >= 0.50:
+            tier = "PARTIALLY_RECONSTRUCTED_ORAL_CANON"
+            verdict = "MINOR_PHONETIC_DRIFT"
+            rationale = f"Moderate transmission fidelity ({score:.4f}) with minor regional recension divergence."
+        else:
+            tier = "CORRUPTED_COLONIAL_INTERPOLATION"
+            verdict = "SEVERE_TEXTUAL_DEGRADATION"
+            rationale = f"Severe vulnerability ({score:.4f}): Narrative distorted by speculative 19th-century philology."
+
+        return {
+            "apaurusheya_mnemonic_fidelity_score": score,
+            "mnemonic_checksum_depth": round(checksum, 4),
+            "accent_pitch_retention": round(accent, 4),
+            "colonial_philological_drift": round(drift, 4),
+            "mnemonic_fidelity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_unbroken_transmission": score >= 0.75,
+        }
 
 
+class VedicEtymologicalDecolonizationSieve:
+    """
+    Phase 324: Deconstructs colonial and Marxist mistranslations of ancient Sanskrit ritual vocabulary
+    (Aghnya, Medha, Mamsa) using Paninian grammar and Yaska's Nirukta, neutralizing manufactured civilizational guilt narratives.
 
+    Mathematical Formulation:
+      z = 3.0 * paninian_root_adherence + 2.8 * contextual_shastric_harmony - 3.0 * colonial_lexical_distortion - 0.3
+      S_Etymological_Integrity = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        paninian_root_adherence: float = 0.90,
+        contextual_shastric_harmony: float = 0.85,
+        colonial_lexical_distortion: float = 0.20,
+    ) -> dict:
+        dhatu = max(0.0, min(1.0, float(paninian_root_adherence)))
+        harmony = max(0.0, min(1.0, float(contextual_shastric_harmony)))
+        distortion = max(0.0, min(1.0, float(colonial_lexical_distortion)))
+
+        z = 3.0 * dhatu + 2.8 * harmony - 3.0 * distortion - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "NIRUKTA_CERTIFIED_CANONICAL_ETYMOLOGY"
+            verdict = "COLONIAL_LEXICAL_SUBVERSION_NEUTRALIZED"
+            rationale = (
+                f"Sovereign etymological rigor ({score:.4f}): Paninian root analysis ({dhatu:.2f}) and contextual Nirukta harmony "
+                f"({harmony:.2f}) decisively refute artificial colonial mistranslations."
+            )
+        elif score >= 0.50:
+            tier = "CONTESTED_INTERPRETATIVE_LEXICON"
+            verdict = "AMBIGUOUS_LITERAL_FIGURATIVE_DRIFT"
+            rationale = f"Contested lexicon ({score:.4f}): Requires deeper contextual shastric cross-referencing."
+        else:
+            tier = "COLONIAL_INVERSION_MALICIOUS_PROPAGANDA"
+            verdict = "SYSTEMIC_DISINFORMATION_TROPE"
+            rationale = f"Severe distortion ({score:.4f}): Literalized colonial mistranslations weaponized for psychological subversion."
+
+        return {
+            "vedic_etymological_decolonization_score": score,
+            "paninian_root_adherence": round(dhatu, 4),
+            "contextual_shastric_harmony": round(harmony, 4),
+            "colonial_lexical_distortion": round(distortion, 4),
+            "etymological_integrity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_etymologically_verified": score >= 0.75,
+        }
+
+class PuranicMetaphysicalBoundarySieve:
+    """
+    Phase 321: Enforces strict epistemic gating: clamps subjective, unverifiable metaphysical
+    claims (e.g., 12th-dimension consciousness, literal personified demonic entities) to Tier 0
+    (Subjective Mythos), preventing corruption of Tier 1 physical sensor data.
+
+    Operational Rule:
+      If verifiability_index < 0.20 and empirical_sensors == 0:
+         clamp confidence ceiling to 0.15 and flag as TIER_0_METAPHYSICAL_MYTHOS.
+      Otherwise:
+         z = 3.0 * verifiability_index + 2.8 * empirical_sensors - 3.0 * subjective_claim_intensity - 0.3
+         S = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        verifiability_index: float = 0.10,
+        empirical_sensors: float = 0.0,
+        subjective_claim_intensity: float = 0.85,
+    ) -> dict:
+        v_idx = max(0.0, min(1.0, float(verifiability_index)))
+        sensors = max(0.0, min(1.0, float(empirical_sensors)))
+        subj = max(0.0, min(1.0, float(subjective_claim_intensity)))
+
+        is_clamped = False
+        if v_idx < 0.20 and sensors == 0.0:
+            score = min(0.15, round(v_idx * 0.5, 4))
+            is_clamped = True
+            tier = "TIER_0_METAPHYSICAL_MYTHOS_GATED"
+            verdict = "ISOLATED_FROM_PHYSICAL_TELEMETRY"
+            rationale = (
+                f"Epistemic boundary enforced: Subjective metaphysical assertions ({subj:.2f}) lack physical sensor grounding "
+                f"({sensors:.2f}); clamped to confidence ceiling {score:.4f} to prevent Tier 1 reality contamination."
+            )
+        else:
+            z = 3.0 * v_idx + 2.8 * sensors - 3.0 * subj - 0.3
+            score = round(1.0 / (1.0 + math.exp(-z)), 4)
+            tier = "EMPIRICALLY_VERIFIED_PHYSICAL_SIGNAL" if score >= 0.60 else "AMBIGUOUS_NARRATIVE_STREAM"
+            verdict = "INTEGRATED_INTO_SITUATIONAL_TELEMETRY"
+            rationale = f"Grounded observation ({score:.4f}): Sensor backing ({sensors:.2f}) warrants epistemic inclusion."
+
+        return {
+            "puranic_metaphysical_boundary_score": score,
+            "verifiability_index": round(v_idx, 4),
+            "empirical_sensors": round(sensors, 4),
+            "subjective_claim_intensity": round(subj, 4),
+            "is_metaphysically_gated": is_clamped,
+            "metaphysical_boundary_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+        }
 
 ```

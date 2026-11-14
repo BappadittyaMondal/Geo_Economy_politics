@@ -4032,3 +4032,59 @@ To prevent circular oscillation ("wheel-spinning") and theoretical drift, every 
 6. **Canonical Distribution Bundles (scripts/build_canonical_bundles.py):**
    - Recompiled all canonical distribution bundles across `consolidate_5_files/`, `consolidate_50_files/`, `dist_ai/core_5/`, `dist_ai/deep_50/`, and `dist_ai/all_in_one/`.
    - All 10 Anti-Drift Quality Gates verified and certified green.
+---
+
+## Section 110: Phases 318–337 Forensic Epistemic, Multi-Domain & Quantum Decision Sieves Implementation
+
+### 1. Architectural Motivation & Geostrategic Alignment
+The implementation of Phases 318 through 337 completes the integration of the forensic multi-domain audit across energy logistics, shadow banking, Sanskrit epistemology, Cold War deep-state penetrations, polemical political satire, archaeo-geography, Vedic etymology, quantum cognitive dynamics, semiconductor hardware concentration, ecclesiastical conversion pipelines, epic desacralization, public infrastructure CapEx, classical bullion inflows, asymmetric statutory matrimonial lawfare, permissionless cryptographic scarcity, and high-level geopolitical speech forensics.
+
+To prevent circular oscillation ("wheel-spinning") and theoretical drift, every insight was formulated into deterministic, machine-verifiable mathematical models with bounded sigmoidal scoring ($S = \sigma(z) \in [0, 1]$) and integrated into the engine's epistemic hierarchy:
+1. **Basel Tier 1 Gold Allocation vs. Paper Derivatives (Phase 318):** Differentiates physical allocated bullion from unbacked paper claims (COMEX/LBMA) under Basel III zero-risk rules, modeling sovereign reserve immunity against G7 asset freezes.
+2. **Apaurusheya Mnemonic Fidelity & Etymological Decolonization (Phases 319 & 324):** Models the 8-fold oral mnemonic algorithms (*Ashta-Vikriti*: Jata, Mala, Shikha, Rekha, Dhvaja, Danda, Ratha, Ghana patha), proving zero textual corruption across millennia. Deconstructs colonial and Marxist mistranslations of ancient Sanskrit ritual vocabulary (*Aghnya*, *Medha*, *Mamsa*) using Paninian roots and Yaska's *Nirukta*.
+3. **Mitrokhin Deep-State Cabinet Penetration (Phase 320):** Quantifies foreign intelligence penetration of national cabinet corridors and extra-constitutional advisory bodies (e.g., 2004–2014 NAC model), measuring defense procurement delays and statutory subversion.
+4. **Puranic Metaphysical Epistemic Boundary (Phase 321):** Enforces strict epistemic gating: clamps subjective, unverifiable metaphysical assertions (e.g., 12th-dimension consciousness, literal personified demonic entities) to Tier 0 (Subjective Mythos), preventing corruption of Tier 1 physical sensor data.
+5. **Polemics vs. Empirical Evidence Ratio (Phase 322):** Quantifies the ratio between emotional satire / ad-hominem mockery versus empirical factual data in public debate, identifying bad-faith deflection from objective evidence.
+6. **Kishkindha Archaeo-Geographic Global Exploration (Phase 323):** Cross-examines ancient Sanskrit epic geography (Sugriva's Atlas in Kishkindha Kanda) against modern physical geography, continental coordinates, and archaeo-astronomy simulations to separate verifiable historical exploration from speculative myth.
+7. **Quantum Decision Theory & Non-Commutative State Dynamics (Phase 325):** Connects Quantum Decision Theory (QDT) with emergent time formulations and multi-dimensional state spaces, allowing the engine to model non-linear historical decision loops and cognitive interference without falling into deterministic classical traps.
+8. **Semiconductor Antitrust & Hardware Monopoly (Phase 326):** Models GPU hardware allocation concentration (Nvidia CUDA monopoly), DOJ/FTC antitrust disruption, and AI infrastructure CapEx ROI exhaustion vs. sovereign ASIC diversification.
+9. **Transnational FCRA Ecclesiastical Inflows (Phase 327):** Quantifies foreign institutional charity pipelines, demographic voting shifts in sensitive border corridors, and the effectiveness of statutory FCRA license cancellations.
+10. **Cinematic Iconography Sacrality & Desacralization (Phase 328):** Measures the aesthetic divergence of commercial cinematic adaptations of sacred Indic epics from canonical textual sources, tracking visual desacralization and box-office boycott elasticity.
+11. **Infrastructure CapEx Fiscal Multiplier (Phase 329):** Models public railway and freight corridor capital expenditures (CapEx) as an economic multiplier driving domestic steel, cement, and engineering supply chains while cutting logistics friction.
+12. **Classical Bullion Inflow Trade Settlement (Phase 330):** Reconstructs historical and modern trade surplus settlement in physical gold bullion, analyzing the balance-of-payments mechanics of classical export power (Vikramaditya-era Roman gold drain) vs. modern sovereign reserve immunity.
+13. **Asymmetric Statutory Matrimonial Lawfare (Phase 331):** Quantifies the socio-economic impact of uninvestigated, non-bailable matrimonial statutes (Section 498A/DV Act), measuring middle-class family capital liquidation, legal defense extortion, and judicial trial latency.
+14. **Cryptographic Decentralization & Mathematical Scarcity (Phase 332):** Models permissionless, proof-of-work mathematical scarcity (Bitcoin 21M cap) versus inflationary fiat printing and centralized state surveillance (CBDC tracking), quantifying capital flight immunity.
+15. **Hormuz Energy Escalation & SPR Buffering (Phase 333):** Evaluates energy supply disruption risk in the Strait of Hormuz during West Asian kinetic escalation, calculating India's strategic petroleum reserve (SPR) autonomy days, alternative crude routing, and rupee-dirham settlement shielding.
+16. **Eurodollar Shadow Banking Liquidity Drain (Phase 334):** Models the offshore Eurodollar shadow banking liquidity drain, cross-currency basis swaps, and collateral shortages that trigger emerging market currency devaluations during US Fed rate tightening cycles.
+17. **Black Swan Extreme Value Theory Disruption (Phase 335):** Quantifies the strategic probability and systemic ripple effects of low-frequency, high-impact non-linear shocks (e.g., sudden leadership decapitation, global cloud outages, chokepoint blockades) using extreme value theory (EVT).
+18. **Sovereign Gold Repatriation Velocity (Phase 336):** Tracks the rate at which non-Western central banks withdraw physical gold bullion from Western custodians (Bank of England, NY Fed) to domestic vaults, modeling sovereign immunity against unilateral foreign asset freezes.
+19. **Geopolitical Speech Forensics & Strategic Omission (Phase 337):** Analyzes high-level political speeches (Modi, Trump, Putin, Xi) to detect "between-the-lines" doctrinal shifts, identifying subtle omissions, lexical markers, and strategic signaling that diverge from official communiqués.
+
+---
+
+### 2. Implementation & Subsystem Integration
+1. **Lens Modules Upgraded across 11 Subsystems (`geo_engine/lenses/`):**
+   - `cash_flow.py`: Implemented `BaselGoldAllocationSieve`, `ClassicalBullionInflowTradeSieve`, `EurodollarShadowLiquiditySieve`, and `SovereignGoldRepatriationVelocitySieve`.
+   - `civilizational.py`: Implemented `ApaurusheyaMnemonicFidelitySieve`, `VedicEtymologicalDecolonizationSieve`, and `PuranicMetaphysicalBoundarySieve`.
+   - `hybrid_covert.py`: Implemented `MitrokhinDeepStatePenetrationSieve` and `TransnationalFCRAEcclesiasticalSieve`.
+   - `propaganda.py`: Implemented `PolemicsVsEmpiricalRatioSieve`, `CinematicIconographySacralitySieve`, and `GeopoliticalSpeechForensicsSieve`.
+   - `history.py`: Implemented `KishkindhaGlobalGeographySieve`.
+   - `deep_tech.py`: Implemented `QuantumEntangledSpacetimeSieve` and `SemiconductorAntitrustHardwareSieve`.
+   - `geo_economist.py`: Implemented `InfrastructureCapExMultiplierSieve`.
+   - `institutional_lawfare.py`: Implemented `AsymmetricStatutoryLawfareSieve`.
+   - `digital_sovereignty.py`: Implemented `CryptographicDecentralizationSieve`.
+   - `petro_logistics.py`: Implemented `HormuzEnergyEscalationSieve`.
+   - `geopolitical.py`: Implemented `BlackSwanDisruptionSieve`.
+2. **Lens Registry Export Scaling (`geo_engine/lenses/__init__.py`):**
+   - Exported all 20 new sieves into `__all__`, scaling verified lens exports from 143 to 163 symbols.
+3. **Dynamic AST Query Parser (`geo_engine/core/query_parser.py`):**
+   - Added 20 dynamic boolean AST routing flags to `StrategicQuery`.
+   - Wired keyword matching rules and automatic routing in `QueryParser.parse`.
+4. **Strategic Resilience Matrix Synthesis (`geo_engine/arbitration/synthesizer.py`):**
+   - Wired all 20 new sieve metrics into `SummitSynthesizer.strategic_resilience_matrix`, scaling live synthesis telemetry from 129 to 149 channels.
+5. **Automated Verification Suite (`tests/test_engine.py`):**
+   - Added `TestPhases318to337SievesAndForensicSynthesis` (23 unit and integration tests).
+   - Full test suite scaled to **644 tests passing (100% green, zero regressions)**.
+6. **Canonical Distribution Bundles (`scripts/build_canonical_bundles.py`):**
+   - Recompiled all canonical distribution bundles across `consolidate_5_files/`, `consolidate_50_files/`, `dist_ai/core_5/`, `dist_ai/deep_50/`, and `dist_ai/all_in_one/`.
+   - All 10 Anti-Drift Quality Gates verified and certified 100% green.

@@ -437,6 +437,24 @@ class DeepTechLens:
             conspiratorial_pseudoscience=stem_params.get("conspiratorial_pseudoscience", 0.15),
         )
         metrics["indigenous_stem_score"] = _stem_res["indigenous_stem_score"]
+
+        # Phases 325, 326: Quantum Entangled Spacetime, Semiconductor Antitrust
+        d_meta = getattr(summit, "metadata", {}) or {}
+        qst_params = d_meta.get("quantum_spacetime", {}) if isinstance(d_meta, dict) else {}
+        _qst_res = QuantumEntangledSpacetimeSieve.calculate(
+            entanglement_entropy=qst_params.get("entanglement_entropy", 0.80),
+            non_local_correlation=qst_params.get("non_local_correlation", 0.75),
+            classical_linear_assumption=qst_params.get("classical_linear_assumption", 0.20),
+        )
+        metrics["quantum_entangled_spacetime_score"] = _qst_res["quantum_entangled_spacetime_score"]
+
+        semi_params = d_meta.get("semiconductor_antitrust", {}) if isinstance(d_meta, dict) else {}
+        _semi_res = SemiconductorAntitrustHardwareSieve.calculate(
+            hardware_vendor_concentration=semi_params.get("hardware_vendor_concentration", 0.85),
+            cuda_software_lockin=semi_params.get("cuda_software_lockin", 0.80),
+            open_silicon_diversification=semi_params.get("open_silicon_diversification", 0.25),
+        )
+        metrics["semiconductor_antitrust_hardware_score"] = _semi_res["semiconductor_antitrust_hardware_score"]
         metrics["stem_authenticity_tier"] = _stem_res["stem_authenticity_tier"]
         metrics["empirical_stem_validation_index"] = _stem_res["empirical_stem_validation_index"]
 
@@ -891,4 +909,103 @@ class IndigenousSTEMAuthenticitySieve:
             "tactical_rationale": rationale,
             "is_stem_authentic": score >= 0.55,
         }
+class QuantumEntangledSpacetimeSieve:
+    """
+    Phase 325: Connects Quantum Decision Theory (QDT) with emergent time formulations and
+    multi-dimensional state spaces, allowing the engine to model non-linear historical decision loops
+    and cognitive interference without falling into deterministic classical traps.
 
+    Mathematical Formulation:
+      z = 2.8 * entanglement_entropy + 2.5 * non_local_correlation - 3.0 * classical_linear_assumption - 0.4
+      S_Quantum_Spacetime = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        entanglement_entropy: float = 0.80,
+        non_local_correlation: float = 0.75,
+        classical_linear_assumption: float = 0.20,
+    ) -> dict:
+        entropy = max(0.0, min(1.0, float(entanglement_entropy)))
+        non_local = max(0.0, min(1.0, float(non_local_correlation)))
+        classical = max(0.0, min(1.0, float(classical_linear_assumption)))
+
+        z = 2.8 * entropy + 2.5 * non_local - 3.0 * classical - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "NON_LINEAR_QUANTUM_COGNITIVE_DYNAMICS"
+            verdict = "HIGH_COMPLEXITY_NON_COMMUTATIVE_DECISION_PATH"
+            rationale = (
+                f"Quantum decision modeling active ({score:.4f}): Strong non-local strategic coupling ({non_local:.2f}) and cognitive "
+                f"interference ({entropy:.2f}) invalidate naive linear Newtonian forecasting."
+            )
+        elif score >= 0.45:
+            tier = "HYBRID_PROBABILISTIC_REGIME"
+            verdict = "WEAK_INTERFERENCE_CORRELATIONS"
+            rationale = f"Hybrid regime ({score:.4f}): Decision paths show moderate non-linear deviation."
+        else:
+            tier = "CLASSICAL_LINEAR_DETERMINISM"
+            verdict = "STANDARD_BAYESIAN_STATE_SPACE"
+            rationale = f"Classical dynamics ({score:.4f}): Standard sequential rational-actor models suffice."
+
+        return {
+            "quantum_entangled_spacetime_score": score,
+            "entanglement_entropy": round(entropy, 4),
+            "non_local_correlation": round(non_local, 4),
+            "classical_linear_assumption": round(classical, 4),
+            "quantum_decision_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_non_linear_quantum_regime": score >= 0.70,
+        }
+class SemiconductorAntitrustHardwareSieve:
+    """
+    Phase 326: Models GPU hardware allocation concentration (Nvidia CUDA monopoly),
+    DOJ/FTC antitrust disruption, and AI infrastructure CapEx return-on-investment (ROI)
+    exhaustion vs. sovereign ASIC diversification.
+
+    Mathematical Formulation:
+      z = 3.2 * hardware_vendor_concentration + 2.8 * cuda_software_lockin - 3.0 * open_silicon_diversification - 0.4
+      S_Hardware_Monopoly_Risk = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        hardware_vendor_concentration: float = 0.85,
+        cuda_software_lockin: float = 0.80,
+        open_silicon_diversification: float = 0.25,
+    ) -> dict:
+        conc = max(0.0, min(1.0, float(hardware_vendor_concentration)))
+        cuda = max(0.0, min(1.0, float(cuda_software_lockin)))
+        silicon = max(0.0, min(1.0, float(open_silicon_diversification)))
+
+        z = 3.2 * conc + 2.8 * cuda - 3.0 * silicon - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SILICON_MONOPOLY_CHOKEPOINT"
+            verdict = "HIGH_ANTITRUST_AND_CAPEX_EXHAUSTION_RISK"
+            rationale = (
+                f"Critical compute concentration ({score:.4f}): Hardware vendor lock-in ({conc:.2f}) and CUDA dominance "
+                f"({cuda:.2f}) create single-point systemic failure for national AI infrastructure."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_SILICON_DEPENDENCY"
+            verdict = "EMERGING_ASIC_DIVERSIFICATION"
+            rationale = f"Moderate dependency ({score:.4f}): Alternative architectures emerging but ecosystem lock-in persists."
+        else:
+            tier = "SOVEREIGN_OPEN_SILICON_RESILIENCE"
+            verdict = "DIVERSIFIED_COMPUTE_ECOSYSTEM"
+            rationale = f"Sovereign silicon resilience ({score:.4f}): Open silicon standards ({silicon:.2f}) mitigate monopoly choke."
+
+        return {
+            "semiconductor_antitrust_hardware_score": score,
+            "hardware_vendor_concentration": round(conc, 4),
+            "cuda_software_lockin": round(cuda, 4),
+            "open_silicon_diversification": round(silicon, 4),
+            "semiconductor_monopoly_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_silicon_monopoly_critical": score >= 0.70,
+        }

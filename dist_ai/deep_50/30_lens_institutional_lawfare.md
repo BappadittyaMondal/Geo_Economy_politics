@@ -478,6 +478,16 @@ class InstitutionalLawfareLens:
             dharma_rajdharma_judicial_fidelity=dharmic_const_params.get("dharma_rajdharma_judicial_fidelity", 0.82),
         )
         metrics["dharmic_constitutionalism_score"] = _dharmic_const_res["dharmic_constitutionalism_score"]
+
+        # Phase 331: Asymmetric Statutory Lawfare Sieve
+        law_meta = getattr(event, "metadata", {}) or {}
+        asl_params = law_meta.get("statutory_lawfare", {}) if isinstance(law_meta, dict) else {}
+        _asl_res = AsymmetricStatutoryLawfareSieve.calculate(
+            statutory_arrest_asymmetry=asl_params.get("statutory_arrest_asymmetry", 0.85),
+            settlement_extortion_intensity=asl_params.get("settlement_extortion_intensity", 0.80),
+            preliminary_investigation_rigor=asl_params.get("preliminary_investigation_rigor", 0.20),
+        )
+        metrics["asymmetric_statutory_lawfare_score"] = _asl_res["asymmetric_statutory_lawfare_score"]
         metrics["dharmic_constitutionalism_tier"] = _dharmic_const_res["dharmic_constitutionalism_tier"]
         metrics["constitutional_authenticity_index"] = _dharmic_const_res["constitutional_authenticity_index"]
 
@@ -1859,7 +1869,55 @@ class DharmicConstitutionalismSieve:
             "tactical_rationale": rationale,
             "is_dharmic_constitutional": score >= 0.55,
         }
+class AsymmetricStatutoryLawfareSieve:
+    """
+    Phase 331: Quantifies the socio-economic impact of uninvestigated, non-bailable matrimonial statutes
+    (Section 498A/DV Act), measuring middle-class family capital liquidation, legal defense extortion,
+    and judicial trial latency.
 
+    Mathematical Formulation:
+      z = 3.2 * statutory_arrest_asymmetry + 2.8 * settlement_extortion_intensity - 3.0 * preliminary_investigation_rigor - 0.4
+      S_Statutory_Extortion = 1.0 / (1.0 + exp(-z))
+    """
 
+    @staticmethod
+    def calculate(
+        statutory_arrest_asymmetry: float = 0.85,
+        settlement_extortion_intensity: float = 0.80,
+        preliminary_investigation_rigor: float = 0.20,
+    ) -> dict:
+        asymmetry = max(0.0, min(1.0, float(statutory_arrest_asymmetry)))
+        extortion = max(0.0, min(1.0, float(settlement_extortion_intensity)))
+        rigor = max(0.0, min(1.0, float(preliminary_investigation_rigor)))
+
+        z = 3.2 * asymmetry + 2.8 * extortion - 3.0 * rigor - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_STATUTORY_LAWFARE_EXTORTION"
+            verdict = "MIDDLE_CLASS_CAPITAL_DESTRUCTION_AND_JUDICIAL_DRAIN"
+            rationale = (
+                f"Severe statutory perversion ({score:.4f}): Presumption of guilt and arrest coercion ({asymmetry:.2f}) weaponized "
+                f"for financial extortion ({extortion:.2f}) amidst negligible preliminary verification ({rigor:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_PROCEDURAL_FRICTION"
+            verdict = "EXTENDED_LITIGATION_LATENCY"
+            rationale = f"Moderate friction ({score:.4f}): Procedural delays burdening litigants without extreme extortion."
+        else:
+            tier = "BALANCED_PRELIMINARY_VERIFICATION"
+            verdict = "EQUITABLE_STATUTORY_APPLICATION"
+            rationale = f"Equitable jurisprudence ({score:.4f}): Strict preliminary inquiries ({rigor:.2f}) prevent malicious prosecution."
+
+        return {
+            "asymmetric_statutory_lawfare_score": score,
+            "statutory_arrest_asymmetry": round(asymmetry, 4),
+            "settlement_extortion_intensity": round(extortion, 4),
+            "preliminary_investigation_rigor": round(rigor, 4),
+            "statutory_lawfare_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_lawfare_extortion_acute": score >= 0.70,
+        }
 
 ```

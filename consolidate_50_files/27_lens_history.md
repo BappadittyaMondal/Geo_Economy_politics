@@ -153,6 +153,15 @@ class HistoryLens:
             reinvested_infrastructure_mitigation=drain_params.get("reinvested_infrastructure_mitigation", 0.15),
         )
         metrics["colonial_drain_score"] = _drain_res["colonial_drain_score"]
+
+        # Phase 323: Kishkindha Global Geography Sieve
+        kg_params = hist_meta.get("kishkindha_geography", {}) if isinstance(hist_meta, dict) else {}
+        _kg_res = KishkindhaGlobalGeographySieve.calculate(
+            astronomical_sky_match=kg_params.get("astronomical_sky_match", 0.85),
+            topographical_cardinal_fidelity=kg_params.get("topographical_cardinal_fidelity", 0.80),
+            speculative_extrapolation=kg_params.get("speculative_extrapolation", 0.25),
+        )
+        metrics["kishkindha_global_geography_score"] = _kg_res["kishkindha_global_geography_score"]
         metrics["colonial_drain_tier"] = _drain_res["colonial_drain_tier"]
         metrics["sovereign_drain_extraction_index"] = _drain_res["sovereign_drain_extraction_index"]
 
@@ -683,7 +692,55 @@ class ColonialDrainExtractionSieve:
             "tactical_rationale": rationale,
             "is_colonial_drain_critical": score >= 0.55,
         }
+class KishkindhaGlobalGeographySieve:
+    """
+    Phase 323: Cross-examines ancient Sanskrit epic geography (Sugriva's Atlas in Kishkindha Kanda)
+    against modern physical geography, continental coordinates, and archaeo-astronomy simulations
+    to separate verifiable historical exploration from speculative myth.
 
+    Mathematical Formulation:
+      z = 2.8 * astronomical_sky_match + 2.6 * topographical_cardinal_fidelity - 2.8 * speculative_extrapolation - 0.4
+      S_Epic_Geography = 1.0 / (1.0 + exp(-z))
+    """
 
+    @staticmethod
+    def calculate(
+        astronomical_sky_match: float = 0.85,
+        topographical_cardinal_fidelity: float = 0.80,
+        speculative_extrapolation: float = 0.25,
+    ) -> dict:
+        astro = max(0.0, min(1.0, float(astronomical_sky_match)))
+        topo = max(0.0, min(1.0, float(topographical_cardinal_fidelity)))
+        spec = max(0.0, min(1.0, float(speculative_extrapolation)))
+
+        z = 2.8 * astro + 2.6 * topo - 2.8 * spec - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "VERIFIED_ARCHAEO_GEOGRAPHIC_EXPLORATION"
+            verdict = "HISTORICAL_MARITIME_CANON_VALIDATED"
+            rationale = (
+                f"Rigorous geographical fidelity ({score:.4f}): Cardinal directional descriptions ({topo:.2f}) and retro-calculated "
+                f"celestial positions ({astro:.2f}) confirm authentic trans-continental navigational records."
+            )
+        elif score >= 0.45:
+            tier = "SEMI_HISTORICAL_MYTHO_TOPOGRAPHY"
+            verdict = "PARTIAL_CARTOGRAPHIC_MATCH"
+            rationale = f"Plausible regional mapping ({score:.4f}) with local poetic embellishment."
+        else:
+            tier = "SPECULATIVE_PSEUDO_HISTORICAL_CONJECTURE"
+            verdict = "UNGROUNDED_GEOGRAPHICAL_FANTASY"
+            rationale = f"Speculative overreach ({score:.4f}): Claims lack archaeological or topographical correlation."
+
+        return {
+            "kishkindha_global_geography_score": score,
+            "astronomical_sky_match": round(astro, 4),
+            "topographical_cardinal_fidelity": round(topo, 4),
+            "speculative_extrapolation": round(spec, 4),
+            "epic_geography_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_historically_grounded": score >= 0.70,
+        }
 
 ```

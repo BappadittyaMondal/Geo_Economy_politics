@@ -250,6 +250,17 @@ class GeoEconomistLens:
             electoral_populist_volatility=succ_params.get("electoral_populist_volatility", 0.25),
         )
         metrics["succession_continuity_score"] = _succ_res["succession_continuity_score"]
+
+        # Phase 329: Infrastructure CapEx Multiplier Sieve
+        ge_meta = getattr(summit, "metadata", {}) or {}
+        icm_params = ge_meta.get("infrastructure_capex", {}) if isinstance(ge_meta, dict) else {}
+        _icm_res = InfrastructureCapExMultiplierSieve.calculate(
+            public_capex_allocated=icm_params.get("public_capex_allocated", 3.3),
+            gdp_nominal_pct=icm_params.get("gdp_nominal_pct", 3.0),
+            domestic_procurement_share=icm_params.get("domestic_procurement_share", 0.85),
+            bureaucratic_delay=icm_params.get("bureaucratic_delay", 0.20),
+        )
+        metrics["infrastructure_capex_multiplier_score"] = _icm_res["infrastructure_capex_multiplier_score"]
         metrics["succession_continuity_tier"] = _succ_res["succession_continuity_tier"]
         metrics["policy_durability_index"] = _succ_res["policy_durability_index"]
 
@@ -1041,5 +1052,55 @@ class SuccessionContinuitySieve:
             "tactical_rationale": rationale,
             "is_succession_resilient": score >= 0.55,
         }
+class InfrastructureCapExMultiplierSieve:
+    """
+    Phase 329: Models public railway and freight corridor capital expenditures (CapEx) as an
+    economic multiplier driving domestic steel, cement, and engineering supply chains while cutting logistics friction.
 
+    Mathematical Formulation:
+      z = 3.2 * (public_capex_allocated / (gdp_nominal_pct + 1e-6)) + 2.5 * domestic_procurement_share - 2.8 * bureaucratic_delay - 0.3
+      S_CapEx_Multiplier = 1.0 / (1.0 + exp(-z))
+    """
 
+    @staticmethod
+    def calculate(
+        public_capex_allocated: float = 3.3,
+        gdp_nominal_pct: float = 3.0,
+        domestic_procurement_share: float = 0.85,
+        bureaucratic_delay: float = 0.20,
+    ) -> dict:
+        capex = max(0.0, float(public_capex_allocated))
+        gdp = max(0.01, float(gdp_nominal_pct))
+        proc = max(0.0, min(1.0, float(domestic_procurement_share)))
+        delay = max(0.0, min(1.0, float(bureaucratic_delay)))
+
+        ratio = capex / (gdp + 1e-6)
+        z = 3.2 * ratio + 2.5 * proc - 2.8 * delay - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "HIGH_GROWTH_INFRASTRUCTURE_MULTIPLIER"
+            verdict = "COMPOUNDING_DOMESTIC_VALUE_CHAIN_EXPANSION"
+            rationale = (
+                f"Potent fiscal multiplier ({score:.4f}): Sustained public CapEx ({capex:.2f}% of GDP) and high domestic "
+                f"sourcing ({proc:.2f}) systematically compress logistics overhead and expand industrial capacity."
+            )
+        elif score >= 0.50:
+            tier = "MODERATE_CAPEX_MULTIPLIER"
+            verdict = "INCREMENTAL_LOGISTICS_EFFICIENCY"
+            rationale = f"Moderate multiplier ({score:.4f}): CapEx outlays yielding steady improvements amidst moderate bureaucratic drag."
+        else:
+            tier = "SUB_CRITICAL_CAPEX_STAGNATION"
+            verdict = "FISCAL_LEAKAGE_AND_LOGISTICS_BOTTLENECKS"
+            rationale = f"Sub-critical performance ({score:.4f}): Inadequate capex scale or excessive project delays ({delay:.2f})."
+
+        return {
+            "infrastructure_capex_multiplier_score": score,
+            "capex_to_gdp_ratio": round(ratio, 4),
+            "domestic_procurement_share": round(proc, 4),
+            "bureaucratic_delay": round(delay, 4),
+            "capex_multiplier_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_high_multiplier_active": score >= 0.75,
+        }

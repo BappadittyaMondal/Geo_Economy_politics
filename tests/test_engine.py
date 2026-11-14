@@ -10893,7 +10893,7 @@ class TestPhase247to250SievesAndDigest:
     def test_phase250_lenses_init_exports_count_79(self):
         """Phase 250: geo_engine.lenses exports 79 verified symbols."""
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143)
+        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163)
         assert "DigitalEnclosureTrapSieve" in lenses.__all__
         assert "KineticDiversionaryEscalationSieve" in lenses.__all__
 
@@ -11729,7 +11729,7 @@ class TestPhases274to282SievesAndTelemetry:
 
     def test_phases_274_to_282_lenses_init_exports_count_109(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (109, 121, 127, 134, 143)
+        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163)
 
 
 
@@ -12069,7 +12069,7 @@ class TestPhases283to294SievesAndTelemetry:
 
     def test_phases_283_to_294_lenses_init_exports_count_121(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (121, 127, 134, 143)
+        assert len(lenses.__all__) in (121, 127, 134, 143, 163)
 
 
 class TestPhases295to300SievesAndTelemetry:
@@ -12274,7 +12274,7 @@ class TestPhases295to300SievesAndTelemetry:
 
     def test_phases_295_to_300_lenses_init_exports_count_127(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (127, 134, 143)
+        assert len(lenses.__all__) in (127, 134, 143, 163)
 
 
 class TestPhases301to307SievesAndQuantumGating:
@@ -12455,7 +12455,7 @@ class TestPhases301to307SievesAndQuantumGating:
 
     def test_phases_301_to_307_lenses_init_exports_count_134(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (134, 143)
+        assert len(lenses.__all__) in (134, 143, 163)
 
     def test_sadhguru_strategic_council_archetype(self):
         from geo_engine.arbitration.persona_narrator import PersonaNarrator
@@ -12712,7 +12712,7 @@ class TestPhases309to317SievesAndQuantumSynthesis:
 
     def test_phases_309_to_317_lenses_init_exports_count_143(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) == 143
+        assert len(lenses.__all__) in (143, 163)
         for sieve in [
             "ArchivalPrimarySourceSieve",
             "AcademicGatekeepingSieve",
@@ -12725,5 +12725,334 @@ class TestPhases309to317SievesAndQuantumSynthesis:
             "ColonialDrainExtractionSieve",
         ]:
             assert sieve in lenses.__all__
+class TestPhases318to337SievesAndForensicSynthesis:
+    """Automated verification suite for Phases 318–337 forensic epistemic sieves and synthesis telemetry."""
 
+    def test_phase318_basel_gold_allocation_sieve(self):
+        from geo_engine.lenses.cash_flow import BaselGoldAllocationSieve
+        res = BaselGoldAllocationSieve.calculate(
+            physical_bullion=0.90,
+            paper_derivatives=0.20,
+            domestic_vault_immunity=0.95,
+            fx_sanctions_vulnerability=0.10,
+        )
+        assert res["basel_gold_allocation_score"] >= 0.75
+        assert res["is_sovereign_gold_fortress"] is True
+        assert res["basel_gold_tier"] == "FORTRESS_TIER1_ALLOCATED_BULLION"
 
+    def test_phase319_apaurusheya_mnemonic_fidelity_sieve(self):
+        from geo_engine.lenses.civilizational import ApaurusheyaMnemonicFidelitySieve
+        res = ApaurusheyaMnemonicFidelitySieve.calculate(
+            mnemonic_checksum_depth=0.98,
+            accent_pitch_retention=0.95,
+            colonial_philological_drift=0.10,
+        )
+        assert res["apaurusheya_mnemonic_fidelity_score"] >= 0.75
+        assert res["is_unbroken_transmission"] is True
+        assert res["mnemonic_fidelity_tier"] == "UNBROKEN_APAURUSHEYA_TRANSMISSION"
+
+    def test_phase320_mitrokhin_deep_state_penetration_sieve(self):
+        from geo_engine.lenses.hybrid_covert import MitrokhinDeepStatePenetrationSieve
+        res = MitrokhinDeepStatePenetrationSieve.calculate(
+            extra_constitutional_power=0.85,
+            foreign_fcra_funding=0.80,
+            statutory_ministerial_accountability=0.20,
+        )
+        assert res["mitrokhin_deep_state_penetration_score"] >= 0.70
+        assert res["is_deep_state_compromised"] is True
+        assert res["deep_state_penetration_tier"] == "CRITICAL_SHADOW_CABINET_SUBVERSION"
+
+    def test_phase321_puranic_metaphysical_boundary_sieve(self):
+        from geo_engine.arbitration.synthesizer import PuranicMetaphysicalBoundarySieve
+        # Case 1: Clamped subjective mythos
+        res_clamped = PuranicMetaphysicalBoundarySieve.calculate(
+            verifiability_index=0.08,
+            empirical_sensors=0.0,
+            subjective_claim_intensity=0.95,
+        )
+        assert res_clamped["is_metaphysically_gated"] is True
+        assert res_clamped["puranic_metaphysical_boundary_score"] <= 0.15
+        assert res_clamped["metaphysical_boundary_tier"] == "TIER_0_METAPHYSICAL_MYTHOS_GATED"
+
+        # Case 2: Empirical physical sensor inclusion
+        res_emp = PuranicMetaphysicalBoundarySieve.calculate(
+            verifiability_index=0.75,
+            empirical_sensors=0.80,
+            subjective_claim_intensity=0.20,
+        )
+        assert res_emp["is_metaphysically_gated"] is False
+        assert res_emp["puranic_metaphysical_boundary_score"] >= 0.60
+
+    def test_phase322_polemics_vs_empirical_ratio_sieve(self):
+        from geo_engine.lenses.propaganda import PolemicsVsEmpiricalRatioSieve
+        res = PolemicsVsEmpiricalRatioSieve.calculate(
+            ad_hominem_density=0.85,
+            polemical_ridicule=0.90,
+            empirical_data_citations=0.10,
+        )
+        assert res["polemics_vs_empirical_ratio_score"] >= 0.70
+        assert res["is_bad_faith_deflection"] is True
+        assert res["polemical_deflection_tier"] == "ACUTE_POLEMICAL_BAD_FAITH_DEFLECTION"
+
+    def test_phase323_kishkindha_global_geography_sieve(self):
+        from geo_engine.lenses.history import KishkindhaGlobalGeographySieve
+        res = KishkindhaGlobalGeographySieve.calculate(
+            astronomical_sky_match=0.90,
+            topographical_cardinal_fidelity=0.85,
+            speculative_extrapolation=0.20,
+        )
+        assert res["kishkindha_global_geography_score"] >= 0.70
+        assert res["is_historically_grounded"] is True
+        assert res["epic_geography_tier"] == "VERIFIED_ARCHAEO_GEOGRAPHIC_EXPLORATION"
+
+    def test_phase324_vedic_etymological_decolonization_sieve(self):
+        from geo_engine.lenses.civilizational import VedicEtymologicalDecolonizationSieve
+        res = VedicEtymologicalDecolonizationSieve.calculate(
+            paninian_root_adherence=0.92,
+            contextual_shastric_harmony=0.88,
+            colonial_lexical_distortion=0.15,
+        )
+        assert res["vedic_etymological_decolonization_score"] >= 0.75
+        assert res["is_etymologically_verified"] is True
+        assert res["etymological_integrity_tier"] == "NIRUKTA_CERTIFIED_CANONICAL_ETYMOLOGY"
+
+    def test_phase325_quantum_entangled_spacetime_sieve(self):
+        from geo_engine.lenses.deep_tech import QuantumEntangledSpacetimeSieve
+        res = QuantumEntangledSpacetimeSieve.calculate(
+            entanglement_entropy=0.85,
+            non_local_correlation=0.80,
+            classical_linear_assumption=0.15,
+        )
+        assert res["quantum_entangled_spacetime_score"] >= 0.70
+        assert res["is_non_linear_quantum_regime"] is True
+        assert res["quantum_decision_tier"] == "NON_LINEAR_QUANTUM_COGNITIVE_DYNAMICS"
+
+    def test_phase326_semiconductor_antitrust_hardware_sieve(self):
+        from geo_engine.lenses.deep_tech import SemiconductorAntitrustHardwareSieve
+        res = SemiconductorAntitrustHardwareSieve.calculate(
+            hardware_vendor_concentration=0.90,
+            cuda_software_lockin=0.85,
+            open_silicon_diversification=0.20,
+        )
+        assert res["semiconductor_antitrust_hardware_score"] >= 0.70
+        assert res["is_silicon_monopoly_critical"] is True
+        assert res["semiconductor_monopoly_tier"] == "CRITICAL_SILICON_MONOPOLY_CHOKEPOINT"
+
+    def test_phase327_transnational_fcra_ecclesiastical_sieve(self):
+        from geo_engine.lenses.hybrid_covert import TransnationalFCRAEcclesiasticalSieve
+        res = TransnationalFCRAEcclesiasticalSieve.calculate(
+            foreign_ecclesiastical_inflow=0.80,
+            conversion_velocity=0.75,
+            fcra_audit_enforcement=0.30,
+        )
+        assert res["transnational_fcra_ecclesiastical_score"] >= 0.65
+        assert res["is_fcra_subversion_severe"] is True
+        assert res["ecclesiastical_subversion_tier"] == "SEVERE_TRANSNATIONAL_ECLESIATICAL_SUBVERSION"
+
+    def test_phase328_cinematic_iconography_sacrality_sieve(self):
+        from geo_engine.lenses.propaganda import CinematicIconographySacralitySieve
+        res = CinematicIconographySacralitySieve.calculate(
+            western_fantasy_trope_divergence=0.90,
+            sacred_iconography_dilution=0.85,
+            canonical_fidelity=0.15,
+        )
+        assert res["cinematic_iconography_sacrality_score"] >= 0.70
+        assert res["is_severely_desacralized"] is True
+        assert res["desacralization_tier"] == "SEVERE_SACRED_DESACRALIZATION_AND_REJECTION"
+
+    def test_phase329_infrastructure_capex_multiplier_sieve(self):
+        from geo_engine.lenses.geo_economist import InfrastructureCapExMultiplierSieve
+        res = InfrastructureCapExMultiplierSieve.calculate(
+            public_capex_allocated=3.5,
+            gdp_nominal_pct=3.0,
+            domestic_procurement_share=0.90,
+            bureaucratic_delay=0.15,
+        )
+        assert res["infrastructure_capex_multiplier_score"] >= 0.75
+        assert res["is_high_multiplier_active"] is True
+        assert res["capex_multiplier_tier"] == "HIGH_GROWTH_INFRASTRUCTURE_MULTIPLIER"
+
+    def test_phase330_classical_bullion_inflow_trade_sieve(self):
+        from geo_engine.lenses.cash_flow import ClassicalBullionInflowTradeSieve
+        res = ClassicalBullionInflowTradeSieve.calculate(
+            export_surplus_bullion_settlement=0.85,
+            domestic_vault_repatriation=0.90,
+            fiat_debt_dependency=0.20,
+        )
+        assert res["classical_bullion_inflow_score"] >= 0.75
+        assert res["is_bullion_surplus_fortress"] is True
+        assert res["bullion_trade_tier"] == "CLASSICAL_GOLD_DRAIN_SOVEREIGN_SURPLUS"
+
+    def test_phase331_asymmetric_statutory_lawfare_sieve(self):
+        from geo_engine.lenses.institutional_lawfare import AsymmetricStatutoryLawfareSieve
+        res = AsymmetricStatutoryLawfareSieve.calculate(
+            statutory_arrest_asymmetry=0.90,
+            settlement_extortion_intensity=0.85,
+            preliminary_investigation_rigor=0.15,
+        )
+        assert res["asymmetric_statutory_lawfare_score"] >= 0.70
+        assert res["is_lawfare_extortion_acute"] is True
+        assert res["statutory_lawfare_tier"] == "ACUTE_STATUTORY_LAWFARE_EXTORTION"
+
+    def test_phase332_cryptographic_decentralization_sieve(self):
+        from geo_engine.lenses.digital_sovereignty import CryptographicDecentralizationSieve
+        res = CryptographicDecentralizationSieve.calculate(
+            mathematical_scarcity_rigor=0.95,
+            decentralized_censorship_resistance=0.90,
+            state_fiat_debasement=0.80,
+        )
+        assert res["cryptographic_decentralization_score"] >= 0.65
+        assert res["is_permissionless_store_of_value"] is True
+        assert res["crypto_decentralization_tier"] == "PERMISSONLESS_MATHEMATICAL_SCARCITY_FORTRESS"
+
+    def test_phase333_hormuz_energy_escalation_sieve(self):
+        from geo_engine.lenses.petro_logistics import HormuzEnergyEscalationSieve
+        res = HormuzEnergyEscalationSieve.calculate(
+            chokepoint_interdiction_risk=0.85,
+            crude_price_spike=0.80,
+            spr_reserve_buffer_days=0.45,
+            alternative_sourcing=0.55,
+        )
+        assert res["hormuz_energy_escalation_score"] >= 0.70
+        assert res["is_energy_strangulation_acute"] is True
+        assert res["hormuz_vulnerability_tier"] == "ACUTE_CHOKEPOINT_ENERGY_STRANGULATION"
+
+    def test_phase334_eurodollar_shadow_liquidity_sieve(self):
+        from geo_engine.lenses.cash_flow import EurodollarShadowLiquiditySieve
+        res = EurodollarShadowLiquiditySieve.calculate(
+            eurodollar_liquidity_drain=0.80,
+            cross_currency_basis_spread=0.75,
+            domestic_fx_reserve_cushion=0.80,
+        )
+        assert 0.0 <= res["eurodollar_shadow_liquidity_score"] <= 1.0
+        assert "eurodollar_drain_tier" in res
+
+    def test_phase335_black_swan_disruption_sieve(self):
+        from geo_engine.arbitration.synthesizer import BlackSwanDisruptionSieve
+        res = BlackSwanDisruptionSieve.calculate(
+            shock_tail_risk_index=0.80,
+            infrastructure_coupling_density=0.85,
+            redundancy_isolation_buffer=0.25,
+        )
+        assert res["black_swan_disruption_score"] >= 0.70
+        assert res["is_black_swan_vulnerable"] is True
+        assert res["black_swan_tier"] == "CRITICAL_SYSTEMIC_BLACK_SWAN_CASCADE"
+
+    def test_phase336_sovereign_gold_repatriation_velocity_sieve(self):
+        from geo_engine.lenses.cash_flow import SovereignGoldRepatriationVelocitySieve
+        res = SovereignGoldRepatriationVelocitySieve.calculate(
+            repatriated_bullion_metric=102.0,
+            foreign_custody_gold=300.0,
+            domestic_vault_security=0.95,
+            fx_sanction_exposure=0.15,
+        )
+        assert res["sovereign_gold_repatriation_velocity_score"] >= 0.75
+        assert res["is_repatriation_velocity_high"] is True
+        assert res["repatriation_velocity_tier"] == "RAPID_SOVEREIGN_BULLION_REPATRIATION"
+
+    def test_phase337_geopolitical_speech_forensics_sieve(self):
+        from geo_engine.lenses.propaganda import GeopoliticalSpeechForensicsSieve
+        res = GeopoliticalSpeechForensicsSieve.calculate(
+            lexical_divergence_index=0.85,
+            deliberate_omission_density=0.80,
+            communique_harmony=0.20,
+        )
+        assert res["geopolitical_speech_forensics_score"] >= 0.70
+        assert res["is_doctrinal_shift_signaled"] is True
+        assert res["speech_divergence_tier"] == "ACUTE_STRATEGIC_SPEECH_DIVERGENCE"
+
+    def test_phases_318_to_337_synthesizer_telemetry(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        from datetime import datetime
+        s = SummitEvent(summit_id="s_318_337", title="Forensic Multi-Domain Summit", date=datetime.now(), host_country="India", participant_countries=["India", "Global"])
+        res = SummitSynthesizer.synthesize(s)
+        srm = res.strategic_resilience_matrix
+        assert len(srm) == 149
+        for key in [
+            "basel_gold_allocation_score",
+            "mnemonic_fidelity_score",
+            "deep_state_penetration_score",
+            "puranic_boundary_score",
+            "polemical_deflection_score",
+            "epic_geography_score",
+            "vedic_etymology_score",
+            "quantum_spacetime_score",
+            "semiconductor_monopoly_score",
+            "fcra_subversion_score",
+            "cinematic_desacralization_score",
+            "infra_capex_multiplier_score",
+            "classical_bullion_trade_score",
+            "statutory_lawfare_score",
+            "crypto_decentralization_score",
+            "hormuz_vulnerability_score",
+            "eurodollar_drain_score",
+            "black_swan_vulnerability_score",
+            "bullion_repatriation_velocity_score",
+            "speech_signal_divergence_score",
+        ]:
+            assert key in srm
+            assert srm[key] is not None
+            assert 0.0 <= srm[key] <= 1.0
+
+    def test_phases_318_to_337_query_parser_dynamic_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+        q = QueryParser.parse(
+            "Analyze basel gold physical bullion tier 1, apaurusheya mnemonic ashta vikriti, "
+            "mitrokhin archive deep state penetration, puranic metaphysical boundary, "
+            "polemics vs empirical ad hominem, kishkindha global geography sugriva atlas, "
+            "vedic etymological decolonization paninian root, quantum entangled spacetime quantum decision theory, "
+            "semiconductor antitrust gpu hardware monopoly, transnational fcra ecclesiastical conversion velocity, "
+            "cinematic iconography sacrality desacralization, infrastructure capex multiplier freight corridor, "
+            "classical bullion inflow roman gold drain, asymmetric statutory lawfare section 498a, "
+            "cryptographic decentralization bitcoin 21m cap, hormuz energy escalation strait of hormuz, "
+            "eurodollar shadow liquidity offshore dollar collateral, black swan disruption extreme value theory shock, "
+            "sovereign gold repatriation velocity bank of england, and geopolitical speech forensics deliberate omission"
+        )
+        assert q.requires_basel_gold is True
+        assert q.requires_mnemonic_fidelity is True
+        assert q.requires_mitrokhin_deep_state is True
+        assert q.requires_puranic_boundary is True
+        assert q.requires_polemics_ratio is True
+        assert q.requires_kishkindha_geography is True
+        assert q.requires_vedic_decolonization is True
+        assert q.requires_quantum_spacetime is True
+        assert q.requires_semiconductor_antitrust is True
+        assert q.requires_fcra_ecclesiastical is True
+        assert q.requires_cinematic_sacrality is True
+        assert q.requires_infrastructure_capex_multiplier is True
+        assert q.requires_classical_bullion_trade is True
+        assert q.requires_asymmetric_statutory_lawfare is True
+        assert q.requires_cryptographic_decentralization is True
+        assert q.requires_hormuz_escalation is True
+        assert q.requires_eurodollar_shadow_liquidity is True
+        assert q.requires_black_swan_disruption is True
+        assert q.requires_sovereign_gold_velocity is True
+        assert q.requires_geopolitical_speech_forensics is True
+
+    def test_phases_318_to_337_lenses_init_exports_count_163(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) == 163
+        for sieve in [
+            "BaselGoldAllocationSieve",
+            "ApaurusheyaMnemonicFidelitySieve",
+            "MitrokhinDeepStatePenetrationSieve",
+            "PuranicMetaphysicalBoundarySieve",
+            "PolemicsVsEmpiricalRatioSieve",
+            "KishkindhaGlobalGeographySieve",
+            "VedicEtymologicalDecolonizationSieve",
+            "QuantumEntangledSpacetimeSieve",
+            "SemiconductorAntitrustHardwareSieve",
+            "TransnationalFCRAEcclesiasticalSieve",
+            "CinematicIconographySacralitySieve",
+            "InfrastructureCapExMultiplierSieve",
+            "ClassicalBullionInflowTradeSieve",
+            "AsymmetricStatutoryLawfareSieve",
+            "CryptographicDecentralizationSieve",
+            "HormuzEnergyEscalationSieve",
+            "EurodollarShadowLiquiditySieve",
+            "BlackSwanDisruptionSieve",
+            "SovereignGoldRepatriationVelocitySieve",
+            "GeopoliticalSpeechForensicsSieve",
+        ]:
+            assert sieve in lenses.__all__

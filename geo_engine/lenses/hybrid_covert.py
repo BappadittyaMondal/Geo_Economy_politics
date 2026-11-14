@@ -223,6 +223,24 @@ class HybridCovertLens:
             foreign_penetration_risk=bp_params.get("foreign_penetration_risk", 0.20),
         )
         metrics["black_project_resilience_score"] = _bp_res["black_project_resilience_score"]
+
+        # Phases 320, 327: Mitrokhin Deep State, Transnational FCRA Ecclesiastical
+        hy_meta = getattr(summit, "metadata", {}) or {}
+        ds_params = hy_meta.get("mitrokhin_deep_state", {}) if isinstance(hy_meta, dict) else {}
+        _ds_res = MitrokhinDeepStatePenetrationSieve.calculate(
+            extra_constitutional_power=ds_params.get("extra_constitutional_power", 0.75),
+            foreign_fcra_funding=ds_params.get("foreign_fcra_funding", 0.70),
+            statutory_ministerial_accountability=ds_params.get("statutory_ministerial_accountability", 0.30),
+        )
+        metrics["mitrokhin_deep_state_penetration_score"] = _ds_res["mitrokhin_deep_state_penetration_score"]
+
+        fc_params = hy_meta.get("fcra_ecclesiastical", {}) if isinstance(hy_meta, dict) else {}
+        _fc_res = TransnationalFCRAEcclesiasticalSieve.calculate(
+            foreign_ecclesiastical_inflow=fc_params.get("foreign_ecclesiastical_inflow", 0.75),
+            conversion_velocity=fc_params.get("conversion_velocity", 0.70),
+            fcra_audit_enforcement=fc_params.get("fcra_audit_enforcement", 0.35),
+        )
+        metrics["transnational_fcra_ecclesiastical_score"] = _fc_res["transnational_fcra_ecclesiastical_score"]
         metrics["sap_compartmentalization_index"] = _bp_res["sap_compartmentalization_index"]
         metrics["c4isr_warning_latency_margin"] = _bp_res["c4isr_warning_latency_margin"]
         metrics["covert_deterrence_tier"] = _bp_res["covert_deterrence_tier"]
@@ -927,4 +945,103 @@ class DeepStateBlackProjectIntelligenceSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_black_program_resilient": score >= 0.55,
+        }
+class MitrokhinDeepStatePenetrationSieve:
+    """
+    Phase 320: Quantifies foreign intelligence penetration of national cabinet corridors
+    and extra-constitutional advisory bodies (e.g. 2004–2014 NAC model), measuring defense
+    procurement delays and statutory subversion.
+
+    Mathematical Formulation:
+      z = 3.2 * extra_constitutional_power + 2.8 * foreign_fcra_funding - 3.0 * statutory_ministerial_accountability - 0.4
+      S_DeepState_Penetration = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        extra_constitutional_power: float = 0.75,
+        foreign_fcra_funding: float = 0.70,
+        statutory_ministerial_accountability: float = 0.30,
+    ) -> dict:
+        extra = max(0.0, min(1.0, float(extra_constitutional_power)))
+        fcra = max(0.0, min(1.0, float(foreign_fcra_funding)))
+        accountability = max(0.0, min(1.0, float(statutory_ministerial_accountability)))
+
+        z = 3.2 * extra + 2.8 * fcra - 3.0 * accountability - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SHADOW_CABINET_SUBVERSION"
+            verdict = "NATIONAL_SECURITY_PARALYSIS_DETECTED"
+            rationale = (
+                f"Critical subversion ({score:.4f}): Extra-constitutional policy drafting ({extra:.2f}) and foreign "
+                f"institutional conduits ({fcra:.2f}) actively subvert statutory defense procurement and sovereign autonomy."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_INFLUENCE_PEDDLING"
+            verdict = "INSTITUTIONAL_PRESSURE_CONDUIT"
+            rationale = f"Elevated vulnerability ({score:.4f}): Foreign lobby networks exerting bureaucratic friction."
+        else:
+            tier = "SECURED_STATUTORY_CHAIN_OF_COMMAND"
+            verdict = "SOVEREIGN_CABINET_INTEGRITY_MAINTAINED"
+            rationale = f"Sovereign integrity ({score:.4f}): Robust statutory accountability ({accountability:.2f}) insulates governance."
+
+        return {
+            "mitrokhin_deep_state_penetration_score": score,
+            "extra_constitutional_power": round(extra, 4),
+            "foreign_fcra_funding": round(fcra, 4),
+            "statutory_ministerial_accountability": round(accountability, 4),
+            "deep_state_penetration_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_deep_state_compromised": score >= 0.70,
+        }
+class TransnationalFCRAEcclesiasticalSieve:
+    """
+    Phase 327: Quantifies foreign institutional charity pipelines, demographic voting shifts
+    in sensitive border corridors, and the effectiveness of statutory FCRA license cancellations.
+
+    Mathematical Formulation:
+      z = 3.0 * foreign_ecclesiastical_inflow + 2.6 * conversion_velocity - 3.2 * fcra_audit_enforcement - 0.3
+      S_FCRA_Subversion = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        foreign_ecclesiastical_inflow: float = 0.75,
+        conversion_velocity: float = 0.70,
+        fcra_audit_enforcement: float = 0.35,
+    ) -> dict:
+        inflow = max(0.0, min(1.0, float(foreign_ecclesiastical_inflow)))
+        velocity = max(0.0, min(1.0, float(conversion_velocity)))
+        audit = max(0.0, min(1.0, float(fcra_audit_enforcement)))
+
+        z = 3.0 * inflow + 2.6 * velocity - 3.2 * audit - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.65:
+            tier = "SEVERE_TRANSNATIONAL_ECLESIATICAL_SUBVERSION"
+            verdict = "COVERT_DEMOGRAPHIC_AND_POLITICAL_ENGINEERING"
+            rationale = (
+                f"Severe demographic vulnerability ({score:.4f}): Foreign institutional funding ({inflow:.2f}) exploits lax "
+                f"regulatory enforcement ({audit:.2f}) to engineer demographic voting shifts in sensitive corridors."
+            )
+        elif score >= 0.45:
+            tier = "MONITORED_FOREIGN_CHARITY_CHANNELS"
+            verdict = "ELEVATED_SCRUTINY_REQUIRED"
+            rationale = f"Elevated monitoring ({score:.4f}): Inflows require strict statutory utilization audits."
+        else:
+            tier = "TIGHTLY_AUDITED_SOVEREIGN_NON_PROFIT_FRAMEWORK"
+            verdict = "STATUTORY_FCRA_COMPLIANCE_CERTIFIED"
+            rationale = f"Robust regulatory enforcement ({score:.4f}): Strict FCRA cancellation protocols ({audit:.2f}) neutralize subversion."
+
+        return {
+            "transnational_fcra_ecclesiastical_score": score,
+            "foreign_ecclesiastical_inflow": round(inflow, 4),
+            "conversion_velocity": round(velocity, 4),
+            "fcra_audit_enforcement": round(audit, 4),
+            "ecclesiastical_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_fcra_subversion_severe": score >= 0.65,
         }

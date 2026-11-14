@@ -83,6 +83,17 @@ class PetroLogisticsLens:
             airgap_cyber_defense_score=petro_params.get("airgap_cyber_defense_score", 0.70),
         )
         metrics.update(_ref_res)
+
+        # Phase 333: Hormuz Energy Escalation Sieve
+        petro_meta = getattr(summit, "metadata", {}) or {}
+        hz_params = petro_meta.get("hormuz_escalation", {}) if isinstance(petro_meta, dict) else {}
+        _hz_res = HormuzEnergyEscalationSieve.calculate(
+            chokepoint_interdiction_risk=hz_params.get("chokepoint_interdiction_risk", 0.80),
+            crude_price_spike=hz_params.get("crude_price_spike", 0.75),
+            spr_reserve_buffer_days=hz_params.get("spr_reserve_buffer_days", 0.50),
+            alternative_sourcing=hz_params.get("alternative_sourcing", 0.60),
+        )
+        metrics["hormuz_energy_escalation_score"] = _hz_res["hormuz_energy_escalation_score"]
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -191,6 +202,59 @@ class CriticalRefineryCyberKineticSabotageSieve:
             "refinery_sabotage_tier": tier,
             "refinery_sabotage_verdict": verdict,
             "is_refinery_sabotage_critical": score >= 0.55,
+        }
+class HormuzEnergyEscalationSieve:
+    """
+    Phase 333: Evaluates energy supply disruption risk in the Strait of Hormuz during West Asian
+    kinetic escalation, calculating India's strategic petroleum reserve (SPR) autonomy days,
+    alternative crude routing, and rupee-dirham settlement shielding.
+
+    Mathematical Formulation:
+      z = 3.2 * chokepoint_interdiction_risk + 2.8 * crude_price_spike - 3.0 * spr_reserve_buffer_days - 2.6 * alternative_sourcing - 0.3
+      S_Hormuz_Vulnerability = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        chokepoint_interdiction_risk: float = 0.80,
+        crude_price_spike: float = 0.75,
+        spr_reserve_buffer_days: float = 0.50,
+        alternative_sourcing: float = 0.60,
+    ) -> dict:
+        risk = max(0.0, min(1.0, float(chokepoint_interdiction_risk)))
+        spike = max(0.0, min(1.0, float(crude_price_spike)))
+        spr = max(0.0, min(1.0, float(spr_reserve_buffer_days)))
+        alt = max(0.0, min(1.0, float(alternative_sourcing)))
+
+        z = 3.2 * risk + 2.8 * spike - 3.0 * spr - 2.6 * alt - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_CHOKEPOINT_ENERGY_STRANGULATION"
+            verdict = "EMERGENCY_SPR_DEPLOYMENT_REQUIRED"
+            rationale = (
+                f"Critical chokepoint vulnerability ({score:.4f}): Interdiction threat ({risk:.2f}) and crude price surge "
+                f"({spike:.2f}) outstrip strategic petroleum reserves ({spr:.2f}) and alternative supply corridors ({alt:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_ENERGY_IMPORT_FRICTION"
+            verdict = "MARGINAL_CAD_EXPANSION_PRESSURE"
+            rationale = f"Elevated friction ({score:.4f}): Alternative crude sourcing (Russia/Americas) cushions Gulf disruption."
+        else:
+            tier = "INSULATED_STRATEGIC_ENERGY_CORRIDOR"
+            verdict = "SOVEREIGN_ENERGY_AUTONOMY_SECURED"
+            rationale = f"Sovereign energy cushion ({score:.4f}): Robust SPR stocks and diversified maritime routes maintain supply continuity."
+
+        return {
+            "hormuz_energy_escalation_score": score,
+            "chokepoint_interdiction_risk": round(risk, 4),
+            "crude_price_spike": round(spike, 4),
+            "spr_reserve_buffer_days": round(spr, 4),
+            "alternative_sourcing": round(alt, 4),
+            "hormuz_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_energy_strangulation_acute": score >= 0.70,
         }
 
 ```

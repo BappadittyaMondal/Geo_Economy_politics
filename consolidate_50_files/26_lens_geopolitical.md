@@ -210,6 +210,16 @@ class GeopoliticalLens:
             malacca_counter_leverage_readiness=hydro_params.get("malacca_counter_leverage_readiness", 0.88),
         )
         metrics["hydro_deterrence_score"] = _hydro_res["hydro_deterrence_score"]
+
+        # Phase 335: Black Swan Disruption Sieve
+        gp_meta = getattr(summit, "metadata", {}) or {}
+        bs_params = gp_meta.get("black_swan", {}) if isinstance(gp_meta, dict) else {}
+        _bs_res = BlackSwanDisruptionSieve.calculate(
+            shock_tail_risk_index=bs_params.get("shock_tail_risk_index", 0.75),
+            infrastructure_coupling_density=bs_params.get("infrastructure_coupling_density", 0.80),
+            redundancy_isolation_buffer=bs_params.get("redundancy_isolation_buffer", 0.30),
+        )
+        metrics["black_swan_disruption_score"] = _bs_res["black_swan_disruption_score"]
         metrics["hydrologic_sovereignty_tier"] = _hydro_res["hydrologic_sovereignty_tier"]
         metrics["asymmetric_escalation_parity"] = _hydro_res["asymmetric_escalation_parity"]
 
@@ -532,5 +542,55 @@ class TransHimalayanHydrologicalDeterrenceSieve:
             "is_buffer_fortified": score >= 0.55,
         }
 
+class BlackSwanDisruptionSieve:
+    """
+    Phase 335: Quantifies the strategic probability and systemic ripple effects of low-frequency,
+    high-impact non-linear shocks (e.g., sudden leadership decapitation, global cloud outages,
+    chokepoint blockades) using extreme value theory (EVT).
+
+    Mathematical Formulation:
+      z = 3.2 * shock_tail_risk_index + 2.8 * infrastructure_coupling_density - 3.0 * redundancy_isolation_buffer - 0.3
+      S_BlackSwan_Vulnerability = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        shock_tail_risk_index: float = 0.75,
+        infrastructure_coupling_density: float = 0.80,
+        redundancy_isolation_buffer: float = 0.30,
+    ) -> dict:
+        risk = max(0.0, min(1.0, float(shock_tail_risk_index)))
+        coupling = max(0.0, min(1.0, float(infrastructure_coupling_density)))
+        redundancy = max(0.0, min(1.0, float(redundancy_isolation_buffer)))
+
+        z = 3.2 * risk + 2.8 * coupling - 3.0 * redundancy - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SYSTEMIC_BLACK_SWAN_CASCADE"
+            verdict = "CATASTROPHIC_NON_LINEAR_DISRUPTION_RISK"
+            rationale = (
+                f"High black-swan systemic vulnerability ({score:.4f}): Tightly coupled critical nodes ({coupling:.2f}) and tail risk "
+                f"({risk:.2f}) threaten catastrophic cascade due to inadequate isolation buffers ({redundancy:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_TAIL_RISK_EXPOSURE"
+            verdict = "LOCALIZED_SHOCK_ABSORPTION"
+            rationale = f"Moderate exposure ({score:.4f}): Partial decoupling prevents immediate systemic cascade."
+        else:
+            tier = "ROBUST_ANTI_FRAGILE_SYSTEM_ISOLATION"
+            verdict = "RESILIENT_TO_NON_LINEAR_EXTERNAL_SHOCKS"
+            rationale = f"Anti-fragile architecture ({score:.4f}): Redundant physical buffers ({redundancy:.2f}) absorb extreme shocks."
+
+        return {
+            "black_swan_disruption_score": score,
+            "shock_tail_risk_index": round(risk, 4),
+            "infrastructure_coupling_density": round(coupling, 4),
+            "redundancy_isolation_buffer": round(redundancy, 4),
+            "black_swan_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_black_swan_vulnerable": score >= 0.70,
+        }
 
 ```

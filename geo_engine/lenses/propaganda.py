@@ -329,6 +329,32 @@ class PropagandaLens:
             native_sovereign_voice_presence=gate_params.get("native_sovereign_voice_presence", 0.25),
         )
         metrics["academic_gatekeeping_score"] = _gate_res["academic_gatekeeping_score"]
+
+        # Phases 322, 328, 337: Polemics Ratio, Cinematic Sacrality, Geopolitical Speech Forensics
+        pr_meta = getattr(summit, "metadata", {}) or {}
+        pol_params = pr_meta.get("polemics_ratio", {}) if isinstance(pr_meta, dict) else {}
+        _pol_res = PolemicsVsEmpiricalRatioSieve.calculate(
+            ad_hominem_density=pol_params.get("ad_hominem_density", 0.80),
+            polemical_ridicule=pol_params.get("polemical_ridicule", 0.85),
+            empirical_data_citations=pol_params.get("empirical_data_citations", 0.15),
+        )
+        metrics["polemics_vs_empirical_ratio_score"] = _pol_res["polemics_vs_empirical_ratio_score"]
+
+        cin_params = pr_meta.get("cinematic_sacrality", {}) if isinstance(pr_meta, dict) else {}
+        _cin_res = CinematicIconographySacralitySieve.calculate(
+            western_fantasy_trope_divergence=cin_params.get("western_fantasy_trope_divergence", 0.85),
+            sacred_iconography_dilution=cin_params.get("sacred_iconography_dilution", 0.80),
+            canonical_fidelity=cin_params.get("canonical_fidelity", 0.20),
+        )
+        metrics["cinematic_iconography_sacrality_score"] = _cin_res["cinematic_iconography_sacrality_score"]
+
+        sp_params = pr_meta.get("speech_forensics", {}) if isinstance(pr_meta, dict) else {}
+        _sp_res = GeopoliticalSpeechForensicsSieve.calculate(
+            lexical_divergence_index=sp_params.get("lexical_divergence_index", 0.80),
+            deliberate_omission_density=sp_params.get("deliberate_omission_density", 0.75),
+            communique_harmony=sp_params.get("communique_harmony", 0.25),
+        )
+        metrics["geopolitical_speech_forensics_score"] = _sp_res["geopolitical_speech_forensics_score"]
         metrics["academic_gatekeeping_tier"] = _gate_res["academic_gatekeeping_tier"]
         metrics["narrative_colonization_index"] = _gate_res["narrative_colonization_index"]
 
@@ -960,6 +986,151 @@ class AcademicGatekeepingSieve:
             "tactical_rationale": rationale,
             "is_gatekeeping_severe": score >= 0.55,
         }
+class PolemicsVsEmpiricalRatioSieve:
+    """
+    Phase 322: Quantifies the ratio between emotional satire / ad-hominem mockery versus empirical
+    factual data in public debate, identifying bad-faith deflection from objective evidence.
 
+    Mathematical Formulation:
+      z = 3.0 * ad_hominem_density + 2.6 * polemical_ridicule - 3.2 * empirical_data_citations - 0.3
+      S_Polemical_Deflection = 1.0 / (1.0 + exp(-z))
+    """
 
+    @staticmethod
+    def calculate(
+        ad_hominem_density: float = 0.80,
+        polemical_ridicule: float = 0.85,
+        empirical_data_citations: float = 0.15,
+    ) -> dict:
+        ad_hom = max(0.0, min(1.0, float(ad_hominem_density)))
+        polemics = max(0.0, min(1.0, float(polemical_ridicule)))
+        data = max(0.0, min(1.0, float(empirical_data_citations)))
 
+        z = 3.0 * ad_hom + 2.6 * polemics - 3.2 * data - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_POLEMICAL_BAD_FAITH_DEFLECTION"
+            verdict = "COGNITIVE_SUBVERSION_THROUGH_MOCKERY"
+            rationale = (
+                f"High polemical evasion ({score:.4f}): Debate relies on ad-hominem insults ({ad_hom:.2f}) and theatrical ridicule "
+                f"({polemics:.2f}) to suppress empirical facts ({data:.2f})."
+            )
+        elif score >= 0.40:
+            tier = "MIXED_RHETORICAL_EMPIRICAL_DISCOURSE"
+            verdict = "PARTIAL_FACTUAL_SUBSTANCE"
+            rationale = f"Mixed discourse ({score:.4f}): Contains rhetorical spin alongside partial empirical citations."
+        else:
+            tier = "EVIDENTIARY_RIGOR_DOMINANT"
+            verdict = "OBJECTIVE_EMPIRICAL_DEBATE"
+            rationale = f"Objective analysis ({score:.4f}): Factual citations ({data:.2f}) dominate presentation."
+
+        return {
+            "polemics_vs_empirical_ratio_score": score,
+            "ad_hominem_density": round(ad_hom, 4),
+            "polemical_ridicule": round(polemics, 4),
+            "empirical_data_citations": round(data, 4),
+            "polemical_deflection_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_bad_faith_deflection": score >= 0.70,
+        }
+class CinematicIconographySacralitySieve:
+    """
+    Phase 328: Measures the aesthetic divergence of commercial cinematic adaptations of sacred
+    Indic epics from canonical textual sources, tracking visual desacralization and box-office boycott elasticity.
+
+    Mathematical Formulation:
+      z = 2.8 * western_fantasy_trope_divergence + 2.6 * sacred_iconography_dilution - 3.2 * canonical_fidelity - 0.4
+      S_Desacralization_Index = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        western_fantasy_trope_divergence: float = 0.85,
+        sacred_iconography_dilution: float = 0.80,
+        canonical_fidelity: float = 0.20,
+    ) -> dict:
+        tropes = max(0.0, min(1.0, float(western_fantasy_trope_divergence)))
+        dilution = max(0.0, min(1.0, float(sacred_iconography_dilution)))
+        fidelity = max(0.0, min(1.0, float(canonical_fidelity)))
+
+        z = 2.8 * tropes + 2.6 * dilution - 3.2 * fidelity - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SEVERE_SACRED_DESACRALIZATION_AND_REJECTION"
+            verdict = "CULTURAL_ALIENATION_AND_COMMERCIAL_BOYCOTT"
+            rationale = (
+                f"Severe desacralization ({score:.4f}): Imposing Hollywood/Marvel tropes ({tropes:.2f}) and visual distortion "
+                f"({dilution:.2f}) triggers organic civilizational backlash and box-office failure."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_CINEMATIC_ADAPTATION"
+            verdict = "POLARIZED_AUDIENCE_RECEPTION"
+            rationale = f"Contested aesthetics ({score:.4f}): Partial adherence to canonical imagery with commercial creative license."
+        else:
+            tier = "CANONICAL_SACRED_AESTHETIC_REVERENCE"
+            verdict = "ORGANIC_CIVILIZATIONAL_CELEBRATION"
+            rationale = f"Authentic aesthetic ({score:.4f}): High fidelity to canonical texts ({fidelity:.2f}) commands broad cultural resonance."
+
+        return {
+            "cinematic_iconography_sacrality_score": score,
+            "western_fantasy_trope_divergence": round(tropes, 4),
+            "sacred_iconography_dilution": round(dilution, 4),
+            "canonical_fidelity": round(fidelity, 4),
+            "desacralization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_severely_desacralized": score >= 0.70,
+        }
+class GeopoliticalSpeechForensicsSieve:
+    """
+    Phase 337: Analyzes high-level political speeches (Modi, Trump, Putin, Xi) to detect
+    'between-the-lines' doctrinal shifts, identifying subtle omissions, lexical markers,
+    and strategic signaling that diverge from official communiqués.
+
+    Mathematical Formulation:
+      z = 2.8 * lexical_divergence_index + 2.6 * deliberate_omission_density - 3.2 * communique_harmony - 0.3
+      S_Speech_Signal_Divergence = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        lexical_divergence_index: float = 0.80,
+        deliberate_omission_density: float = 0.75,
+        communique_harmony: float = 0.25,
+    ) -> dict:
+        lexical = max(0.0, min(1.0, float(lexical_divergence_index)))
+        omission = max(0.0, min(1.0, float(deliberate_omission_density)))
+        harmony = max(0.0, min(1.0, float(communique_harmony)))
+
+        z = 2.8 * lexical + 2.6 * omission - 3.2 * harmony - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_STRATEGIC_SPEECH_DIVERGENCE"
+            verdict = "COVERT_DOCTRINAL_SHIFT_DETECTED"
+            rationale = (
+                f"Significant speech signaling divergence ({score:.4f}): Rhetorical departure ({lexical:.2f}) and calculated "
+                f"omissions ({omission:.2f}) signal a sharp operational divergence from formal diplomatic communiqués ({harmony:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_SUBTEXTUAL_NUANCE"
+            verdict = "TACTICAL_AUDIENCE_CALIBRATION"
+            rationale = f"Calibrated rhetoric ({score:.4f}): Speech balances domestic political posturing with formal diplomatic text."
+        else:
+            tier = "HIGH_COMMUNIQUE_ALIGNMENT"
+            verdict = "STANDARD_DIPLOMATIC_SCRIPT"
+            rationale = f"Orthodox alignment ({score:.4f}): Speech strictly echoes official communiqués with zero subversive subtext."
+
+        return {
+            "geopolitical_speech_forensics_score": score,
+            "lexical_divergence_index": round(lexical, 4),
+            "deliberate_omission_density": round(omission, 4),
+            "communique_harmony": round(harmony, 4),
+            "speech_divergence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_doctrinal_shift_signaled": score >= 0.70,
+        }

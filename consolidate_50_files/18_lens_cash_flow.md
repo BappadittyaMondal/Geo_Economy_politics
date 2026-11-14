@@ -349,6 +349,41 @@ class CashFlowLens:
             fiscal_revenue_headroom=debt_params.get("fiscal_revenue_headroom", 0.20),
         )
         metrics["imperial_debt_overreach_score"] = _debt_res["imperial_debt_overreach_score"]
+
+        # Phases 318, 330, 334, 336: Basel Gold, Bullion Trade, Eurodollar, Sovereign Gold Velocity
+        bg_params = det_meta.get("basel_gold", {}) if isinstance(det_meta, dict) else {}
+        _bg_res = BaselGoldAllocationSieve.calculate(
+            physical_bullion=bg_params.get("physical_bullion", 0.85),
+            paper_derivatives=bg_params.get("paper_derivatives", 0.35),
+            domestic_vault_immunity=bg_params.get("domestic_vault_immunity", 0.90),
+            fx_sanctions_vulnerability=bg_params.get("fx_sanctions_vulnerability", 0.20),
+        )
+        metrics["basel_gold_allocation_score"] = _bg_res["basel_gold_allocation_score"]
+
+        cb_params = det_meta.get("classical_bullion_trade", {}) if isinstance(det_meta, dict) else {}
+        _cb_res = ClassicalBullionInflowTradeSieve.calculate(
+            export_surplus_bullion_settlement=cb_params.get("export_surplus_bullion_settlement", 0.80),
+            domestic_vault_repatriation=cb_params.get("domestic_vault_repatriation", 0.85),
+            fiat_debt_dependency=cb_params.get("fiat_debt_dependency", 0.25),
+        )
+        metrics["classical_bullion_inflow_score"] = _cb_res["classical_bullion_inflow_score"]
+
+        ed_params = det_meta.get("eurodollar_liquidity", {}) if isinstance(det_meta, dict) else {}
+        _ed_res = EurodollarShadowLiquiditySieve.calculate(
+            eurodollar_liquidity_drain=ed_params.get("eurodollar_liquidity_drain", 0.75),
+            cross_currency_basis_spread=ed_params.get("cross_currency_basis_spread", 0.70),
+            domestic_fx_reserve_cushion=ed_params.get("domestic_fx_reserve_cushion", 0.85),
+        )
+        metrics["eurodollar_shadow_liquidity_score"] = _ed_res["eurodollar_shadow_liquidity_score"]
+
+        gv_params = det_meta.get("gold_repatriation_velocity", {}) if isinstance(det_meta, dict) else {}
+        _gv_res = SovereignGoldRepatriationVelocitySieve.calculate(
+            repatriated_bullion_metric=gv_params.get("repatriated_bullion_metric", 102.0),
+            foreign_custody_gold=gv_params.get("foreign_custody_gold", 350.0),
+            domestic_vault_security=gv_params.get("domestic_vault_security", 0.90),
+            fx_sanction_exposure=gv_params.get("fx_sanction_exposure", 0.20),
+        )
+        metrics["sovereign_gold_repatriation_velocity_score"] = _gv_res["sovereign_gold_repatriation_velocity_score"]
         metrics["imperial_debt_overreach_tier"] = _debt_res["imperial_debt_overreach_tier"]
         metrics["fiscal_basing_retrenchment_index"] = _debt_res["fiscal_basing_retrenchment_index"]
 
@@ -898,6 +933,219 @@ class ImperialDebtOverreachSieve:
             "tactical_rationale": rationale,
             "is_retrenchment_imminent": score >= 0.55,
         }
+class BaselGoldAllocationSieve:
+    """
+    Phase 318: Differentiates physical allocated bullion from unbacked paper gold derivatives
+    (COMEX/LBMA) under Basel III zero-risk Tier 1 rules; models sovereign reserve immunity
+    against G7 unilateral asset freezes.
 
+    Mathematical Formulation:
+      z = 3.0 * (physical_bullion / (paper_derivatives + 1e-6)) + 2.5 * domestic_vault_immunity - 3.2 * fx_sanctions_vulnerability - 0.4
+      S_Basel_Gold = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        physical_bullion: float = 0.85,
+        paper_derivatives: float = 0.35,
+        domestic_vault_immunity: float = 0.90,
+        fx_sanctions_vulnerability: float = 0.20,
+    ) -> dict:
+        phys = max(0.0, float(physical_bullion))
+        paper = max(0.0, float(paper_derivatives))
+        vault = max(0.0, min(1.0, float(domestic_vault_immunity)))
+        sanctions = max(0.0, min(1.0, float(fx_sanctions_vulnerability)))
+
+        ratio = phys / (paper + 1e-6)
+        z = 3.0 * ratio + 2.5 * vault - 3.2 * sanctions - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "FORTRESS_TIER1_ALLOCATED_BULLION"
+            verdict = "IMMUNE_TO_PAPER_DEFAULT_AND_SANCTIONS"
+            rationale = (
+                f"Sovereign gold fortress ({score:.4f}): Physical bullion ratio ({ratio:.2f}) and domestic vault "
+                f"storage ({vault:.2f}) completely insulate sovereign reserves from unbacked paper defaults."
+            )
+        elif score >= 0.50:
+            tier = "MODERATE_BULLION_PROTECTION"
+            verdict = "PARTIAL_CUSTODIAL_VULNERABILITY"
+            rationale = (
+                f"Moderate protection ({score:.4f}): Adequate bullion backing but partial reliance on foreign custody."
+            )
+        else:
+            tier = "CRITICAL_PAPER_DERIVATIVE_EXPOSURE"
+            verdict = "HIGH_CONFISCATION_AND_DEFAULT_RISK"
+            rationale = (
+                f"Severe vulnerability ({score:.4f}): Heavy exposure to unbacked paper claims under foreign legal jurisdiction."
+            )
+
+        return {
+            "basel_gold_allocation_score": score,
+            "physical_to_paper_bullion_ratio": round(ratio, 4),
+            "domestic_vault_immunity": round(vault, 4),
+            "fx_sanctions_vulnerability": round(sanctions, 4),
+            "basel_gold_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_sovereign_gold_fortress": score >= 0.75,
+        }
+class ClassicalBullionInflowTradeSieve:
+    """
+    Phase 330: Reconstructs historical and modern trade surplus settlement in physical gold bullion,
+    analyzing the balance-of-payments mechanics of classical export power (Vikramaditya-era Roman gold drain)
+    vs. modern sovereign reserve immunity.
+
+    Mathematical Formulation:
+      z = 3.0 * export_surplus_bullion_settlement + 2.6 * domestic_vault_repatriation - 3.0 * fiat_debt_dependency - 0.4
+      S_Bullion_Inflow = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        export_surplus_bullion_settlement: float = 0.80,
+        domestic_vault_repatriation: float = 0.85,
+        fiat_debt_dependency: float = 0.25,
+    ) -> dict:
+        bullion = max(0.0, min(1.0, float(export_surplus_bullion_settlement)))
+        vault = max(0.0, min(1.0, float(domestic_vault_repatriation)))
+        fiat = max(0.0, min(1.0, float(fiat_debt_dependency)))
+
+        z = 3.0 * bullion + 2.6 * vault - 3.0 * fiat - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "CLASSICAL_GOLD_DRAIN_SOVEREIGN_SURPLUS"
+            verdict = "NON_FIAT_TRADE_IMMUNITY_ACHIEVED"
+            rationale = (
+                f"Fortress sovereign surplus ({score:.4f}): Bilateral physical bullion trade settlement ({bullion:.2f}) and domestic "
+                f"vault repatriation ({vault:.2f}) insulate external balances from fiat currency debasement."
+            )
+        elif score >= 0.50:
+            tier = "HYBRID_BULLION_FIAT_SETTLEMENT"
+            verdict = "BALANCED_RESERVE_ACCUMULATION"
+            rationale = f"Hybrid settlement ({score:.4f}): Growing bullion allocation complementing conventional foreign exchange."
+        else:
+            tier = "PERPETUAL_FIAT_DEBT_DEPENDENCY"
+            verdict = "EXTERNAL_LIQUIDITY_VULNERABILITY"
+            rationale = f"High fiat vulnerability ({score:.4f}): Heavy reliance on unhedged dollar reserves ({fiat:.2f})."
+
+        return {
+            "classical_bullion_inflow_score": score,
+            "export_surplus_bullion_settlement": round(bullion, 4),
+            "domestic_vault_repatriation": round(vault, 4),
+            "fiat_debt_dependency": round(fiat, 4),
+            "bullion_trade_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_bullion_surplus_fortress": score >= 0.75,
+        }
+class EurodollarShadowLiquiditySieve:
+    """
+    Phase 334: Models the offshore Eurodollar shadow banking liquidity drain, cross-currency
+    basis swaps, and collateral shortages that trigger emerging market currency devaluations
+    during US Fed rate tightening cycles.
+
+    Mathematical Formulation:
+      z = 3.0 * eurodollar_liquidity_drain + 2.8 * cross_currency_basis_spread - 3.2 * domestic_fx_reserve_cushion - 0.4
+      S_Eurodollar_Drain = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        eurodollar_liquidity_drain: float = 0.75,
+        cross_currency_basis_spread: float = 0.70,
+        domestic_fx_reserve_cushion: float = 0.85,
+    ) -> dict:
+        drain = max(0.0, min(1.0, float(eurodollar_liquidity_drain)))
+        spread = max(0.0, min(1.0, float(cross_currency_basis_spread)))
+        cushion = max(0.0, min(1.0, float(domestic_fx_reserve_cushion)))
+
+        z = 3.0 * drain + 2.8 * spread - 3.2 * cushion - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_OFFSHORE_DOLLAR_COLLATERAL_SQUEEZE"
+            verdict = "EMERGING_MARKET_CURRENCY_DEVALUATION_PRESSURE"
+            rationale = (
+                f"Severe Eurodollar liquidity drain ({score:.4f}): Shadow banking collateral shortage ({drain:.2f}) and basis swap "
+                f"widening ({spread:.2f}) threaten vulnerable currencies lacking adequate sovereign reserves."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_OFFSHORE_LIQUIDITY_TIGHTENING"
+            verdict = "MANAGED_CURRENCY_VOLATILITY"
+            rationale = f"Moderate tightening ({score:.4f}): Domestic FX buffers ({cushion:.2f}) absorb cross-currency volatility."
+        else:
+            tier = "SOVEREIGN_FX_FORTRESS_INSULATION"
+            verdict = "COMPLETE_SHADOW_BANKING_IMMUNITY"
+            rationale = f"Sovereign insulation ({score:.4f}): Abundant FX reserves ({cushion:.2f}) insulate domestic credit markets."
+
+        return {
+            "eurodollar_shadow_liquidity_score": score,
+            "eurodollar_liquidity_drain": round(drain, 4),
+            "cross_currency_basis_spread": round(spread, 4),
+            "domestic_fx_reserve_cushion": round(cushion, 4),
+            "eurodollar_drain_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_dollar_squeeze_acute": score >= 0.70,
+        }
+
+
+class SovereignGoldRepatriationVelocitySieve:
+    """
+    Phase 336: Tracks the rate at which non-Western central banks withdraw physical gold bullion
+    from Western custodians (Bank of England, NY Fed) to domestic vaults, modeling sovereign
+    immunity against unilateral foreign asset freezes.
+
+    Mathematical Formulation:
+      z = 3.2 * (repatriated_bullion_metric / (foreign_custody_gold + 1e-6)) + 2.6 * domestic_vault_security - 3.0 * fx_sanction_exposure - 0.4
+      S_Bullion_Repatriation = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        repatriated_bullion_metric: float = 102.0,
+        foreign_custody_gold: float = 350.0,
+        domestic_vault_security: float = 0.90,
+        fx_sanction_exposure: float = 0.20,
+    ) -> dict:
+        repat = max(0.0, float(repatriated_bullion_metric))
+        custody = max(0.0, float(foreign_custody_gold))
+        sec = max(0.0, min(1.0, float(domestic_vault_security)))
+        sanct = max(0.0, min(1.0, float(fx_sanction_exposure)))
+
+        ratio = repat / (custody + 1e-6)
+        z = 3.2 * ratio + 2.6 * sec - 3.0 * sanct - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "RAPID_SOVEREIGN_BULLION_REPATRIATION"
+            verdict = "PHYSICAL_CUSTODIAL_IMMUNITY_ACHIEVED"
+            rationale = (
+                f"High repatriation velocity ({score:.4f}): Aggressive withdrawal of physical bullion to domestic vaults "
+                f"({sec:.2f}) decisively eliminates Western custodial freezing vulnerability."
+            )
+        elif score >= 0.50:
+            tier = "ACTIVE_GRADUAL_REPATRIATION"
+            verdict = "ONGOING_CUSTODIAL_RISK_REDUCTION"
+            rationale = f"Active repatriation ({score:.4f}): Substantial gold holdings repatriated amidst residual foreign custody."
+        else:
+            tier = "HIGH_FOREIGN_CUSTODIAL_VULNERABILITY"
+            verdict = "EXTREME_UNILATERAL_FREEZE_EXPOSURE"
+            rationale = f"Critical vulnerability ({score:.4f}): Majority reserves stored in Western jurisdictions vulnerable to sanctions."
+
+        return {
+            "sovereign_gold_repatriation_velocity_score": score,
+            "repatriation_to_custody_ratio": round(ratio, 4),
+            "repatriated_bullion_metric": round(repat, 4),
+            "foreign_custody_gold": round(custody, 4),
+            "domestic_vault_security": round(sec, 4),
+            "fx_sanction_exposure": round(sanct, 4),
+            "repatriation_velocity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_repatriation_velocity_high": score >= 0.75,
+        }
 
 ```

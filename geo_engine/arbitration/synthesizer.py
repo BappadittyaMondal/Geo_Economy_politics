@@ -793,6 +793,27 @@ class SummitSynthesizer:
             "industrial_attrition_score": military_eval.hard_metrics.get("industrial_attrition_score") if military_eval and "industrial_attrition_score" in military_eval.hard_metrics else None,
             "imperial_debt_overreach_score": cash_eval.hard_metrics.get("imperial_debt_overreach_score") if cash_eval and "imperial_debt_overreach_score" in cash_eval.hard_metrics else None,
             "colonial_drain_score": history_eval.hard_metrics.get("colonial_drain_score") if history_eval and "colonial_drain_score" in history_eval.hard_metrics else None,
+            # Phases 318-337: Forensic Epistemic & Multi-Domain Sieves
+            "basel_gold_allocation_score": cash_eval.hard_metrics.get("basel_gold_allocation_score") if cash_eval and "basel_gold_allocation_score" in cash_eval.hard_metrics else None,
+            "mnemonic_fidelity_score": civ_eval.hard_metrics.get("apaurusheya_mnemonic_fidelity_score") if civ_eval and "apaurusheya_mnemonic_fidelity_score" in civ_eval.hard_metrics else None,
+            "deep_state_penetration_score": hybrid_eval.hard_metrics.get("mitrokhin_deep_state_penetration_score") if hybrid_eval and "mitrokhin_deep_state_penetration_score" in hybrid_eval.hard_metrics else None,
+            "puranic_boundary_score": civ_eval.hard_metrics.get("puranic_metaphysical_boundary_score") if civ_eval and "puranic_metaphysical_boundary_score" in civ_eval.hard_metrics else None,
+            "polemical_deflection_score": propaganda_eval.hard_metrics.get("polemics_vs_empirical_ratio_score") if propaganda_eval and "polemics_vs_empirical_ratio_score" in propaganda_eval.hard_metrics else None,
+            "epic_geography_score": history_eval.hard_metrics.get("kishkindha_global_geography_score") if history_eval and "kishkindha_global_geography_score" in history_eval.hard_metrics else None,
+            "vedic_etymology_score": civ_eval.hard_metrics.get("vedic_etymological_decolonization_score") if civ_eval and "vedic_etymological_decolonization_score" in civ_eval.hard_metrics else None,
+            "quantum_spacetime_score": deep_tech_eval.hard_metrics.get("quantum_entangled_spacetime_score") if deep_tech_eval and "quantum_entangled_spacetime_score" in deep_tech_eval.hard_metrics else None,
+            "semiconductor_monopoly_score": deep_tech_eval.hard_metrics.get("semiconductor_antitrust_hardware_score") if deep_tech_eval and "semiconductor_antitrust_hardware_score" in deep_tech_eval.hard_metrics else None,
+            "fcra_subversion_score": hybrid_eval.hard_metrics.get("transnational_fcra_ecclesiastical_score") if hybrid_eval and "transnational_fcra_ecclesiastical_score" in hybrid_eval.hard_metrics else None,
+            "cinematic_desacralization_score": propaganda_eval.hard_metrics.get("cinematic_iconography_sacrality_score") if propaganda_eval and "cinematic_iconography_sacrality_score" in propaganda_eval.hard_metrics else None,
+            "infra_capex_multiplier_score": geo_economist_eval.hard_metrics.get("infrastructure_capex_multiplier_score") if geo_economist_eval and "infrastructure_capex_multiplier_score" in geo_economist_eval.hard_metrics else None,
+            "classical_bullion_trade_score": cash_eval.hard_metrics.get("classical_bullion_inflow_score") if cash_eval and "classical_bullion_inflow_score" in cash_eval.hard_metrics else None,
+            "statutory_lawfare_score": lawfare_eval.hard_metrics.get("asymmetric_statutory_lawfare_score") if lawfare_eval and "asymmetric_statutory_lawfare_score" in lawfare_eval.hard_metrics else None,
+            "crypto_decentralization_score": digital_eval.hard_metrics.get("cryptographic_decentralization_score") if digital_eval and "cryptographic_decentralization_score" in digital_eval.hard_metrics else None,
+            "hormuz_vulnerability_score": petro_eval.hard_metrics.get("hormuz_energy_escalation_score") if petro_eval and "hormuz_energy_escalation_score" in petro_eval.hard_metrics else None,
+            "eurodollar_drain_score": cash_eval.hard_metrics.get("eurodollar_shadow_liquidity_score") if cash_eval and "eurodollar_shadow_liquidity_score" in cash_eval.hard_metrics else None,
+            "black_swan_vulnerability_score": geo_eval.hard_metrics.get("black_swan_disruption_score") if geo_eval and "black_swan_disruption_score" in geo_eval.hard_metrics else None,
+            "bullion_repatriation_velocity_score": cash_eval.hard_metrics.get("sovereign_gold_repatriation_velocity_score") if cash_eval and "sovereign_gold_repatriation_velocity_score" in cash_eval.hard_metrics else None,
+            "speech_signal_divergence_score": propaganda_eval.hard_metrics.get("geopolitical_speech_forensics_score") if propaganda_eval and "geopolitical_speech_forensics_score" in propaganda_eval.hard_metrics else None,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log
@@ -1120,5 +1141,104 @@ class LaymanSynthesizer:
                 "Always separate the stage performance (Tier 5 Communique PR) from the physical pipelines, cash, and laws (Tiers 1 & 2 Reality)."
             )
         }
+class PuranicMetaphysicalBoundarySieve:
+    """
+    Phase 321: Enforces strict epistemic gating: clamps subjective, unverifiable metaphysical
+    claims (e.g., 12th-dimension consciousness, literal personified demonic entities) to Tier 0
+    (Subjective Mythos), preventing corruption of Tier 1 physical sensor data.
 
+    Operational Rule:
+      If verifiability_index < 0.20 and empirical_sensors == 0:
+         clamp confidence ceiling to 0.15 and flag as TIER_0_METAPHYSICAL_MYTHOS.
+      Otherwise:
+         z = 3.0 * verifiability_index + 2.8 * empirical_sensors - 3.0 * subjective_claim_intensity - 0.3
+         S = 1.0 / (1.0 + exp(-z))
+    """
 
+    @staticmethod
+    def calculate(
+        verifiability_index: float = 0.10,
+        empirical_sensors: float = 0.0,
+        subjective_claim_intensity: float = 0.85,
+    ) -> dict:
+        v_idx = max(0.0, min(1.0, float(verifiability_index)))
+        sensors = max(0.0, min(1.0, float(empirical_sensors)))
+        subj = max(0.0, min(1.0, float(subjective_claim_intensity)))
+
+        is_clamped = False
+        if v_idx < 0.20 and sensors == 0.0:
+            score = min(0.15, round(v_idx * 0.5, 4))
+            is_clamped = True
+            tier = "TIER_0_METAPHYSICAL_MYTHOS_GATED"
+            verdict = "ISOLATED_FROM_PHYSICAL_TELEMETRY"
+            rationale = (
+                f"Epistemic boundary enforced: Subjective metaphysical assertions ({subj:.2f}) lack physical sensor grounding "
+                f"({sensors:.2f}); clamped to confidence ceiling {score:.4f} to prevent Tier 1 reality contamination."
+            )
+        else:
+            z = 3.0 * v_idx + 2.8 * sensors - 3.0 * subj - 0.3
+            score = round(1.0 / (1.0 + math.exp(-z)), 4)
+            tier = "EMPIRICALLY_VERIFIED_PHYSICAL_SIGNAL" if score >= 0.60 else "AMBIGUOUS_NARRATIVE_STREAM"
+            verdict = "INTEGRATED_INTO_SITUATIONAL_TELEMETRY"
+            rationale = f"Grounded observation ({score:.4f}): Sensor backing ({sensors:.2f}) warrants epistemic inclusion."
+
+        return {
+            "puranic_metaphysical_boundary_score": score,
+            "verifiability_index": round(v_idx, 4),
+            "empirical_sensors": round(sensors, 4),
+            "subjective_claim_intensity": round(subj, 4),
+            "is_metaphysically_gated": is_clamped,
+            "metaphysical_boundary_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+        }
+class BlackSwanDisruptionSieve:
+    """
+    Phase 335: Quantifies the strategic probability and systemic ripple effects of low-frequency,
+    high-impact non-linear shocks (e.g., sudden leadership decapitation, global cloud outages,
+    chokepoint blockades) using extreme value theory (EVT).
+
+    Mathematical Formulation:
+      z = 3.2 * shock_tail_risk_index + 2.8 * infrastructure_coupling_density - 3.0 * redundancy_isolation_buffer - 0.3
+      S_BlackSwan_Vulnerability = 1.0 / (1.0 + exp(-z))
+    """
+
+    @staticmethod
+    def calculate(
+        shock_tail_risk_index: float = 0.75,
+        infrastructure_coupling_density: float = 0.80,
+        redundancy_isolation_buffer: float = 0.30,
+    ) -> dict:
+        risk = max(0.0, min(1.0, float(shock_tail_risk_index)))
+        coupling = max(0.0, min(1.0, float(infrastructure_coupling_density)))
+        redundancy = max(0.0, min(1.0, float(redundancy_isolation_buffer)))
+
+        z = 3.2 * risk + 2.8 * coupling - 3.0 * redundancy - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SYSTEMIC_BLACK_SWAN_CASCADE"
+            verdict = "CATASTROPHIC_NON_LINEAR_DISRUPTION_RISK"
+            rationale = (
+                f"High black-swan systemic vulnerability ({score:.4f}): Tightly coupled critical nodes ({coupling:.2f}) and tail risk "
+                f"({risk:.2f}) threaten catastrophic cascade due to inadequate isolation buffers ({redundancy:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_TAIL_RISK_EXPOSURE"
+            verdict = "LOCALIZED_SHOCK_ABSORPTION"
+            rationale = f"Moderate exposure ({score:.4f}): Partial decoupling prevents immediate systemic cascade."
+        else:
+            tier = "ROBUST_ANTI_FRAGILE_SYSTEM_ISOLATION"
+            verdict = "RESILIENT_TO_NON_LINEAR_EXTERNAL_SHOCKS"
+            rationale = f"Anti-fragile architecture ({score:.4f}): Redundant physical buffers ({redundancy:.2f}) absorb extreme shocks."
+
+        return {
+            "black_swan_disruption_score": score,
+            "shock_tail_risk_index": round(risk, 4),
+            "infrastructure_coupling_density": round(coupling, 4),
+            "redundancy_isolation_buffer": round(redundancy, 4),
+            "black_swan_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_black_swan_vulnerable": score >= 0.70,
+        }
