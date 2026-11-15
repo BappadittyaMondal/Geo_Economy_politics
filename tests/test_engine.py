@@ -14007,4 +14007,42 @@ class TestPhases391to395InvestigativeIntelligenceAndCashFlowSieves:
             assert hasattr(l, s), f"Missing export in lenses: {s}"
             assert s in l.__all__, f"Missing {s} in lenses.__all__"
 
+    def test_phases_391_to_395_dynamic_metadata_propagation(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(
+            summit_name="Dynamic Forensic Test",
+            year=2026,
+            metadata={
+                "third_party_transshipment_volume": 0.88,
+                "embargoed_destination_density": 0.82,
+                "dod_counter_intel_vetting": 0.25,
+                "leak_timing_correlation": 0.85,
+                "put_derivative_spike": 0.80,
+                "class_action_litigation_velocity": 0.75,
+                "diplomatic_divergence_intensity": 0.85,
+                "pre_leak_options_oi_spike": 0.82,
+                "legacy_media_narrative_density": 0.78,
+                "regulatory_subpoena_proximity": 0.75,
+                "foreign_render_farm_share": 0.80,
+                "domestic_weight_access": 0.30,
+                "algorithmic_cultural_sanitization": 0.70,
+                "proprietary_firmware_blob_ratio": 0.85,
+                "cloud_license_heartbeat_dependency": 0.80,
+                "open_bmc_airgap_coverage": 0.25,
+                "private_debt_abl_burden": 0.85,
+                "hardware_depreciation_velocity": 0.80,
+                "credit_basis_spread_expansion": 0.75,
+            }
+        )
+        report = SummitSynthesizer.synthesize_report(summit)
+        srm = report.strategic_resilience_matrix
+        assert srm["transnational_semiconductor_kompromat_score"] > 0.70
+        assert srm["media_intelligence_leak_timing_score"] > 0.75
+        assert srm["generative_media_compute_hegemony_score"] > 0.70
+        assert srm["remote_silicon_microcode_killswitch_score"] > 0.75
+        assert srm["gpu_debt_collateral_contagion_score"] > 0.75
+
+
 

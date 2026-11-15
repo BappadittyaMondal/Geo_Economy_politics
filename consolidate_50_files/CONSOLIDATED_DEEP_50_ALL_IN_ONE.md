@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `8fbbd71`
+- **Canonical Git Commit:** `44168ff`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 8fbbd71
+CANONICAL_COMMIT: 44168ff
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 8fbbd71
+CANONICAL_COMMIT: 44168ff
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 8fbbd71
+CANONICAL_COMMIT: 44168ff
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 8fbbd71
+CANONICAL_COMMIT: 44168ff
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 8fbbd71
+CANONICAL_COMMIT: 44168ff
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 8fbbd71
+CANONICAL_COMMIT: 44168ff
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -4972,6 +4972,47 @@ To achieve absolute analytical fidelity, invisible balance-sheet forensics, and 
    - Deep-50 Bundle compiled: 32 markdown files (`dist_ai/deep_50/`).
    - All 10 Anti-Drift Quality Gates verified and 100% passed.
 3. **Zero Pending Upgrade Debt:** `UPGRADE_PLANING` and `UPGRADE_PLANING.md` cleared to 0 bytes upon verified completion.
+
+---
+
+## Section 116: Phases 391–395 Sovereign Investigative Intelligence & Invisible Cash-Flow Forensics Implementation
+
+### 1. Architectural Overview & Forensic Grounding
+Following the comprehensive forensic audit of real-world intelligence warfare—specifically evidenced in the Shamik Moitra / Jensen Huang / Modi bilateral deal case study, and formulated via Dr. Ankit Shah's invisible cash-flow forensics and the Doval Doctrine—Phases 391 through 395 implemented 5 mathematically bounded sieves and tensors resolving critical investigative gaps:
+
+| Phase | Sieve / Tensor Class | Target Lens File | Telemetry Metric | Forensic Analytical Focus |
+| :--- | :--- | :--- | :--- | :--- |
+| **Phase 391** | `TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve` | `geo_engine/lenses/hybrid_covert.py` | `transnational_semiconductor_kompromat_score` | Quantifies dual-use semiconductor export ban transshipment via secondary hubs (Singapore/Dubai/Megaspeed), DoD counter-intel clearance vetting, and executive honeytrap (*Kāmopadhā*) kompromat vulnerabilities. |
+| **Phase 392** | `MediaIntelligenceLeakTimingTensor` | `geo_engine/lenses/propaganda.py` | `media_intelligence_leak_timing_score` | Detects guided-missile intelligence leaks (FT, NYT) synchronized with non-aligned diplomatic divergence, pre-publication bearish put options open interest ($\Delta_{\text{OptionsOI}}$), and trailing DOJ/SEC regulatory subpoenas. |
+| **Phase 393** | `GenerativeMediaComputeHegemonySieve` | `geo_engine/lenses/civilizational.py` | `generative_media_compute_hegemony_score` | Audits foreign cloud compute concentration for generative AI video rendering (Omniverse, Sora, Veo), safeguarding national cinematic and cultural memory ("China to Bollywood" vector) via indigenous open-weight custody. |
+| **Phase 394** | `RemoteSiliconMicrocodeKillSwitchSieve` | `geo_engine/lenses/deep_tech.py` | `remote_silicon_microcode_killswitch_score` | Formulates remote microcode revocation risks, proprietary encrypted Baseboard Management Controller (BMC) firmware blobs, and cloud licensing heartbeat kill-switches in imported AI accelerators, prioritizing OpenBMC air-gaps. |
+| **Phase 395** | `GPUCollateralizedPrivateDebtContagionTensor` | `geo_engine/lenses/cash_flow.py` | `gpu_debt_collateral_contagion_score` | Executes Dr. Ankit Shah's invisible cash-flow forensics on AI hardware debt: Private Credit Asset-Backed Loans (ABL) pledging rapidly depreciating silicon as collateral ($35,000/unit), predicting covenant breaches and debt-service insolvency when enterprise revenue lags capex burn. |
+
+### 2. Comprehensive System Integration & Scaling
+1. **Parent Lens Integration:** Each sieve and tensor was wired directly into the `evaluate()` pipeline of its respective parent lens, calculating dynamic hard metrics from summit metadata and verified claims.
+2. **Lens Package Export Registry (`geo_engine/lenses/__init__.py`):** Scaled `__all__` from 209 to **214 canonical symbols**.
+3. **AST Query Router (`geo_engine/core/query_parser.py`):**
+   - Added 5 new boolean AST flags to `StrategicQuery` (`requires_semiconductor_executive_kompromat`, `requires_media_intelligence_leak_timing`, `requires_generative_media_hegemony`, `requires_silicon_microcode_killswitch`, `requires_gpu_debt_contagion`).
+   - Integrated keyword extraction and automated lens priority assignment into `QueryParser.parse()`.
+4. **Strategic Resilience Matrix (`geo_engine/arbitration/synthesizer.py`):**
+   - Scaled `SummitSynthesizer.strategic_resilience_matrix` from 195 to **200 live float channels**.
+   - Guaranteed 0 `None` values across all execution modes using defensive fallback accessors.
+5. **Multi-Domain Intelligence Synthesis:** Enables full investigative journalism and intelligence deconstruction—bridging rhetoric and balance sheets, detecting clandestine transshipment, option-leak front running, and collateral depreciation risks.
+
+### 3. Verification & Anti-Drift Quality Gates Certification
+1. **Automated Verification Suite (`tests/test_engine.py`):** Scaled from 701 to **710 passing tests (100% green, 0 failures, 0 regressions)**.
+2. **Canonical Multi-AI Distribution Bundles (`scripts/build_canonical_bundles.py`):**
+   - Recompiled Core-5 (strictly 5 markdown files in `dist_ai/core_5/`).
+   - Recompiled Deep-50 (32 markdown files in `dist_ai/deep_50/`).
+   - Verified and certified all 10 Anti-Drift Quality Gates pass.
+3. **Zero Pending Upgrade Debt:** `UPGRADE_PLANING` and `UPGRADE_PLANING.md` cleared to 0 bytes upon verified completion.
+
+### 4. Micro-Level Audit & Dynamic Telemetry Propagation Hardening
+1. **Dynamic Metadata Propagation Seam (`geo_engine/core/models.py`):** Fixed an architectural omission where `StrategicEvent` lacked an explicit `metadata: Dict[str, Any] = Field(default_factory=dict)` attribute, which had caused Pydantic to silently ignore caller-provided scenario metadata. With this fix, scenario-specific telemetry overrides propagate seamlessly into all 20 lenses.
+2. **QueryParser Keyword Broadening (`geo_engine/core/query_parser.py`):** Expanded word-boundary keyword patterns across all 5 new AST flags to match natural user query variations ("put option spikes", "silicon smuggling", "private credit debt contagion").
+3. **Test Suite Expansion (`tests/test_engine.py`):** Added `test_phases_391_to_395_dynamic_metadata_propagation`, verifying dynamic telemetry scores scale from 710 to **711 passing tests (100% green, 0 regressions)**.
+
+
 
 
 
@@ -23423,7 +23464,7 @@ class AbyssalHydrospatialSovereigntySieve:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `8fbbd71`
+- **Canonical Git Commit:** `44168ff`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

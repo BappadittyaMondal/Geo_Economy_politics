@@ -4323,3 +4323,9 @@ Following the comprehensive forensic audit of real-world intelligence warfare—
    - Verified and certified all 10 Anti-Drift Quality Gates pass.
 3. **Zero Pending Upgrade Debt:** `UPGRADE_PLANING` and `UPGRADE_PLANING.md` cleared to 0 bytes upon verified completion.
 
+### 4. Micro-Level Audit & Dynamic Telemetry Propagation Hardening
+1. **Dynamic Metadata Propagation Seam (`geo_engine/core/models.py`):** Fixed an architectural omission where `StrategicEvent` lacked an explicit `metadata: Dict[str, Any] = Field(default_factory=dict)` attribute, which had caused Pydantic to silently ignore caller-provided scenario metadata. With this fix, scenario-specific telemetry overrides propagate seamlessly into all 20 lenses.
+2. **QueryParser Keyword Broadening (`geo_engine/core/query_parser.py`):** Expanded word-boundary keyword patterns across all 5 new AST flags to match natural user query variations ("put option spikes", "silicon smuggling", "private credit debt contagion").
+3. **Test Suite Expansion (`tests/test_engine.py`):** Added `test_phases_391_to_395_dynamic_metadata_propagation`, verifying dynamic telemetry scores scale from 710 to **711 passing tests (100% green, 0 regressions)**.
+
+

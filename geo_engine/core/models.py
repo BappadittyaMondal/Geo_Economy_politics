@@ -184,6 +184,7 @@ class StrategicEvent(BaseModel):
     target_countries: List[str] = Field(default_factory=list)
     focal_date: Optional[str] = None
     temporal_mode: TemporalMode = TemporalMode.PROSPECTIVE_SCENARIO
+    metadata: Dict[str, Any] = Field(default_factory=dict)
 
 
 class SummitEvent(StrategicEvent):
