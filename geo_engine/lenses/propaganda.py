@@ -375,6 +375,20 @@ class PropagandaLens:
         )
         metrics["speech_to_balance_sheet_divergence_score"] = _sbd_res["speech_to_balance_sheet_divergence_score"]
 
+        _rpd_res = RevealedPreferenceDivergenceSieve.evaluate(
+            stated_moralizing_frequency=prop_meta.get("stated_moralizing_frequency", 0.70),
+            capital_force_divergence=prop_meta.get("capital_force_divergence", 0.65),
+            treaty_commitment_adherence=prop_meta.get("treaty_commitment_adherence", 0.55),
+        )
+        metrics["revealed_preference_divergence_score"] = _rpd_res["revealed_preference_divergence_score"]
+
+        _acs_res = AlgorithmicCognitiveSubversionSieve.evaluate(
+            outrage_engagement_amplification=prop_meta.get("outrage_engagement_amplification", 0.65),
+            foreign_algorithm_opacity=prop_meta.get("foreign_algorithm_opacity", 0.70),
+            sovereign_algorithmic_audit_rigor=prop_meta.get("sovereign_algorithmic_audit_rigor", 0.55),
+        )
+        metrics["algorithmic_cognitive_subversion_score"] = _acs_res["algorithmic_cognitive_subversion_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1250,4 +1264,106 @@ class SpeechToBalanceSheetDivergenceTensor:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_hypocrisy_divergence_acute": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 375: Revealed Preference Divergence Sieve (Diplomatic Stated vs Real)
+# ============================================================================
+
+class RevealedPreferenceDivergenceSieve:
+    """
+    Phase 375: Quantifies the delta between public diplomatic virtue-signaling (speeches, communiques)
+    and actual sovereign resource allocation (arms procurement, bilateral contracts, energy flows).
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        stated_moralizing_frequency: float = 0.85,
+        capital_force_divergence: float = 0.80,
+        treaty_commitment_adherence: float = 0.25
+    ) -> Dict[str, Any]:
+        s_mor = float(max(0.0, min(1.0, stated_moralizing_frequency)))
+        c_div = float(max(0.0, min(1.0, capital_force_divergence)))
+        t_adh = float(max(0.0, min(1.0, treaty_commitment_adherence)))
+
+        z = 3.2 * s_mor + 2.8 * c_div - 3.0 * t_adh - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_REVEALED_PREFERENCE_HYPOCRISY"
+            verdict = "DIPLOMATIC_RHETORIC_DECOUPLED_FROM_RESOURCE_REALITY"
+            rationale = (
+                f"Extreme divergence ({score:.4f}): High moralizing frequency ({s_mor:.2f}) contradicts "
+                f"actual capital/force deployment ({c_div:.2f}). Enforce physical contract verification."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_DIPLOMATIC_POSTURING_GAP"
+            verdict = "TRACK_SIGNED_BILATERAL_CAPITAL_ALLOCATION"
+            rationale = f"Moderate divergence ({score:.4f}): Rhetoric outpaces physical delivery ({t_adh:.2f})."
+        else:
+            tier = "AUTHENTIC_POLICY_ALIGNMENT"
+            verdict = "STATED_INTENT_MATCHES_RESOURCE_COMMITMENT"
+            rationale = f"High alignment ({score:.4f}): Treaty adherence ({t_adh:.2f}) matches public statements."
+
+        return {
+            "revealed_preference_divergence_score": score,
+            "stated_moralizing_frequency": round(s_mor, 4),
+            "capital_force_divergence": round(c_div, 4),
+            "treaty_commitment_adherence": round(t_adh, 4),
+            "preference_divergence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_preference_divergence_acute": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 382: Algorithmic Cognitive Subversion Sieve (TikTok vs Douyin Warfare)
+# ============================================================================
+
+class AlgorithmicCognitiveSubversionSieve:
+    """
+    Phase 382: Quantifies hostile cognitive warfare where foreign-controlled algorithms
+    deliberately amplify outrage and social fracture in foreign target populations.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        outrage_engagement_amplification: float = 0.85,
+        foreign_algorithm_opacity: float = 0.80,
+        sovereign_algorithmic_audit_rigor: float = 0.25
+    ) -> Dict[str, Any]:
+        o_amp = float(max(0.0, min(1.0, outrage_engagement_amplification)))
+        f_opac = float(max(0.0, min(1.0, foreign_algorithm_opacity)))
+        s_aud = float(max(0.0, min(1.0, sovereign_algorithmic_audit_rigor)))
+
+        z = 3.4 * o_amp + 2.8 * f_opac - 3.2 * s_aud - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_ALGORITHMIC_COGNITIVE_WARFARE"
+            verdict = "MANDATE_FOREIGN_ALGORITHM_BAN_OR_LOCAL_CODE_CUSTODY"
+            rationale = (
+                f"Severe cognitive subversion ({score:.4f}): High outrage amplification ({o_amp:.2f}) and opacity ({f_opac:.2f}) "
+                f"erode public mental resilience and social cohesion. Sovereign audit ({s_aud:.2f}) is deficient."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_ALGORITHMIC_DISTORTION"
+            verdict = "ENFORCE_TRANSPARENT_FEED_AUDITING_AND_RATE_LIMITS"
+            rationale = f"Elevated distortion ({score:.4f}): Algorithm promotes polarization over informative content."
+        else:
+            tier = "SOVEREIGN_ALGORITHMIC_FIREWALL_ACTIVE"
+            verdict = "FEED_INTEGRITY_VERIFIED_AGAINST_SUBVERSION"
+            rationale = f"Low subversion risk ({score:.4f}): Rigorous audit protocols ({s_aud:.2f}) protect information space."
+
+        return {
+            "algorithmic_cognitive_subversion_score": score,
+            "outrage_engagement_amplification": round(o_amp, 4),
+            "foreign_algorithm_opacity": round(f_opac, 4),
+            "sovereign_algorithmic_audit_rigor": round(s_aud, 4),
+            "cognitive_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cognitive_subversion_critical": score >= 0.70,
         }

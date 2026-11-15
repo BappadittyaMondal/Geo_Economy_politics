@@ -12,6 +12,8 @@ from .bureaucratic_inertia import (
     BureaucraticInertiaLens,
     BureaucraticRollbackModel,
     SubNationalBureaucraticFrictionSieve,
+
+    DynasticExtraConstitutionalShadowCabinetSieve,
 )
 
 from .cash_flow import (
@@ -32,6 +34,10 @@ from .cash_flow import (
     SovereignBalanceSheetShieldSieve,
     SovereignGoldRepatriationSieve,
     SovereignGoldRepatriationVelocitySieve,
+
+    SovereignDebtSyndicateLeverageSieve,
+    SpeculativeCapexOverhangSieve,
+    CircularVentureValuationBubbleSieve,
 )
 
 from .civilizational import (
@@ -57,6 +63,9 @@ from .civilizational import (
     ShastricDietaryPluralitySieve,
     UrbanInsurrectionRiskSieve,
     VedicEtymologicalDecolonizationSieve,
+
+    SubnationalFragmentationLawfareSieve,
+    SubReplacementDemographicExtinctionSieve,
 )
 
 from .critical_minerals import (
@@ -79,6 +88,9 @@ from .deep_tech import (
     STEMCapitalDilutionSieve,
     SemiconductorAntitrustHardwareSieve,
     SovereignLongevityDemographySieve,
+
+    SovereignCyberExtortionSieve,
+    CriticalSCADAHardwareBackdoorSieve,
 )
 
 from .demographic_infiltration import (
@@ -99,6 +111,9 @@ from .digital_sovereignty import (
     ProtocolLayerSovereigntySieve,
     StrategicMetallurgySieve,
     TechSovereigntySieve,
+
+    CloudMonopolyFragilitySieve,
+    LegacyInfrastructureObsolescenceSieve,
 )
 
 from .food_security import (
@@ -126,6 +141,9 @@ from .geo_economist import (
     SuccessionContinuitySieve,
     SupplyChainVacuumCaptureSieve,
     TradeBasedMoneyLaunderingSieve,
+
+    MaritimePortDualUseSieve,
+    PhysicalCapExTangibleMultiplierSieve,
 )
 
 from .geopolitical import (
@@ -151,6 +169,9 @@ from .history import (
     MultidisciplinaryEpistemicTriangulationSieve,
     SubNationalInsurgencyIncubationSieve,
     SubalternMemorySieve,
+
+    CivilizationalEpistemicIntegritySieve,
+    MonopolyPatentSuppressionSieve,
 )
 
 from .hybrid_covert import (
@@ -167,6 +188,11 @@ from .hybrid_covert import (
     RetaliationThreatAndOpSecSieve,
     SubConventionalProxyWarfareSieve,
     TransnationalFCRAEcclesiasticalSieve,
+
+    CognitiveDeceptionMisdirectionSieve,
+    CounterIntelligenceHoneytrapSieve,
+    FalseFlagNarrativeDeceptionSieve,
+    OpenSystemAsymmetricInfiltrationSieve,
 )
 
 from .india_timeline import (
@@ -215,6 +241,10 @@ from .military_readiness import (
     MaritimeChokepointMalaccaDeterrenceSieve,
     MaritimeForwardBasingSieve,
     SovereignPNTNavigationAutonomySieve,
+
+    MaritimeNetSecurityPrimacySieve,
+    AsymmetricWeaponProliferationLeakageSieve,
+    SuperpowerNavalCoercionBrinkmanshipSieve,
 )
 
 from .petro_logistics import (
@@ -240,6 +270,9 @@ from .propaganda import (
     PolemicsVsEmpiricalRatioSieve,
     SpeechOmissionAndNegativeSpaceSieve,
     SpeechToBalanceSheetDivergenceTensor,
+
+    RevealedPreferenceDivergenceSieve,
+    AlgorithmicCognitiveSubversionSieve,
 )
 
 from .subsea_cables import (
@@ -458,4 +491,28 @@ __all__ = [
     "ChanakyaNeetiUpadhaIntegritySieve",
     "KautilyaMandalaShadgunyaSieve",
     "KrishnaRajadharmaExhaustionSieve",
+
+    "CloudMonopolyFragilitySieve",
+    "LegacyInfrastructureObsolescenceSieve",
+    "CognitiveDeceptionMisdirectionSieve",
+    "CounterIntelligenceHoneytrapSieve",
+    "FalseFlagNarrativeDeceptionSieve",
+    "OpenSystemAsymmetricInfiltrationSieve",
+    "MaritimeNetSecurityPrimacySieve",
+    "AsymmetricWeaponProliferationLeakageSieve",
+    "SuperpowerNavalCoercionBrinkmanshipSieve",
+    "SovereignCyberExtortionSieve",
+    "CriticalSCADAHardwareBackdoorSieve",
+    "MaritimePortDualUseSieve",
+    "PhysicalCapExTangibleMultiplierSieve",
+    "RevealedPreferenceDivergenceSieve",
+    "AlgorithmicCognitiveSubversionSieve",
+    "SovereignDebtSyndicateLeverageSieve",
+    "SpeculativeCapexOverhangSieve",
+    "CircularVentureValuationBubbleSieve",
+    "SubnationalFragmentationLawfareSieve",
+    "SubReplacementDemographicExtinctionSieve",
+    "CivilizationalEpistemicIntegritySieve",
+    "MonopolyPatentSuppressionSieve",
+    "DynasticExtraConstitutionalShadowCabinetSieve",
 ]

@@ -183,6 +183,20 @@ class DigitalSovereigntyLens:
         metrics["platform_shadowban_exposure"] = _algo_res["platform_shadowban_exposure"]
         metrics["algorithmic_sovereignty_tier"] = _algo_res["algorithmic_sovereignty_tier"]
 
+        _cmf_res = CloudMonopolyFragilitySieve.evaluate(
+            kernel_driver_vendor_concentration=cd_params.get("kernel_driver_vendor_concentration", 0.75),
+            cloud_single_point_dependency=cd_params.get("cloud_single_point_dependency", 0.70),
+            airgapped_sovereign_redundancy=cd_params.get("airgapped_sovereign_redundancy", 0.45),
+        )
+        metrics["cloud_monopoly_fragility_score"] = _cmf_res["cloud_monopoly_fragility_score"]
+
+        _lio_res = LegacyInfrastructureObsolescenceSieve.evaluate(
+            legacy_codebase_age_overhang=cd_params.get("legacy_codebase_age_overhang", 0.65),
+            single_point_systemic_criticality=cd_params.get("single_point_systemic_criticality", 0.80),
+            automated_failover_redundancy_depth=cd_params.get("automated_failover_redundancy_depth", 0.50),
+        )
+        metrics["legacy_infrastructure_obsolescence_score"] = _lio_res["legacy_infrastructure_obsolescence_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -932,4 +946,106 @@ class CryptographicDecentralizationSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_permissionless_store_of_value": score >= 0.65,
+        }
+
+
+# ============================================================================
+# Phase 368: Cloud Monopoly Fragility Sieve (CrowdStrike / Azure Kernel-Level)
+# ============================================================================
+
+class CloudMonopolyFragilitySieve:
+    """
+    Phase 368: Audits systemic risk from centralized private software monopolies
+    exercising kernel-level privileges and single-point cloud dependencies.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        kernel_driver_vendor_concentration: float = 0.85,
+        cloud_single_point_dependency: float = 0.80,
+        airgapped_sovereign_redundancy: float = 0.20
+    ) -> Dict[str, Any]:
+        k_conc = float(max(0.0, min(1.0, kernel_driver_vendor_concentration)))
+        c_dep = float(max(0.0, min(1.0, cloud_single_point_dependency)))
+        a_red = float(max(0.0, min(1.0, airgapped_sovereign_redundancy)))
+
+        z = 3.2 * k_conc + 2.8 * c_dep - 3.0 * a_red - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_CLOUD_SINGLE_POINT_VULNERABILITY"
+            verdict = "MANDATE_IMMEDIATE_AIRGAPPED_SOVEREIGN_OS_MIGRATION"
+            rationale = (
+                f"Severe vendor concentration ({k_conc:.2f}) and cloud dependency ({c_dep:.2f}) "
+                f"create nationwide outage vulnerability. Air-gapped fallback ({a_red:.2f}) is dangerously inadequate."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_KERNEL_DRIVER_RISK"
+            verdict = "DEPLOY_STAGED_ROLLOUT_AND_KERNEL_ACCESS_SANDBOXING"
+            rationale = f"Elevated cloud fragility ({score:.4f}): Enforce multi-vendor driver validation."
+        else:
+            tier = "RESILIENT_SOVEREIGN_COMPUTE_STACK"
+            verdict = "ROBUST_AIRGAPPED_FAILOVER_VERIFIED"
+            rationale = f"Low fragility ({score:.4f}): High sovereign airgapped redundancy ({a_red:.2f}) insulates infrastructure."
+
+        return {
+            "cloud_monopoly_fragility_score": score,
+            "kernel_driver_vendor_concentration": round(k_conc, 4),
+            "cloud_single_point_dependency": round(c_dep, 4),
+            "airgapped_sovereign_redundancy": round(a_red, 4),
+            "cloud_fragility_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cloud_monopoly_fragile": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 378: Legacy Infrastructure Obsolescence Sieve (FAA NOTAM Outage)
+# ============================================================================
+
+class LegacyInfrastructureObsolescenceSieve:
+    """
+    Phase 378: Audits mission-critical transport, energy, and air traffic systems
+    running on unmaintained multi-decade legacy codebases lacking hot-standby failover.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        legacy_codebase_age_overhang: float = 0.85,
+        single_point_systemic_criticality: float = 0.90,
+        automated_failover_redundancy_depth: float = 0.20
+    ) -> Dict[str, Any]:
+        l_age = float(max(0.0, min(1.0, legacy_codebase_age_overhang)))
+        s_crit = float(max(0.0, min(1.0, single_point_systemic_criticality)))
+        a_fail = float(max(0.0, min(1.0, automated_failover_redundancy_depth)))
+
+        z = 3.4 * l_age + 2.8 * s_crit - 3.2 * a_fail - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_LEGACY_SYSTEMIC_PARALYSIS_RISK"
+            verdict = "MANDATE_ARCHITECTURAL_MODERNIZATION_AND_HOT_FAILOVER"
+            rationale = (
+                f"Severe legacy technical debt ({l_age:.2f}) in critical path ({s_crit:.2f}) "
+                f"with inadequate automated failover ({a_fail:.2f}) risks nationwide logistical gridlock."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_TECHNICAL_DEBT_DRAG"
+            verdict = "SCHEDULE_MODULAR_MICROSERVICES_REFECTORING"
+            rationale = f"Moderate obsolescence ({score:.4f}): Legacy routines require automated sanity gates."
+        else:
+            tier = "MODERN_HIGH_AVAILABILITY_ARCHITECTURE"
+            verdict = "ZERO_SINGLE_POINT_FAILOVER_CERTIFIED"
+            rationale = f"High reliability ({score:.4f}): Deep failover redundancy ({a_fail:.2f}) prevents cascading outages."
+
+        return {
+            "legacy_infrastructure_obsolescence_score": score,
+            "legacy_codebase_age_overhang": round(l_age, 4),
+            "single_point_systemic_criticality": round(s_crit, 4),
+            "automated_failover_redundancy_depth": round(a_fail, 4),
+            "infrastructure_obsolescence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_legacy_obsolescence_critical": score >= 0.70,
         }

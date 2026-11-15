@@ -283,6 +283,20 @@ class GeoEconomistLens:
         )
         metrics["sovereign_strategic_capex_impact_score"] = _sci_res["sovereign_strategic_capex_impact_score"]
 
+        _mpd_res = MaritimePortDualUseSieve.evaluate(
+            chokepoint_berthing_dominance=geo_econ_meta.get("chokepoint_berthing_dominance", 0.75),
+            dual_use_naval_logistics=geo_econ_meta.get("dual_use_naval_logistics", 0.70),
+            adversary_naval_encirclement=geo_econ_meta.get("adversary_naval_encirclement", 0.40),
+        )
+        metrics["maritime_port_dual_use_score"] = _mpd_res["maritime_port_dual_use_score"]
+
+        _pct_res = PhysicalCapExTangibleMultiplierSieve.evaluate(
+            freight_velocity_efficiency=geo_econ_meta.get("freight_velocity_efficiency", 0.75),
+            tangible_capex_completion_rate=geo_econ_meta.get("tangible_capex_completion_rate", 0.80),
+            logistics_cost_gdp_drag=geo_econ_meta.get("logistics_cost_gdp_drag", 0.35),
+        )
+        metrics["physical_capex_tangible_multiplier_score"] = _pct_res["physical_capex_tangible_multiplier_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1217,6 +1231,108 @@ class SovereignStrategicCapExImpactSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_curative_receivership_recommended": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 374: Maritime Port Dual Use Sieve (Adani Haifa/Colombo/Chabahar Doctrine)
+# ============================================================================
+
+class MaritimePortDualUseSieve:
+    """
+    Phase 374: Calculates sovereign maritime corridor dominance and chokepoint resilience
+    combining commercial container throughput, naval dual-use logistics, and supply route insulation.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        chokepoint_berthing_dominance: float = 0.85,
+        dual_use_naval_logistics: float = 0.80,
+        adversary_naval_encirclement: float = 0.30
+    ) -> Dict[str, Any]:
+        c_dom = float(max(0.0, min(1.0, chokepoint_berthing_dominance)))
+        d_log = float(max(0.0, min(1.0, dual_use_naval_logistics)))
+        a_enc = float(max(0.0, min(1.0, adversary_naval_encirclement)))
+
+        z = 3.0 * c_dom + 2.8 * d_log - 2.6 * a_enc - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "SOVEREIGN_CHOKEPOINT_PRIMACY_SECURED"
+            verdict = "DUAL_USE_MARITIME_CORRIDOR_INSULATED"
+            rationale = (
+                f"High maritime leverage ({score:.4f}): Chokepoint berths ({c_dom:.2f}) and dual-use logistics ({d_log:.2f}) "
+                f"counter adversary encirclement ({a_enc:.2f}) across IMEC and INSTC corridors."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_COMMERCIAL_TERMINAL_REGIME"
+            verdict = "SECURE_EXPANDED_BERTHING_CONCESSIONS"
+            rationale = f"Moderate maritime posture ({score:.4f}): Commercial terminal viable but subject to regional pressure."
+        else:
+            tier = "VULNERABLE_PORT_OUTPOST"
+            verdict = "ENCIRCLEMENT_RISK_REQUIRES_DIPLOMATIC_DEFENSE_PACT"
+            rationale = f"Low chokepoint security ({score:.4f}): Adversary naval density threatens terminal operations."
+
+        return {
+            "maritime_port_dual_use_score": score,
+            "chokepoint_berthing_dominance": round(c_dom, 4),
+            "dual_use_naval_logistics": round(d_log, 4),
+            "adversary_naval_encirclement": round(a_enc, 4),
+            "port_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_port_corridor_insulated": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 387: Physical CapEx Tangible Multiplier Sieve (The Pamphlet 17 Infra Vectors)
+# ============================================================================
+
+class PhysicalCapExTangibleMultiplierSieve:
+    """
+    Phase 387: Measures real physical state capacity by quantifying concrete assets
+    (expressways, dedicated freight rail, fabs, border tunnels) vs paper narrative GDP.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        freight_velocity_efficiency: float = 0.85,
+        tangible_capex_completion_rate: float = 0.80,
+        logistics_cost_gdp_drag: float = 0.25
+    ) -> Dict[str, Any]:
+        f_vel = float(max(0.0, min(1.0, freight_velocity_efficiency)))
+        t_comp = float(max(0.0, min(1.0, tangible_capex_completion_rate)))
+        l_drag = float(max(0.0, min(1.0, logistics_cost_gdp_drag)))
+
+        z = 3.4 * f_vel + 3.0 * t_comp - 2.6 * l_drag - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "STRUCTURAL_PHYSICAL_INFRASTRUCTURE_FORTRESS"
+            verdict = "TANGIBLE_CAPEX_COMPRESSION_DRIVES_SUPER_GROWTH"
+            rationale = (
+                f"Decisive physical capacity ({score:.4f}): High freight velocity ({f_vel:.2f}) and capex completion ({t_comp:.2f}) "
+                f"drastically compress logistics drag ({l_drag:.2f}). Paper narrative pessimism refuted."
+            )
+        elif score >= 0.45:
+            tier = "ACCELERATING_INFRASTRUCTURE_TRANSITION"
+            verdict = "EXPAND_LAST_MILE_MULTIMODAL_CONNECTIVITY"
+            rationale = f"Positive capex momentum ({score:.4f}): Core corridors active, last-mile links completing."
+        else:
+            tier = "HIGH_LOGISTICS_FRICTION_BOTTLENECK"
+            verdict = "URGENT_FREIGHT_CORRIDOR_DECONGESTION_MANDATED"
+            rationale = f"Heavy logistics drag ({score:.4f}): Transport bottlenecks constrain industrial competitiveness."
+
+        return {
+            "physical_capex_tangible_multiplier_score": score,
+            "freight_velocity_efficiency": round(f_vel, 4),
+            "tangible_capex_completion_rate": round(t_comp, 4),
+            "logistics_cost_gdp_drag": round(l_drag, 4),
+            "physical_capex_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_physical_capex_decisive": score >= 0.70,
         }
 
 ```

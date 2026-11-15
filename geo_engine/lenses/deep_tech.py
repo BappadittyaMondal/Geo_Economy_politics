@@ -474,6 +474,20 @@ class DeepTechLens:
         )
         metrics["qdt_whistleblower_cognitive_state_score"] = _qdt_res["qdt_whistleblower_cognitive_state_score"]
 
+        _sce_res = SovereignCyberExtortionSieve.evaluate(
+            zero_click_exploit_surface=deep_meta.get("zero_click_exploit_surface", 0.65),
+            media_asset_political_sensitivity=deep_meta.get("media_asset_political_sensitivity", 0.60),
+            airgapped_hardware_isolation=deep_meta.get("airgapped_hardware_isolation", 0.55),
+        )
+        metrics["sovereign_cyber_extortion_score"] = _sce_res["sovereign_cyber_extortion_score"]
+
+        _csh_res = CriticalSCADAHardwareBackdoorSieve.evaluate(
+            unvetted_firmware_density=deep_meta.get("unvetted_firmware_density", 0.60),
+            foreign_scada_grid_dependency=deep_meta.get("foreign_scada_grid_dependency", 0.65),
+            sovereign_zero_trust_airgap=deep_meta.get("sovereign_zero_trust_airgap", 0.60),
+        )
+        metrics["critical_scada_hardware_backdoor_score"] = _csh_res["critical_scada_hardware_backdoor_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -1126,4 +1140,106 @@ class QDTWhistleblowerCognitiveStateSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_duty_interference_constructive": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 373: Sovereign Cyber Extortion Sieve (Bezos-MBS Pegasus Cyber Forensics)
+# ============================================================================
+
+class SovereignCyberExtortionSieve:
+    """
+    Phase 373: Quantifies vulnerability of commercial titans, media owners, and sovereign officials
+    to zero-click commercial spyware deployed by foreign intelligence services for narrative coercion.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        zero_click_exploit_surface: float = 0.85,
+        media_asset_political_sensitivity: float = 0.80,
+        airgapped_hardware_isolation: float = 0.25
+    ) -> Dict[str, Any]:
+        z_surf = float(max(0.0, min(1.0, zero_click_exploit_surface)))
+        m_sens = float(max(0.0, min(1.0, media_asset_political_sensitivity)))
+        a_iso = float(max(0.0, min(1.0, airgapped_hardware_isolation)))
+
+        z = 3.4 * z_surf + 2.6 * m_sens - 3.0 * a_iso - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SOVEREIGN_CYBER_EXTORTION_EXPOSURE"
+            verdict = "MANDATE_AIRGAPPED_HARDWARE_SWITCH_AND_COUNTER_SURVEILLANCE"
+            rationale = (
+                f"Extreme digital vulnerability ({score:.4f}): Zero-click exposure ({z_surf:.2f}) and media ownership ({m_sens:.2f}) "
+                f"invite state-grade spyware blackmail. Civilian smartphones offer zero defense."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_CYBER_ESPIONAGE_RISK"
+            verdict = "DEPLOY_ENDPOINT_MEMORY_INTEGRITY_VERIFICATION"
+            rationale = f"Elevated exposure ({score:.4f}): Commercial spyware intrusion vectors active."
+        else:
+            tier = "HARDENED_COMMUNICATIONS_ENVIRONMENT"
+            verdict = "AIRGAPPED_ENCRYPTION_CERTIFIED"
+            rationale = f"Low extortion risk ({score:.4f}): Airgapped isolation ({a_iso:.2f}) defeats zero-click injection."
+
+        return {
+            "sovereign_cyber_extortion_score": score,
+            "zero_click_exploit_surface": round(z_surf, 4),
+            "media_asset_political_sensitivity": round(m_sens, 4),
+            "airgapped_hardware_isolation": round(a_iso, 4),
+            "cyber_extortion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cyber_extortion_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 383: Critical SCADA Hardware Backdoor Sieve (Cyber Expert Amit Dubey)
+# ============================================================================
+
+class CriticalSCADAHardwareBackdoorSieve:
+    """
+    Phase 383: Audits foreign hardware, BMCs, and firmware backdoors embedded in imported telecom,
+    power grid SCADA controllers, and compute clusters, calculating cyber decapitation risk.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        unvetted_firmware_density: float = 0.85,
+        foreign_scada_grid_dependency: float = 0.80,
+        sovereign_zero_trust_airgap: float = 0.20
+    ) -> Dict[str, Any]:
+        u_firm = float(max(0.0, min(1.0, unvetted_firmware_density)))
+        f_scada = float(max(0.0, min(1.0, foreign_scada_grid_dependency)))
+        s_air = float(max(0.0, min(1.0, sovereign_zero_trust_airgap)))
+
+        z = 3.6 * u_firm + 3.0 * f_scada - 3.4 * s_air - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_CYBER_DECAPITATION_STRIKE_VULNERABILITY"
+            verdict = "EXECUTE_MANDATORY_FIRMWARE_ZERO_TRUST_AUDIT_AND_AIRGAP"
+            rationale = (
+                f"Severe grid decapitation vulnerability ({score:.4f}): Foreign firmware density ({u_firm:.2f}) and SCADA reliance ({f_scada:.2f}) "
+                f"allow adversary remote kill-switch activation during conflict."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_FIRMWARE_SUPPLY_CHAIN_RISK"
+            verdict = "DEPLOY_INDIGENOUS_BMC_SECURITY_PATCHES"
+            rationale = f"Elevated grid risk ({score:.4f}): Foreign controller dependencies require continuous telemetry scanning."
+        else:
+            tier = "INDIGENOUS_HARDWARE_SOVEREIGNTY_VERIFIED"
+            verdict = "POWER_GRID_AIRGAP_IMPERMEABLE"
+            rationale = f"Low vulnerability ({score:.4f}): Zero-trust airgap ({s_air:.2f}) insulates critical infrastructure."
+
+        return {
+            "critical_scada_hardware_backdoor_score": score,
+            "unvetted_firmware_density": round(u_firm, 4),
+            "foreign_scada_grid_dependency": round(f_scada, 4),
+            "sovereign_zero_trust_airgap": round(s_air, 4),
+            "scada_backdoor_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_scada_backdoor_critical": score >= 0.70,
         }

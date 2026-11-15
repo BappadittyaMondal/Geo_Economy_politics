@@ -437,6 +437,28 @@ class CashFlowLens:
         )
         metrics["offshore_ubo_de_anonymizer_score"] = _ubo_res["offshore_ubo_de_anonymizer_score"]
 
+        _sds_res = SovereignDebtSyndicateLeverageSieve.evaluate(
+            foreign_currency_debt_ratio=cf_meta.get("foreign_currency_debt_ratio", 0.35),
+            syndicated_bond_concentration=cf_meta.get("syndicated_bond_concentration", 0.40),
+            domestic_retail_savings_fortress=cf_meta.get("domestic_retail_savings_fortress", 0.85),
+        )
+        metrics["sovereign_debt_syndicate_leverage_score"] = _sds_res["sovereign_debt_syndicate_leverage_score"]
+
+        _sco_res = SpeculativeCapexOverhangSieve.evaluate(
+            annual_capex_burn=cf_meta.get("annual_capex_burn", 3.5),
+            realized_recurring_revenue=cf_meta.get("realized_recurring_revenue", 1.2),
+            debt_financed_expansion_ratio=cf_meta.get("debt_financed_expansion_ratio", 0.60),
+            tangible_monetization_velocity=cf_meta.get("tangible_monetization_velocity", 0.45),
+        )
+        metrics["speculative_capex_overhang_score"] = _sco_res["speculative_capex_overhang_score"]
+
+        _cvv_res = CircularVentureValuationBubbleSieve.evaluate(
+            circular_vc_vendor_commitment=cf_meta.get("circular_vc_vendor_commitment", 0.60),
+            offshore_shadow_banking_leverage=cf_meta.get("offshore_shadow_banking_leverage", 0.65),
+            end_user_organic_cash_revenue=cf_meta.get("end_user_organic_cash_revenue", 0.50),
+        )
+        metrics["circular_venture_valuation_bubble_score"] = _cvv_res["circular_venture_valuation_bubble_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=clamped_alignment,
@@ -1389,6 +1411,164 @@ class OffshoreUBOShellDeAnonymizerSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_predatory_ubo_detected": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 376: Sovereign Debt Syndicate Leverage Sieve (House of Rothschild)
+# ============================================================================
+
+class SovereignDebtSyndicateLeverageSieve:
+    """
+    Phase 376: Measures the degree to which a nation-state's fiscal and monetary autonomy
+    is constrained by transnational debt syndicates and foreign currency bond dependencies.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        foreign_currency_debt_ratio: float = 0.85,
+        syndicated_bond_concentration: float = 0.80,
+        domestic_retail_savings_fortress: float = 0.25
+    ) -> Dict[str, Any]:
+        f_debt = float(max(0.0, min(1.0, foreign_currency_debt_ratio)))
+        s_bond = float(max(0.0, min(1.0, syndicated_bond_concentration)))
+        d_sav = float(max(0.0, min(1.0, domestic_retail_savings_fortress)))
+
+        z = 3.4 * f_debt + 2.8 * s_bond - 3.2 * d_sav - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SOVEREIGN_DEBT_TRAP_EXPOSURE"
+            verdict = "MANDATE_DOMESTIC_RUPEE_BOND_EXPANSION_AND_DE_DOLLARIZATION"
+            rationale = (
+                f"Severe debt servitude risk ({score:.4f}): Foreign debt ratio ({f_debt:.2f}) and private syndicate monopoly ({s_bond:.2f}) "
+                f"leave central bank policy vulnerable to offshore creditor extortion."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_EXTERNAL_REFINANCING_PRESSURE"
+            verdict = "ACCELERATE_SOVEREIGN_RETAIL_BOND_MOBILIZATION"
+            rationale = f"Elevated debt drag ({score:.4f}): Domestic savings cushion ({d_sav:.2f}) partially offsets bond rollover risk."
+        else:
+            tier = "SOVEREIGN_DOMESTIC_SAVINGS_FORTRESS"
+            verdict = "FISCAL_MONETARY_AUTONOMY_SECURED"
+            rationale = f"Low debt syndicate vulnerability ({score:.4f}): Robust domestic savings fortress ({d_sav:.2f}) insulates fiscal policy."
+
+        return {
+            "sovereign_debt_syndicate_leverage_score": score,
+            "foreign_currency_debt_ratio": round(f_debt, 4),
+            "syndicated_bond_concentration": round(s_bond, 4),
+            "domestic_retail_savings_fortress": round(d_sav, 4),
+            "debt_syndicate_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_debt_syndicate_leverage_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 379: Speculative CapEx Overhang Sieve (AI Datacenter & EV Capex Mismatch)
+# ============================================================================
+
+class SpeculativeCapexOverhangSieve:
+    """
+    Phase 379: Models hyper-scale capital expenditure bubbles by computing the divergence ratio
+    between annual infrastructure burn (GPUs, datacenters, gigafactories) and realized recurring cash revenue.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        annual_capex_burn: float = 4.0,
+        realized_recurring_revenue: float = 1.0,
+        debt_financed_expansion_ratio: float = 0.75,
+        tangible_monetization_velocity: float = 0.25
+    ) -> Dict[str, Any]:
+        burn = float(max(0.1, annual_capex_burn))
+        rev = float(max(0.01, realized_recurring_revenue))
+        d_exp = float(max(0.0, min(1.0, debt_financed_expansion_ratio)))
+        t_mon = float(max(0.0, min(1.0, tangible_monetization_velocity)))
+
+        capex_rev_ratio = float(min(10.0, burn / rev))
+        norm_ratio = float(min(1.0, capex_rev_ratio / 5.0))
+
+        z = 3.6 * norm_ratio + 2.4 * d_exp - 3.0 * t_mon - 0.6
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_SPECULATIVE_CAPEX_BUBBLE"
+            verdict = "PREPARE_FOR_MASSIVE_ASSET_WRITEDOWN_AND_EQUITY_CORRECTION"
+            rationale = (
+                f"Severe capex mismatch ({score:.4f}): Capex-to-revenue ratio ({capex_rev_ratio:.2f}x) and debt funding ({d_exp:.2f}) "
+                f"far outpace consumer monetization velocity ({t_mon:.2f}). Severe asset liquidation imminent."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_EXPANSION_OVERHANG"
+            verdict = "TIGHTEN_CAPITAL_EXPENDITURE_DISCIPLINE"
+            rationale = f"Elevated capex risk ({score:.4f}): Requires monitoring of end-user cash conversion cycles."
+        else:
+            tier = "HEALTHY_CAPEX_MONETIZATION_BALANCE"
+            verdict = "CAPITAL_DEPLOYMENT_MATCHED_BY_REVENUE_GROWTH"
+            rationale = f"Sustainable investment ({score:.4f}): High monetization velocity ({t_mon:.2f}) validates capital burn."
+
+        return {
+            "speculative_capex_overhang_score": score,
+            "capex_to_revenue_multiple": round(capex_rev_ratio, 4),
+            "debt_financed_expansion_ratio": round(d_exp, 4),
+            "tangible_monetization_velocity": round(t_mon, 4),
+            "capex_overhang_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_capex_overhang_acute": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 384: Circular Venture Valuation Bubble Sieve (City of London AI Loops)
+# ============================================================================
+
+class CircularVentureValuationBubbleSieve:
+    """
+    Phase 384: Identifies synthetic revenue inflation in tech monopolies where venture capital
+    cartels fund shell startups on condition that capital is returned to the lead hardware monopoly.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        circular_vc_vendor_commitment: float = 0.85,
+        offshore_shadow_banking_leverage: float = 0.80,
+        end_user_organic_cash_revenue: float = 0.20
+    ) -> Dict[str, Any]:
+        c_com = float(max(0.0, min(1.0, circular_vc_vendor_commitment)))
+        o_lev = float(max(0.0, min(1.0, offshore_shadow_banking_leverage)))
+        e_org = float(max(0.0, min(1.0, end_user_organic_cash_revenue)))
+
+        z = 3.4 * c_com + 2.8 * o_lev - 3.0 * e_org - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_CIRCULAR_FINANCING_ILLUSION"
+            verdict = "DISREGARD_ACCOUNTING_MULTIPLE_PREPARE_FOR_VALUATION_CRASH"
+            rationale = (
+                f"Synthetic revenue loop detected ({score:.4f}): Vendor commitments ({c_com:.2f}) and shadow leverage ({o_lev:.2f}) "
+                f"artificially inflate earnings. True organic demand ({e_org:.2f}) is negligible."
+            )
+        elif score >= 0.45:
+            tier = "PARTIALLY_SUBSIDIZED_VENTURE_ECOSYSTEM"
+            verdict = "ENFORCE_INDEPENDENT_AUDIT_ON_CUSTOMER_CONCENTRATION"
+            rationale = f"Moderate circularity ({score:.4f}): Customer revenue partially dependent on lead supplier funding."
+        else:
+            tier = "ORGANIC_END_USER_DEMAND_VERIFIED"
+            verdict = "AUTHENTIC_CASH_FLOW_MONETIZATION"
+            rationale = f"Low circularity risk ({score:.4f}): High organic revenue ({e_org:.2f}) confirms genuine market demand."
+
+        return {
+            "circular_venture_valuation_bubble_score": score,
+            "circular_vc_vendor_commitment": round(c_com, 4),
+            "offshore_shadow_banking_leverage": round(o_lev, 4),
+            "end_user_organic_cash_revenue": round(e_org, 4),
+            "circular_bubble_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_circular_bubble_critical": score >= 0.70,
         }
 
 ```

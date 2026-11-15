@@ -137,6 +137,29 @@ class StrategicQuery(BaseModel):
     requires_chanakya_neeti_upadha: bool = False
     requires_kautilya_mandala_shadgunya: bool = False
     requires_krishna_rajadharma_exhaustion: bool = False
+    requires_cloud_monopoly_fragility: bool = False
+    requires_cognitive_deception_misdirection: bool = False
+    requires_counter_intel_honeytrap: bool = False
+    requires_maritime_net_security: bool = False
+    requires_false_flag_narrative: bool = False
+    requires_sovereign_cyber_extortion: bool = False
+    requires_maritime_port_dual_use: bool = False
+    requires_revealed_preference_divergence: bool = False
+    requires_sovereign_debt_syndicate: bool = False
+    requires_asymmetric_weapon_proliferation: bool = False
+    requires_legacy_infra_obsolescence: bool = False
+    requires_speculative_capex_overhang: bool = False
+    requires_subnational_fragmentation_lawfare: bool = False
+    requires_civilizational_epistemic_integrity: bool = False
+    requires_algorithmic_cognitive_subversion: bool = False
+    requires_critical_scada_hardware_backdoor: bool = False
+    requires_circular_venture_valuation: bool = False
+    requires_monopoly_patent_suppression: bool = False
+    requires_sub_replacement_demographic_extinction: bool = False
+    requires_physical_capex_multiplier: bool = False
+    requires_open_system_asymmetric_infiltration: bool = False
+    requires_dynastic_shadow_cabinet: bool = False
+    requires_superpower_naval_coercion: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -485,6 +508,50 @@ class QueryParser:
         req_chanakya_upadha = any(cls.matches_keyword(text_lower, kw) for kw in ["chanakya neeti upadha", "upadha pariksha", "mantra gupti", "dharmopadha", "arthopadha", "bhayopadha", "kamopadha integrity"])
         req_kautilya_saptanga = any(cls.matches_keyword(text_lower, kw) for kw in ["kautilya mandala shadgunya", "saptanga 7-limb", "saptanga health", "shadgunya foreign policy", "sandhi vigraha", "raja mandala action"])
         req_krishna_rajadharma = any(cls.matches_keyword(text_lower, kw) for kw in ["krishna rajadharma exhaustion", "udyoga parva peace exhaustion", "peace initiatives exhausted", "dharma yuddha retaliation", "svadharma resolve", "moha hesitation"])
+        req_cloud_monopoly = any(cls.matches_keyword(text_lower, kw) for kw in ["cloud monopoly fragility", "hyperscaler concentration", "sovereign compute exit", "cloud outage contagion", "hyperscaler exit barrier", "cloud dependency risk"])
+        req_cognitive_deception = any(cls.matches_keyword(text_lower, kw) for kw in ["cognitive deception misdirection", "stratagem misdirection", "perception distraction", "feint narrative", "information warfare decoy", "adversarial deception channel"])
+        req_ci_honeytrap = any(cls.matches_keyword(text_lower, kw) for kw in ["counter intelligence honeytrap", "kompromat recruitment", "honeytrap operational leverage", "blackmail coercion channel", "covert compromise vulnerability"])
+        req_maritime_net_sec = any(cls.matches_keyword(text_lower, kw) for kw in ["maritime net security primacy", "indian ocean sea lane primacy", "naval choke control", "ior supremacy index", "anti submarine warfare perimeter"])
+        req_false_flag_narrative = any(cls.matches_keyword(text_lower, kw) for kw in ["false flag narrative deception", "synthetic atrocity staging", "provocation fabrication", "casus belli manipulation", "false flag operation index"])
+        req_sov_cyber_extort = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign cyber extortion", "critical infrastructure ransomware", "state backed extortion", "grid hostage exploit", "cyber extortion ransom leverage"])
+        req_port_dual_use = any(cls.matches_keyword(text_lower, kw) for kw in ["maritime port dual use", "commercial port naval conversion", "dual use maritime berthing", "string of pearls port surveillance", "naval facility dual use"])
+        req_revealed_pref_div = any(cls.matches_keyword(text_lower, kw) for kw in ["revealed preference divergence", "sanctions rhetoric vs trade", "diplomatic posture vs trade balance", "hypocritical trade flow", "stated policy divergence"])
+        req_debt_syndicate = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign debt syndicate leverage", "paris club conditional squeeze", "predatory syndicated sovereign loan", "sovereign debt trap restructuring", "imf structural adjustment leverage"])
+        req_asym_weapon_leak = any(cls.matches_keyword(text_lower, kw) for kw in ["asymmetric weapon proliferation leakage", "manpads black market leakage", "drone tech transfer to proxies", "clandestine missile proliferation", "illicit small arms diversion"])
+        req_legacy_infra_obs = any(cls.matches_keyword(text_lower, kw) for kw in ["legacy infrastructure obsolescence", "scada technical debt", "grid component obsolescence", "legacy rail avionics failure", "infrastructure decay rate"])
+        req_spec_capex_overhang = any(cls.matches_keyword(text_lower, kw) for kw in ["speculative capex overhang", "stranded ai compute capex", "unprofitable datacenter overbuild", "overhyped capex debt burden", "speculative asset impairment"])
+        req_subnat_frag_lawfare = any(cls.matches_keyword(text_lower, kw) for kw in ["subnational fragmentation lawfare", "balkanization legal warfare", "regionalist secessionist lawfare", "provincial sovereignty weaponization", "subnational charter sabotage"])
+        req_civ_epistemic_int = any(cls.matches_keyword(text_lower, kw) for kw in ["civilizational epistemic integrity", "indigenous historiography defense", "colonial historiographical distortion", "textual lineage preservation", "epistemic decolonization metric"])
+        req_algo_cog_subversion = any(cls.matches_keyword(text_lower, kw) for kw in ["algorithmic cognitive subversion", "feed manipulation radicalization", "foreign recommendation algorithm bias", "cognitive echo chamber amplification", "algorithmic societal polarization"])
+        req_scada_hw_backdoor = any(cls.matches_keyword(text_lower, kw) for kw in ["critical scada hardware backdoor", "silicon level kill switch", "power grid transformer backdoor", "substation plc trojan", "embedded industrial hardware backdoor"])
+        req_circ_venture_val = any(cls.matches_keyword(text_lower, kw) for kw in ["circular venture valuation bubble", "round tripping ai venture capital", "synthetic unicorns mark up", "unbacked venture capital multiplier", "self dealing valuation pump"])
+        req_monopoly_patent_supp = any(cls.matches_keyword(text_lower, kw) for kw in ["monopoly patent suppression", "evergreening pharmaceutical blockade", "patent thicket stifling indigenous innovation", "anti competitive patent hoarding", "compulsory licensing deterrence"])
+        req_sub_replace_demog = any(cls.matches_keyword(text_lower, kw) for kw in ["sub replacement demographic extinction", "total fertility collapse rate", "demographic pyramid inversion", "societal depopulation spiral", "sub replacement tfr crisis"])
+        req_phys_capex_mult = any(cls.matches_keyword(text_lower, kw) for kw in ["physical capex tangible multiplier", "hard infrastructure tangible output", "steel cement port physical capex", "productive asset capex return", "physical capital formation velocity"])
+        req_open_sys_infil = any(cls.matches_keyword(text_lower, kw) for kw in ["open system asymmetric infiltration", "democratic vulnerability exploitation", "asymmetric institutional penetration", "open academic legal infiltration", "unreciprocated openness exploitation"])
+        req_dynastic_shadow_cab = any(cls.matches_keyword(text_lower, kw) for kw in ["dynastic extra constitutional shadow cabinet", "unaccountable coterie governance", "extra constitutional kitchen cabinet", "nac style shadow government", "dynastic bureaucratic capture"])
+        req_naval_coercion = any(cls.matches_keyword(text_lower, kw) for kw in ["superpower naval coercion brinkmanship", "gunboat diplomacy intimidation", "carrier strike group brinkmanship", "freedom of navigation coercive transit", "unilateral naval blockade posturing"])
+
+        if (req_cloud_monopoly or req_legacy_infra_obs) and "digital_sovereignty" not in active_lenses:
+            active_lenses.append("digital_sovereignty")
+        if (req_cognitive_deception or req_ci_honeytrap or req_false_flag_narrative or req_open_sys_infil) and "hybrid_covert" not in active_lenses:
+            active_lenses.append("hybrid_covert")
+        if (req_maritime_net_sec or req_asym_weapon_leak or req_naval_coercion) and "military_readiness" not in active_lenses:
+            active_lenses.append("military_readiness")
+        if (req_sov_cyber_extort or req_scada_hw_backdoor) and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if (req_port_dual_use or req_phys_capex_mult) and "geo_economist" not in active_lenses:
+            active_lenses.append("geo_economist")
+        if (req_revealed_pref_div or req_algo_cog_subversion) and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if (req_debt_syndicate or req_spec_capex_overhang or req_circ_venture_val) and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if (req_subnat_frag_lawfare or req_sub_replace_demog) and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if (req_civ_epistemic_int or req_monopoly_patent_supp) and "history" not in active_lenses:
+            active_lenses.append("history")
+        if req_dynastic_shadow_cab and "bureaucratic_inertia" not in active_lenses:
+            active_lenses.append("bureaucratic_inertia")
 
         if (req_bis_fx or req_ubo_shell) and "cash_flow" not in active_lenses:
             active_lenses.append("cash_flow")
@@ -752,6 +819,29 @@ class QueryParser:
             requires_chanakya_neeti_upadha=req_chanakya_upadha,
             requires_kautilya_mandala_shadgunya=req_kautilya_saptanga,
             requires_krishna_rajadharma_exhaustion=req_krishna_rajadharma,
+            requires_cloud_monopoly_fragility=req_cloud_monopoly,
+            requires_cognitive_deception_misdirection=req_cognitive_deception,
+            requires_counter_intel_honeytrap=req_ci_honeytrap,
+            requires_maritime_net_security=req_maritime_net_sec,
+            requires_false_flag_narrative=req_false_flag_narrative,
+            requires_sovereign_cyber_extortion=req_sov_cyber_extort,
+            requires_maritime_port_dual_use=req_port_dual_use,
+            requires_revealed_preference_divergence=req_revealed_pref_div,
+            requires_sovereign_debt_syndicate=req_debt_syndicate,
+            requires_asymmetric_weapon_proliferation=req_asym_weapon_leak,
+            requires_legacy_infra_obsolescence=req_legacy_infra_obs,
+            requires_speculative_capex_overhang=req_spec_capex_overhang,
+            requires_subnational_fragmentation_lawfare=req_subnat_frag_lawfare,
+            requires_civilizational_epistemic_integrity=req_civ_epistemic_int,
+            requires_algorithmic_cognitive_subversion=req_algo_cog_subversion,
+            requires_critical_scada_hardware_backdoor=req_scada_hw_backdoor,
+            requires_circular_venture_valuation=req_circ_venture_val,
+            requires_monopoly_patent_suppression=req_monopoly_patent_supp,
+            requires_sub_replacement_demographic_extinction=req_sub_replace_demog,
+            requires_physical_capex_multiplier=req_phys_capex_mult,
+            requires_open_system_asymmetric_infiltration=req_open_sys_infil,
+            requires_dynastic_shadow_cabinet=req_dynastic_shadow_cab,
+            requires_superpower_naval_coercion=req_naval_coercion,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

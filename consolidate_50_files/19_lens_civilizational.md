@@ -389,6 +389,20 @@ class CivilizationalLens:
         )
         metrics["krishna_rajadharma_exhaustion_score"] = _kre_res["krishna_rajadharma_exhaustion_score"]
 
+        _sfl_res = SubnationalFragmentationLawfareSieve.evaluate(
+            identity_balkanization_lawfare_pressure=civ_meta.get("identity_balkanization_lawfare_pressure", 0.60),
+            administrative_merit_compromise_rate=civ_meta.get("administrative_merit_compromise_rate", 0.55),
+            civilizational_unification_cohesion=civ_meta.get("civilizational_unification_cohesion", 0.65),
+        )
+        metrics["subnational_fragmentation_lawfare_score"] = _sfl_res["subnational_fragmentation_lawfare_score"]
+
+        _sde_res = SubReplacementDemographicExtinctionSieve.evaluate(
+            total_fertility_rate=civ_meta.get("total_fertility_rate", 2.0),
+            youth_economic_precarity=civ_meta.get("youth_economic_precarity", 0.40),
+            pro_natalist_family_incentives=civ_meta.get("pro_natalist_family_incentives", 0.60),
+        )
+        metrics["sub_replacement_demographic_extinction_score"] = _sde_res["sub_replacement_demographic_extinction_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -2030,6 +2044,110 @@ class KrishnaRajadharmaExhaustionSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_righteous_retaliation_authorized": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 380: Subnational Fragmentation Lawfare Sieve (Mandal Balkanization)
+# ============================================================================
+
+class SubnationalFragmentationLawfareSieve:
+    """
+    Phase 380: Formulates and quantifies the systemic degradation of state capacity,
+    administrative merit, and civilizational cohesion caused by competitive identity balkanization.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        identity_balkanization_lawfare_pressure: float = 0.85,
+        administrative_merit_compromise_rate: float = 0.80,
+        civilizational_unification_cohesion: float = 0.25
+    ) -> Dict[str, Any]:
+        i_balk = float(max(0.0, min(1.0, identity_balkanization_lawfare_pressure)))
+        a_mer = float(max(0.0, min(1.0, administrative_merit_compromise_rate)))
+        c_coh = float(max(0.0, min(1.0, civilizational_unification_cohesion)))
+
+        z = 3.2 * i_balk + 2.8 * a_mer - 3.4 * c_coh - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_SUBNATIONAL_FRAGMENTATION_RISK"
+            verdict = "REINFORCE_CONSTITUTIONAL_EQUALITY_AND_MERIT_BASED_GOVERNANCE"
+            rationale = (
+                f"Severe balkanization pressure ({score:.4f}): Competitive identity lawfare ({i_balk:.2f}) and merit compromise ({a_mer:.2f}) "
+                f"threaten state bureaucratic competence and civilizational unity ({c_coh:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_IDENTITY_CONTESTATION"
+            verdict = "DEPLOY_SUB_CATEGORIZATION_CREAMY_LAYER_FILTERING"
+            rationale = f"Elevated fragmentation risk ({score:.4f}): Target affirmative action to deprived strata."
+        else:
+            tier = "ROBUST_CIVILIZATIONAL_COHESION"
+            verdict = "ORGANIC_SOCIAL_UNITY_MAINTAINED"
+            rationale = f"Low fragmentation risk ({score:.4f}): Strong civilizational cohesion ({c_coh:.2f}) defeats divisive lawfare."
+
+        return {
+            "subnational_fragmentation_lawfare_score": score,
+            "identity_balkanization_lawfare_pressure": round(i_balk, 4),
+            "administrative_merit_compromise_rate": round(a_mer, 4),
+            "civilizational_unification_cohesion": round(c_coh, 4),
+            "fragmentation_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_subnational_fragmentation_acute": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 386: Sub-Replacement Demographic Extinction Sieve (South Korea 0.72 TFR)
+# ============================================================================
+
+class SubReplacementDemographicExtinctionSieve:
+    """
+    Phase 386: Calculates long-term civilizational and military collapse risk when a nation's
+    total fertility rate collapses below critical replacement thresholds (TFR < 1.0).
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        total_fertility_rate: float = 0.72,
+        youth_economic_precarity: float = 0.85,
+        pro_natalist_family_incentives: float = 0.20
+    ) -> Dict[str, Any]:
+        tfr = float(max(0.1, min(5.0, total_fertility_rate)))
+        y_prec = float(max(0.0, min(1.0, youth_economic_precarity)))
+        p_inc = float(max(0.0, min(1.0, pro_natalist_family_incentives)))
+
+        tfr_deficit = float(max(0.0, min(2.0, 2.1 - tfr)))
+
+        z = 3.6 * tfr_deficit + 2.6 * y_prec - 2.8 * p_inc - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_DEMOGRAPHIC_EXTINCTION_TRAJECTORY"
+            verdict = "NATIONAL_EMERGENCY_PRO_FAMILY_CRASH_PROGRAM_MANDATED"
+            rationale = (
+                f"Existential demographic implosion ({score:.4f}): TFR ({tfr:.2f}) far below replacement (2.1) and youth precarity ({y_prec:.2f}) "
+                f"guarantee halving of population and military manning collapse within two generations."
+            )
+        elif score >= 0.45:
+            tier = "SUBCRITICAL_FERTILITY_DECLINE"
+            verdict = "EXPAND_CHILDCARE_AND_AFFORDABLE_HOUSING_INCENTIVES"
+            rationale = f"Demographic drag ({score:.4f}): Declining birthrates require structural welfare interventions."
+        else:
+            tier = "SUSTAINABLE_DEMOGRAPHIC_REPLACEMENT"
+            verdict = "POPULATION_EQUILIBRIUM_STABLE"
+            rationale = f"Healthy demographics ({score:.4f}): Fertility rate ({tfr:.2f}) supports sovereign continuity."
+
+        return {
+            "sub_replacement_demographic_extinction_score": score,
+            "total_fertility_rate": round(tfr, 4),
+            "youth_economic_precarity": round(y_prec, 4),
+            "pro_natalist_family_incentives": round(p_inc, 4),
+            "demographic_extinction_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_demographic_extinction_critical": score >= 0.70,
         }
 
 ```

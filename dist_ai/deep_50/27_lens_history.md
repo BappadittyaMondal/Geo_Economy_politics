@@ -165,6 +165,20 @@ class HistoryLens:
         metrics["colonial_drain_tier"] = _drain_res["colonial_drain_tier"]
         metrics["sovereign_drain_extraction_index"] = _drain_res["sovereign_drain_extraction_index"]
 
+        _cei_res = CivilizationalEpistemicIntegritySieve.evaluate(
+            philological_textual_fidelity=hist_meta.get("philological_textual_fidelity", 0.75),
+            archaeological_contextual_rigor=hist_meta.get("archaeological_contextual_rigor", 0.70),
+            anachronistic_sensationalist_distortion=hist_meta.get("anachronistic_sensationalist_distortion", 0.35),
+        )
+        metrics["civilizational_epistemic_integrity_score"] = _cei_res["civilizational_epistemic_integrity_score"]
+
+        _mps_res = MonopolyPatentSuppressionSieve.evaluate(
+            centralized_utility_revenue_threat=hist_meta.get("centralized_utility_revenue_threat", 0.65),
+            predatory_patent_monopolization=hist_meta.get("predatory_patent_monopolization", 0.70),
+            open_source_decentralized_replication=hist_meta.get("open_source_decentralized_replication", 0.50),
+        )
+        metrics["monopoly_patent_suppression_score"] = _mps_res["monopoly_patent_suppression_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -741,6 +755,108 @@ class KishkindhaGlobalGeographySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_historically_grounded": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 381: Civilizational Epistemic Integrity Sieve (Mahabharata Textual Rigor)
+# ============================================================================
+
+class CivilizationalEpistemicIntegritySieve:
+    """
+    Phase 381: Protects the rigorous epistemic credibility of ancient Bharatiya heritage,
+    mathematically penalizing anachronistic pseudo-scientific claims that surrender academic credibility.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        philological_textual_fidelity: float = 0.85,
+        archaeological_contextual_rigor: float = 0.80,
+        anachronistic_sensationalist_distortion: float = 0.25
+    ) -> Dict[str, Any]:
+        p_fid = float(max(0.0, min(1.0, philological_textual_fidelity)))
+        a_rig = float(max(0.0, min(1.0, archaeological_contextual_rigor)))
+        a_dist = float(max(0.0, min(1.0, anachronistic_sensationalist_distortion)))
+
+        z = 3.4 * p_fid + 2.8 * a_rig - 3.0 * a_dist - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "VERIFIED_EPISTEMIC_INTEGRITY_CANON"
+            verdict = "RIGOROUS_CIVILIZATIONAL_HERITAGE_VALIDATED"
+            rationale = (
+                f"High epistemic grounding ({score:.4f}): Textual philology ({p_fid:.2f}) and contextual rigor ({a_rig:.2f}) "
+                f"protect ancient scientific and philosophical depth without sensationalist distortions ({a_dist:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "SEMI_GROUNDED_HERITAGE_NARRATIVE"
+            verdict = "STRIP_ANACHRONISTIC_HYPERBOLE_MAINTAIN_PHILOLOGICAL_CORE"
+            rationale = f"Moderate integrity ({score:.4f}): Philosophical depth present but clouded by speculative claims."
+        else:
+            tier = "UNVERIFIED_PSEUDO_SCIENTIFIC_SPECULATION"
+            verdict = "SURRENDERS_ACADEMIC_CREDIBILITY_TO_HOSTILE_GATEKEEPERS"
+            rationale = f"Epistemic vulnerability ({score:.4f}): High sensational distortion ({a_dist:.2f}) invites intellectual ridicule."
+
+        return {
+            "civilizational_epistemic_integrity_score": score,
+            "philological_textual_fidelity": round(p_fid, 4),
+            "archaeological_contextual_rigor": round(a_rig, 4),
+            "anachronistic_sensationalist_distortion": round(a_dist, 4),
+            "epistemic_integrity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_epistemic_integrity_verified": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 385: Monopoly Patent Suppression Sieve (Nikola Tesla / J.P. Morgan)
+# ============================================================================
+
+class MonopolyPatentSuppressionSieve:
+    """
+    Phase 385: Models the suppression and classification of disruptive public-good energy
+    and communications technologies by predatory financial cartels seeking to protect centralized monopolies.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        centralized_utility_revenue_threat: float = 0.85,
+        predatory_patent_monopolization: float = 0.80,
+        open_source_decentralized_replication: float = 0.25
+    ) -> Dict[str, Any]:
+        c_threat = float(max(0.0, min(1.0, centralized_utility_revenue_threat)))
+        p_monop = float(max(0.0, min(1.0, predatory_patent_monopolization)))
+        o_repl = float(max(0.0, min(1.0, open_source_decentralized_replication)))
+
+        z = 3.2 * c_threat + 2.8 * p_monop - 3.0 * o_repl - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_PREDATORY_PATENT_SUPPRESSION"
+            verdict = "MANDATE_OPEN_SOURCE_DECENTRALIZED_TECHNOLOGY_ARCHIVING"
+            rationale = (
+                f"Severe technology suppression risk ({score:.4f}): Utility revenue threat ({c_threat:.2f}) and private patent capture ({p_monop:.2f}) "
+                f"drive private cartels to defund or classify public-good energy breakthroughs (Tesla/Wardenclyffe doctrine)."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_CORPORATE_IP_ENCLOSURE"
+            verdict = "DEPLOY_ANTITRUST_COMPULSORY_LICENSING_OVERSIGHT"
+            rationale = f"Moderate IP bottleneck ({score:.4f}): Private patents restrict public deployment."
+        else:
+            tier = "DECENTRALIZED_INNOVATION_ECOSYSTEM"
+            verdict = "PUBLIC_DOMAIN_REPLICATION_UNCONSTRAINED"
+            rationale = f"Low suppression risk ({score:.4f}): Open-source replication ({o_repl:.2f}) defeats cartel enclosure."
+
+        return {
+            "monopoly_patent_suppression_score": score,
+            "centralized_utility_revenue_threat": round(c_threat, 4),
+            "predatory_patent_monopolization": round(p_monop, 4),
+            "open_source_decentralized_replication": round(o_repl, 4),
+            "patent_suppression_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_patent_suppression_acute": score >= 0.70,
         }
 
 ```

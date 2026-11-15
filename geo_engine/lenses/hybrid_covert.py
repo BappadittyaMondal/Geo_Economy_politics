@@ -261,6 +261,34 @@ class HybridCovertLens:
         )
         metrics["retaliation_threat_and_opsec_score"] = _rto_res["retaliation_threat_and_opsec_score"]
 
+        _cdm_res = CognitiveDeceptionMisdirectionSieve.evaluate(
+            adversary_bias_alignment=hc_meta.get("adversary_bias_alignment", 0.70),
+            fabricated_pocket_litter_fidelity=hc_meta.get("fabricated_pocket_litter_fidelity", 0.65),
+            adversary_epistemic_skepticism=hc_meta.get("adversary_epistemic_skepticism", 0.50),
+        )
+        metrics["cognitive_deception_misdirection_score"] = _cdm_res["cognitive_deception_misdirection_score"]
+
+        _cih_res = CounterIntelligenceHoneytrapSieve.evaluate(
+            unvetted_digital_interaction=hc_meta.get("unvetted_digital_interaction", 0.60),
+            financial_lifestyle_anomaly=hc_meta.get("financial_lifestyle_anomaly", 0.55),
+            counter_intel_vetting_rigor=hc_meta.get("counter_intel_vetting_rigor", 0.60),
+        )
+        metrics["counter_intelligence_honeytrap_score"] = _cih_res["counter_intelligence_honeytrap_score"]
+
+        _ffn_res = FalseFlagNarrativeDeceptionSieve.evaluate(
+            planted_narrative_tokens=hc_meta.get("planted_narrative_tokens", 0.65),
+            media_pre_coordination=hc_meta.get("media_pre_coordination", 0.60),
+            forensic_biometric_capture_rigor=hc_meta.get("forensic_biometric_capture_rigor", 0.60),
+        )
+        metrics["false_flag_narrative_deception_score"] = _ffn_res["false_flag_narrative_deception_score"]
+
+        _oai_res = OpenSystemAsymmetricInfiltrationSieve.evaluate(
+            critical_installation_land_proximity=hc_meta.get("critical_installation_land_proximity", 0.60),
+            legal_lobbying_revolving_door=hc_meta.get("legal_lobbying_revolving_door", 0.65),
+            cfius_sovereign_foreign_vetting=hc_meta.get("cfius_sovereign_foreign_vetting", 0.60),
+        )
+        metrics["open_system_asymmetric_infiltration_score"] = _oai_res["open_system_asymmetric_infiltration_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1158,4 +1186,208 @@ class RetaliationThreatAndOpSecSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_retaliation_threat_acute": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 369: Cognitive Deception Misdirection Sieve (Operation Mincemeat)
+# ============================================================================
+
+class CognitiveDeceptionMisdirectionSieve:
+    """
+    Phase 369: Formulates strategic military deception where an adversary's cognitive
+    confirmation bias is fed authentic pocket litter to misdirect force deployments.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        adversary_bias_alignment: float = 0.85,
+        fabricated_pocket_litter_fidelity: float = 0.80,
+        adversary_epistemic_skepticism: float = 0.30
+    ) -> Dict[str, Any]:
+        a_bias = float(max(0.0, min(1.0, adversary_bias_alignment)))
+        p_lit = float(max(0.0, min(1.0, fabricated_pocket_litter_fidelity)))
+        a_skep = float(max(0.0, min(1.0, adversary_epistemic_skepticism)))
+
+        z = 3.0 * a_bias + 2.8 * p_lit - 3.2 * a_skep - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_COGNITIVE_DECEPTION_ACHIEVED"
+            verdict = "ADVERSARY_FORCES_SUCCESSFULLY_MISDIRECTED"
+            rationale = (
+                f"High deception success ({score:.4f}): Bias alignment ({a_bias:.2f}) and authentic litter ({p_lit:.2f}) "
+                f"completely overwhelm enemy skepticism ({a_skep:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "PARTIAL_DECEPTION_AMBIGUITY"
+            verdict = "REINFORCE_DECEPTION_ASSETS_AND_POCKET_LITTER"
+            rationale = f"Moderate misdirection ({score:.4f}): Adversary maintaining dual-vector vigilance."
+        else:
+            tier = "DECEPTION_DETECTED_OR_FAILED"
+            verdict = "ADVERSARY_SKEPTICISM_UNCOMPROMISED"
+            rationale = f"Deception failure ({score:.4f}): High adversary skepticism ({a_skep:.2f}) neutralizes misdirection."
+
+        return {
+            "cognitive_deception_misdirection_score": score,
+            "adversary_bias_alignment": round(a_bias, 4),
+            "fabricated_pocket_litter_fidelity": round(p_lit, 4),
+            "adversary_epistemic_skepticism": round(a_skep, 4),
+            "deception_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_deception_successful": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 370: Counter-Intelligence Honeytrap Sieve (Ex-DGP Dr. Vikram Singh)
+# ============================================================================
+
+class CounterIntelligenceHoneytrapSieve:
+    """
+    Phase 370: Audits human intelligence vulnerabilities across defense and aerospace
+    installations by tracking unvetted digital interactions, lifestyle anomalies, and coercion markers.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        unvetted_digital_interaction: float = 0.80,
+        financial_lifestyle_anomaly: float = 0.75,
+        counter_intel_vetting_rigor: float = 0.25
+    ) -> Dict[str, Any]:
+        u_dig = float(max(0.0, min(1.0, unvetted_digital_interaction)))
+        f_ano = float(max(0.0, min(1.0, financial_lifestyle_anomaly)))
+        c_vet = float(max(0.0, min(1.0, counter_intel_vetting_rigor)))
+
+        z = 3.2 * u_dig + 2.8 * f_ano - 3.0 * c_vet - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_HONEYTRAP_COMPROMISE_RISK"
+            verdict = "IMMEDIATE_SECURITY_CLEARANCE_SUSPENSION_AND_OPSEC_AUDIT"
+            rationale = (
+                f"Severe human vulnerability ({score:.4f}): Unvetted digital chats ({u_dig:.2f}) and financial anomalies ({f_ano:.2f}) "
+                f"indicate ongoing foreign grooming or blackmail."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_DIGITAL_EXPOSURE"
+            verdict = "MANDATE_COUNTER_INTELLIGENCE_POLYGRAPH_AND_COUNSELING"
+            rationale = f"Moderate OPSEC risk ({score:.4f}): Lifestyle scrutiny warranted."
+        else:
+            tier = "SECURE_PERSONNEL_VETTING_CONFIRMED"
+            verdict = "ROBUST_OPSEC_DISCIPLINE_ACTIVE"
+            rationale = f"Low compromise risk ({score:.4f}): Rigorous vetting ({c_vet:.2f}) deters foreign honeytraps."
+
+        return {
+            "counter_intelligence_honeytrap_score": score,
+            "unvetted_digital_interaction": round(u_dig, 4),
+            "financial_lifestyle_anomaly": round(f_ano, 4),
+            "counter_intel_vetting_rigor": round(c_vet, 4),
+            "honeytrap_risk_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_honeytrap_compromise_acute": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 372: False Flag Narrative Deception Sieve (26/11 Kasab Kalava Forensics)
+# ============================================================================
+
+class FalseFlagNarrativeDeceptionSieve:
+    """
+    Phase 372: Models and detects state-sponsored cognitive false-flag operations
+    where hostile intelligence agencies plant religious tokens and forged IDs to misdirect attribution.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        planted_narrative_tokens: float = 0.85,
+        media_pre_coordination: float = 0.80,
+        forensic_biometric_capture_rigor: float = 0.20
+    ) -> Dict[str, Any]:
+        p_tok = float(max(0.0, min(1.0, planted_narrative_tokens)))
+        m_coor = float(max(0.0, min(1.0, media_pre_coordination)))
+        f_rig = float(max(0.0, min(1.0, forensic_biometric_capture_rigor)))
+
+        z = 3.2 * p_tok + 2.8 * m_coor - 3.4 * f_rig - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_FALSE_FLAG_NARRATIVE_DECEPTION"
+            verdict = "EXPOSE_PLANTED_EVIDENCE_AND_ENFORCE_BIOMETRIC_ATTRIBUTION"
+            rationale = (
+                f"Extreme false-flag risk ({score:.4f}): Planted tokens ({p_tok:.2f}) and pre-scripted media echo-chambers ({m_coor:.2f}) "
+                f"designed to trigger communal discord. Mandate live biometric proof."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_ATTRIBUTION_SURFACE"
+            verdict = "SUBMIT_OPERATIONAL_EVIDENCE_TO_FORENSIC_TRIANGULATION"
+            rationale = f"Contested narrative ({score:.4f}): Verify provenance before official communiques."
+        else:
+            tier = "AUTHENTIC_ATTRIBUTION_VERIFIED"
+            verdict = "BIOMETRIC_GROUND_TRUTH_DECISIVE"
+            rationale = f"Verified reality ({score:.4f}): Uncompromising forensic capture ({f_rig:.2f}) shatters false narratives."
+
+        return {
+            "false_flag_narrative_deception_score": score,
+            "planted_narrative_tokens": round(p_tok, 4),
+            "media_pre_coordination": round(m_coor, 4),
+            "forensic_biometric_capture_rigor": round(f_rig, 4),
+            "false_flag_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_false_flag_deception_acute": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 388: Open System Asymmetric Infiltration Sieve (China UFWD Legal Hacking)
+# ============================================================================
+
+class OpenSystemAsymmetricInfiltrationSieve:
+    """
+    Phase 388: Formulates how authoritarian states legally exploit open democratic systems
+    (farmland near missile silos, lobbying former lawmakers, joint ventures) to achieve strategic subversion.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        critical_installation_land_proximity: float = 0.85,
+        legal_lobbying_revolving_door: float = 0.80,
+        cfius_sovereign_foreign_vetting: float = 0.25
+    ) -> Dict[str, Any]:
+        c_prox = float(max(0.0, min(1.0, critical_installation_land_proximity)))
+        l_rev = float(max(0.0, min(1.0, legal_lobbying_revolving_door)))
+        c_vet = float(max(0.0, min(1.0, cfius_sovereign_foreign_vetting)))
+
+        z = 3.4 * c_prox + 2.8 * l_rev - 3.2 * c_vet - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_ASYMMETRIC_INSTITUTIONAL_PENETRATION"
+            verdict = "ENACT_IMMEDIATE_SOVEREIGN_LAND_AND_LOBBYING_DIVESTMENT"
+            rationale = (
+                f"Dangerous legal subversion ({score:.4f}): Adversary land ownership near bases ({c_prox:.2f}) and lobbying capture ({l_rev:.2f}) "
+                f"bypass conventional defense statutes. Mandatory statutory divestment required."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_INFLUENCE_PEDDLING_SURFACE"
+            verdict = "ENFORCE_MANDATORY_FOREIGN_AGENT_REGISTRATION_AUDIT"
+            rationale = f"Elevated infiltration ({score:.4f}): Scrutinize academic and real estate transactions."
+        else:
+            tier = "SECURE_SOVEREIGN_SCRUTINY_REGIME"
+            verdict = "FOREIGN_INVESTMENT_SECURITY_GATES_CERTIFIED"
+            rationale = f"Low infiltration risk ({score:.4f}): Robust sovereign vetting ({c_vet:.2f}) insulates critical installations."
+
+        return {
+            "open_system_asymmetric_infiltration_score": score,
+            "critical_installation_land_proximity": round(c_prox, 4),
+            "legal_lobbying_revolving_door": round(l_rev, 4),
+            "cfius_sovereign_foreign_vetting": round(c_vet, 4),
+            "infiltration_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_asymmetric_infiltration_critical": score >= 0.70,
         }

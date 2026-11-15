@@ -7,6 +7,7 @@ Applies Putnam's Two-Level Game model to deconstruct domestic institutional veto
 Permanent civil bureaucracies, security secretariats, and regulatory filters that execute or quietly kill summit agreements.
 """
 
+import math
 from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, SummitEvent
 
@@ -107,6 +108,13 @@ class BureaucraticInertiaLens:
         metrics["bureaucratic_friction_drag"] = _bur_res["bureaucratic_friction_drag"]
         metrics["pil_lawfare_resistance_index"] = _bur_res["pil_lawfare_resistance_index"]
         metrics["administrative_velocity_tier"] = _bur_res["administrative_velocity_tier"]
+
+        _dec_res = DynasticExtraConstitutionalShadowCabinetSieve.evaluate(
+            unconstitutional_shadow_veto_power=bur_meta.get("unconstitutional_shadow_veto_power", 0.35),
+            statutory_oversight_bypass_frequency=bur_meta.get("statutory_oversight_bypass_frequency", 0.30),
+            parliamentary_transparency_rigor=bur_meta.get("parliamentary_transparency_rigor", 0.80),
+        )
+        metrics["dynastic_extra_constitutional_shadow_cabinet_score"] = _dec_res["dynastic_extra_constitutional_shadow_cabinet_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -269,6 +277,58 @@ class SubNationalBureaucraticFrictionSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_executive_velocity_decisive": score >= 0.55,
+        }
+
+
+# ============================================================================
+# Phase 389: Dynastic Extra-Constitutional Shadow Cabinet Sieve (NAC Era)
+# ============================================================================
+
+class DynasticExtraConstitutionalShadowCabinetSieve:
+    """
+    Phase 389: Models and detects extra-constitutional shadow governance structures (e.g. NAC)
+    where formal cabinet authority, prime ministerial discretion, and statutory oversight
+    are subordinated to unaccountable extra-parliamentary party secretariats.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        unconstitutional_shadow_veto_power: float = 0.85,
+        statutory_oversight_bypass_frequency: float = 0.80,
+        parliamentary_transparency_rigor: float = 0.25
+    ) -> Dict[str, Any]:
+        u_veto = float(max(0.0, min(1.0, unconstitutional_shadow_veto_power)))
+        s_byp = float(max(0.0, min(1.0, statutory_oversight_bypass_frequency)))
+        p_trans = float(max(0.0, min(1.0, parliamentary_transparency_rigor)))
+
+        z = 3.4 * u_veto + 2.8 * s_byp - 3.2 * p_trans - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SHADOW_CABINET_SUBVERSION"
+            verdict = "CONSTITUTIONAL_EXECUTIVE_POWER_SUBORDINATED_TO_PARTY_CABAL"
+            rationale = (
+                f"Severe extra-constitutional capture ({score:.4f}): Shadow veto power ({u_veto:.2f}) and statutory bypass ({s_byp:.2f}) "
+                f"violate Articles 74/75 of the Constitution. Executive decisions dictated without parliamentary accountability."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_EXTRA_PARLIAMENTARY_INFLUENCE"
+            verdict = "RESTRICT_ADVISORY_BODIES_TO_STATUTORY_CONSULTATIVE_ROLES"
+            rationale = f"Elevated shadow influence ({score:.4f}): Advisory committees exerting unvetted executive pressure."
+        else:
+            tier = "CONSTITUTIONAL_EXECUTIVE_SUPREMACY_MAINTAINED"
+            verdict = "CABINET_GOVERNANCE_ACCOUNTABLE_TO_PARLIAMENT"
+            rationale = f"Constitutional integrity intact ({score:.4f}): High parliamentary transparency ({p_trans:.2f}) defeats shadow cabals."
+
+        return {
+            "dynastic_extra_constitutional_shadow_cabinet_score": score,
+            "unconstitutional_shadow_veto_power": round(u_veto, 4),
+            "statutory_oversight_bypass_frequency": round(s_byp, 4),
+            "parliamentary_transparency_rigor": round(p_trans, 4),
+            "shadow_cabinet_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_shadow_cabinet_subversion_critical": score >= 0.70,
         }
 
 ```

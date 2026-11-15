@@ -496,6 +496,28 @@ class MilitaryReadinessLens:
         metrics["industrial_attrition_tier"] = _att_res["industrial_attrition_tier"]
         metrics["attrition_sustainability_index"] = _att_res["attrition_sustainability_index"]
 
+        _mns_res = MaritimeNetSecurityPrimacySieve.evaluate(
+            forward_destroyer_deployment=mil_meta.get("forward_destroyer_deployment", 0.75),
+            boarding_interdiction_velocity=mil_meta.get("boarding_interdiction_velocity", 0.70),
+            piracy_drone_swarm_threat=mil_meta.get("piracy_drone_swarm_threat", 0.40),
+        )
+        metrics["maritime_net_security_primacy_score"] = _mns_res["maritime_net_security_primacy_score"]
+
+        _awp_res = AsymmetricWeaponProliferationLeakageSieve.evaluate(
+            superpower_theater_abandonment_volume=mil_meta.get("superpower_theater_abandonment_volume", 0.65),
+            hostile_intelligence_smuggling_density=mil_meta.get("hostile_intelligence_smuggling_density", 0.60),
+            border_surveillance_interdiction_rate=mil_meta.get("border_surveillance_interdiction_rate", 0.55),
+        )
+        metrics["asymmetric_weapon_proliferation_leakage_score"] = _awp_res["asymmetric_weapon_proliferation_leakage_score"]
+
+        _snc_res = SuperpowerNavalCoercionBrinkmanshipSieve.evaluate(
+            hostile_carrier_strike_group_proximity=mil_meta.get("hostile_carrier_strike_group_proximity", 0.40),
+            superpower_nuclear_posturing=mil_meta.get("superpower_nuclear_posturing", 0.35),
+            allied_counter_submarine_interdiction=mil_meta.get("allied_counter_submarine_interdiction", 0.80),
+            theater_ground_surrender_velocity=mil_meta.get("theater_ground_surrender_velocity", 0.85),
+        )
+        metrics["superpower_naval_coercion_brinkmanship_score"] = _snc_res["superpower_naval_coercion_brinkmanship_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -957,5 +979,165 @@ class IndustrialAttritionSieve:
         }
 
 
+
+
+# ============================================================================
+# Phase 371: Maritime Net Security Primacy Sieve (Indian Navy Blue-Water Interdiction)
+# ============================================================================
+
+class MaritimeNetSecurityPrimacySieve:
+    """
+    Phase 371: Models blue-water naval power projection in critical international chokepoints
+    measuring boarding interdiction velocity, commercial shipping escort coverage, and net security provider status.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        forward_destroyer_deployment: float = 0.85,
+        boarding_interdiction_velocity: float = 0.80,
+        piracy_drone_swarm_threat: float = 0.35
+    ) -> Dict[str, Any]:
+        f_des = float(max(0.0, min(1.0, forward_destroyer_deployment)))
+        b_vel = float(max(0.0, min(1.0, boarding_interdiction_velocity)))
+        p_thr = float(max(0.0, min(1.0, piracy_drone_swarm_threat)))
+
+        z = 3.0 * f_des + 2.6 * b_vel - 2.8 * p_thr - 0.3
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "REGIONAL_NET_SECURITY_PROVIDER_DOMINANCE"
+            verdict = "BLUE_WATER_MARITIME_PRIMACY_ASSERTED"
+            rationale = (
+                f"High maritime supremacy ({score:.4f}): Forward destroyers ({f_des:.2f}) and rapid boarding velocity ({b_vel:.2f}) "
+                f"completely dominate chokepoint transit lanes."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_ESCORT_PATROL_CAPABILITY"
+            verdict = "MAINTAIN_COORDINATED_COALITION_PATROLS"
+            rationale = f"Moderate maritime presence ({score:.4f}): Surface escorts adequate against asymmetric drone swarms ({p_thr:.2f})."
+        else:
+            tier = "INADEQUATE_CHOKEPOINT_PROJECTION"
+            verdict = "VULNERABLE_TO_COMMERCIAL_CORRIDOR_INTERDICTION"
+            rationale = f"Deficient maritime security ({score:.4f}): Low forward posture invites shipping extortion."
+
+        return {
+            "maritime_net_security_primacy_score": score,
+            "forward_destroyer_deployment": round(f_des, 4),
+            "boarding_interdiction_velocity": round(b_vel, 4),
+            "piracy_drone_swarm_threat": round(p_thr, 4),
+            "maritime_primacy_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_maritime_primacy_asserted": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 377: Asymmetric Weapon Proliferation Leakage Sieve (NATO Afghan M4 Abandonment)
+# ============================================================================
+
+class AsymmetricWeaponProliferationLeakageSieve:
+    """
+    Phase 377: Quantifies downstream tactical risk when superpower campaigns abandon
+    military small arms, optics, and radios that leak via hostile intelligence proxies.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        superpower_theater_abandonment_volume: float = 0.85,
+        hostile_intelligence_smuggling_density: float = 0.80,
+        border_surveillance_interdiction_rate: float = 0.30
+    ) -> Dict[str, Any]:
+        s_vol = float(max(0.0, min(1.0, superpower_theater_abandonment_volume)))
+        h_smug = float(max(0.0, min(1.0, hostile_intelligence_smuggling_density)))
+        b_int = float(max(0.0, min(1.0, border_surveillance_interdiction_rate)))
+
+        z = 3.2 * s_vol + 2.8 * h_smug - 3.4 * b_int - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_TACTICAL_WEAPON_LEAKAGE_THREAT"
+            verdict = "UPGRADE_COUNTER_INSURGENCY_ARMOR_AND_THERMAL_SURVEILLANCE"
+            rationale = (
+                f"Severe asymmetric weapon influx ({score:.4f}): Abandoned foreign armaments ({s_vol:.2f}) and ISI smuggling ({h_smug:.2f}) "
+                f"compromise conventional light patrol security. Deploy heavy stand-off firepower."
+            )
+        elif score >= 0.45:
+            tier = "CONTAINED_BORDER_SMUGGLING_SURFACE"
+            verdict = "TIGHTEN_SECOND_TIER_CORDON_AND_JAMMING_CORRIDORS"
+            rationale = f"Moderate leakage ({score:.4f}): Interdiction ({b_int:.2f}) partially checks weapon flow."
+        else:
+            tier = "LEAKAGE_SUPPRESSED_AT_FRONTIER"
+            verdict = "BORDER_INTERDICTION_GRID_EFFECTIVE"
+            rationale = f"Low leakage risk ({score:.4f}): High interdiction rate ({b_int:.2f}) seals smuggling routes."
+
+        return {
+            "asymmetric_weapon_proliferation_leakage_score": score,
+            "superpower_theater_abandonment_volume": round(s_vol, 4),
+            "hostile_intelligence_smuggling_density": round(h_smug, 4),
+            "border_surveillance_interdiction_rate": round(b_int, 4),
+            "weapon_leakage_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_weapon_leakage_acute": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 390: Superpower Naval Coercion Brinkmanship Sieve (1971 USS Enterprise Standoff)
+# ============================================================================
+
+class SuperpowerNavalCoercionBrinkmanshipSieve:
+    """
+    Phase 390: Formulates naval gunboat diplomacy and nuclear brinkmanship during regional wars,
+    calculating sovereign deterrence resistance by combining allied counter-submarine interdiction,
+    domestic port decapitation velocity, and theater ground surrender speed.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        hostile_carrier_strike_group_proximity: float = 0.85,
+        superpower_nuclear_posturing: float = 0.80,
+        allied_counter_submarine_interdiction: float = 0.85,
+        theater_ground_surrender_velocity: float = 0.90
+    ) -> Dict[str, Any]:
+        h_prox = float(max(0.0, min(1.0, hostile_carrier_strike_group_proximity)))
+        s_nuc = float(max(0.0, min(1.0, superpower_nuclear_posturing)))
+        a_sub = float(max(0.0, min(1.0, allied_counter_submarine_interdiction)))
+        t_vel = float(max(0.0, min(1.0, theater_ground_surrender_velocity)))
+
+        z = 3.6 * h_prox + 2.6 * s_nuc - 3.2 * a_sub - 2.8 * t_vel - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_NAVAL_GUNBOAT_COERCION_VULNERABILITY"
+            verdict = "SUPERPOWER_CARRIER_INTERVENTION_IMMINENT"
+            rationale = (
+                f"Severe coercion danger ({score:.4f}): Hostile carrier presence ({h_prox:.2f}) threatens sovereign airspace "
+                f"without sufficient counter-deterrence."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_MARITIME_BRINKMANSHIP"
+            verdict = "ACCELERATE_THEATER_OFFENSIVE_BEFORE_FLEET_ARRIVAL"
+            rationale = f"Contested brinkmanship ({score:.4f}): Theater speed must outrun naval deployment timeline."
+        else:
+            tier = "GUNBOAT_COERCION_SUCCESSFULLY_NEUTRALIZED"
+            verdict = "SOVEREIGN_GROUND_VICTORY_PRECEDES_NAVAL_INTERVENTION"
+            rationale = (
+                f"Gunboat coercion defeated ({score:.4f}): Allied nuclear submarine shield ({a_sub:.2f}) and lightning ground victory ({t_vel:.2f}) "
+                f"render hostile carrier battle group operationally irrelevant (1971 Sam Manekshaw / Admiral Kruglyakov doctrine)."
+            )
+
+        return {
+            "superpower_naval_coercion_brinkmanship_score": score,
+            "hostile_carrier_strike_group_proximity": round(h_prox, 4),
+            "superpower_nuclear_posturing": round(s_nuc, 4),
+            "allied_counter_submarine_interdiction": round(a_sub, 4),
+            "theater_ground_surrender_velocity": round(t_vel, 4),
+            "naval_coercion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_naval_coercion_neutralized": score < 0.45,
+        }
 
 ```
