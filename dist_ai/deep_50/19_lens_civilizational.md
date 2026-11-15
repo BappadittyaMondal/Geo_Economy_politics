@@ -403,6 +403,14 @@ class CivilizationalLens:
         )
         metrics["sub_replacement_demographic_extinction_score"] = _sde_res["sub_replacement_demographic_extinction_score"]
 
+        # Phase 393: Generative Media & Cultural Compute Hegemony Sieve
+        _gch_res = GenerativeMediaComputeHegemonySieve.evaluate(
+            foreign_render_farm_share=civ_meta.get("foreign_render_farm_share", 0.65),
+            domestic_weight_access=civ_meta.get("domestic_weight_access", 0.55),
+            algorithmic_cultural_sanitization=civ_meta.get("algorithmic_cultural_sanitization", 0.60),
+        )
+        metrics["generative_media_compute_hegemony_score"] = _gch_res["generative_media_compute_hegemony_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -2149,5 +2157,64 @@ class SubReplacementDemographicExtinctionSieve:
             "tactical_rationale": rationale,
             "is_demographic_extinction_critical": score >= 0.70,
         }
+
+
+# ============================================================================
+# Phase 393: Generative Media & Cultural Compute Hegemony Sieve
+# ============================================================================
+
+class GenerativeMediaComputeHegemonySieve:
+    """
+    Phase 393: Formulates generative AI video compute monopolies (e.g. Omniverse, Sora, Veo)
+    and their cultural colonization of national film industries (e.g., Bollywood) when rendering clusters
+    and foundational model weights reside under foreign cloud sovereignty.
+    Formula:
+        Gamma_CulturalHegemony = min(1.0, max(0.0,
+            0.40 * foreign_render_farm_share
+            + 0.35 * (1.0 - domestic_weight_access)
+            + 0.25 * algorithmic_cultural_sanitization
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        foreign_render_farm_share: float = 0.85,
+        domestic_weight_access: float = 0.20,
+        algorithmic_cultural_sanitization: float = 0.75
+    ) -> Dict[str, Any]:
+        c_rend = float(max(0.0, min(1.0, foreign_render_farm_share)))
+        s_wght = float(max(0.0, min(1.0, domestic_weight_access)))
+        d_sani = float(max(0.0, min(1.0, algorithmic_cultural_sanitization)))
+
+        raw_score = 0.40 * c_rend + 0.35 * (1.0 - s_wght) + 0.25 * d_sani
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_CULTURAL_COMPUTE_COLONIZATION"
+            verdict = "MANDATE_SOVEREIGN_AI_RENDER_CLUSTERS_AND_OPEN_WEIGHT_CUSTODY"
+            rationale = (
+                f"Severe cultural compute capture ({score:.4f}): Foreign render dependency ({c_rend:.2f}) and low "
+                f"indigenous weight custody ({s_wght:.2f}) expose domestic arts and cinema to foreign algorithmic veto."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_CULTURAL_DEPENDENCY"
+            verdict = "ACCELERATE_INDIA_AI_COMPUTE_ALLOCATIONS_FOR_CREATIVE_MEDIA"
+            rationale = f"Elevated cultural risk ({score:.4f}): Need indigenous compute subsidization for national media."
+        else:
+            tier = "SOVEREIGN_CREATIVE_COMPUTE_AUTONOMY"
+            verdict = "CULTURAL_MEDIA_STACK_INSULATED"
+            rationale = f"Low risk ({score:.4f}): Robust domestic weight access ({s_wght:.2f}) ensures sovereign creative freedom."
+
+        return {
+            "generative_media_compute_hegemony_score": score,
+            "foreign_render_farm_share": round(c_rend, 4),
+            "domestic_weight_access": round(s_wght, 4),
+            "algorithmic_cultural_sanitization": round(d_sani, 4),
+            "cultural_compute_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cultural_compute_hegemony_critical": score >= 0.70,
+        }
+
 
 ```

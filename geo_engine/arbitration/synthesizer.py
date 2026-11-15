@@ -888,6 +888,12 @@ class SummitSynthesizer:
             "open_system_asymmetric_infiltration_score": hybrid_eval.hard_metrics.get("open_system_asymmetric_infiltration_score", 0.0) if hybrid_eval else 0.0,
             "dynastic_extra_constitutional_shadow_cabinet_score": bureaucratic_eval.hard_metrics.get("dynastic_extra_constitutional_shadow_cabinet_score", 0.0) if bureaucratic_eval else 0.0,
             "superpower_naval_coercion_brinkmanship_score": military_eval.hard_metrics.get("superpower_naval_coercion_brinkmanship_score", 0.0) if military_eval else 0.0,
+            # Phases 391-395: Sovereign Investigative Intelligence & Invisible Cash-Flow Forensics Matrix
+            "transnational_semiconductor_kompromat_score": hybrid_eval.hard_metrics.get("transnational_semiconductor_kompromat_score", 0.0) if hybrid_eval else 0.0,
+            "media_intelligence_leak_timing_score": propaganda_eval.hard_metrics.get("media_intelligence_leak_timing_score", 0.0) if propaganda_eval else 0.0,
+            "generative_media_compute_hegemony_score": civ_eval.hard_metrics.get("generative_media_compute_hegemony_score", 0.0) if civ_eval else 0.0,
+            "remote_silicon_microcode_killswitch_score": deep_tech_eval.hard_metrics.get("remote_silicon_microcode_killswitch_score", 0.0) if deep_tech_eval else 0.0,
+            "gpu_debt_collateral_contagion_score": cash_eval.hard_metrics.get("gpu_debt_collateral_contagion_score", 0.0) if cash_eval else 0.0,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

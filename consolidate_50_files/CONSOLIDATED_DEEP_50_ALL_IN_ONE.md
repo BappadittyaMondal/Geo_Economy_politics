@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `dd14735`
+- **Canonical Git Commit:** `8fbbd71`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: dd14735
+CANONICAL_COMMIT: 8fbbd71
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: dd14735
+CANONICAL_COMMIT: 8fbbd71
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: dd14735
+CANONICAL_COMMIT: 8fbbd71
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: dd14735
+CANONICAL_COMMIT: 8fbbd71
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: dd14735
+CANONICAL_COMMIT: 8fbbd71
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: dd14735
+CANONICAL_COMMIT: 8fbbd71
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -6199,6 +6199,14 @@ class CashFlowLens:
         )
         metrics["circular_venture_valuation_bubble_score"] = _cvv_res["circular_venture_valuation_bubble_score"]
 
+        # Phase 395: GPU-Collateralized Private Debt & Cash-Flow Contagion Tensor
+        _gdc_res = GPUCollateralizedPrivateDebtContagionTensor.evaluate(
+            private_debt_abl_burden=cf_meta.get("private_debt_abl_burden", 0.65),
+            hardware_depreciation_velocity=cf_meta.get("hardware_depreciation_velocity", 0.60),
+            credit_basis_spread_expansion=cf_meta.get("credit_basis_spread_expansion", 0.55),
+        )
+        metrics["gpu_debt_collateral_contagion_score"] = _gdc_res["gpu_debt_collateral_contagion_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=clamped_alignment,
@@ -7311,6 +7319,65 @@ class CircularVentureValuationBubbleSieve:
             "is_circular_bubble_critical": score >= 0.70,
         }
 
+
+# ============================================================================
+# Phase 395: GPU-Collateralized Private Debt & Cash-Flow Contagion Tensor
+# ============================================================================
+
+class GPUCollateralizedPrivateDebtContagionTensor:
+    """
+    Phase 395: Formulates Dr. Ankit Shah's invisible cash-flow forensics on AI hardware debt:
+    Private Credit Asset-Backed Loans (ABL) pledging rapidly depreciating GPU accelerators as debt collateral,
+    calculating collateral haircut shock and cross-default contagion when AI monetization lags debt service.
+    Formula:
+        Theta_DebtContagion = min(1.0, max(0.0,
+            0.40 * private_debt_abl_burden
+            + 0.35 * hardware_depreciation_velocity
+            + 0.25 * credit_basis_spread_expansion
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        private_debt_abl_burden: float = 0.85,
+        hardware_depreciation_velocity: float = 0.80,
+        credit_basis_spread_expansion: float = 0.75
+    ) -> Dict[str, Any]:
+        d_abl = float(max(0.0, min(1.0, private_debt_abl_burden)))
+        v_dep = float(max(0.0, min(1.0, hardware_depreciation_velocity)))
+        s_bas = float(max(0.0, min(1.0, credit_basis_spread_expansion)))
+
+        raw_score = 0.40 * d_abl + 0.35 * v_dep + 0.25 * s_bas
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_PRIVATE_CREDIT_COLLATERAL_CONTAGION"
+            verdict = "ENFORCE_IMMEDIATE_DEBT_HAIRCUT_AND_CASH_CONVERSION_AUDIT"
+            rationale = (
+                f"Severe private debt contagion risk ({score:.4f}): Accelerated GPU hardware depreciation ({v_dep:.2f}) "
+                f"breaches ABL loan-to-value covenants against heavy private credit leverage ({d_abl:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_COLLATERAL_HAIRCUT_OVERHANG"
+            verdict = "STRESS_TEST_DATACENTER_DEBT_SERVICE_AGAINST_CLOUD_MARGINS"
+            rationale = f"Elevated debt service risk ({score:.4f}): Hardware obsolescence exceeds amortization buffers."
+        else:
+            tier = "ORGANIC_CASH_FLOW_BACKED_EXPANSION"
+            verdict = "PRIVATE_CREDIT_COVENANTS_SECURE"
+            rationale = f"Low contagion risk ({score:.4f}): Controlled borrowing ({d_abl:.2f}) supported by non-synthetic cash flows."
+
+        return {
+            "gpu_debt_collateral_contagion_score": score,
+            "private_debt_abl_burden": round(d_abl, 4),
+            "hardware_depreciation_velocity": round(v_dep, 4),
+            "credit_basis_spread_expansion": round(s_bas, 4),
+            "debt_contagion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_debt_contagion_critical": score >= 0.70,
+        }
+
+
 ```
 
 
@@ -7722,6 +7789,14 @@ class CivilizationalLens:
             pro_natalist_family_incentives=civ_meta.get("pro_natalist_family_incentives", 0.60),
         )
         metrics["sub_replacement_demographic_extinction_score"] = _sde_res["sub_replacement_demographic_extinction_score"]
+
+        # Phase 393: Generative Media & Cultural Compute Hegemony Sieve
+        _gch_res = GenerativeMediaComputeHegemonySieve.evaluate(
+            foreign_render_farm_share=civ_meta.get("foreign_render_farm_share", 0.65),
+            domestic_weight_access=civ_meta.get("domestic_weight_access", 0.55),
+            algorithmic_cultural_sanitization=civ_meta.get("algorithmic_cultural_sanitization", 0.60),
+        )
+        metrics["generative_media_compute_hegemony_score"] = _gch_res["generative_media_compute_hegemony_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -9470,6 +9545,65 @@ class SubReplacementDemographicExtinctionSieve:
             "is_demographic_extinction_critical": score >= 0.70,
         }
 
+
+# ============================================================================
+# Phase 393: Generative Media & Cultural Compute Hegemony Sieve
+# ============================================================================
+
+class GenerativeMediaComputeHegemonySieve:
+    """
+    Phase 393: Formulates generative AI video compute monopolies (e.g. Omniverse, Sora, Veo)
+    and their cultural colonization of national film industries (e.g., Bollywood) when rendering clusters
+    and foundational model weights reside under foreign cloud sovereignty.
+    Formula:
+        Gamma_CulturalHegemony = min(1.0, max(0.0,
+            0.40 * foreign_render_farm_share
+            + 0.35 * (1.0 - domestic_weight_access)
+            + 0.25 * algorithmic_cultural_sanitization
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        foreign_render_farm_share: float = 0.85,
+        domestic_weight_access: float = 0.20,
+        algorithmic_cultural_sanitization: float = 0.75
+    ) -> Dict[str, Any]:
+        c_rend = float(max(0.0, min(1.0, foreign_render_farm_share)))
+        s_wght = float(max(0.0, min(1.0, domestic_weight_access)))
+        d_sani = float(max(0.0, min(1.0, algorithmic_cultural_sanitization)))
+
+        raw_score = 0.40 * c_rend + 0.35 * (1.0 - s_wght) + 0.25 * d_sani
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_CULTURAL_COMPUTE_COLONIZATION"
+            verdict = "MANDATE_SOVEREIGN_AI_RENDER_CLUSTERS_AND_OPEN_WEIGHT_CUSTODY"
+            rationale = (
+                f"Severe cultural compute capture ({score:.4f}): Foreign render dependency ({c_rend:.2f}) and low "
+                f"indigenous weight custody ({s_wght:.2f}) expose domestic arts and cinema to foreign algorithmic veto."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_CULTURAL_DEPENDENCY"
+            verdict = "ACCELERATE_INDIA_AI_COMPUTE_ALLOCATIONS_FOR_CREATIVE_MEDIA"
+            rationale = f"Elevated cultural risk ({score:.4f}): Need indigenous compute subsidization for national media."
+        else:
+            tier = "SOVEREIGN_CREATIVE_COMPUTE_AUTONOMY"
+            verdict = "CULTURAL_MEDIA_STACK_INSULATED"
+            rationale = f"Low risk ({score:.4f}): Robust domestic weight access ({s_wght:.2f}) ensures sovereign creative freedom."
+
+        return {
+            "generative_media_compute_hegemony_score": score,
+            "foreign_render_farm_share": round(c_rend, 4),
+            "domestic_weight_access": round(s_wght, 4),
+            "algorithmic_cultural_sanitization": round(d_sani, 4),
+            "cultural_compute_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cultural_compute_hegemony_critical": score >= 0.70,
+        }
+
+
 ```
 
 
@@ -10166,6 +10300,14 @@ class DeepTechLens:
             sovereign_zero_trust_airgap=deep_meta.get("sovereign_zero_trust_airgap", 0.60),
         )
         metrics["critical_scada_hardware_backdoor_score"] = _csh_res["critical_scada_hardware_backdoor_score"]
+
+        # Phase 394: Remote Silicon Microcode & Extraterritorial Firmware Kill-Switch Sieve
+        _rsm_res = RemoteSiliconMicrocodeKillSwitchSieve.evaluate(
+            proprietary_firmware_blob_ratio=deep_meta.get("proprietary_firmware_blob_ratio", 0.65),
+            cloud_license_heartbeat_dependency=deep_meta.get("cloud_license_heartbeat_dependency", 0.60),
+            open_bmc_airgap_coverage=deep_meta.get("open_bmc_airgap_coverage", 0.55),
+        )
+        metrics["remote_silicon_microcode_killswitch_score"] = _rsm_res["remote_silicon_microcode_killswitch_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -10922,6 +11064,64 @@ class CriticalSCADAHardwareBackdoorSieve:
             "tactical_rationale": rationale,
             "is_scada_backdoor_critical": score >= 0.70,
         }
+
+
+# ============================================================================
+# Phase 394: Remote Silicon Microcode & Extraterritorial Firmware Kill-Switch Sieve
+# ============================================================================
+
+class RemoteSiliconMicrocodeKillSwitchSieve:
+    """
+    Phase 394: Formulates remote silicon microcode revocation, encrypted BMC telemetry backdoors,
+    and cloud license heartbeat kill-switches in imported accelerator clusters (e.g. H100/B200).
+    Formula:
+        Omega_MicrocodeKillSwitch = min(1.0, max(0.0,
+            0.35 * proprietary_firmware_blob_ratio
+            + 0.35 * cloud_license_heartbeat_dependency
+            + 0.30 * (1.0 - open_bmc_airgap_coverage)
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        proprietary_firmware_blob_ratio: float = 0.85,
+        cloud_license_heartbeat_dependency: float = 0.80,
+        open_bmc_airgap_coverage: float = 0.20
+    ) -> Dict[str, Any]:
+        p_firm = float(max(0.0, min(1.0, proprietary_firmware_blob_ratio)))
+        c_lic = float(max(0.0, min(1.0, cloud_license_heartbeat_dependency)))
+        o_air = float(max(0.0, min(1.0, open_bmc_airgap_coverage)))
+
+        raw_score = 0.35 * p_firm + 0.35 * c_lic + 0.30 * (1.0 - o_air)
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_REMOTE_SILICON_KILL_SWITCH_EXPOSURE"
+            verdict = "DEPLOY_OPEN_BMC_FIRMWARE_AND_PHYSICAL_AIRGAP_INTERCEPTION"
+            rationale = (
+                f"Severe silicon kill-switch vulnerability ({score:.4f}): Proprietary microcode ({p_firm:.2f}) and cloud "
+                f"heartbeat reliance ({c_lic:.2f}) enable extraterritorial deactivation of national compute infrastructure."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_FIRMWARE_DEPENDENCY"
+            verdict = "ENFORCE_CONTINUOUS_TELEMETRY_MONITORING_AND_LICENSE_CACHING"
+            rationale = f"Elevated firmware risk ({score:.4f}): Foreign heartbeat signals require airgap proxying."
+        else:
+            tier = "SOVEREIGN_HARDWARE_AIRGAP_CERTIFIED"
+            verdict = "SILICON_STACK_PROTECTED_AGAINST_REMOTE_REVOCATION"
+            rationale = f"Low risk ({score:.4f}): OpenBMC deployment ({o_air:.2f}) defeats extraterritorial microcode kill-switches."
+
+        return {
+            "remote_silicon_microcode_killswitch_score": score,
+            "proprietary_firmware_blob_ratio": round(p_firm, 4),
+            "cloud_license_heartbeat_dependency": round(c_lic, 4),
+            "open_bmc_airgap_coverage": round(o_air, 4),
+            "silicon_killswitch_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_silicon_killswitch_critical": score >= 0.70,
+        }
+
 
 ```
 
@@ -16196,6 +16396,17 @@ class HybridCovertLens:
         )
         metrics["open_system_asymmetric_infiltration_score"] = _oai_res["open_system_asymmetric_infiltration_score"]
 
+        # Phase 391: Transnational Semiconductor Smuggling & Executive Kompromat Sieve
+        _tsk_res = TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve.evaluate(
+            third_party_transshipment_volume=hc_meta.get("third_party_transshipment_volume", 0.65),
+            embargoed_destination_density=hc_meta.get("embargoed_destination_density", 0.60),
+            dod_counter_intel_vetting=hc_meta.get("dod_counter_intel_vetting", 0.55),
+            leak_timing_correlation=hc_meta.get("leak_timing_correlation", 0.60),
+            put_derivative_spike=hc_meta.get("put_derivative_spike", 0.60),
+            class_action_litigation_velocity=hc_meta.get("class_action_litigation_velocity", 0.55),
+        )
+        metrics["transnational_semiconductor_kompromat_score"] = _tsk_res["transnational_semiconductor_kompromat_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -17298,6 +17509,75 @@ class OpenSystemAsymmetricInfiltrationSieve:
             "tactical_rationale": rationale,
             "is_asymmetric_infiltration_critical": score >= 0.70,
         }
+
+
+# ============================================================================
+# Phase 391: Transnational Semiconductor Smuggling & Executive Kompromat Sieve
+# ============================================================================
+
+class TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve:
+    """
+    Phase 391: Formulates dual-use high-tech transshipment arbitrage and executive kompromat risks
+    (e.g., Megaspeed Singapore routing, Kamopadha honeytraps, and coordinated short-strike exposés).
+    Formula:
+        Sigma_Kompromat = min(1.0, max(0.0,
+            0.35 * ((v_third_party * d_transshipment) / (1.0 + vetting_dod))
+            + 0.25 * leak_timing_correlation
+            + 0.25 * put_derivative_spike
+            + 0.15 * class_action_litigation
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        third_party_transshipment_volume: float = 0.85,
+        embargoed_destination_density: float = 0.80,
+        dod_counter_intel_vetting: float = 0.20,
+        leak_timing_correlation: float = 0.85,
+        put_derivative_spike: float = 0.75,
+        class_action_litigation_velocity: float = 0.70
+    ) -> Dict[str, Any]:
+        v_third = float(max(0.0, min(1.0, third_party_transshipment_volume)))
+        d_trans = float(max(0.0, min(1.0, embargoed_destination_density)))
+        v_dod = float(max(0.0, min(1.0, dod_counter_intel_vetting)))
+        l_time = float(max(0.0, min(1.0, leak_timing_correlation)))
+        p_spike = float(max(0.0, min(1.0, put_derivative_spike)))
+        c_lit = float(max(0.0, min(1.0, class_action_litigation_velocity)))
+
+        transit_term = (v_third * d_trans) / (1.0 + v_dod)
+        raw_score = 0.35 * transit_term + 0.25 * l_time + 0.25 * p_spike + 0.15 * c_lit
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_EXECUTIVE_KOMPROMAT_AND_SMUGGLING_CONDUIT"
+            verdict = "ENACT_IMMEDIATE_EXPORT_CONTROL_AUDIT_AND_LEADERSHIP_INSULATION"
+            rationale = (
+                f"Severe kompromat and sanctions evasion risk ({score:.4f}): Heavy secondary hub transshipment "
+                f"({v_third:.2f}) and coordinated pre-leak put option activity ({p_spike:.2f}) indicate active hostile intelligence targeting."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_THIRD_PARTY_INTERMEDIARY_RISK"
+            verdict = "MANDATE_END_USE_VERIFICATION_ON_TRANSIT_DATACENTERS"
+            rationale = f"Elevated intermediary risk ({score:.4f}): Transit density ({d_trans:.2f}) warrants enhanced vetting."
+        else:
+            tier = "HARDENED_SUPPLY_CHAIN_AND_CLEARED_LEADERSHIP"
+            verdict = "EXPORT_CONTROL_COMPLIANCE_VERIFIED"
+            rationale = f"Low risk ({score:.4f}): DoD vetting ({v_dod:.2f}) insulates executive operations from kompromat."
+
+        return {
+            "transnational_semiconductor_kompromat_score": score,
+            "third_party_transshipment_volume": round(v_third, 4),
+            "embargoed_destination_density": round(d_trans, 4),
+            "dod_counter_intel_vetting": round(v_dod, 4),
+            "leak_timing_correlation": round(l_time, 4),
+            "put_derivative_spike": round(p_spike, 4),
+            "class_action_litigation_velocity": round(c_lit, 4),
+            "kompromat_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_kompromat_risk_critical": score >= 0.70,
+        }
+
 
 ```
 
@@ -21763,6 +22043,15 @@ class PropagandaLens:
         )
         metrics["algorithmic_cognitive_subversion_score"] = _acs_res["algorithmic_cognitive_subversion_score"]
 
+        # Phase 392: Guided-Missile Media-Intelligence Leak Timing Tensor
+        _mlt_res = MediaIntelligenceLeakTimingTensor.evaluate(
+            diplomatic_divergence_intensity=prop_meta.get("diplomatic_divergence_intensity", 0.65),
+            pre_leak_options_oi_spike=prop_meta.get("pre_leak_options_oi_spike", 0.60),
+            legacy_media_narrative_density=prop_meta.get("legacy_media_narrative_density", 0.60),
+            regulatory_subpoena_proximity=prop_meta.get("regulatory_subpoena_proximity", 0.55),
+        )
+        metrics["media_intelligence_leak_timing_score"] = _mlt_res["media_intelligence_leak_timing_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -22742,6 +23031,69 @@ class AlgorithmicCognitiveSubversionSieve:
             "is_cognitive_subversion_critical": score >= 0.70,
         }
 
+
+# ============================================================================
+# Phase 392: Guided-Missile Media-Intelligence Leak Timing Tensor
+# ============================================================================
+
+class MediaIntelligenceLeakTimingTensor:
+    """
+    Phase 392: Formulates guided-missile intelligence leak timing (FT, NYT)
+    cross-correlated with diplomatic divergence from imperial sanctions, pre-leak put option spikes,
+    and trailing DOJ/SEC regulatory subpoenas.
+    Formula:
+        Lambda_Leak = min(1.0, max(0.0,
+            0.30 * diplomatic_divergence_intensity
+            + 0.30 * pre_leak_options_oi_spike
+            + 0.20 * legacy_media_narrative_density
+            + 0.20 * regulatory_subpoena_proximity
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        diplomatic_divergence_intensity: float = 0.85,
+        pre_leak_options_oi_spike: float = 0.80,
+        legacy_media_narrative_density: float = 0.75,
+        regulatory_subpoena_proximity: float = 0.70
+    ) -> Dict[str, Any]:
+        d_div = float(max(0.0, min(1.0, diplomatic_divergence_intensity)))
+        o_spk = float(max(0.0, min(1.0, pre_leak_options_oi_spike)))
+        m_den = float(max(0.0, min(1.0, legacy_media_narrative_density)))
+        r_prx = float(max(0.0, min(1.0, regulatory_subpoena_proximity)))
+
+        raw_score = 0.30 * d_div + 0.30 * o_spk + 0.20 * m_den + 0.20 * r_prx
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_GUIDED_MISSILE_MEDIA_LEAK_OPERATION"
+            verdict = "DEPLOY_LEGAL_AND_INFORMATION_SHIELDING_PREPARE_FOR_DOJ_SUBPOENAS"
+            rationale = (
+                f"Severe guided-missile leak operation detected ({score:.4f}): Diplomatic divergence ({d_div:.2f}) "
+                f"accompanied by abnormal pre-leak put OI ({o_spk:.2f}) and media blitz ({m_den:.2f}) indicates weaponized statecraft."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_COORDINATED_PRESS_SCRUTINY"
+            verdict = "MONITOR_DERIVATIVE_FLOWS_AND_REGULATORY_INQUIRIES"
+            rationale = f"Elevated coordinated media scrutiny ({score:.4f}): Early signs of narrative priming."
+        else:
+            tier = "ORGANIC_INVESTIGATIVE_REPORTING"
+            verdict = "STANDARD_PUBLIC_RELATIONS_MONITORING"
+            rationale = f"Low risk ({score:.4f}): Dispersed coverage without options front-running or subpoena synchronization."
+
+        return {
+            "media_intelligence_leak_timing_score": score,
+            "diplomatic_divergence_intensity": round(d_div, 4),
+            "pre_leak_options_oi_spike": round(o_spk, 4),
+            "legacy_media_narrative_density": round(m_den, 4),
+            "regulatory_subpoena_proximity": round(r_prx, 4),
+            "leak_timing_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_leak_operation_critical": score >= 0.70,
+        }
+
+
 ```
 
 
@@ -23071,7 +23423,7 @@ class AbyssalHydrospatialSovereigntySieve:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `dd14735`
+- **Canonical Git Commit:** `8fbbd71`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

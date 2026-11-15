@@ -292,6 +292,17 @@ class HybridCovertLens:
         )
         metrics["open_system_asymmetric_infiltration_score"] = _oai_res["open_system_asymmetric_infiltration_score"]
 
+        # Phase 391: Transnational Semiconductor Smuggling & Executive Kompromat Sieve
+        _tsk_res = TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve.evaluate(
+            third_party_transshipment_volume=hc_meta.get("third_party_transshipment_volume", 0.65),
+            embargoed_destination_density=hc_meta.get("embargoed_destination_density", 0.60),
+            dod_counter_intel_vetting=hc_meta.get("dod_counter_intel_vetting", 0.55),
+            leak_timing_correlation=hc_meta.get("leak_timing_correlation", 0.60),
+            put_derivative_spike=hc_meta.get("put_derivative_spike", 0.60),
+            class_action_litigation_velocity=hc_meta.get("class_action_litigation_velocity", 0.55),
+        )
+        metrics["transnational_semiconductor_kompromat_score"] = _tsk_res["transnational_semiconductor_kompromat_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1394,5 +1405,74 @@ class OpenSystemAsymmetricInfiltrationSieve:
             "tactical_rationale": rationale,
             "is_asymmetric_infiltration_critical": score >= 0.70,
         }
+
+
+# ============================================================================
+# Phase 391: Transnational Semiconductor Smuggling & Executive Kompromat Sieve
+# ============================================================================
+
+class TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve:
+    """
+    Phase 391: Formulates dual-use high-tech transshipment arbitrage and executive kompromat risks
+    (e.g., Megaspeed Singapore routing, Kamopadha honeytraps, and coordinated short-strike exposés).
+    Formula:
+        Sigma_Kompromat = min(1.0, max(0.0,
+            0.35 * ((v_third_party * d_transshipment) / (1.0 + vetting_dod))
+            + 0.25 * leak_timing_correlation
+            + 0.25 * put_derivative_spike
+            + 0.15 * class_action_litigation
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        third_party_transshipment_volume: float = 0.85,
+        embargoed_destination_density: float = 0.80,
+        dod_counter_intel_vetting: float = 0.20,
+        leak_timing_correlation: float = 0.85,
+        put_derivative_spike: float = 0.75,
+        class_action_litigation_velocity: float = 0.70
+    ) -> Dict[str, Any]:
+        v_third = float(max(0.0, min(1.0, third_party_transshipment_volume)))
+        d_trans = float(max(0.0, min(1.0, embargoed_destination_density)))
+        v_dod = float(max(0.0, min(1.0, dod_counter_intel_vetting)))
+        l_time = float(max(0.0, min(1.0, leak_timing_correlation)))
+        p_spike = float(max(0.0, min(1.0, put_derivative_spike)))
+        c_lit = float(max(0.0, min(1.0, class_action_litigation_velocity)))
+
+        transit_term = (v_third * d_trans) / (1.0 + v_dod)
+        raw_score = 0.35 * transit_term + 0.25 * l_time + 0.25 * p_spike + 0.15 * c_lit
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_EXECUTIVE_KOMPROMAT_AND_SMUGGLING_CONDUIT"
+            verdict = "ENACT_IMMEDIATE_EXPORT_CONTROL_AUDIT_AND_LEADERSHIP_INSULATION"
+            rationale = (
+                f"Severe kompromat and sanctions evasion risk ({score:.4f}): Heavy secondary hub transshipment "
+                f"({v_third:.2f}) and coordinated pre-leak put option activity ({p_spike:.2f}) indicate active hostile intelligence targeting."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_THIRD_PARTY_INTERMEDIARY_RISK"
+            verdict = "MANDATE_END_USE_VERIFICATION_ON_TRANSIT_DATACENTERS"
+            rationale = f"Elevated intermediary risk ({score:.4f}): Transit density ({d_trans:.2f}) warrants enhanced vetting."
+        else:
+            tier = "HARDENED_SUPPLY_CHAIN_AND_CLEARED_LEADERSHIP"
+            verdict = "EXPORT_CONTROL_COMPLIANCE_VERIFIED"
+            rationale = f"Low risk ({score:.4f}): DoD vetting ({v_dod:.2f}) insulates executive operations from kompromat."
+
+        return {
+            "transnational_semiconductor_kompromat_score": score,
+            "third_party_transshipment_volume": round(v_third, 4),
+            "embargoed_destination_density": round(d_trans, 4),
+            "dod_counter_intel_vetting": round(v_dod, 4),
+            "leak_timing_correlation": round(l_time, 4),
+            "put_derivative_spike": round(p_spike, 4),
+            "class_action_litigation_velocity": round(c_lit, 4),
+            "kompromat_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_kompromat_risk_critical": score >= 0.70,
+        }
+
 
 ```

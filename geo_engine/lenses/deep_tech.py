@@ -488,6 +488,14 @@ class DeepTechLens:
         )
         metrics["critical_scada_hardware_backdoor_score"] = _csh_res["critical_scada_hardware_backdoor_score"]
 
+        # Phase 394: Remote Silicon Microcode & Extraterritorial Firmware Kill-Switch Sieve
+        _rsm_res = RemoteSiliconMicrocodeKillSwitchSieve.evaluate(
+            proprietary_firmware_blob_ratio=deep_meta.get("proprietary_firmware_blob_ratio", 0.65),
+            cloud_license_heartbeat_dependency=deep_meta.get("cloud_license_heartbeat_dependency", 0.60),
+            open_bmc_airgap_coverage=deep_meta.get("open_bmc_airgap_coverage", 0.55),
+        )
+        metrics["remote_silicon_microcode_killswitch_score"] = _rsm_res["remote_silicon_microcode_killswitch_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -1243,3 +1251,61 @@ class CriticalSCADAHardwareBackdoorSieve:
             "tactical_rationale": rationale,
             "is_scada_backdoor_critical": score >= 0.70,
         }
+
+
+# ============================================================================
+# Phase 394: Remote Silicon Microcode & Extraterritorial Firmware Kill-Switch Sieve
+# ============================================================================
+
+class RemoteSiliconMicrocodeKillSwitchSieve:
+    """
+    Phase 394: Formulates remote silicon microcode revocation, encrypted BMC telemetry backdoors,
+    and cloud license heartbeat kill-switches in imported accelerator clusters (e.g. H100/B200).
+    Formula:
+        Omega_MicrocodeKillSwitch = min(1.0, max(0.0,
+            0.35 * proprietary_firmware_blob_ratio
+            + 0.35 * cloud_license_heartbeat_dependency
+            + 0.30 * (1.0 - open_bmc_airgap_coverage)
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        proprietary_firmware_blob_ratio: float = 0.85,
+        cloud_license_heartbeat_dependency: float = 0.80,
+        open_bmc_airgap_coverage: float = 0.20
+    ) -> Dict[str, Any]:
+        p_firm = float(max(0.0, min(1.0, proprietary_firmware_blob_ratio)))
+        c_lic = float(max(0.0, min(1.0, cloud_license_heartbeat_dependency)))
+        o_air = float(max(0.0, min(1.0, open_bmc_airgap_coverage)))
+
+        raw_score = 0.35 * p_firm + 0.35 * c_lic + 0.30 * (1.0 - o_air)
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_REMOTE_SILICON_KILL_SWITCH_EXPOSURE"
+            verdict = "DEPLOY_OPEN_BMC_FIRMWARE_AND_PHYSICAL_AIRGAP_INTERCEPTION"
+            rationale = (
+                f"Severe silicon kill-switch vulnerability ({score:.4f}): Proprietary microcode ({p_firm:.2f}) and cloud "
+                f"heartbeat reliance ({c_lic:.2f}) enable extraterritorial deactivation of national compute infrastructure."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_FIRMWARE_DEPENDENCY"
+            verdict = "ENFORCE_CONTINUOUS_TELEMETRY_MONITORING_AND_LICENSE_CACHING"
+            rationale = f"Elevated firmware risk ({score:.4f}): Foreign heartbeat signals require airgap proxying."
+        else:
+            tier = "SOVEREIGN_HARDWARE_AIRGAP_CERTIFIED"
+            verdict = "SILICON_STACK_PROTECTED_AGAINST_REMOTE_REVOCATION"
+            rationale = f"Low risk ({score:.4f}): OpenBMC deployment ({o_air:.2f}) defeats extraterritorial microcode kill-switches."
+
+        return {
+            "remote_silicon_microcode_killswitch_score": score,
+            "proprietary_firmware_blob_ratio": round(p_firm, 4),
+            "cloud_license_heartbeat_dependency": round(c_lic, 4),
+            "open_bmc_airgap_coverage": round(o_air, 4),
+            "silicon_killswitch_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_silicon_killswitch_critical": score >= 0.70,
+        }
+

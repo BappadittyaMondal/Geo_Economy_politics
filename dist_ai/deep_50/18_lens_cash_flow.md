@@ -459,6 +459,14 @@ class CashFlowLens:
         )
         metrics["circular_venture_valuation_bubble_score"] = _cvv_res["circular_venture_valuation_bubble_score"]
 
+        # Phase 395: GPU-Collateralized Private Debt & Cash-Flow Contagion Tensor
+        _gdc_res = GPUCollateralizedPrivateDebtContagionTensor.evaluate(
+            private_debt_abl_burden=cf_meta.get("private_debt_abl_burden", 0.65),
+            hardware_depreciation_velocity=cf_meta.get("hardware_depreciation_velocity", 0.60),
+            credit_basis_spread_expansion=cf_meta.get("credit_basis_spread_expansion", 0.55),
+        )
+        metrics["gpu_debt_collateral_contagion_score"] = _gdc_res["gpu_debt_collateral_contagion_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=clamped_alignment,
@@ -1570,5 +1578,64 @@ class CircularVentureValuationBubbleSieve:
             "tactical_rationale": rationale,
             "is_circular_bubble_critical": score >= 0.70,
         }
+
+
+# ============================================================================
+# Phase 395: GPU-Collateralized Private Debt & Cash-Flow Contagion Tensor
+# ============================================================================
+
+class GPUCollateralizedPrivateDebtContagionTensor:
+    """
+    Phase 395: Formulates Dr. Ankit Shah's invisible cash-flow forensics on AI hardware debt:
+    Private Credit Asset-Backed Loans (ABL) pledging rapidly depreciating GPU accelerators as debt collateral,
+    calculating collateral haircut shock and cross-default contagion when AI monetization lags debt service.
+    Formula:
+        Theta_DebtContagion = min(1.0, max(0.0,
+            0.40 * private_debt_abl_burden
+            + 0.35 * hardware_depreciation_velocity
+            + 0.25 * credit_basis_spread_expansion
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        private_debt_abl_burden: float = 0.85,
+        hardware_depreciation_velocity: float = 0.80,
+        credit_basis_spread_expansion: float = 0.75
+    ) -> Dict[str, Any]:
+        d_abl = float(max(0.0, min(1.0, private_debt_abl_burden)))
+        v_dep = float(max(0.0, min(1.0, hardware_depreciation_velocity)))
+        s_bas = float(max(0.0, min(1.0, credit_basis_spread_expansion)))
+
+        raw_score = 0.40 * d_abl + 0.35 * v_dep + 0.25 * s_bas
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_PRIVATE_CREDIT_COLLATERAL_CONTAGION"
+            verdict = "ENFORCE_IMMEDIATE_DEBT_HAIRCUT_AND_CASH_CONVERSION_AUDIT"
+            rationale = (
+                f"Severe private debt contagion risk ({score:.4f}): Accelerated GPU hardware depreciation ({v_dep:.2f}) "
+                f"breaches ABL loan-to-value covenants against heavy private credit leverage ({d_abl:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_COLLATERAL_HAIRCUT_OVERHANG"
+            verdict = "STRESS_TEST_DATACENTER_DEBT_SERVICE_AGAINST_CLOUD_MARGINS"
+            rationale = f"Elevated debt service risk ({score:.4f}): Hardware obsolescence exceeds amortization buffers."
+        else:
+            tier = "ORGANIC_CASH_FLOW_BACKED_EXPANSION"
+            verdict = "PRIVATE_CREDIT_COVENANTS_SECURE"
+            rationale = f"Low contagion risk ({score:.4f}): Controlled borrowing ({d_abl:.2f}) supported by non-synthetic cash flows."
+
+        return {
+            "gpu_debt_collateral_contagion_score": score,
+            "private_debt_abl_burden": round(d_abl, 4),
+            "hardware_depreciation_velocity": round(v_dep, 4),
+            "credit_basis_spread_expansion": round(s_bas, 4),
+            "debt_contagion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_debt_contagion_critical": score >= 0.70,
+        }
+
 
 ```

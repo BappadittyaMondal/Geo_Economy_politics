@@ -38,6 +38,7 @@ from .cash_flow import (
     SovereignDebtSyndicateLeverageSieve,
     SpeculativeCapexOverhangSieve,
     CircularVentureValuationBubbleSieve,
+    GPUCollateralizedPrivateDebtContagionTensor,
 )
 
 from .civilizational import (
@@ -66,6 +67,7 @@ from .civilizational import (
 
     SubnationalFragmentationLawfareSieve,
     SubReplacementDemographicExtinctionSieve,
+    GenerativeMediaComputeHegemonySieve,
 )
 
 from .critical_minerals import (
@@ -91,6 +93,7 @@ from .deep_tech import (
 
     SovereignCyberExtortionSieve,
     CriticalSCADAHardwareBackdoorSieve,
+    RemoteSiliconMicrocodeKillSwitchSieve,
 )
 
 from .demographic_infiltration import (
@@ -193,6 +196,7 @@ from .hybrid_covert import (
     CounterIntelligenceHoneytrapSieve,
     FalseFlagNarrativeDeceptionSieve,
     OpenSystemAsymmetricInfiltrationSieve,
+    TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve,
 )
 
 from .india_timeline import (
@@ -273,6 +277,7 @@ from .propaganda import (
 
     RevealedPreferenceDivergenceSieve,
     AlgorithmicCognitiveSubversionSieve,
+    MediaIntelligenceLeakTimingTensor,
 )
 
 from .subsea_cables import (
@@ -515,4 +520,9 @@ __all__ = [
     "CivilizationalEpistemicIntegritySieve",
     "MonopolyPatentSuppressionSieve",
     "DynasticExtraConstitutionalShadowCabinetSieve",
+    "TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve",
+    "MediaIntelligenceLeakTimingTensor",
+    "GenerativeMediaComputeHegemonySieve",
+    "RemoteSiliconMicrocodeKillSwitchSieve",
+    "GPUCollateralizedPrivateDebtContagionTensor",
 ]

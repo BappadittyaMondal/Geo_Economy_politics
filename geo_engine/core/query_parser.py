@@ -160,6 +160,11 @@ class StrategicQuery(BaseModel):
     requires_open_system_asymmetric_infiltration: bool = False
     requires_dynastic_shadow_cabinet: bool = False
     requires_superpower_naval_coercion: bool = False
+    requires_semiconductor_executive_kompromat: bool = False
+    requires_media_intelligence_leak_timing: bool = False
+    requires_generative_media_hegemony: bool = False
+    requires_silicon_microcode_killswitch: bool = False
+    requires_gpu_debt_contagion: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -531,22 +536,27 @@ class QueryParser:
         req_open_sys_infil = any(cls.matches_keyword(text_lower, kw) for kw in ["open system asymmetric infiltration", "democratic vulnerability exploitation", "asymmetric institutional penetration", "open academic legal infiltration", "unreciprocated openness exploitation"])
         req_dynastic_shadow_cab = any(cls.matches_keyword(text_lower, kw) for kw in ["dynastic extra constitutional shadow cabinet", "unaccountable coterie governance", "extra constitutional kitchen cabinet", "nac style shadow government", "dynastic bureaucratic capture"])
         req_naval_coercion = any(cls.matches_keyword(text_lower, kw) for kw in ["superpower naval coercion brinkmanship", "gunboat diplomacy intimidation", "carrier strike group brinkmanship", "freedom of navigation coercive transit", "unilateral naval blockade posturing"])
+        req_semi_kompromat = any(cls.matches_keyword(text_lower, kw) for kw in ["semiconductor smuggling", "executive kompromat", "megaspeed", "transnational semiconductor", "gpu smuggling", "chip smuggling"])
+        req_media_leak_timing = any(cls.matches_keyword(text_lower, kw) for kw in ["media intelligence leak timing", "guided missile leak", "media leak put options", "options oi spike leak", "regulatory subpoena leak"])
+        req_gen_media_hegemony = any(cls.matches_keyword(text_lower, kw) for kw in ["generative media compute hegemony", "generative media hegemony", "cultural compute hegemony", "bollywood render farm", "china to bollywood"])
+        req_silicon_microcode_killswitch = any(cls.matches_keyword(text_lower, kw) for kw in ["silicon microcode kill switch", "remote firmware kill switch", "cloud license heartbeat", "openbmc airgap", "gpu killswitch"])
+        req_gpu_debt_contagion = any(cls.matches_keyword(text_lower, kw) for kw in ["gpu collateralized private debt", "gpu debt contagion", "ai private credit contagion", "gpu asset backed loans", "gpu debt covenant breach"])
 
         if (req_cloud_monopoly or req_legacy_infra_obs) and "digital_sovereignty" not in active_lenses:
             active_lenses.append("digital_sovereignty")
-        if (req_cognitive_deception or req_ci_honeytrap or req_false_flag_narrative or req_open_sys_infil) and "hybrid_covert" not in active_lenses:
+        if (req_cognitive_deception or req_ci_honeytrap or req_false_flag_narrative or req_open_sys_infil or req_semi_kompromat) and "hybrid_covert" not in active_lenses:
             active_lenses.append("hybrid_covert")
         if (req_maritime_net_sec or req_asym_weapon_leak or req_naval_coercion) and "military_readiness" not in active_lenses:
             active_lenses.append("military_readiness")
-        if (req_sov_cyber_extort or req_scada_hw_backdoor) and "deep_tech" not in active_lenses:
+        if (req_sov_cyber_extort or req_scada_hw_backdoor or req_silicon_microcode_killswitch) and "deep_tech" not in active_lenses:
             active_lenses.append("deep_tech")
         if (req_port_dual_use or req_phys_capex_mult) and "geo_economist" not in active_lenses:
             active_lenses.append("geo_economist")
-        if (req_revealed_pref_div or req_algo_cog_subversion) and "propaganda" not in active_lenses:
+        if (req_revealed_pref_div or req_algo_cog_subversion or req_media_leak_timing) and "propaganda" not in active_lenses:
             active_lenses.append("propaganda")
-        if (req_debt_syndicate or req_spec_capex_overhang or req_circ_venture_val) and "cash_flow" not in active_lenses:
+        if (req_debt_syndicate or req_spec_capex_overhang or req_circ_venture_val or req_gpu_debt_contagion) and "cash_flow" not in active_lenses:
             active_lenses.append("cash_flow")
-        if (req_subnat_frag_lawfare or req_sub_replace_demog) and "civilizational" not in active_lenses:
+        if (req_subnat_frag_lawfare or req_sub_replace_demog or req_gen_media_hegemony) and "civilizational" not in active_lenses:
             active_lenses.append("civilizational")
         if (req_civ_epistemic_int or req_monopoly_patent_supp) and "history" not in active_lenses:
             active_lenses.append("history")
@@ -842,6 +852,11 @@ class QueryParser:
             requires_open_system_asymmetric_infiltration=req_open_sys_infil,
             requires_dynastic_shadow_cabinet=req_dynastic_shadow_cab,
             requires_superpower_naval_coercion=req_naval_coercion,
+            requires_semiconductor_executive_kompromat=req_semi_kompromat,
+            requires_media_intelligence_leak_timing=req_media_leak_timing,
+            requires_generative_media_hegemony=req_gen_media_hegemony,
+            requires_silicon_microcode_killswitch=req_silicon_microcode_killswitch,
+            requires_gpu_debt_contagion=req_gpu_debt_contagion,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

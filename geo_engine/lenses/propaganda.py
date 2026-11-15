@@ -389,6 +389,15 @@ class PropagandaLens:
         )
         metrics["algorithmic_cognitive_subversion_score"] = _acs_res["algorithmic_cognitive_subversion_score"]
 
+        # Phase 392: Guided-Missile Media-Intelligence Leak Timing Tensor
+        _mlt_res = MediaIntelligenceLeakTimingTensor.evaluate(
+            diplomatic_divergence_intensity=prop_meta.get("diplomatic_divergence_intensity", 0.65),
+            pre_leak_options_oi_spike=prop_meta.get("pre_leak_options_oi_spike", 0.60),
+            legacy_media_narrative_density=prop_meta.get("legacy_media_narrative_density", 0.60),
+            regulatory_subpoena_proximity=prop_meta.get("regulatory_subpoena_proximity", 0.55),
+        )
+        metrics["media_intelligence_leak_timing_score"] = _mlt_res["media_intelligence_leak_timing_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1367,3 +1376,66 @@ class AlgorithmicCognitiveSubversionSieve:
             "tactical_rationale": rationale,
             "is_cognitive_subversion_critical": score >= 0.70,
         }
+
+
+# ============================================================================
+# Phase 392: Guided-Missile Media-Intelligence Leak Timing Tensor
+# ============================================================================
+
+class MediaIntelligenceLeakTimingTensor:
+    """
+    Phase 392: Formulates guided-missile intelligence leak timing (FT, NYT)
+    cross-correlated with diplomatic divergence from imperial sanctions, pre-leak put option spikes,
+    and trailing DOJ/SEC regulatory subpoenas.
+    Formula:
+        Lambda_Leak = min(1.0, max(0.0,
+            0.30 * diplomatic_divergence_intensity
+            + 0.30 * pre_leak_options_oi_spike
+            + 0.20 * legacy_media_narrative_density
+            + 0.20 * regulatory_subpoena_proximity
+        ))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        diplomatic_divergence_intensity: float = 0.85,
+        pre_leak_options_oi_spike: float = 0.80,
+        legacy_media_narrative_density: float = 0.75,
+        regulatory_subpoena_proximity: float = 0.70
+    ) -> Dict[str, Any]:
+        d_div = float(max(0.0, min(1.0, diplomatic_divergence_intensity)))
+        o_spk = float(max(0.0, min(1.0, pre_leak_options_oi_spike)))
+        m_den = float(max(0.0, min(1.0, legacy_media_narrative_density)))
+        r_prx = float(max(0.0, min(1.0, regulatory_subpoena_proximity)))
+
+        raw_score = 0.30 * d_div + 0.30 * o_spk + 0.20 * m_den + 0.20 * r_prx
+        score = round(min(1.0, max(0.0, raw_score)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_GUIDED_MISSILE_MEDIA_LEAK_OPERATION"
+            verdict = "DEPLOY_LEGAL_AND_INFORMATION_SHIELDING_PREPARE_FOR_DOJ_SUBPOENAS"
+            rationale = (
+                f"Severe guided-missile leak operation detected ({score:.4f}): Diplomatic divergence ({d_div:.2f}) "
+                f"accompanied by abnormal pre-leak put OI ({o_spk:.2f}) and media blitz ({m_den:.2f}) indicates weaponized statecraft."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_COORDINATED_PRESS_SCRUTINY"
+            verdict = "MONITOR_DERIVATIVE_FLOWS_AND_REGULATORY_INQUIRIES"
+            rationale = f"Elevated coordinated media scrutiny ({score:.4f}): Early signs of narrative priming."
+        else:
+            tier = "ORGANIC_INVESTIGATIVE_REPORTING"
+            verdict = "STANDARD_PUBLIC_RELATIONS_MONITORING"
+            rationale = f"Low risk ({score:.4f}): Dispersed coverage without options front-running or subpoena synchronization."
+
+        return {
+            "media_intelligence_leak_timing_score": score,
+            "diplomatic_divergence_intensity": round(d_div, 4),
+            "pre_leak_options_oi_spike": round(o_spk, 4),
+            "legacy_media_narrative_density": round(m_den, 4),
+            "regulatory_subpoena_proximity": round(r_prx, 4),
+            "leak_timing_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_leak_operation_critical": score >= 0.70,
+        }
+

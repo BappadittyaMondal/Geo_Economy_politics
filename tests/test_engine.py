@@ -10893,7 +10893,7 @@ class TestPhase247to250SievesAndDigest:
     def test_phase250_lenses_init_exports_count_79(self):
         """Phase 250: geo_engine.lenses exports 79 verified symbols."""
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179, 186, 209)
+        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179, 186, 209, 214)
         assert "DigitalEnclosureTrapSieve" in lenses.__all__
         assert "KineticDiversionaryEscalationSieve" in lenses.__all__
 
@@ -11729,7 +11729,7 @@ class TestPhases274to282SievesAndTelemetry:
 
     def test_phases_274_to_282_lenses_init_exports_count_109(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179, 186, 209)
+        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179, 186, 209, 214)
 
 
 
@@ -12069,7 +12069,7 @@ class TestPhases283to294SievesAndTelemetry:
 
     def test_phases_283_to_294_lenses_init_exports_count_121(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179, 186, 209)
+        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179, 186, 209, 214)
 
 
 class TestPhases295to300SievesAndTelemetry:
@@ -12274,7 +12274,7 @@ class TestPhases295to300SievesAndTelemetry:
 
     def test_phases_295_to_300_lenses_init_exports_count_127(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (127, 134, 143, 163, 179, 186, 209)
+        assert len(lenses.__all__) in (127, 134, 143, 163, 179, 186, 209, 214)
 
 
 class TestPhases301to307SievesAndQuantumGating:
@@ -12455,7 +12455,7 @@ class TestPhases301to307SievesAndQuantumGating:
 
     def test_phases_301_to_307_lenses_init_exports_count_134(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (134, 143, 163, 179, 186, 209)
+        assert len(lenses.__all__) in (134, 143, 163, 179, 186, 209, 214)
 
     def test_sadhguru_strategic_council_archetype(self):
         from geo_engine.arbitration.persona_narrator import PersonaNarrator
@@ -12712,7 +12712,7 @@ class TestPhases309to317SievesAndQuantumSynthesis:
 
     def test_phases_309_to_317_lenses_init_exports_count_143(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (143, 163, 179, 186, 209)
+        assert len(lenses.__all__) in (143, 163, 179, 186, 209, 214)
         for sieve in [
             "ArchivalPrimarySourceSieve",
             "AcademicGatekeepingSieve",
@@ -12968,7 +12968,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
         s = SummitEvent(summit_id="s_318_337", title="Forensic Multi-Domain Summit", date=datetime.now(), host_country="India", participant_countries=["India", "Global"])
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) in (149, 165, 172, 195)
+        assert len(srm) in (149, 165, 172, 195, 200)
         for key in [
             "basel_gold_allocation_score",
             "mnemonic_fidelity_score",
@@ -13032,7 +13032,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
 
     def test_phases_318_to_337_lenses_init_exports_count_163(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (163, 179, 186, 209)
+        assert len(lenses.__all__) in (163, 179, 186, 209, 214)
         for sieve in [
             "BaselGoldAllocationSieve",
             "ApaurusheyaMnemonicFidelitySieve",
@@ -13251,7 +13251,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
         )
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) in (165, 172, 195)
+        assert len(srm) in (165, 172, 195, 200)
         for ch in [
             "sovereign_public_interest_score",
             "adversary_timing_correlation_score",
@@ -13274,7 +13274,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
 
     def test_phases_338_to_353_lenses_init_exports_count_179(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (179, 186, 209)
+        assert len(lenses.__all__) in (179, 186, 209, 214)
         for sieve in [
             "SovereignPublicInterestSieve",
             "AdversaryTimingCorrelationSieve",
@@ -13742,7 +13742,7 @@ class TestPhases368to390SovereignForensicSievesAndResilienceTelemetry:
         )
         report = SummitSynthesizer.synthesize_report(summit)
         srm = report.strategic_resilience_matrix
-        assert len(srm) == 195
+        assert len(srm) in (195, 200)
         nones = [k for k, v in srm.items() if v is None]
         assert len(nones) == 0, f"Found None channels: {nones}"
 
@@ -13793,4 +13793,218 @@ class TestPhases368to390SovereignForensicSievesAndResilienceTelemetry:
         for s in expected_sieves:
             assert hasattr(l, s), f"Missing export in lenses: {s}"
             assert s in l.__all__, f"Missing {s} in lenses.__all__"
+
+
+class TestPhases391to395InvestigativeIntelligenceAndCashFlowSieves:
+    """
+    Verification Test Suite for Phases 391–395:
+    1. TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve (Phase 391)
+    2. MediaIntelligenceLeakTimingTensor (Phase 392)
+    3. GenerativeMediaComputeHegemonySieve (Phase 393)
+    4. RemoteSiliconMicrocodeKillSwitchSieve (Phase 394)
+    5. GPUCollateralizedPrivateDebtContagionTensor (Phase 395)
+    6. Lens Hard Metrics Wiring
+    7. QueryParser AST Flags
+    8. SummitSynthesizer Strategic Resilience Matrix (200 live float channels, zero None)
+    9. geo_engine.lenses.__all__ exports (214 symbols)
+    """
+
+    def test_phase391_transnational_semiconductor_kompromat_sieve_bounds_and_tiers(self):
+        from geo_engine.lenses.hybrid_covert import TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve
+        res_high = TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve.evaluate(
+            third_party_transshipment_volume=0.95,
+            embargoed_destination_density=0.90,
+            dod_counter_intel_vetting=0.10,
+            leak_timing_correlation=0.90,
+            put_derivative_spike=0.85,
+            class_action_litigation_velocity=0.80
+        )
+        assert 0.0 <= res_high["transnational_semiconductor_kompromat_score"] <= 1.0
+        assert res_high["kompromat_tier"] == "CRITICAL_EXECUTIVE_KOMPROMAT_AND_SMUGGLING_CONDUIT"
+        assert res_high["is_kompromat_risk_critical"] is True
+
+        res_low = TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve.evaluate(
+            third_party_transshipment_volume=0.10,
+            embargoed_destination_density=0.10,
+            dod_counter_intel_vetting=0.90,
+            leak_timing_correlation=0.10,
+            put_derivative_spike=0.10,
+            class_action_litigation_velocity=0.10
+        )
+        assert 0.0 <= res_low["transnational_semiconductor_kompromat_score"] <= 1.0
+        assert res_low["kompromat_tier"] == "HARDENED_SUPPLY_CHAIN_AND_CLEARED_LEADERSHIP"
+        assert res_low["is_kompromat_risk_critical"] is False
+
+    def test_phase392_media_intelligence_leak_timing_tensor_bounds_and_tiers(self):
+        from geo_engine.lenses.propaganda import MediaIntelligenceLeakTimingTensor
+        res_high = MediaIntelligenceLeakTimingTensor.evaluate(
+            diplomatic_divergence_intensity=0.90,
+            pre_leak_options_oi_spike=0.85,
+            legacy_media_narrative_density=0.80,
+            regulatory_subpoena_proximity=0.75
+        )
+        assert 0.0 <= res_high["media_intelligence_leak_timing_score"] <= 1.0
+        assert res_high["leak_timing_tier"] == "CRITICAL_GUIDED_MISSILE_MEDIA_LEAK_OPERATION"
+        assert res_high["is_leak_operation_critical"] is True
+
+        res_low = MediaIntelligenceLeakTimingTensor.evaluate(
+            diplomatic_divergence_intensity=0.10,
+            pre_leak_options_oi_spike=0.10,
+            legacy_media_narrative_density=0.10,
+            regulatory_subpoena_proximity=0.10
+        )
+        assert 0.0 <= res_low["media_intelligence_leak_timing_score"] <= 1.0
+        assert res_low["leak_timing_tier"] == "ORGANIC_INVESTIGATIVE_REPORTING"
+        assert res_low["is_leak_operation_critical"] is False
+
+    def test_phase393_generative_media_compute_hegemony_sieve_bounds_and_tiers(self):
+        from geo_engine.lenses.civilizational import GenerativeMediaComputeHegemonySieve
+        res_high = GenerativeMediaComputeHegemonySieve.evaluate(
+            foreign_render_farm_share=0.95,
+            domestic_weight_access=0.10,
+            algorithmic_cultural_sanitization=0.85
+        )
+        assert 0.0 <= res_high["generative_media_compute_hegemony_score"] <= 1.0
+        assert res_high["cultural_compute_tier"] == "CRITICAL_CULTURAL_COMPUTE_COLONIZATION"
+        assert res_high["is_cultural_compute_hegemony_critical"] is True
+
+        res_low = GenerativeMediaComputeHegemonySieve.evaluate(
+            foreign_render_farm_share=0.10,
+            domestic_weight_access=0.90,
+            algorithmic_cultural_sanitization=0.10
+        )
+        assert 0.0 <= res_low["generative_media_compute_hegemony_score"] <= 1.0
+        assert res_low["cultural_compute_tier"] == "SOVEREIGN_CREATIVE_COMPUTE_AUTONOMY"
+        assert res_low["is_cultural_compute_hegemony_critical"] is False
+
+    def test_phase394_remote_silicon_microcode_killswitch_sieve_bounds_and_tiers(self):
+        from geo_engine.lenses.deep_tech import RemoteSiliconMicrocodeKillSwitchSieve
+        res_high = RemoteSiliconMicrocodeKillSwitchSieve.evaluate(
+            proprietary_firmware_blob_ratio=0.90,
+            cloud_license_heartbeat_dependency=0.85,
+            open_bmc_airgap_coverage=0.10
+        )
+        assert 0.0 <= res_high["remote_silicon_microcode_killswitch_score"] <= 1.0
+        assert res_high["silicon_killswitch_tier"] == "CRITICAL_REMOTE_SILICON_KILL_SWITCH_EXPOSURE"
+        assert res_high["is_silicon_killswitch_critical"] is True
+
+        res_low = RemoteSiliconMicrocodeKillSwitchSieve.evaluate(
+            proprietary_firmware_blob_ratio=0.10,
+            cloud_license_heartbeat_dependency=0.10,
+            open_bmc_airgap_coverage=0.90
+        )
+        assert 0.0 <= res_low["remote_silicon_microcode_killswitch_score"] <= 1.0
+        assert res_low["silicon_killswitch_tier"] == "SOVEREIGN_HARDWARE_AIRGAP_CERTIFIED"
+        assert res_low["is_silicon_killswitch_critical"] is False
+
+    def test_phase395_gpu_debt_contagion_tensor_bounds_and_tiers(self):
+        from geo_engine.lenses.cash_flow import GPUCollateralizedPrivateDebtContagionTensor
+        res_high = GPUCollateralizedPrivateDebtContagionTensor.evaluate(
+            private_debt_abl_burden=0.90,
+            hardware_depreciation_velocity=0.85,
+            credit_basis_spread_expansion=0.80
+        )
+        assert 0.0 <= res_high["gpu_debt_collateral_contagion_score"] <= 1.0
+        assert res_high["debt_contagion_tier"] == "CRITICAL_PRIVATE_CREDIT_COLLATERAL_CONTAGION"
+        assert res_high["is_debt_contagion_critical"] is True
+
+        res_low = GPUCollateralizedPrivateDebtContagionTensor.evaluate(
+            private_debt_abl_burden=0.10,
+            hardware_depreciation_velocity=0.15,
+            credit_basis_spread_expansion=0.10
+        )
+        assert 0.0 <= res_low["gpu_debt_collateral_contagion_score"] <= 1.0
+        assert res_low["debt_contagion_tier"] == "ORGANIC_CASH_FLOW_BACKED_EXPANSION"
+        assert res_low["is_debt_contagion_critical"] is False
+
+    def test_phases_391_to_395_lens_hard_metrics_wiring(self):
+        from geo_engine.core.models import SummitEvent
+        from geo_engine.lenses.hybrid_covert import HybridCovertLens
+        from geo_engine.lenses.propaganda import PropagandaLens
+        from geo_engine.lenses.civilizational import CivilizationalLens
+        from geo_engine.lenses.deep_tech import DeepTechLens
+        from geo_engine.lenses.cash_flow import CashFlowLens
+
+        ev = SummitEvent(
+            summit_name="Semiconductor & Geopolitical Forensics Summit",
+            year=2026,
+            member_countries=["India", "USA", "Taiwan", "Singapore"]
+        )
+
+        h_eval = HybridCovertLens.evaluate(ev)
+        assert "transnational_semiconductor_kompromat_score" in h_eval.hard_metrics
+        assert isinstance(h_eval.hard_metrics["transnational_semiconductor_kompromat_score"], float)
+
+        p_eval = PropagandaLens.evaluate(ev)
+        assert "media_intelligence_leak_timing_score" in p_eval.hard_metrics
+        assert isinstance(p_eval.hard_metrics["media_intelligence_leak_timing_score"], float)
+
+        c_eval = CivilizationalLens.evaluate(ev)
+        assert "generative_media_compute_hegemony_score" in c_eval.hard_metrics
+        assert isinstance(c_eval.hard_metrics["generative_media_compute_hegemony_score"], float)
+
+        d_eval = DeepTechLens.evaluate(ev)
+        assert "remote_silicon_microcode_killswitch_score" in d_eval.hard_metrics
+        assert isinstance(d_eval.hard_metrics["remote_silicon_microcode_killswitch_score"], float)
+
+        cf_eval = CashFlowLens.evaluate(ev)
+        assert "gpu_debt_collateral_contagion_score" in cf_eval.hard_metrics
+        assert isinstance(cf_eval.hard_metrics["gpu_debt_collateral_contagion_score"], float)
+
+    def test_phases_391_to_395_query_parser_ast_flags(self):
+        from geo_engine.core.query_parser import QueryParser
+        prompt = (
+            "Analyze semiconductor smuggling and executive kompromat via Megaspeed, "
+            "track media intelligence leak timing with options oi spike leak, "
+            "evaluate generative media compute hegemony and bollywood render farm, "
+            "audit silicon microcode kill switch and openbmc airgap, "
+            "and model gpu collateralized private debt and ai private credit contagion."
+        )
+        q = QueryParser.parse(prompt)
+        assert q.requires_semiconductor_executive_kompromat is True
+        assert q.requires_media_intelligence_leak_timing is True
+        assert q.requires_generative_media_hegemony is True
+        assert q.requires_silicon_microcode_killswitch is True
+        assert q.requires_gpu_debt_contagion is True
+
+    def test_phases_391_to_395_synthesizer_200_channels_zero_debt(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+        summit = SummitEvent(
+            summit_name="BRICS Plus Multilateral Security Summit",
+            year=2026,
+            member_countries=["India", "Russia", "China", "Brazil", "South_Africa"]
+        )
+        report = SummitSynthesizer.synthesize_report(summit)
+        srm = report.strategic_resilience_matrix
+        assert len(srm) == 200, f"Expected 200 channels, got {len(srm)}"
+        nones = [k for k, v in srm.items() if v is None]
+        assert len(nones) == 0, f"Found None channels: {nones}"
+
+        expected_5 = [
+            "transnational_semiconductor_kompromat_score",
+            "media_intelligence_leak_timing_score",
+            "generative_media_compute_hegemony_score",
+            "remote_silicon_microcode_killswitch_score",
+            "gpu_debt_collateral_contagion_score",
+        ]
+        for ch in expected_5:
+            assert ch in srm, f"Missing channel: {ch}"
+            assert isinstance(srm[ch], float), f"Channel {ch} is not a float"
+            assert 0.0 <= srm[ch] <= 1.0, f"Channel {ch} out of bounds: {srm[ch]}"
+
+    def test_phases_391_to_395_lenses_init_exports(self):
+        import geo_engine.lenses as l
+        assert len(l.__all__) == 214, f"Expected 214 symbols, got {len(l.__all__)}"
+        expected_sieves = [
+            "TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve",
+            "MediaIntelligenceLeakTimingTensor",
+            "GenerativeMediaComputeHegemonySieve",
+            "RemoteSiliconMicrocodeKillSwitchSieve",
+            "GPUCollateralizedPrivateDebtContagionTensor",
+        ]
+        for s in expected_sieves:
+            assert hasattr(l, s), f"Missing export in lenses: {s}"
+            assert s in l.__all__, f"Missing {s} in lenses.__all__"
+
 
