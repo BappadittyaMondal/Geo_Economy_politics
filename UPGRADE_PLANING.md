@@ -53,3 +53,62 @@ This upgrade addresses five mathematically verified voids identified across the 
 ## 4. Execution Readiness
 * **Status:** PROPOSED & READY FOR USER COMMAND.
 * **Zero Code Modification Rule:** Codebase untouched during analysis phase. Test baseline remains at 711 passing tests (100% green).
+
+
+---
+
+# Phase 401-405 Architecture & Upgrade Plan: Institutional Cartels, Superpower Condominium & Sovereign Survival Matrix
+
+## 1. Upgrade Justification & Anti-Wheel-Spinning Proof
+This upgrade addresses five critical, mathematically verified intelligence vectors uncovered across Sections 132–139 of `KNOWLEDGE_LIBRARY_GEO_POLITICS.md`:
+1. **The Institutional Monopoly & Aladdin Capital Flight Sieve (Rishabh Bidhuri / BlackRock):** The Big Three asset managers (BlackRock, Vanguard, State Street) control Fortune 500 board votes, while the Aladdin engine directs $21T in coordinated liquidity, evading classic antitrust laws.
+2. **MSME Formalization & Working Capital Asphyxiation Tensor (Basesh Gala / Supertalks):** Modeling why 80% of traditional family businesses face extinction under GST, e-invoicing, and promoter-dependency traps during the formalization transition.
+3. **Nuclear Launch-Under-Attack Command Latency Sieve (Annie Jacobsen / Raj Shamani):** The terrifying 72-minute automated escalation loop of Launch-On-Warning (LOW) protocols and hypersonic trajectory compression.
+4. **Border-State Narco-Fiscal Subversion Sieve (Dr. Ankit Shah & Bhau Torsekar):** The asymmetric intersection of state-level fiscal bankruptcy (debt-to-GSDP > 45%) and weaponized cross-border narcotics trafficking in frontline border states.
+5. **Trilateral Superpower Condominium Exclusion Tensor (Dr. Ankit Avasthi / Yalta 2.0):** Grand backchannel bargains between US-Russia-China attempting to partition global spheres of influence over the heads of sovereign multipolar powers.
+
+---
+
+## 2. Proposed Module Blueprint (Phases 401–405)
+
+### Phase 401: `InstitutionalMonopolyCartelCrossShareholdingSieve` (Lenses: `FinancialLens`, `TradeLens`)
+* **Mathematical Formula:**
+  $$\text{CommonOwnershipIndex (COI)} = \sum_{i \neq j} s_{i} s_{j} \cdot \text{ShareholdingOverlap}_{ij}$$
+  $$\text{AladdinCapitalFlightVulnerability} = \text{Norm}\left( \frac{\text{InstitutionalHoldings}_{\text{BlackRock/Vanguard}}}{\text{TotalFreeFloat}} \cdot \text{AladdinRiskWeight} \right)$$
+* **Function:** Identifies artificial corporate competition where the same three institutional funds sit on the cap tables of competing defense, pharma, and tech giants, flagging automated sell-off contagion risks.
+
+### Phase 402: `MSMEFormalizationSolvencyAsphyxiationTensor` (Lenses: `MacroEconomicLens`, `CashFlowLens`)
+* **Mathematical Formula:**
+  $$\text{SolvencyStressIndex} = \text{Norm}\left( \frac{\text{WorkingCapitalCycleDays}}{\text{LiquidCashRunwayDays}} \cdot (1 + \text{ComplianceFrictionFactor}) - \text{PromoterDecouplingRatio} \right)$$
+* **Function:** Calculates enterprise mortality rates among unorganized MSMEs during rapid formalization, predicting supply-chain consolidation into corporate conglomerates.
+
+### Phase 403: `NuclearLaunchUnderAttackLatencySieve` (Lenses: `MilitaryLens`, `StrategicLens`)
+* **Mathematical Formula:**
+  $$\text{DecapitationVulnerabilityScore} = 1 - \frac{\text{DecisionWindowMinutes} - \text{HypersonicFlightTimeMinutes}}{\text{VerificationLatencyMinutes}}$$
+* **Function:** Models nuclear command-and-control survivability, verifying whether decentralized, automated second-strike retribution protocols remain intact under compressed hypersonic flight times.
+
+### Phase 404: `BorderStateNarcoFiscalSubversionSieve` (Lenses: `SecurityLens`, `FinancialLens`)
+* **Mathematical Formula:**
+  $$\text{BorderSubversionIndex} = \text{Norm}\left( \frac{\text{StateDebt}}{\text{GSDP}} \cdot \text{PopulistFreebieRatio} + \text{DroneNarcoInfiltrationFrequency} \right)$$
+* **Function:** Detects asymmetric proxy warfare in frontline border states where fiscal insolvency and narcotics influx are weaponized to paralyze federal defense corridors.
+
+### Phase 405: `TrilateralSuperpowerCondominiumExclusionTensor` (Lenses: `GeopoliticalLens`, `DiplomaticLens`)
+* **Mathematical Formula:**
+  $$\text{CondominiumResistanceScore} = \text{Norm}\left( \text{BilateralTradeDiversification} + \text{AlternativeCorridorThroughput}_{\text{IMEC/INSTC}} + \text{SovereignVetoCapacity} \right)$$
+* **Function:** Evaluates Bharat's capability to resist and shatter great-power condominiums (Yalta 2.0) by mobilizing the Global South, bilateral energy hedging, and independent transcontinental transit corridors.
+
+---
+
+## 3. Council Alignment Matrix
+* **Dr. Ankit Shah:** Audits Aladdin capital flight exposure, border-state debt ratios, and offshore trust architectures.
+* **Ajit Doval:** Directs nuclear command latency hardening, border narco-security containment, and counter-blackmail intelligence.
+* **Sanjeev Sanyal:** Oversees creative destruction in MSME formalization and multipolar transit connectivity.
+* **Dr. S. Jaishankar:** Spearheads resistance to trilateral superpower condominiums and enforces strategic multipolarity.
+* **J Sai Deepak:** Drives legal decolonization against offshore trust protections and judicial lawfare networks.
+* **Dr. Anand Ranganathan:** Demands mathematical rigor in nuclear escalation modeling and fiscal sustainability audits.
+
+---
+
+## 4. Execution Readiness
+* **Status:** PROPOSED & APPENDED (Zero Previous Deletions).
+* **Zero Code Modification Rule:** Codebase untouched during analysis phase. Test baseline remains at 711 passing tests (100% green).
