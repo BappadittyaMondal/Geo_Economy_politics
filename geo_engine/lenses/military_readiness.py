@@ -515,6 +515,51 @@ class MilitaryReadinessLens:
         )
         metrics["superpower_naval_coercion_brinkmanship_score"] = _snc_res["superpower_naval_coercion_brinkmanship_score"]
 
+        # Phase 398: Asymmetric Air-Defense Cost-Exchange Tensor
+        _aad_res = AsymmetricAirDefenseCostExchangeTensor.evaluate(
+            interceptor_cost_usd=mil_meta.get("interceptor_cost_usd", 3_500_000.0),
+            threat_cost_usd=mil_meta.get("threat_cost_usd", 2_000.0),
+            inventory_interceptors=mil_meta.get("inventory_interceptors", 120),
+            swarm_rate_per_day=mil_meta.get("swarm_rate_per_day", 15.0),
+            p_kill=mil_meta.get("air_defense_p_kill", 0.85),
+        )
+        metrics["asymmetric_air_defense_cost_exchange_score"] = _aad_res["asymmetric_air_defense_cost_exchange_score"]
+
+        # Phase 399: Hypersonic Non-Keplerian Glide Trajectory Sieve
+        _hyp_res = HypersonicNonKeplerianGlideTrajectorySieve.evaluate(
+            base_radar_tracking=mil_meta.get("base_radar_tracking", 0.85),
+            mach_number=mil_meta.get("hypersonic_mach_number", 12.0),
+            atmospheric_g_turn_rate=mil_meta.get("atmospheric_g_turn_rate", 15.0),
+            lambda_param=mil_meta.get("hypersonic_lambda_param", 0.015),
+        )
+        metrics["hypersonic_glide_penetration_score"] = _hyp_res["hypersonic_glide_penetration_score"]
+
+        # Phase 403: Nuclear Launch-Under-Attack Latency Sieve
+        _nuc_res = NuclearLaunchUnderAttackLatencySieve.evaluate(
+            decision_window_minutes=mil_meta.get("decision_window_minutes", 15.0),
+            hypersonic_flight_time_minutes=mil_meta.get("hypersonic_flight_time_minutes", 6.0),
+            verification_latency_minutes=mil_meta.get("verification_latency_minutes", 12.0),
+        )
+        metrics["nuclear_launch_under_attack_latency_score"] = _nuc_res["nuclear_launch_under_attack_latency_score"]
+
+        # Phase 412: Airborne Command Decapitation Immunity Sieve
+        _air_res = AirborneCommandDecapitationImmunitySieve.evaluate(
+            laircm_missile_defeat_prob=mil_meta.get("laircm_missile_defeat_prob", 0.90),
+            ew_jamming_coverage=mil_meta.get("ew_jamming_coverage", 0.85),
+            encrypted_satcom_redundancy=mil_meta.get("encrypted_satcom_redundancy", 0.88),
+            flight_path_transit_vulnerability=mil_meta.get("flight_path_transit_vulnerability", 0.25),
+        )
+        metrics["airborne_command_survivability_score"] = _air_res["airborne_command_survivability_score"]
+
+        # Phase 414: Naval Electronic Warfare Suppression Tensor
+        _new_res = NavalElectronicWarfareSuppressionTensor.evaluate(
+            standoff_jamming_power_density=mil_meta.get("standoff_jamming_power_density", 0.85),
+            target_eccm_capability=mil_meta.get("target_eccm_capability", 0.40),
+            radar_blind_ratio=mil_meta.get("radar_blind_ratio", 0.80),
+            propulsion_telemetry_disruption_factor=mil_meta.get("propulsion_telemetry_disruption_factor", 0.70),
+        )
+        metrics["naval_electronic_warfare_suppression_score"] = _new_res["naval_electronic_warfare_suppression_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1135,4 +1180,294 @@ class SuperpowerNavalCoercionBrinkmanshipSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_naval_coercion_neutralized": score < 0.45,
+        }
+
+
+# ============================================================================
+# Phase 398: Asymmetric Air-Defense Cost-Exchange Tensor
+# ============================================================================
+
+class AsymmetricAirDefenseCostExchangeTensor:
+    """
+    Phase 398: Formulates the 1,750:1 cost-exchange death spiral of firing $3.5M Patriot interceptors
+    against $2,000 asymmetric drones, auditing magazine depletion and budget exhaustion.
+    Formula:
+        CER = InterceptorCost / max(ThreatCost, 1.0)
+        MagazineDepletionTime = InventoryInterceptors / max(SwarmRate * (1 - P_kill), 0.01)
+        score = min(1.0, max(0.0, 0.55 * Norm(log10(CER)) + 0.45 * (1 - MagazineDepletionTime / 60.0)))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        interceptor_cost_usd: float = 3_500_000.0,
+        threat_cost_usd: float = 2_000.0,
+        inventory_interceptors: int = 120,
+        swarm_rate_per_day: float = 15.0,
+        p_kill: float = 0.85
+    ) -> Dict[str, Any]:
+        c_int = float(max(1000.0, interceptor_cost_usd))
+        c_thr = float(max(10.0, threat_cost_usd))
+        inv = int(max(1, inventory_interceptors))
+        swarm = float(max(0.1, swarm_rate_per_day))
+        pk = float(max(0.05, min(1.0, p_kill)))
+
+        cer = c_int / c_thr
+        cer_log = min(1.0, max(0.0, math.log10(max(1.0, cer)) / 4.0))
+
+        leakers = swarm * (1.0 - pk + 0.10)
+        depletion_days = inv / max(leakers, 0.01)
+        depletion_risk = min(1.0, max(0.0, 1.0 - (depletion_days / 60.0)))
+
+        score = round(min(1.0, max(0.0, 0.55 * cer_log + 0.45 * depletion_risk)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_ASYMMETRIC_AIR_DEFENSE_EXHAUSTION"
+            verdict = "TACTICAL_RETREAT_OR_DIRECTED_ENERGY_CWIS_PIVOT_MANDATORY"
+            rationale = (
+                f"Severe cost-exchange collapse ({score:.4f}): Interceptor-to-threat ratio is {cer:.0f}:1 "
+                f"(${c_int/1e6:.2f}M vs ${c_thr:.0f}). High-end magazine depletes in ~{depletion_days:.1f} days under swarm attrition."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_MAGAZINE_ATTRITION"
+            verdict = "CONSERVE_TIER1_INTERCEPTORS_DEPLOY_INDIGENOUS_SHORAD"
+            rationale = f"Elevated exchange drag ({score:.4f}): Firing doctrine requires short-range layered integration."
+        else:
+            tier = "SUSTAINABLE_ASYMMETRIC_AIR_DEFENSE"
+            verdict = "COST_EXCHANGE_RATIO_FAVORABLE_AND_MAGAZINE_DEEP"
+            rationale = f"Low risk ({score:.4f}): Deep reserves ({inv} units) and balanced cost metrics."
+
+        return {
+            "asymmetric_air_defense_cost_exchange_score": score,
+            "cost_exchange_ratio": round(cer, 2),
+            "magazine_depletion_days": round(depletion_days, 2),
+            "cer_log_exhaustion": round(cer_log, 4),
+            "air_defense_exhaustion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cost_exchange_exhaustion_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 399: Hypersonic Non-Keplerian Glide Trajectory Sieve
+# ============================================================================
+
+class HypersonicNonKeplerianGlideTrajectorySieve:
+    """
+    Phase 399: Formulates hypersonic scramjet glide vehicles (Mach 7–20) executing non-Keplerian
+    atmospheric skip-glide maneuvers that mathematically invalidate conventional ABM radar predictive interception.
+    Formula:
+        InterceptionProbability = BaseRadarTracking * exp(-lambda * MachNumber * AtmosphericGTurnRate)
+        score = 1.0 - InterceptionProbability (Penetration Score)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        base_radar_tracking: float = 0.85,
+        mach_number: float = 12.0,
+        atmospheric_g_turn_rate: float = 15.0,
+        lambda_param: float = 0.015
+    ) -> Dict[str, Any]:
+        base_track = float(max(0.0, min(1.0, base_radar_tracking)))
+        mach = float(max(1.0, mach_number))
+        g_turn = float(max(0.0, atmospheric_g_turn_rate))
+        lam = float(max(0.001, lambda_param))
+
+        exponent = -lam * mach * (g_turn / 10.0)
+        interception_prob = min(1.0, max(0.0, base_track * math.exp(exponent)))
+        penetration_score = round(1.0 - interception_prob, 4)
+
+        if penetration_score >= 0.75:
+            tier = "DECISIVE_HYPERSONIC_PENETRATION_SOVEREIGNTY"
+            verdict = "SECOND_STRIKE_PENETRATION_GUARANTEED_ABM_INVALIDATED"
+            rationale = (
+                f"Decisive hypersonic penetration ({penetration_score:.4f}): Non-Keplerian glide at Mach {mach:.1f} "
+                f"with {g_turn:.1f}G lateral maneuvers degrades tracking probability to {interception_prob*100:.1f}%."
+            )
+        elif penetration_score >= 0.50:
+            tier = "CONTESTED_ATMOSPHERIC_TERMINAL_GLIDE"
+            verdict = "TERMINAL_POINT_DEFENSE_REMAINS_PARTIALLY_EFFECTIVE"
+            rationale = f"Moderate penetration ({penetration_score:.4f}): Terminal trajectory partially predictable."
+        else:
+            tier = "PREDICTABLE_BALLISTIC_ARC"
+            verdict = "CONVENTIONAL_ABM_RADAR_CAN_INTERCEPT"
+            rationale = f"Low penetration ({penetration_score:.4f}): Trajectory follows conventional Keplerian physics."
+
+        return {
+            "hypersonic_glide_penetration_score": penetration_score,
+            "interception_probability": round(interception_prob, 4),
+            "mach_number": round(mach, 2),
+            "atmospheric_g_turn_rate": round(g_turn, 2),
+            "hypersonic_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_hypersonic_penetration_assured": penetration_score >= 0.75,
+        }
+
+
+# ============================================================================
+# Phase 403: Nuclear Launch-Under-Attack Latency Sieve
+# ============================================================================
+
+class NuclearLaunchUnderAttackLatencySieve:
+    """
+    Phase 403: Models Annie Jacobsen's 72-minute automated escalation loop and Launch-On-Warning (LOW) protocols:
+    Evaluates nuclear command survivability under compressed hypersonic flight times.
+    Formula:
+        DecapitationVulnerability = 1.0 - (DecisionWindowMinutes - HypersonicFlightTimeMinutes) / max(VerificationLatencyMinutes, 1.0)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        decision_window_minutes: float = 15.0,
+        hypersonic_flight_time_minutes: float = 6.0,
+        verification_latency_minutes: float = 12.0
+    ) -> Dict[str, Any]:
+        d_win = float(max(0.0, decision_window_minutes))
+        h_flight = float(max(0.0, hypersonic_flight_time_minutes))
+        v_lat = float(max(1.0, verification_latency_minutes))
+
+        effective_window = max(0.0, d_win - h_flight)
+        raw_decapitation = 1.0 - (effective_window / v_lat)
+        decapitation_score = round(min(1.0, max(0.0, raw_decapitation)), 4)
+
+        if decapitation_score >= 0.70:
+            tier = "CRITICAL_NUCLEAR_DECAPITATION_VULNERABILITY"
+            verdict = "ACTIVATE_PRE_DELEGATED_SURVIVABLE_SSBN_SECOND_STRIKE"
+            rationale = (
+                f"Severe command compression ({decapitation_score:.4f}): Hypersonic flight time ({h_flight:.1f} min) leaves "
+                f"only {effective_window:.1f} min decision window against {v_lat:.1f} min verification latency. Land-based command at acute risk."
+            )
+        elif decapitation_score >= 0.45:
+            tier = "ELEVATED_LAUNCH_ON_WARNING_PRESSURE"
+            verdict = "HARDEN_DUAL_CHANNEL_VLF_SATCOM_LINK_TO_STRATEGIC_FORCES"
+            rationale = f"Elevated latency pressure ({decapitation_score:.4f}): Verification must be automated."
+        else:
+            tier = "RESILIENT_SECOND_STRIKE_ASSURANCE"
+            verdict = "SUFFICIENT_DECISION_WINDOW_PREVENTS_FALSE_ALARM_ESCALATION"
+            rationale = f"Low risk ({decapitation_score:.4f}): Adequate warning margin ({effective_window:.1f} min) confirms strike telemetry."
+
+        return {
+            "nuclear_launch_under_attack_latency_score": decapitation_score,
+            "effective_decision_window_minutes": round(effective_window, 2),
+            "hypersonic_flight_time_minutes": round(h_flight, 2),
+            "verification_latency_minutes": round(v_lat, 2),
+            "decapitation_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_decapitation_risk_critical": decapitation_score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 412: Airborne Command Decapitation Immunity Sieve
+# ============================================================================
+
+class AirborneCommandDecapitationImmunitySieve:
+    """
+    Phase 412: Models VVIP airborne flying command bunker survivability (e.g. Air India One B777-300ER):
+    Evaluates Large Aircraft Infrared Countermeasures (LAIRCM), EW jamming arrays, Type-1 encrypted SATCOM,
+    and transit path vulnerability to ensure unbroken nuclear command links during flight.
+    Formula:
+        AirborneSurvivability = Sigmoid(3.0 * (LAIRCM * Jamming) + 2.5 * EncryptedSATCOM - 2.8 * TransitVulnerability - 0.4)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        laircm_missile_defeat_prob: float = 0.90,
+        ew_jamming_coverage: float = 0.85,
+        encrypted_satcom_redundancy: float = 0.88,
+        flight_path_transit_vulnerability: float = 0.25
+    ) -> Dict[str, Any]:
+        l_defeat = float(max(0.0, min(1.0, laircm_missile_defeat_prob)))
+        j_cov = float(max(0.0, min(1.0, ew_jamming_coverage)))
+        s_com = float(max(0.0, min(1.0, encrypted_satcom_redundancy)))
+        t_vuln = float(max(0.0, min(1.0, flight_path_transit_vulnerability)))
+
+        z = 3.0 * (l_defeat * j_cov) + 2.5 * s_com - 2.8 * t_vuln - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "FORTIFIED_AIRBORNE_COMMAND_BUNKER"
+            verdict = "AIRBORNE_NUCLEAR_COMMAND_UNBROKEN_AND_SURVIVABLE"
+            rationale = (
+                f"Fortified airborne immunity ({score:.4f}): LAIRCM missile defense ({l_defeat:.2f}) and active EW "
+                f"({j_cov:.2f}) protect VVIP airframe, with redundant Type-1 encrypted SATCOM ({s_com:.2f}) assuring command continuity."
+            )
+        elif score >= 0.45:
+            tier = "ADEQUATE_DEFENSIVE_ESCORT_ENVELOPE"
+            verdict = "ENFORCE_CONTINUOUS_FIGHTER_COMBAT_AIR_PATROL_ESCORT"
+            rationale = f"Moderate survivability ({score:.4f}): Flight path vulnerability ({t_vuln:.2f}) warrants dedicated fighter CAP."
+        else:
+            tier = "VULNERABLE_AIRBORNE_TARGET"
+            verdict = "AVOID_CONTESTED_AIRSPACE_ROUTE_GROUND_COMMUNICATIONS"
+            rationale = f"High vulnerability ({score:.4f}): Transit route exposed to long-range adversary interceptors."
+
+        return {
+            "airborne_command_survivability_score": score,
+            "laircm_missile_defeat_prob": round(l_defeat, 4),
+            "ew_jamming_coverage": round(j_cov, 4),
+            "encrypted_satcom_redundancy": round(s_com, 4),
+            "flight_path_transit_vulnerability": round(t_vuln, 4),
+            "airborne_survivability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_airborne_command_immune": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 414: Naval Electronic Warfare Suppression Tensor
+# ============================================================================
+
+class NavalElectronicWarfareSuppressionTensor:
+    """
+    Phase 414: Models non-kinetic maritime electronic warfare disablement:
+    Evaluates high-power standoff radio frequency jamming and acoustic spoofing arrays on frontline
+    destroyers (INS Kolkata) inducing radar blindness and automated propulsion failures on adversary warships (PNS Hunain).
+    Formula:
+        NonKineticDisablement = Sigmoid(2.5 * Norm(JammingPower / max(TargetECCM, 0.05)) * RadarBlindRatio + 2.0 * PropulsionDisruption - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        standoff_jamming_power_density: float = 0.85,
+        target_eccm_capability: float = 0.40,
+        radar_blind_ratio: float = 0.80,
+        propulsion_telemetry_disruption_factor: float = 0.70
+    ) -> Dict[str, Any]:
+        j_power = float(max(0.0, standoff_jamming_power_density))
+        t_eccm = float(max(0.05, target_eccm_capability))
+        r_blind = float(max(0.0, min(1.0, radar_blind_ratio)))
+        p_disrupt = float(max(0.0, min(1.0, propulsion_telemetry_disruption_factor)))
+
+        power_ratio = min(2.5, j_power / t_eccm)
+        z = 2.5 * power_ratio * r_blind + 2.0 * p_disrupt - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_NON_KINETIC_NAVAL_DISABLEMENT"
+            verdict = "TARGET_RADARS_BLINDED_AND_PROPULSION_TELEMETRY_CORRUPTED"
+            rationale = (
+                f"Decisive non-kinetic disablement ({score:.4f}): Jamming-to-ECCM ratio ({power_ratio:.2f}) blinds adversary "
+                f"fire-control radars ({r_blind:.2f}) while acoustic/RF suppression disrupts automated propulsion systems without kinetic missile fire."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_SENSOR_DEGRADATION"
+            verdict = "FORCE_TARGET_INTO_FALLBACK_MANUAL_OPTICAL_TARGETING"
+            rationale = f"Moderate electronic suppression ({score:.4f}): Target search radar degraded, but terminal tracking active."
+        else:
+            tier = "INEFFECTIVE_ELECTRONIC_WARFARE"
+            verdict = "TARGET_ECCM_BURNS_THROUGH_JAMMING_ARRAY"
+            rationale = f"Low suppression ({score:.4f}): Target ECCM ({t_eccm:.2f}) defeats standoff jamming power."
+
+        return {
+            "naval_electronic_warfare_suppression_score": score,
+            "jamming_to_eccm_ratio": round(power_ratio, 4),
+            "radar_blind_ratio": round(r_blind, 4),
+            "propulsion_telemetry_disruption_factor": round(p_disrupt, 4),
+            "naval_ew_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_naval_disablement_decisive": score >= 0.70,
         }

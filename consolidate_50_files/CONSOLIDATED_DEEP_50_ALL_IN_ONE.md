@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `44168ff`
+- **Canonical Git Commit:** `ce80092`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 44168ff
+CANONICAL_COMMIT: ce80092
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 44168ff
+CANONICAL_COMMIT: ce80092
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 44168ff
+CANONICAL_COMMIT: ce80092
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 44168ff
+CANONICAL_COMMIT: ce80092
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 44168ff
+CANONICAL_COMMIT: ce80092
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 44168ff
+CANONICAL_COMMIT: ce80092
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -5014,6 +5014,61 @@ Following the comprehensive forensic audit of real-world intelligence warfare—
 
 
 
+## Section 117: Phases 396–415 Sovereign Asymmetric Statecraft, Balance-Sheet Realism, Knowledge Matrix Modularization & SQLite Ingestion (Zero-Debt Full Certification)
+
+### 1. Architectural Motivation & Executive Summary
+In response to deep forensic auditing of civilizational statecraft, invisible cash-flow forensics, high-altitude border militarization, and epistemic sovereignty, Phases 396 through 415 implement 20 advanced mathematical forensic sieves and solve the scalability challenge of the 825 KB monolithic `KNOWLEDGE_LIBRARY_GEO_POLITICS.md` through a dual-tier modular architecture and SQLite database ingestion.
+
+### 2. Concrete Architectural Implementations
+
+1. **Bharat-Centric Sovereign Knowledge Matrix (BSKM) Modularization & Ingestion:**
+   - **Modular Dossier Split (`knowledge_library/`):** Restructured the monolithic 6,152-line, 157-discourse library into 7 specialized topic dossiers:
+     - `00_MASTER_INDEX_AND_ROUTER.md`: Master inventory, video ID registry, and council mentor routing.
+     - `01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`: Vedic epistemology, Shastras, epigraphy, and decolonized historiography (32 sections, 142 KB).
+     - `02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`: Invisible cash flow, shadow banking, bullion, debt traps, and balance-sheet realism (43 sections, 215 KB).
+     - `03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`: LAC militarization, Nyoma airbase, hypersonic glide, and ORBAT deterrence (35 sections, 181 KB).
+     - `04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`: Deep state subversion, honeytraps, mobocracy, and narco-fiscal syndicates (23 sections, 171 KB).
+     - `05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`: Semiconductors, compute, quantum HNDL, and critical minerals (5 sections, 20 KB).
+     - `06_COGNITIVE_WARFARE_AND_LAWFARE.md`: Media deconstruction, edutainment, and institutional lawfare (19 sections, 94 KB).
+   - **Canonical Compiler (`scripts/build_knowledge_library.py`):** Ensures root `KNOWLEDGE_LIBRARY_GEO_POLITICS.md` is strictly preserved for 100% backward compatibility.
+   - **SQLite Knowledge Ingestion (`data/events.db`):** Ingested all 157 video discourses into the `knowledge_discourses` table with metadata (`discourse_id`, `section_number`, `title`, `domain_category`, `council_members`, `source_speaker`, `key_thesis`, `strategic_doctrine`, `content_markdown`).
+   - **CLI Retrieval Command (`geo_engine/cli.py`):** Added `geo_engine library` with `--search`, `--domain`, `--council`, `--section`, and `--reindex` modes featuring Rich formatted panels and tables.
+
+2. **20 Sovereign Forensic Mathematical Sieves (Phases 396–415):**
+   - **Phase 396:** `InformalSectorStatisticalDivergenceTensor` (`geo_engine/lenses/cash_flow.py`) — Quantifies divergence between headline GDP and unorganized sector cash-flow distress.
+   - **Phase 397:** `PBOCLGFVLiquidityTrapTensor` (`geo_engine/lenses/cash_flow.py`) — Evaluates municipal debt rollover contagion and PBOC liquidity trap exhaustion.
+   - **Phase 398:** `AsymmetricAirDefenseCostExchangeTensor` (`geo_engine/lenses/military_readiness.py`) — Models interceptor vs. swarm drone cost attrition dynamics (CER).
+   - **Phase 399:** `HypersonicNonKeplerianGlideTrajectorySieve` (`geo_engine/lenses/military_readiness.py`) — Calculates skip-glide trajectory evasion against ballistic ABM radars.
+   - **Phase 400:** `SovereignPlatformRegulatoryDefianceSieve` (`geo_engine/lenses/digital_sovereignty.py`) — Assesses big-tech statutory defiance, Section 69A compliance, and safe harbor forfeiture risks.
+   - **Phase 401:** `InstitutionalMonopolyCartelCrossShareholdingSieve` (`geo_engine/lenses/cash_flow.py`) — Audits index fund cross-ownership (Aladdin) and oligopolistic market concentration.
+   - **Phase 402:** `MSMEFormalizationSolvencyAsphyxiationTensor` (`geo_engine/lenses/cash_flow.py`) — Assesses formalization compliance friction and working capital cycle stress on MSMEs.
+   - **Phase 403:** `NuclearLaunchUnderAttackLatencySieve` (`geo_engine/lenses/military_readiness.py`) — Measures command-and-control decision latency vs. hypersonic flight times.
+   - **Phase 404:** `BorderStateNarcoFiscalSubversionSieve` (`geo_engine/lenses/hybrid_covert.py`) — Evaluates cross-border drone narcotics trafficking, hawala flows, and border state debt distress.
+   - **Phase 405:** `TrilateralSuperpowerCondominiumExclusionTensor` (`geo_engine/lenses/geopolitical.py`) — Forensically checks Yalta 2.0 / G2 bilateral condominium exclusion threats against middle powers.
+   - **Phase 406:** `QuantumHarvestNowDecryptLaterVulnerabilitySieve` (`geo_engine/lenses/deep_tech.py`) — Quantifies data shelf-life exposure against adversary encrypted traffic harvesting for Q-Day decryption.
+   - **Phase 407:** `DiplomaticNonVerbalOpticsAndAttireForensicsSieve` (`geo_engine/lenses/kinesics.py`) — Evaluates civilizational attire symbolism, seating distance hierarchy, and handshake latencies.
+   - **Phase 408:** `CulturalReligiousGrayzoneLawfareSieve` (`geo_engine/lenses/institutional_lawfare.py`) — Audits statutory exemption abuse and land encroachment near strategic defense corridors.
+   - **Phase 409:** `CriticalMineralSupplyChainWeaponizationTensor` (`geo_engine/lenses/critical_minerals.py`) — Computes single-nation refining monopoly and export embargo vulnerability.
+   - **Phase 410:** `AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve` (`geo_engine/lenses/food_security.py`) — Models fertilizer feedstock cartel pricing and caloric buffer resilience.
+   - **Phase 411:** `AviationTransitSlotCartelSieve` (`geo_engine/lenses/geo_economist.py`) — Forensically quantifies foreign 6th-freedom passenger traffic capture and airport slot monopolization.
+   - **Phase 412:** `AirborneCommandDecapitationImmunitySieve` (`geo_engine/lenses/military_readiness.py`) — Evaluates survivability, LAIRCM defense, and survivable NCA reconstitution of airborne command posts (Air India One).
+   - **Phase 413:** `AsymmetricSubTacticalHoneytrapEspionageSieve` (`geo_engine/lenses/hybrid_covert.py`) — Assesses social engineering, smartphone vulnerabilities, and honeypot infiltration of defense technical cadres.
+   - **Phase 414:** `NavalElectronicWarfareSuppressionTensor` (`geo_engine/lenses/military_readiness.py`) — Computes standoff RF jamming to ECCM ratios, radar blindness, and datalink disruption.
+   - **Phase 415:** `CivilizationalEpistemicHistoriographyDecolonizationSieve` (`geo_engine/lenses/civilizational.py`) — Evaluates primary epigraphic/archaeological grounding vs. secondary colonial historiographical distortions.
+
+3. **Module Exports & Telemetry Scale:**
+   - `geo_engine.lenses.__all__` expanded from 214 to **234 exported symbols**.
+   - `SummitSynthesizer.strategic_resilience_matrix` scaled from 200 to **220 live float channels** (0 None values, 100% calibrated).
+   - `QueryParser` AST flags expanded with 20 new boolean indicators and automated lens activation routing.
+
+4. **Testing & Quality Assurance:**
+   - Expanded test suite with `TestPhases396to415SovereignForensicSieves` verifying all 20 sieves, AST query flags, 220 resilience channels, 234 lens symbols, and SQLite knowledge discourse indexing/retrieval.
+   - Total test count scaled from 711 to **718 tests** (100% passing, 0 failures, 0 regressions).
+
+5. **Canonical Distribution Bundles & Zero Upgrade Debt:**
+   - Canonical distribution bundles (`dist_ai/core_5/` and `dist_ai/deep_50/`) compiled and verified against all 10 Anti-Drift Quality Gates.
+   - `UPGRADE_PLANING` and `UPGRADE_PLANING.md` reset to **0 bytes** (zero upgrade debt).
+
 
 
 ================================================================================
@@ -5961,6 +6016,42 @@ class CashFlowLens:
                 ubo_transparency_score=det_meta.get("ubo_transparency_score", 0.80),
             )
             metrics["offshore_ubo_de_anonymizer_score"] = _ubo_res_e["offshore_ubo_de_anonymizer_score"]
+
+            # Phases 396, 397, 401, 402: Early branch wiring
+            _isd_res_e = InformalSectorStatisticalDivergenceTensor.evaluate(
+                gdp_reported=det_meta.get("gdp_reported", 0.082),
+                corporate_index=det_meta.get("corporate_index", 0.120),
+                unorganized_wage_index=det_meta.get("unorganized_wage_index", 0.015),
+                alpha=det_meta.get("informal_alpha", 0.45),
+                unsecured_consumer_debt=det_meta.get("unsecured_consumer_debt", 0.28),
+                net_household_savings=det_meta.get("net_household_savings", 0.052),
+                informal_distress_factor=det_meta.get("informal_distress_factor", 0.75),
+            )
+            metrics["informal_sector_statistical_divergence_score"] = _isd_res_e["informal_sector_statistical_divergence_score"]
+
+            _pll_res_e = PBOCLGFVLiquidityTrapTensor.evaluate(
+                delta_net_new_loans=det_meta.get("delta_net_new_loans", -0.15),
+                lgfv_debt_service=det_meta.get("lgfv_debt_service", 0.85),
+                municipal_land_revenues=det_meta.get("municipal_land_revenues", 0.30),
+                bond_hoarding_ratio=det_meta.get("bond_hoarding_ratio", 0.75),
+            )
+            metrics["pboc_lgfv_liquidity_trap_score"] = _pll_res_e["pboc_lgfv_liquidity_trap_score"]
+
+            _imc_res_e = InstitutionalMonopolyCartelCrossShareholdingSieve.evaluate(
+                shareholding_overlap_index=det_meta.get("shareholding_overlap_index", 0.75),
+                institutional_holdings_top3=det_meta.get("institutional_holdings_top3", 0.45),
+                total_free_float=det_meta.get("total_free_float", 0.60),
+                aladdin_risk_weight=det_meta.get("aladdin_risk_weight", 0.85),
+            )
+            metrics["institutional_cartel_cross_shareholding_score"] = _imc_res_e["institutional_cartel_cross_shareholding_score"]
+
+            _msm_res_e = MSMEFormalizationSolvencyAsphyxiationTensor.evaluate(
+                working_capital_cycle_days=det_meta.get("working_capital_cycle_days", 120.0),
+                liquid_cash_runway_days=det_meta.get("liquid_cash_runway_days", 30.0),
+                compliance_friction_factor=det_meta.get("compliance_friction_factor", 0.35),
+                promoter_decoupling_ratio=det_meta.get("promoter_decoupling_ratio", 0.20),
+            )
+            metrics["msme_solvency_asphyxiation_score"] = _msm_res_e["msme_solvency_asphyxiation_score"]
     
             if claims:
                 banking_npa_claims = [
@@ -6247,6 +6338,45 @@ class CashFlowLens:
             credit_basis_spread_expansion=cf_meta.get("credit_basis_spread_expansion", 0.55),
         )
         metrics["gpu_debt_collateral_contagion_score"] = _gdc_res["gpu_debt_collateral_contagion_score"]
+
+        # Phase 396: Informal Sector Statistical Divergence Tensor
+        _isd_res = InformalSectorStatisticalDivergenceTensor.evaluate(
+            gdp_reported=cf_meta.get("gdp_reported", 0.082),
+            corporate_index=cf_meta.get("corporate_index", 0.120),
+            unorganized_wage_index=cf_meta.get("unorganized_wage_index", 0.015),
+            alpha=cf_meta.get("informal_alpha", 0.45),
+            unsecured_consumer_debt=cf_meta.get("unsecured_consumer_debt", 0.28),
+            net_household_savings=cf_meta.get("net_household_savings", 0.052),
+            informal_distress_factor=cf_meta.get("informal_distress_factor", 0.75),
+        )
+        metrics["informal_sector_statistical_divergence_score"] = _isd_res["informal_sector_statistical_divergence_score"]
+
+        # Phase 397: PBOC LGFV Municipal Debt & Deflationary Trap Tensor
+        _pll_res = PBOCLGFVLiquidityTrapTensor.evaluate(
+            delta_net_new_loans=cf_meta.get("delta_net_new_loans", -0.15),
+            lgfv_debt_service=cf_meta.get("lgfv_debt_service", 0.85),
+            municipal_land_revenues=cf_meta.get("municipal_land_revenues", 0.30),
+            bond_hoarding_ratio=cf_meta.get("bond_hoarding_ratio", 0.75),
+        )
+        metrics["pboc_lgfv_liquidity_trap_score"] = _pll_res["pboc_lgfv_liquidity_trap_score"]
+
+        # Phase 401: Institutional Monopoly Cartel & Cross-Shareholding Sieve
+        _imc_res = InstitutionalMonopolyCartelCrossShareholdingSieve.evaluate(
+            shareholding_overlap_index=cf_meta.get("shareholding_overlap_index", 0.75),
+            institutional_holdings_top3=cf_meta.get("institutional_holdings_top3", 0.45),
+            total_free_float=cf_meta.get("total_free_float", 0.60),
+            aladdin_risk_weight=cf_meta.get("aladdin_risk_weight", 0.85),
+        )
+        metrics["institutional_cartel_cross_shareholding_score"] = _imc_res["institutional_cartel_cross_shareholding_score"]
+
+        # Phase 402: MSME Formalization & Solvency Asphyxiation Tensor
+        _msm_res = MSMEFormalizationSolvencyAsphyxiationTensor.evaluate(
+            working_capital_cycle_days=cf_meta.get("working_capital_cycle_days", 120.0),
+            liquid_cash_runway_days=cf_meta.get("liquid_cash_runway_days", 30.0),
+            compliance_friction_factor=cf_meta.get("compliance_friction_factor", 0.35),
+            promoter_decoupling_ratio=cf_meta.get("promoter_decoupling_ratio", 0.20),
+        )
+        metrics["msme_solvency_asphyxiation_score"] = _msm_res["msme_solvency_asphyxiation_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -7419,6 +7549,257 @@ class GPUCollateralizedPrivateDebtContagionTensor:
         }
 
 
+# ============================================================================
+# Phase 396: Informal Sector Statistical Divergence Tensor
+# ============================================================================
+
+class InformalSectorStatisticalDivergenceTensor:
+    """
+    Phase 396: Formulates Prof. Arun Kumar's informal economy accounting forensics:
+    Detects divergence between official headline GDP (formal corporate proxy) and the unorganized sector,
+    inverting headline growth when rural informal wages and household financial savings indicate net capital destruction.
+    Formula:
+        Delta_Informal = gdp_reported - (alpha * corporate_index + (1 - alpha) * unorganized_wage_index)
+        HouseholdStressIndex = Norm((unsecured_consumer_debt / max(net_household_savings, 0.01)) * informal_distress_factor)
+        score = Sigmoid(3.2 * HouseholdStressIndex + 2.8 * Norm(Delta_Informal) - 0.5)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        gdp_reported: float = 0.082,
+        corporate_index: float = 0.120,
+        unorganized_wage_index: float = 0.015,
+        alpha: float = 0.45,
+        unsecured_consumer_debt: float = 0.28,
+        net_household_savings: float = 0.052,
+        informal_distress_factor: float = 0.75
+    ) -> Dict[str, Any]:
+        gdp_rep = float(gdp_reported)
+        corp_idx = float(corporate_index)
+        unorg_wage = float(unorganized_wage_index)
+        a_weight = float(max(0.0, min(1.0, alpha)))
+        debt_cons = float(max(0.0, unsecured_consumer_debt))
+        savings_hh = float(max(0.005, net_household_savings))
+        distress_f = float(max(0.0, min(1.0, informal_distress_factor)))
+
+        delta_informal = gdp_rep - (a_weight * corp_idx + (1.0 - a_weight) * unorg_wage)
+        norm_delta = min(1.0, max(0.0, delta_informal * 10.0))
+
+        debt_savings_ratio = debt_cons / savings_hh
+        household_stress = min(1.0, max(0.0, (debt_savings_ratio / 6.0) * distress_f))
+
+        z = 3.2 * household_stress + 2.8 * norm_delta - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_INFORMAL_ECONOMY_CONTRACTION"
+            verdict = "INVERT_HEADLINE_GDP_ACCOUNTING_EXPAND_UNORGANIZED_SAFETY_NET"
+            rationale = (
+                f"Severe informal divergence ({score:.4f}): Headline GDP ({gdp_rep*100:.1f}%) masked by formal corporate index ({corp_idx*100:.1f}%) "
+                f"while unorganized wages ({unorg_wage*100:.1f}%) and household savings ({savings_hh*100:.1f}%) signal net capital depletion."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_DUAL_ECONOMY_STRESS"
+            verdict = "TARGET_RURAL_CASH_LIQUIDITY_AND_CREDIT_EASING"
+            rationale = f"Elevated informal stress ({score:.4f}): Divergence gap ({delta_informal:.4f}) indicates uneven recovery."
+        else:
+            tier = "ORGANIC_BALANCED_ECONOMIC_EXPANSION"
+            verdict = "HEADLINE_GDP_CORROBORATED_BY_INFORMAL_WAGE_GROWTH"
+            rationale = f"Low divergence ({score:.4f}): Robust household savings buffer ({savings_hh*100:.1f}%) confirms broad-based solvency."
+
+        return {
+            "informal_sector_statistical_divergence_score": score,
+            "gdp_divergence_gap": round(delta_informal, 4),
+            "household_stress_index": round(household_stress, 4),
+            "unsecured_consumer_debt": round(debt_cons, 4),
+            "net_household_savings": round(savings_hh, 4),
+            "informal_distress_factor": round(distress_f, 4),
+            "divergence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_divergence_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 397: PBOC LGFV Municipal Debt & Deflationary Trap Tensor
+# ============================================================================
+
+class PBOCLGFVLiquidityTrapTensor:
+    """
+    Phase 397: Formulates mercantilist balance-sheet contraction and municipal debt traps:
+    Measures central bank credit contraction (negative net new loan growth) driven by LGFV land-sale
+    collateral collapse ($9T overhang), triggering industrial dumping abroad and domestic capital flight.
+    Formula:
+        DeflationTrapScore = Norm(-Delta_NetNewLoans + LGFVDebtService / max(MunicipalLandRevenues, 0.05) + BondHoardingRatio)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        delta_net_new_loans: float = -0.15,
+        lgfv_debt_service: float = 0.85,
+        municipal_land_revenues: float = 0.30,
+        bond_hoarding_ratio: float = 0.75
+    ) -> Dict[str, Any]:
+        d_loans = float(delta_net_new_loans)
+        d_service = float(max(0.0, lgfv_debt_service))
+        m_rev = float(max(0.05, municipal_land_revenues))
+        b_hoard = float(max(0.0, min(1.0, bond_hoarding_ratio)))
+
+        credit_contraction = min(1.0, max(0.0, -d_loans if d_loans < 0 else 0.0))
+        debt_to_land_ratio = d_service / m_rev
+        norm_debt_land = min(1.0, max(0.0, debt_to_land_ratio / 3.0))
+
+        z = 3.0 * credit_contraction + 2.8 * norm_debt_land + 2.4 * b_hoard - 1.0
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_LGFV_DEFLATIONARY_LIQUIDITY_TRAP"
+            verdict = "ANTICIPATE_MERCHANTILIST_EXPORT_DUMPING_AND_CAPITAL_FLIGHT"
+            rationale = (
+                f"Severe liquidity trap ({score:.4f}): Negative net new loan growth ({d_loans:.2f}) and municipal debt service "
+                f"({d_service:.2f}) overwhelming collapsed land sales ({m_rev:.2f}). Sovereign bonds hoarded ({b_hoard:.2f}) over productive CapEx."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_BALANCE_SHEET_CONTRACTION"
+            verdict = "MONITOR_PBOC_STIMULUS_TRANSMISSION_AND_YIELD_CURVE_CONTROL"
+            rationale = f"Moderate deflationary pressure ({score:.4f}): LGFV debt overhang requires central balance sheet absorption."
+        else:
+            tier = "SOLVENT_CREDIT_EXPANSION_REGIME"
+            verdict = "MUNICIPAL_REVENUES_SUPPORT_DEBT_AMORTIZATION"
+            rationale = f"Low risk ({score:.4f}): Positive credit issuance and adequate municipal fiscal buffers."
+
+        return {
+            "pboc_lgfv_liquidity_trap_score": score,
+            "credit_contraction_index": round(credit_contraction, 4),
+            "municipal_debt_land_ratio": round(debt_to_land_ratio, 4),
+            "bond_hoarding_ratio": round(b_hoard, 4),
+            "liquidity_trap_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_liquidity_trap_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 401: Institutional Monopoly Cartel & Cross-Shareholding Sieve
+# ============================================================================
+
+class InstitutionalMonopolyCartelCrossShareholdingSieve:
+    """
+    Phase 401: Formulates the Big Three asset managers (BlackRock, Vanguard, State Street)
+    common ownership index (COI) and the Aladdin algorithmic liquidity coordination engine ($21T),
+    identifying artificial corporate competition and automated fire-sale selloff contagion.
+    Formula:
+        COI = sum(s_i * s_j * Overlap_ij)
+        AladdinCapitalFlightVulnerability = Norm((Top3InstitutionalHoldings / max(FreeFloat, 0.05)) * AladdinRiskWeight)
+        score = Sigmoid(3.2 * COI + 3.0 * AladdinCapitalFlightVulnerability - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        shareholding_overlap_index: float = 0.75,
+        institutional_holdings_top3: float = 0.45,
+        total_free_float: float = 0.60,
+        aladdin_risk_weight: float = 0.85
+    ) -> Dict[str, Any]:
+        coi = float(max(0.0, min(1.0, shareholding_overlap_index)))
+        top3 = float(max(0.0, min(1.0, institutional_holdings_top3)))
+        float_ratio = float(max(0.05, min(1.0, total_free_float)))
+        a_weight = float(max(0.0, min(1.0, aladdin_risk_weight)))
+
+        aladdin_flight_vuln = min(1.0, max(0.0, (top3 / float_ratio) * a_weight))
+
+        z = 3.2 * coi + 3.0 * aladdin_flight_vuln - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_INSTITUTIONAL_CARTEL_COMMON_OWNERSHIP"
+            verdict = "ENFORCE_CROSS_SHAREHOLDING_ANTITRUST_DISCLOSURE_AND_ALADDIN_INSULATION"
+            rationale = (
+                f"Severe cartel concentration ({score:.4f}): High common ownership ({coi:.2f}) and Top-3 institutional cap-table dominance "
+                f"({top3*100:.1f}%) expose strategic sectors to coordinated algorithmic liquidity flight ({aladdin_flight_vuln:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_INSTITUTIONAL_OVERLAP"
+            verdict = "AUDIT_PROXY_VOTING_INDEPENDENCE_ACROSS_DEFENSE_AND_PHARMA"
+            rationale = f"Moderate common ownership ({score:.4f}): Board voting patterns warrant competition commission scrutiny."
+        else:
+            tier = "DECENTRALIZED_EQUITY_OWNERSHIP_STRUCTURE"
+            verdict = "GENUINE_MARKET_COMPETITION_VERIFIED"
+            rationale = f"Low cartel risk ({score:.4f}): Fragmented institutional shareholding ensures independent corporate governance."
+
+        return {
+            "institutional_cartel_cross_shareholding_score": score,
+            "common_ownership_index": round(coi, 4),
+            "aladdin_capital_flight_vulnerability": round(aladdin_flight_vuln, 4),
+            "institutional_holdings_top3": round(top3, 4),
+            "cartel_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cartel_risk_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 402: MSME Formalization & Solvency Asphyxiation Tensor
+# ============================================================================
+
+class MSMEFormalizationSolvencyAsphyxiationTensor:
+    """
+    Phase 402: Formulates working capital asphyxiation during rapid tax and digital formalization:
+    Models enterprise mortality rates among unorganized MSMEs transitioning to GST, e-invoicing,
+    and formal banking lines when working capital cycles outstrip cash runway.
+    Formula:
+        SolvencyStressIndex = Norm((WorkingCapitalCycleDays / max(LiquidCashRunwayDays, 1.0)) * (1 + ComplianceFrictionFactor) - PromoterDecouplingRatio)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        working_capital_cycle_days: float = 120.0,
+        liquid_cash_runway_days: float = 30.0,
+        compliance_friction_factor: float = 0.35,
+        promoter_decoupling_ratio: float = 0.20
+    ) -> Dict[str, Any]:
+        wc_days = float(max(1.0, working_capital_cycle_days))
+        runway_days = float(max(1.0, liquid_cash_runway_days))
+        comp_f = float(max(0.0, min(1.0, compliance_friction_factor)))
+        p_decouple = float(max(0.0, min(1.0, promoter_decoupling_ratio)))
+
+        wc_ratio = wc_days / runway_days
+        stress_term = (wc_ratio / 6.0) * (1.0 + comp_f) - (p_decouple * 0.5)
+        z = 2.8 * stress_term - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_MSME_SOLVENCY_ASPHYXIATION"
+            verdict = "DEPLOY_TReDS_INVOICE_DISCOUNTING_AND_WORKING_CAPITAL_INJECTION"
+            rationale = (
+                f"Severe MSME mortality risk ({score:.4f}): Working capital cycle ({wc_days:.0f} days) severely exceeds liquid cash runway "
+                f"({runway_days:.0f} days) under formalization drag ({comp_f:.2f}). High supply chain consolidation into conglomerates imminent."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_TRANSITIONAL_CASH_CRUNCH"
+            verdict = "EXPAND_GST_INVOICE_BASED_AUTOMATED_CREDIT_LINES"
+            rationale = f"Elevated liquidity stress ({score:.4f}): MSMEs require structured factoring support during compliance transition."
+        else:
+            tier = "RESILIENT_FORMALIZED_WORKING_CAPITAL"
+            verdict = "MSME_BALANCE_SHEET_DECOUPLED_AND_SOLVENT"
+            rationale = f"Low risk ({score:.4f}): Healthy cash runway and promoter decoupling ({p_decouple:.2f}) assure operational continuity."
+
+        return {
+            "msme_solvency_asphyxiation_score": score,
+            "working_capital_cycle_days": round(wc_days, 2),
+            "liquid_cash_runway_days": round(runway_days, 2),
+            "compliance_friction_factor": round(comp_f, 4),
+            "promoter_decoupling_ratio": round(p_decouple, 4),
+            "asphyxiation_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_asphyxiation_critical": score >= 0.70,
+        }
+
+
 ```
 
 
@@ -7838,6 +8219,14 @@ class CivilizationalLens:
             algorithmic_cultural_sanitization=civ_meta.get("algorithmic_cultural_sanitization", 0.60),
         )
         metrics["generative_media_compute_hegemony_score"] = _gch_res["generative_media_compute_hegemony_score"]
+
+        # Phase 415: Civilizational Epistemic Historiography Decolonization Sieve
+        _ceh_res = CivilizationalEpistemicHistoriographyDecolonizationSieve.evaluate(
+            primary_epigraphic_archaeological_citations=civ_meta.get("primary_epigraphic_archaeological_citations", 0.85),
+            secondary_ideological_narrative_claims=civ_meta.get("secondary_ideological_narrative_claims", 0.25),
+            textual_sanskrit_provenance_weight=civ_meta.get("textual_sanskrit_provenance_weight", 0.90),
+        )
+        metrics["civilizational_epistemic_historiography_score"] = _ceh_res["civilizational_epistemic_historiography_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -9645,6 +10034,65 @@ class GenerativeMediaComputeHegemonySieve:
         }
 
 
+# ============================================================================
+# Phase 415: Civilizational Epistemic Historiography Decolonization Sieve
+# ============================================================================
+
+class CivilizationalEpistemicHistoriographyDecolonizationSieve:
+    """
+    Phase 415: Mathematically audits historical and cultural assertions:
+    Cross-references primary epigraphic inscriptions, carbon dating, and Sanskrit grammatical provenance
+    against colonial and secondary ideological textbook distortions to defend civilizational jurisprudence.
+    Formula:
+        EpistemicVeracityIndex = Norm((PrimaryEpigraphicArchaeologicalCitations / max(SecondaryIdeologicalNarrativeClaims, 0.10)) * TextualSanskritProvenanceWeight)
+        score = Sigmoid(2.6 * (EpistemicRatio / 3.0) + 2.8 * TextualSanskritProvenanceWeight - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        primary_epigraphic_archaeological_citations: float = 0.85,
+        secondary_ideological_narrative_claims: float = 0.25,
+        textual_sanskrit_provenance_weight: float = 0.90
+    ) -> Dict[str, Any]:
+        epig = float(max(0.0, min(1.0, primary_epigraphic_archaeological_citations)))
+        narrative = float(max(0.05, secondary_ideological_narrative_claims))
+        sanskrit = float(max(0.0, min(1.0, textual_sanskrit_provenance_weight)))
+
+        epistemic_ratio = min(3.0, epig / narrative)
+        norm_ratio = epistemic_ratio / 3.0
+
+        z = 2.6 * norm_ratio + 2.8 * sanskrit - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "AUTHENTICATED_PRIMARY_CIVILIZATIONAL_EPISTEME"
+            verdict = "INSCRIPTIONAL_AND_TEXTUAL_PROVENANCE_IRREFUTABLE"
+            rationale = (
+                f"Irrefutable primary veracity ({score:.4f}): Epigraphic/archaeological grounding ({epig:.2f} vs {narrative:.2f} ideological narrative) "
+                f"and rigorous Sanskrit philological fidelity ({sanskrit:.2f}) decisively dismantle colonial and Marxist historiographical distortions."
+            )
+        elif score >= 0.50:
+            tier = "CONTESTED_HISTORIOGRAPHICAL_PARITY"
+            verdict = "EXPAND_PRIMARY_EPIGRAPHIC_EXCAVATION_AND_CARBON_DATING"
+            rationale = f"Contested narrative ({score:.4f}): Primary evidence presents strong counter-balance but requires broader archaeological excavation."
+        else:
+            tier = "IDEOLOGICALLY_COLONIZED_HISTORIOGRAPHY"
+            verdict = "SUBJECT_TO_DECOLONIAL_TEXTUAL_AND_ARCHAEOLOGICAL_AUDIT"
+            rationale = f"Severe ideological distortion ({score:.4f}): Secondary narratives dominate without primary epigraphic provenance."
+
+        return {
+            "civilizational_epistemic_historiography_score": score,
+            "epigraphic_to_secondary_ratio": round(epistemic_ratio, 4),
+            "primary_epigraphic_citations": round(epig, 4),
+            "secondary_narrative_claims": round(narrative, 4),
+            "textual_sanskrit_provenance_weight": round(sanskrit, 4),
+            "historiography_decolonization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_epistemic_veracity_certified": score >= 0.75,
+        }
+
+
 ```
 
 
@@ -9662,6 +10110,7 @@ battery metal processing (Lithium, Nickel, Cobalt), and physical transit chokepo
 (Malacca, Hormuz, Bab-el-Mandeb, Taiwan Strait).
 """
 
+import math
 from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, StrategicEvent
 
@@ -9730,6 +10179,16 @@ class CriticalMineralsLens:
             alternative_supplier_count=max(1, int(metrics.get("alternative_supplier_count", 1))),
         )
         metrics.update(_mineral_result)
+
+        # Phase 409: Wire CriticalMineralSupplyChainWeaponizationTensor
+        cm_meta = getattr(event, "metadata", {}) if event and hasattr(event, "metadata") else {}
+        _cmw_res = CriticalMineralSupplyChainWeaponizationTensor.evaluate(
+            mineral_weights=cm_meta.get("mineral_weights"),
+            import_dependencies=cm_meta.get("import_dependencies"),
+            refining_concentrations=cm_meta.get("refining_concentrations"),
+            domestic_stockpile_months=cm_meta.get("domestic_stockpile_months", 3.0),
+        )
+        metrics["critical_mineral_weaponization_score"] = _cmw_res["critical_mineral_weaponization_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -9840,6 +10299,78 @@ class CriticalMineralsRefiningCrisisSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_midstream_captive": is_captive
+        }
+
+
+# ============================================================================
+# Phase 409: Critical Mineral Supply Chain Weaponization Tensor
+# ============================================================================
+
+class CriticalMineralSupplyChainWeaponizationTensor:
+    """
+    Phase 409: Computes supply chain decapitation exposure for critical elements
+    (Gallium, Germanium, Neodymium, Dysprosium, Lithium), auditing exposure to Chinese export embargoes
+    and domestic processing alternatives.
+    Formula:
+        MineralChokepointVulnerability = sum(w_m * ImportDependency_m * ForeignRefiningConcentration_m) * (1 - DomesticStockpileMonths / 12)
+        score = Sigmoid(3.5 * MineralChokepointVulnerability - 1.0)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        mineral_weights: Optional[Dict[str, float]] = None,
+        import_dependencies: Optional[Dict[str, float]] = None,
+        refining_concentrations: Optional[Dict[str, float]] = None,
+        domestic_stockpile_months: float = 3.0
+    ) -> Dict[str, Any]:
+        default_weights = {"gallium": 0.25, "germanium": 0.20, "neodymium": 0.30, "lithium": 0.25}
+        default_deps = {"gallium": 0.95, "germanium": 0.90, "neodymium": 0.92, "lithium": 0.85}
+        default_refs = {"gallium": 0.98, "germanium": 0.85, "neodymium": 0.90, "lithium": 0.75}
+
+        weights = mineral_weights or default_weights
+        deps = import_dependencies or default_deps
+        refs = refining_concentrations or default_refs
+
+        total_weight = sum(weights.values()) or 1.0
+        chokepoint_sum = 0.0
+        for m, w in weights.items():
+            norm_w = w / total_weight
+            imp = float(max(0.0, min(1.0, deps.get(m, 0.85))))
+            ref = float(max(0.0, min(1.0, refs.get(m, 0.85))))
+            chokepoint_sum += norm_w * imp * ref
+
+        stockpile_m = float(max(0.0, domestic_stockpile_months))
+        stockpile_mitigation = min(1.0, max(0.0, stockpile_m / 12.0))
+        net_vulnerability = chokepoint_sum * (1.0 - stockpile_mitigation)
+
+        z = 3.5 * net_vulnerability - 1.0
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_MINERAL_SUPPLY_CHAIN_DECAPITATION_RISK"
+            verdict = "ENACT_STRATEGIC_MINERAL_RESERVE_RELEASE_AND_FRIENDSHORING"
+            rationale = (
+                f"Severe mineral weaponization vulnerability ({score:.4f}): Chokepoint exposure ({chokepoint_sum:.2f}) "
+                f"with only {stockpile_m:.1f} months domestic stockpile leaves semiconductor and defense production exposed to export bans."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_REFINING_CHOKEPOINT_DRAG"
+            verdict = "ACCELERATE_DOMESTIC_PROCESSING_PLANTS_AND_BILATERAL_OFFTAKES"
+            rationale = f"Elevated chokepoint drag ({score:.4f}): Single-source refining dominance poses continuous procurement friction."
+        else:
+            tier = "FORTIFIED_MINERAL_SOVEREIGNTY"
+            verdict = "DIVERSIFIED_SUPPLY_CHAINS_AND_ADEQUATE_STOCKPILES_VERIFIED"
+            rationale = f"Low risk ({score:.4f}): Robust stockpiles ({stockpile_m:.1f} mos) and diversified refining partners."
+
+        return {
+            "critical_mineral_weaponization_score": score,
+            "aggregate_chokepoint_exposure": round(chokepoint_sum, 4),
+            "net_vulnerability": round(net_vulnerability, 4),
+            "domestic_stockpile_months": round(stockpile_m, 2),
+            "mineral_weaponization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_mineral_supply_chain_severed": score >= 0.70,
         }
 
 ```
@@ -10349,6 +10880,15 @@ class DeepTechLens:
             open_bmc_airgap_coverage=deep_meta.get("open_bmc_airgap_coverage", 0.55),
         )
         metrics["remote_silicon_microcode_killswitch_score"] = _rsm_res["remote_silicon_microcode_killswitch_score"]
+
+        # Phase 406: Quantum Harvest-Now-Decrypt-Later (HNDL) Vulnerability Sieve
+        _qhn_res = QuantumHarvestNowDecryptLaterVulnerabilitySieve.evaluate(
+            data_shelf_life_years=deep_meta.get("data_shelf_life_years", 25.0),
+            estimated_q_day_years=deep_meta.get("estimated_q_day_years", 8.0),
+            pqc_migration_progress=deep_meta.get("pqc_migration_progress", 0.25),
+            critical_scada_quantum_risk=deep_meta.get("critical_scada_quantum_risk", 0.70),
+        )
+        metrics["quantum_hndl_vulnerability_score"] = _qhn_res["quantum_hndl_vulnerability_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -11164,6 +11704,66 @@ class RemoteSiliconMicrocodeKillSwitchSieve:
         }
 
 
+# ============================================================================
+# Phase 406: Quantum Harvest-Now-Decrypt-Later (HNDL) Vulnerability Sieve
+# ============================================================================
+
+class QuantumHarvestNowDecryptLaterVulnerabilitySieve:
+    """
+    Phase 406: Evaluates foreign signals intelligence (NSA, MSS) "Harvest Now, Decrypt Later"
+    espionage against sovereign communications, financial ledgers, and critical SCADA networks,
+    auditing migration velocity to NIST post-quantum cryptography (ML-KEM, ML-DSA) and satellite QKD.
+    Formula:
+        QuantumExposureScore = Norm((DataShelfLifeYears / max(EstimatedQDayYears, 1)) * (1 - PQCMigrationProgress) + CriticalSCADAQuantumRisk)
+        score = Sigmoid(2.4 * QuantumExposureScore + 2.5 * CriticalSCADAQuantumRisk - 1.5)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        data_shelf_life_years: float = 25.0,
+        estimated_q_day_years: float = 8.0,
+        pqc_migration_progress: float = 0.25,
+        critical_scada_quantum_risk: float = 0.70
+    ) -> Dict[str, Any]:
+        shelf_life = float(max(1.0, data_shelf_life_years))
+        q_day = float(max(1.0, estimated_q_day_years))
+        pqc_prog = float(max(0.0, min(1.0, pqc_migration_progress)))
+        scada_risk = float(max(0.0, min(1.0, critical_scada_quantum_risk)))
+
+        q_ratio = min(3.0, shelf_life / q_day)
+        exposure_term = q_ratio * (1.0 - pqc_prog)
+        z = 2.4 * exposure_term + 2.5 * scada_risk - 1.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_QUANTUM_HNDL_EXPOSURE"
+            verdict = "MANDATE_IMMEDIATE_PQC_LATTICE_MIGRATION_AND_QKD_BACKBONE"
+            rationale = (
+                f"Severe quantum vulnerability ({score:.4f}): Data shelf-life ({shelf_life:.0f} yrs) extends far beyond estimated "
+                f"Q-Day ({q_day:.0f} yrs) with only {pqc_prog*100:.1f}% PQC migration. Stored encrypted traffic faces retrospective decryption."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_POST_QUANTUM_TRANSITION_RISK"
+            verdict = "ACCELERATE_CENTRAL_BANK_AND_DEFENSE_LATTICE_STANDARDS"
+            rationale = f"Elevated exposure ({score:.4f}): Financial and SCADA networks require accelerated cryptographic agility."
+        else:
+            tier = "QUANTUM_RESILIENT_SOVEREIGN_CRYPTOGRAPHY"
+            verdict = "PQC_STANDARDS_ACTIVE_AND_QKD_LINKS_FORTIFIED"
+            rationale = f"Low risk ({score:.4f}): High PQC migration ({pqc_prog*100:.1f}%) and low SCADA exposure insulate sovereign assets."
+
+        return {
+            "quantum_hndl_vulnerability_score": score,
+            "data_shelf_life_years": round(shelf_life, 2),
+            "estimated_q_day_years": round(q_day, 2),
+            "pqc_migration_progress": round(pqc_prog, 4),
+            "critical_scada_quantum_risk": round(scada_risk, 4),
+            "quantum_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_quantum_exposure_critical": score >= 0.70,
+        }
+
+
 ```
 
 
@@ -11717,6 +12317,14 @@ class DigitalSovereigntyLens:
             automated_failover_redundancy_depth=cd_params.get("automated_failover_redundancy_depth", 0.50),
         )
         metrics["legacy_infrastructure_obsolescence_score"] = _lio_res["legacy_infrastructure_obsolescence_score"]
+
+        # Phase 400: Sovereign Platform Regulatory Defiance Sieve
+        _prd_res = SovereignPlatformRegulatoryDefianceSieve.evaluate(
+            takedown_demands_statutory=cd_params.get("takedown_demands_statutory", 1000),
+            takedowns_executed=cd_params.get("takedowns_executed", 450),
+            ad_revenue_exposure=cd_params.get("ad_revenue_exposure", 0.80),
+        )
+        metrics["sovereign_platform_regulatory_defiance_score"] = _prd_res["sovereign_platform_regulatory_defiance_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -12571,6 +13179,65 @@ class LegacyInfrastructureObsolescenceSieve:
             "is_legacy_obsolescence_critical": score >= 0.70,
         }
 
+
+# ============================================================================
+# Phase 400: Sovereign Platform Regulatory Defiance Sieve
+# ============================================================================
+
+class SovereignPlatformRegulatoryDefianceSieve:
+    """
+    Phase 400: Measures Big Tech extraterritorial platform defiance under IT Act Section 69A,
+    calculating statutory safe-harbor forfeiture risk and sovereign financial penalty leverage.
+    Formula:
+        PlatformDefianceIndex = (TakedownDemandsStatutory - TakedownsExecuted) / max(TakedownDemandsStatutory, 1) * AdRevenueExposure
+        score = Sigmoid(3.6 * PlatformDefianceIndex + 2.5 * AdRevenueExposure - 1.5)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        takedown_demands_statutory: int = 1000,
+        takedowns_executed: int = 450,
+        ad_revenue_exposure: float = 0.80
+    ) -> Dict[str, Any]:
+        demands = max(1, int(takedown_demands_statutory))
+        executed = max(0, min(demands, int(takedowns_executed)))
+        ad_exp = float(max(0.0, min(1.0, ad_revenue_exposure)))
+
+        defiance_rate = (demands - executed) / float(demands)
+        defiance_index = defiance_rate * ad_exp
+
+        z = 3.6 * defiance_index + 2.5 * ad_exp - 1.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_PLATFORM_REGULATORY_DEFIANCE"
+            verdict = "REVOKE_SECTION_79_SAFE_HARBOR_AND_FREEZE_AD_REVENUES"
+            rationale = (
+                f"Severe platform defiance ({score:.4f}): Defiance rate ({defiance_rate*100:.1f}%, {demands-executed}/{demands} orders defied) "
+                f"paired with high domestic ad revenue exposure ({ad_exp*100:.1f}%) warrants immediate intermediary safe-harbor forfeiture."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_COMPLIANCE_FRICTION"
+            verdict = "ISSUE_STATUTORY_SHOW_CAUSE_NOTICE_WITH_DAILY_PENALTY"
+            rationale = f"Elevated defiance ({score:.4f}): Compliance latency requires statutory enforcement escalation."
+        else:
+            tier = "STATUTORY_SOVEREIGN_COMPLIANCE_VERIFIED"
+            verdict = "INTERMEDIARY_SAFE_HARBOR_INTACT"
+            rationale = f"Low defiance risk ({score:.4f}): Platform executes valid sovereign legal directives ({executed}/{demands})."
+
+        return {
+            "sovereign_platform_regulatory_defiance_score": score,
+            "platform_defiance_rate": round(defiance_rate, 4),
+            "platform_defiance_index": round(defiance_index, 4),
+            "ad_revenue_exposure": round(ad_exp, 4),
+            "takedown_demands_statutory": demands,
+            "takedowns_executed": executed,
+            "platform_defiance_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_safe_harbor_forfeiture_triggered": score >= 0.70,
+        }
+
 ```
 
 
@@ -12909,6 +13576,15 @@ class FoodSecurityLens:
             groundwater_table_depletion=soil_params.get("groundwater_table_depletion", 0.55),
         )
         metrics.update(_soil_res)
+
+        # Phase 410: Wire AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve
+        _aff_res = AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve.evaluate(
+            fertilizer_import_cost_spike=food_meta.get("fertilizer_import_cost_spike", 0.85),
+            agricultural_subsidy_budget_drag=food_meta.get("agricultural_subsidy_budget_drag", 0.75),
+            strategic_grain_reserve_months=food_meta.get("strategic_grain_reserve_months", 4.5),
+            calorie_inflation_index=food_meta.get("calorie_inflation_index", 0.65),
+        )
+        metrics["agrochemical_food_weaponization_score"] = _aff_res["agrochemical_food_weaponization_score"]
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -13178,6 +13854,66 @@ class BiosphereThermodynamicSoilResilienceSieve:
             "soil_resilience_tier": tier,
             "soil_resilience_verdict": verdict,
             "is_soil_resilience_adequate": score >= 0.55,
+        }
+
+
+# ============================================================================
+# Phase 410: Agrochemical Fertilizer & Food Security Weaponization Sieve
+# ============================================================================
+
+class AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve:
+    """
+    Phase 410: Models sovereign vulnerability to fertilizer feedstock cartels (Russia, China, Morocco)
+    and natural gas price spikes, evaluating buffer-stock resilience against engineered calorie inflation and rural distress.
+    Formula:
+        FoodSovereigntyStressScore = Norm((FertilizerImportCostSpike / max(AgriculturalSubsidyBudget, 0.1)) + (1 - StrategicGrainReserveMonths / 6) + CalorieInflationIndex)
+        score = Sigmoid(2.8 * CostDrag + 2.4 * (1 - ReserveBuffer) + 2.2 * CalorieInflationIndex - 1.5)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        fertilizer_import_cost_spike: float = 0.85,
+        agricultural_subsidy_budget_drag: float = 0.75,
+        strategic_grain_reserve_months: float = 4.5,
+        calorie_inflation_index: float = 0.65
+    ) -> Dict[str, Any]:
+        fert_spike = float(max(0.0, min(1.0, fertilizer_import_cost_spike)))
+        sub_drag = float(max(0.0, min(1.0, agricultural_subsidy_budget_drag)))
+        reserve_m = float(max(0.0, strategic_grain_reserve_months))
+        cal_inf = float(max(0.0, min(1.0, calorie_inflation_index)))
+
+        cost_drag = fert_spike * sub_drag
+        reserve_buffer = min(1.0, max(0.0, reserve_m / 6.0))
+
+        z = 2.8 * cost_drag + 2.4 * (1.0 - reserve_buffer) + 2.2 * cal_inf - 1.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_AGROCHEMICAL_FOOD_SOVEREIGNTY_CRISIS"
+            verdict = "ACTIVATE_STRATEGIC_GRAIN_BUFFER_AND_MANDATE_DOMESTIC_NANO_UREA"
+            rationale = (
+                f"Severe food security weaponization risk ({score:.4f}): Fertilizer import price spikes ({fert_spike:.2f}) "
+                f"balloon agricultural subsidies ({sub_drag:.2f}) while calorie inflation ({cal_inf:.2f}) stresses rural purchasing power. Grain reserves ({reserve_m:.1f} mos) require defensive conservation."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_INPUT_COST_SUBSIDY_STRAIN"
+            verdict = "NEGOTIATE_LONG_TERM_POTASH_PHOSPHATE_GOVERNMENT_OFFTAKES"
+            rationale = f"Elevated subsidy pressure ({score:.4f}): Feedstock volatility requires bilateral multi-year import quotas."
+        else:
+            tier = "FORTIFIED_CALORIC_SOVEREIGNTY"
+            verdict = "GRAIN_RESERVES_ADEQUATE_AND_INPUT_SUPPLY_INSULATED"
+            rationale = f"Low risk ({score:.4f}): High buffer reserves ({reserve_m:.1f} mos) and manageable calorie inflation."
+
+        return {
+            "agrochemical_food_weaponization_score": score,
+            "fertilizer_import_cost_spike": round(fert_spike, 4),
+            "agricultural_subsidy_budget_drag": round(sub_drag, 4),
+            "strategic_grain_reserve_months": round(reserve_m, 2),
+            "calorie_inflation_index": round(cal_inf, 4),
+            "food_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_food_security_weaponized": score >= 0.70,
         }
 
 ```
@@ -13485,6 +14221,15 @@ class GeoEconomistLens:
             logistics_cost_gdp_drag=geo_econ_meta.get("logistics_cost_gdp_drag", 0.35),
         )
         metrics["physical_capex_tangible_multiplier_score"] = _pct_res["physical_capex_tangible_multiplier_score"]
+
+        # Phase 411: Aviation Sixth-Freedom Transit Slot Cartel Sieve
+        _ats_res = AviationTransitSlotCartelSieve.evaluate(
+            sixth_freedom_passengers_foreign=geo_econ_meta.get("sixth_freedom_passengers_foreign", 0.72),
+            total_intercontinental_passengers=geo_econ_meta.get("total_intercontinental_passengers", 1.0),
+            bilateral_seat_imbalance_ratio=geo_econ_meta.get("bilateral_seat_imbalance_ratio", 1.65),
+            domestic_hub_transit_capacity_share=geo_econ_meta.get("domestic_hub_transit_capacity_share", 0.35),
+        )
+        metrics["aviation_transit_slot_cartel_score"] = _ats_res["aviation_transit_slot_cartel_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -14524,6 +15269,65 @@ class PhysicalCapExTangibleMultiplierSieve:
             "is_physical_capex_decisive": score >= 0.70,
         }
 
+
+# ============================================================================
+# Phase 411: Aviation Sixth-Freedom Transit Slot Cartel Sieve
+# ============================================================================
+
+class AviationTransitSlotCartelSieve:
+    """
+    Phase 411: Quantifies sovereign economic leakage in international civil aviation:
+    Audits Gulf carrier cartel extraction of 70%+ long-haul traffic via Sixth-Freedom rights,
+    bilateral air services agreements (ASAs), and slot imbalances against domestic mega-hubs (CSMIA/NMIAL/IGI).
+    Formula:
+        AviationLeakageIndex = Norm((SixthFreedomPassengersForeign / max(TotalIntercontinentalPassengers, 0.1)) * BilateralSeatImbalanceRatio - DomesticHubTransitCapacityShare)
+        score = Sigmoid(2.8 * (AviationLeakageIndex / 2.0) - 2.5 * DomesticHubTransitCapacityShare - 0.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        sixth_freedom_passengers_foreign: float = 0.72,
+        total_intercontinental_passengers: float = 1.0,
+        bilateral_seat_imbalance_ratio: float = 1.65,
+        domestic_hub_transit_capacity_share: float = 0.35
+    ) -> Dict[str, Any]:
+        sixth_pax = float(max(0.0, sixth_freedom_passengers_foreign))
+        total_pax = float(max(0.1, total_intercontinental_passengers))
+        seat_imbalance = float(max(0.5, bilateral_seat_imbalance_ratio))
+        hub_share = float(max(0.0, min(1.0, domestic_hub_transit_capacity_share)))
+
+        capture_ratio = min(2.0, sixth_pax / total_pax)
+        leakage_term = capture_ratio * seat_imbalance
+        z = 2.8 * (leakage_term / 2.0) - 2.5 * hub_share - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_SIXTH_FREEDOM_CAPITAL_LEAKAGE"
+            verdict = "CAP_FOREIGN_BILATERAL_SEAT_QUOTAS_AND_REALLOCATE_DOMESTIC_MEGA_SLOTS"
+            rationale = (
+                f"Severe aviation leakage ({score:.4f}): Foreign Sixth-Freedom airlines extract {capture_ratio*100:.1f}% "
+                f"of intercontinental passengers under a {seat_imbalance:.2f}x seat imbalance, draining billions in yield from domestic carriers."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_INTERCONTINENTAL_TRANSIT_DEFICIT"
+            verdict = "ACCELERATE_DUAL_AIRPORT_EXPANSION_AT_NMIAL_AND_JEWAR"
+            rationale = f"Moderate aviation deficit ({score:.4f}): Expanding domestic hub capacity ({hub_share*100:.1f}%) required to retain traffic."
+        else:
+            tier = "SOVEREIGN_AVIATION_HUB_DOMINANCE"
+            verdict = "DIRECT_NONSTOP_FLIGHT_CAPTURE_AND_DOMESTIC_TRANSIT_PARITY"
+            rationale = f"Low risk ({score:.4f}): High domestic hub share ({hub_share*100:.1f}%) and balanced bilateral capacity."
+
+        return {
+            "aviation_transit_slot_cartel_score": score,
+            "sixth_freedom_capture_ratio": round(capture_ratio, 4),
+            "bilateral_seat_imbalance_ratio": round(seat_imbalance, 4),
+            "domestic_hub_transit_capacity_share": round(hub_share, 4),
+            "aviation_cartel_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_aviation_leakage_critical": score >= 0.70,
+        }
+
 ```
 
 
@@ -14776,6 +15580,14 @@ class GeopoliticalLens:
             adversary_power_index=geo_meta.get("adversary_power_index", 0.70),
         )
         metrics["kautilya_saptanga_score"] = _kms_res["kautilya_saptanga_score"]
+
+        # Phase 405: Trilateral Superpower Condominium Exclusion Tensor
+        _tsc_res = TrilateralSuperpowerCondominiumExclusionTensor.evaluate(
+            bilateral_trade_diversification=geo_meta.get("bilateral_trade_diversification", 0.80),
+            alternative_corridor_throughput=geo_meta.get("alternative_corridor_throughput", 0.75),
+            sovereign_veto_capacity=geo_meta.get("sovereign_veto_capacity", 0.85),
+        )
+        metrics["trilateral_superpower_condominium_exclusion_score"] = _tsc_res["trilateral_superpower_condominium_exclusion_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -15266,6 +16078,60 @@ class KautilyaMandalaShadgunyaSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_state_resilient": saptanga_score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 405: Trilateral Superpower Condominium Exclusion Tensor
+# ============================================================================
+
+class TrilateralSuperpowerCondominiumExclusionTensor:
+    """
+    Phase 405: Evaluates Bharat's capability to resist and shatter great-power condominiums (Yalta 2.0 / G2 / G3)
+    by mobilizing the Global South, bilateral energy hedging, and independent transcontinental transit corridors (IMEC/INSTC).
+    Formula:
+        CondominiumResistanceScore = Norm(BilateralTradeDiversification + AlternativeCorridorThroughput + SovereignVetoCapacity)
+        score = Sigmoid(2.8 * BilateralTradeDiversification + 2.6 * AlternativeCorridorThroughput + 2.5 * SovereignVetoCapacity - 2.8)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        bilateral_trade_diversification: float = 0.80,
+        alternative_corridor_throughput: float = 0.75,
+        sovereign_veto_capacity: float = 0.85
+    ) -> Dict[str, Any]:
+        b_div = float(max(0.0, min(1.0, bilateral_trade_diversification)))
+        a_corr = float(max(0.0, min(1.0, alternative_corridor_throughput)))
+        s_veto = float(max(0.0, min(1.0, sovereign_veto_capacity)))
+
+        z = 2.8 * b_div + 2.6 * a_corr + 2.5 * s_veto - 2.8
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_CONDOMINIUM_RESISTANCE_SOVEREIGNTY"
+            verdict = "MULTIPOLAR_AUTONOMY_MAINTAINED_SUPERPOWER_CARVE_UP_SHATTERED"
+            rationale = (
+                f"Decisive condominium resistance ({score:.4f}): Trade diversification ({b_div:.2f}) and transcontinental corridor "
+                f"throughput ({a_corr:.2f}, IMEC/INSTC) coupled with sovereign veto power ({s_veto:.2f}) prevent tripolar partitioning of regional influence."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_STRATEGIC_BALANCING"
+            verdict = "ACCELERATE_BILATERAL_SWAPS_AND_CORRIDOR_FINANCING"
+            rationale = f"Moderate resistance ({score:.4f}): Grand-power collusion pressures regional autonomy."
+        else:
+            tier = "VULNERABLE_TO_SUPERPOWER_PARTITION"
+            verdict = "COALITION_ALIGNMENT_REQUIRED_TO_AVOID_HEGEMONIC_EXCLUSION"
+            rationale = f"High vulnerability ({score:.4f}): Lacks independent transit leverage to break superpower condominium."
+
+        return {
+            "trilateral_superpower_condominium_exclusion_score": score,
+            "bilateral_trade_diversification": round(b_div, 4),
+            "alternative_corridor_throughput": round(a_corr, 4),
+            "sovereign_veto_capacity": round(s_veto, 4),
+            "condominium_resistance_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_condominium_resisted": score >= 0.70,
         }
 
 ```
@@ -16448,6 +17314,23 @@ class HybridCovertLens:
         )
         metrics["transnational_semiconductor_kompromat_score"] = _tsk_res["transnational_semiconductor_kompromat_score"]
 
+        # Phase 404: Border-State Narco-Fiscal Subversion Sieve
+        _bsn_res = BorderStateNarcoFiscalSubversionSieve.evaluate(
+            state_debt_to_gsdp=hc_meta.get("state_debt_to_gsdp", 0.48),
+            populist_freebie_ratio=hc_meta.get("populist_freebie_ratio", 0.35),
+            drone_narco_infiltration_frequency=hc_meta.get("drone_narco_infiltration_frequency", 0.80),
+        )
+        metrics["border_state_narco_fiscal_subversion_score"] = _bsn_res["border_state_narco_fiscal_subversion_score"]
+
+        # Phase 413: Asymmetric Sub-Tactical Honeytrap & Espionage Sieve
+        _ash_res = AsymmetricSubTacticalHoneytrapEspionageSieve.evaluate(
+            unscreened_smartphone_density=hc_meta.get("unscreened_smartphone_density", 0.75),
+            classified_zone_volume=hc_meta.get("classified_zone_volume", 0.80),
+            social_media_honeytrap_exposure_factor=hc_meta.get("social_media_honeytrap_exposure_factor", 0.85),
+            lifestyle_debt_discrepancy=hc_meta.get("lifestyle_debt_discrepancy", 0.70),
+        )
+        metrics["sub_tactical_honeytrap_espionage_score"] = _ash_res["sub_tactical_honeytrap_espionage_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -17620,6 +18503,120 @@ class TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve:
         }
 
 
+# ============================================================================
+# Phase 404: Border-State Narco-Fiscal Subversion Sieve
+# ============================================================================
+
+class BorderStateNarcoFiscalSubversionSieve:
+    """
+    Phase 404: Models the asymmetric intersection of state-level fiscal bankruptcy (debt-to-GSDP > 45%),
+    populist freebies, and weaponized cross-border narcotics/drone trafficking in frontline border states.
+    Formula:
+        BorderSubversionIndex = Norm((StateDebt / GSDP) * PopulistFreebieRatio + DroneNarcoInfiltrationFrequency)
+        score = Sigmoid(3.2 * BorderSubversionIndex - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        state_debt_to_gsdp: float = 0.48,
+        populist_freebie_ratio: float = 0.35,
+        drone_narco_infiltration_frequency: float = 0.80
+    ) -> Dict[str, Any]:
+        debt_ratio = float(max(0.0, state_debt_to_gsdp))
+        freebie_ratio = float(max(0.0, min(1.0, populist_freebie_ratio)))
+        drone_infil = float(max(0.0, min(1.0, drone_narco_infiltration_frequency)))
+
+        debt_factor = min(1.0, max(0.0, (debt_ratio - 0.20) / 0.30))
+        raw_index = debt_factor * freebie_ratio + drone_infil
+
+        z = 3.2 * raw_index - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_BORDER_STATE_NARCO_FISCAL_PARALYSIS"
+            verdict = "ENACT_FEDERAL_FINANCIAL_EMERGENCY_AND_AIR_DEFENSE_DRONE_GRID"
+            rationale = (
+                f"Severe border subversion ({score:.4f}): Frontline state debt ({debt_ratio*100:.1f}% GSDP) and populist drain "
+                f"({freebie_ratio*100:.1f}%) paralyze law enforcement while weaponized drone narco-trafficking ({drone_infil:.2f}) funds hostile cartels."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_BORDER_SECURITY_FRICTION"
+            verdict = "DEPLOY_BSF_ANTI_DRONE_SYSTEMS_AND_AUDIT_STATE_CONTINGENCY_FUNDS"
+            rationale = f"Elevated narco-fiscal vulnerability ({score:.4f}): Border surveillance requires federal fiscal backstops."
+        else:
+            tier = "SECURE_BORDER_STATE_EQUILIBRIUM"
+            verdict = "BORDER_CORRIDORS_HARDENED_AND_FISCAL_PRUDENCE_MAINTAINED"
+            rationale = f"Low risk ({score:.4f}): Sustainable debt ratio ({debt_ratio*100:.1f}%) and effective anti-drone interdiction."
+
+        return {
+            "border_state_narco_fiscal_subversion_score": score,
+            "state_debt_to_gsdp": round(debt_ratio, 4),
+            "populist_freebie_ratio": round(freebie_ratio, 4),
+            "drone_narco_infiltration_frequency": round(drone_infil, 4),
+            "narco_fiscal_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_border_subversion_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 413: Asymmetric Sub-Tactical Honeytrap & Espionage Sieve
+# ============================================================================
+
+class AsymmetricSubTacticalHoneytrapEspionageSieve:
+    """
+    Phase 413: Models Chanakyan Kamopadha targeting defense technical personnel:
+    Calculates the probability of technical drawing and telemetry leaks (e.g. BrahMos/IAF avionics)
+    via digital social engineering, lifestyle debt discrepancies, and unscreened personal smartphone proliferation.
+    Formula:
+        PersonnelVulnerabilityScore = Norm((UnscreenedSmartphones / max(ClassifiedZoneVolume, 0.1)) * HoneytrapExposure + LifestyleDebtDiscrepancy)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        unscreened_smartphone_density: float = 0.75,
+        classified_zone_volume: float = 0.80,
+        social_media_honeytrap_exposure_factor: float = 0.85,
+        lifestyle_debt_discrepancy: float = 0.70
+    ) -> Dict[str, Any]:
+        phone_dens = float(max(0.0, unscreened_smartphone_density))
+        zone_vol = float(max(0.10, classified_zone_volume))
+        honey_exp = float(max(0.0, min(1.0, social_media_honeytrap_exposure_factor)))
+        debt_disc = float(max(0.0, min(1.0, lifestyle_debt_discrepancy)))
+
+        device_risk = min(2.0, phone_dens / zone_vol)
+        z = 2.8 * device_risk * honey_exp + 2.4 * debt_disc - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_HUMINT_KAMOPADHA_COMPROMISE"
+            verdict = "ENFORCE_AIR_GAPPED_DEVICE_DENIAL_AND_COUNTER_INTELLIGENCE_LIFESTYLE_AUDIT"
+            rationale = (
+                f"Severe personnel espionage risk ({score:.4f}): Unscreened devices ({phone_dens:.2f}) and social media vulnerability "
+                f"({honey_exp:.2f}) paired with unexplained lifestyle debt ({debt_disc:.2f}) indicate active hostile intelligence recruitment."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_SUB_TACTICAL_EXPOSURE"
+            verdict = "ROTATE_SENSITIVE_TECHNICAL_STAFF_AND_MANDATE_COUNTER_INTEL_BRIEFINGS"
+            rationale = f"Elevated exposure ({score:.4f}): Social media vectors require rigorous OPSEC monitoring."
+        else:
+            tier = "HARDENED_FACILITY_OPSEC"
+            verdict = "TECHNICAL_PERSONNEL_VETTING_SECURE"
+            rationale = f"Low risk ({score:.4f}): Strict physical airgapping and vetted clearance standards verified."
+
+        return {
+            "sub_tactical_honeytrap_espionage_score": score,
+            "smartphone_exposure_ratio": round(device_risk, 4),
+            "social_media_honeytrap_exposure_factor": round(honey_exp, 4),
+            "lifestyle_debt_discrepancy": round(debt_disc, 4),
+            "honeytrap_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_personnel_espionage_risk_critical": score >= 0.70,
+        }
+
+
 ```
 
 
@@ -18220,6 +19217,15 @@ class InstitutionalLawfareLens:
             substantiated_evidence_ratio=law_meta.get("substantiated_evidence_ratio", 0.80),
         )
         metrics["perjury_risk_and_retributive_liability_score"] = _prr_res["perjury_risk_and_retributive_liability_score"]
+
+        # Phase 408: Cultural & Religious Grayzone Lawfare Sieve
+        _crg_res = CulturalReligiousGrayzoneLawfareSieve.evaluate(
+            contested_land_area_near_defense_acres=law_meta.get("contested_land_area_near_defense_acres", 450.0),
+            buffer_zone_km=law_meta.get("buffer_zone_km", 5.0),
+            statutory_exemption_factor=law_meta.get("statutory_exemption_factor", 0.85),
+            dark_money_trust_inflow=law_meta.get("dark_money_trust_inflow", 0.75),
+        )
+        metrics["cultural_religious_grayzone_lawfare_score"] = _crg_res["cultural_religious_grayzone_lawfare_score"]
 
         return LensEvaluation(
 
@@ -19839,6 +20845,67 @@ class PerjuryRiskAndRetributiveLiabilitySieve:
             "is_perjury_liability_high": score >= 0.65,
         }
 
+
+# ============================================================================
+# Phase 408: Cultural & Religious Grayzone Lawfare Sieve
+# ============================================================================
+
+class CulturalReligiousGrayzoneLawfareSieve:
+    """
+    Phase 408: Audits asymmetric civilizational and statutory grayzone lawfare:
+    Measures non-judicial statutory property exemptions (e.g. Waqf Act Section 40) in proximity
+    to strategic defense corridors (Siliguri, cantonments, railheads), cross-referenced with offshore trust dark money flows.
+    Formula:
+        GrayzoneVulnerabilityIndex = Norm((ContestedLandAreaNearDefense / max(BufferZoneKm * 50, 1)) * StatutoryExemptionFactor + DarkMoneyTrustInflow)
+        score = Sigmoid(2.8 * ContestationDensity * StatutoryExemption + 2.5 * DarkMoneyTrustInflow - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        contested_land_area_near_defense_acres: float = 450.0,
+        buffer_zone_km: float = 5.0,
+        statutory_exemption_factor: float = 0.85,
+        dark_money_trust_inflow: float = 0.75
+    ) -> Dict[str, Any]:
+        land_acres = float(max(0.0, contested_land_area_near_defense_acres))
+        buffer_km = float(max(0.5, buffer_zone_km))
+        stat_exempt = float(max(0.0, min(1.0, statutory_exemption_factor)))
+        dark_money = float(max(0.0, min(1.0, dark_money_trust_inflow)))
+
+        density = min(2.5, land_acres / (buffer_km * 50.0))
+        z = 2.8 * density * stat_exempt + 2.5 * dark_money - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_STRATEGIC_DEFENSE_CORRIDOR_GRAYZONE_ENCROACHMENT"
+            verdict = "AMEND_STATUTORY_EXEMPTIONS_AND_EXERCISE_SOVEREIGN_EMINENT_DOMAIN"
+            rationale = (
+                f"Severe grayzone lawfare risk ({score:.4f}): Contested property claims ({land_acres:.0f} acres) within "
+                f"{buffer_km:.1f}km military buffer zone backed by non-judicial statutory exemptions ({stat_exempt:.2f}) "
+                f"and foreign trust funding ({dark_money:.2f}) threaten strategic choke point security (e.g. Siliguri Corridor)."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_MUNICIPAL_PROPERTY_CONTESTATION"
+            verdict = "MANDATE_CIVIL_COURT_JURISDICTION_AND_SATELLITE_CADASTRAL_SURVEY"
+            rationale = f"Elevated grayzone contestation ({score:.4f}): Non-judicial tribunal claims require judicial oversight."
+        else:
+            tier = "SECURE_SOVEREIGN_PROPERTY_TITLING"
+            verdict = "DEFENSE_CORRIDOR_TITLES_INSULATED_FROM_ASYMMETRIC_CLAIMS"
+            rationale = f"Low risk ({score:.4f}): Clear cadastral boundary titling and negligible dark money inflows."
+
+        return {
+            "cultural_religious_grayzone_lawfare_score": score,
+            "defense_buffer_contestation_density": round(density, 4),
+            "contested_land_area_near_defense_acres": round(land_acres, 2),
+            "buffer_zone_km": round(buffer_km, 2),
+            "statutory_exemption_factor": round(stat_exempt, 4),
+            "dark_money_trust_inflow": round(dark_money, 4),
+            "grayzone_lawfare_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_defense_corridor_threatened": score >= 0.70,
+        }
+
 ```
 
 
@@ -20095,6 +21162,16 @@ class KinesicsLens:
         )
         metrics["kinesic_contextual_baseline_drift_score"] = _kbd_res["kinesic_contextual_baseline_drift_score"]
 
+        # Phase 407: Diplomatic Non-Verbal Optics & Attire Forensics Sieve
+        _dnv_res = DiplomaticNonVerbalOpticsAndAttireForensicsSieve.evaluate(
+            attire_symbolism_weight=k_meta.get("attire_symbolism_weight", 0.80),
+            seating_distance_meters=k_meta.get("seating_distance_meters", 1.2),
+            baseline_distance_meters=k_meta.get("baseline_distance_meters", 1.8),
+            handshake_latency_norm=k_meta.get("handshake_latency_norm", 0.85),
+            linguistic_tone_drift=k_meta.get("linguistic_tone_drift", 0.40),
+        )
+        metrics["diplomatic_nonverbal_optics_score"] = _dnv_res["diplomatic_nonverbal_optics_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=round((avg_warmth * 2.0) - 1.0, 2), # Map 0..1 to -1..1
@@ -20266,6 +21343,67 @@ class KinesicContextualBaselineDriftSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_anomalous_drift_detected": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 407: Diplomatic Non-Verbal Optics & Attire Forensics Sieve
+# ============================================================================
+
+class DiplomaticNonVerbalOpticsAndAttireForensicsSieve:
+    """
+    Phase 407: Decodes non-verbal statecraft optics at high-stakes bilateral summits:
+    Attire posture (indigenous civilizational attire asserting parity vs tactical fatigue extracting concessions
+    vs dark Western suits maintaining status-quo), physical seating proximity, handshake latency, and micro-linguistic drift.
+    Formula:
+        OpticsDivergenceIndex = Norm(AttireSymbolismWeight + SeatingDistance / BaselineDistance + (1 - HandshakeLatencyNorm) + LinguisticToneDrift)
+        score = Sigmoid(2.5 * AttireSymbolism - 2.0 * (SeatingDistance / Baseline) + 2.2 * (1 - HandshakeLatency) - 1.8 * LinguisticToneDrift)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        attire_symbolism_weight: float = 0.80,
+        seating_distance_meters: float = 1.2,
+        baseline_distance_meters: float = 1.8,
+        handshake_latency_norm: float = 0.85,
+        linguistic_tone_drift: float = 0.40
+    ) -> Dict[str, Any]:
+        attire_w = float(max(0.0, min(1.0, attire_symbolism_weight)))
+        seat_dist = float(max(0.5, seating_distance_meters))
+        base_dist = float(max(0.5, baseline_distance_meters))
+        handshake = float(max(0.0, min(1.0, handshake_latency_norm)))
+        tone_drift = float(max(0.0, min(1.0, linguistic_tone_drift)))
+
+        dist_ratio = seat_dist / base_dist
+        z = 2.5 * attire_w - 2.0 * dist_ratio + 2.2 * (1.0 - handshake) - 1.8 * tone_drift
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.65:
+            tier = "ASSERTIVE_SOVEREIGN_CIVILIZATIONAL_OPTICS"
+            verdict = "EQUAL_DIPLOMATIC_FOOTING_ASSERTED_SUBORDINATION_REJECTED"
+            rationale = (
+                f"Assertive sovereign optics ({score:.4f}): Indigenous attire symbolism ({attire_w:.2f}) and proximate seating "
+                f"({dist_ratio:.2f}x baseline) communicate confident civilizational parity over choreographed Western hegemony."
+            )
+        elif score >= 0.40:
+            tier = "FORMAL_TRANSACTIONAL_EQUILIBRIUM"
+            verdict = "STATUS_QUO_DIPLOMATIC_CHOREOGRAPHY_MAINTAINED"
+            rationale = f"Transactional equilibrium ({score:.4f}): Seating distance and handshake latency conform to standard bilateral protocol."
+        else:
+            tier = "SUBORDINATED_OR_CONCESSIONARY_POSTURE"
+            verdict = "TACTICAL_CONCESSION_INDICATED_BY_OPTICS_DRIFT"
+            rationale = f"Concessionary posture ({score:.4f}): Distance elongation and tone drift signal diplomatic leverage deficit."
+
+        return {
+            "diplomatic_nonverbal_optics_score": score,
+            "attire_symbolism_weight": round(attire_w, 4),
+            "seating_distance_ratio": round(dist_ratio, 4),
+            "handshake_latency_norm": round(handshake, 4),
+            "linguistic_tone_drift": round(tone_drift, 4),
+            "optics_divergence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_sovereign_optics_asserted": score >= 0.65,
         }
 
 ```
@@ -20794,6 +21932,51 @@ class MilitaryReadinessLens:
             theater_ground_surrender_velocity=mil_meta.get("theater_ground_surrender_velocity", 0.85),
         )
         metrics["superpower_naval_coercion_brinkmanship_score"] = _snc_res["superpower_naval_coercion_brinkmanship_score"]
+
+        # Phase 398: Asymmetric Air-Defense Cost-Exchange Tensor
+        _aad_res = AsymmetricAirDefenseCostExchangeTensor.evaluate(
+            interceptor_cost_usd=mil_meta.get("interceptor_cost_usd", 3_500_000.0),
+            threat_cost_usd=mil_meta.get("threat_cost_usd", 2_000.0),
+            inventory_interceptors=mil_meta.get("inventory_interceptors", 120),
+            swarm_rate_per_day=mil_meta.get("swarm_rate_per_day", 15.0),
+            p_kill=mil_meta.get("air_defense_p_kill", 0.85),
+        )
+        metrics["asymmetric_air_defense_cost_exchange_score"] = _aad_res["asymmetric_air_defense_cost_exchange_score"]
+
+        # Phase 399: Hypersonic Non-Keplerian Glide Trajectory Sieve
+        _hyp_res = HypersonicNonKeplerianGlideTrajectorySieve.evaluate(
+            base_radar_tracking=mil_meta.get("base_radar_tracking", 0.85),
+            mach_number=mil_meta.get("hypersonic_mach_number", 12.0),
+            atmospheric_g_turn_rate=mil_meta.get("atmospheric_g_turn_rate", 15.0),
+            lambda_param=mil_meta.get("hypersonic_lambda_param", 0.015),
+        )
+        metrics["hypersonic_glide_penetration_score"] = _hyp_res["hypersonic_glide_penetration_score"]
+
+        # Phase 403: Nuclear Launch-Under-Attack Latency Sieve
+        _nuc_res = NuclearLaunchUnderAttackLatencySieve.evaluate(
+            decision_window_minutes=mil_meta.get("decision_window_minutes", 15.0),
+            hypersonic_flight_time_minutes=mil_meta.get("hypersonic_flight_time_minutes", 6.0),
+            verification_latency_minutes=mil_meta.get("verification_latency_minutes", 12.0),
+        )
+        metrics["nuclear_launch_under_attack_latency_score"] = _nuc_res["nuclear_launch_under_attack_latency_score"]
+
+        # Phase 412: Airborne Command Decapitation Immunity Sieve
+        _air_res = AirborneCommandDecapitationImmunitySieve.evaluate(
+            laircm_missile_defeat_prob=mil_meta.get("laircm_missile_defeat_prob", 0.90),
+            ew_jamming_coverage=mil_meta.get("ew_jamming_coverage", 0.85),
+            encrypted_satcom_redundancy=mil_meta.get("encrypted_satcom_redundancy", 0.88),
+            flight_path_transit_vulnerability=mil_meta.get("flight_path_transit_vulnerability", 0.25),
+        )
+        metrics["airborne_command_survivability_score"] = _air_res["airborne_command_survivability_score"]
+
+        # Phase 414: Naval Electronic Warfare Suppression Tensor
+        _new_res = NavalElectronicWarfareSuppressionTensor.evaluate(
+            standoff_jamming_power_density=mil_meta.get("standoff_jamming_power_density", 0.85),
+            target_eccm_capability=mil_meta.get("target_eccm_capability", 0.40),
+            radar_blind_ratio=mil_meta.get("radar_blind_ratio", 0.80),
+            propulsion_telemetry_disruption_factor=mil_meta.get("propulsion_telemetry_disruption_factor", 0.70),
+        )
+        metrics["naval_electronic_warfare_suppression_score"] = _new_res["naval_electronic_warfare_suppression_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -21415,6 +22598,296 @@ class SuperpowerNavalCoercionBrinkmanshipSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_naval_coercion_neutralized": score < 0.45,
+        }
+
+
+# ============================================================================
+# Phase 398: Asymmetric Air-Defense Cost-Exchange Tensor
+# ============================================================================
+
+class AsymmetricAirDefenseCostExchangeTensor:
+    """
+    Phase 398: Formulates the 1,750:1 cost-exchange death spiral of firing $3.5M Patriot interceptors
+    against $2,000 asymmetric drones, auditing magazine depletion and budget exhaustion.
+    Formula:
+        CER = InterceptorCost / max(ThreatCost, 1.0)
+        MagazineDepletionTime = InventoryInterceptors / max(SwarmRate * (1 - P_kill), 0.01)
+        score = min(1.0, max(0.0, 0.55 * Norm(log10(CER)) + 0.45 * (1 - MagazineDepletionTime / 60.0)))
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        interceptor_cost_usd: float = 3_500_000.0,
+        threat_cost_usd: float = 2_000.0,
+        inventory_interceptors: int = 120,
+        swarm_rate_per_day: float = 15.0,
+        p_kill: float = 0.85
+    ) -> Dict[str, Any]:
+        c_int = float(max(1000.0, interceptor_cost_usd))
+        c_thr = float(max(10.0, threat_cost_usd))
+        inv = int(max(1, inventory_interceptors))
+        swarm = float(max(0.1, swarm_rate_per_day))
+        pk = float(max(0.05, min(1.0, p_kill)))
+
+        cer = c_int / c_thr
+        cer_log = min(1.0, max(0.0, math.log10(max(1.0, cer)) / 4.0))
+
+        leakers = swarm * (1.0 - pk + 0.10)
+        depletion_days = inv / max(leakers, 0.01)
+        depletion_risk = min(1.0, max(0.0, 1.0 - (depletion_days / 60.0)))
+
+        score = round(min(1.0, max(0.0, 0.55 * cer_log + 0.45 * depletion_risk)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_ASYMMETRIC_AIR_DEFENSE_EXHAUSTION"
+            verdict = "TACTICAL_RETREAT_OR_DIRECTED_ENERGY_CWIS_PIVOT_MANDATORY"
+            rationale = (
+                f"Severe cost-exchange collapse ({score:.4f}): Interceptor-to-threat ratio is {cer:.0f}:1 "
+                f"(${c_int/1e6:.2f}M vs ${c_thr:.0f}). High-end magazine depletes in ~{depletion_days:.1f} days under swarm attrition."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_MAGAZINE_ATTRITION"
+            verdict = "CONSERVE_TIER1_INTERCEPTORS_DEPLOY_INDIGENOUS_SHORAD"
+            rationale = f"Elevated exchange drag ({score:.4f}): Firing doctrine requires short-range layered integration."
+        else:
+            tier = "SUSTAINABLE_ASYMMETRIC_AIR_DEFENSE"
+            verdict = "COST_EXCHANGE_RATIO_FAVORABLE_AND_MAGAZINE_DEEP"
+            rationale = f"Low risk ({score:.4f}): Deep reserves ({inv} units) and balanced cost metrics."
+
+        return {
+            "asymmetric_air_defense_cost_exchange_score": score,
+            "cost_exchange_ratio": round(cer, 2),
+            "magazine_depletion_days": round(depletion_days, 2),
+            "cer_log_exhaustion": round(cer_log, 4),
+            "air_defense_exhaustion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cost_exchange_exhaustion_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 399: Hypersonic Non-Keplerian Glide Trajectory Sieve
+# ============================================================================
+
+class HypersonicNonKeplerianGlideTrajectorySieve:
+    """
+    Phase 399: Formulates hypersonic scramjet glide vehicles (Mach 7–20) executing non-Keplerian
+    atmospheric skip-glide maneuvers that mathematically invalidate conventional ABM radar predictive interception.
+    Formula:
+        InterceptionProbability = BaseRadarTracking * exp(-lambda * MachNumber * AtmosphericGTurnRate)
+        score = 1.0 - InterceptionProbability (Penetration Score)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        base_radar_tracking: float = 0.85,
+        mach_number: float = 12.0,
+        atmospheric_g_turn_rate: float = 15.0,
+        lambda_param: float = 0.015
+    ) -> Dict[str, Any]:
+        base_track = float(max(0.0, min(1.0, base_radar_tracking)))
+        mach = float(max(1.0, mach_number))
+        g_turn = float(max(0.0, atmospheric_g_turn_rate))
+        lam = float(max(0.001, lambda_param))
+
+        exponent = -lam * mach * (g_turn / 10.0)
+        interception_prob = min(1.0, max(0.0, base_track * math.exp(exponent)))
+        penetration_score = round(1.0 - interception_prob, 4)
+
+        if penetration_score >= 0.75:
+            tier = "DECISIVE_HYPERSONIC_PENETRATION_SOVEREIGNTY"
+            verdict = "SECOND_STRIKE_PENETRATION_GUARANTEED_ABM_INVALIDATED"
+            rationale = (
+                f"Decisive hypersonic penetration ({penetration_score:.4f}): Non-Keplerian glide at Mach {mach:.1f} "
+                f"with {g_turn:.1f}G lateral maneuvers degrades tracking probability to {interception_prob*100:.1f}%."
+            )
+        elif penetration_score >= 0.50:
+            tier = "CONTESTED_ATMOSPHERIC_TERMINAL_GLIDE"
+            verdict = "TERMINAL_POINT_DEFENSE_REMAINS_PARTIALLY_EFFECTIVE"
+            rationale = f"Moderate penetration ({penetration_score:.4f}): Terminal trajectory partially predictable."
+        else:
+            tier = "PREDICTABLE_BALLISTIC_ARC"
+            verdict = "CONVENTIONAL_ABM_RADAR_CAN_INTERCEPT"
+            rationale = f"Low penetration ({penetration_score:.4f}): Trajectory follows conventional Keplerian physics."
+
+        return {
+            "hypersonic_glide_penetration_score": penetration_score,
+            "interception_probability": round(interception_prob, 4),
+            "mach_number": round(mach, 2),
+            "atmospheric_g_turn_rate": round(g_turn, 2),
+            "hypersonic_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_hypersonic_penetration_assured": penetration_score >= 0.75,
+        }
+
+
+# ============================================================================
+# Phase 403: Nuclear Launch-Under-Attack Latency Sieve
+# ============================================================================
+
+class NuclearLaunchUnderAttackLatencySieve:
+    """
+    Phase 403: Models Annie Jacobsen's 72-minute automated escalation loop and Launch-On-Warning (LOW) protocols:
+    Evaluates nuclear command survivability under compressed hypersonic flight times.
+    Formula:
+        DecapitationVulnerability = 1.0 - (DecisionWindowMinutes - HypersonicFlightTimeMinutes) / max(VerificationLatencyMinutes, 1.0)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        decision_window_minutes: float = 15.0,
+        hypersonic_flight_time_minutes: float = 6.0,
+        verification_latency_minutes: float = 12.0
+    ) -> Dict[str, Any]:
+        d_win = float(max(0.0, decision_window_minutes))
+        h_flight = float(max(0.0, hypersonic_flight_time_minutes))
+        v_lat = float(max(1.0, verification_latency_minutes))
+
+        effective_window = max(0.0, d_win - h_flight)
+        raw_decapitation = 1.0 - (effective_window / v_lat)
+        decapitation_score = round(min(1.0, max(0.0, raw_decapitation)), 4)
+
+        if decapitation_score >= 0.70:
+            tier = "CRITICAL_NUCLEAR_DECAPITATION_VULNERABILITY"
+            verdict = "ACTIVATE_PRE_DELEGATED_SURVIVABLE_SSBN_SECOND_STRIKE"
+            rationale = (
+                f"Severe command compression ({decapitation_score:.4f}): Hypersonic flight time ({h_flight:.1f} min) leaves "
+                f"only {effective_window:.1f} min decision window against {v_lat:.1f} min verification latency. Land-based command at acute risk."
+            )
+        elif decapitation_score >= 0.45:
+            tier = "ELEVATED_LAUNCH_ON_WARNING_PRESSURE"
+            verdict = "HARDEN_DUAL_CHANNEL_VLF_SATCOM_LINK_TO_STRATEGIC_FORCES"
+            rationale = f"Elevated latency pressure ({decapitation_score:.4f}): Verification must be automated."
+        else:
+            tier = "RESILIENT_SECOND_STRIKE_ASSURANCE"
+            verdict = "SUFFICIENT_DECISION_WINDOW_PREVENTS_FALSE_ALARM_ESCALATION"
+            rationale = f"Low risk ({decapitation_score:.4f}): Adequate warning margin ({effective_window:.1f} min) confirms strike telemetry."
+
+        return {
+            "nuclear_launch_under_attack_latency_score": decapitation_score,
+            "effective_decision_window_minutes": round(effective_window, 2),
+            "hypersonic_flight_time_minutes": round(h_flight, 2),
+            "verification_latency_minutes": round(v_lat, 2),
+            "decapitation_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_decapitation_risk_critical": decapitation_score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 412: Airborne Command Decapitation Immunity Sieve
+# ============================================================================
+
+class AirborneCommandDecapitationImmunitySieve:
+    """
+    Phase 412: Models VVIP airborne flying command bunker survivability (e.g. Air India One B777-300ER):
+    Evaluates Large Aircraft Infrared Countermeasures (LAIRCM), EW jamming arrays, Type-1 encrypted SATCOM,
+    and transit path vulnerability to ensure unbroken nuclear command links during flight.
+    Formula:
+        AirborneSurvivability = Sigmoid(3.0 * (LAIRCM * Jamming) + 2.5 * EncryptedSATCOM - 2.8 * TransitVulnerability - 0.4)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        laircm_missile_defeat_prob: float = 0.90,
+        ew_jamming_coverage: float = 0.85,
+        encrypted_satcom_redundancy: float = 0.88,
+        flight_path_transit_vulnerability: float = 0.25
+    ) -> Dict[str, Any]:
+        l_defeat = float(max(0.0, min(1.0, laircm_missile_defeat_prob)))
+        j_cov = float(max(0.0, min(1.0, ew_jamming_coverage)))
+        s_com = float(max(0.0, min(1.0, encrypted_satcom_redundancy)))
+        t_vuln = float(max(0.0, min(1.0, flight_path_transit_vulnerability)))
+
+        z = 3.0 * (l_defeat * j_cov) + 2.5 * s_com - 2.8 * t_vuln - 0.4
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "FORTIFIED_AIRBORNE_COMMAND_BUNKER"
+            verdict = "AIRBORNE_NUCLEAR_COMMAND_UNBROKEN_AND_SURVIVABLE"
+            rationale = (
+                f"Fortified airborne immunity ({score:.4f}): LAIRCM missile defense ({l_defeat:.2f}) and active EW "
+                f"({j_cov:.2f}) protect VVIP airframe, with redundant Type-1 encrypted SATCOM ({s_com:.2f}) assuring command continuity."
+            )
+        elif score >= 0.45:
+            tier = "ADEQUATE_DEFENSIVE_ESCORT_ENVELOPE"
+            verdict = "ENFORCE_CONTINUOUS_FIGHTER_COMBAT_AIR_PATROL_ESCORT"
+            rationale = f"Moderate survivability ({score:.4f}): Flight path vulnerability ({t_vuln:.2f}) warrants dedicated fighter CAP."
+        else:
+            tier = "VULNERABLE_AIRBORNE_TARGET"
+            verdict = "AVOID_CONTESTED_AIRSPACE_ROUTE_GROUND_COMMUNICATIONS"
+            rationale = f"High vulnerability ({score:.4f}): Transit route exposed to long-range adversary interceptors."
+
+        return {
+            "airborne_command_survivability_score": score,
+            "laircm_missile_defeat_prob": round(l_defeat, 4),
+            "ew_jamming_coverage": round(j_cov, 4),
+            "encrypted_satcom_redundancy": round(s_com, 4),
+            "flight_path_transit_vulnerability": round(t_vuln, 4),
+            "airborne_survivability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_airborne_command_immune": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 414: Naval Electronic Warfare Suppression Tensor
+# ============================================================================
+
+class NavalElectronicWarfareSuppressionTensor:
+    """
+    Phase 414: Models non-kinetic maritime electronic warfare disablement:
+    Evaluates high-power standoff radio frequency jamming and acoustic spoofing arrays on frontline
+    destroyers (INS Kolkata) inducing radar blindness and automated propulsion failures on adversary warships (PNS Hunain).
+    Formula:
+        NonKineticDisablement = Sigmoid(2.5 * Norm(JammingPower / max(TargetECCM, 0.05)) * RadarBlindRatio + 2.0 * PropulsionDisruption - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        standoff_jamming_power_density: float = 0.85,
+        target_eccm_capability: float = 0.40,
+        radar_blind_ratio: float = 0.80,
+        propulsion_telemetry_disruption_factor: float = 0.70
+    ) -> Dict[str, Any]:
+        j_power = float(max(0.0, standoff_jamming_power_density))
+        t_eccm = float(max(0.05, target_eccm_capability))
+        r_blind = float(max(0.0, min(1.0, radar_blind_ratio)))
+        p_disrupt = float(max(0.0, min(1.0, propulsion_telemetry_disruption_factor)))
+
+        power_ratio = min(2.5, j_power / t_eccm)
+        z = 2.5 * power_ratio * r_blind + 2.0 * p_disrupt - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_NON_KINETIC_NAVAL_DISABLEMENT"
+            verdict = "TARGET_RADARS_BLINDED_AND_PROPULSION_TELEMETRY_CORRUPTED"
+            rationale = (
+                f"Decisive non-kinetic disablement ({score:.4f}): Jamming-to-ECCM ratio ({power_ratio:.2f}) blinds adversary "
+                f"fire-control radars ({r_blind:.2f}) while acoustic/RF suppression disrupts automated propulsion systems without kinetic missile fire."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_SENSOR_DEGRADATION"
+            verdict = "FORCE_TARGET_INTO_FALLBACK_MANUAL_OPTICAL_TARGETING"
+            rationale = f"Moderate electronic suppression ({score:.4f}): Target search radar degraded, but terminal tracking active."
+        else:
+            tier = "INEFFECTIVE_ELECTRONIC_WARFARE"
+            verdict = "TARGET_ECCM_BURNS_THROUGH_JAMMING_ARRAY"
+            rationale = f"Low suppression ({score:.4f}): Target ECCM ({t_eccm:.2f}) defeats standoff jamming power."
+
+        return {
+            "naval_electronic_warfare_suppression_score": score,
+            "jamming_to_eccm_ratio": round(power_ratio, 4),
+            "radar_blind_ratio": round(r_blind, 4),
+            "propulsion_telemetry_disruption_factor": round(p_disrupt, 4),
+            "naval_ew_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_naval_disablement_decisive": score >= 0.70,
         }
 
 ```
@@ -23453,8 +24926,110 @@ class AbyssalHydrospatialSovereigntySieve:
 
 | Anniv ID | Date | Event Title | Region | Significance |
 | :--- | :--- | :--- | :--- | :--- |
+| CHRONO-5561BCE-OAK | -5561-10-16 | Nilesh Oak 5561 BCE Timeline (Arundhati-Vasistha Model) | Ancient Bharat | Benchmark astronomical retro-calculation hypothesis; subject to material culture collision with Mesolithic/early Neolithic lithic archaeological strata. |
+| CHRONO-3102BCE-ARYABHATA | -3102-02-18 | Traditional Aryabhata & Aihole Inscription 3102 BCE Kali Yuga Epoch | Ancient Bharat | Civilizational baseline anchor uniting Puranic dynastic chronologies with planetary mean-motion calculations. |
+| CHRONO-3067BCE-ACHAR | -3067-11-22 | Dr. Narahari Achar 3067 BCE Timeline (Saturn-Rohini BORI Model) | Ancient Bharat | Multi-pillar benchmark exhibiting low astronomical degeneracy and high congruence with Saraswati perennial flow and Early Bronze Age urban transitions. |
+| CHRONO-2500BCE-RAKHIGARHI | -2500-01-01 | Rakhigarhi Mature Harappan Paleogenomic Anchor | Ancient Bharat / Ghaggar-Hakra Basin | Crucial paleogenomic baseline establishing genetic continuity in South Asia and disproving catastrophic population replacement models. |
+| CHRONO-2000BCE-SINAULI | -2000-01-01 | Sinauli Bronze Age Necropolis (OCP / Copper Hoard Culture) | Ancient Bharat / Ganga-Yamuna Doab | Stratigraphical and material culture anchor establishing indigenous Bronze Age wheeled transport and warrior aristocracy in northern India; concordant with Rigveda 10.18 inhumation rites. |
+| CHRONO-1000BCE-PGW | -1000-01-01 | Archaeological Survey of India Painted Grey Ware (PGW) 1000 BCE Model | Ancient Bharat | Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE. |
+| ANNIV-0100-DEVALA-SMRITI-PURIFICATION-CODE | 100-01-01 | Devala Smriti Formalization of Shuddhi & Reconversion Protocols | Ancient Bharat | Dharmic legal flexibility: Proves Sanatan legal traditions historically accommodated proactive reintegration. |
+| ANNIV-0711-GUADALETE | 711-07-31 | Battle of Guadalete & Umayyad Crossing into Hispania | Europe / Iberia | Historical mirror for sudden maritime demographic and asymmetric crossings into southern Spain. |
+| ANNIV-0738-BATTLE-OF-RAJASTHAN-BAPPA-RAWAL | 738-08-15 | Battle of Rajasthan & Umayyad Caliphate Expulsion by Bappa Rawal | South Asia / Rajasthan / Chittorgarh | Civilizational defense baseline: Proof of indigenous military doctrine halting Arab expansion. |
+| ANNIV-1025-CHOLA-SRIVIJAYA | 1025-11-15 | Rajendra Chola I Srivijaya Maritime Expedition | Indian Ocean / Southeast Asia | Foundational anchor of Indian Ocean naval power and maritime trade dominance, currently mirrored in India's SAGAR and IMEC corridors. |
+| ANNIV-1026-SOMNATH | 1026-01-08 | Raid on Somnath & Millennial Arc Initiation | South Asia | Symbolic baseline of civilizational disruption, whose post-independence reconstruction by Sardar Patel marked the beginning of modern reclamation. |
+| ANNIV-1192-TARAIN | 1192-03-15 | Second Battle of Tarain | South Asia | Foundational inflection point representing sovereign internal fragmentation and loss of northern border defense. |
+| ANNIV-1193-NALANDA | 1193-05-20 | Destruction of Nalanda Mahavihara | South Asia | Civilizational epistemic rupture, whose 830-year recovery was formalized with the 2024 inauguration of the new Nalanda campus. |
+| ANNIV-1453-CONSTANTINOPLE | 1453-05-29 | Fall of Constantinople & Silk Road Closure | Eurasia | Global trade inflection point that triggered the Age of Discovery and the maritime colonization of Afro-Asian trade routes. |
+| ANNIV-1492-GRANADA | 1492-01-02 | Fall of Granada & Reconquista Completion | Europe / Iberia | Civilizational inflection point representing sovereign reclamation and demographic reversal. |
+| ANNIV-1674-CHHATRAPATI-SHIVAJI | 1674-06-06 | Coronation of Chhatrapati Shivaji Maharaj & Hindavi Swarajya | South Asia | Doctrinal baseline of asymmetric military resistance, naval fort fortification, and indigenous sovereign reclamation. |
+| HIST-1770-EIC-SALTPETRE-MONOPSONY | 1770-05-15 | British East India Company Saltpetre State Monopsony Accord | Bengal Presidency / Bihar | Archetypal colonial economic intervention dismantling indigenous artisan guilds through state monopsony pricing, establishing systemic impoverishment. |
+| ANNIV-1776-US-INDEPENDENCE-CYCLE | 1776-07-04 | American Declaration of Independence (250-Year Imperial Cycle Baseline) | Global / North America | Historical cyclicity baseline: Imperial hegemons reach critical civilizational, fiscal, and institutional turning points at the ~250-year mark. |
+| ANNIV-1858-TELEGRAPH-CABLE-RED-SEA-IMPERIAL-INFRASTRUCTURE | 1858-11-13 | British Red Sea Telegraph Cable — Colonial Undersea Infrastructure Doctrine | London / Aden / Bombay | Undersea cable as imperial infrastructure: Whoever controls landing stations and repair ships controls the information commons. Foundational mirror for Phase 206 SubseaCableSovereigntySieve. |
+| HIST-1871-CRIMINAL-TRIBES-ACT | 1871-10-12 | Enactment of Criminal Tribes Act (Act XXVII of 1871) | British India | Colonial lawfare converting displaced artisan and nomadic populations into hereditary criminals, laying the foundation for rigid 20th-century social stratification. |
+| ANNIV-1905-FRENCH-LAICITE | 1905-12-09 | French Law on Separation of Churches & State (Laïcité) | Europe / France | Institutional secularism baseline: Structured to counter a centralized Catholic hierarchy, but proves fundamentally paralyzed against decentralized, non-state communal theological enclaves. |
+| ANNIV-1916-SYKES-PICOT | 1916-05-16 | Sykes-Picot Agreement | Middle East | Root cause of chronic Middle Eastern state fragility, sectarian conflict, and post-colonial boundary disputes. |
+| ANNIV-1920-WATSON-JWT | 1920-10-01 | John B. Watson Joins J. Walter Thompson (JWT) | Global / USA | Birth of modern commercial psychological warfare, weaponizing infant hygiene, germ fear, and maternal anxiety into consumer demand. |
+| ANNIV-1928-WATSON-INFANT | 1928-03-01 | Watson Publishes 'Psychological Care of Infant and Child' | Global / USA | Institutionalization of cold infant isolation doctrine, replacing maternal bonding with commodified schedules and nursery appliances. |
+| ANNIV-1928-BERNAYS-PROPAGANDA | 1928-11-15 | Edward Bernays Publishes 'Propaganda' & Torches of Freedom | Global / USA | Foundational playbook for modern public relations, psychological manipulation, and manufacturing social consent for corporate cartels. |
+| ANNIV-1944-BRETTON-WOODS | 1944-07-01 | Bretton Woods Conference | Global | Architected the post-WWII financial order whose erosion now drives de-dollarization and BRICS alternative currency initiatives. |
+| ANNIV-1947-PARTITION-INDIA | 1947-08-15 | Partition of India | South Asia | Civilizational rupture whose demographic, territorial, and psychological aftershocks continue to shape South Asian geopolitics. |
+| ANNIV-1953-MKULTRA-MOCKINGBIRD | 1953-04-13 | CIA Project MKUltra & Operation Mockingbird | Global / USA | Institutionalization of deep-state psychological operations, weaponized media narratives, and covert cognitive warfare. |
+| HIST-1953-AMBEDKAR-RAJYA-SABHA-SPEECH | 1953-09-02 | Dr. B.R. Ambedkar Rajya Sabha Address on Constitutional Drafting Constraints | National / New Delhi | Historical parliamentary record documenting that the Indian Constitution was the collective product of the 299-member Constituent Assembly and Drafting Committee, not the unilateral fiat of a single author. |
+| ANNIV-1962-SINO-INDIAN-WAR | 1962-10-20 | Sino-Indian War / Aksai Chin | South Asia / Central Asia | Foundational trauma driving Indian forward-posture doctrine on the LAC and Himalayan infrastructure build-up. |
+| HIST-1963-NEHRU-MEA-DIRECTIVE | 1963-12-15 | Jawaharlal Nehru MEA Meeting Remarks on Internal vs External Threats | National / New Delhi | Institutional doctrinal precedent shaping diplomatic cadre ideology and counter-intelligence prioritization. |
+| ANNIV-1971-INDO-SOVIET | 1971-08-09 | Indo-Soviet Strategic Pact Ratification | South Asia | Strategic security guarantee enabling decisive perimeter stabilization. |
+| ANNIV-1971-BANGLADESH-LIBERATION | 1971-12-16 | Bangladesh Liberation War Victory | South Asia | Demonstrated India's capacity for rapid decisive military operations and reshaped the South Asian balance of power. |
+| ANNIV-1971-PETRODOLLAR-BRETTON-WOODS-NIXON-SHOCK | 1971-08-15 | Nixon Shock & Inception of the Petro-Dollar Architecture | Global / Washington / Riyadh | Monetary hegemony origin: Foundational reference point for modern de-dollarization and bilateral clearing rails. |
+| ANNIV-1973-ALLENDE-COPPER | 1973-09-11 | Chilean Coup & Economic Sabotage (Allende Overthrow) | Latin America / Global | Archetypal precedent of modern geo-economic subversion and regime change triggered by nationalization of sovereign resources. |
+| ANNIV-1973-CASTRO-DELHI | 1973-09-16 | Fidel Castro Emergency Landing in New Delhi | South Asia / Caribbean | Sovereign intelligence warning preceding domestic destabilization, targeted violence, and the 1975 Indian Emergency. |
+| ANNIV-1974-ITT-CHILE-INDIA-RAIL-STRIKE | 1974-05-08 | All-India Railway Strike & Post-ITT Telecommunications Friction | South Asia / National | Historical benchmark of the Two Imperial Pipes: Demonstrates how telecommunication friction and organized arterial transport strikes synchronize during covert regime-change offensives. |
+| ANNIV-1975-LN-MISHRA | 1975-01-02 | Assassination of Railway Minister Lalit Narayan Mishra | South Asia / Bihar | Historical precedent of physical destabilization targeting national infrastructure leadership. |
+| HIST-1976-MARITIME-ZONES-ACT | 1976-08-25 | Territorial Waters, Continental Shelf, EEZ and Other Maritime Zones Act (Act 80 of 1976) | Indian Ocean / New Delhi | Foundational domestic statute asserting resource sovereignty and requiring prior notification for foreign warship entry. |
+| ANNIV-1977-RELIANCE-DHIRUBHAI-AMBANI-FIRST-PUBLIC-ISSUE | 1977-11-15 | Dhirubhai Ambani Reliance Textiles First Public Issue — Trusteeship Capitalism Founding Archetype | Bombay / Gujarat | National champion dual-nature: Sovereign shield (Phase 208 NationalChampionSovereignSieve) and cartel risk coexist — StrategicEquilibrium = SovereignShieldFactor / DomesticCartelRisk is the correct measure. |
+| ANNIV-1978-KAHUTA-LEAK | 1978-01-15 | Operation Kahuta Intelligence Compromise | South Asia / Pakistan | Demonstrates the extreme vulnerability of high-yield HUMINT networks to political indiscretion and civilian oversight disconnects. |
+| ANNIV-1978-GRANOVETTER-THRESHOLD-THEORY | 1978-08-01 | Mark Granovetter Formulates Threshold Models of Collective Behavior | North America / Global / Stanford | Crowd cascade mathematical baseline: Demonstrates that mass agitations are threshold phase transitions rather than homogeneous sentiment surges, providing closed-form tipping point prediction. |
+| ANNIV-1981-WHO-INFANT-FORMULA | 1981-05-21 | WHO International Code of Marketing of Breast-milk Substitutes | Global | Landmark sovereign multilateral confrontation against transnational corporate capture of infant health and fear-based marketing. |
+| ANNIV-1985-KANISHKA-AIR-INDIA-182 | 1985-06-23 | Kanishka Bombing & Canadian Sanctuary Milestone | Transnational / Canada / Atlantic | Foundational baseline for Western diaspora vote-bank sanctuary politics and intelligence blind spots regarding extraterritorial secessionist networks. |
+| ANNIV-1991-RAJIV-GANDHI-SRIPERUMBUDUR | 1991-05-21 | Assassination of Rajiv Gandhi & SPG Cover Withdrawal | South Asia / Sri Lanka | Exposes the catastrophic risk window opened when domestic partisan hostility compromises institutional executive security protocols. |
+| HIST-1991-BOP-GOLD-PLEDGE | 1991-05-21 | Emergency Gold Airlift to Bank of England & 1991 BoP Stabilization | National / London / Global | Sovereign liquidity crisis forcing the dismantling of the License Raj and launching India's structural economic liberalization. |
+| HIST-1992-TEHRAN-RAW-NETWORK-COMPROMISE | 1992-06-10 | R&AW Persian Gulf & Tehran Station Intelligence Network Compromise | Middle East / Iran / Tehran | Historical benchmark of diplomatic-intelligence friction, asset fragility, and counter-espionage vulnerability in strategic West Asian missions. |
+| ANNIV-1993-LAC | 1993-09-07 | India-China Border Peace & Tranquility Agreement | Himalayas | Legal baseline frequently cited during border standoff negotiations. |
+| ANNIV-1993-MUMBAI-BLASTS-D-COMPANY | 1993-03-12 | 1993 Mumbai Serial Blasts & D-Company Karachi Haven | South Asia / Mumbai / Karachi | Institutionalized the state-sponsored crime-terror nexus, combining transnational narcotics and hawala networks with sovereign intelligence protection. |
+| ANNIV-1993-HARSHAD-MEHTA-PRESS-CONFERENCE-STATE-SUBORDINATION | 1993-06-16 | Harshad Mehta Press Conference & Sovereign Penal Subordination | Mumbai / New Delhi | Sovereign power law: Private oligarchic capital is completely subordinate to state coercive instruments. |
+| ANNIV-1998-POKHRAN-II | 1998-05-11 | Pokhran-II Nuclear Tests | South Asia | Strategic watershed establishing India's minimum credible nuclear deterrent and triggering global non-proliferation debates. |
+| ANNIV-1999-KARGIL-WAR | 1999-05-26 | Kargil War | South Asia / Kashmir | Validated India's conventional escalation dominance under a nuclear overhang and exposed Pakistani adventurism. |
+| ANNIV-1999-IC-814-KANDAHAR | 1999-12-24 | IC-814 Kandahar Hijack & Strategic Negotiation Crisis | South Asia / Afghanistan | Critical watershed shaping India's modern counter-terror crisis response, hostage negotiation doctrine, and the transition toward the Doval Offensive-Defense preemption doctrine. |
+| ANNIV-2004-WILKINSON-ELECTORAL-VIOLENCE | 2004-11-22 | Steven Wilkinson Formulates Electoral Incentives of State Police Intervention | Global / Cambridge / New Delhi | Statecraft inaction baseline: Mathematical model proving that state toleration or intervention during street blockades reflects electoral coalition math and deliberate public exhaustion strategy. |
+| HIST-2005-IMDT-ACT-STRUCK-DOWN | 2005-07-12 | Supreme Court Strikes Down IMDT Act (Sarbananda Sonowal v. UOI) | South Asia / Assam | Constitutional recognition of demographic infiltration as an existential security threat, restoring the Foreigners Act 1946 reverse burden of proof. |
+| ANNIV-2010-CHINA-RARE-EARTH-EXPORT-QUOTA-JAPAN-EMBARGO | 2010-09-07 | China Rare Earth Export Quota & Japan Senkaku Embargo — Midstream Weaponization | Beijing / Tokyo / Global | Critical minerals midstream is a sovereign weapon: Refining concentration risk (Phase 207 CriticalMineralsRefiningCrisisSieve) creates hard geopolitical dependency that converts economic dependency into kinetic leverage. |
+| ANNIV-2013-SNOWDEN-INDIA-INTERCEPT | 2013-06-05 | NSA PRISM Surveillance Disclosure & Indian Telemetry Interception | Global / Washington / New Delhi | Digital telemetry milestone: Proved that lack of sovereign telecommunication switches and operating system independence leaves sovereign institutions completely transparent to foreign electronic eavesdropping. |
+| ANNIV-2015-NAAM-FOUNDATION | 2015-09-14 | Establishment of Naam Foundation (Nana Patekar & Makarand Anaspure) | South Asia / Maharashtra | Civil society human shield baseline: Demonstrates grassroots watershed resilience and celebrity shielding against corrupt state water cartels where ₹70,000 Crore of irrigation capex resulted in only 0.1% increase in irrigated farmland. |
+| HIST-2018-SC-ST-AMENDMENT-OVERRIDE | 2018-08-17 | Parliament Enacts SC/ST Amendment Act 2018 (Section 18A Legislative Override) | National / New Delhi | Archetypal manifestation of competitive electoral clientelism overriding judicial due process safeguards, creating acute statutory asymmetry and intra-civilizational polarization. |
+| ANNIV-2019-BALAKOT | 2019-02-26 | Balakot Airstrike | South Asia | Established a new Indian doctrine of pre-emptive cross-border counterterrorism strikes against non-state actor infrastructure. |
+| ANNIV-2020-GALWAN | 2020-06-15 | Galwan Valley Clash | South Asia / LAC | Shattered the post-1993 border peace framework and triggered permanent Indian strategic decoupling from China. |
+| HIST-2020-FCRA-CRACKDOWN | 2020-09-29 | Foreign Contribution Regulation Amendment Act & NGO Surveillance | National / New Delhi | Dismantled transnational funding corridors weaponized for sub-national lawfare and proxy economic litigation. |
+| HIST-2021-US-FONOP-LAKSHADWEEP | 2021-04-07 | USS John Paul Jones FONOP West of Lakshadweep Islands | Arabian Sea / Lakshadweep | Highlights the enduring statutory divergence between US customary high-seas navigation interpretations and Indian domestic security consent mandates in the EEZ. |
+| HIST-2021-GORUKHUTI-EVICTION | 2021-09-23 | Gorukhuti & Dhalpur Riverine Agricultural Eviction Drive | Assam / Brahmaputra Valley | Operational statecraft enforcing the Assam Land and Revenue Regulation 1886 to recover encroached sacred and ecological commons in riverine floodplains. |
+| ANNIV-2021-DELHI-BORDER-SIEGE-LOGISTICS | 2021-01-26 | Mechanized Breach of Red Fort & Capital Arterial Siege | South Asia / New Delhi / Red Fort | Asymmetric siege benchmark: Proves that corporate astroturfing and subsidized logistics can sustain minority street vetoes against constitutional majorities, triggering the need for BNS Section 152 and BNSS 163 statutory deterrence. |
+| HIST-2022-MARITIME-ANTI-PIRACY | 2022-12-21 | Maritime Anti-Piracy Act 2022 High-Seas Codification | Indian Ocean / Gulf of Aden / New Delhi | Enabled the Indian Navy's forward security posture in the Arabian Sea and Gulf of Aden, executing boarding and recapture operations. |
+| ANNIV-2022-NORD-STREAM-PIPELINE-CABLE-SABOTAGE | 2022-09-26 | Nord Stream 1 & 2 Undersea Pipeline Sabotage — Infrastructure as Warfare Domain | Baltic Sea / Germany / Russia | Undersea infrastructure is a contested warfare domain: Cable chokepoint risk is kinetic, not merely regulatory. Phase 206 cable vulnerability math must account for deliberate interdiction scenarios. |
+| HIST-2023-IMEC-G20-NEW-DELHI | 2023-09-09 | India-Middle East-Europe Economic Corridor (IMEC) Declaration | New Delhi / Global | Strategic counter-BRI logistics corridor bypassing maritime chokepoints and integrating West Asian energy with Indian manufacturing. |
+| HIST-2023-ASSAM-DELIMITATION | 2023-08-11 | Election Commission Notifies Assam Delimitation under RPA Section 8A | South Asia / Assam | Statutory demarcation anchoring sub-national indigenous political representation against rapid demographic transformation and district-level gerrymandering. |
+| HIST-2023-RED-SEA-ASYMMETRIC-ATTRITION | 2023-12-15 | Red Sea Asymmetric Drone Saturation & Western Interceptor Burnout | Red Sea / Bab-el-Mandeb | Strategic operational watershed demonstrating naval air-defense magazine depletion and the limits of high-end kinetic interceptors against low-cost swarms. |
+| ANNIV-2024-RAM-MANDIR | 2024-01-22 | Ayodhya Ram Mandir Pran Pratishtha | India | Sanatan Dharmic civilizational baseline redefining Bharat's domestic and external sovereignty. |
+| ANNIV-2024-DHAKA | 2024-08-05 | Dhaka Regime Change & Sheikh Hasina Exit | South Asia | Immediate stress on eastern border, Siliguri Corridor security, and bilateral transit accords. |
+| ANNIV-2024-NALANDA-REBIRTH | 2024-06-19 | Nalanda University Rebirth & Epistemic Reversal | South Asia | Physical and symbolic closure of the 830-year intellectual destruction arc, re-establishing Bharat as a global knowledge repository. |
+| HIST-2024-WAQF-AMENDMENT-BILL | 2024-08-08 | Waqf (Amendment) Bill 2024 Legislative Introduction | National / Parliament of India | Major institutional lawfare recalibration addressing statutory asymmetries and parallel land dispute jurisdictions. |
+| HIST-2024-TRAPPED-RUPEE-VOSTRO | 2024-05-15 | Special Rupee Vostro Account (SRVA) Capital Recycling Accord | New Delhi / Moscow | Demonstrates the practical financial plumbing bottlenecks of bilateral de-dollarization and the necessity of capital account recycling. |
+| HIST-2024-UGC-RESERVATION-ROLLBACK | 2024-01-29 | Union Education Ministry 24-Hour Rollback of UGC De-Reservation Draft | National / New Delhi | Archetypal manifestation of high rollback elasticity where bureaucratic guideline formulation without political calibration triggered immediate executive retreat. |
+| HIST-2024-VANDYKE-MYANMAR-DEPORTATION | 2024-03-12 | Managed Diplomatic Deportation of US Security Contractor Matthew VanDyke | Northeast / Assam / Myanmar Border | Benchmark of extraterritorial sovereign asymmetry: domestic criminal-statutory parity subordinated to bilateral diplomatic leverage, contrasting severe domestic enforcement with foreign contractor immunity. |
+| HIST-2024-TEXAS-HANUMAN-TEMPLE-NATIVIST-BACKLASH | 2024-08-18 | Sugar Land Texas Statue of Union (Hanuman) & Nativist Backlash | North America / Texas / Sugar Land | Empirical milestone of diaspora vulnerability: high median wealth without political coalition defense creates severe exposure to nativist backlash and progressive caste lawfare. |
+| ANNIV-2024-DHOLERA-SEMICONDUCTOR-FOUNDRY | 2024-03-13 | Tata-PSMC Dholera Mega-Fab Foundation Stone Consecration | South Asia / Gujarat / Dholera | Material compute foundation: Transitions Bharat from software services consumer to physical hardware protocol creator, grounding digital sovereignty in physical silicon. |
+| ANNIV-2025-OP-SINDOOR | 2025-05-07 | Operation Sindoor | South Asia | Reinforced India's zero-tolerance doctrine against state-sponsored terrorism and validated standoff precision-strike assets. |
 
-*Error reading SQLite database: No item with that key*
+## Autonomously Learned Strategic Propositions
+
+| Claim ID | Tier | Proposition | Citation / Anchor | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| CLM-D8A669F35B | T1_PHYSICAL | Sovereign physical bullion accumulation by PBOC, Russia, and Bharat's ~25,000-tonne p | None | VERIFIED_EMPIRICAL |
+| CLM-86E2AE66A5 | T1_PHYSICAL | US National Debt surpassing $35 Trillion, net interest exceeding $1.1 Trillion per ye | None | VERIFIED_EMPIRICAL |
+| CLM-BA6A71C0AF | T1_PHYSICAL | British Empire liquidation of gold reserves to finance WWI and WWII, leading to 1944  | None | VERIFIED_EMPIRICAL |
+| CLM-B938EC237A | T1_PHYSICAL | Roman Empire monetary debasement: silver denarius reduced from 95% under Augustus to  | None | VERIFIED_EMPIRICAL |
+| CLM-7F527B2A56 | T1_PHYSICAL | Caloric sovereignty dependencies on imported Muriate of Potash (MOP) and Diammonium P | None | VERIFIED_EMPIRICAL |
+| CLM-6D7AF937B1 | T1_PHYSICAL | Strait of Hormuz maritime chokepoint through which >20% of global petroleum consumpti | None | VERIFIED_EMPIRICAL |
+| CLM-78A2B07CA3 | T1_PHYSICAL | Waqf cadastre disputes in Assam char-lands intersect with riverine border security. | None | VERIFIED_EMPIRICAL |
+| CLM-DIAG-CERT-02 | 1 | Diagnostic proposition. | None | VERIFIED_EMPIRICAL |
+| CLM-9359521D23 | 3 | Under Section 188 of CrPC and Territorial Waters Act 1976, foreign interdictions with | SECTION 188 | VERIFIED_EMPIRICAL |
+| CLM-C7B6C061A8 | 2 | Reserve Bank of India deployed $15 billion in currency swap mechanisms. | 15 billion | VERIFIED_EMPIRICAL |
+| CLM-ED89701FCC | 1 | Asymmetric drone swarms strike tankers in Strait of Hormuz chokepoint, spiking crude  | None | VERIFIED_EMPIRICAL |
+| CLM-C1EAEE754E | T1_PHYSICAL | PBOC and Central Banks accelerate sovereign gold repatriation to offset dollar cleari | Sovereign Balance Sheet Asset: GOLD REPA | VERIFIED_EMPIRICAL |
+| CLM-4C275F4CFA | T2_FINANCIAL | US debt is 35 trillion dollars and PBOC is buying gold bullion. | 35 trillion | VERIFIED_EMPIRICAL |
+| CLM-TEST123 | T1_PHYSICAL | Battle of Ravi | None | VERIFIED_EMPIRICAL |
+| CLM-DIAG-CERT-01 | 1 | Diagnostic proposition. | None | VERIFIED_EMPIRICAL |
+| CLM-DIAG-01 | 1 | Diagnostic proposition. | None | VERIFIED_EMPIRICAL |
+| CLM-A7B7C028B9 | 3 | Section 18A of the SC/ST Act prevents anticipatory bail and creates presumption of gu | SECTION 18A | VERIFIED_EMPIRICAL |
+| CLM-554B04F5D8 | 2 | Direct tax collection reached 19.58 lakh crore INR which causes middle class tax fati | 19.58 lakh crore inr | VERIFIED_EMPIRICAL |
+| CLM-284FA0983E | 3 | Neeraj Atri noted that Section 18A of the SC/ST Act inverted the presumption of innoc | SECTION 18A | VERIFIED_EMPIRICAL |
 
 
 ================================================================================
@@ -23464,7 +25039,7 @@ class AbyssalHydrospatialSovereigntySieve:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `44168ff`
+- **Canonical Git Commit:** `ce80092`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

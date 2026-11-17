@@ -411,6 +411,14 @@ class CivilizationalLens:
         )
         metrics["generative_media_compute_hegemony_score"] = _gch_res["generative_media_compute_hegemony_score"]
 
+        # Phase 415: Civilizational Epistemic Historiography Decolonization Sieve
+        _ceh_res = CivilizationalEpistemicHistoriographyDecolonizationSieve.evaluate(
+            primary_epigraphic_archaeological_citations=civ_meta.get("primary_epigraphic_archaeological_citations", 0.85),
+            secondary_ideological_narrative_claims=civ_meta.get("secondary_ideological_narrative_claims", 0.25),
+            textual_sanskrit_provenance_weight=civ_meta.get("textual_sanskrit_provenance_weight", 0.90),
+        )
+        metrics["civilizational_epistemic_historiography_score"] = _ceh_res["civilizational_epistemic_historiography_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -2214,6 +2222,65 @@ class GenerativeMediaComputeHegemonySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_cultural_compute_hegemony_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 415: Civilizational Epistemic Historiography Decolonization Sieve
+# ============================================================================
+
+class CivilizationalEpistemicHistoriographyDecolonizationSieve:
+    """
+    Phase 415: Mathematically audits historical and cultural assertions:
+    Cross-references primary epigraphic inscriptions, carbon dating, and Sanskrit grammatical provenance
+    against colonial and secondary ideological textbook distortions to defend civilizational jurisprudence.
+    Formula:
+        EpistemicVeracityIndex = Norm((PrimaryEpigraphicArchaeologicalCitations / max(SecondaryIdeologicalNarrativeClaims, 0.10)) * TextualSanskritProvenanceWeight)
+        score = Sigmoid(2.6 * (EpistemicRatio / 3.0) + 2.8 * TextualSanskritProvenanceWeight - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        primary_epigraphic_archaeological_citations: float = 0.85,
+        secondary_ideological_narrative_claims: float = 0.25,
+        textual_sanskrit_provenance_weight: float = 0.90
+    ) -> Dict[str, Any]:
+        epig = float(max(0.0, min(1.0, primary_epigraphic_archaeological_citations)))
+        narrative = float(max(0.05, secondary_ideological_narrative_claims))
+        sanskrit = float(max(0.0, min(1.0, textual_sanskrit_provenance_weight)))
+
+        epistemic_ratio = min(3.0, epig / narrative)
+        norm_ratio = epistemic_ratio / 3.0
+
+        z = 2.6 * norm_ratio + 2.8 * sanskrit - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.75:
+            tier = "AUTHENTICATED_PRIMARY_CIVILIZATIONAL_EPISTEME"
+            verdict = "INSCRIPTIONAL_AND_TEXTUAL_PROVENANCE_IRREFUTABLE"
+            rationale = (
+                f"Irrefutable primary veracity ({score:.4f}): Epigraphic/archaeological grounding ({epig:.2f} vs {narrative:.2f} ideological narrative) "
+                f"and rigorous Sanskrit philological fidelity ({sanskrit:.2f}) decisively dismantle colonial and Marxist historiographical distortions."
+            )
+        elif score >= 0.50:
+            tier = "CONTESTED_HISTORIOGRAPHICAL_PARITY"
+            verdict = "EXPAND_PRIMARY_EPIGRAPHIC_EXCAVATION_AND_CARBON_DATING"
+            rationale = f"Contested narrative ({score:.4f}): Primary evidence presents strong counter-balance but requires broader archaeological excavation."
+        else:
+            tier = "IDEOLOGICALLY_COLONIZED_HISTORIOGRAPHY"
+            verdict = "SUBJECT_TO_DECOLONIAL_TEXTUAL_AND_ARCHAEOLOGICAL_AUDIT"
+            rationale = f"Severe ideological distortion ({score:.4f}): Secondary narratives dominate without primary epigraphic provenance."
+
+        return {
+            "civilizational_epistemic_historiography_score": score,
+            "epigraphic_to_secondary_ratio": round(epistemic_ratio, 4),
+            "primary_epigraphic_citations": round(epig, 4),
+            "secondary_narrative_claims": round(narrative, 4),
+            "textual_sanskrit_provenance_weight": round(sanskrit, 4),
+            "historiography_decolonization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_epistemic_veracity_certified": score >= 0.75,
         }
 
 

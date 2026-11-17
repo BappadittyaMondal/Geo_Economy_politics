@@ -326,6 +326,15 @@ class FoodSecurityLens:
             groundwater_table_depletion=soil_params.get("groundwater_table_depletion", 0.55),
         )
         metrics.update(_soil_res)
+
+        # Phase 410: Wire AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve
+        _aff_res = AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve.evaluate(
+            fertilizer_import_cost_spike=food_meta.get("fertilizer_import_cost_spike", 0.85),
+            agricultural_subsidy_budget_drag=food_meta.get("agricultural_subsidy_budget_drag", 0.75),
+            strategic_grain_reserve_months=food_meta.get("strategic_grain_reserve_months", 4.5),
+            calorie_inflation_index=food_meta.get("calorie_inflation_index", 0.65),
+        )
+        metrics["agrochemical_food_weaponization_score"] = _aff_res["agrochemical_food_weaponization_score"]
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -595,4 +604,64 @@ class BiosphereThermodynamicSoilResilienceSieve:
             "soil_resilience_tier": tier,
             "soil_resilience_verdict": verdict,
             "is_soil_resilience_adequate": score >= 0.55,
+        }
+
+
+# ============================================================================
+# Phase 410: Agrochemical Fertilizer & Food Security Weaponization Sieve
+# ============================================================================
+
+class AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve:
+    """
+    Phase 410: Models sovereign vulnerability to fertilizer feedstock cartels (Russia, China, Morocco)
+    and natural gas price spikes, evaluating buffer-stock resilience against engineered calorie inflation and rural distress.
+    Formula:
+        FoodSovereigntyStressScore = Norm((FertilizerImportCostSpike / max(AgriculturalSubsidyBudget, 0.1)) + (1 - StrategicGrainReserveMonths / 6) + CalorieInflationIndex)
+        score = Sigmoid(2.8 * CostDrag + 2.4 * (1 - ReserveBuffer) + 2.2 * CalorieInflationIndex - 1.5)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        fertilizer_import_cost_spike: float = 0.85,
+        agricultural_subsidy_budget_drag: float = 0.75,
+        strategic_grain_reserve_months: float = 4.5,
+        calorie_inflation_index: float = 0.65
+    ) -> Dict[str, Any]:
+        fert_spike = float(max(0.0, min(1.0, fertilizer_import_cost_spike)))
+        sub_drag = float(max(0.0, min(1.0, agricultural_subsidy_budget_drag)))
+        reserve_m = float(max(0.0, strategic_grain_reserve_months))
+        cal_inf = float(max(0.0, min(1.0, calorie_inflation_index)))
+
+        cost_drag = fert_spike * sub_drag
+        reserve_buffer = min(1.0, max(0.0, reserve_m / 6.0))
+
+        z = 2.8 * cost_drag + 2.4 * (1.0 - reserve_buffer) + 2.2 * cal_inf - 1.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_AGROCHEMICAL_FOOD_SOVEREIGNTY_CRISIS"
+            verdict = "ACTIVATE_STRATEGIC_GRAIN_BUFFER_AND_MANDATE_DOMESTIC_NANO_UREA"
+            rationale = (
+                f"Severe food security weaponization risk ({score:.4f}): Fertilizer import price spikes ({fert_spike:.2f}) "
+                f"balloon agricultural subsidies ({sub_drag:.2f}) while calorie inflation ({cal_inf:.2f}) stresses rural purchasing power. Grain reserves ({reserve_m:.1f} mos) require defensive conservation."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_INPUT_COST_SUBSIDY_STRAIN"
+            verdict = "NEGOTIATE_LONG_TERM_POTASH_PHOSPHATE_GOVERNMENT_OFFTAKES"
+            rationale = f"Elevated subsidy pressure ({score:.4f}): Feedstock volatility requires bilateral multi-year import quotas."
+        else:
+            tier = "FORTIFIED_CALORIC_SOVEREIGNTY"
+            verdict = "GRAIN_RESERVES_ADEQUATE_AND_INPUT_SUPPLY_INSULATED"
+            rationale = f"Low risk ({score:.4f}): High buffer reserves ({reserve_m:.1f} mos) and manageable calorie inflation."
+
+        return {
+            "agrochemical_food_weaponization_score": score,
+            "fertilizer_import_cost_spike": round(fert_spike, 4),
+            "agricultural_subsidy_budget_drag": round(sub_drag, 4),
+            "strategic_grain_reserve_months": round(reserve_m, 2),
+            "calorie_inflation_index": round(cal_inf, 4),
+            "food_sovereignty_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_food_security_weaponized": score >= 0.70,
         }

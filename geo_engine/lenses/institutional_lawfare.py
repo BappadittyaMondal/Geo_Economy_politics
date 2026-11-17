@@ -519,6 +519,15 @@ class InstitutionalLawfareLens:
         )
         metrics["perjury_risk_and_retributive_liability_score"] = _prr_res["perjury_risk_and_retributive_liability_score"]
 
+        # Phase 408: Cultural & Religious Grayzone Lawfare Sieve
+        _crg_res = CulturalReligiousGrayzoneLawfareSieve.evaluate(
+            contested_land_area_near_defense_acres=law_meta.get("contested_land_area_near_defense_acres", 450.0),
+            buffer_zone_km=law_meta.get("buffer_zone_km", 5.0),
+            statutory_exemption_factor=law_meta.get("statutory_exemption_factor", 0.85),
+            dark_money_trust_inflow=law_meta.get("dark_money_trust_inflow", 0.75),
+        )
+        metrics["cultural_religious_grayzone_lawfare_score"] = _crg_res["cultural_religious_grayzone_lawfare_score"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -2135,4 +2144,65 @@ class PerjuryRiskAndRetributiveLiabilitySieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_perjury_liability_high": score >= 0.65,
+        }
+
+
+# ============================================================================
+# Phase 408: Cultural & Religious Grayzone Lawfare Sieve
+# ============================================================================
+
+class CulturalReligiousGrayzoneLawfareSieve:
+    """
+    Phase 408: Audits asymmetric civilizational and statutory grayzone lawfare:
+    Measures non-judicial statutory property exemptions (e.g. Waqf Act Section 40) in proximity
+    to strategic defense corridors (Siliguri, cantonments, railheads), cross-referenced with offshore trust dark money flows.
+    Formula:
+        GrayzoneVulnerabilityIndex = Norm((ContestedLandAreaNearDefense / max(BufferZoneKm * 50, 1)) * StatutoryExemptionFactor + DarkMoneyTrustInflow)
+        score = Sigmoid(2.8 * ContestationDensity * StatutoryExemption + 2.5 * DarkMoneyTrustInflow - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        contested_land_area_near_defense_acres: float = 450.0,
+        buffer_zone_km: float = 5.0,
+        statutory_exemption_factor: float = 0.85,
+        dark_money_trust_inflow: float = 0.75
+    ) -> Dict[str, Any]:
+        land_acres = float(max(0.0, contested_land_area_near_defense_acres))
+        buffer_km = float(max(0.5, buffer_zone_km))
+        stat_exempt = float(max(0.0, min(1.0, statutory_exemption_factor)))
+        dark_money = float(max(0.0, min(1.0, dark_money_trust_inflow)))
+
+        density = min(2.5, land_acres / (buffer_km * 50.0))
+        z = 2.8 * density * stat_exempt + 2.5 * dark_money - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_STRATEGIC_DEFENSE_CORRIDOR_GRAYZONE_ENCROACHMENT"
+            verdict = "AMEND_STATUTORY_EXEMPTIONS_AND_EXERCISE_SOVEREIGN_EMINENT_DOMAIN"
+            rationale = (
+                f"Severe grayzone lawfare risk ({score:.4f}): Contested property claims ({land_acres:.0f} acres) within "
+                f"{buffer_km:.1f}km military buffer zone backed by non-judicial statutory exemptions ({stat_exempt:.2f}) "
+                f"and foreign trust funding ({dark_money:.2f}) threaten strategic choke point security (e.g. Siliguri Corridor)."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_MUNICIPAL_PROPERTY_CONTESTATION"
+            verdict = "MANDATE_CIVIL_COURT_JURISDICTION_AND_SATELLITE_CADASTRAL_SURVEY"
+            rationale = f"Elevated grayzone contestation ({score:.4f}): Non-judicial tribunal claims require judicial oversight."
+        else:
+            tier = "SECURE_SOVEREIGN_PROPERTY_TITLING"
+            verdict = "DEFENSE_CORRIDOR_TITLES_INSULATED_FROM_ASYMMETRIC_CLAIMS"
+            rationale = f"Low risk ({score:.4f}): Clear cadastral boundary titling and negligible dark money inflows."
+
+        return {
+            "cultural_religious_grayzone_lawfare_score": score,
+            "defense_buffer_contestation_density": round(density, 4),
+            "contested_land_area_near_defense_acres": round(land_acres, 2),
+            "buffer_zone_km": round(buffer_km, 2),
+            "statutory_exemption_factor": round(stat_exempt, 4),
+            "dark_money_trust_inflow": round(dark_money, 4),
+            "grayzone_lawfare_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_defense_corridor_threatened": score >= 0.70,
         }

@@ -39,6 +39,10 @@ from .cash_flow import (
     SpeculativeCapexOverhangSieve,
     CircularVentureValuationBubbleSieve,
     GPUCollateralizedPrivateDebtContagionTensor,
+    InformalSectorStatisticalDivergenceTensor,
+    PBOCLGFVLiquidityTrapTensor,
+    InstitutionalMonopolyCartelCrossShareholdingSieve,
+    MSMEFormalizationSolvencyAsphyxiationTensor,
 )
 
 from .civilizational import (
@@ -68,11 +72,13 @@ from .civilizational import (
     SubnationalFragmentationLawfareSieve,
     SubReplacementDemographicExtinctionSieve,
     GenerativeMediaComputeHegemonySieve,
+    CivilizationalEpistemicHistoriographyDecolonizationSieve,
 )
 
 from .critical_minerals import (
     CriticalMineralsLens,
     CriticalMineralsRefiningCrisisSieve,
+    CriticalMineralSupplyChainWeaponizationTensor,
 )
 
 from .deep_tech import (
@@ -94,6 +100,7 @@ from .deep_tech import (
     SovereignCyberExtortionSieve,
     CriticalSCADAHardwareBackdoorSieve,
     RemoteSiliconMicrocodeKillSwitchSieve,
+    QuantumHarvestNowDecryptLaterVulnerabilitySieve,
 )
 
 from .demographic_infiltration import (
@@ -117,6 +124,7 @@ from .digital_sovereignty import (
 
     CloudMonopolyFragilitySieve,
     LegacyInfrastructureObsolescenceSieve,
+    SovereignPlatformRegulatoryDefianceSieve,
 )
 
 from .food_security import (
@@ -127,6 +135,7 @@ from .food_security import (
     HydrologicalWeaponizationBufferSieve,
     RiparianResilienceSieve,
     TrophicBiosecurityCascadeSieve,
+    AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve,
 )
 
 from .geo_economist import (
@@ -147,6 +156,7 @@ from .geo_economist import (
 
     MaritimePortDualUseSieve,
     PhysicalCapExTangibleMultiplierSieve,
+    AviationTransitSlotCartelSieve,
 )
 
 from .geopolitical import (
@@ -159,6 +169,7 @@ from .geopolitical import (
     KautilyaMandalaShadgunyaSieve,
     TransHimalayanHydrologicalDeterrenceSieve,
     TripartiteCoherenceSieve,
+    TrilateralSuperpowerCondominiumExclusionTensor,
 )
 
 from .history import (
@@ -197,6 +208,8 @@ from .hybrid_covert import (
     FalseFlagNarrativeDeceptionSieve,
     OpenSystemAsymmetricInfiltrationSieve,
     TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve,
+    BorderStateNarcoFiscalSubversionSieve,
+    AsymmetricSubTacticalHoneytrapEspionageSieve,
 )
 
 from .india_timeline import (
@@ -225,6 +238,7 @@ from .institutional_lawfare import (
     SubRegionalElectoralPolarizationSieve,
     UNSCVetoAsymmetrySieve,
     VigilanceStatutoryRemedySieve,
+    CulturalReligiousGrayzoneLawfareSieve,
 )
 
 from .kinesics import (
@@ -232,6 +246,7 @@ from .kinesics import (
     KinesicContextualBaselineDriftSieve,
     SartorialSemioticSieve,
     SpeechKinesicAndChromaticForensicsSieve,
+    DiplomaticNonVerbalOpticsAndAttireForensicsSieve,
 )
 
 from .military_readiness import (
@@ -249,6 +264,11 @@ from .military_readiness import (
     MaritimeNetSecurityPrimacySieve,
     AsymmetricWeaponProliferationLeakageSieve,
     SuperpowerNavalCoercionBrinkmanshipSieve,
+    AsymmetricAirDefenseCostExchangeTensor,
+    HypersonicNonKeplerianGlideTrajectorySieve,
+    NuclearLaunchUnderAttackLatencySieve,
+    AirborneCommandDecapitationImmunitySieve,
+    NavalElectronicWarfareSuppressionTensor,
 )
 
 from .petro_logistics import (
@@ -525,4 +545,26 @@ __all__ = [
     "GenerativeMediaComputeHegemonySieve",
     "RemoteSiliconMicrocodeKillSwitchSieve",
     "GPUCollateralizedPrivateDebtContagionTensor",
+
+    # Phases 396-415: Sovereign Asymmetric War, Balance-Sheet Realism & Civilizational Sovereignty Matrix
+    "InformalSectorStatisticalDivergenceTensor",
+    "PBOCLGFVLiquidityTrapTensor",
+    "AsymmetricAirDefenseCostExchangeTensor",
+    "HypersonicNonKeplerianGlideTrajectorySieve",
+    "SovereignPlatformRegulatoryDefianceSieve",
+    "InstitutionalMonopolyCartelCrossShareholdingSieve",
+    "MSMEFormalizationSolvencyAsphyxiationTensor",
+    "NuclearLaunchUnderAttackLatencySieve",
+    "BorderStateNarcoFiscalSubversionSieve",
+    "TrilateralSuperpowerCondominiumExclusionTensor",
+    "QuantumHarvestNowDecryptLaterVulnerabilitySieve",
+    "DiplomaticNonVerbalOpticsAndAttireForensicsSieve",
+    "CulturalReligiousGrayzoneLawfareSieve",
+    "CriticalMineralSupplyChainWeaponizationTensor",
+    "AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve",
+    "AviationTransitSlotCartelSieve",
+    "AirborneCommandDecapitationImmunitySieve",
+    "AsymmetricSubTacticalHoneytrapEspionageSieve",
+    "NavalElectronicWarfareSuppressionTensor",
+    "CivilizationalEpistemicHistoriographyDecolonizationSieve",
 ]

@@ -8,6 +8,7 @@ battery metal processing (Lithium, Nickel, Cobalt), and physical transit chokepo
 (Malacca, Hormuz, Bab-el-Mandeb, Taiwan Strait).
 """
 
+import math
 from typing import Any, Dict, List, Optional
 from ..core.models import EpistemicTier, LensEvaluation, StrategicEvent
 
@@ -76,6 +77,16 @@ class CriticalMineralsLens:
             alternative_supplier_count=max(1, int(metrics.get("alternative_supplier_count", 1))),
         )
         metrics.update(_mineral_result)
+
+        # Phase 409: Wire CriticalMineralSupplyChainWeaponizationTensor
+        cm_meta = getattr(event, "metadata", {}) if event and hasattr(event, "metadata") else {}
+        _cmw_res = CriticalMineralSupplyChainWeaponizationTensor.evaluate(
+            mineral_weights=cm_meta.get("mineral_weights"),
+            import_dependencies=cm_meta.get("import_dependencies"),
+            refining_concentrations=cm_meta.get("refining_concentrations"),
+            domestic_stockpile_months=cm_meta.get("domestic_stockpile_months", 3.0),
+        )
+        metrics["critical_mineral_weaponization_score"] = _cmw_res["critical_mineral_weaponization_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -186,6 +197,78 @@ class CriticalMineralsRefiningCrisisSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_midstream_captive": is_captive
+        }
+
+
+# ============================================================================
+# Phase 409: Critical Mineral Supply Chain Weaponization Tensor
+# ============================================================================
+
+class CriticalMineralSupplyChainWeaponizationTensor:
+    """
+    Phase 409: Computes supply chain decapitation exposure for critical elements
+    (Gallium, Germanium, Neodymium, Dysprosium, Lithium), auditing exposure to Chinese export embargoes
+    and domestic processing alternatives.
+    Formula:
+        MineralChokepointVulnerability = sum(w_m * ImportDependency_m * ForeignRefiningConcentration_m) * (1 - DomesticStockpileMonths / 12)
+        score = Sigmoid(3.5 * MineralChokepointVulnerability - 1.0)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        mineral_weights: Optional[Dict[str, float]] = None,
+        import_dependencies: Optional[Dict[str, float]] = None,
+        refining_concentrations: Optional[Dict[str, float]] = None,
+        domestic_stockpile_months: float = 3.0
+    ) -> Dict[str, Any]:
+        default_weights = {"gallium": 0.25, "germanium": 0.20, "neodymium": 0.30, "lithium": 0.25}
+        default_deps = {"gallium": 0.95, "germanium": 0.90, "neodymium": 0.92, "lithium": 0.85}
+        default_refs = {"gallium": 0.98, "germanium": 0.85, "neodymium": 0.90, "lithium": 0.75}
+
+        weights = mineral_weights or default_weights
+        deps = import_dependencies or default_deps
+        refs = refining_concentrations or default_refs
+
+        total_weight = sum(weights.values()) or 1.0
+        chokepoint_sum = 0.0
+        for m, w in weights.items():
+            norm_w = w / total_weight
+            imp = float(max(0.0, min(1.0, deps.get(m, 0.85))))
+            ref = float(max(0.0, min(1.0, refs.get(m, 0.85))))
+            chokepoint_sum += norm_w * imp * ref
+
+        stockpile_m = float(max(0.0, domestic_stockpile_months))
+        stockpile_mitigation = min(1.0, max(0.0, stockpile_m / 12.0))
+        net_vulnerability = chokepoint_sum * (1.0 - stockpile_mitigation)
+
+        z = 3.5 * net_vulnerability - 1.0
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_MINERAL_SUPPLY_CHAIN_DECAPITATION_RISK"
+            verdict = "ENACT_STRATEGIC_MINERAL_RESERVE_RELEASE_AND_FRIENDSHORING"
+            rationale = (
+                f"Severe mineral weaponization vulnerability ({score:.4f}): Chokepoint exposure ({chokepoint_sum:.2f}) "
+                f"with only {stockpile_m:.1f} months domestic stockpile leaves semiconductor and defense production exposed to export bans."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_REFINING_CHOKEPOINT_DRAG"
+            verdict = "ACCELERATE_DOMESTIC_PROCESSING_PLANTS_AND_BILATERAL_OFFTAKES"
+            rationale = f"Elevated chokepoint drag ({score:.4f}): Single-source refining dominance poses continuous procurement friction."
+        else:
+            tier = "FORTIFIED_MINERAL_SOVEREIGNTY"
+            verdict = "DIVERSIFIED_SUPPLY_CHAINS_AND_ADEQUATE_STOCKPILES_VERIFIED"
+            rationale = f"Low risk ({score:.4f}): Robust stockpiles ({stockpile_m:.1f} mos) and diversified refining partners."
+
+        return {
+            "critical_mineral_weaponization_score": score,
+            "aggregate_chokepoint_exposure": round(chokepoint_sum, 4),
+            "net_vulnerability": round(net_vulnerability, 4),
+            "domestic_stockpile_months": round(stockpile_m, 2),
+            "mineral_weaponization_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_mineral_supply_chain_severed": score >= 0.70,
         }
 
 ```

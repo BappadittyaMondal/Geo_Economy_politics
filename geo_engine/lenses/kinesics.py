@@ -244,6 +244,16 @@ class KinesicsLens:
         )
         metrics["kinesic_contextual_baseline_drift_score"] = _kbd_res["kinesic_contextual_baseline_drift_score"]
 
+        # Phase 407: Diplomatic Non-Verbal Optics & Attire Forensics Sieve
+        _dnv_res = DiplomaticNonVerbalOpticsAndAttireForensicsSieve.evaluate(
+            attire_symbolism_weight=k_meta.get("attire_symbolism_weight", 0.80),
+            seating_distance_meters=k_meta.get("seating_distance_meters", 1.2),
+            baseline_distance_meters=k_meta.get("baseline_distance_meters", 1.8),
+            handshake_latency_norm=k_meta.get("handshake_latency_norm", 0.85),
+            linguistic_tone_drift=k_meta.get("linguistic_tone_drift", 0.40),
+        )
+        metrics["diplomatic_nonverbal_optics_score"] = _dnv_res["diplomatic_nonverbal_optics_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=round((avg_warmth * 2.0) - 1.0, 2), # Map 0..1 to -1..1
@@ -415,4 +425,65 @@ class KinesicContextualBaselineDriftSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_anomalous_drift_detected": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 407: Diplomatic Non-Verbal Optics & Attire Forensics Sieve
+# ============================================================================
+
+class DiplomaticNonVerbalOpticsAndAttireForensicsSieve:
+    """
+    Phase 407: Decodes non-verbal statecraft optics at high-stakes bilateral summits:
+    Attire posture (indigenous civilizational attire asserting parity vs tactical fatigue extracting concessions
+    vs dark Western suits maintaining status-quo), physical seating proximity, handshake latency, and micro-linguistic drift.
+    Formula:
+        OpticsDivergenceIndex = Norm(AttireSymbolismWeight + SeatingDistance / BaselineDistance + (1 - HandshakeLatencyNorm) + LinguisticToneDrift)
+        score = Sigmoid(2.5 * AttireSymbolism - 2.0 * (SeatingDistance / Baseline) + 2.2 * (1 - HandshakeLatency) - 1.8 * LinguisticToneDrift)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        attire_symbolism_weight: float = 0.80,
+        seating_distance_meters: float = 1.2,
+        baseline_distance_meters: float = 1.8,
+        handshake_latency_norm: float = 0.85,
+        linguistic_tone_drift: float = 0.40
+    ) -> Dict[str, Any]:
+        attire_w = float(max(0.0, min(1.0, attire_symbolism_weight)))
+        seat_dist = float(max(0.5, seating_distance_meters))
+        base_dist = float(max(0.5, baseline_distance_meters))
+        handshake = float(max(0.0, min(1.0, handshake_latency_norm)))
+        tone_drift = float(max(0.0, min(1.0, linguistic_tone_drift)))
+
+        dist_ratio = seat_dist / base_dist
+        z = 2.5 * attire_w - 2.0 * dist_ratio + 2.2 * (1.0 - handshake) - 1.8 * tone_drift
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.65:
+            tier = "ASSERTIVE_SOVEREIGN_CIVILIZATIONAL_OPTICS"
+            verdict = "EQUAL_DIPLOMATIC_FOOTING_ASSERTED_SUBORDINATION_REJECTED"
+            rationale = (
+                f"Assertive sovereign optics ({score:.4f}): Indigenous attire symbolism ({attire_w:.2f}) and proximate seating "
+                f"({dist_ratio:.2f}x baseline) communicate confident civilizational parity over choreographed Western hegemony."
+            )
+        elif score >= 0.40:
+            tier = "FORMAL_TRANSACTIONAL_EQUILIBRIUM"
+            verdict = "STATUS_QUO_DIPLOMATIC_CHOREOGRAPHY_MAINTAINED"
+            rationale = f"Transactional equilibrium ({score:.4f}): Seating distance and handshake latency conform to standard bilateral protocol."
+        else:
+            tier = "SUBORDINATED_OR_CONCESSIONARY_POSTURE"
+            verdict = "TACTICAL_CONCESSION_INDICATED_BY_OPTICS_DRIFT"
+            rationale = f"Concessionary posture ({score:.4f}): Distance elongation and tone drift signal diplomatic leverage deficit."
+
+        return {
+            "diplomatic_nonverbal_optics_score": score,
+            "attire_symbolism_weight": round(attire_w, 4),
+            "seating_distance_ratio": round(dist_ratio, 4),
+            "handshake_latency_norm": round(handshake, 4),
+            "linguistic_tone_drift": round(tone_drift, 4),
+            "optics_divergence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_sovereign_optics_asserted": score >= 0.65,
         }

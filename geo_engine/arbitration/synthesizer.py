@@ -894,6 +894,27 @@ class SummitSynthesizer:
             "generative_media_compute_hegemony_score": civ_eval.hard_metrics.get("generative_media_compute_hegemony_score", 0.0) if civ_eval else 0.0,
             "remote_silicon_microcode_killswitch_score": deep_tech_eval.hard_metrics.get("remote_silicon_microcode_killswitch_score", 0.0) if deep_tech_eval else 0.0,
             "gpu_debt_collateral_contagion_score": cash_eval.hard_metrics.get("gpu_debt_collateral_contagion_score", 0.0) if cash_eval else 0.0,
+            # Phases 396-415: Sovereign Asymmetric War, Balance-Sheet Realism & Civilizational Sovereignty Matrix
+            "informal_sector_statistical_divergence_score": cash_eval.hard_metrics.get("informal_sector_statistical_divergence_score", 0.0) if cash_eval else 0.0,
+            "pboc_lgfv_liquidity_trap_score": cash_eval.hard_metrics.get("pboc_lgfv_liquidity_trap_score", 0.0) if cash_eval else 0.0,
+            "asymmetric_air_defense_cost_exchange_score": military_eval.hard_metrics.get("asymmetric_air_defense_cost_exchange_score", 0.0) if military_eval else 0.0,
+            "hypersonic_glide_penetration_score": military_eval.hard_metrics.get("hypersonic_glide_penetration_score", 0.0) if military_eval else 0.0,
+            "sovereign_platform_regulatory_defiance_score": digital_eval.hard_metrics.get("sovereign_platform_regulatory_defiance_score", 0.0) if digital_eval else 0.0,
+            "institutional_cartel_cross_shareholding_score": cash_eval.hard_metrics.get("institutional_cartel_cross_shareholding_score", 0.0) if cash_eval else 0.0,
+            "msme_solvency_asphyxiation_score": cash_eval.hard_metrics.get("msme_solvency_asphyxiation_score", 0.0) if cash_eval else 0.0,
+            "nuclear_launch_under_attack_latency_score": military_eval.hard_metrics.get("nuclear_launch_under_attack_latency_score", 0.0) if military_eval else 0.0,
+            "border_state_narco_fiscal_subversion_score": hybrid_eval.hard_metrics.get("border_state_narco_fiscal_subversion_score", 0.0) if hybrid_eval else 0.0,
+            "trilateral_superpower_condominium_exclusion_score": geo_eval.hard_metrics.get("trilateral_superpower_condominium_exclusion_score", 0.0) if geo_eval else 0.0,
+            "quantum_hndl_vulnerability_score": deep_tech_eval.hard_metrics.get("quantum_hndl_vulnerability_score", 0.0) if deep_tech_eval else 0.0,
+            "diplomatic_nonverbal_optics_score": kinesic_eval.hard_metrics.get("diplomatic_nonverbal_optics_score", 0.0) if kinesic_eval else 0.0,
+            "cultural_religious_grayzone_lawfare_score": lawfare_eval.hard_metrics.get("cultural_religious_grayzone_lawfare_score", 0.0) if lawfare_eval else 0.0,
+            "critical_mineral_weaponization_score": minerals_eval.hard_metrics.get("critical_mineral_weaponization_score", 0.0) if minerals_eval else 0.0,
+            "agrochemical_food_weaponization_score": food_eval.hard_metrics.get("agrochemical_food_weaponization_score", 0.0) if food_eval else 0.0,
+            "aviation_transit_slot_cartel_score": geo_economist_eval.hard_metrics.get("aviation_transit_slot_cartel_score", 0.0) if geo_economist_eval else 0.0,
+            "airborne_command_survivability_score": military_eval.hard_metrics.get("airborne_command_survivability_score", 0.0) if military_eval else 0.0,
+            "sub_tactical_honeytrap_espionage_score": hybrid_eval.hard_metrics.get("sub_tactical_honeytrap_espionage_score", 0.0) if hybrid_eval else 0.0,
+            "naval_electronic_warfare_suppression_score": military_eval.hard_metrics.get("naval_electronic_warfare_suppression_score", 0.0) if military_eval else 0.0,
+            "civilizational_epistemic_historiography_score": civ_eval.hard_metrics.get("civilizational_epistemic_historiography_score", 0.0) if civ_eval else 0.0,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

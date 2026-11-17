@@ -94,9 +94,12 @@ def serialize_sqlite_to_markdown() -> str:
         lines.append("| Anniv ID | Date | Event Title | Region | Significance |")
         lines.append("| :--- | :--- | :--- | :--- | :--- |")
         for a in annivs:
-            title = a["event_title"].replace("|", "\\|")
-            sig = a["significance"].replace("|", "\\|")
-            lines.append(f"| {a['anniv_id']} | {a['year']}-{a['month']:02d}-{a['day']:02d} | {title} | {a['region']} | {sig} |")
+            keys = a.keys()
+            a_id = a["anniversary_id"] if "anniversary_id" in keys else a["anniv_id"]
+            title = (a["event_title"] or "").replace("|", "\\|")
+            raw_sig = a["strategic_mirror_significance"] if "strategic_mirror_significance" in keys else a["significance"]
+            sig = (raw_sig or "").replace("|", "\\|")
+            lines.append(f"| {a_id} | {a['year']}-{a['month']:02d}-{a['day']:02d} | {title} | {a['region']} | {sig} |")
 
         # 3. Autonomously Learned Claims & Propositions
         try:

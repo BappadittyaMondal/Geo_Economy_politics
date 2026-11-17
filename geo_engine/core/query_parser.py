@@ -165,6 +165,27 @@ class StrategicQuery(BaseModel):
     requires_generative_media_hegemony: bool = False
     requires_silicon_microcode_killswitch: bool = False
     requires_gpu_debt_contagion: bool = False
+    # Phases 396-415: Sovereign Asymmetric War, Balance-Sheet Realism & Civilizational Sovereignty Matrix
+    requires_informal_sector_divergence: bool = False
+    requires_pboc_lgfv_liquidity_trap: bool = False
+    requires_asymmetric_air_defense_cost_exchange: bool = False
+    requires_hypersonic_glide_penetration: bool = False
+    requires_sovereign_platform_regulatory_defiance: bool = False
+    requires_institutional_cartel_cross_shareholding: bool = False
+    requires_msme_solvency_asphyxiation: bool = False
+    requires_nuclear_launch_under_attack_latency: bool = False
+    requires_border_state_narco_fiscal_subversion: bool = False
+    requires_trilateral_superpower_condominium_exclusion: bool = False
+    requires_quantum_hndl_vulnerability: bool = False
+    requires_diplomatic_nonverbal_optics: bool = False
+    requires_cultural_religious_grayzone_lawfare: bool = False
+    requires_critical_mineral_weaponization: bool = False
+    requires_agrochemical_food_weaponization: bool = False
+    requires_aviation_transit_slot_cartel: bool = False
+    requires_airborne_command_survivability: bool = False
+    requires_sub_tactical_honeytrap_espionage: bool = False
+    requires_naval_electronic_warfare_suppression: bool = False
+    requires_civilizational_epistemic_historiography: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -542,26 +563,58 @@ class QueryParser:
         req_silicon_microcode_killswitch = any(cls.matches_keyword(text_lower, kw) for kw in ["silicon microcode kill switch", "remote firmware kill switch", "cloud license heartbeat", "openbmc airgap", "gpu killswitch", "microcode kill switch", "firmware kill switch", "remote silicon kill switch"])
         req_gpu_debt_contagion = any(cls.matches_keyword(text_lower, kw) for kw in ["gpu collateralized private debt", "gpu debt contagion", "ai private credit contagion", "gpu asset backed loans", "gpu debt covenant breach", "private credit debt contagion", "gpu collateral debt"])
 
-        if (req_cloud_monopoly or req_legacy_infra_obs) and "digital_sovereignty" not in active_lenses:
+        # Phases 396-415: Sovereign Asymmetric War, Balance-Sheet Realism & Civilizational Sovereignty Matrix
+        req_informal_divergence = any(cls.matches_keyword(text_lower, kw) for kw in ["informal sector divergence", "unorganized sector gdp", "arun kumar informal", "dual economy divergence", "unorganized wage compression", "household savings collapse", "informal economy accounting"])
+        req_pboc_liquidity = any(cls.matches_keyword(text_lower, kw) for kw in ["pboc lgfv", "municipal debt deflation", "lgfv debt trap", "negative net new loans", "china balance sheet recession", "municipal land sale collapse", "pboc liquidity trap"])
+        req_air_defense_cer = any(cls.matches_keyword(text_lower, kw) for kw in ["air defense cost exchange", "asymmetric drone cost exchange", "patriot shahed cost exchange", "cer interceptor exhaustion", "magazine depletion swarm", "air defense budget exhaustion", "asymmetric air defense"])
+        req_hypersonic_glide = any(cls.matches_keyword(text_lower, kw) for kw in ["hypersonic non-keplerian", "hypersonic glide trajectory", "scramjet skip glide", "drdo hgv", "mach 7 glide", "abm radar invalidation", "hypersonic glide penetration", "non keplerian glide"])
+        req_platform_defiance = any(cls.matches_keyword(text_lower, kw) for kw in ["platform regulatory defiance", "section 69a defiance", "safe harbor forfeiture", "big tech algorithmic resistance", "takedown directive defiance", "sovereign platform defiance", "intermediary safe harbor"])
+        req_cartel_cross_holding = any(cls.matches_keyword(text_lower, kw) for kw in ["institutional monopoly cartel", "cross shareholding sieve", "aladdin capital flight", "common ownership index", "blackrock vanguard state street", "institutional cartel", "aladdin risk"])
+        req_msme_asphyxiation = any(cls.matches_keyword(text_lower, kw) for kw in ["msme formalization", "working capital asphyxiation", "gst formalization mortality", "msme solvency stress", "treds invoice discounting", "promoter decoupling", "msme working capital"])
+        req_nuclear_latency = any(cls.matches_keyword(text_lower, kw) for kw in ["nuclear launch under attack", "launch on warning latency", "72 minute escalation", "hypersonic flight time decision", "nuclear command latency", "nuclear decapitation vulnerability", "annie jacobsen"])
+        req_border_narco = any(cls.matches_keyword(text_lower, kw) for kw in ["border state narco fiscal", "narco fiscal subversion", "drone narco trafficking", "border debt gsdp", "punjab narco drone", "populist freebie border debt", "border subversion index"])
+        req_condominium_exclusion = any(cls.matches_keyword(text_lower, kw) for kw in ["superpower condominium", "yalta 2.0", "trilateral condominium", "g2 carve up", "superpower condominium exclusion", "imec instc transit autonomy", "shatter condominium"])
+        req_quantum_hndl = any(cls.matches_keyword(text_lower, kw) for kw in ["harvest now decrypt later", "quantum hndl", "q-day vulnerability", "post-quantum cryptography", "pqc migration", "lattice cryptography", "quantum key distribution", "quantum exposure score"])
+        req_diplomatic_optics = any(cls.matches_keyword(text_lower, kw) for kw in ["diplomatic non verbal optics", "attire forensics", "summit seating distance", "gamusa civilizational attire", "handshake latency", "non-verbal statecraft", "diplomatic attire forensics"])
+        req_grayzone_lawfare = any(cls.matches_keyword(text_lower, kw) for kw in ["cultural religious grayzone", "waqf lawfare", "section 40 waqf", "defense buffer contestation", "siliguri corridor grayzone", "non-judicial statutory property claim", "grayzone lawfare"])
+        req_mineral_weaponization = any(cls.matches_keyword(text_lower, kw) for kw in ["critical mineral weaponization", "gallium germanium export ban", "rare earth chokepoint", "neodymium magnet weaponization", "mineral supply chain decapitation", "lithium refining chokepoint", "critical mineral supply chain"])
+        req_food_weaponization = any(cls.matches_keyword(text_lower, kw) for kw in ["agrochemical fertilizer weaponization", "fertilizer feedstock cartel", "potash phosphate embargo", "calorie inflation food security", "strategic grain reserve buffer", "food security weaponization", "food sovereignty stress"])
+        req_aviation_cartel = any(cls.matches_keyword(text_lower, kw) for kw in ["aviation transit slot cartel", "sixth freedom cartel", "gulf airline sixth freedom", "bilateral seat imbalance", "airport slot war", "mumbai airport slot", "aviation capital leakage"])
+        req_airborne_command = any(cls.matches_keyword(text_lower, kw) for kw in ["airborne command decapitation", "air india one survivability", "laircm missile defense", "flying nuclear command bunker", "type-1 satcom airborne", "airborne command survivability"])
+        req_honeytrap_espionage = any(cls.matches_keyword(text_lower, kw) for kw in ["sub tactical honeytrap", "kamopadha espionage", "defense blueprint leak", "brahmos technician honeytrap", "unscreened smartphone classified", "social media honeytrap", "personnel espionage"])
+        req_naval_ew = any(cls.matches_keyword(text_lower, kw) for kw in ["naval electronic warfare suppression", "non kinetic naval disablement", "rf jamming warship", "acoustic spoofing naval", "pns hunain electronic warfare", "ins kolkata ew", "standoff jamming power"])
+        req_historiography_decolonial = any(cls.matches_keyword(text_lower, kw) for kw in ["civilizational epistemic historiography", "historiography decolonization", "primary epigraphic citations", "inscriptional provenance", "sanskrit grammar provenance", "colonial textbook distortion", "meenakshi jain ami ganatra"])
+
+        if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
             active_lenses.append("digital_sovereignty")
-        if (req_cognitive_deception or req_ci_honeytrap or req_false_flag_narrative or req_open_sys_infil or req_semi_kompromat) and "hybrid_covert" not in active_lenses:
+        if (req_cognitive_deception or req_ci_honeytrap or req_false_flag_narrative or req_open_sys_infil or req_semi_kompromat or req_border_narco or req_honeytrap_espionage) and "hybrid_covert" not in active_lenses:
             active_lenses.append("hybrid_covert")
-        if (req_maritime_net_sec or req_asym_weapon_leak or req_naval_coercion) and "military_readiness" not in active_lenses:
+        if (req_maritime_net_sec or req_asym_weapon_leak or req_naval_coercion or req_air_defense_cer or req_hypersonic_glide or req_nuclear_latency or req_airborne_command or req_naval_ew) and "military_readiness" not in active_lenses:
             active_lenses.append("military_readiness")
-        if (req_sov_cyber_extort or req_scada_hw_backdoor or req_silicon_microcode_killswitch) and "deep_tech" not in active_lenses:
+        if (req_sov_cyber_extort or req_scada_hw_backdoor or req_silicon_microcode_killswitch or req_quantum_hndl) and "deep_tech" not in active_lenses:
             active_lenses.append("deep_tech")
-        if (req_port_dual_use or req_phys_capex_mult) and "geo_economist" not in active_lenses:
+        if (req_port_dual_use or req_phys_capex_mult or req_aviation_cartel) and "geo_economist" not in active_lenses:
             active_lenses.append("geo_economist")
         if (req_revealed_pref_div or req_algo_cog_subversion or req_media_leak_timing) and "propaganda" not in active_lenses:
             active_lenses.append("propaganda")
-        if (req_debt_syndicate or req_spec_capex_overhang or req_circ_venture_val or req_gpu_debt_contagion) and "cash_flow" not in active_lenses:
+        if (req_debt_syndicate or req_spec_capex_overhang or req_circ_venture_val or req_gpu_debt_contagion or req_informal_divergence or req_pboc_liquidity or req_cartel_cross_holding or req_msme_asphyxiation) and "cash_flow" not in active_lenses:
             active_lenses.append("cash_flow")
-        if (req_subnat_frag_lawfare or req_sub_replace_demog or req_gen_media_hegemony) and "civilizational" not in active_lenses:
+        if (req_subnat_frag_lawfare or req_sub_replace_demog or req_gen_media_hegemony or req_historiography_decolonial) and "civilizational" not in active_lenses:
             active_lenses.append("civilizational")
         if (req_civ_epistemic_int or req_monopoly_patent_supp) and "history" not in active_lenses:
             active_lenses.append("history")
         if req_dynastic_shadow_cab and "bureaucratic_inertia" not in active_lenses:
             active_lenses.append("bureaucratic_inertia")
+        if req_condominium_exclusion and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_diplomatic_optics and "kinesics" not in active_lenses:
+            active_lenses.append("kinesics")
+        if req_grayzone_lawfare and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_mineral_weaponization and "critical_minerals" not in active_lenses:
+            active_lenses.append("critical_minerals")
+        if req_food_weaponization and "food_security" not in active_lenses:
+            active_lenses.append("food_security")
 
         if (req_bis_fx or req_ubo_shell) and "cash_flow" not in active_lenses:
             active_lenses.append("cash_flow")
@@ -857,6 +910,27 @@ class QueryParser:
             requires_generative_media_hegemony=req_gen_media_hegemony,
             requires_silicon_microcode_killswitch=req_silicon_microcode_killswitch,
             requires_gpu_debt_contagion=req_gpu_debt_contagion,
+            # Phases 396-415: Sovereign Asymmetric War, Balance-Sheet Realism & Civilizational Sovereignty Matrix
+            requires_informal_sector_divergence=req_informal_divergence,
+            requires_pboc_lgfv_liquidity_trap=req_pboc_liquidity,
+            requires_asymmetric_air_defense_cost_exchange=req_air_defense_cer,
+            requires_hypersonic_glide_penetration=req_hypersonic_glide,
+            requires_sovereign_platform_regulatory_defiance=req_platform_defiance,
+            requires_institutional_cartel_cross_shareholding=req_cartel_cross_holding,
+            requires_msme_solvency_asphyxiation=req_msme_asphyxiation,
+            requires_nuclear_launch_under_attack_latency=req_nuclear_latency,
+            requires_border_state_narco_fiscal_subversion=req_border_narco,
+            requires_trilateral_superpower_condominium_exclusion=req_condominium_exclusion,
+            requires_quantum_hndl_vulnerability=req_quantum_hndl,
+            requires_diplomatic_nonverbal_optics=req_diplomatic_optics,
+            requires_cultural_religious_grayzone_lawfare=req_grayzone_lawfare,
+            requires_critical_mineral_weaponization=req_mineral_weaponization,
+            requires_agrochemical_food_weaponization=req_food_weaponization,
+            requires_aviation_transit_slot_cartel=req_aviation_cartel,
+            requires_airborne_command_survivability=req_airborne_command,
+            requires_sub_tactical_honeytrap_espionage=req_honeytrap_espionage,
+            requires_naval_electronic_warfare_suppression=req_naval_ew,
+            requires_civilizational_epistemic_historiography=req_historiography_decolonial,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

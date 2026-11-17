@@ -499,6 +499,15 @@ class DeepTechLens:
         )
         metrics["remote_silicon_microcode_killswitch_score"] = _rsm_res["remote_silicon_microcode_killswitch_score"]
 
+        # Phase 406: Quantum Harvest-Now-Decrypt-Later (HNDL) Vulnerability Sieve
+        _qhn_res = QuantumHarvestNowDecryptLaterVulnerabilitySieve.evaluate(
+            data_shelf_life_years=deep_meta.get("data_shelf_life_years", 25.0),
+            estimated_q_day_years=deep_meta.get("estimated_q_day_years", 8.0),
+            pqc_migration_progress=deep_meta.get("pqc_migration_progress", 0.25),
+            critical_scada_quantum_risk=deep_meta.get("critical_scada_quantum_risk", 0.70),
+        )
+        metrics["quantum_hndl_vulnerability_score"] = _qhn_res["quantum_hndl_vulnerability_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -1310,6 +1319,66 @@ class RemoteSiliconMicrocodeKillSwitchSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_silicon_killswitch_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 406: Quantum Harvest-Now-Decrypt-Later (HNDL) Vulnerability Sieve
+# ============================================================================
+
+class QuantumHarvestNowDecryptLaterVulnerabilitySieve:
+    """
+    Phase 406: Evaluates foreign signals intelligence (NSA, MSS) "Harvest Now, Decrypt Later"
+    espionage against sovereign communications, financial ledgers, and critical SCADA networks,
+    auditing migration velocity to NIST post-quantum cryptography (ML-KEM, ML-DSA) and satellite QKD.
+    Formula:
+        QuantumExposureScore = Norm((DataShelfLifeYears / max(EstimatedQDayYears, 1)) * (1 - PQCMigrationProgress) + CriticalSCADAQuantumRisk)
+        score = Sigmoid(2.4 * QuantumExposureScore + 2.5 * CriticalSCADAQuantumRisk - 1.5)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        data_shelf_life_years: float = 25.0,
+        estimated_q_day_years: float = 8.0,
+        pqc_migration_progress: float = 0.25,
+        critical_scada_quantum_risk: float = 0.70
+    ) -> Dict[str, Any]:
+        shelf_life = float(max(1.0, data_shelf_life_years))
+        q_day = float(max(1.0, estimated_q_day_years))
+        pqc_prog = float(max(0.0, min(1.0, pqc_migration_progress)))
+        scada_risk = float(max(0.0, min(1.0, critical_scada_quantum_risk)))
+
+        q_ratio = min(3.0, shelf_life / q_day)
+        exposure_term = q_ratio * (1.0 - pqc_prog)
+        z = 2.4 * exposure_term + 2.5 * scada_risk - 1.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_QUANTUM_HNDL_EXPOSURE"
+            verdict = "MANDATE_IMMEDIATE_PQC_LATTICE_MIGRATION_AND_QKD_BACKBONE"
+            rationale = (
+                f"Severe quantum vulnerability ({score:.4f}): Data shelf-life ({shelf_life:.0f} yrs) extends far beyond estimated "
+                f"Q-Day ({q_day:.0f} yrs) with only {pqc_prog*100:.1f}% PQC migration. Stored encrypted traffic faces retrospective decryption."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_POST_QUANTUM_TRANSITION_RISK"
+            verdict = "ACCELERATE_CENTRAL_BANK_AND_DEFENSE_LATTICE_STANDARDS"
+            rationale = f"Elevated exposure ({score:.4f}): Financial and SCADA networks require accelerated cryptographic agility."
+        else:
+            tier = "QUANTUM_RESILIENT_SOVEREIGN_CRYPTOGRAPHY"
+            verdict = "PQC_STANDARDS_ACTIVE_AND_QKD_LINKS_FORTIFIED"
+            rationale = f"Low risk ({score:.4f}): High PQC migration ({pqc_prog*100:.1f}%) and low SCADA exposure insulate sovereign assets."
+
+        return {
+            "quantum_hndl_vulnerability_score": score,
+            "data_shelf_life_years": round(shelf_life, 2),
+            "estimated_q_day_years": round(q_day, 2),
+            "pqc_migration_progress": round(pqc_prog, 4),
+            "critical_scada_quantum_risk": round(scada_risk, 4),
+            "quantum_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_quantum_exposure_critical": score >= 0.70,
         }
 
 

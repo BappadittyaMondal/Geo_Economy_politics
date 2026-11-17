@@ -244,6 +244,14 @@ class GeopoliticalLens:
         )
         metrics["kautilya_saptanga_score"] = _kms_res["kautilya_saptanga_score"]
 
+        # Phase 405: Trilateral Superpower Condominium Exclusion Tensor
+        _tsc_res = TrilateralSuperpowerCondominiumExclusionTensor.evaluate(
+            bilateral_trade_diversification=geo_meta.get("bilateral_trade_diversification", 0.80),
+            alternative_corridor_throughput=geo_meta.get("alternative_corridor_throughput", 0.75),
+            sovereign_veto_capacity=geo_meta.get("sovereign_veto_capacity", 0.85),
+        )
+        metrics["trilateral_superpower_condominium_exclusion_score"] = _tsc_res["trilateral_superpower_condominium_exclusion_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -733,6 +741,60 @@ class KautilyaMandalaShadgunyaSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_state_resilient": saptanga_score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 405: Trilateral Superpower Condominium Exclusion Tensor
+# ============================================================================
+
+class TrilateralSuperpowerCondominiumExclusionTensor:
+    """
+    Phase 405: Evaluates Bharat's capability to resist and shatter great-power condominiums (Yalta 2.0 / G2 / G3)
+    by mobilizing the Global South, bilateral energy hedging, and independent transcontinental transit corridors (IMEC/INSTC).
+    Formula:
+        CondominiumResistanceScore = Norm(BilateralTradeDiversification + AlternativeCorridorThroughput + SovereignVetoCapacity)
+        score = Sigmoid(2.8 * BilateralTradeDiversification + 2.6 * AlternativeCorridorThroughput + 2.5 * SovereignVetoCapacity - 2.8)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        bilateral_trade_diversification: float = 0.80,
+        alternative_corridor_throughput: float = 0.75,
+        sovereign_veto_capacity: float = 0.85
+    ) -> Dict[str, Any]:
+        b_div = float(max(0.0, min(1.0, bilateral_trade_diversification)))
+        a_corr = float(max(0.0, min(1.0, alternative_corridor_throughput)))
+        s_veto = float(max(0.0, min(1.0, sovereign_veto_capacity)))
+
+        z = 2.8 * b_div + 2.6 * a_corr + 2.5 * s_veto - 2.8
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_CONDOMINIUM_RESISTANCE_SOVEREIGNTY"
+            verdict = "MULTIPOLAR_AUTONOMY_MAINTAINED_SUPERPOWER_CARVE_UP_SHATTERED"
+            rationale = (
+                f"Decisive condominium resistance ({score:.4f}): Trade diversification ({b_div:.2f}) and transcontinental corridor "
+                f"throughput ({a_corr:.2f}, IMEC/INSTC) coupled with sovereign veto power ({s_veto:.2f}) prevent tripolar partitioning of regional influence."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_STRATEGIC_BALANCING"
+            verdict = "ACCELERATE_BILATERAL_SWAPS_AND_CORRIDOR_FINANCING"
+            rationale = f"Moderate resistance ({score:.4f}): Grand-power collusion pressures regional autonomy."
+        else:
+            tier = "VULNERABLE_TO_SUPERPOWER_PARTITION"
+            verdict = "COALITION_ALIGNMENT_REQUIRED_TO_AVOID_HEGEMONIC_EXCLUSION"
+            rationale = f"High vulnerability ({score:.4f}): Lacks independent transit leverage to break superpower condominium."
+
+        return {
+            "trilateral_superpower_condominium_exclusion_score": score,
+            "bilateral_trade_diversification": round(b_div, 4),
+            "alternative_corridor_throughput": round(a_corr, 4),
+            "sovereign_veto_capacity": round(s_veto, 4),
+            "condominium_resistance_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_condominium_resisted": score >= 0.70,
         }
 
 ```

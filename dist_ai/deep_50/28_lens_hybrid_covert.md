@@ -303,6 +303,23 @@ class HybridCovertLens:
         )
         metrics["transnational_semiconductor_kompromat_score"] = _tsk_res["transnational_semiconductor_kompromat_score"]
 
+        # Phase 404: Border-State Narco-Fiscal Subversion Sieve
+        _bsn_res = BorderStateNarcoFiscalSubversionSieve.evaluate(
+            state_debt_to_gsdp=hc_meta.get("state_debt_to_gsdp", 0.48),
+            populist_freebie_ratio=hc_meta.get("populist_freebie_ratio", 0.35),
+            drone_narco_infiltration_frequency=hc_meta.get("drone_narco_infiltration_frequency", 0.80),
+        )
+        metrics["border_state_narco_fiscal_subversion_score"] = _bsn_res["border_state_narco_fiscal_subversion_score"]
+
+        # Phase 413: Asymmetric Sub-Tactical Honeytrap & Espionage Sieve
+        _ash_res = AsymmetricSubTacticalHoneytrapEspionageSieve.evaluate(
+            unscreened_smartphone_density=hc_meta.get("unscreened_smartphone_density", 0.75),
+            classified_zone_volume=hc_meta.get("classified_zone_volume", 0.80),
+            social_media_honeytrap_exposure_factor=hc_meta.get("social_media_honeytrap_exposure_factor", 0.85),
+            lifestyle_debt_discrepancy=hc_meta.get("lifestyle_debt_discrepancy", 0.70),
+        )
+        metrics["sub_tactical_honeytrap_espionage_score"] = _ash_res["sub_tactical_honeytrap_espionage_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1472,6 +1489,120 @@ class TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_kompromat_risk_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 404: Border-State Narco-Fiscal Subversion Sieve
+# ============================================================================
+
+class BorderStateNarcoFiscalSubversionSieve:
+    """
+    Phase 404: Models the asymmetric intersection of state-level fiscal bankruptcy (debt-to-GSDP > 45%),
+    populist freebies, and weaponized cross-border narcotics/drone trafficking in frontline border states.
+    Formula:
+        BorderSubversionIndex = Norm((StateDebt / GSDP) * PopulistFreebieRatio + DroneNarcoInfiltrationFrequency)
+        score = Sigmoid(3.2 * BorderSubversionIndex - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        state_debt_to_gsdp: float = 0.48,
+        populist_freebie_ratio: float = 0.35,
+        drone_narco_infiltration_frequency: float = 0.80
+    ) -> Dict[str, Any]:
+        debt_ratio = float(max(0.0, state_debt_to_gsdp))
+        freebie_ratio = float(max(0.0, min(1.0, populist_freebie_ratio)))
+        drone_infil = float(max(0.0, min(1.0, drone_narco_infiltration_frequency)))
+
+        debt_factor = min(1.0, max(0.0, (debt_ratio - 0.20) / 0.30))
+        raw_index = debt_factor * freebie_ratio + drone_infil
+
+        z = 3.2 * raw_index - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_BORDER_STATE_NARCO_FISCAL_PARALYSIS"
+            verdict = "ENACT_FEDERAL_FINANCIAL_EMERGENCY_AND_AIR_DEFENSE_DRONE_GRID"
+            rationale = (
+                f"Severe border subversion ({score:.4f}): Frontline state debt ({debt_ratio*100:.1f}% GSDP) and populist drain "
+                f"({freebie_ratio*100:.1f}%) paralyze law enforcement while weaponized drone narco-trafficking ({drone_infil:.2f}) funds hostile cartels."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_BORDER_SECURITY_FRICTION"
+            verdict = "DEPLOY_BSF_ANTI_DRONE_SYSTEMS_AND_AUDIT_STATE_CONTINGENCY_FUNDS"
+            rationale = f"Elevated narco-fiscal vulnerability ({score:.4f}): Border surveillance requires federal fiscal backstops."
+        else:
+            tier = "SECURE_BORDER_STATE_EQUILIBRIUM"
+            verdict = "BORDER_CORRIDORS_HARDENED_AND_FISCAL_PRUDENCE_MAINTAINED"
+            rationale = f"Low risk ({score:.4f}): Sustainable debt ratio ({debt_ratio*100:.1f}%) and effective anti-drone interdiction."
+
+        return {
+            "border_state_narco_fiscal_subversion_score": score,
+            "state_debt_to_gsdp": round(debt_ratio, 4),
+            "populist_freebie_ratio": round(freebie_ratio, 4),
+            "drone_narco_infiltration_frequency": round(drone_infil, 4),
+            "narco_fiscal_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_border_subversion_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 413: Asymmetric Sub-Tactical Honeytrap & Espionage Sieve
+# ============================================================================
+
+class AsymmetricSubTacticalHoneytrapEspionageSieve:
+    """
+    Phase 413: Models Chanakyan Kamopadha targeting defense technical personnel:
+    Calculates the probability of technical drawing and telemetry leaks (e.g. BrahMos/IAF avionics)
+    via digital social engineering, lifestyle debt discrepancies, and unscreened personal smartphone proliferation.
+    Formula:
+        PersonnelVulnerabilityScore = Norm((UnscreenedSmartphones / max(ClassifiedZoneVolume, 0.1)) * HoneytrapExposure + LifestyleDebtDiscrepancy)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        unscreened_smartphone_density: float = 0.75,
+        classified_zone_volume: float = 0.80,
+        social_media_honeytrap_exposure_factor: float = 0.85,
+        lifestyle_debt_discrepancy: float = 0.70
+    ) -> Dict[str, Any]:
+        phone_dens = float(max(0.0, unscreened_smartphone_density))
+        zone_vol = float(max(0.10, classified_zone_volume))
+        honey_exp = float(max(0.0, min(1.0, social_media_honeytrap_exposure_factor)))
+        debt_disc = float(max(0.0, min(1.0, lifestyle_debt_discrepancy)))
+
+        device_risk = min(2.0, phone_dens / zone_vol)
+        z = 2.8 * device_risk * honey_exp + 2.4 * debt_disc - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_HUMINT_KAMOPADHA_COMPROMISE"
+            verdict = "ENFORCE_AIR_GAPPED_DEVICE_DENIAL_AND_COUNTER_INTELLIGENCE_LIFESTYLE_AUDIT"
+            rationale = (
+                f"Severe personnel espionage risk ({score:.4f}): Unscreened devices ({phone_dens:.2f}) and social media vulnerability "
+                f"({honey_exp:.2f}) paired with unexplained lifestyle debt ({debt_disc:.2f}) indicate active hostile intelligence recruitment."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_SUB_TACTICAL_EXPOSURE"
+            verdict = "ROTATE_SENSITIVE_TECHNICAL_STAFF_AND_MANDATE_COUNTER_INTEL_BRIEFINGS"
+            rationale = f"Elevated exposure ({score:.4f}): Social media vectors require rigorous OPSEC monitoring."
+        else:
+            tier = "HARDENED_FACILITY_OPSEC"
+            verdict = "TECHNICAL_PERSONNEL_VETTING_SECURE"
+            rationale = f"Low risk ({score:.4f}): Strict physical airgapping and vetted clearance standards verified."
+
+        return {
+            "sub_tactical_honeytrap_espionage_score": score,
+            "smartphone_exposure_ratio": round(device_risk, 4),
+            "social_media_honeytrap_exposure_factor": round(honey_exp, 4),
+            "lifestyle_debt_discrepancy": round(debt_disc, 4),
+            "honeytrap_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_personnel_espionage_risk_critical": score >= 0.70,
         }
 
 

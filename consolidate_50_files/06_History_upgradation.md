@@ -4329,3 +4329,58 @@ Following the comprehensive forensic audit of real-world intelligence warfare—
 3. **Test Suite Expansion (`tests/test_engine.py`):** Added `test_phases_391_to_395_dynamic_metadata_propagation`, verifying dynamic telemetry scores scale from 710 to **711 passing tests (100% green, 0 regressions)**.
 
 
+
+## Section 117: Phases 396–415 Sovereign Asymmetric Statecraft, Balance-Sheet Realism, Knowledge Matrix Modularization & SQLite Ingestion (Zero-Debt Full Certification)
+
+### 1. Architectural Motivation & Executive Summary
+In response to deep forensic auditing of civilizational statecraft, invisible cash-flow forensics, high-altitude border militarization, and epistemic sovereignty, Phases 396 through 415 implement 20 advanced mathematical forensic sieves and solve the scalability challenge of the 825 KB monolithic `KNOWLEDGE_LIBRARY_GEO_POLITICS.md` through a dual-tier modular architecture and SQLite database ingestion.
+
+### 2. Concrete Architectural Implementations
+
+1. **Bharat-Centric Sovereign Knowledge Matrix (BSKM) Modularization & Ingestion:**
+   - **Modular Dossier Split (`knowledge_library/`):** Restructured the monolithic 6,152-line, 157-discourse library into 7 specialized topic dossiers:
+     - `00_MASTER_INDEX_AND_ROUTER.md`: Master inventory, video ID registry, and council mentor routing.
+     - `01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`: Vedic epistemology, Shastras, epigraphy, and decolonized historiography (32 sections, 142 KB).
+     - `02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`: Invisible cash flow, shadow banking, bullion, debt traps, and balance-sheet realism (43 sections, 215 KB).
+     - `03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`: LAC militarization, Nyoma airbase, hypersonic glide, and ORBAT deterrence (35 sections, 181 KB).
+     - `04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`: Deep state subversion, honeytraps, mobocracy, and narco-fiscal syndicates (23 sections, 171 KB).
+     - `05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`: Semiconductors, compute, quantum HNDL, and critical minerals (5 sections, 20 KB).
+     - `06_COGNITIVE_WARFARE_AND_LAWFARE.md`: Media deconstruction, edutainment, and institutional lawfare (19 sections, 94 KB).
+   - **Canonical Compiler (`scripts/build_knowledge_library.py`):** Ensures root `KNOWLEDGE_LIBRARY_GEO_POLITICS.md` is strictly preserved for 100% backward compatibility.
+   - **SQLite Knowledge Ingestion (`data/events.db`):** Ingested all 157 video discourses into the `knowledge_discourses` table with metadata (`discourse_id`, `section_number`, `title`, `domain_category`, `council_members`, `source_speaker`, `key_thesis`, `strategic_doctrine`, `content_markdown`).
+   - **CLI Retrieval Command (`geo_engine/cli.py`):** Added `geo_engine library` with `--search`, `--domain`, `--council`, `--section`, and `--reindex` modes featuring Rich formatted panels and tables.
+
+2. **20 Sovereign Forensic Mathematical Sieves (Phases 396–415):**
+   - **Phase 396:** `InformalSectorStatisticalDivergenceTensor` (`geo_engine/lenses/cash_flow.py`) — Quantifies divergence between headline GDP and unorganized sector cash-flow distress.
+   - **Phase 397:** `PBOCLGFVLiquidityTrapTensor` (`geo_engine/lenses/cash_flow.py`) — Evaluates municipal debt rollover contagion and PBOC liquidity trap exhaustion.
+   - **Phase 398:** `AsymmetricAirDefenseCostExchangeTensor` (`geo_engine/lenses/military_readiness.py`) — Models interceptor vs. swarm drone cost attrition dynamics (CER).
+   - **Phase 399:** `HypersonicNonKeplerianGlideTrajectorySieve` (`geo_engine/lenses/military_readiness.py`) — Calculates skip-glide trajectory evasion against ballistic ABM radars.
+   - **Phase 400:** `SovereignPlatformRegulatoryDefianceSieve` (`geo_engine/lenses/digital_sovereignty.py`) — Assesses big-tech statutory defiance, Section 69A compliance, and safe harbor forfeiture risks.
+   - **Phase 401:** `InstitutionalMonopolyCartelCrossShareholdingSieve` (`geo_engine/lenses/cash_flow.py`) — Audits index fund cross-ownership (Aladdin) and oligopolistic market concentration.
+   - **Phase 402:** `MSMEFormalizationSolvencyAsphyxiationTensor` (`geo_engine/lenses/cash_flow.py`) — Assesses formalization compliance friction and working capital cycle stress on MSMEs.
+   - **Phase 403:** `NuclearLaunchUnderAttackLatencySieve` (`geo_engine/lenses/military_readiness.py`) — Measures command-and-control decision latency vs. hypersonic flight times.
+   - **Phase 404:** `BorderStateNarcoFiscalSubversionSieve` (`geo_engine/lenses/hybrid_covert.py`) — Evaluates cross-border drone narcotics trafficking, hawala flows, and border state debt distress.
+   - **Phase 405:** `TrilateralSuperpowerCondominiumExclusionTensor` (`geo_engine/lenses/geopolitical.py`) — Forensically checks Yalta 2.0 / G2 bilateral condominium exclusion threats against middle powers.
+   - **Phase 406:** `QuantumHarvestNowDecryptLaterVulnerabilitySieve` (`geo_engine/lenses/deep_tech.py`) — Quantifies data shelf-life exposure against adversary encrypted traffic harvesting for Q-Day decryption.
+   - **Phase 407:** `DiplomaticNonVerbalOpticsAndAttireForensicsSieve` (`geo_engine/lenses/kinesics.py`) — Evaluates civilizational attire symbolism, seating distance hierarchy, and handshake latencies.
+   - **Phase 408:** `CulturalReligiousGrayzoneLawfareSieve` (`geo_engine/lenses/institutional_lawfare.py`) — Audits statutory exemption abuse and land encroachment near strategic defense corridors.
+   - **Phase 409:** `CriticalMineralSupplyChainWeaponizationTensor` (`geo_engine/lenses/critical_minerals.py`) — Computes single-nation refining monopoly and export embargo vulnerability.
+   - **Phase 410:** `AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve` (`geo_engine/lenses/food_security.py`) — Models fertilizer feedstock cartel pricing and caloric buffer resilience.
+   - **Phase 411:** `AviationTransitSlotCartelSieve` (`geo_engine/lenses/geo_economist.py`) — Forensically quantifies foreign 6th-freedom passenger traffic capture and airport slot monopolization.
+   - **Phase 412:** `AirborneCommandDecapitationImmunitySieve` (`geo_engine/lenses/military_readiness.py`) — Evaluates survivability, LAIRCM defense, and survivable NCA reconstitution of airborne command posts (Air India One).
+   - **Phase 413:** `AsymmetricSubTacticalHoneytrapEspionageSieve` (`geo_engine/lenses/hybrid_covert.py`) — Assesses social engineering, smartphone vulnerabilities, and honeypot infiltration of defense technical cadres.
+   - **Phase 414:** `NavalElectronicWarfareSuppressionTensor` (`geo_engine/lenses/military_readiness.py`) — Computes standoff RF jamming to ECCM ratios, radar blindness, and datalink disruption.
+   - **Phase 415:** `CivilizationalEpistemicHistoriographyDecolonizationSieve` (`geo_engine/lenses/civilizational.py`) — Evaluates primary epigraphic/archaeological grounding vs. secondary colonial historiographical distortions.
+
+3. **Module Exports & Telemetry Scale:**
+   - `geo_engine.lenses.__all__` expanded from 214 to **234 exported symbols**.
+   - `SummitSynthesizer.strategic_resilience_matrix` scaled from 200 to **220 live float channels** (0 None values, 100% calibrated).
+   - `QueryParser` AST flags expanded with 20 new boolean indicators and automated lens activation routing.
+
+4. **Testing & Quality Assurance:**
+   - Expanded test suite with `TestPhases396to415SovereignForensicSieves` verifying all 20 sieves, AST query flags, 220 resilience channels, 234 lens symbols, and SQLite knowledge discourse indexing/retrieval.
+   - Total test count scaled from 711 to **718 tests** (100% passing, 0 failures, 0 regressions).
+
+5. **Canonical Distribution Bundles & Zero Upgrade Debt:**
+   - Canonical distribution bundles (`dist_ai/core_5/` and `dist_ai/deep_50/`) compiled and verified against all 10 Anti-Drift Quality Gates.
+   - `UPGRADE_PLANING` and `UPGRADE_PLANING.md` reset to **0 bytes** (zero upgrade debt).

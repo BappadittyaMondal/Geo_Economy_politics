@@ -180,6 +180,42 @@ class CashFlowLens:
                 ubo_transparency_score=det_meta.get("ubo_transparency_score", 0.80),
             )
             metrics["offshore_ubo_de_anonymizer_score"] = _ubo_res_e["offshore_ubo_de_anonymizer_score"]
+
+            # Phases 396, 397, 401, 402: Early branch wiring
+            _isd_res_e = InformalSectorStatisticalDivergenceTensor.evaluate(
+                gdp_reported=det_meta.get("gdp_reported", 0.082),
+                corporate_index=det_meta.get("corporate_index", 0.120),
+                unorganized_wage_index=det_meta.get("unorganized_wage_index", 0.015),
+                alpha=det_meta.get("informal_alpha", 0.45),
+                unsecured_consumer_debt=det_meta.get("unsecured_consumer_debt", 0.28),
+                net_household_savings=det_meta.get("net_household_savings", 0.052),
+                informal_distress_factor=det_meta.get("informal_distress_factor", 0.75),
+            )
+            metrics["informal_sector_statistical_divergence_score"] = _isd_res_e["informal_sector_statistical_divergence_score"]
+
+            _pll_res_e = PBOCLGFVLiquidityTrapTensor.evaluate(
+                delta_net_new_loans=det_meta.get("delta_net_new_loans", -0.15),
+                lgfv_debt_service=det_meta.get("lgfv_debt_service", 0.85),
+                municipal_land_revenues=det_meta.get("municipal_land_revenues", 0.30),
+                bond_hoarding_ratio=det_meta.get("bond_hoarding_ratio", 0.75),
+            )
+            metrics["pboc_lgfv_liquidity_trap_score"] = _pll_res_e["pboc_lgfv_liquidity_trap_score"]
+
+            _imc_res_e = InstitutionalMonopolyCartelCrossShareholdingSieve.evaluate(
+                shareholding_overlap_index=det_meta.get("shareholding_overlap_index", 0.75),
+                institutional_holdings_top3=det_meta.get("institutional_holdings_top3", 0.45),
+                total_free_float=det_meta.get("total_free_float", 0.60),
+                aladdin_risk_weight=det_meta.get("aladdin_risk_weight", 0.85),
+            )
+            metrics["institutional_cartel_cross_shareholding_score"] = _imc_res_e["institutional_cartel_cross_shareholding_score"]
+
+            _msm_res_e = MSMEFormalizationSolvencyAsphyxiationTensor.evaluate(
+                working_capital_cycle_days=det_meta.get("working_capital_cycle_days", 120.0),
+                liquid_cash_runway_days=det_meta.get("liquid_cash_runway_days", 30.0),
+                compliance_friction_factor=det_meta.get("compliance_friction_factor", 0.35),
+                promoter_decoupling_ratio=det_meta.get("promoter_decoupling_ratio", 0.20),
+            )
+            metrics["msme_solvency_asphyxiation_score"] = _msm_res_e["msme_solvency_asphyxiation_score"]
     
             if claims:
                 banking_npa_claims = [
@@ -466,6 +502,45 @@ class CashFlowLens:
             credit_basis_spread_expansion=cf_meta.get("credit_basis_spread_expansion", 0.55),
         )
         metrics["gpu_debt_collateral_contagion_score"] = _gdc_res["gpu_debt_collateral_contagion_score"]
+
+        # Phase 396: Informal Sector Statistical Divergence Tensor
+        _isd_res = InformalSectorStatisticalDivergenceTensor.evaluate(
+            gdp_reported=cf_meta.get("gdp_reported", 0.082),
+            corporate_index=cf_meta.get("corporate_index", 0.120),
+            unorganized_wage_index=cf_meta.get("unorganized_wage_index", 0.015),
+            alpha=cf_meta.get("informal_alpha", 0.45),
+            unsecured_consumer_debt=cf_meta.get("unsecured_consumer_debt", 0.28),
+            net_household_savings=cf_meta.get("net_household_savings", 0.052),
+            informal_distress_factor=cf_meta.get("informal_distress_factor", 0.75),
+        )
+        metrics["informal_sector_statistical_divergence_score"] = _isd_res["informal_sector_statistical_divergence_score"]
+
+        # Phase 397: PBOC LGFV Municipal Debt & Deflationary Trap Tensor
+        _pll_res = PBOCLGFVLiquidityTrapTensor.evaluate(
+            delta_net_new_loans=cf_meta.get("delta_net_new_loans", -0.15),
+            lgfv_debt_service=cf_meta.get("lgfv_debt_service", 0.85),
+            municipal_land_revenues=cf_meta.get("municipal_land_revenues", 0.30),
+            bond_hoarding_ratio=cf_meta.get("bond_hoarding_ratio", 0.75),
+        )
+        metrics["pboc_lgfv_liquidity_trap_score"] = _pll_res["pboc_lgfv_liquidity_trap_score"]
+
+        # Phase 401: Institutional Monopoly Cartel & Cross-Shareholding Sieve
+        _imc_res = InstitutionalMonopolyCartelCrossShareholdingSieve.evaluate(
+            shareholding_overlap_index=cf_meta.get("shareholding_overlap_index", 0.75),
+            institutional_holdings_top3=cf_meta.get("institutional_holdings_top3", 0.45),
+            total_free_float=cf_meta.get("total_free_float", 0.60),
+            aladdin_risk_weight=cf_meta.get("aladdin_risk_weight", 0.85),
+        )
+        metrics["institutional_cartel_cross_shareholding_score"] = _imc_res["institutional_cartel_cross_shareholding_score"]
+
+        # Phase 402: MSME Formalization & Solvency Asphyxiation Tensor
+        _msm_res = MSMEFormalizationSolvencyAsphyxiationTensor.evaluate(
+            working_capital_cycle_days=cf_meta.get("working_capital_cycle_days", 120.0),
+            liquid_cash_runway_days=cf_meta.get("liquid_cash_runway_days", 30.0),
+            compliance_friction_factor=cf_meta.get("compliance_friction_factor", 0.35),
+            promoter_decoupling_ratio=cf_meta.get("promoter_decoupling_ratio", 0.20),
+        )
+        metrics["msme_solvency_asphyxiation_score"] = _msm_res["msme_solvency_asphyxiation_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -1635,6 +1710,257 @@ class GPUCollateralizedPrivateDebtContagionTensor:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_debt_contagion_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 396: Informal Sector Statistical Divergence Tensor
+# ============================================================================
+
+class InformalSectorStatisticalDivergenceTensor:
+    """
+    Phase 396: Formulates Prof. Arun Kumar's informal economy accounting forensics:
+    Detects divergence between official headline GDP (formal corporate proxy) and the unorganized sector,
+    inverting headline growth when rural informal wages and household financial savings indicate net capital destruction.
+    Formula:
+        Delta_Informal = gdp_reported - (alpha * corporate_index + (1 - alpha) * unorganized_wage_index)
+        HouseholdStressIndex = Norm((unsecured_consumer_debt / max(net_household_savings, 0.01)) * informal_distress_factor)
+        score = Sigmoid(3.2 * HouseholdStressIndex + 2.8 * Norm(Delta_Informal) - 0.5)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        gdp_reported: float = 0.082,
+        corporate_index: float = 0.120,
+        unorganized_wage_index: float = 0.015,
+        alpha: float = 0.45,
+        unsecured_consumer_debt: float = 0.28,
+        net_household_savings: float = 0.052,
+        informal_distress_factor: float = 0.75
+    ) -> Dict[str, Any]:
+        gdp_rep = float(gdp_reported)
+        corp_idx = float(corporate_index)
+        unorg_wage = float(unorganized_wage_index)
+        a_weight = float(max(0.0, min(1.0, alpha)))
+        debt_cons = float(max(0.0, unsecured_consumer_debt))
+        savings_hh = float(max(0.005, net_household_savings))
+        distress_f = float(max(0.0, min(1.0, informal_distress_factor)))
+
+        delta_informal = gdp_rep - (a_weight * corp_idx + (1.0 - a_weight) * unorg_wage)
+        norm_delta = min(1.0, max(0.0, delta_informal * 10.0))
+
+        debt_savings_ratio = debt_cons / savings_hh
+        household_stress = min(1.0, max(0.0, (debt_savings_ratio / 6.0) * distress_f))
+
+        z = 3.2 * household_stress + 2.8 * norm_delta - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_INFORMAL_ECONOMY_CONTRACTION"
+            verdict = "INVERT_HEADLINE_GDP_ACCOUNTING_EXPAND_UNORGANIZED_SAFETY_NET"
+            rationale = (
+                f"Severe informal divergence ({score:.4f}): Headline GDP ({gdp_rep*100:.1f}%) masked by formal corporate index ({corp_idx*100:.1f}%) "
+                f"while unorganized wages ({unorg_wage*100:.1f}%) and household savings ({savings_hh*100:.1f}%) signal net capital depletion."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_DUAL_ECONOMY_STRESS"
+            verdict = "TARGET_RURAL_CASH_LIQUIDITY_AND_CREDIT_EASING"
+            rationale = f"Elevated informal stress ({score:.4f}): Divergence gap ({delta_informal:.4f}) indicates uneven recovery."
+        else:
+            tier = "ORGANIC_BALANCED_ECONOMIC_EXPANSION"
+            verdict = "HEADLINE_GDP_CORROBORATED_BY_INFORMAL_WAGE_GROWTH"
+            rationale = f"Low divergence ({score:.4f}): Robust household savings buffer ({savings_hh*100:.1f}%) confirms broad-based solvency."
+
+        return {
+            "informal_sector_statistical_divergence_score": score,
+            "gdp_divergence_gap": round(delta_informal, 4),
+            "household_stress_index": round(household_stress, 4),
+            "unsecured_consumer_debt": round(debt_cons, 4),
+            "net_household_savings": round(savings_hh, 4),
+            "informal_distress_factor": round(distress_f, 4),
+            "divergence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_divergence_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 397: PBOC LGFV Municipal Debt & Deflationary Trap Tensor
+# ============================================================================
+
+class PBOCLGFVLiquidityTrapTensor:
+    """
+    Phase 397: Formulates mercantilist balance-sheet contraction and municipal debt traps:
+    Measures central bank credit contraction (negative net new loan growth) driven by LGFV land-sale
+    collateral collapse ($9T overhang), triggering industrial dumping abroad and domestic capital flight.
+    Formula:
+        DeflationTrapScore = Norm(-Delta_NetNewLoans + LGFVDebtService / max(MunicipalLandRevenues, 0.05) + BondHoardingRatio)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        delta_net_new_loans: float = -0.15,
+        lgfv_debt_service: float = 0.85,
+        municipal_land_revenues: float = 0.30,
+        bond_hoarding_ratio: float = 0.75
+    ) -> Dict[str, Any]:
+        d_loans = float(delta_net_new_loans)
+        d_service = float(max(0.0, lgfv_debt_service))
+        m_rev = float(max(0.05, municipal_land_revenues))
+        b_hoard = float(max(0.0, min(1.0, bond_hoarding_ratio)))
+
+        credit_contraction = min(1.0, max(0.0, -d_loans if d_loans < 0 else 0.0))
+        debt_to_land_ratio = d_service / m_rev
+        norm_debt_land = min(1.0, max(0.0, debt_to_land_ratio / 3.0))
+
+        z = 3.0 * credit_contraction + 2.8 * norm_debt_land + 2.4 * b_hoard - 1.0
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_LGFV_DEFLATIONARY_LIQUIDITY_TRAP"
+            verdict = "ANTICIPATE_MERCHANTILIST_EXPORT_DUMPING_AND_CAPITAL_FLIGHT"
+            rationale = (
+                f"Severe liquidity trap ({score:.4f}): Negative net new loan growth ({d_loans:.2f}) and municipal debt service "
+                f"({d_service:.2f}) overwhelming collapsed land sales ({m_rev:.2f}). Sovereign bonds hoarded ({b_hoard:.2f}) over productive CapEx."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_BALANCE_SHEET_CONTRACTION"
+            verdict = "MONITOR_PBOC_STIMULUS_TRANSMISSION_AND_YIELD_CURVE_CONTROL"
+            rationale = f"Moderate deflationary pressure ({score:.4f}): LGFV debt overhang requires central balance sheet absorption."
+        else:
+            tier = "SOLVENT_CREDIT_EXPANSION_REGIME"
+            verdict = "MUNICIPAL_REVENUES_SUPPORT_DEBT_AMORTIZATION"
+            rationale = f"Low risk ({score:.4f}): Positive credit issuance and adequate municipal fiscal buffers."
+
+        return {
+            "pboc_lgfv_liquidity_trap_score": score,
+            "credit_contraction_index": round(credit_contraction, 4),
+            "municipal_debt_land_ratio": round(debt_to_land_ratio, 4),
+            "bond_hoarding_ratio": round(b_hoard, 4),
+            "liquidity_trap_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_liquidity_trap_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 401: Institutional Monopoly Cartel & Cross-Shareholding Sieve
+# ============================================================================
+
+class InstitutionalMonopolyCartelCrossShareholdingSieve:
+    """
+    Phase 401: Formulates the Big Three asset managers (BlackRock, Vanguard, State Street)
+    common ownership index (COI) and the Aladdin algorithmic liquidity coordination engine ($21T),
+    identifying artificial corporate competition and automated fire-sale selloff contagion.
+    Formula:
+        COI = sum(s_i * s_j * Overlap_ij)
+        AladdinCapitalFlightVulnerability = Norm((Top3InstitutionalHoldings / max(FreeFloat, 0.05)) * AladdinRiskWeight)
+        score = Sigmoid(3.2 * COI + 3.0 * AladdinCapitalFlightVulnerability - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        shareholding_overlap_index: float = 0.75,
+        institutional_holdings_top3: float = 0.45,
+        total_free_float: float = 0.60,
+        aladdin_risk_weight: float = 0.85
+    ) -> Dict[str, Any]:
+        coi = float(max(0.0, min(1.0, shareholding_overlap_index)))
+        top3 = float(max(0.0, min(1.0, institutional_holdings_top3)))
+        float_ratio = float(max(0.05, min(1.0, total_free_float)))
+        a_weight = float(max(0.0, min(1.0, aladdin_risk_weight)))
+
+        aladdin_flight_vuln = min(1.0, max(0.0, (top3 / float_ratio) * a_weight))
+
+        z = 3.2 * coi + 3.0 * aladdin_flight_vuln - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_INSTITUTIONAL_CARTEL_COMMON_OWNERSHIP"
+            verdict = "ENFORCE_CROSS_SHAREHOLDING_ANTITRUST_DISCLOSURE_AND_ALADDIN_INSULATION"
+            rationale = (
+                f"Severe cartel concentration ({score:.4f}): High common ownership ({coi:.2f}) and Top-3 institutional cap-table dominance "
+                f"({top3*100:.1f}%) expose strategic sectors to coordinated algorithmic liquidity flight ({aladdin_flight_vuln:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_INSTITUTIONAL_OVERLAP"
+            verdict = "AUDIT_PROXY_VOTING_INDEPENDENCE_ACROSS_DEFENSE_AND_PHARMA"
+            rationale = f"Moderate common ownership ({score:.4f}): Board voting patterns warrant competition commission scrutiny."
+        else:
+            tier = "DECENTRALIZED_EQUITY_OWNERSHIP_STRUCTURE"
+            verdict = "GENUINE_MARKET_COMPETITION_VERIFIED"
+            rationale = f"Low cartel risk ({score:.4f}): Fragmented institutional shareholding ensures independent corporate governance."
+
+        return {
+            "institutional_cartel_cross_shareholding_score": score,
+            "common_ownership_index": round(coi, 4),
+            "aladdin_capital_flight_vulnerability": round(aladdin_flight_vuln, 4),
+            "institutional_holdings_top3": round(top3, 4),
+            "cartel_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cartel_risk_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 402: MSME Formalization & Solvency Asphyxiation Tensor
+# ============================================================================
+
+class MSMEFormalizationSolvencyAsphyxiationTensor:
+    """
+    Phase 402: Formulates working capital asphyxiation during rapid tax and digital formalization:
+    Models enterprise mortality rates among unorganized MSMEs transitioning to GST, e-invoicing,
+    and formal banking lines when working capital cycles outstrip cash runway.
+    Formula:
+        SolvencyStressIndex = Norm((WorkingCapitalCycleDays / max(LiquidCashRunwayDays, 1.0)) * (1 + ComplianceFrictionFactor) - PromoterDecouplingRatio)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        working_capital_cycle_days: float = 120.0,
+        liquid_cash_runway_days: float = 30.0,
+        compliance_friction_factor: float = 0.35,
+        promoter_decoupling_ratio: float = 0.20
+    ) -> Dict[str, Any]:
+        wc_days = float(max(1.0, working_capital_cycle_days))
+        runway_days = float(max(1.0, liquid_cash_runway_days))
+        comp_f = float(max(0.0, min(1.0, compliance_friction_factor)))
+        p_decouple = float(max(0.0, min(1.0, promoter_decoupling_ratio)))
+
+        wc_ratio = wc_days / runway_days
+        stress_term = (wc_ratio / 6.0) * (1.0 + comp_f) - (p_decouple * 0.5)
+        z = 2.8 * stress_term - 0.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_MSME_SOLVENCY_ASPHYXIATION"
+            verdict = "DEPLOY_TReDS_INVOICE_DISCOUNTING_AND_WORKING_CAPITAL_INJECTION"
+            rationale = (
+                f"Severe MSME mortality risk ({score:.4f}): Working capital cycle ({wc_days:.0f} days) severely exceeds liquid cash runway "
+                f"({runway_days:.0f} days) under formalization drag ({comp_f:.2f}). High supply chain consolidation into conglomerates imminent."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_TRANSITIONAL_CASH_CRUNCH"
+            verdict = "EXPAND_GST_INVOICE_BASED_AUTOMATED_CREDIT_LINES"
+            rationale = f"Elevated liquidity stress ({score:.4f}): MSMEs require structured factoring support during compliance transition."
+        else:
+            tier = "RESILIENT_FORMALIZED_WORKING_CAPITAL"
+            verdict = "MSME_BALANCE_SHEET_DECOUPLED_AND_SOLVENT"
+            rationale = f"Low risk ({score:.4f}): Healthy cash runway and promoter decoupling ({p_decouple:.2f}) assure operational continuity."
+
+        return {
+            "msme_solvency_asphyxiation_score": score,
+            "working_capital_cycle_days": round(wc_days, 2),
+            "liquid_cash_runway_days": round(runway_days, 2),
+            "compliance_friction_factor": round(comp_f, 4),
+            "promoter_decoupling_ratio": round(p_decouple, 4),
+            "asphyxiation_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_asphyxiation_critical": score >= 0.70,
         }
 
 

@@ -1482,6 +1482,91 @@ def render_quarantine_learning(
         console.print(tbl)
 
 
+def render_knowledge_library(
+    query: str = "",
+    domain: Optional[str] = None,
+    council: Optional[str] = None,
+    section: Optional[int] = None,
+    reindex: bool = False,
+    limit: int = 10
+):
+    from geo_engine.storage.event_store import EventStore
+
+    store = EventStore()
+
+    if reindex:
+        console.print("[bold cyan][BSKM][/bold cyan] Re-indexing full knowledge library from source...")
+        try:
+            from scripts.build_knowledge_library import modularize_and_index_library
+            modularize_and_index_library(store)
+            total = store.count_knowledge_discourses()
+            console.print(f"[bold green][OK][/bold green] Re-indexed {total} video discourses into SQLite events.db.")
+        except Exception as e:
+            console.print(f"[bold red][ERROR][/bold red] Re-indexing failed: {e}")
+        return
+
+    if section is not None:
+        disc = store.get_knowledge_discourse_by_section(section)
+        if not disc:
+            console.print(f"[bold red][ERROR][/bold red] Section {section} not found in BSKM Knowledge Library.")
+            return
+        console.print(Panel(
+            f"[bold cyan]BSKM SECTION {disc['section_number']}: {disc['title']}[/bold cyan]\n"
+            f"Domain: [magenta]{disc['domain_category']}[/magenta] | Speaker: [yellow]{disc['source_speaker']}[/yellow]\n"
+            f"Council Mentors: [green]{disc['council_members']}[/green]\n"
+            f"Key Thesis: [white]{disc['key_thesis']}[/white]\n"
+            f"Strategic Doctrine: [bold]{disc['strategic_doctrine']}[/bold]",
+            title=f"Discourse ID: {disc['discourse_id']}",
+            border_style="cyan"
+        ))
+        preview = disc["content_markdown"][:1200] + "..." if len(disc["content_markdown"]) > 1200 else disc["content_markdown"]
+        console.print(Panel(
+            preview,
+            title="[bold yellow]Discourse Epistemic Excerpt[/bold yellow]",
+            border_style="dim"
+        ))
+        return
+
+    results = store.search_knowledge_discourses(query=query, domain=domain, council=council, limit=limit)
+    total_in_db = store.count_knowledge_discourses()
+
+    filter_desc = []
+    if query:
+        filter_desc.append(f"Query: '{query}'")
+    if domain:
+        filter_desc.append(f"Domain: '{domain}'")
+    if council:
+        filter_desc.append(f"Council: '{council}'")
+    filter_str = " | ".join(filter_desc) if filter_desc else "All Discourses"
+
+    console.print(Panel(
+        f"[bold cyan]BHARAT-CENTRIC SOVEREIGN KNOWLEDGE MATRIX (BSKM) LIBRARY[/bold cyan]\n"
+        f"Total Discourses in Database: [bold]{total_in_db}[/bold] | Filter: [yellow]{filter_str}[/yellow] | Matches Shown: [green]{len(results)}[/green]",
+        title="[bold yellow]Video Intelligence Knowledge Router[/bold yellow]",
+        border_style="cyan"
+    ))
+
+    if results:
+        tbl = Table(title="Indexed Video Intelligence Discourses", box=box.SIMPLE_HEAVY)
+        tbl.add_column("Sec", width=5, justify="right", style="bold")
+        tbl.add_column("Title", width=38, style="white")
+        tbl.add_column("Domain Category", width=25, style="magenta")
+        tbl.add_column("Speaker / Council", width=20, style="yellow")
+        tbl.add_column("Key Thesis", width=40, style="dim")
+
+        for r in results:
+            tbl.add_row(
+                str(r["section_number"]),
+                r["title"][:36] + ("..." if len(r["title"]) > 36 else ""),
+                r["domain_category"][:23] + ("..." if len(r["domain_category"]) > 23 else ""),
+                r["source_speaker"] if r["source_speaker"] != "General Epistemology" else r["council_members"][:18],
+                r["key_thesis"][:38] + ("..." if len(r["key_thesis"]) > 38 else "")
+            )
+        console.print(tbl)
+    else:
+        console.print("[yellow]No video discourses matched the specified criteria.[/yellow]")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Geo-Economic & Geopolitical Intelligence Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -1617,6 +1702,15 @@ def main():
     dharmik_parser.add_argument("--danda", type=float, default=0.85, help="Danda military deterrence score (0.0 to 1.0)")
     dharmik_parser.add_argument("--peace-exhausted", type=float, default=0.85, help="Peace initiatives exhausted ratio (0.0 to 1.0)")
     dharmik_parser.add_argument("--moha", type=float, default=0.20, help="Sentimental hesitation Moha index (0.0 to 1.0)")
+
+    # Command: library (BSKM Knowledge Matrix)
+    library_parser = subparsers.add_parser("library", help="Query and retrieve multi-domain video intelligence discourses from the BSKM Knowledge Library")
+    library_parser.add_argument("--search", "-s", default="", help="Keyword search across 157+ indexed video discourses")
+    library_parser.add_argument("--domain", "-d", default=None, help="Filter by domain category (e.g. cash flow, defense, deep-tech)")
+    library_parser.add_argument("--council", "-c", default=None, help="Filter by Council mentor (e.g. Jaishankar, Doval, Ankit Shah)")
+    library_parser.add_argument("--section", "-n", type=int, default=None, help="Direct retrieval of specific Section number (1 to 157)")
+    library_parser.add_argument("--reindex", action="store_true", help="Rebuild modular files and reindex all discourses into SQLite")
+    library_parser.add_argument("--limit", type=int, default=10, help="Maximum number of discourses to display (default: 10)")
 
     try:
 
@@ -1791,6 +1885,15 @@ def main():
                 text=args.text,
                 source_name=getattr(args, "source", "Conversational Stream"),
                 auto_promote=not getattr(args, "no_auto_promote", False),
+            )
+        elif args.command == "library":
+            render_knowledge_library(
+                query=getattr(args, "search", ""),
+                domain=getattr(args, "domain", None),
+                council=getattr(args, "council", None),
+                section=getattr(args, "section", None),
+                reindex=getattr(args, "reindex", False),
+                limit=getattr(args, "limit", 10),
             )
         elif args.command == "audit" or args.command is None:
 

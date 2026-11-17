@@ -197,6 +197,14 @@ class DigitalSovereigntyLens:
         )
         metrics["legacy_infrastructure_obsolescence_score"] = _lio_res["legacy_infrastructure_obsolescence_score"]
 
+        # Phase 400: Sovereign Platform Regulatory Defiance Sieve
+        _prd_res = SovereignPlatformRegulatoryDefianceSieve.evaluate(
+            takedown_demands_statutory=cd_params.get("takedown_demands_statutory", 1000),
+            takedowns_executed=cd_params.get("takedowns_executed", 450),
+            ad_revenue_exposure=cd_params.get("ad_revenue_exposure", 0.80),
+        )
+        metrics["sovereign_platform_regulatory_defiance_score"] = _prd_res["sovereign_platform_regulatory_defiance_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1048,4 +1056,63 @@ class LegacyInfrastructureObsolescenceSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_legacy_obsolescence_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 400: Sovereign Platform Regulatory Defiance Sieve
+# ============================================================================
+
+class SovereignPlatformRegulatoryDefianceSieve:
+    """
+    Phase 400: Measures Big Tech extraterritorial platform defiance under IT Act Section 69A,
+    calculating statutory safe-harbor forfeiture risk and sovereign financial penalty leverage.
+    Formula:
+        PlatformDefianceIndex = (TakedownDemandsStatutory - TakedownsExecuted) / max(TakedownDemandsStatutory, 1) * AdRevenueExposure
+        score = Sigmoid(3.6 * PlatformDefianceIndex + 2.5 * AdRevenueExposure - 1.5)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        takedown_demands_statutory: int = 1000,
+        takedowns_executed: int = 450,
+        ad_revenue_exposure: float = 0.80
+    ) -> Dict[str, Any]:
+        demands = max(1, int(takedown_demands_statutory))
+        executed = max(0, min(demands, int(takedowns_executed)))
+        ad_exp = float(max(0.0, min(1.0, ad_revenue_exposure)))
+
+        defiance_rate = (demands - executed) / float(demands)
+        defiance_index = defiance_rate * ad_exp
+
+        z = 3.6 * defiance_index + 2.5 * ad_exp - 1.5
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_PLATFORM_REGULATORY_DEFIANCE"
+            verdict = "REVOKE_SECTION_79_SAFE_HARBOR_AND_FREEZE_AD_REVENUES"
+            rationale = (
+                f"Severe platform defiance ({score:.4f}): Defiance rate ({defiance_rate*100:.1f}%, {demands-executed}/{demands} orders defied) "
+                f"paired with high domestic ad revenue exposure ({ad_exp*100:.1f}%) warrants immediate intermediary safe-harbor forfeiture."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_COMPLIANCE_FRICTION"
+            verdict = "ISSUE_STATUTORY_SHOW_CAUSE_NOTICE_WITH_DAILY_PENALTY"
+            rationale = f"Elevated defiance ({score:.4f}): Compliance latency requires statutory enforcement escalation."
+        else:
+            tier = "STATUTORY_SOVEREIGN_COMPLIANCE_VERIFIED"
+            verdict = "INTERMEDIARY_SAFE_HARBOR_INTACT"
+            rationale = f"Low defiance risk ({score:.4f}): Platform executes valid sovereign legal directives ({executed}/{demands})."
+
+        return {
+            "sovereign_platform_regulatory_defiance_score": score,
+            "platform_defiance_rate": round(defiance_rate, 4),
+            "platform_defiance_index": round(defiance_index, 4),
+            "ad_revenue_exposure": round(ad_exp, 4),
+            "takedown_demands_statutory": demands,
+            "takedowns_executed": executed,
+            "platform_defiance_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_safe_harbor_forfeiture_triggered": score >= 0.70,
         }

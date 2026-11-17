@@ -155,6 +155,20 @@ class EventStore:
                     epistemic_tier TEXT DEFAULT 'TIER_1_CANONICAL'
                 )
             """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS knowledge_discourses (
+                    discourse_id TEXT PRIMARY KEY,
+                    section_number INTEGER,
+                    title TEXT NOT NULL,
+                    domain_category TEXT,
+                    council_members TEXT,
+                    source_speaker TEXT,
+                    key_thesis TEXT,
+                    strategic_doctrine TEXT,
+                    content_markdown TEXT,
+                    created_at TEXT NOT NULL
+                )
+            """)
 
             # Seed Phase 365: Tri-Pillar Bharatiya Statecraft Anchors
             cursor.executemany("""
@@ -801,6 +815,20 @@ class EventStore:
                     english_translation TEXT NOT NULL,
                     strategic_statecraft_maxim TEXT NOT NULL,
                     epistemic_tier TEXT DEFAULT 'TIER_1_CANONICAL'
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS knowledge_discourses (
+                    discourse_id TEXT PRIMARY KEY,
+                    section_number INTEGER,
+                    title TEXT NOT NULL,
+                    domain_category TEXT,
+                    council_members TEXT,
+                    source_speaker TEXT,
+                    key_thesis TEXT,
+                    strategic_doctrine TEXT,
+                    content_markdown TEXT,
+                    created_at TEXT NOT NULL
                 )
             """)
 
@@ -3578,6 +3606,125 @@ class EventStore:
                 }
                 for r in rows
             ]
+
+    def upsert_knowledge_discourse(
+        self,
+        discourse_id: str,
+        section_number: int,
+        title: str,
+        domain_category: str = "",
+        council_members: str = "",
+        source_speaker: str = "",
+        key_thesis: str = "",
+        strategic_doctrine: str = "",
+        content_markdown: str = "",
+        created_at: Optional[str] = None
+    ) -> None:
+        """Upserts a parsed discourse from the knowledge library into SQLite."""
+        ts = created_at or time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO knowledge_discourses
+                (discourse_id, section_number, title, domain_category, council_members, source_speaker, key_thesis, strategic_doctrine, content_markdown, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(discourse_id) DO UPDATE SET
+                    section_number=excluded.section_number,
+                    title=excluded.title,
+                    domain_category=excluded.domain_category,
+                    council_members=excluded.council_members,
+                    source_speaker=excluded.source_speaker,
+                    key_thesis=excluded.key_thesis,
+                    strategic_doctrine=excluded.strategic_doctrine,
+                    content_markdown=excluded.content_markdown
+            """, (discourse_id, section_number, title, domain_category, council_members, source_speaker, key_thesis, strategic_doctrine, content_markdown, ts))
+            conn.commit()
+
+    def search_knowledge_discourses(
+        self,
+        query: str = "",
+        domain: Optional[str] = None,
+        council: Optional[str] = None,
+        limit: int = 50
+    ) -> List[Dict[str, Any]]:
+        """Searches indexed discourses by keyword, domain category, or council member."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            clauses = []
+            params: List[Any] = []
+
+            if query:
+                pattern = f"%{query}%"
+                clauses.append("(title LIKE ? OR key_thesis LIKE ? OR strategic_doctrine LIKE ? OR content_markdown LIKE ?)")
+                params.extend([pattern, pattern, pattern, pattern])
+
+            if domain:
+                clauses.append("domain_category LIKE ?")
+                params.append(f"%{domain}%")
+
+            if council:
+                clauses.append("council_members LIKE ?")
+                params.append(f"%{council}%")
+
+            where_sql = ("WHERE " + " AND ".join(clauses)) if clauses else ""
+            sql = f"""
+                SELECT discourse_id, section_number, title, domain_category, council_members, source_speaker, key_thesis, strategic_doctrine, created_at
+                FROM knowledge_discourses
+                {where_sql}
+                ORDER BY section_number ASC
+                LIMIT ?
+            """
+            params.append(limit)
+            cursor.execute(sql, params)
+            rows = cursor.fetchall()
+
+            return [
+                {
+                    "discourse_id": r[0],
+                    "section_number": r[1],
+                    "title": r[2],
+                    "domain_category": r[3],
+                    "council_members": r[4],
+                    "source_speaker": r[5],
+                    "key_thesis": r[6],
+                    "strategic_doctrine": r[7],
+                    "created_at": r[8],
+                }
+                for r in rows
+            ]
+
+    def get_knowledge_discourse_by_section(self, section_number: int) -> Optional[Dict[str, Any]]:
+        """Retrieves full discourse content by section number."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT discourse_id, section_number, title, domain_category, council_members, source_speaker, key_thesis, strategic_doctrine, content_markdown, created_at
+                FROM knowledge_discourses
+                WHERE section_number = ?
+            """, (section_number,))
+            row = cursor.fetchone()
+            if not row:
+                return None
+            return {
+                "discourse_id": row[0],
+                "section_number": row[1],
+                "title": row[2],
+                "domain_category": row[3],
+                "council_members": row[4],
+                "source_speaker": row[5],
+                "key_thesis": row[6],
+                "strategic_doctrine": row[7],
+                "content_markdown": row[8],
+                "created_at": row[9],
+            }
+
+    def count_knowledge_discourses(self) -> int:
+        """Returns the total number of indexed discourses."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM knowledge_discourses")
+            row = cursor.fetchone()
+            return row[0] if row else 0
 
 
 

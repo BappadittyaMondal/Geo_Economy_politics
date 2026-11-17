@@ -294,6 +294,15 @@ class GeoEconomistLens:
         )
         metrics["physical_capex_tangible_multiplier_score"] = _pct_res["physical_capex_tangible_multiplier_score"]
 
+        # Phase 411: Aviation Sixth-Freedom Transit Slot Cartel Sieve
+        _ats_res = AviationTransitSlotCartelSieve.evaluate(
+            sixth_freedom_passengers_foreign=geo_econ_meta.get("sixth_freedom_passengers_foreign", 0.72),
+            total_intercontinental_passengers=geo_econ_meta.get("total_intercontinental_passengers", 1.0),
+            bilateral_seat_imbalance_ratio=geo_econ_meta.get("bilateral_seat_imbalance_ratio", 1.65),
+            domestic_hub_transit_capacity_share=geo_econ_meta.get("domestic_hub_transit_capacity_share", 0.35),
+        )
+        metrics["aviation_transit_slot_cartel_score"] = _ats_res["aviation_transit_slot_cartel_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1330,4 +1339,63 @@ class PhysicalCapExTangibleMultiplierSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_physical_capex_decisive": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 411: Aviation Sixth-Freedom Transit Slot Cartel Sieve
+# ============================================================================
+
+class AviationTransitSlotCartelSieve:
+    """
+    Phase 411: Quantifies sovereign economic leakage in international civil aviation:
+    Audits Gulf carrier cartel extraction of 70%+ long-haul traffic via Sixth-Freedom rights,
+    bilateral air services agreements (ASAs), and slot imbalances against domestic mega-hubs (CSMIA/NMIAL/IGI).
+    Formula:
+        AviationLeakageIndex = Norm((SixthFreedomPassengersForeign / max(TotalIntercontinentalPassengers, 0.1)) * BilateralSeatImbalanceRatio - DomesticHubTransitCapacityShare)
+        score = Sigmoid(2.8 * (AviationLeakageIndex / 2.0) - 2.5 * DomesticHubTransitCapacityShare - 0.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        sixth_freedom_passengers_foreign: float = 0.72,
+        total_intercontinental_passengers: float = 1.0,
+        bilateral_seat_imbalance_ratio: float = 1.65,
+        domestic_hub_transit_capacity_share: float = 0.35
+    ) -> Dict[str, Any]:
+        sixth_pax = float(max(0.0, sixth_freedom_passengers_foreign))
+        total_pax = float(max(0.1, total_intercontinental_passengers))
+        seat_imbalance = float(max(0.5, bilateral_seat_imbalance_ratio))
+        hub_share = float(max(0.0, min(1.0, domestic_hub_transit_capacity_share)))
+
+        capture_ratio = min(2.0, sixth_pax / total_pax)
+        leakage_term = capture_ratio * seat_imbalance
+        z = 2.8 * (leakage_term / 2.0) - 2.5 * hub_share - 0.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "ACUTE_SIXTH_FREEDOM_CAPITAL_LEAKAGE"
+            verdict = "CAP_FOREIGN_BILATERAL_SEAT_QUOTAS_AND_REALLOCATE_DOMESTIC_MEGA_SLOTS"
+            rationale = (
+                f"Severe aviation leakage ({score:.4f}): Foreign Sixth-Freedom airlines extract {capture_ratio*100:.1f}% "
+                f"of intercontinental passengers under a {seat_imbalance:.2f}x seat imbalance, draining billions in yield from domestic carriers."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_INTERCONTINENTAL_TRANSIT_DEFICIT"
+            verdict = "ACCELERATE_DUAL_AIRPORT_EXPANSION_AT_NMIAL_AND_JEWAR"
+            rationale = f"Moderate aviation deficit ({score:.4f}): Expanding domestic hub capacity ({hub_share*100:.1f}%) required to retain traffic."
+        else:
+            tier = "SOVEREIGN_AVIATION_HUB_DOMINANCE"
+            verdict = "DIRECT_NONSTOP_FLIGHT_CAPTURE_AND_DOMESTIC_TRANSIT_PARITY"
+            rationale = f"Low risk ({score:.4f}): High domestic hub share ({hub_share*100:.1f}%) and balanced bilateral capacity."
+
+        return {
+            "aviation_transit_slot_cartel_score": score,
+            "sixth_freedom_capture_ratio": round(capture_ratio, 4),
+            "bilateral_seat_imbalance_ratio": round(seat_imbalance, 4),
+            "domestic_hub_transit_capacity_share": round(hub_share, 4),
+            "aviation_cartel_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_aviation_leakage_critical": score >= 0.70,
         }
