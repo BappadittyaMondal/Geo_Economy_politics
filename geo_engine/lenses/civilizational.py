@@ -416,6 +416,16 @@ class CivilizationalLens:
         )
         metrics["civilizational_epistemic_historiography_score"] = _ceh_res["civilizational_epistemic_historiography_score"]
 
+        # Phase 423: Cognitive Atrophy and Service Displacement Tensor
+        _cas_res = CognitiveAtrophyAndServiceDisplacementTensor.evaluate(
+            algorithmic_dopamine_feed_exposure=civ_meta.get("algorithmic_dopamine_feed_exposure", 0.85),
+            entry_level_it_labor_displacement=civ_meta.get("entry_level_it_labor_displacement", 0.80),
+            deep_reading_attention_deficit=civ_meta.get("deep_reading_attention_deficit", 0.75),
+            traditional_pedagogical_retention=civ_meta.get("traditional_pedagogical_retention", 0.40),
+            indigenous_cognitive_frameworks=civ_meta.get("indigenous_cognitive_frameworks", 0.35),
+        )
+        metrics["cognitive_atrophy_service_displacement_score"] = _cas_res["cognitive_atrophy_service_displacement_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -2280,3 +2290,66 @@ class CivilizationalEpistemicHistoriographyDecolonizationSieve:
             "is_epistemic_veracity_certified": score >= 0.75,
         }
 
+
+
+# ============================================================================
+# Phase 423: Cognitive Atrophy and Service Displacement Tensor
+# ============================================================================
+
+class CognitiveAtrophyAndServiceDisplacementTensor:
+    """
+    Phase 423: Models societal attention-span compression from algorithmic dopamine short-form feeds,
+    entry-level IT services labor displacement by foreign foundation LLMs, and the erosion
+    of classical textual literacy versus indigenous pedagogical retention.
+    Formula:
+        AtrophyScore = Norm((0.40 * algorithmic_dopamine + 0.35 * it_labor_displacement + 0.25 * attention_deficit) /
+                            (1.0 + traditional_pedagogy + indigenous_frameworks))
+        score = Sigmoid(2.7 * AtrophyScore + 2.5 * algorithmic_dopamine - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        algorithmic_dopamine_feed_exposure: float = 0.85,
+        entry_level_it_labor_displacement: float = 0.80,
+        deep_reading_attention_deficit: float = 0.75,
+        traditional_pedagogical_retention: float = 0.40,
+        indigenous_cognitive_frameworks: float = 0.35
+    ) -> Dict[str, Any]:
+        dopamine = float(max(0.0, min(1.0, algorithmic_dopamine_feed_exposure)))
+        it_disp = float(max(0.0, min(1.0, entry_level_it_labor_displacement)))
+        att_def = float(max(0.0, min(1.0, deep_reading_attention_deficit)))
+        trad_ped = float(max(0.0, min(1.0, traditional_pedagogical_retention)))
+        indig = float(max(0.0, min(1.0, indigenous_cognitive_frameworks)))
+
+        raw_atrophy = (0.40 * dopamine + 0.35 * it_disp + 0.25 * att_def) / (1.0 + trad_ped + indig)
+        z = 2.7 * raw_atrophy + 2.5 * dopamine - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_COGNITIVE_ATROPHY_AND_LABOR_DISPLACEMENT"
+            verdict = "REVITALIZE_INDIGENOUS_PEDAGOGY_AND_DEVELOP_SOVEREIGN_COMPUTE_INFRASTRUCTURE"
+            rationale = (
+                f"Severe cognitive atrophy ({score:.4f}): Algorithmic short-form addiction ({dopamine:.2f}) "
+                f"paired with entry-level white-collar IT displacement ({it_disp:.2f}) erodes intellectual capital."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_DIGITAL_COGNITIVE_FRICTION"
+            verdict = "INTEGRATE_CLASSICAL_SANSKRIT_LOGIC_INTO_TECHNICAL_CURRICULA"
+            rationale = f"Elevated cognitive friction ({score:.4f}): Attention deficit ({att_def:.2f}) requires structural reform."
+        else:
+            tier = "RESILIENT_CIVILIZATIONAL_COGNITIVE_IMMUNITY"
+            verdict = "HIGH_ANALYTICAL_LITERACY_AND_LABOR_RESILIENCE"
+            rationale = f"Resilient cognition ({score:.4f}): Strong pedagogical grounding ({trad_ped:.2f}) preserves literacy."
+
+        return {
+            "cognitive_atrophy_service_displacement_score": score,
+            "algorithmic_dopamine_feed_exposure": round(dopamine, 4),
+            "entry_level_it_labor_displacement": round(it_disp, 4),
+            "deep_reading_attention_deficit": round(att_def, 4),
+            "traditional_pedagogical_retention": round(trad_ped, 4),
+            "indigenous_cognitive_frameworks": round(indig, 4),
+            "atrophy_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_cognitive_atrophy_critical": score >= 0.70,
+        }

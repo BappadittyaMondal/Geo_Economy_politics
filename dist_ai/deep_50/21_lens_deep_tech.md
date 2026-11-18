@@ -508,6 +508,15 @@ class DeepTechLens:
         )
         metrics["quantum_hndl_vulnerability_score"] = _qhn_res["quantum_hndl_vulnerability_score"]
 
+        # Phase 419: Directed Energy Weapon and Atmospheric Power Transmission Sieve
+        _dew_res = DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve.evaluate(
+            beam_power_density_kw=deep_meta.get("beam_power_density_kw", 0.85),
+            targeting_acquisition_speed_ms=deep_meta.get("targeting_acquisition_speed_ms", 0.80),
+            swarm_neutralization_capacity=deep_meta.get("swarm_neutralization_capacity", 0.75),
+            thermal_blooming_dissipation_loss=deep_meta.get("thermal_blooming_dissipation_loss", 0.30),
+        )
+        metrics["directed_energy_weapon_neutralization_score"] = _dew_res["directed_energy_weapon_neutralization_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -1381,5 +1390,64 @@ class QuantumHarvestNowDecryptLaterVulnerabilitySieve:
             "is_quantum_exposure_critical": score >= 0.70,
         }
 
+
+
+# ============================================================================
+# Phase 419: Directed Energy Weapon and Atmospheric Power Transmission Sieve
+# ============================================================================
+
+class DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve:
+    """
+    Phase 419: Evaluates high-energy laser / high-power microwave (DEW) counter-swarm efficiency,
+    modeling beam power density, atmospheric thermal blooming dissipation,
+    and optoelectronic targeting acquisition latency against hypersonic and loitering munitions.
+    Formula:
+        DEWScore = Norm((0.40 * beam_power_density + 0.35 * targeting_speed + 0.25 * swarm_capacity) / (1.0 + thermal_blooming_loss))
+        score = Sigmoid(2.8 * DEWScore + 2.5 * beam_power_density - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        beam_power_density_kw: float = 0.85,
+        targeting_acquisition_speed_ms: float = 0.80,
+        swarm_neutralization_capacity: float = 0.75,
+        thermal_blooming_dissipation_loss: float = 0.30
+    ) -> Dict[str, Any]:
+        b_power = float(max(0.0, min(1.0, beam_power_density_kw)))
+        t_speed = float(max(0.0, min(1.0, targeting_acquisition_speed_ms)))
+        s_cap = float(max(0.0, min(1.0, swarm_neutralization_capacity)))
+        t_bloom = float(max(0.0, min(1.0, thermal_blooming_dissipation_loss)))
+
+        raw_dew = (0.40 * b_power + 0.35 * t_speed + 0.25 * s_cap) / (1.0 + t_bloom)
+        z = 2.8 * raw_dew + 2.5 * b_power - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_DIRECTED_ENERGY_SUPERIORITY"
+            verdict = "DEPLOY_HIGH_ENERGY_LASER_ARRAY_AND_ATMOSPHERIC_ADAPTIVE_OPTICS"
+            rationale = (
+                f"Decisive DEW defense ({score:.4f}): Power density ({b_power:.2f}) and rapid acquisition ({t_speed:.2f}) "
+                f"neutralize swarm saturation while adaptive optics overcome thermal blooming ({t_bloom:.2f})."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_POINT_DEFENSE_CAPABILITY"
+            verdict = "UPGRADE_SOLID_STATE_FIBER_MODULES_FOR_CONTINUOUS_WAVE_OUTPUT"
+            rationale = f"Moderate DEW interception ({score:.4f}): Thermal dissipation limits effective engagement envelope."
+        else:
+            tier = "EXPERIMENTAL_DEW_PROTOTYPE"
+            verdict = "RESTRICT_DEW_TO_CLOSE_IN_DRONE_INTERCEPTION"
+            rationale = f"Emerging DEW capability ({score:.4f}): Power density inadequate for hypersonic glide threats."
+
+        return {
+            "directed_energy_weapon_neutralization_score": score,
+            "beam_power_density_kw": round(b_power, 4),
+            "targeting_acquisition_speed_ms": round(t_speed, 4),
+            "swarm_neutralization_capacity": round(s_cap, 4),
+            "thermal_blooming_dissipation_loss": round(t_bloom, 4),
+            "dew_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_dew_defense_decisive": score >= 0.70,
+        }
 
 ```

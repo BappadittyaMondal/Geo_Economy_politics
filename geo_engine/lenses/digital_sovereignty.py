@@ -205,6 +205,15 @@ class DigitalSovereigntyLens:
         )
         metrics["sovereign_platform_regulatory_defiance_score"] = _prd_res["sovereign_platform_regulatory_defiance_score"]
 
+        # Phase 416: Asymmetric SCADA Polymorphic Cyber Blackout Sieve
+        _scada_res = AsymmetricSCADAPolymorphicCyberBlackoutSieve.evaluate(
+            scada_isolation_deficit=cd_params.get("scada_isolation_deficit", 0.65),
+            polymorphic_malware_signature_gap=cd_params.get("polymorphic_malware_signature_gap", 0.70),
+            grid_firmware_legacy_depth=cd_params.get("grid_firmware_legacy_depth", 0.60),
+            airgap_failover_redundancy=cd_params.get("airgap_failover_redundancy", 0.40),
+        )
+        metrics["asymmetric_scada_blackout_vulnerability_score"] = _scada_res["asymmetric_scada_blackout_vulnerability_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1115,4 +1124,64 @@ class SovereignPlatformRegulatoryDefianceSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_safe_harbor_forfeiture_triggered": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 416: Asymmetric SCADA Polymorphic Cyber Blackout Sieve
+# ============================================================================
+
+class AsymmetricSCADAPolymorphicCyberBlackoutSieve:
+    """
+    Phase 416: Evaluates critical infrastructure OT/SCADA vulnerability to polymorphic malware
+    and coordinated cyber blackout campaigns against national power grids, pipeline telemetry,
+    and nuclear enrichment centrifuges (Stuxnet/Industroyer2 precedent).
+    Formula:
+        Vulnerability = Norm((0.35 * scada_isolation_deficit + 0.35 * polymorphic_malware_signature_gap +
+                              0.30 * grid_firmware_legacy_depth) / (1.0 + airgap_failover_redundancy))
+        score = Sigmoid(2.8 * Vulnerability + 2.5 * scada_isolation_deficit - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        scada_isolation_deficit: float = 0.65,
+        polymorphic_malware_signature_gap: float = 0.70,
+        grid_firmware_legacy_depth: float = 0.60,
+        airgap_failover_redundancy: float = 0.40
+    ) -> Dict[str, Any]:
+        iso_def = float(max(0.0, min(1.0, scada_isolation_deficit)))
+        sig_gap = float(max(0.0, min(1.0, polymorphic_malware_signature_gap)))
+        leg_dep = float(max(0.0, min(1.0, grid_firmware_legacy_depth)))
+        airgap_red = float(max(0.0, min(1.0, airgap_failover_redundancy)))
+
+        raw_vuln = (0.35 * iso_def + 0.35 * sig_gap + 0.30 * leg_dep) / (1.0 + airgap_red)
+        z = 2.8 * raw_vuln + 2.5 * iso_def - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SCADA_BLACKOUT_EXPOSURE"
+            verdict = "MANDATE_PHYSICAL_AIRGAP_ISOLATION_AND_PROPRIETARY_PLC_FIRMWARE"
+            rationale = (
+                f"Severe grid blackout vulnerability ({score:.4f}): SCADA isolation deficit ({iso_def:.2f}) "
+                f"and zero-day polymorphic signature gap ({sig_gap:.2f}) risk cascading national grid failure."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_INDUSTRIAL_OT_VULNERABILITY"
+            verdict = "DEPLOY_ANOMALOUS_TELEMETRY_INSPECTION_AND_FAILSAFE_ISOLATION"
+            rationale = f"Elevated cyber vulnerability ({score:.4f}): Grid legacy firmware ({leg_dep:.2f}) requires urgent patching."
+        else:
+            tier = "FORTIFIED_SOVEREIGN_SCADA_AIRGAP"
+            verdict = "AIRGAP_REDUNDANCY_AND_ZERO_TRUST_PLC_ACTIVE"
+            rationale = f"Fortified grid ({score:.4f}): High airgap failover ({airgap_red:.2f}) neutralizes polymorphic injection."
+
+        return {
+            "asymmetric_scada_blackout_vulnerability_score": score,
+            "scada_isolation_deficit": round(iso_def, 4),
+            "polymorphic_malware_signature_gap": round(sig_gap, 4),
+            "grid_firmware_legacy_depth": round(leg_dep, 4),
+            "airgap_failover_redundancy": round(airgap_red, 4),
+            "scada_blackout_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_blackout_risk_critical": score >= 0.70,
         }

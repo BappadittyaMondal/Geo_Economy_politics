@@ -10893,7 +10893,7 @@ class TestPhase247to250SievesAndDigest:
     def test_phase250_lenses_init_exports_count_79(self):
         """Phase 250: geo_engine.lenses exports 79 verified symbols."""
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179, 186, 209, 214, 234)
+        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250)
         assert "DigitalEnclosureTrapSieve" in lenses.__all__
         assert "KineticDiversionaryEscalationSieve" in lenses.__all__
 
@@ -11729,7 +11729,7 @@ class TestPhases274to282SievesAndTelemetry:
 
     def test_phases_274_to_282_lenses_init_exports_count_109(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179, 186, 209, 214, 234)
+        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250)
 
 
 
@@ -12069,7 +12069,7 @@ class TestPhases283to294SievesAndTelemetry:
 
     def test_phases_283_to_294_lenses_init_exports_count_121(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179, 186, 209, 214, 234)
+        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250)
 
 
 class TestPhases295to300SievesAndTelemetry:
@@ -12274,7 +12274,7 @@ class TestPhases295to300SievesAndTelemetry:
 
     def test_phases_295_to_300_lenses_init_exports_count_127(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (127, 134, 143, 163, 179, 186, 209, 214, 234)
+        assert len(lenses.__all__) in (127, 134, 143, 163, 179, 186, 209, 214, 234, 250)
 
 
 class TestPhases301to307SievesAndQuantumGating:
@@ -12455,7 +12455,7 @@ class TestPhases301to307SievesAndQuantumGating:
 
     def test_phases_301_to_307_lenses_init_exports_count_134(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (134, 143, 163, 179, 186, 209, 214, 234)
+        assert len(lenses.__all__) in (134, 143, 163, 179, 186, 209, 214, 234, 250)
 
     def test_sadhguru_strategic_council_archetype(self):
         from geo_engine.arbitration.persona_narrator import PersonaNarrator
@@ -12712,7 +12712,7 @@ class TestPhases309to317SievesAndQuantumSynthesis:
 
     def test_phases_309_to_317_lenses_init_exports_count_143(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (143, 163, 179, 186, 209, 214, 234)
+        assert len(lenses.__all__) in (143, 163, 179, 186, 209, 214, 234, 250)
         for sieve in [
             "ArchivalPrimarySourceSieve",
             "AcademicGatekeepingSieve",
@@ -12968,7 +12968,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
         s = SummitEvent(summit_id="s_318_337", title="Forensic Multi-Domain Summit", date=datetime.now(), host_country="India", participant_countries=["India", "Global"])
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) in (149, 165, 172, 195, 200, 220)
+        assert len(srm) in (149, 165, 172, 195, 200, 220, 238)
         for key in [
             "basel_gold_allocation_score",
             "mnemonic_fidelity_score",
@@ -13032,7 +13032,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
 
     def test_phases_318_to_337_lenses_init_exports_count_163(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (163, 179, 186, 209, 214, 234)
+        assert len(lenses.__all__) in (163, 179, 186, 209, 214, 234, 250)
         for sieve in [
             "BaselGoldAllocationSieve",
             "ApaurusheyaMnemonicFidelitySieve",
@@ -13251,7 +13251,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
         )
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) in (165, 172, 195, 200, 220)
+        assert len(srm) in (165, 172, 195, 200, 220, 238)
         for ch in [
             "sovereign_public_interest_score",
             "adversary_timing_correlation_score",
@@ -13274,7 +13274,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
 
     def test_phases_338_to_353_lenses_init_exports_count_179(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (179, 186, 209, 214, 234)
+        assert len(lenses.__all__) in (179, 186, 209, 214, 234, 250)
         for sieve in [
             "SovereignPublicInterestSieve",
             "AdversaryTimingCorrelationSieve",
@@ -13742,7 +13742,7 @@ class TestPhases368to390SovereignForensicSievesAndResilienceTelemetry:
         )
         report = SummitSynthesizer.synthesize_report(summit)
         srm = report.strategic_resilience_matrix
-        assert len(srm) in (195, 200, 220)
+        assert len(srm) in (195, 200, 220, 238)
         nones = [k for k, v in srm.items() if v is None]
         assert len(nones) == 0, f"Found None channels: {nones}"
 
@@ -13977,7 +13977,7 @@ class TestPhases391to395InvestigativeIntelligenceAndCashFlowSieves:
         )
         report = SummitSynthesizer.synthesize_report(summit)
         srm = report.strategic_resilience_matrix
-        assert len(srm) in (200, 220), f"Expected 200 or 220 channels, got {len(srm)}"
+        assert len(srm) in (200, 220, 238), f"Expected 200, 220 or 238 channels, got {len(srm)}"
         nones = [k for k, v in srm.items() if v is None]
         assert len(nones) == 0, f"Found None channels: {nones}"
 
@@ -13995,7 +13995,7 @@ class TestPhases391to395InvestigativeIntelligenceAndCashFlowSieves:
 
     def test_phases_391_to_395_lenses_init_exports(self):
         import geo_engine.lenses as l
-        assert len(l.__all__) in (214, 234), f"Expected 214 or 234 symbols, got {len(l.__all__)}"
+        assert len(l.__all__) in (214, 234, 250), f"Expected 214, 234 or 250 symbols, got {len(l.__all__)}"
         expected_sieves = [
             "TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve",
             "MediaIntelligenceLeakTimingTensor",
@@ -14245,7 +14245,7 @@ class TestPhases396to415SovereignForensicSieves:
         from geo_engine.arbitration.synthesizer import SummitSynthesizer, SummitEvent
         import geo_engine.lenses as l
 
-        assert len(l.__all__) == 234
+        assert len(l.__all__) in (234, 250)
 
         summit = SummitEvent(
             summit_name="220 Channels Comprehensive Calibration",
@@ -14286,7 +14286,7 @@ class TestPhases396to415SovereignForensicSieves:
         )
         rep = SummitSynthesizer.synthesize_report(summit)
         srm = rep.strategic_resilience_matrix
-        assert len(srm) == 220
+        assert len(srm) in (220, 238)
         for ch, val in srm.items():
             assert val is not None, f"Channel {ch} is None"
             assert isinstance(val, (int, float)), f"Channel {ch} is not float: {type(val)}"
@@ -14314,3 +14314,326 @@ class TestPhases396to415SovereignForensicSieves:
 
 
 
+
+
+class TestPhases416to433SovereignForensicSievesAndTitans:
+    """
+    Verification suite for Phases 416 to 433: Sovereign Forensic Sieves & 7 Strategic Council Titans.
+    Validates mathematical bounding in [0.0, 1.0], operational tiers, AST query parsing,
+    and 238-channel strategic resilience matrix calibration.
+    """
+
+    def test_phase416_asymmetric_scada_polymorphic_cyber_blackout_sieve(self):
+        from geo_engine.lenses.digital_sovereignty import AsymmetricSCADAPolymorphicCyberBlackoutSieve
+
+        res = AsymmetricSCADAPolymorphicCyberBlackoutSieve.evaluate(
+            scada_isolation_deficit=0.85,
+            polymorphic_malware_signature_gap=0.80,
+            grid_firmware_legacy_depth=0.75,
+            airgap_failover_redundancy=0.20,
+        )
+        assert 0.0 <= res["asymmetric_scada_blackout_vulnerability_score"] <= 1.0
+        assert res["scada_blackout_tier"] == "CRITICAL_SCADA_BLACKOUT_EXPOSURE"
+        assert res["is_blackout_risk_critical"] is True
+
+        res_fort = AsymmetricSCADAPolymorphicCyberBlackoutSieve.evaluate(
+            scada_isolation_deficit=0.15,
+            polymorphic_malware_signature_gap=0.10,
+            grid_firmware_legacy_depth=0.20,
+            airgap_failover_redundancy=0.90,
+        )
+        assert res_fort["scada_blackout_tier"] == "FORTIFIED_SOVEREIGN_SCADA_AIRGAP"
+        assert res_fort["is_blackout_risk_critical"] is False
+
+    def test_phase417_synchronized_media_distraction_and_cartel_network_tensor(self):
+        from geo_engine.lenses.propaganda import SynchronizedMediaDistractionAndCartelNetworkTensor
+
+        res = SynchronizedMediaDistractionAndCartelNetworkTensor.evaluate(
+            narrative_synchronization_ratio=0.90,
+            cartel_ownership_concentration=0.85,
+            distraction_timing_correlation=0.80,
+            independent_counter_signal_density=0.15,
+        )
+        assert 0.0 <= res["synchronized_media_cartel_coordination_score"] <= 1.0
+        assert res["media_cartel_tier"] == "CRITICAL_SYNCHRONIZED_MEDIA_CARTEL_CAPTURE"
+        assert res["is_media_cartel_capture_critical"] is True
+
+    def test_phase418_deep_state_banking_lawfare_and_rating_squeeze_sieve(self):
+        from geo_engine.lenses.cash_flow import DeepStateBankingLawfareAndRatingSqueezeSieve
+
+        res = DeepStateBankingLawfareAndRatingSqueezeSieve.evaluate(
+            rating_cartel_spread_penalty=0.85,
+            short_seller_lawfare_density=0.80,
+            offshore_clearing_litigation_risk=0.75,
+            domestic_institutional_liquidity_cushion=0.30,
+        )
+        assert 0.0 <= res["deep_state_banking_rating_squeeze_score"] <= 1.0
+        assert res["rating_squeeze_tier"] == "CRITICAL_BANKING_LAWFARE_RATING_SQUEEZE"
+        assert res["is_rating_squeeze_critical"] is True
+
+    def test_phase419_directed_energy_weapon_and_atmospheric_power_transmission_sieve(self):
+        from geo_engine.lenses.deep_tech import DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve
+
+        res = DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve.evaluate(
+            beam_power_density_kw=0.90,
+            targeting_acquisition_speed_ms=0.85,
+            swarm_neutralization_capacity=0.80,
+            thermal_blooming_dissipation_loss=0.20,
+        )
+        assert 0.0 <= res["directed_energy_weapon_neutralization_score"] <= 1.0
+        assert res["dew_tier"] == "DECISIVE_DIRECTED_ENERGY_SUPERIORITY"
+        assert res["is_dew_defense_decisive"] is True
+
+    def test_phase420_multilateral_alliance_hegemonic_pressure_resistance_sieve(self):
+        from geo_engine.lenses.geopolitical import MultilateralAllianceHegemonicPressureResistanceSieve
+
+        res = MultilateralAllianceHegemonicPressureResistanceSieve.evaluate(
+            non_hegemonic_trade_share=0.85,
+            bilateral_currency_swap_volume=0.80,
+            sovereign_veto_posture=0.90,
+            secondary_sanctions_vulnerability=0.20,
+        )
+        assert 0.0 <= res["multilateral_alliance_autonomy_retention_score"] <= 1.0
+        assert res["autonomy_tier"] == "FORTIFIED_MULTIPOLAR_AUTONOMY"
+        assert res["is_autonomy_fortified"] is True
+
+    def test_phase421_offshore_banking_secrecy_and_asset_repatriation_sieve(self):
+        from geo_engine.lenses.cash_flow import OffshoreBankingSecrecyAndAssetRepatriationSieve
+
+        res = OffshoreBankingSecrecyAndAssetRepatriationSieve.evaluate(
+            aeoi_tax_recovery_yield=0.85,
+            trade_misinvoicing_interdiction=0.80,
+            beneficial_ownership_transparency=0.85,
+            numbered_trust_jurisdiction_opacity=0.25,
+        )
+        assert 0.0 <= res["offshore_banking_asset_repatriation_score"] <= 1.0
+        assert res["repatriation_tier"] == "DECISIVE_SOVEREIGN_ASSET_REPATRIATION"
+        assert res["is_asset_repatriation_decisive"] is True
+
+    def test_phase422_foreign_intelligence_institutional_penetration_sieve(self):
+        from geo_engine.lenses.hybrid_covert import ForeignIntelligenceInstitutionalPenetrationSieve
+
+        res = ForeignIntelligenceInstitutionalPenetrationSieve.evaluate(
+            mitrokhin_archive_precedent_weight=0.85,
+            dynastic_foundation_foreign_grant_flow=0.80,
+            media_syndicate_editorial_alignment=0.85,
+            counter_espionage_tribunal_interdiction=0.25,
+        )
+        assert 0.0 <= res["foreign_intelligence_institutional_penetration_score"] <= 1.0
+        assert res["penetration_tier"] == "CRITICAL_HOSTILE_INTELLIGENCE_PENETRATION"
+        assert res["is_institutional_penetration_critical"] is True
+
+    def test_phase423_cognitive_atrophy_and_service_displacement_tensor(self):
+        from geo_engine.lenses.civilizational import CognitiveAtrophyAndServiceDisplacementTensor
+
+        res = CognitiveAtrophyAndServiceDisplacementTensor.evaluate(
+            algorithmic_dopamine_feed_exposure=0.90,
+            entry_level_it_labor_displacement=0.85,
+            deep_reading_attention_deficit=0.80,
+            traditional_pedagogical_retention=0.25,
+            indigenous_cognitive_frameworks=0.20,
+        )
+        assert 0.0 <= res["cognitive_atrophy_service_displacement_score"] <= 1.0
+        assert res["atrophy_tier"] == "CRITICAL_COGNITIVE_ATROPHY_AND_LABOR_DISPLACEMENT"
+        assert res["is_cognitive_atrophy_critical"] is True
+
+    def test_phase424_demographic_sovereignty_and_border_fortification_sieve(self):
+        from geo_engine.lenses.military_readiness import DemographicSovereigntyAndBorderFortificationSieve
+
+        res = DemographicSovereigntyAndBorderFortificationSieve.evaluate(
+            physical_border_interdiction_efficiency=0.90,
+            anti_migration_quota_enforcement=0.85,
+            demographic_homogeneity_preservation=0.80,
+            clandestine_demographic_inflow_rate=0.15,
+        )
+        assert 0.0 <= res["demographic_border_fortification_resilience_score"] <= 1.0
+        assert res["border_fortification_tier"] == "IMPREGNABLE_DEMOGRAPHIC_BORDER_FORTRESS"
+        assert res["is_border_fortification_impregnable"] is True
+
+    def test_phase425_algorithmic_faceless_procurement_transparency_sieve(self):
+        from geo_engine.lenses.bureaucratic_inertia import AlgorithmicFacelessProcurementTransparencySieve
+
+        res = AlgorithmicFacelessProcurementTransparencySieve.evaluate(
+            faceless_smart_contract_share=0.90,
+            public_ledger_auditability=0.85,
+            discretionary_bureaucratic_bypass=0.80,
+            procurement_rent_seeking_legacy_drag=0.15,
+        )
+        assert 0.0 <= res["algorithmic_faceless_procurement_efficiency_score"] <= 1.0
+        assert res["procurement_tier"] == "DECISIVE_FACELESS_GOVERNANCE_TRANSPARENCY"
+        assert res["is_procurement_transparency_decisive"] is True
+
+    def test_phase426_investigative_forensics_and_negative_space_engine(self):
+        from geo_engine.arbitration.negative_space import InvestigativeForensicsAndNegativeSpaceEngine
+
+        res = InvestigativeForensicsAndNegativeSpaceEngine.evaluate(
+            kinesic_stress_divergence=0.85,
+            sartorial_color_semiotic_anomaly=0.80,
+            acoustic_micro_tremor_density=0.85,
+            negative_space_omission_criticality=0.90,
+            primary_ledger_verification_certainty=0.95,
+        )
+        assert 0.0 <= res["investigative_forensics_negative_space_score"] <= 1.0
+        assert res["forensics_tier"] == "DECISIVE_INVESTIGATIVE_FORENSIC_DECEPTION_UNMASKED"
+        assert res["is_forensic_divergence_decisive"] is True
+
+        res_speech = InvestigativeForensicsAndNegativeSpaceEngine.analyze_speech_forensics(
+            transcript="Public communique claims absolute harmony without economic tension.",
+            audio_metadata={"acoustic_micro_tremor_density": 0.88, "negative_space_omission_criticality": 0.85}
+        )
+        assert res_speech["investigative_forensics_negative_space_score"] > 0.60
+
+    def test_phase427_sovereign_debt_maturity_and_forensic_cash_flow_sieve_ankit_shah(self):
+        from geo_engine.lenses.cash_flow import SovereignDebtMaturityAndForensicCashFlowSieve
+
+        res = SovereignDebtMaturityAndForensicCashFlowSieve.evaluate(
+            debt_rollover_wall_5yr_share=0.90,
+            htm_unrealized_loss_capital_ratio=0.85,
+            fractional_reserve_panic_drain=0.80,
+            physical_gold_delivery_ratio=0.40,
+            local_currency_clearing_ratio=0.35,
+        )
+        assert 0.0 <= res["sovereign_debt_maturity_rollover_risk_score"] <= 1.0
+        assert res["rollover_risk_tier"] == "CRITICAL_SOVEREIGN_DEBT_ROLLOVER_CLIFF"
+        assert res["is_debt_rollover_cliff_critical"] is True
+
+    def test_phase428_asymmetric_subversion_and_counter_penetration_sieve_ajit_doval(self):
+        from geo_engine.lenses.hybrid_covert import AsymmetricSubversionAndCounterPenetrationSieve
+
+        res = AsymmetricSubversionAndCounterPenetrationSieve.evaluate(
+            fcra_shadow_funding_exposure=0.90,
+            pil_infrastructure_stalling_drag=0.85,
+            border_demographic_subversion_risk=0.85,
+            offensive_defense_deterrence_depth=0.90,
+            kinetic_retaliation_readiness=0.85,
+        )
+        assert 0.0 <= res["asymmetric_subversion_counter_penetration_score"] <= 1.0
+        assert res["subversion_tier"] in ["CRITICAL_ASYMMETRIC_SUBVERSION_THREAT", "ELEVATED_SUBVERSIVE_FRICTION", "FORTIFIED_OFFENSIVE_DEFENSIVE_DOMINANCE"]
+
+    def test_phase429_sovereign_capex_moat_and_faceless_governance_sieve_narendra_modi(self):
+        from geo_engine.lenses.bureaucratic_inertia import SovereignCapExMoatAndFacelessGovernanceSieve
+
+        res = SovereignCapExMoatAndFacelessGovernanceSieve.evaluate(
+            physical_infrastructure_capex_velocity=0.95,
+            semiconductor_fab_sovereignty_progress=0.85,
+            dpi_disintermediation_depth=0.90,
+            bureaucratic_veto_friction=0.20,
+            judicial_infrastructure_stay_rate=0.15,
+        )
+        assert 0.0 <= res["sovereign_capex_moat_escape_velocity_score"] <= 1.0
+        assert res["escape_velocity_tier"] == "DECISIVE_CAPEX_ESCAPE_VELOCITY_ACHIEVED"
+        assert res["is_capex_escape_velocity_achieved"] is True
+
+    def test_phase430_multipolar_hedging_and_strategic_chokepoint_tensor_jaishankar(self):
+        from geo_engine.lenses.geopolitical import MultipolarHedgingAndStrategicChokepointTensor
+
+        res = MultipolarHedgingAndStrategicChokepointTensor.evaluate(
+            asymmetric_trade_chokepoint_leverage=0.90,
+            sloc_command_maritime_density=0.85,
+            multi_alignment_arbitrage_yield=0.80,
+            unilateral_bloc_entanglement=0.20,
+        )
+        assert 0.0 <= res["multipolar_hedging_reciprocal_leverage_score"] <= 1.0
+        assert res["reciprocal_leverage_tier"] == "DOMINANT_RECIPROCAL_STRATEGIC_LEVERAGE"
+        assert res["is_reciprocal_leverage_dominant"] is True
+
+    def test_phase431_complex_adaptive_macroeconomic_and_rating_cartel_sieve_sanjeev_sanyal(self):
+        from geo_engine.lenses.geo_economist import ComplexAdaptiveMacroeconomicAndRatingCartelSieve
+
+        res = ComplexAdaptiveMacroeconomicAndRatingCartelSieve.evaluate(
+            credit_rating_cartel_borrowing_penalty=0.90,
+            subjective_governance_indicator_bias=0.85,
+            logistics_friction_gdp_share=0.80,
+            fast_frequency_realtime_data_governance=0.85,
+            multilateral_derating_resistance=0.80,
+        )
+        assert 0.0 <= res["sovereign_credit_rating_bias_score"] <= 1.0
+        assert res["rating_bias_tier"] == "CRITICAL_RATING_CARTEL_DISCRIMINATION_AND_SPREAD_PENALTY"
+        assert res["is_rating_cartel_bias_critical"] is True
+
+    def test_phase432_civilizational_jurisprudence_and_decolonial_lawfare_tensor_j_sai_deepak(self):
+        from geo_engine.lenses.institutional_lawfare import CivilizationalJurisprudenceAndDecolonialLawfareTensor
+
+        res = CivilizationalJurisprudenceAndDecolonialLawfareTensor.evaluate(
+            decolonial_legal_framework_adoption=0.90,
+            ancestral_temple_property_autonomy=0.85,
+            constitutional_civilizational_continuity=0.90,
+            supranational_pil_lawfare_intrusion=0.25,
+            colonial_statutory_inertia=0.20,
+        )
+        assert 0.0 <= res["civilizational_jurisprudence_decolonial_score"] <= 1.0
+        assert res["jurisprudence_tier"] == "DECISIVE_DECOLONIAL_CIVILIZATIONAL_JURISPRUDENCE"
+        assert res["is_jurisprudential_decolonization_decisive"] is True
+
+    def test_phase433_empirical_falsification_and_cryptographic_verification_engine_anand_ranganathan(self):
+        from geo_engine.verification.engine import EmpiricalFalsificationAndCryptographicVerificationEngine
+
+        res = EmpiricalFalsificationAndCryptographicVerificationEngine.evaluate(
+            physical_ledger_corroboration_ratio=0.95,
+            cryptographic_audit_trail_depth=0.90,
+            zero_sycophancy_falsification_rate=0.90,
+            unsubstantiated_narrative_claim_ratio=0.15,
+            rhetorical_inflation_factor=0.10,
+        )
+        assert 0.0 <= res["empirical_falsification_cryptographic_verification_score"] <= 1.0
+        assert res["verification_tier"] == "IRREFUTABLE_EMPIRICAL_AND_CRYPTOGRAPHIC_VERIFICATION"
+        assert res["is_empirical_veracity_irrefutable"] is True
+
+    def test_phase416_to_433_strategic_resilience_matrix_238_channels(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(
+            summit_name="238 Channels Full Strategic Council Calibration",
+            year=2026,
+            metadata={
+                "scada_isolation_deficit": 0.65,
+                "polymorphic_malware_signature_gap": 0.70,
+                "narrative_synchronization_ratio": 0.85,
+                "rating_cartel_spread_penalty": 0.75,
+                "beam_power_density_kw": 0.85,
+                "non_hegemonic_trade_share": 0.80,
+                "aeoi_tax_recovery_yield": 0.75,
+                "mitrokhin_archive_precedent_weight": 0.75,
+                "algorithmic_dopamine_feed_exposure": 0.85,
+                "physical_border_interdiction_efficiency": 0.85,
+                "faceless_smart_contract_share": 0.85,
+                "debt_rollover_wall_5yr_share": 0.85,
+                "fcra_shadow_funding_exposure": 0.85,
+                "physical_infrastructure_capex_velocity": 0.90,
+                "asymmetric_trade_chokepoint_leverage": 0.85,
+                "credit_rating_cartel_borrowing_penalty": 0.85,
+                "decolonial_legal_framework_adoption": 0.85,
+                "physical_ledger_corroboration_ratio": 0.90,
+            }
+        )
+        rep = SummitSynthesizer.synthesize_report(summit)
+        srm = rep.strategic_resilience_matrix
+        assert len(srm) == 238, f"Expected 238 channels, got {len(srm)}"
+        for ch, val in srm.items():
+            assert val is not None, f"Channel {ch} is None"
+            assert isinstance(val, (int, float)), f"Channel {ch} is not numeric: {type(val)}"
+
+    def test_phase416_to_433_lens_exports_250_symbols(self):
+        import geo_engine.lenses as lenses
+        assert len(lenses.__all__) == 250, f"Expected 250 symbols in lenses.__all__, got {len(lenses.__all__)}"
+
+    def test_phase416_to_433_query_parser_all_titans_ast(self):
+        from geo_engine.core.query_parser import QueryParser
+
+        query_str = (
+            "Analyze scada blackout and synchronized media cartel with ankit shah debt rollover wall, "
+            "ajit doval asymmetric subversion, modi capex escape velocity, jaishankar multipolar hedging, "
+            "sanjeev sanyal credit rating cartel bias, j sai deepak civilizational jurisprudence, "
+            "and anand ranganathan empirical falsification."
+        )
+        sq = QueryParser.parse(query_str)
+        assert sq.requires_asymmetric_scada_blackout is True
+        assert sq.requires_synchronized_media_cartel is True
+        assert sq.requires_sovereign_debt_rollover_risk is True
+        assert sq.requires_asymmetric_subversion_counter_penetration is True
+        assert sq.requires_sovereign_capex_escape_velocity is True
+        assert sq.requires_multipolar_hedging_reciprocal_leverage is True
+        assert sq.requires_credit_rating_cartel_bias is True
+        assert sq.requires_civilizational_jurisprudence_decolonial is True
+        assert sq.requires_empirical_falsification_cryptographic is True

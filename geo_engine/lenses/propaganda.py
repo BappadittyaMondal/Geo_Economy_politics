@@ -398,6 +398,15 @@ class PropagandaLens:
         )
         metrics["media_intelligence_leak_timing_score"] = _mlt_res["media_intelligence_leak_timing_score"]
 
+        # Phase 417: Synchronized Media Distraction and Cartel Network Tensor
+        _cartel_res = SynchronizedMediaDistractionAndCartelNetworkTensor.evaluate(
+            narrative_synchronization_ratio=prop_meta.get("narrative_synchronization_ratio", 0.85),
+            cartel_ownership_concentration=prop_meta.get("cartel_ownership_concentration", 0.80),
+            distraction_timing_correlation=prop_meta.get("distraction_timing_correlation", 0.75),
+            independent_counter_signal_density=prop_meta.get("independent_counter_signal_density", 0.30),
+        )
+        metrics["synchronized_media_cartel_coordination_score"] = _cartel_res["synchronized_media_cartel_coordination_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1439,3 +1448,62 @@ class MediaIntelligenceLeakTimingTensor:
             "is_leak_operation_critical": score >= 0.70,
         }
 
+
+
+# ============================================================================
+# Phase 417: Synchronized Media Distraction and Cartel Network Tensor
+# ============================================================================
+
+class SynchronizedMediaDistractionAndCartelNetworkTensor:
+    """
+    Phase 417: Quantifies narrative synchronization across consolidated media networks,
+    detecting synthetic consensus, coordinated distraction timing during geopolitical crises,
+    and algorithmic suppression of independent dissident reporting.
+    Formula:
+        Coordination = Norm((0.40 * narrative_sync + 0.35 * cartel_concentration + 0.25 * distraction_timing) / (1.0 + counter_signal_density))
+        score = Sigmoid(2.6 * Coordination + 2.5 * narrative_sync - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        narrative_synchronization_ratio: float = 0.85,
+        cartel_ownership_concentration: float = 0.80,
+        distraction_timing_correlation: float = 0.75,
+        independent_counter_signal_density: float = 0.30
+    ) -> Dict[str, Any]:
+        n_sync = float(max(0.0, min(1.0, narrative_synchronization_ratio)))
+        c_conc = float(max(0.0, min(1.0, cartel_ownership_concentration)))
+        d_time = float(max(0.0, min(1.0, distraction_timing_correlation)))
+        cntr_sig = float(max(0.0, min(1.0, independent_counter_signal_density)))
+
+        raw_coord = (0.40 * n_sync + 0.35 * c_conc + 0.25 * d_time) / (1.0 + cntr_sig)
+        z = 2.6 * raw_coord + 2.5 * n_sync - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SYNCHRONIZED_MEDIA_CARTEL_CAPTURE"
+            verdict = "DEPLOY_INDEPENDENT_DECENTRALIZED_NARRATIVE_DISPERSION"
+            rationale = (
+                f"Severe narrative cartel capture ({score:.4f}): Synchronization ratio ({n_sync:.2f}) "
+                f"and ownership concentration ({c_conc:.2f}) indicate monopolistic cognitive warfare."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_EDITORIAL_COORDINATION"
+            verdict = "MONITOR_CROSS_NETWORK_TALKING_POINT_CONVERGENCE"
+            rationale = f"Elevated coordination ({score:.4f}): Distraction timing ({d_time:.2f}) indicates orchestrated coverage."
+        else:
+            tier = "DIVERGENT_INDEPENDENT_MEDIA_ECOSYSTEM"
+            verdict = "ORGANIC_EDITORIAL_PLURALISM_CONFIRMED"
+            rationale = f"Pluralistic media ({score:.4f}): Robust counter-signals ({cntr_sig:.2f}) disrupt cartel synchronization."
+
+        return {
+            "synchronized_media_cartel_coordination_score": score,
+            "narrative_synchronization_ratio": round(n_sync, 4),
+            "cartel_ownership_concentration": round(c_conc, 4),
+            "distraction_timing_correlation": round(d_time, 4),
+            "independent_counter_signal_density": round(cntr_sig, 4),
+            "media_cartel_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_media_cartel_capture_critical": score >= 0.70,
+        }

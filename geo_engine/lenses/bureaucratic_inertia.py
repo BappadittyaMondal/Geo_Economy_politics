@@ -113,6 +113,25 @@ class BureaucraticInertiaLens:
         )
         metrics["dynastic_extra_constitutional_shadow_cabinet_score"] = _dec_res["dynastic_extra_constitutional_shadow_cabinet_score"]
 
+        # Phase 425: Algorithmic Faceless Procurement Transparency Sieve
+        _afp_res = AlgorithmicFacelessProcurementTransparencySieve.evaluate(
+            faceless_smart_contract_share=bur_meta.get("faceless_smart_contract_share", 0.85),
+            public_ledger_auditability=bur_meta.get("public_ledger_auditability", 0.80),
+            discretionary_bureaucratic_bypass=bur_meta.get("discretionary_bureaucratic_bypass", 0.75),
+            procurement_rent_seeking_legacy_drag=bur_meta.get("procurement_rent_seeking_legacy_drag", 0.25),
+        )
+        metrics["algorithmic_faceless_procurement_efficiency_score"] = _afp_res["algorithmic_faceless_procurement_efficiency_score"]
+
+        # Phase 429: Sovereign CapEx Moat and Faceless Governance Sieve (PM Narendra Modi Module)
+        _scm_res = SovereignCapExMoatAndFacelessGovernanceSieve.evaluate(
+            physical_infrastructure_capex_velocity=bur_meta.get("physical_infrastructure_capex_velocity", 0.90),
+            semiconductor_fab_sovereignty_progress=bur_meta.get("semiconductor_fab_sovereignty_progress", 0.80),
+            dpi_disintermediation_depth=bur_meta.get("dpi_disintermediation_depth", 0.85),
+            bureaucratic_veto_friction=bur_meta.get("bureaucratic_veto_friction", 0.25),
+            judicial_infrastructure_stay_rate=bur_meta.get("judicial_infrastructure_stay_rate", 0.20),
+        )
+        metrics["sovereign_capex_moat_escape_velocity_score"] = _scm_res["sovereign_capex_moat_escape_velocity_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -326,4 +345,127 @@ class DynasticExtraConstitutionalShadowCabinetSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_shadow_cabinet_subversion_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 425: Algorithmic Faceless Procurement Transparency Sieve
+# ============================================================================
+
+class AlgorithmicFacelessProcurementTransparencySieve:
+    """
+    Phase 425: Models the elimination of bureaucratic bribery and rent-seeking via
+    automated smart-contract escrows, faceless public digital ledgers (GeM portal architecture),
+    and algorithmic vendor allocation.
+    Formula:
+        EfficiencyScore = Norm((0.40 * faceless_share + 0.35 * ledger_auditability + 0.25 * bureaucratic_bypass) /
+                               (1.0 + rent_seeking_legacy_drag))
+        score = Sigmoid(2.8 * EfficiencyScore + 2.5 * faceless_share - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        faceless_smart_contract_share: float = 0.85,
+        public_ledger_auditability: float = 0.80,
+        discretionary_bureaucratic_bypass: float = 0.75,
+        procurement_rent_seeking_legacy_drag: float = 0.25
+    ) -> Dict[str, Any]:
+        f_share = float(max(0.0, min(1.0, faceless_smart_contract_share)))
+        p_audit = float(max(0.0, min(1.0, public_ledger_auditability)))
+        b_bypass = float(max(0.0, min(1.0, discretionary_bureaucratic_bypass)))
+        r_drag = float(max(0.0, min(1.0, procurement_rent_seeking_legacy_drag)))
+
+        raw_eff = (0.40 * f_share + 0.35 * p_audit + 0.25 * b_bypass) / (1.0 + r_drag)
+        z = 2.8 * raw_eff + 2.5 * f_share - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_FACELESS_GOVERNANCE_TRANSPARENCY"
+            verdict = "MANDATE_END_TO_END_SMART_CONTRACT_ESCROW_FOR_ALL_PUBLIC_TENDERS"
+            rationale = (
+                f"Decisive faceless procurement ({score:.4f}): High smart contract share ({f_share:.2f}) "
+                f"and discretionary bypass ({b_bypass:.2f}) systematically eliminate intermediary rent-seeking."
+            )
+        elif score >= 0.45:
+            tier = "MODERATE_DIGITAL_TENDERING_ADOPTION"
+            verdict = "ACCELERATE_MUNICIPAL_ONBOARDING_TO_NATIONAL_PROCUREMENT_LEDGER"
+            rationale = f"Moderate transparency ({score:.4f}): Legacy rent-seeking drag ({r_drag:.2f}) persists in local bodies."
+        else:
+            tier = "DISCRETIONARY_BUREAUCRATIC_CAPTURE"
+            verdict = "OVERHAUL_MANUAL_TENDERING_AND_IMPOSE_ALGORITHMIC_ALLOCATION"
+            rationale = f"High corruption vulnerability ({score:.4f}): Discretionary clerical approvals dominate."
+
+        return {
+            "algorithmic_faceless_procurement_efficiency_score": score,
+            "faceless_smart_contract_share": round(f_share, 4),
+            "public_ledger_auditability": round(p_audit, 4),
+            "discretionary_bureaucratic_bypass": round(b_bypass, 4),
+            "procurement_rent_seeking_legacy_drag": round(r_drag, 4),
+            "procurement_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_procurement_transparency_decisive": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 429: Sovereign CapEx Moat and Faceless Governance Sieve (PM Narendra Modi Module)
+# ============================================================================
+
+class SovereignCapExMoatAndFacelessGovernanceSieve:
+    """
+    Phase 429 (PM Narendra Modi Module): Mathematical evaluation of physical capital expenditure escape velocity
+    (Viksit Bharat 2047 benchmark), dedicated freight corridor throughput, semiconductor fabrication sovereignty,
+    and bureaucratic disintermediation via Direct Benefit Transfer (DBT) and Digital Public Infrastructure (DPI).
+    Formula:
+        EscapeVelocity = Norm((0.40 * capex_velocity + 0.35 * fab_sovereignty + 0.25 * dpi_disintermediation) /
+                              (1.0 + bureaucratic_veto_friction + judicial_stay_rate))
+        score = Sigmoid(2.8 * EscapeVelocity + 2.5 * capex_velocity - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        physical_infrastructure_capex_velocity: float = 0.90,
+        semiconductor_fab_sovereignty_progress: float = 0.80,
+        dpi_disintermediation_depth: float = 0.85,
+        bureaucratic_veto_friction: float = 0.25,
+        judicial_infrastructure_stay_rate: float = 0.20
+    ) -> Dict[str, Any]:
+        capex_vel = float(max(0.0, min(1.0, physical_infrastructure_capex_velocity)))
+        fab_prog = float(max(0.0, min(1.0, semiconductor_fab_sovereignty_progress)))
+        dpi_depth = float(max(0.0, min(1.0, dpi_disintermediation_depth)))
+        veto_fric = float(max(0.0, min(1.0, bureaucratic_veto_friction)))
+        stay_rate = float(max(0.0, min(1.0, judicial_infrastructure_stay_rate)))
+
+        raw_escape = (0.40 * capex_vel + 0.35 * fab_prog + 0.25 * dpi_depth) / (1.0 + veto_fric + stay_rate)
+        z = 2.8 * raw_escape + 2.5 * capex_vel - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_CAPEX_ESCAPE_VELOCITY_ACHIEVED"
+            verdict = "LOCK_IN_PHYSICAL_INFRASTRUCTURE_ASSETS_AND_SCALE_DOMESTIC_FABRICATION"
+            rationale = (
+                f"Decisive CapEx escape velocity ({score:.4f}): Infrastructure velocity ({capex_vel:.2f}) "
+                f"and DPI disintermediation ({dpi_depth:.2f}) break historic bureaucratic inertia, sealing the national industrial moat."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_CAPEX_EXPANSION_TRAJECTORY"
+            verdict = "FAST_TRACK_STATUTORY_ENVIRONMENTAL_AND_LAND_CLEARANCES"
+            rationale = f"Elevated expansion ({score:.4f}): Judicial stay friction ({stay_rate:.2f}) requires legislative streamlining."
+        else:
+            tier = "BUREAUCRATIC_INERTIA_ENTRAPMENT"
+            verdict = "DISINTERMEDIATE_CLERICAL_RED_TAPE_AND_MANDATE_TIME_BOUND_SANCTIONS"
+            rationale = f"Low velocity ({score:.4f}): Administrative friction outpaces physical capital formation."
+
+        return {
+            "sovereign_capex_moat_escape_velocity_score": score,
+            "physical_infrastructure_capex_velocity": round(capex_vel, 4),
+            "semiconductor_fab_sovereignty_progress": round(fab_prog, 4),
+            "dpi_disintermediation_depth": round(dpi_depth, 4),
+            "bureaucratic_veto_friction": round(veto_fric, 4),
+            "judicial_infrastructure_stay_rate": round(stay_rate, 4),
+            "escape_velocity_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_capex_escape_velocity_achieved": score >= 0.70,
         }

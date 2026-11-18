@@ -542,6 +542,34 @@ class CashFlowLens:
         )
         metrics["msme_solvency_asphyxiation_score"] = _msm_res["msme_solvency_asphyxiation_score"]
 
+        # Phase 418: Deep State Banking Lawfare and Rating Squeeze Sieve
+        _ds_bank_res = DeepStateBankingLawfareAndRatingSqueezeSieve.evaluate(
+            rating_cartel_spread_penalty=cf_meta.get("rating_cartel_spread_penalty", 0.75),
+            short_seller_lawfare_density=cf_meta.get("short_seller_lawfare_density", 0.70),
+            offshore_clearing_litigation_risk=cf_meta.get("offshore_clearing_litigation_risk", 0.65),
+            domestic_institutional_liquidity_cushion=cf_meta.get("domestic_institutional_liquidity_cushion", 0.80),
+        )
+        metrics["deep_state_banking_rating_squeeze_score"] = _ds_bank_res["deep_state_banking_rating_squeeze_score"]
+
+        # Phase 421: Offshore Banking Secrecy and Asset Repatriation Sieve
+        _obs_res = OffshoreBankingSecrecyAndAssetRepatriationSieve.evaluate(
+            aeoi_tax_recovery_yield=cf_meta.get("aeoi_tax_recovery_yield", 0.75),
+            trade_misinvoicing_interdiction=cf_meta.get("trade_misinvoicing_interdiction", 0.70),
+            beneficial_ownership_transparency=cf_meta.get("beneficial_ownership_transparency", 0.80),
+            numbered_trust_jurisdiction_opacity=cf_meta.get("numbered_trust_jurisdiction_opacity", 0.35),
+        )
+        metrics["offshore_banking_asset_repatriation_score"] = _obs_res["offshore_banking_asset_repatriation_score"]
+
+        # Phase 427: Sovereign Debt Maturity and Forensic Cash Flow Sieve (Dr. Ankit Shah Module)
+        _sdm_res = SovereignDebtMaturityAndForensicCashFlowSieve.evaluate(
+            debt_rollover_wall_5yr_share=cf_meta.get("debt_rollover_wall_5yr_share", 0.85),
+            htm_unrealized_loss_capital_ratio=cf_meta.get("htm_unrealized_loss_capital_ratio", 0.75),
+            fractional_reserve_panic_drain=cf_meta.get("fractional_reserve_panic_drain", 0.70),
+            physical_gold_delivery_ratio=cf_meta.get("physical_gold_delivery_ratio", 0.80),
+            local_currency_clearing_ratio=cf_meta.get("local_currency_clearing_ratio", 0.75),
+        )
+        metrics["sovereign_debt_maturity_rollover_risk_score"] = _sdm_res["sovereign_debt_maturity_rollover_risk_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=clamped_alignment,
@@ -1963,5 +1991,185 @@ class MSMEFormalizationSolvencyAsphyxiationTensor:
             "is_asphyxiation_critical": score >= 0.70,
         }
 
+
+
+# ============================================================================
+# Phase 418: Deep State Banking Lawfare and Rating Squeeze Sieve
+# ============================================================================
+
+class DeepStateBankingLawfareAndRatingSqueezeSieve:
+    """
+    Phase 418: Models sovereign rating suppression spreads, selective short-seller activist lawfare,
+    and offshore dollar-clearing litigation used as asymmetric economic siege weapons
+    against national banking giants and sovereign debt issuances.
+    Formula:
+        SqueezeScore = Norm((0.40 * rating_spread_penalty + 0.35 * short_seller_lawfare + 0.25 * clearing_litigation) / (1.0 + domestic_liquidity_cushion))
+        score = Sigmoid(2.7 * SqueezeScore + 2.5 * rating_spread_penalty - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        rating_cartel_spread_penalty: float = 0.75,
+        short_seller_lawfare_density: float = 0.70,
+        offshore_clearing_litigation_risk: float = 0.65,
+        domestic_institutional_liquidity_cushion: float = 0.80
+    ) -> Dict[str, Any]:
+        r_spread = float(max(0.0, min(1.0, rating_cartel_spread_penalty)))
+        s_law = float(max(0.0, min(1.0, short_seller_lawfare_density)))
+        c_lit = float(max(0.0, min(1.0, offshore_clearing_litigation_risk)))
+        d_cushion = float(max(0.0, min(1.0, domestic_institutional_liquidity_cushion)))
+
+        raw_squeeze = (0.40 * r_spread + 0.35 * s_law + 0.25 * c_lit) / (1.0 + d_cushion)
+        z = 2.7 * raw_squeeze + 2.5 * r_spread - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_BANKING_LAWFARE_RATING_SQUEEZE"
+            verdict = "DEPLOY_DOMESTIC_DII_COUNTER_ABSORPTION_AND_CROSS_BORDER_INR_SETTLEMENT"
+            rationale = (
+                f"Severe rating cartel squeeze ({score:.4f}): Rating penalty ({r_spread:.2f}) "
+                f"and activist short-seller lawfare ({s_law:.2f}) target banking liquidity."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_RATING_SUPPRESSION_FRICTION"
+            verdict = "FORTIFY_DOMESTIC_BOND_MARKET_AND_ACCELERATE_ONSHORING"
+            rationale = f"Elevated spread friction ({score:.4f}): Clearing litigation exposure requires hedging."
+        else:
+            tier = "SOVEREIGN_FINANCIAL_SHIELD_INTACT"
+            verdict = "DOMESTIC_LIQUIDITY_FORTRESS_ACTIVE"
+            rationale = f"Resilient banking system ({score:.4f}): Robust DII absorption cushions rating cartel hostility."
+
+        return {
+            "deep_state_banking_rating_squeeze_score": score,
+            "rating_cartel_spread_penalty": round(r_spread, 4),
+            "short_seller_lawfare_density": round(s_law, 4),
+            "offshore_clearing_litigation_risk": round(c_lit, 4),
+            "domestic_institutional_liquidity_cushion": round(d_cushion, 4),
+            "rating_squeeze_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_rating_squeeze_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 421: Offshore Banking Secrecy and Asset Repatriation Sieve
+# ============================================================================
+
+class OffshoreBankingSecrecyAndAssetRepatriationSieve:
+    """
+    Phase 421: Forensically audits trade misinvoicing, numbered secrecy trusts in zero-tax jurisdictions,
+    and OECD Automatic Exchange of Information (AEOI) recovery yields to calculate net capital repatriation.
+    Formula:
+        RecoveryYield = Norm((0.35 * aeoi_tax_yield + 0.35 * misinvoicing_interdiction + 0.30 * ubo_transparency) / (1.0 + trust_opacity))
+        score = Sigmoid(2.6 * RecoveryYield + 2.4 * misinvoicing_interdiction - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        aeoi_tax_recovery_yield: float = 0.75,
+        trade_misinvoicing_interdiction: float = 0.70,
+        beneficial_ownership_transparency: float = 0.80,
+        numbered_trust_jurisdiction_opacity: float = 0.35
+    ) -> Dict[str, Any]:
+        aeoi = float(max(0.0, min(1.0, aeoi_tax_recovery_yield)))
+        misinv = float(max(0.0, min(1.0, trade_misinvoicing_interdiction)))
+        ubo = float(max(0.0, min(1.0, beneficial_ownership_transparency)))
+        trust_op = float(max(0.0, min(1.0, numbered_trust_jurisdiction_opacity)))
+
+        raw_yield = (0.35 * aeoi + 0.35 * misinv + 0.30 * ubo) / (1.0 + trust_op)
+        z = 2.6 * raw_yield + 2.4 * misinv - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_SOVEREIGN_ASSET_REPATRIATION"
+            verdict = "ATTACH_OFFSHORE_PROCEEDS_AND_ENFORCE_BENEFICIAL_OWNERSHIP_REGISTERS"
+            rationale = (
+                f"Decisive asset repatriation ({score:.4f}): High AEOI recovery ({aeoi:.2f}) "
+                f"and customs misinvoicing interdiction ({misinv:.2f}) successfully reclaim sovereign capital."
+            )
+        elif score >= 0.45:
+            tier = "PARTIAL_CAPITAL_FLIGHT_INTERDICTION"
+            verdict = "EXPAND_BILATERAL_TAX_TREATY_INFORMATION_EXCHANGE"
+            rationale = f"Moderate recovery ({score:.4f}): Offshore trust opacity ({trust_op:.2f}) impedes full restitution."
+        else:
+            tier = "SEVERE_OFFSHORE_SECRECY_LEAKAGE"
+            verdict = "MANDATE_STRICT_FOREIGN_ASSET_REPORTING_AND_PNOTE_DISCLOSURES"
+            rationale = f"High leakage ({score:.4f}): Trade misinvoicing drains foreign exchange unhindered."
+
+        return {
+            "offshore_banking_asset_repatriation_score": score,
+            "aeoi_tax_recovery_yield": round(aeoi, 4),
+            "trade_misinvoicing_interdiction": round(misinv, 4),
+            "beneficial_ownership_transparency": round(ubo, 4),
+            "numbered_trust_jurisdiction_opacity": round(trust_op, 4),
+            "repatriation_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_asset_repatriation_decisive": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 427: Sovereign Debt Maturity and Forensic Cash Flow Sieve (Dr. Ankit Shah Module)
+# ============================================================================
+
+class SovereignDebtMaturityAndForensicCashFlowSieve:
+    """
+    Phase 427 (Dr. Ankit Shah Module): Forensically models 5-year sovereign debt rollover cliffs,
+    unrealized Hold-To-Maturity (HTM) banking paper losses, and fractional-reserve deposit flight,
+    benchmarking physical gold delivery demand vs paper ETF leverage.
+    Formula:
+        RolloverRisk = Norm((0.40 * debt_wall_5yr + 0.35 * htm_paper_losses + 0.25 * panic_drain) /
+                            (1.0 + gold_delivery_ratio + local_currency_clearing))
+        score = Sigmoid(2.8 * RolloverRisk + 2.5 * debt_wall_5yr - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        debt_rollover_wall_5yr_share: float = 0.85,
+        htm_unrealized_loss_capital_ratio: float = 0.75,
+        fractional_reserve_panic_drain: float = 0.70,
+        physical_gold_delivery_ratio: float = 0.80,
+        local_currency_clearing_ratio: float = 0.75
+    ) -> Dict[str, Any]:
+        d_wall = float(max(0.0, min(1.0, debt_rollover_wall_5yr_share)))
+        htm_loss = float(max(0.0, min(1.0, htm_unrealized_loss_capital_ratio)))
+        panic = float(max(0.0, min(1.0, fractional_reserve_panic_drain)))
+        gold_del = float(max(0.0, min(1.0, physical_gold_delivery_ratio)))
+        loc_clear = float(max(0.0, min(1.0, local_currency_clearing_ratio)))
+
+        raw_risk = (0.40 * d_wall + 0.35 * htm_loss + 0.25 * panic) / (1.0 + gold_del + loc_clear)
+        z = 2.8 * raw_risk + 2.5 * d_wall - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_SOVEREIGN_DEBT_ROLLOVER_CLIFF"
+            verdict = "ACCELERATE_PHYSICAL_GOLD_ONSHORING_AND_NON_DOLLAR_BILATERAL_DEBT_SWAPS"
+            rationale = (
+                f"Acute sovereign rollover cliff ({score:.4f}): 5-year debt wall ({d_wall:.2f}) "
+                f"and HTM banking paper losses ({htm_loss:.2f}) indicate impending refinancing seizure."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_REFINANCING_FRICTION"
+            verdict = "EXPAND_LOCAL_CURRENCY_CLEARING_AND_EXTEND_MATURITY_PROFILES"
+            rationale = f"Elevated refinancing friction ({score:.4f}): Debt wall requires active maturity extension."
+        else:
+            tier = "FORTIFIED_SOVEREIGN_DEBT_SOLVENCY"
+            verdict = "PHYSICAL_BULLION_AND_LOCAL_SETTLEMENT_SHIELD_VERIFIED"
+            rationale = f"Fortified balance sheet ({score:.4f}): High physical gold ratio ({gold_del:.2f}) insulates debt."
+
+        return {
+            "sovereign_debt_maturity_rollover_risk_score": score,
+            "debt_rollover_wall_5yr_share": round(d_wall, 4),
+            "htm_unrealized_loss_capital_ratio": round(htm_loss, 4),
+            "fractional_reserve_panic_drain": round(panic, 4),
+            "physical_gold_delivery_ratio": round(gold_del, 4),
+            "local_currency_clearing_ratio": round(loc_clear, 4),
+            "rollover_risk_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_debt_rollover_cliff_critical": score >= 0.70,
+        }
 
 ```

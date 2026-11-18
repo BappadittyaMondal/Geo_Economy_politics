@@ -186,6 +186,25 @@ class StrategicQuery(BaseModel):
     requires_sub_tactical_honeytrap_espionage: bool = False
     requires_naval_electronic_warfare_suppression: bool = False
     requires_civilizational_epistemic_historiography: bool = False
+    # Phases 416-433: Sovereign Forensic Sieves & Strategic Council Titans (18 Flags)
+    requires_asymmetric_scada_blackout: bool = False
+    requires_synchronized_media_cartel: bool = False
+    requires_deep_state_banking_lawfare: bool = False
+    requires_directed_energy_weapon: bool = False
+    requires_multilateral_alliance_autonomy: bool = False
+    requires_offshore_banking_repatriation: bool = False
+    requires_foreign_intel_penetration: bool = False
+    requires_cognitive_atrophy_displacement: bool = False
+    requires_demographic_border_fortification: bool = False
+    requires_algorithmic_faceless_procurement: bool = False
+    requires_investigative_forensics_negative_space: bool = False
+    requires_sovereign_debt_rollover_risk: bool = False
+    requires_asymmetric_subversion_counter_penetration: bool = False
+    requires_sovereign_capex_escape_velocity: bool = False
+    requires_multipolar_hedging_reciprocal_leverage: bool = False
+    requires_credit_rating_cartel_bias: bool = False
+    requires_civilizational_jurisprudence_decolonial: bool = False
+    requires_empirical_falsification_cryptographic: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -585,6 +604,26 @@ class QueryParser:
         req_naval_ew = any(cls.matches_keyword(text_lower, kw) for kw in ["naval electronic warfare suppression", "non kinetic naval disablement", "rf jamming warship", "acoustic spoofing naval", "pns hunain electronic warfare", "ins kolkata ew", "standoff jamming power"])
         req_historiography_decolonial = any(cls.matches_keyword(text_lower, kw) for kw in ["civilizational epistemic historiography", "historiography decolonization", "primary epigraphic citations", "inscriptional provenance", "sanskrit grammar provenance", "colonial textbook distortion", "meenakshi jain ami ganatra"])
 
+        # Phases 416-433: Sovereign Forensic Sieves & Council Titans Keyword Triggers
+        req_scada_blackout = any(cls.matches_keyword(text_lower, kw) for kw in ["scada blackout", "polymorphic malware", "grid blackout", "ot firmware", "power grid cyber", "industroyer", "cyber blackout"])
+        req_media_cartel = any(cls.matches_keyword(text_lower, kw) for kw in ["synchronized media", "media cartel", "distraction network", "coordinated press", "narrative sync", "cartel network"])
+        req_banking_lawfare = any(cls.matches_keyword(text_lower, kw) for kw in ["deep state banking", "rating squeeze", "short seller lawfare", "clearing litigation", "bbb- rating", "banking lawfare"])
+        req_dew_weapon = any(cls.matches_keyword(text_lower, kw) for kw in ["directed energy", "dew", "high energy laser", "thermal blooming", "counter-swarm laser", "microwave weapon", "power transmission"])
+        req_alliance_autonomy = any(cls.matches_keyword(text_lower, kw) for kw in ["multilateral alliance", "hegemonic pressure", "secondary sanctions resistance", "veto posture", "autonomy retention"])
+        req_offshore_repatriation = any(cls.matches_keyword(text_lower, kw) for kw in ["offshore banking", "asset repatriation", "numbered trust", "aeoi tax", "trade misinvoicing", "capital recovery"])
+        req_foreign_intel_pen = any(cls.matches_keyword(text_lower, kw) for kw in ["foreign intelligence penetration", "mitrokhin archive", "dynastic foundation foreign grant", "kgb penetration", "cia think tank"])
+        req_cognitive_atrophy = any(cls.matches_keyword(text_lower, kw) for kw in ["cognitive atrophy", "service displacement", "algorithmic dopamine", "it labor automation", "attention span deficit", "reading deficit"])
+        req_demographic_fort = any(cls.matches_keyword(text_lower, kw) for kw in ["demographic sovereignty", "border fortification", "anti-migration quota", "border interdiction", "poland 1683", "vienna model"])
+        req_faceless_procurement = any(cls.matches_keyword(text_lower, kw) for kw in ["faceless procurement", "smart contract escrow", "procurement transparency", "gem portal", "discretionary bypass"])
+        req_investigative_forensics = any(cls.matches_keyword(text_lower, kw) for kw in ["investigative forensics", "negative space engine", "kinesic micro-tremor", "sartorial semiotics", "dress color optics", "acoustic tremor", "read between the lines"])
+        req_sovereign_debt_rollover = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign debt maturity", "debt rollover wall", "ankit shah", "fractional reserve panic", "htm paper losses", "5-year debt wall"])
+        req_doval_subversion = any(cls.matches_keyword(text_lower, kw) for kw in ["asymmetric subversion", "counter penetration", "ajit doval", "doval doctrine", "offensive-defense", "fcra shadow funding"])
+        req_modi_capex = any(cls.matches_keyword(text_lower, kw) for kw in ["sovereign capex moat", "escape velocity", "narendra modi", "modi capex", "viksit bharat", "semiconductor fab sovereignty", "faceless governance"])
+        req_jaishankar_hedging = any(cls.matches_keyword(text_lower, kw) for kw in ["multipolar hedging", "strategic chokepoint tensor", "jaishankar", "s jaishankar", "reciprocal leverage", "sloc command", "trade chokepoint"])
+        req_sanyal_rating = any(cls.matches_keyword(text_lower, kw) for kw in ["credit rating cartel", "sanjeev sanyal", "rating bias", "logistics cost compression", "wgi bias", "fast frequency data"])
+        req_deepak_jurisprudence = any(cls.matches_keyword(text_lower, kw) for kw in ["civilizational jurisprudence", "decolonial lawfare", "j sai deepak", "sai deepak", "temple property autonomy", "decolonial legal"])
+        req_ranga_falsification = any(cls.matches_keyword(text_lower, kw) for kw in ["empirical falsification", "cryptographic verification", "anand ranganathan", "ranganathan", "zero sycophancy", "karl popper standard"])
+
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
             active_lenses.append("digital_sovereignty")
         if (req_cognitive_deception or req_ci_honeytrap or req_false_flag_narrative or req_open_sys_infil or req_semi_kompromat or req_border_narco or req_honeytrap_espionage) and "hybrid_covert" not in active_lenses:
@@ -741,6 +780,45 @@ class QueryParser:
             active_lenses.append("cash_flow")
         if req_col_drain and "history" not in active_lenses:
             active_lenses.append("history")
+
+        # Phases 416-433: Route active lenses for Council Titans & Sieves
+        if req_scada_blackout and "digital_sovereignty" not in active_lenses:
+            active_lenses.append("digital_sovereignty")
+        if req_media_cartel and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if req_banking_lawfare and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_dew_weapon and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if req_alliance_autonomy and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_offshore_repatriation and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_foreign_intel_pen and "hybrid_covert" not in active_lenses:
+            active_lenses.append("hybrid_covert")
+        if req_cognitive_atrophy and "civilizational" not in active_lenses:
+            active_lenses.append("civilizational")
+        if req_demographic_fort and "military_readiness" not in active_lenses:
+            active_lenses.append("military_readiness")
+        if req_faceless_procurement and "bureaucratic_inertia" not in active_lenses:
+            active_lenses.append("bureaucratic_inertia")
+        if req_investigative_forensics:
+            if "propaganda" not in active_lenses: active_lenses.append("propaganda")
+            if "kinesics" not in active_lenses: active_lenses.append("kinesics")
+        if req_sovereign_debt_rollover and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_doval_subversion and "hybrid_covert" not in active_lenses:
+            active_lenses.append("hybrid_covert")
+        if req_modi_capex and "bureaucratic_inertia" not in active_lenses:
+            active_lenses.append("bureaucratic_inertia")
+        if req_jaishankar_hedging and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_sanyal_rating and "geo_economist" not in active_lenses:
+            active_lenses.append("geo_economist")
+        if req_deepak_jurisprudence and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_ranga_falsification and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
 
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
@@ -931,6 +1009,25 @@ class QueryParser:
             requires_sub_tactical_honeytrap_espionage=req_honeytrap_espionage,
             requires_naval_electronic_warfare_suppression=req_naval_ew,
             requires_civilizational_epistemic_historiography=req_historiography_decolonial,
+            # Phases 416-433: Sovereign Forensic Sieves & Strategic Council Titans
+            requires_asymmetric_scada_blackout=req_scada_blackout,
+            requires_synchronized_media_cartel=req_media_cartel,
+            requires_deep_state_banking_lawfare=req_banking_lawfare,
+            requires_directed_energy_weapon=req_dew_weapon,
+            requires_multilateral_alliance_autonomy=req_alliance_autonomy,
+            requires_offshore_banking_repatriation=req_offshore_repatriation,
+            requires_foreign_intel_penetration=req_foreign_intel_pen,
+            requires_cognitive_atrophy_displacement=req_cognitive_atrophy,
+            requires_demographic_border_fortification=req_demographic_fort,
+            requires_algorithmic_faceless_procurement=req_faceless_procurement,
+            requires_investigative_forensics_negative_space=req_investigative_forensics,
+            requires_sovereign_debt_rollover_risk=req_sovereign_debt_rollover,
+            requires_asymmetric_subversion_counter_penetration=req_doval_subversion,
+            requires_sovereign_capex_escape_velocity=req_modi_capex,
+            requires_multipolar_hedging_reciprocal_leverage=req_jaishankar_hedging,
+            requires_credit_rating_cartel_bias=req_sanyal_rating,
+            requires_civilizational_jurisprudence_decolonial=req_deepak_jurisprudence,
+            requires_empirical_falsification_cryptographic=req_ranga_falsification,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

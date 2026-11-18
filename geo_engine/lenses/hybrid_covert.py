@@ -317,6 +317,25 @@ class HybridCovertLens:
         )
         metrics["sub_tactical_honeytrap_espionage_score"] = _ash_res["sub_tactical_honeytrap_espionage_score"]
 
+        # Phase 422: Foreign Intelligence Institutional Penetration Sieve
+        _fii_res = ForeignIntelligenceInstitutionalPenetrationSieve.evaluate(
+            mitrokhin_archive_precedent_weight=hc_meta.get("mitrokhin_archive_precedent_weight", 0.75),
+            dynastic_foundation_foreign_grant_flow=hc_meta.get("dynastic_foundation_foreign_grant_flow", 0.70),
+            media_syndicate_editorial_alignment=hc_meta.get("media_syndicate_editorial_alignment", 0.80),
+            counter_espionage_tribunal_interdiction=hc_meta.get("counter_espionage_tribunal_interdiction", 0.35),
+        )
+        metrics["foreign_intelligence_institutional_penetration_score"] = _fii_res["foreign_intelligence_institutional_penetration_score"]
+
+        # Phase 428: Asymmetric Subversion and Counter-Penetration Sieve (NSA Ajit Doval Module)
+        _asd_res = AsymmetricSubversionAndCounterPenetrationSieve.evaluate(
+            fcra_shadow_funding_exposure=hc_meta.get("fcra_shadow_funding_exposure", 0.85),
+            pil_infrastructure_stalling_drag=hc_meta.get("pil_infrastructure_stalling_drag", 0.75),
+            border_demographic_subversion_risk=hc_meta.get("border_demographic_subversion_risk", 0.80),
+            offensive_defense_deterrence_depth=hc_meta.get("offensive_defense_deterrence_depth", 0.85),
+            kinetic_retaliation_readiness=hc_meta.get("kinetic_retaliation_readiness", 0.80),
+        )
+        metrics["asymmetric_subversion_counter_penetration_score"] = _asd_res["asymmetric_subversion_counter_penetration_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1602,3 +1621,125 @@ class AsymmetricSubTacticalHoneytrapEspionageSieve:
             "is_personnel_espionage_risk_critical": score >= 0.70,
         }
 
+
+
+# ============================================================================
+# Phase 422: Foreign Intelligence Institutional Penetration Sieve
+# ============================================================================
+
+class ForeignIntelligenceInstitutionalPenetrationSieve:
+    """
+    Phase 422: Audits hostile foreign intelligence penetration into domestic dynastic foundations,
+    think-tanks, and media syndicates (benchmarked against the Mitrokhin KGB/CIA archive declassification models).
+    Formula:
+        PenetrationIndex = Norm((0.35 * mitrokhin_precedent + 0.35 * foreign_grant_flow + 0.30 * media_alignment) /
+                                (1.0 + counter_espionage_interdiction))
+        score = Sigmoid(2.8 * PenetrationIndex + 2.5 * foreign_grant_flow - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        mitrokhin_archive_precedent_weight: float = 0.75,
+        dynastic_foundation_foreign_grant_flow: float = 0.70,
+        media_syndicate_editorial_alignment: float = 0.80,
+        counter_espionage_tribunal_interdiction: float = 0.35
+    ) -> Dict[str, Any]:
+        m_prec = float(max(0.0, min(1.0, mitrokhin_archive_precedent_weight)))
+        f_grant = float(max(0.0, min(1.0, dynastic_foundation_foreign_grant_flow)))
+        m_align = float(max(0.0, min(1.0, media_syndicate_editorial_alignment)))
+        c_inter = float(max(0.0, min(1.0, counter_espionage_tribunal_interdiction)))
+
+        raw_pen = (0.35 * m_prec + 0.35 * f_grant + 0.30 * m_align) / (1.0 + c_inter)
+        z = 2.8 * raw_pen + 2.5 * f_grant - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_HOSTILE_INTELLIGENCE_PENETRATION"
+            verdict = "INITIATE_COUNTER_INTELLIGENCE_TRIBUNAL_AND_AUDIT_FOREIGN_GRANTS"
+            rationale = (
+                f"Severe institutional penetration ({score:.4f}): Foreign foundation grants ({f_grant:.2f}) "
+                f"and media syndicate alignment ({m_align:.2f}) echo historic Mitrokhin deep-penetration patterns."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_INFLUENCE_OPERATION_RISK"
+            verdict = "MANDATE_FCRA_TRANSPARENCY_FOR_FOREIGN_AFFILIATED_THINK_TANKS"
+            rationale = f"Elevated penetration risk ({score:.4f}): Foreign funding flows require statutory screening."
+        else:
+            tier = "HARDENED_COUNTER_ESPIONAGE_POSTURE"
+            verdict = "INSTITUTIONAL_CLEARANCE_INTEGRITY_VERIFIED"
+            rationale = f"Secure institutions ({score:.4f}): High counter-espionage interdiction ({c_inter:.2f}) insulates statecraft."
+
+        return {
+            "foreign_intelligence_institutional_penetration_score": score,
+            "mitrokhin_archive_precedent_weight": round(m_prec, 4),
+            "dynastic_foundation_foreign_grant_flow": round(f_grant, 4),
+            "media_syndicate_editorial_alignment": round(m_align, 4),
+            "counter_espionage_tribunal_interdiction": round(c_inter, 4),
+            "penetration_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_institutional_penetration_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 428: Asymmetric Subversion and Counter-Penetration Sieve (NSA Ajit Doval Module)
+# ============================================================================
+
+class AsymmetricSubversionAndCounterPenetrationSieve:
+    """
+    Phase 428 (NSA Ajit Doval Module): Operationalizes the Doval Doctrine of 'Offensive-Defense',
+    auditing foreign FCRA shadow funding, judicial lawfare stalling critical infrastructure,
+    and border-state demographic subversion, while measuring kinetic retaliation readiness and deterrence depth.
+    Formula:
+        SubversionRisk = Norm((0.40 * fcra_shadow_funding + 0.35 * pil_stalling_drag + 0.25 * border_demographic_risk) /
+                              (1.0 + offensive_defense_depth + retaliation_readiness))
+        score = Sigmoid(2.8 * SubversionRisk + 2.5 * fcra_shadow_funding - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        fcra_shadow_funding_exposure: float = 0.85,
+        pil_infrastructure_stalling_drag: float = 0.75,
+        border_demographic_subversion_risk: float = 0.80,
+        offensive_defense_deterrence_depth: float = 0.85,
+        kinetic_retaliation_readiness: float = 0.80
+    ) -> Dict[str, Any]:
+        fcra = float(max(0.0, min(1.0, fcra_shadow_funding_exposure)))
+        pil = float(max(0.0, min(1.0, pil_infrastructure_stalling_drag)))
+        border = float(max(0.0, min(1.0, border_demographic_subversion_risk)))
+        off_def = float(max(0.0, min(1.0, offensive_defense_deterrence_depth)))
+        retal = float(max(0.0, min(1.0, kinetic_retaliation_readiness)))
+
+        raw_subv = (0.40 * fcra + 0.35 * pil + 0.25 * border) / (1.0 + off_def + retal)
+        z = 2.8 * raw_subv + 2.5 * fcra - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_ASYMMETRIC_SUBVERSION_THREAT"
+            verdict = "DEPLOY_OFFENSIVE_DEFENSE_DOCTRINE_AND_NEUTRALIZE_PROXY_CORRIDORS"
+            rationale = (
+                f"Acute asymmetric subversion ({score:.4f}): FCRA shadow funding ({fcra:.2f}) "
+                f"and border demographic subversion ({border:.2f}) demand proactive extraterritorial counter-measures."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_SUBVERSIVE_FRICTION"
+            verdict = "AMEND_STATUTORY_LAWFARE_SAFEGUARDS_AND_TIGHTEN_BORDER_VETTING"
+            rationale = f"Elevated subversion ({score:.4f}): Infrastructure PIL stalling drag ({pil:.2f}) slows sovereign projects."
+        else:
+            tier = "FORTIFIED_OFFENSIVE_DEFENSIVE_DOMINANCE"
+            verdict = "SUBVERSIVE_PIPELINES_DISRUPTED_AND_DETERRENCE_ACTIVE"
+            rationale = f"Dominant deterrence ({score:.4f}): Offensive-defense depth ({off_def:.2f}) neutralizes subversion."
+
+        return {
+            "asymmetric_subversion_counter_penetration_score": score,
+            "fcra_shadow_funding_exposure": round(fcra, 4),
+            "pil_infrastructure_stalling_drag": round(pil, 4),
+            "border_demographic_subversion_risk": round(border, 4),
+            "offensive_defense_deterrence_depth": round(off_def, 4),
+            "kinetic_retaliation_readiness": round(retal, 4),
+            "subversion_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_subversion_threat_critical": score >= 0.70,
+        }

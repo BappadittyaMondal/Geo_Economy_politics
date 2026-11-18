@@ -915,6 +915,25 @@ class SummitSynthesizer:
             "sub_tactical_honeytrap_espionage_score": hybrid_eval.hard_metrics.get("sub_tactical_honeytrap_espionage_score", 0.0) if hybrid_eval else 0.0,
             "naval_electronic_warfare_suppression_score": military_eval.hard_metrics.get("naval_electronic_warfare_suppression_score", 0.0) if military_eval else 0.0,
             "civilizational_epistemic_historiography_score": civ_eval.hard_metrics.get("civilizational_epistemic_historiography_score", 0.0) if civ_eval else 0.0,
+            # Phases 416-433: Sovereign Forensic Sieves & Strategic Council Titans (18 Channels: 220 -> 238)
+            "asymmetric_scada_blackout_vulnerability_score": digital_eval.hard_metrics.get("asymmetric_scada_blackout_vulnerability_score", 0.0) if digital_eval else 0.0,
+            "synchronized_media_cartel_coordination_score": propaganda_eval.hard_metrics.get("synchronized_media_cartel_coordination_score", 0.0) if propaganda_eval else 0.0,
+            "deep_state_banking_rating_squeeze_score": cash_eval.hard_metrics.get("deep_state_banking_rating_squeeze_score", 0.0) if cash_eval else 0.0,
+            "directed_energy_weapon_neutralization_score": deep_tech_eval.hard_metrics.get("directed_energy_weapon_neutralization_score", 0.0) if deep_tech_eval else 0.0,
+            "multilateral_alliance_autonomy_retention_score": geo_eval.hard_metrics.get("multilateral_alliance_autonomy_retention_score", 0.0) if geo_eval else 0.0,
+            "offshore_banking_asset_repatriation_score": cash_eval.hard_metrics.get("offshore_banking_asset_repatriation_score", 0.0) if cash_eval else 0.0,
+            "foreign_intelligence_institutional_penetration_score": hybrid_eval.hard_metrics.get("foreign_intelligence_institutional_penetration_score", 0.0) if hybrid_eval else 0.0,
+            "cognitive_atrophy_service_displacement_score": civ_eval.hard_metrics.get("cognitive_atrophy_service_displacement_score", 0.0) if civ_eval else 0.0,
+            "demographic_border_fortification_resilience_score": military_eval.hard_metrics.get("demographic_border_fortification_resilience_score", 0.0) if military_eval else 0.0,
+            "algorithmic_faceless_procurement_efficiency_score": bureaucratic_eval.hard_metrics.get("algorithmic_faceless_procurement_efficiency_score", 0.0) if bureaucratic_eval else 0.0,
+            "investigative_forensics_negative_space_score": propaganda_eval.hard_metrics.get("investigative_forensics_negative_space_score", 0.85) if propaganda_eval else 0.85,
+            "sovereign_debt_maturity_rollover_risk_score": cash_eval.hard_metrics.get("sovereign_debt_maturity_rollover_risk_score", 0.0) if cash_eval else 0.0,
+            "asymmetric_subversion_counter_penetration_score": hybrid_eval.hard_metrics.get("asymmetric_subversion_counter_penetration_score", 0.0) if hybrid_eval else 0.0,
+            "sovereign_capex_moat_escape_velocity_score": bureaucratic_eval.hard_metrics.get("sovereign_capex_moat_escape_velocity_score", 0.0) if bureaucratic_eval else 0.0,
+            "multipolar_hedging_reciprocal_leverage_score": geo_eval.hard_metrics.get("multipolar_hedging_reciprocal_leverage_score", 0.0) if geo_eval else 0.0,
+            "sovereign_credit_rating_bias_score": geo_economist_eval.hard_metrics.get("sovereign_credit_rating_bias_score", 0.0) if geo_economist_eval else 0.0,
+            "civilizational_jurisprudence_decolonial_score": lawfare_eval.hard_metrics.get("civilizational_jurisprudence_decolonial_score", 0.0) if lawfare_eval else 0.0,
+            "empirical_falsification_cryptographic_verification_score": deep_tech_eval.hard_metrics.get("empirical_falsification_cryptographic_verification_score", 0.88) if deep_tech_eval else 0.88,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

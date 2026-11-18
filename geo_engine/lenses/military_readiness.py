@@ -560,6 +560,15 @@ class MilitaryReadinessLens:
         )
         metrics["naval_electronic_warfare_suppression_score"] = _new_res["naval_electronic_warfare_suppression_score"]
 
+        # Phase 424: Demographic Sovereignty and Border Fortification Sieve
+        _dsf_res = DemographicSovereigntyAndBorderFortificationSieve.evaluate(
+            physical_border_interdiction_efficiency=mil_meta.get("physical_border_interdiction_efficiency", 0.85),
+            anti_migration_quota_enforcement=mil_meta.get("anti_migration_quota_enforcement", 0.80),
+            demographic_homogeneity_preservation=mil_meta.get("demographic_homogeneity_preservation", 0.75),
+            clandestine_demographic_inflow_rate=mil_meta.get("clandestine_demographic_inflow_rate", 0.25),
+        )
+        metrics["demographic_border_fortification_resilience_score"] = _dsf_res["demographic_border_fortification_resilience_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1470,4 +1479,64 @@ class NavalElectronicWarfareSuppressionTensor:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_naval_disablement_decisive": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 424: Demographic Sovereignty and Border Fortification Sieve
+# ============================================================================
+
+class DemographicSovereigntyAndBorderFortificationSieve:
+    """
+    Phase 424: Evaluates physical border interdiction, anti-migration quota enforcement,
+    and demographic preservation models (Poland 1683 Vienna historical model),
+    auditing resistance against weaponized demographic colonization and human trafficking.
+    Formula:
+        FortificationScore = Norm((0.40 * border_interdiction + 0.35 * quota_enforcement + 0.25 * homogeneity_preservation) /
+                                  (1.0 + clandestine_inflow_rate))
+        score = Sigmoid(2.8 * FortificationScore + 2.5 * border_interdiction - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        physical_border_interdiction_efficiency: float = 0.85,
+        anti_migration_quota_enforcement: float = 0.80,
+        demographic_homogeneity_preservation: float = 0.75,
+        clandestine_demographic_inflow_rate: float = 0.25
+    ) -> Dict[str, Any]:
+        b_inter = float(max(0.0, min(1.0, physical_border_interdiction_efficiency)))
+        q_enf = float(max(0.0, min(1.0, anti_migration_quota_enforcement)))
+        h_pres = float(max(0.0, min(1.0, demographic_homogeneity_preservation)))
+        inflow = float(max(0.0, min(1.0, clandestine_demographic_inflow_rate)))
+
+        raw_fort = (0.40 * b_inter + 0.35 * q_enf + 0.25 * h_pres) / (1.0 + inflow)
+        z = 2.8 * raw_fort + 2.5 * b_inter - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "IMPREGNABLE_DEMOGRAPHIC_BORDER_FORTRESS"
+            verdict = "MAINTAIN_SMART_FENCING_AND_REJECT_SUPRANATIONAL_RESETTLEMENT_QUOTAS"
+            rationale = (
+                f"Fortified demographic sovereignty ({score:.4f}): Interdiction efficiency ({b_inter:.2f}) "
+                f"and strict statutory quotas ({q_enf:.2f}) decisively halt weaponized demographic infiltration."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_BORDER_SECURITY"
+            verdict = "ACCELERATE_BIOMETRIC_BORDER_SCREENING_AND_DEPORTATION_PIPELINES"
+            rationale = f"Contested border ({score:.4f}): Clandestine inflow rate ({inflow:.2f}) requires fortified fencing."
+        else:
+            tier = "VULNERABLE_DEMOGRAPHIC_SUBVERSION"
+            verdict = "MOBILIZE_NATIONAL_GUARD_TO_SEAL_COMPROMISED_CORRIDORS"
+            rationale = f"Severe border vulnerability ({score:.4f}): Demographic continuity compromised by unregulated inflows."
+
+        return {
+            "demographic_border_fortification_resilience_score": score,
+            "physical_border_interdiction_efficiency": round(b_inter, 4),
+            "anti_migration_quota_enforcement": round(q_enf, 4),
+            "demographic_homogeneity_preservation": round(h_pres, 4),
+            "clandestine_demographic_inflow_rate": round(inflow, 4),
+            "border_fortification_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_border_fortification_impregnable": score >= 0.70,
         }

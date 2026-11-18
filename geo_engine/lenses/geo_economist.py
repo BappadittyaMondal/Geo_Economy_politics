@@ -303,6 +303,16 @@ class GeoEconomistLens:
         )
         metrics["aviation_transit_slot_cartel_score"] = _ats_res["aviation_transit_slot_cartel_score"]
 
+        # Phase 431: Complex Adaptive Macroeconomic and Rating Cartel Sieve (Sanjeev Sanyal Module)
+        _sanyal_res = ComplexAdaptiveMacroeconomicAndRatingCartelSieve.evaluate(
+            credit_rating_cartel_borrowing_penalty=geo_econ_meta.get("credit_rating_cartel_borrowing_penalty", 0.85),
+            subjective_governance_indicator_bias=geo_econ_meta.get("subjective_governance_indicator_bias", 0.80),
+            logistics_friction_gdp_share=geo_econ_meta.get("logistics_friction_gdp_share", 0.75),
+            fast_frequency_realtime_data_governance=geo_econ_meta.get("fast_frequency_realtime_data_governance", 0.85),
+            multilateral_derating_resistance=geo_econ_meta.get("multilateral_derating_resistance", 0.80),
+        )
+        metrics["sovereign_credit_rating_bias_score"] = _sanyal_res["sovereign_credit_rating_bias_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1398,4 +1408,68 @@ class AviationTransitSlotCartelSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_aviation_leakage_critical": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 431: Complex Adaptive Macroeconomic and Rating Cartel Sieve (Sanjeev Sanyal Module)
+# ============================================================================
+
+class ComplexAdaptiveMacroeconomicAndRatingCartelSieve:
+    """
+    Phase 431 (Sanjeev Sanyal Module): Quantifies the systemic borrowing cost penalty imposed by the Western
+    sovereign credit rating oligopoly (S&P/Moody's/Fitch keeping Bharat at BBB- despite unmatched macro fundamentals),
+    subjective World Bank Worldwide Governance Indicators (WGI) bias, and logistics cost compression
+    from dedicated freight corridors and fast-frequency high-volume transaction governance.
+    Formula:
+        RatingCartelBias = Norm((0.40 * rating_spread_penalty + 0.35 * subjective_wgi_bias + 0.25 * logistics_drag) /
+                                (1.0 + realtime_data_governance + derating_resistance))
+        score = Sigmoid(2.8 * RatingCartelBias + 2.5 * rating_spread_penalty - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        credit_rating_cartel_borrowing_penalty: float = 0.85,
+        subjective_governance_indicator_bias: float = 0.80,
+        logistics_friction_gdp_share: float = 0.75,
+        fast_frequency_realtime_data_governance: float = 0.85,
+        multilateral_derating_resistance: float = 0.80
+    ) -> Dict[str, Any]:
+        r_pen = float(max(0.0, min(1.0, credit_rating_cartel_borrowing_penalty)))
+        wgi = float(max(0.0, min(1.0, subjective_governance_indicator_bias)))
+        log_drag = float(max(0.0, min(1.0, logistics_friction_gdp_share)))
+        rt_gov = float(max(0.0, min(1.0, fast_frequency_realtime_data_governance)))
+        derate_res = float(max(0.0, min(1.0, multilateral_derating_resistance)))
+
+        raw_bias = (0.40 * r_pen + 0.35 * wgi + 0.25 * log_drag) / (1.0 + rt_gov + derate_res)
+        z = 2.8 * raw_bias + 2.5 * r_pen - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "CRITICAL_RATING_CARTEL_DISCRIMINATION_AND_SPREAD_PENALTY"
+            verdict = "EXPAND_DOMESTIC_RUPEE_SOVEREIGN_BOND_MARKET_AND_ESTABLISH_BRICS_RATING_AGENCY"
+            rationale = (
+                f"Severe rating cartel penalty ({score:.4f}): Artificially elevated sovereign borrowing spreads ({r_pen:.2f}) "
+                f"and subjective WGI governance bias ({wgi:.2f}) extract billions in debt-servicing penalties despite pristine macro solvency."
+            )
+        elif score >= 0.45:
+            tier = "ELEVATED_RATING_ARBITRAGE_FRICTION"
+            verdict = "PUBLISH_FAST_FREQUENCY_HIGH_VOLUME_INDICATORS_TO_REFUTE_SUBJECTIVE_POLLS"
+            rationale = f"Elevated bias friction ({score:.4f}): Subjective indicator overhang requires real-time data pushback."
+        else:
+            tier = "FORTIFIED_SOVEREIGN_MACRO_IMMUNITY"
+            verdict = "LOGISTICS_COMPRESSION_AND_REALTIME_GOVERNANCE_ACTIVE"
+            rationale = f"Fortified macro position ({score:.4f}): High real-time data governance ({rt_gov:.2f}) defeats cartel bias."
+
+        return {
+            "sovereign_credit_rating_bias_score": score,
+            "credit_rating_cartel_borrowing_penalty": round(r_pen, 4),
+            "subjective_governance_indicator_bias": round(wgi, 4),
+            "logistics_friction_gdp_share": round(log_drag, 4),
+            "fast_frequency_realtime_data_governance": round(rt_gov, 4),
+            "multilateral_derating_resistance": round(derate_res, 4),
+            "rating_bias_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_rating_cartel_bias_critical": score >= 0.70,
         }

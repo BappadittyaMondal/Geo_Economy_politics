@@ -14,6 +14,8 @@ from .bureaucratic_inertia import (
     SubNationalBureaucraticFrictionSieve,
 
     DynasticExtraConstitutionalShadowCabinetSieve,
+    AlgorithmicFacelessProcurementTransparencySieve,
+    SovereignCapExMoatAndFacelessGovernanceSieve,
 )
 
 from .cash_flow import (
@@ -43,6 +45,9 @@ from .cash_flow import (
     PBOCLGFVLiquidityTrapTensor,
     InstitutionalMonopolyCartelCrossShareholdingSieve,
     MSMEFormalizationSolvencyAsphyxiationTensor,
+    DeepStateBankingLawfareAndRatingSqueezeSieve,
+    OffshoreBankingSecrecyAndAssetRepatriationSieve,
+    SovereignDebtMaturityAndForensicCashFlowSieve,
 )
 
 from .civilizational import (
@@ -73,6 +78,7 @@ from .civilizational import (
     SubReplacementDemographicExtinctionSieve,
     GenerativeMediaComputeHegemonySieve,
     CivilizationalEpistemicHistoriographyDecolonizationSieve,
+    CognitiveAtrophyAndServiceDisplacementTensor,
 )
 
 from .critical_minerals import (
@@ -101,6 +107,7 @@ from .deep_tech import (
     CriticalSCADAHardwareBackdoorSieve,
     RemoteSiliconMicrocodeKillSwitchSieve,
     QuantumHarvestNowDecryptLaterVulnerabilitySieve,
+    DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve,
 )
 
 from .demographic_infiltration import (
@@ -125,6 +132,7 @@ from .digital_sovereignty import (
     CloudMonopolyFragilitySieve,
     LegacyInfrastructureObsolescenceSieve,
     SovereignPlatformRegulatoryDefianceSieve,
+    AsymmetricSCADAPolymorphicCyberBlackoutSieve,
 )
 
 from .food_security import (
@@ -157,6 +165,7 @@ from .geo_economist import (
     MaritimePortDualUseSieve,
     PhysicalCapExTangibleMultiplierSieve,
     AviationTransitSlotCartelSieve,
+    ComplexAdaptiveMacroeconomicAndRatingCartelSieve,
 )
 
 from .geopolitical import (
@@ -170,6 +179,8 @@ from .geopolitical import (
     TransHimalayanHydrologicalDeterrenceSieve,
     TripartiteCoherenceSieve,
     TrilateralSuperpowerCondominiumExclusionTensor,
+    MultilateralAllianceHegemonicPressureResistanceSieve,
+    MultipolarHedgingAndStrategicChokepointTensor,
 )
 
 from .history import (
@@ -210,6 +221,8 @@ from .hybrid_covert import (
     TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve,
     BorderStateNarcoFiscalSubversionSieve,
     AsymmetricSubTacticalHoneytrapEspionageSieve,
+    ForeignIntelligenceInstitutionalPenetrationSieve,
+    AsymmetricSubversionAndCounterPenetrationSieve,
 )
 
 from .india_timeline import (
@@ -239,6 +252,7 @@ from .institutional_lawfare import (
     UNSCVetoAsymmetrySieve,
     VigilanceStatutoryRemedySieve,
     CulturalReligiousGrayzoneLawfareSieve,
+    CivilizationalJurisprudenceAndDecolonialLawfareTensor,
 )
 
 from .kinesics import (
@@ -269,6 +283,7 @@ from .military_readiness import (
     NuclearLaunchUnderAttackLatencySieve,
     AirborneCommandDecapitationImmunitySieve,
     NavalElectronicWarfareSuppressionTensor,
+    DemographicSovereigntyAndBorderFortificationSieve,
 )
 
 from .petro_logistics import (
@@ -298,6 +313,7 @@ from .propaganda import (
     RevealedPreferenceDivergenceSieve,
     AlgorithmicCognitiveSubversionSieve,
     MediaIntelligenceLeakTimingTensor,
+    SynchronizedMediaDistractionAndCartelNetworkTensor,
 )
 
 from .subsea_cables import (
@@ -567,4 +583,22 @@ __all__ = [
     "AsymmetricSubTacticalHoneytrapEspionageSieve",
     "NavalElectronicWarfareSuppressionTensor",
     "CivilizationalEpistemicHistoriographyDecolonizationSieve",
+
+    # Phases 416-433: Sovereign Forensic Sieves & Strategic Council Titans
+    "AsymmetricSCADAPolymorphicCyberBlackoutSieve",
+    "SynchronizedMediaDistractionAndCartelNetworkTensor",
+    "DeepStateBankingLawfareAndRatingSqueezeSieve",
+    "DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve",
+    "MultilateralAllianceHegemonicPressureResistanceSieve",
+    "OffshoreBankingSecrecyAndAssetRepatriationSieve",
+    "ForeignIntelligenceInstitutionalPenetrationSieve",
+    "CognitiveAtrophyAndServiceDisplacementTensor",
+    "DemographicSovereigntyAndBorderFortificationSieve",
+    "AlgorithmicFacelessProcurementTransparencySieve",
+    "SovereignDebtMaturityAndForensicCashFlowSieve",
+    "AsymmetricSubversionAndCounterPenetrationSieve",
+    "SovereignCapExMoatAndFacelessGovernanceSieve",
+    "MultipolarHedgingAndStrategicChokepointTensor",
+    "ComplexAdaptiveMacroeconomicAndRatingCartelSieve",
+    "CivilizationalJurisprudenceAndDecolonialLawfareTensor",
 ]

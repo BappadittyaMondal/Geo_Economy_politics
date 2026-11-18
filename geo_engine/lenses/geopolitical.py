@@ -249,6 +249,24 @@ class GeopoliticalLens:
         )
         metrics["trilateral_superpower_condominium_exclusion_score"] = _tsc_res["trilateral_superpower_condominium_exclusion_score"]
 
+        # Phase 420: Multilateral Alliance Hegemonic Pressure Resistance Sieve
+        _mah_res = MultilateralAllianceHegemonicPressureResistanceSieve.evaluate(
+            non_hegemonic_trade_share=geo_meta.get("non_hegemonic_trade_share", 0.80),
+            bilateral_currency_swap_volume=geo_meta.get("bilateral_currency_swap_volume", 0.75),
+            sovereign_veto_posture=geo_meta.get("sovereign_veto_posture", 0.85),
+            secondary_sanctions_vulnerability=geo_meta.get("secondary_sanctions_vulnerability", 0.30),
+        )
+        metrics["multilateral_alliance_autonomy_retention_score"] = _mah_res["multilateral_alliance_autonomy_retention_score"]
+
+        # Phase 430: Multipolar Hedging and Strategic Chokepoint Tensor (Dr. S. Jaishankar Module)
+        _mhs_res = MultipolarHedgingAndStrategicChokepointTensor.evaluate(
+            asymmetric_trade_chokepoint_leverage=geo_meta.get("asymmetric_trade_chokepoint_leverage", 0.85),
+            sloc_command_maritime_density=geo_meta.get("sloc_command_maritime_density", 0.80),
+            multi_alignment_arbitrage_yield=geo_meta.get("multi_alignment_arbitrage_yield", 0.75),
+            unilateral_bloc_entanglement=geo_meta.get("unilateral_bloc_entanglement", 0.25),
+        )
+        metrics["multipolar_hedging_reciprocal_leverage_score"] = _mhs_res["multipolar_hedging_reciprocal_leverage_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -792,4 +810,122 @@ class TrilateralSuperpowerCondominiumExclusionTensor:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_condominium_resisted": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 420: Multilateral Alliance Hegemonic Pressure Resistance Sieve
+# ============================================================================
+
+class MultilateralAllianceHegemonicPressureResistanceSieve:
+    """
+    Phase 420: Measures resistance against secondary sanctions, unilateral extraterritorial export controls,
+    and dollar-clearing coercion, quantifying sovereign autonomy retention within multipolar coalitions.
+    Formula:
+        AutonomyScore = Norm((0.40 * non_hegemonic_trade + 0.35 * bilateral_swaps + 0.25 * sovereign_veto) / (1.0 + secondary_sanctions_risk))
+        score = Sigmoid(2.7 * AutonomyScore + 2.5 * non_hegemonic_trade - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        non_hegemonic_trade_share: float = 0.80,
+        bilateral_currency_swap_volume: float = 0.75,
+        sovereign_veto_posture: float = 0.85,
+        secondary_sanctions_vulnerability: float = 0.30
+    ) -> Dict[str, Any]:
+        nh_trade = float(max(0.0, min(1.0, non_hegemonic_trade_share)))
+        b_swap = float(max(0.0, min(1.0, bilateral_currency_swap_volume)))
+        s_veto = float(max(0.0, min(1.0, sovereign_veto_posture)))
+        sec_sanc = float(max(0.0, min(1.0, secondary_sanctions_vulnerability)))
+
+        raw_autonomy = (0.40 * nh_trade + 0.35 * b_swap + 0.25 * s_veto) / (1.0 + sec_sanc)
+        z = 2.7 * raw_autonomy + 2.5 * nh_trade - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "FORTIFIED_MULTIPOLAR_AUTONOMY"
+            verdict = "RESIST_UNILATERAL_SECONDARY_SANCTIONS_VIA_POLYCENTRIC_SETTLEMENT"
+            rationale = (
+                f"Fortified alliance autonomy ({score:.4f}): Non-hegemonic trade ({nh_trade:.2f}) "
+                f"and currency swaps ({b_swap:.2f}) insulate sovereign policy from extraterritorial coercion."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_SOVEREIGN_HEDGING"
+            verdict = "EXPAND_NON_DOLLAR_CLEARING_RAILS_TO_REDUCE_VULNERABILITY"
+            rationale = f"Contested autonomy ({score:.4f}): Secondary sanctions exposure ({sec_sanc:.2f}) constrains posture."
+        else:
+            tier = "VASSALAGE_OR_CAPITULATION_EXPOSURE"
+            verdict = "MANDATE_STRATEGIC_DIVERSIFICATION_TO_PREVENT_HEGEMONIC_COERCION"
+            rationale = f"Vulnerable posture ({score:.4f}): High sanctions vulnerability undermines independent diplomacy."
+
+        return {
+            "multilateral_alliance_autonomy_retention_score": score,
+            "non_hegemonic_trade_share": round(nh_trade, 4),
+            "bilateral_currency_swap_volume": round(b_swap, 4),
+            "sovereign_veto_posture": round(s_veto, 4),
+            "secondary_sanctions_vulnerability": round(sec_sanc, 4),
+            "autonomy_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_autonomy_fortified": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 430: Multipolar Hedging and Strategic Chokepoint Tensor (Dr. S. Jaishankar Module)
+# ============================================================================
+
+class MultipolarHedgingAndStrategicChokepointTensor:
+    """
+    Phase 430 (Dr. S. Jaishankar Module): Calculates asymmetric counter-leverage across bilateral trade dyads
+    (e.g. Indian generic pharmaceuticals / aviation purchases vs Atlantic tariffs), maritime SLOC command in the IOR,
+    and non-aligned multi-vector diplomatic arbitrage.
+    Formula:
+        ReciprocalLeverage = Norm((0.40 * chokepoint_leverage + 0.35 * sloc_maritime_density + 0.25 * multi_align_yield) /
+                                  (1.0 + unilateral_bloc_entanglement))
+        score = Sigmoid(2.8 * ReciprocalLeverage + 2.5 * chokepoint_leverage - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        asymmetric_trade_chokepoint_leverage: float = 0.85,
+        sloc_command_maritime_density: float = 0.80,
+        multi_alignment_arbitrage_yield: float = 0.75,
+        unilateral_bloc_entanglement: float = 0.25
+    ) -> Dict[str, Any]:
+        choke_lev = float(max(0.0, min(1.0, asymmetric_trade_chokepoint_leverage)))
+        sloc_den = float(max(0.0, min(1.0, sloc_command_maritime_density)))
+        multi_yld = float(max(0.0, min(1.0, multi_alignment_arbitrage_yield)))
+        entangle = float(max(0.0, min(1.0, unilateral_bloc_entanglement)))
+
+        raw_lev = (0.40 * choke_lev + 0.35 * sloc_den + 0.25 * multi_yld) / (1.0 + entangle)
+        z = 2.8 * raw_lev + 2.5 * choke_lev - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DOMINANT_RECIPROCAL_STRATEGIC_LEVERAGE"
+            verdict = "EXERCISE_ASYMMETRIC_COUNTER_COERCION_AND_ASSERT_IOR_SLOC_COMMAND"
+            rationale = (
+                f"Dominant multi-alignment leverage ({score:.4f}): Trade chokepoints ({choke_lev:.2f}, API/Boeing dynamic) "
+                f"and Indian Ocean SLOC command ({sloc_den:.2f}) grant decisive diplomatic bargaining power."
+            )
+        elif score >= 0.45:
+            tier = "BALANCED_MULTIPOLAR_ARBITRAGE"
+            verdict = "MAINTAIN_ACTIVE_MULTI_VECTOR_ENGAGEMENT_WITHOUT_ALLIANCE_LOCKIN"
+            rationale = f"Balanced hedging ({score:.4f}): Multi-alignment yield ({multi_yld:.2f}) offsets bilateral pressures."
+        else:
+            tier = "ASYMMETRIC_DEPENDENCY_DEFICIT"
+            verdict = "BUILD_BILATERAL_COUNTER_LEVERS_TO_AVOID_DIPLOMATIC_ISOLATION"
+            rationale = f"Dependency deficit ({score:.4f}): Excessive bloc entanglement ({entangle:.2f}) limits diplomatic maneuverability."
+
+        return {
+            "multipolar_hedging_reciprocal_leverage_score": score,
+            "asymmetric_trade_chokepoint_leverage": round(choke_lev, 4),
+            "sloc_command_maritime_density": round(sloc_den, 4),
+            "multi_alignment_arbitrage_yield": round(multi_yld, 4),
+            "unilateral_bloc_entanglement": round(entangle, 4),
+            "reciprocal_leverage_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_reciprocal_leverage_dominant": score >= 0.70,
         }

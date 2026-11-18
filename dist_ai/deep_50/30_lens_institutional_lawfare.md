@@ -531,6 +531,16 @@ class InstitutionalLawfareLens:
         )
         metrics["cultural_religious_grayzone_lawfare_score"] = _crg_res["cultural_religious_grayzone_lawfare_score"]
 
+        # Phase 432: Civilizational Jurisprudence and Decolonial Lawfare Tensor (J Sai Deepak Module)
+        _jsd_res = CivilizationalJurisprudenceAndDecolonialLawfareTensor.evaluate(
+            decolonial_legal_framework_adoption=law_meta.get("decolonial_legal_framework_adoption", 0.85),
+            ancestral_temple_property_autonomy=law_meta.get("ancestral_temple_property_autonomy", 0.80),
+            constitutional_civilizational_continuity=law_meta.get("constitutional_civilizational_continuity", 0.85),
+            supranational_pil_lawfare_intrusion=law_meta.get("supranational_pil_lawfare_intrusion", 0.30),
+            colonial_statutory_inertia=law_meta.get("colonial_statutory_inertia", 0.25),
+        )
+        metrics["civilizational_jurisprudence_decolonial_score"] = _jsd_res["civilizational_jurisprudence_decolonial_score"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -2208,6 +2218,70 @@ class CulturalReligiousGrayzoneLawfareSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_defense_corridor_threatened": score >= 0.70,
+        }
+
+
+# ============================================================================
+# Phase 432: Civilizational Jurisprudence and Decolonial Lawfare Tensor (J Sai Deepak Module)
+# ============================================================================
+
+class CivilizationalJurisprudenceAndDecolonialLawfareTensor:
+    """
+    Phase 432 (J Sai Deepak Module): Mathematical framework evaluating legal decolonization,
+    indigenous civilizational consciousness (Bharat as an Indic Civilization-State vs Westphalian construct),
+    autonomous property rights for ancestral temples (freeing temples from state bureaucratic control),
+    and defending constitutional continuity against supranational NGO PIL lawfare.
+    Formula:
+        DecolonialScore = Norm((0.40 * legal_decolonial_framework + 0.35 * temple_property_autonomy + 0.25 * civilizational_continuity) /
+                               (1.0 + supranational_pil_lawfare + colonial_statutory_drag))
+        score = Sigmoid(2.8 * DecolonialScore + 2.5 * legal_decolonial_framework - 1.2)
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        decolonial_legal_framework_adoption: float = 0.85,
+        ancestral_temple_property_autonomy: float = 0.80,
+        constitutional_civilizational_continuity: float = 0.85,
+        supranational_pil_lawfare_intrusion: float = 0.30,
+        colonial_statutory_inertia: float = 0.25
+    ) -> Dict[str, Any]:
+        d_frame = float(max(0.0, min(1.0, decolonial_legal_framework_adoption)))
+        t_auto = float(max(0.0, min(1.0, ancestral_temple_property_autonomy)))
+        c_cont = float(max(0.0, min(1.0, constitutional_civilizational_continuity)))
+        p_law = float(max(0.0, min(1.0, supranational_pil_lawfare_intrusion)))
+        c_drag = float(max(0.0, min(1.0, colonial_statutory_inertia)))
+
+        raw_decol = (0.40 * d_frame + 0.35 * t_auto + 0.25 * c_cont) / (1.0 + p_law + c_drag)
+        z = 2.8 * raw_decol + 2.5 * d_frame - 1.2
+        score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if score >= 0.70:
+            tier = "DECISIVE_DECOLONIAL_CIVILIZATIONAL_JURISPRUDENCE"
+            verdict = "ASSERT_INDIGENOUS_LEGAL_SOVEREIGNTY_AND_RESTORE_TEMPLE_DENOMINATIONAL_AUTONOMY"
+            rationale = (
+                f"Decisive decolonial jurisprudence ({score:.4f}): Indic legal frameworks ({d_frame:.2f}) "
+                f"and ancestral temple property autonomy ({t_auto:.2f}) decisively dismantle colonial statutory inertia (Articles 25/26/30 asymmetry)."
+            )
+        elif score >= 0.45:
+            tier = "CONTESTED_JURISPRUDENTIAL_DECOLONIZATION"
+            verdict = "AMEND_COLONIAL_ERA_STATUTES_AND_STRENGTHEN_INDIGENOUS_PRECEDENT"
+            rationale = f"Contested legal transition ({score:.4f}): Supranational PIL intrusions ({p_law:.2f}) require constitutional defense."
+        else:
+            tier = "COLONIZED_STATUTORY_SUBORDINATION"
+            verdict = "CHALLENGE_EUROCENTRIC_LEGAL_IMPORTS_AND_REFORM_ECCLESIASTICAL_EXEMPTIONS"
+            rationale = f"High statutory subordination ({score:.4f}): Colonial legal inertia dictates sovereign decisions."
+
+        return {
+            "civilizational_jurisprudence_decolonial_score": score,
+            "decolonial_legal_framework_adoption": round(d_frame, 4),
+            "ancestral_temple_property_autonomy": round(t_auto, 4),
+            "constitutional_civilizational_continuity": round(c_cont, 4),
+            "supranational_pil_lawfare_intrusion": round(p_law, 4),
+            "colonial_statutory_inertia": round(c_drag, 4),
+            "jurisprudence_tier": tier,
+            "operational_verdict": verdict,
+            "tactical_rationale": rationale,
+            "is_jurisprudential_decolonization_decisive": score >= 0.70,
         }
 
 ```
