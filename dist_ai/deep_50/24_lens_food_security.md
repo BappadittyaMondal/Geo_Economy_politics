@@ -669,4 +669,55 @@ class AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve:
             "is_food_security_weaponized": score >= 0.70,
         }
 
+
+class BiopharmaceuticalAndConsumerMetabolicShiftTensor:
+    """Phase 437: Biopharmaceutical & Consumer Metabolic Shift Tensor.
+    Quantifies the macroeconomic and caloric disruption caused by global scaling of
+    GLP-1 receptor agonist therapeutics (Ozempic, Wegovy, Mounjaro) across processed food
+    demand, agricultural commodity valuations, and sovereign healthcare fiscal lines.
+    Formula:
+        MetabolicShiftScore = Norm(0.45 * glp1_population_penetration +
+                                   0.35 * processed_calorie_demand_drop +
+                                   0.20 * agro_processed_margin_compression)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        glp1_population_penetration_rate: float = 0.65,
+        processed_calorie_demand_drop: float = 0.70,
+        agro_processed_margin_compression: float = 0.60,
+        healthcare_fiscal_savings_offset: float = 0.40,
+    ) -> Dict[str, Any]:
+        p_pen = float(max(0.0, min(1.0, glp1_population_penetration_rate)))
+        c_drop = float(max(0.0, min(1.0, processed_calorie_demand_drop)))
+        m_comp = float(max(0.0, min(1.0, agro_processed_margin_compression)))
+        h_save = float(max(0.0, min(1.0, healthcare_fiscal_savings_offset)))
+
+        raw_shift = 0.45 * p_pen + 0.35 * c_drop + 0.20 * m_comp
+        # Net fiscal disruption after long-term healthcare disease reduction
+        net_score = round(max(0.0, min(1.0, raw_shift * (1.0 - 0.30 * h_save))), 4)
+
+        if net_score >= 0.60:
+            tier = "ACUTE_CONSUMER_METABOLIC_DISRUPTION"
+            verdict = "RESTRUCTURE_PROCESSED_AGRI_DEBT_AND_EXPAND_WHOLE_GRAIN_EXPORT_CAPEX"
+        elif net_score >= 0.35:
+            tier = "MEASURABLE_CALORIC_DEFLECTION"
+            verdict = "MONITOR_BEVERAGE_AND_CONFECTIONERY_EQUITY_RISK_SPREADS"
+        else:
+            tier = "NEGLIGIBLE_METABOLIC_IMPACT"
+            verdict = "TRADITIONAL_COMMODITY_CONSUMPTION_PATTERNS_PRESERVED"
+
+        return {
+            "metabolic_pharmaceutical_disruption_score": net_score,
+            "glp1_population_penetration_rate": round(p_pen, 4),
+            "processed_calorie_demand_drop": round(c_drop, 4),
+            "agro_processed_margin_compression": round(m_comp, 4),
+            "healthcare_fiscal_savings_offset": round(h_save, 4),
+            "metabolic_shift_tier": tier,
+            "operational_verdict": verdict,
+            "is_metabolic_disruption_acute": net_score >= 0.60,
+        }
+
+
 ```

@@ -933,4 +933,81 @@ class MultipolarHedgingAndStrategicChokepointTensor:
             "is_reciprocal_leverage_dominant": score >= 0.70,
         }
 
+
+class GlobalPolycrisisCollisionAndSystemicCascadeTensor:
+    """Phase 435: Global Polycrisis Collision & Systemic Cascade Tensor.
+    Quantifies non-linear cross-domain collision risk when sovereign debt rollover walls,
+    maritime chokepoint interdictions, food shocks, and domestic electoral crises intersect.
+    Formula:
+        RawCollision = Sum_{i<j} w_{ij} * S_i * S_j * exp(gamma * C_{ij})
+        CollisionIndex = Norm(RawCollision / MaxTheoreticalCollision)
+    """
+
+    DEFAULT_COUPLINGS: Dict[str, float] = {
+        "debt_chokepoint": 0.85,
+        "debt_electoral": 0.90,
+        "chokepoint_food": 0.80,
+        "chokepoint_electoral": 0.75,
+        "food_electoral": 0.85,
+    }
+
+    @classmethod
+    def evaluate(
+        cls,
+        debt_wall_shock: float = 0.80,
+        chokepoint_interdiction_shock: float = 0.75,
+        food_fertilizer_shock: float = 0.70,
+        electoral_lawfare_shock: float = 0.65,
+        contagion_gamma: float = 0.50,
+        buffer_adequacy_ratio: float = 0.35,
+    ) -> Dict[str, Any]:
+        s_debt = float(max(0.0, min(1.0, debt_wall_shock)))
+        s_choke = float(max(0.0, min(1.0, chokepoint_interdiction_shock)))
+        s_food = float(max(0.0, min(1.0, food_fertilizer_shock)))
+        s_elec = float(max(0.0, min(1.0, electoral_lawfare_shock)))
+        gamma = float(max(0.1, min(1.5, contagion_gamma)))
+        buffer = float(max(0.0, min(1.0, buffer_adequacy_ratio)))
+
+        # Pairwise non-linear products
+        pairs = [
+            (s_debt, s_choke, 0.25, cls.DEFAULT_COUPLINGS["debt_chokepoint"]),
+            (s_debt, s_elec, 0.25, cls.DEFAULT_COUPLINGS["debt_electoral"]),
+            (s_choke, s_food, 0.20, cls.DEFAULT_COUPLINGS["chokepoint_food"]),
+            (s_choke, s_elec, 0.15, cls.DEFAULT_COUPLINGS["chokepoint_electoral"]),
+            (s_food, s_elec, 0.15, cls.DEFAULT_COUPLINGS["food_electoral"]),
+        ]
+
+        raw_collision = 0.0
+        max_theoretical = 0.0
+        for s1, s2, w, c in pairs:
+            raw_collision += w * s1 * s2 * math.exp(gamma * c)
+            max_theoretical += w * 1.0 * 1.0 * math.exp(gamma * 1.0)
+
+        norm_collision = raw_collision / max_theoretical if max_theoretical > 0 else 0.0
+        # Damped by sovereign buffer
+        cascading_risk = norm_collision * (1.0 - 0.50 * buffer)
+        final_index = round(max(0.0, min(1.0, cascading_risk)), 4)
+
+        if final_index >= 0.45:
+            tier = "SEVERE_NON_LINEAR_POLYCRISIS_CASCADE"
+            verdict = "ACTIVATE_EMERGENCY_STRATEGIC_BUFFERS_AND_BILATERAL_SETTLEMENTS"
+        elif final_index >= 0.25:
+            tier = "ELEVATED_CROSS_DOMAIN_CONTAGION"
+            verdict = "FORTIFY_DOMESTIC_CAPEX_AND_DIVERSIFY_CHOKEPOINT_EXPOSURE"
+        else:
+            tier = "CONTAINED_SECTORAL_FRICTION"
+            verdict = "MAINTAIN_PRUDENTIAL_MONITORING_OF_BOND_AND_COMMODITY_SPREADS"
+
+        return {
+            "global_polycrisis_collision_index": final_index,
+            "debt_wall_shock": round(s_debt, 4),
+            "chokepoint_interdiction_shock": round(s_choke, 4),
+            "food_fertilizer_shock": round(s_food, 4),
+            "electoral_lawfare_shock": round(s_elec, 4),
+            "polycrisis_severity_tier": tier,
+            "operational_verdict": verdict,
+            "is_polycrisis_critical": final_index >= 0.45,
+        }
+
+
 ```

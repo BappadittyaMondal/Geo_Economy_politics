@@ -1450,4 +1450,53 @@ class DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve:
             "is_dew_defense_decisive": score >= 0.70,
         }
 
+
+class LowEarthOrbitCongestionAndOrbitalWeaponizationSieve:
+    """Phase 438: Low Earth Orbit Congestion & Orbital Weaponization Sieve.
+    Evaluates commercial megaconstellation congestion risk in LEO, susceptibility
+    to ground-based RF electronic warfare jamming, cyber-takeover of telemetry, and kinetic
+    Anti-Satellite (ASAT) cascading debris risks (Kessler syndrome).
+    Formula:
+        RawVulnerability = Norm(0.40 * constellation_density + 0.35 * rf_jamming_vulnerability + 0.25 * asat_debris_risk)
+        OrbitalScore = RawVulnerability * (1.0 - 0.40 * sovereign_hardening_coverage)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        leo_constellation_density: float = 0.80,
+        rf_electronic_jamming_vulnerability: float = 0.75,
+        kinetic_asat_debris_cascade_risk: float = 0.70,
+        sovereign_rad_hardened_redundancy: float = 0.45,
+    ) -> Dict[str, Any]:
+        c_dens = float(max(0.0, min(1.0, leo_constellation_density)))
+        j_vuln = float(max(0.0, min(1.0, rf_electronic_jamming_vulnerability)))
+        a_risk = float(max(0.0, min(1.0, kinetic_asat_debris_cascade_risk)))
+        h_cov = float(max(0.0, min(1.0, sovereign_rad_hardened_redundancy)))
+
+        raw_vuln = 0.40 * c_dens + 0.35 * j_vuln + 0.25 * a_risk
+        final_score = round(max(0.0, min(1.0, raw_vuln * (1.0 - 0.40 * h_cov))), 4)
+
+        if final_score >= 0.60:
+            tier = "ACUTE_ORBITAL_CONGESTION_AND_WEAPONIZATION_RISK"
+            verdict = "DEPLOY_OPTICAL_INTER_SATELLITE_LINKS_AND_GROUND_BASED_RADAR_DEBRIS_TRACKING"
+        elif final_score >= 0.35:
+            tier = "ELEVATED_LEO_INTERFERENCE"
+            verdict = "MANDATE_FREQUENCY_HOPPING_TELEMETRY_AND_AUTONOMOUS_COLLISION_AVOIDANCE"
+        else:
+            tier = "SECURE_ORBITAL_REGIME"
+            verdict = "ROUTINE_EPHEMERIS_MAINTENANCE_AND_DOWNLINK_VERIFICATION"
+
+        return {
+            "orbital_weaponization_vulnerability_score": final_score,
+            "leo_constellation_density": round(c_dens, 4),
+            "rf_electronic_jamming_vulnerability": round(j_vuln, 4),
+            "kinetic_asat_debris_cascade_risk": round(a_risk, 4),
+            "sovereign_rad_hardened_redundancy": round(h_cov, 4),
+            "orbital_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "is_orbital_vulnerability_acute": final_score >= 0.60,
+        }
+
+
 ```

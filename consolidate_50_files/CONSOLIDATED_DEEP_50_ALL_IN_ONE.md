@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `81c80a5`
+- **Canonical Git Commit:** `61efc3e`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 81c80a5
+CANONICAL_COMMIT: 61efc3e
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 81c80a5
+CANONICAL_COMMIT: 61efc3e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 81c80a5
+CANONICAL_COMMIT: 61efc3e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 81c80a5
+CANONICAL_COMMIT: 61efc3e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 81c80a5
+CANONICAL_COMMIT: 61efc3e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 81c80a5
+CANONICAL_COMMIT: 61efc3e
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -5106,6 +5106,33 @@ In response to deep microscopic intelligence requirements—reading between the 
 5. **Universal Test Pass Rate:** Verified all 739 tests in `tests/test_engine.py` pass with 100% success rate.
 6. **Anti-Drift Quality Gates:** Certified all 10 Anti-Drift Quality Gates pass without warnings or drift.
 7. **Zero Upgrade Debt:** `UPGRADE_PLANING` and `UPGRADE_PLANING.md` reset to **0 bytes**.
+
+
+## Section 119: Phases 434–440 Semiotic Deconstruction, Global Polycrisis Cascades, Grayzone Subversion & Sovereign Resilient Sieves Upgrade (Universal 100% Green Certification)
+
+### 1. Architectural Motivation & Executive Summary
+In response to deep microscopic intelligence challenges exposed by foresight iconography (*The Economist: The World Ahead 2027*), multi-domain polycrisis non-linear cascades, weaponized statutory religious grayzones, biopharmaceutical metabolic shifts, Low Earth Orbit (LEO) congestion, Taiwan semiconductor customs quarantines, and post-democratic electoral lawfare, Phases 434 through 440 implement 7 advanced mathematical engines, sieves, and tensors. This upgrade scales the live telemetry channels of `SummitSynthesizer` from 238 to **245**, expands exported lens symbols from 250 to **256**, integrates 7 new AST boolean flags into `QueryParser`, and achieves a 100% universal test pass rate across all **749 tests** in 128.57s with zero upgrade debt.
+
+### 2. Comprehensive Inventory of Implemented Mathematical Sieves & Tensors (Phases 434–440)
+
+| Phase | Sieve / Tensor Symbol | Parent Lens / Subsystem | Primary Channel / Metric | Mathematical & Geopolitical Formulation |
+| :--- | :--- | :--- | :--- | :--- |
+| **Phase 434** | `PredictiveIconographyAndSemioticDeconstructionEngine` | `geo_engine/arbitration/semiotics.py` | `predictive_semiotic_deconstruction_score` | Deconstructs visual spatial hierarchy, chromatic alarmism, and negative-space omissions in strategic cover art: $\text{Quotient} = \text{Norm}\left(\frac{0.35 \cdot H + 0.30 \cdot C + 0.20 \cdot I + 0.15 \cdot N}{1.0 + \Delta_{\text{Propaganda}}}\right)$, $\text{Risk} = \sigma(2.8 \cdot \text{Quotient} + 2.2 \cdot \text{Choke} - 1.2)$. |
+| **Phase 435** | `GlobalPolycrisisCollisionAndSystemicCascadeTensor` | `geo_engine/lenses/geopolitical.py` | `global_polycrisis_collision_index` | Quantifies non-linear cross-domain collision risk when debt rollover walls, maritime blockades, food shocks, and electoral crises intersect: $\text{Collision} = \sum_{i<j} w_{ij} \cdot S_i \cdot S_j \cdot e^{\gamma \cdot C_{ij}}$. |
+| **Phase 436** | `CulturalReligiousGrayzoneSubversionSieve` | `geo_engine/lenses/institutional_lawfare.py` | `cultural_religious_grayzone_subversion_score` | Evaluates asymmetric exploitation of statutory religious exemptions (Waqf Act, ecclesiastical land shields) and demographic enclaves near defense corridors: $\text{Score} = \text{Norm}(0.40 \cdot E + 0.35 \cdot D + 0.25 \cdot F) \cdot (1.0 - 0.50 \cdot J)$. |
+| **Phase 437** | `BiopharmaceuticalAndConsumerMetabolicShiftTensor` | `geo_engine/lenses/food_security.py` | `metabolic_pharmaceutical_disruption_score` | Quantifies macroeconomic and caloric disruption caused by global scaling of GLP-1 weight-loss therapeutics: $\text{Score} = \text{Norm}(0.45 \cdot P + 0.35 \cdot \Delta_C + 0.20 \cdot \Delta_A) \cdot (1.0 - 0.30 \cdot H_{\text{Savings}})$. |
+| **Phase 438** | `LowEarthOrbitCongestionAndOrbitalWeaponizationSieve` | `geo_engine/lenses/deep_tech.py` | `orbital_weaponization_vulnerability_score` | Evaluates commercial megaconstellation congestion in LEO, susceptibility to ground-based RF electronic jamming, and kinetic ASAT debris risks (Kessler syndrome): $\text{Score} = \text{Norm}(0.40 \cdot D + 0.35 \cdot J + 0.25 \cdot A) \cdot (1.0 - 0.40 \cdot S)$. |
+| **Phase 439** | `TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve` | `geo_engine/lenses/critical_minerals.py` | `taiwan_quarantine_semiconductor_choke_index` | Quantifies systemic global supply chain decapitation if a customs quarantine is imposed on Taiwan during the 2027 PLA Centenary: $\text{Index} = \text{Norm}(0.50 \cdot Q + 0.30 \cdot D_{\text{5nm}} + 0.20 \cdot L) \cdot (1.0 - \text{DomesticFabBuffer})$. |
+| **Phase 440** | `ElectoralLawfareAndJudicialDisqualificationSieve` | `geo_engine/lenses/institutional_lawfare.py` | `electoral_lawfare_polarization_score` | Quantifies post-democratic administrative intervention where judicial indictments and candidate disqualifications override populist voting mandates: $\text{Score} = \text{Norm}(0.45 \cdot J + 0.35 \cdot P + 0.20 \cdot B) \cdot (0.85 + 0.15 \cdot T_{\text{TrustDeficit}})$. |
+
+### 3. Comprehensive System Integration & Scaling
+1. **Resilience Matrix Calibration:** Scaled `SummitSynthesizer.strategic_resilience_matrix` from 238 to **245 live float channels** with zero `None` values and strict $[0.0, 1.0]$ bounds.
+2. **Lens Registry Export Scaling:** Scaled `geo_engine.lenses.__all__` from 250 to **256 symbols**.
+3. **AST Router Synchronization:** Integrated 7 boolean flags into `StrategicQuery` (`requires_semiotic_deconstruction`, `requires_polycrisis_cascade`, `requires_cultural_religious_grayzone_subversion`, `requires_glp1_metabolic_shift`, `requires_leo_orbital_weaponization`, `requires_taiwan_semiconductor_choke`, `requires_electoral_lawfare_polarization`) with automated query routing.
+4. **Universal Test Pass Rate:** Verified all **749 tests** in `tests/test_engine.py` pass with 100% success rate in 128.57s.
+5. **Anti-Drift Quality Gates:** Certified all 10 Anti-Drift Quality Gates pass without warnings or drift (`dist_ai/core_5/` strictly 5 files, `dist_ai/deep_50/` strictly $\le$ 50 files).
+6. **Zero Upgrade Debt:** `UPGRADE_PLANING` and `UPGRADE_PLANING.md` reset to **0 bytes**.
+
 
 
 
@@ -10834,6 +10861,55 @@ class CriticalMineralSupplyChainWeaponizationTensor:
             "is_mineral_supply_chain_severed": score >= 0.70,
         }
 
+
+class TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve:
+    """Phase 439: Taiwan Strait Quarantine & Semiconductor Supply Resilience Sieve.
+    Quantifies systemic global supply chain decapitation if a maritime customs quarantine
+    is imposed on Taiwan during the 2027 PLA Centenary, cutting off sub-5nm logic chip
+    shipments (TSMC) across automotive, AI compute, and sovereign defense electronics.
+    Formula:
+        RawChoke = Norm(0.50 * quarantine_strictness + 0.30 * sub_5nm_dependency + 0.20 * foundry_replacement_latency)
+        ChokeIndex = RawChoke * (1.0 - domestic_fab_buffer_ratio)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        quarantine_enforcement_strictness: float = 0.85,
+        sub_5nm_logic_chip_dependency: float = 0.92,
+        foundry_replacement_latency_years: float = 0.80,
+        domestic_fab_buffer_ratio: float = 0.15,
+    ) -> Dict[str, Any]:
+        q_strict = float(max(0.0, min(1.0, quarantine_enforcement_strictness)))
+        dep_5nm = float(max(0.0, min(1.0, sub_5nm_logic_chip_dependency)))
+        lat_f = float(max(0.0, min(1.0, foundry_replacement_latency_years)))
+        buf_fab = float(max(0.0, min(1.0, domestic_fab_buffer_ratio)))
+
+        raw_choke = 0.50 * q_strict + 0.30 * dep_5nm + 0.20 * lat_f
+        final_index = round(max(0.0, min(1.0, raw_choke * (1.0 - buf_fab))), 4)
+
+        if final_index >= 0.65:
+            tier = "CATASTROPHIC_SEMICONDUCTOR_CHOKEPOINT_SEVERANCE"
+            verdict = "ENACT_DEFENSE_PRODUCTION_ACT_RATIONING_AND_ACCELERATE_DOMESTIC_PACKAGING"
+        elif final_index >= 0.40:
+            tier = "SEVERE_ELECTRONICS_ASSEMBLY_DELAYS"
+            verdict = "DIVERSIFY_CHIP_INVENTORIES_AND_SECURE_OFFTAKES_WITH_NON_TAIWAN_FOUNDRIES"
+        else:
+            tier = "INSULATED_SEMICONDUCTOR_BUFFER"
+            verdict = "DOMESTIC_FAB_CAPACITY_PROVIDES_CRITICAL_RUNWAY"
+
+        return {
+            "taiwan_quarantine_semiconductor_choke_index": final_index,
+            "quarantine_enforcement_strictness": round(q_strict, 4),
+            "sub_5nm_logic_chip_dependency": round(dep_5nm, 4),
+            "foundry_replacement_latency_years": round(lat_f, 4),
+            "domestic_fab_buffer_ratio": round(buf_fab, 4),
+            "semiconductor_choke_tier": tier,
+            "operational_verdict": verdict,
+            "is_semiconductor_choke_critical": final_index >= 0.65,
+        }
+
+
 ```
 
 
@@ -12292,6 +12368,55 @@ class DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve:
             "tactical_rationale": rationale,
             "is_dew_defense_decisive": score >= 0.70,
         }
+
+
+class LowEarthOrbitCongestionAndOrbitalWeaponizationSieve:
+    """Phase 438: Low Earth Orbit Congestion & Orbital Weaponization Sieve.
+    Evaluates commercial megaconstellation congestion risk in LEO, susceptibility
+    to ground-based RF electronic warfare jamming, cyber-takeover of telemetry, and kinetic
+    Anti-Satellite (ASAT) cascading debris risks (Kessler syndrome).
+    Formula:
+        RawVulnerability = Norm(0.40 * constellation_density + 0.35 * rf_jamming_vulnerability + 0.25 * asat_debris_risk)
+        OrbitalScore = RawVulnerability * (1.0 - 0.40 * sovereign_hardening_coverage)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        leo_constellation_density: float = 0.80,
+        rf_electronic_jamming_vulnerability: float = 0.75,
+        kinetic_asat_debris_cascade_risk: float = 0.70,
+        sovereign_rad_hardened_redundancy: float = 0.45,
+    ) -> Dict[str, Any]:
+        c_dens = float(max(0.0, min(1.0, leo_constellation_density)))
+        j_vuln = float(max(0.0, min(1.0, rf_electronic_jamming_vulnerability)))
+        a_risk = float(max(0.0, min(1.0, kinetic_asat_debris_cascade_risk)))
+        h_cov = float(max(0.0, min(1.0, sovereign_rad_hardened_redundancy)))
+
+        raw_vuln = 0.40 * c_dens + 0.35 * j_vuln + 0.25 * a_risk
+        final_score = round(max(0.0, min(1.0, raw_vuln * (1.0 - 0.40 * h_cov))), 4)
+
+        if final_score >= 0.60:
+            tier = "ACUTE_ORBITAL_CONGESTION_AND_WEAPONIZATION_RISK"
+            verdict = "DEPLOY_OPTICAL_INTER_SATELLITE_LINKS_AND_GROUND_BASED_RADAR_DEBRIS_TRACKING"
+        elif final_score >= 0.35:
+            tier = "ELEVATED_LEO_INTERFERENCE"
+            verdict = "MANDATE_FREQUENCY_HOPPING_TELEMETRY_AND_AUTONOMOUS_COLLISION_AVOIDANCE"
+        else:
+            tier = "SECURE_ORBITAL_REGIME"
+            verdict = "ROUTINE_EPHEMERIS_MAINTENANCE_AND_DOWNLINK_VERIFICATION"
+
+        return {
+            "orbital_weaponization_vulnerability_score": final_score,
+            "leo_constellation_density": round(c_dens, 4),
+            "rf_electronic_jamming_vulnerability": round(j_vuln, 4),
+            "kinetic_asat_debris_cascade_risk": round(a_risk, 4),
+            "sovereign_rad_hardened_redundancy": round(h_cov, 4),
+            "orbital_vulnerability_tier": tier,
+            "operational_verdict": verdict,
+            "is_orbital_vulnerability_acute": final_score >= 0.60,
+        }
+
 
 ```
 
@@ -14513,6 +14638,57 @@ class AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve:
             "tactical_rationale": rationale,
             "is_food_security_weaponized": score >= 0.70,
         }
+
+
+class BiopharmaceuticalAndConsumerMetabolicShiftTensor:
+    """Phase 437: Biopharmaceutical & Consumer Metabolic Shift Tensor.
+    Quantifies the macroeconomic and caloric disruption caused by global scaling of
+    GLP-1 receptor agonist therapeutics (Ozempic, Wegovy, Mounjaro) across processed food
+    demand, agricultural commodity valuations, and sovereign healthcare fiscal lines.
+    Formula:
+        MetabolicShiftScore = Norm(0.45 * glp1_population_penetration +
+                                   0.35 * processed_calorie_demand_drop +
+                                   0.20 * agro_processed_margin_compression)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        glp1_population_penetration_rate: float = 0.65,
+        processed_calorie_demand_drop: float = 0.70,
+        agro_processed_margin_compression: float = 0.60,
+        healthcare_fiscal_savings_offset: float = 0.40,
+    ) -> Dict[str, Any]:
+        p_pen = float(max(0.0, min(1.0, glp1_population_penetration_rate)))
+        c_drop = float(max(0.0, min(1.0, processed_calorie_demand_drop)))
+        m_comp = float(max(0.0, min(1.0, agro_processed_margin_compression)))
+        h_save = float(max(0.0, min(1.0, healthcare_fiscal_savings_offset)))
+
+        raw_shift = 0.45 * p_pen + 0.35 * c_drop + 0.20 * m_comp
+        # Net fiscal disruption after long-term healthcare disease reduction
+        net_score = round(max(0.0, min(1.0, raw_shift * (1.0 - 0.30 * h_save))), 4)
+
+        if net_score >= 0.60:
+            tier = "ACUTE_CONSUMER_METABOLIC_DISRUPTION"
+            verdict = "RESTRUCTURE_PROCESSED_AGRI_DEBT_AND_EXPAND_WHOLE_GRAIN_EXPORT_CAPEX"
+        elif net_score >= 0.35:
+            tier = "MEASURABLE_CALORIC_DEFLECTION"
+            verdict = "MONITOR_BEVERAGE_AND_CONFECTIONERY_EQUITY_RISK_SPREADS"
+        else:
+            tier = "NEGLIGIBLE_METABOLIC_IMPACT"
+            verdict = "TRADITIONAL_COMMODITY_CONSUMPTION_PATTERNS_PRESERVED"
+
+        return {
+            "metabolic_pharmaceutical_disruption_score": net_score,
+            "glp1_population_penetration_rate": round(p_pen, 4),
+            "processed_calorie_demand_drop": round(c_drop, 4),
+            "agro_processed_margin_compression": round(m_comp, 4),
+            "healthcare_fiscal_savings_offset": round(h_save, 4),
+            "metabolic_shift_tier": tier,
+            "operational_verdict": verdict,
+            "is_metabolic_disruption_acute": net_score >= 0.60,
+        }
+
 
 ```
 
@@ -16941,6 +17117,83 @@ class MultipolarHedgingAndStrategicChokepointTensor:
             "tactical_rationale": rationale,
             "is_reciprocal_leverage_dominant": score >= 0.70,
         }
+
+
+class GlobalPolycrisisCollisionAndSystemicCascadeTensor:
+    """Phase 435: Global Polycrisis Collision & Systemic Cascade Tensor.
+    Quantifies non-linear cross-domain collision risk when sovereign debt rollover walls,
+    maritime chokepoint interdictions, food shocks, and domestic electoral crises intersect.
+    Formula:
+        RawCollision = Sum_{i<j} w_{ij} * S_i * S_j * exp(gamma * C_{ij})
+        CollisionIndex = Norm(RawCollision / MaxTheoreticalCollision)
+    """
+
+    DEFAULT_COUPLINGS: Dict[str, float] = {
+        "debt_chokepoint": 0.85,
+        "debt_electoral": 0.90,
+        "chokepoint_food": 0.80,
+        "chokepoint_electoral": 0.75,
+        "food_electoral": 0.85,
+    }
+
+    @classmethod
+    def evaluate(
+        cls,
+        debt_wall_shock: float = 0.80,
+        chokepoint_interdiction_shock: float = 0.75,
+        food_fertilizer_shock: float = 0.70,
+        electoral_lawfare_shock: float = 0.65,
+        contagion_gamma: float = 0.50,
+        buffer_adequacy_ratio: float = 0.35,
+    ) -> Dict[str, Any]:
+        s_debt = float(max(0.0, min(1.0, debt_wall_shock)))
+        s_choke = float(max(0.0, min(1.0, chokepoint_interdiction_shock)))
+        s_food = float(max(0.0, min(1.0, food_fertilizer_shock)))
+        s_elec = float(max(0.0, min(1.0, electoral_lawfare_shock)))
+        gamma = float(max(0.1, min(1.5, contagion_gamma)))
+        buffer = float(max(0.0, min(1.0, buffer_adequacy_ratio)))
+
+        # Pairwise non-linear products
+        pairs = [
+            (s_debt, s_choke, 0.25, cls.DEFAULT_COUPLINGS["debt_chokepoint"]),
+            (s_debt, s_elec, 0.25, cls.DEFAULT_COUPLINGS["debt_electoral"]),
+            (s_choke, s_food, 0.20, cls.DEFAULT_COUPLINGS["chokepoint_food"]),
+            (s_choke, s_elec, 0.15, cls.DEFAULT_COUPLINGS["chokepoint_electoral"]),
+            (s_food, s_elec, 0.15, cls.DEFAULT_COUPLINGS["food_electoral"]),
+        ]
+
+        raw_collision = 0.0
+        max_theoretical = 0.0
+        for s1, s2, w, c in pairs:
+            raw_collision += w * s1 * s2 * math.exp(gamma * c)
+            max_theoretical += w * 1.0 * 1.0 * math.exp(gamma * 1.0)
+
+        norm_collision = raw_collision / max_theoretical if max_theoretical > 0 else 0.0
+        # Damped by sovereign buffer
+        cascading_risk = norm_collision * (1.0 - 0.50 * buffer)
+        final_index = round(max(0.0, min(1.0, cascading_risk)), 4)
+
+        if final_index >= 0.45:
+            tier = "SEVERE_NON_LINEAR_POLYCRISIS_CASCADE"
+            verdict = "ACTIVATE_EMERGENCY_STRATEGIC_BUFFERS_AND_BILATERAL_SETTLEMENTS"
+        elif final_index >= 0.25:
+            tier = "ELEVATED_CROSS_DOMAIN_CONTAGION"
+            verdict = "FORTIFY_DOMESTIC_CAPEX_AND_DIVERSIFY_CHOKEPOINT_EXPOSURE"
+        else:
+            tier = "CONTAINED_SECTORAL_FRICTION"
+            verdict = "MAINTAIN_PRUDENTIAL_MONITORING_OF_BOND_AND_COMMODITY_SPREADS"
+
+        return {
+            "global_polycrisis_collision_index": final_index,
+            "debt_wall_shock": round(s_debt, 4),
+            "chokepoint_interdiction_shock": round(s_choke, 4),
+            "food_fertilizer_shock": round(s_food, 4),
+            "electoral_lawfare_shock": round(s_elec, 4),
+            "polycrisis_severity_tier": tier,
+            "operational_verdict": verdict,
+            "is_polycrisis_critical": final_index >= 0.45,
+        }
+
 
 ```
 
@@ -21929,6 +22182,106 @@ class CivilizationalJurisprudenceAndDecolonialLawfareTensor:
             "is_jurisprudential_decolonization_decisive": score >= 0.70,
         }
 
+
+class CulturalReligiousGrayzoneSubversionSieve:
+    """Phase 436: Cultural & Religious Grayzone Subversion Sieve.
+    Evaluates asymmetric exploitation of statutory religious exemptions (e.g., Waqf Act,
+    ecclesiastical land shields, foreign missionary FCRA channels) and demographic enclaves
+    near critical sovereign defense infrastructure.
+    Formula:
+        RawRisk = Norm(0.40 * statutory_exemption_abuse + 0.35 * demographic_corridor_density + 0.25 * foreign_funding_trace)
+        SubversionScore = RawRisk * (1.0 - 0.50 * sovereign_judicial_resilience)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        statutory_religious_exemption_abuse: float = 0.75,
+        demographic_corridor_density: float = 0.70,
+        foreign_funding_traceability_deficit: float = 0.80,
+        sovereign_judicial_resilience: float = 0.40,
+    ) -> Dict[str, Any]:
+        e_abuse = float(max(0.0, min(1.0, statutory_religious_exemption_abuse)))
+        d_dens = float(max(0.0, min(1.0, demographic_corridor_density)))
+        f_trace = float(max(0.0, min(1.0, foreign_funding_traceability_deficit)))
+        j_res = float(max(0.0, min(1.0, sovereign_judicial_resilience)))
+
+        raw_risk = 0.40 * e_abuse + 0.35 * d_dens + 0.25 * f_trace
+        subversion_score = round(max(0.0, min(1.0, raw_risk * (1.0 - 0.50 * j_res))), 4)
+
+        if subversion_score >= 0.60:
+            tier = "CRITICAL_GRAYZONE_STATUTORY_SUBVERSION"
+            verdict = "ENACT_COMPREHENSIVE_STATUTORY_REFORM_AND_AUDIT_INFRASTRUCTURE_BUFFER_ZONES"
+        elif subversion_score >= 0.35:
+            tier = "MODERATE_GRAYZONE_EXPOSURE"
+            verdict = "STRENGTHEN_FCRA_OVERSIGHT_AND_ENFORCE_TITLE_DEED_TRANSPARENCY"
+        else:
+            tier = "INSULATED_SOVEREIGN_JURISDICTION"
+            verdict = "MAINTAIN_ROUTINE_MONITORING_OF_CROSS_BORDER_CIVIC_ENDOWMENTS"
+
+        return {
+            "cultural_religious_grayzone_subversion_score": subversion_score,
+            "statutory_religious_exemption_abuse": round(e_abuse, 4),
+            "demographic_corridor_density": round(d_dens, 4),
+            "foreign_funding_traceability_deficit": round(f_trace, 4),
+            "sovereign_judicial_resilience": round(j_res, 4),
+            "grayzone_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "is_grayzone_subversion_critical": subversion_score >= 0.60,
+        }
+
+
+class ElectoralLawfareAndJudicialDisqualificationSieve:
+    """Phase 440: Electoral Lawfare & Judicial Disqualification Sieve.
+    Quantifies post-democratic administrative intervention where judicial indictments,
+    party bans, and candidate disqualification rulings (e.g., Le Pen in France, AfD in Germany)
+    override populist electoral mandates and trigger bond-market spread widening.
+    Formula:
+        ElectoralLawfareScore = Norm(0.45 * judicial_intervention_severity +
+                                     0.35 * populist_polling_share +
+                                     0.20 * bond_spread_contagion)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        judicial_intervention_severity: float = 0.85,
+        populist_polling_share: float = 0.70,
+        bond_spread_contagion: float = 0.65,
+        institutional_trust_deficit: float = 0.80,
+    ) -> Dict[str, Any]:
+        j_sev = float(max(0.0, min(1.0, judicial_intervention_severity)))
+        p_poll = float(max(0.0, min(1.0, populist_polling_share)))
+        b_spread = float(max(0.0, min(1.0, bond_spread_contagion)))
+        t_def = float(max(0.0, min(1.0, institutional_trust_deficit)))
+
+        raw_score = 0.45 * j_sev + 0.35 * p_poll + 0.20 * b_spread
+        # Amplified slightly if public institutional trust is deeply fractured
+        amplified = raw_score * (0.85 + 0.15 * t_def)
+        final_score = round(max(0.0, min(1.0, amplified)), 4)
+
+        if final_score >= 0.65:
+            tier = "ACUTE_POST_DEMOCRATIC_POLARIZATION"
+            verdict = "PRICING_IN_SOVEREIGN_BOND_STRIKE_AND_EXTRACONSTITUTIONAL_INSTABILITY"
+        elif final_score >= 0.40:
+            tier = "ELEVATED_ELECTORAL_LAWFARE_RISK"
+            verdict = "MONITOR_CONSTITUTIONAL_COURT_DOCKETS_AND_PARLIAMENTARY_PARALYSIS"
+        else:
+            tier = "ROUTINE_ELECTORAL_CYCLE"
+            verdict = "NORMAL_DEMOCRATIC_PROCESS_MAINTAINED"
+
+        return {
+            "electoral_lawfare_polarization_score": final_score,
+            "judicial_intervention_severity": round(j_sev, 4),
+            "populist_polling_share": round(p_poll, 4),
+            "bond_spread_contagion": round(b_spread, 4),
+            "institutional_trust_deficit": round(t_def, 4),
+            "electoral_lawfare_tier": tier,
+            "operational_verdict": verdict,
+            "is_electoral_lawfare_acute": final_score >= 0.65,
+        }
+
+
 ```
 
 
@@ -26199,7 +26552,7 @@ class AbyssalHydrospatialSovereigntySieve:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `81c80a5`
+- **Canonical Git Commit:** `61efc3e`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

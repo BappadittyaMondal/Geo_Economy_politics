@@ -2284,4 +2284,104 @@ class CivilizationalJurisprudenceAndDecolonialLawfareTensor:
             "is_jurisprudential_decolonization_decisive": score >= 0.70,
         }
 
+
+class CulturalReligiousGrayzoneSubversionSieve:
+    """Phase 436: Cultural & Religious Grayzone Subversion Sieve.
+    Evaluates asymmetric exploitation of statutory religious exemptions (e.g., Waqf Act,
+    ecclesiastical land shields, foreign missionary FCRA channels) and demographic enclaves
+    near critical sovereign defense infrastructure.
+    Formula:
+        RawRisk = Norm(0.40 * statutory_exemption_abuse + 0.35 * demographic_corridor_density + 0.25 * foreign_funding_trace)
+        SubversionScore = RawRisk * (1.0 - 0.50 * sovereign_judicial_resilience)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        statutory_religious_exemption_abuse: float = 0.75,
+        demographic_corridor_density: float = 0.70,
+        foreign_funding_traceability_deficit: float = 0.80,
+        sovereign_judicial_resilience: float = 0.40,
+    ) -> Dict[str, Any]:
+        e_abuse = float(max(0.0, min(1.0, statutory_religious_exemption_abuse)))
+        d_dens = float(max(0.0, min(1.0, demographic_corridor_density)))
+        f_trace = float(max(0.0, min(1.0, foreign_funding_traceability_deficit)))
+        j_res = float(max(0.0, min(1.0, sovereign_judicial_resilience)))
+
+        raw_risk = 0.40 * e_abuse + 0.35 * d_dens + 0.25 * f_trace
+        subversion_score = round(max(0.0, min(1.0, raw_risk * (1.0 - 0.50 * j_res))), 4)
+
+        if subversion_score >= 0.60:
+            tier = "CRITICAL_GRAYZONE_STATUTORY_SUBVERSION"
+            verdict = "ENACT_COMPREHENSIVE_STATUTORY_REFORM_AND_AUDIT_INFRASTRUCTURE_BUFFER_ZONES"
+        elif subversion_score >= 0.35:
+            tier = "MODERATE_GRAYZONE_EXPOSURE"
+            verdict = "STRENGTHEN_FCRA_OVERSIGHT_AND_ENFORCE_TITLE_DEED_TRANSPARENCY"
+        else:
+            tier = "INSULATED_SOVEREIGN_JURISDICTION"
+            verdict = "MAINTAIN_ROUTINE_MONITORING_OF_CROSS_BORDER_CIVIC_ENDOWMENTS"
+
+        return {
+            "cultural_religious_grayzone_subversion_score": subversion_score,
+            "statutory_religious_exemption_abuse": round(e_abuse, 4),
+            "demographic_corridor_density": round(d_dens, 4),
+            "foreign_funding_traceability_deficit": round(f_trace, 4),
+            "sovereign_judicial_resilience": round(j_res, 4),
+            "grayzone_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "is_grayzone_subversion_critical": subversion_score >= 0.60,
+        }
+
+
+class ElectoralLawfareAndJudicialDisqualificationSieve:
+    """Phase 440: Electoral Lawfare & Judicial Disqualification Sieve.
+    Quantifies post-democratic administrative intervention where judicial indictments,
+    party bans, and candidate disqualification rulings (e.g., Le Pen in France, AfD in Germany)
+    override populist electoral mandates and trigger bond-market spread widening.
+    Formula:
+        ElectoralLawfareScore = Norm(0.45 * judicial_intervention_severity +
+                                     0.35 * populist_polling_share +
+                                     0.20 * bond_spread_contagion)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        judicial_intervention_severity: float = 0.85,
+        populist_polling_share: float = 0.70,
+        bond_spread_contagion: float = 0.65,
+        institutional_trust_deficit: float = 0.80,
+    ) -> Dict[str, Any]:
+        j_sev = float(max(0.0, min(1.0, judicial_intervention_severity)))
+        p_poll = float(max(0.0, min(1.0, populist_polling_share)))
+        b_spread = float(max(0.0, min(1.0, bond_spread_contagion)))
+        t_def = float(max(0.0, min(1.0, institutional_trust_deficit)))
+
+        raw_score = 0.45 * j_sev + 0.35 * p_poll + 0.20 * b_spread
+        # Amplified slightly if public institutional trust is deeply fractured
+        amplified = raw_score * (0.85 + 0.15 * t_def)
+        final_score = round(max(0.0, min(1.0, amplified)), 4)
+
+        if final_score >= 0.65:
+            tier = "ACUTE_POST_DEMOCRATIC_POLARIZATION"
+            verdict = "PRICING_IN_SOVEREIGN_BOND_STRIKE_AND_EXTRACONSTITUTIONAL_INSTABILITY"
+        elif final_score >= 0.40:
+            tier = "ELEVATED_ELECTORAL_LAWFARE_RISK"
+            verdict = "MONITOR_CONSTITUTIONAL_COURT_DOCKETS_AND_PARLIAMENTARY_PARALYSIS"
+        else:
+            tier = "ROUTINE_ELECTORAL_CYCLE"
+            verdict = "NORMAL_DEMOCRATIC_PROCESS_MAINTAINED"
+
+        return {
+            "electoral_lawfare_polarization_score": final_score,
+            "judicial_intervention_severity": round(j_sev, 4),
+            "populist_polling_share": round(p_poll, 4),
+            "bond_spread_contagion": round(b_spread, 4),
+            "institutional_trust_deficit": round(t_def, 4),
+            "electoral_lawfare_tier": tier,
+            "operational_verdict": verdict,
+            "is_electoral_lawfare_acute": final_score >= 0.65,
+        }
+
+
 ```
