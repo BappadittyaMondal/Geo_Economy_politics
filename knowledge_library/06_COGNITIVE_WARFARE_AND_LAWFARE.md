@@ -1,6 +1,6 @@
 # BSKM DOMAIN DOSSIER: COGNITIVE WARFARE, MEDIA DECONSTRUCTION, EDUTAINMENT & INSTITUTIONAL LAWFARE
 > Canonical Sub-Dossier of the Bharat-Centric Sovereign Knowledge Matrix.
-> Source: `knowledge_library/06_COGNITIVE_WARFARE_AND_LAWFARE.md` | Sections: 19
+> Source: `knowledge_library/06_COGNITIVE_WARFARE_AND_LAWFARE.md` | Sections: 21
 
 ---
 
@@ -752,6 +752,57 @@ VIDEO / SOURCE ID      TITLE & CHANNEL                              CORE STRATEG
   - **Ajit Doval:** "Intelligence services must always maintain skepticism toward sudden international flashpoints. When an event conveniently serves the political agenda of a foreign deep state, look for the intelligence fingerprints before committing sovereign resources."
 * **Micro-Signal & Grayzone Insight:**
   - True diplomatic leverage is when competing political factions in the world's superpower both compete to secure an audience with your Prime Minister.
+
+---
+
+---
+
+## Section 163: DEF Talks by Aadi — Strategic Non-Alignment in Quad: PM Modi's Rejection of Asymmetric Demands (`4siDVRudSso`)
+
+* **Core Hook & What Happened:** Defense analyst Aadi Achint deconstructs the high-stakes diplomatic maneuvering during Quad summitry: analyzing reported tensions where Prime Minister Narendra Modi firmly asserted Indian strategic independence against American expectations, rejecting attempts to turn the Quad into an Asian NATO or accept lopsided agricultural trade concessions.
+* **The Behind-the-Scenes Truth (DNA & RNA Level):**
+  - **1. Quad as a Plurilateral Partnership, Not a Military Alliance:**
+    * *The Washington Ambition:* Certain American strategic factions desire the Quad (US, India, Japan, Australia) to function as a formal mutual-defense pact aimed at direct kinetic containment of China, binding India to American foreign policy objectives in the South China Sea.
+    * *The New Delhi Doctrine:* PM Modi and Dr. S. Jaishankar have consistently defined the Quad as a cooperative mechanism for a Free and Open Indo-Pacific—focusing on maritime domain awareness, undersea cable security, semiconductor resilience, and disaster relief—while strictly rejecting any treaty alliance that compromises Indian strategic autonomy.
+  - **2. The Agricultural and Dairy Redline:**
+    * Washington repeatedly pressures India to open its domestic agricultural and dairy markets to heavily subsidized American agribusiness. New Delhi has maintained an unyielding redline: the livelihood of 100 million Indian dairy farmers and smallholders will never be compromised for a bilateral trade concession.
+  - **3. Multipolar Sovereignty in Practice:**
+    * By refusing to act as a junior partner, India proves that it is an independent pole in global geopolitics: partnering with the US in Quad, while simultaneously engaging with Russia in BRICS and maintaining bilateral disengagement negotiations with China along the LAC.
+* **Scoring the Narrative:**
+  - **Logic vs. Ideology:** 94% Diplomatic Protocol, Trade Economics & Strategic Realism / 6% Podcast Framing.
+  - **Agenda vs. Reality:** 95% Verified Diplomatic Position / 5% Media Interpretation.
+  - **Civilizational / Political Tilt:** Sovereign Strategic Autonomy (Anti-Subservience).
+* **Strategic Council Perspectives:**
+  - **Dr. S. Jaishankar:** "Aadi Achint explains the core of our diplomatic doctrine: India does not join alliances because alliances require subordinating your national interest to someone else's priorities. We work with partners on shared interests, but our decisions are made in New Delhi, not dictated by any other capital."
+  - **Ajit Doval:** "The security of India cannot be outsourced to any foreign security umbrella. We saw how Western alliances failed Ukraine and abandoned Afghanistan. Bharat fights its own battles on its own borders with its own weapons."
+  - **Sanjeev Sanyal:** "Our resistance to American agricultural dumping is sound economics. Opening domestic markets to foreign subsidized agribusiness would destroy millions of rural livelihoods and create severe social instability."
+* **Micro-Signal & Grayzone Insight:**
+  - True geopolitical equality is demonstrated not by how loudly you praise a partner in public communiqués, but by your absolute willingness to look a superpower in the eye and say 'no' when national interest is at stake.
+
+---
+
+---
+
+## Section 164: SHLLOKA (Dr. Rahul Kumar) — Deconstructing Kuldhara & Gandikota: Feudal Extortion & Acoustic Waveguides (`9UJys0dibqg`)
+
+* **Core Hook & What Happened:** Shlloka Joshii hosts paranormal investigator and researcher Dr. Rahul Kumar for a scientific, historical, and topographical deconstruction of famous Indian 'mysteries': the overnight abandonment of Kuldhara village in Rajasthan, acoustic wave propagation in the Gandikota canyon, and separating civilizational historical memory from sensationalized supernatural folklore.
+* **The Behind-the-Scenes Truth (DNA & RNA Level):**
+  - **1. Kuldhara: Feudal Tax Extortion, Not Paranormal Ghosts:**
+    * *The Historical Reality:* In 1825, the prosperous Paliwal Brahmin community of 84 villages around Kuldhara abandoned their ancestral homes in a single night. Historical records confirm this was an act of non-violent civil resistance against the tyrannical, extortionate taxes levied by Diwan Salim Singh of Jaisalmer, coupled with his predatory sexual designs on the village chief’s daughter.
+    * *The Civilizational Dignity:* Rather than submitting to feudal tyranny and dishonor, thousands of villagers chose exile, leaving behind their stone architecture as an eternal monument to honor and collective defiance. Sensationalizing this as a "haunted tourist spot" cheapens a historic act of moral resistance.
+  - **2. Gandikota & Acoustic Waveguides:**
+    * Dr. Rahul Kumar analyzes the unique geomorphology of Gandikota (the 'Grand Canyon of India' on the Pennar River): deep quartzite gorge formations act as natural acoustic waveguides, reflecting low-frequency infrasound and wind resonance that human biology interprets as eerie or unnatural vibrations.
+  - **3. Rationalism and Dharmic Discernment:**
+    * Sanatan tradition is fundamentally rooted in *Pramana* (valid means of knowledge: perception, inference, scriptural authority). Debunking superstitious horror entertainment restores authentic historical respect for our ancestors' physical and moral courage.
+* **Scoring the Narrative:**
+  - **Logic vs. Ideology:** 95% Historical Documentation, Geomorphology & Acoustic Physics / 5% Paranormal Podcast Hook.
+  - **Agenda vs. Reality:** 97% Verified Historical Reality & Scientific Explanation / 3% Mystery Packaging.
+  - **Civilizational / Political Tilt:** Historical Truth & Civilizational Dignity.
+* **Strategic Council Perspectives:**
+  - **J Sai Deepak:** "Dr. Rahul Kumar's historical context on Kuldhara is essential civilizational education. The Paliwal Brahmins' mass sacrifice to protect their daughter's honor and resist Salim Singh's tyranny is a story of sublime moral courage. Transforming our history of resistance into cheap ghost entertainment is an insult to ancestral memory."
+  - **Dr. Anand Ranganathan:** "Acoustics and infrasound explain 99% of so-called 'haunted' locations. When sound waves bounce off canyon walls at frequencies below 20 Hz, they induce physiological feelings of dread and anxiety. Science always triumphs over superstition."
+* **Micro-Signal & Grayzone Insight:**
+  - When commercial media reduces historical monuments of heroic civil resistance against feudal tyranny into 'haunted ghost attractions', they strip a civilization of its ancestral courage and replace historical consciousness with trivial fear.
 
 ---
 

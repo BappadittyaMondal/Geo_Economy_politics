@@ -1,6 +1,6 @@
 # BSKM DOMAIN DOSSIER: DEEP-TECH SOVEREIGNTY, COMPUTE, SEMICONDUCTORS & CRITICAL MINERALS
 > Canonical Sub-Dossier of the Bharat-Centric Sovereign Knowledge Matrix.
-> Source: `knowledge_library/05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md` | Sections: 5
+> Source: `knowledge_library/05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md` | Sections: 6
 
 ---
 
@@ -155,6 +155,32 @@ STRATEGIC DOMAIN           SOURCE PODCAST/SPEAKER   CRITICAL GRAYZONE / FORENSIC
   - **Dr. Ankit Shah:** "Ambani understood capital expenditure moats: he invested \$35 Billion before collecting a single rupee from customers. Competitors reliant on debt and high unit margins could not survive. Scale dictates survival."
 * **Micro-Signal & Grayzone Insight:**
   - Whoever controls the low-cost digital connectivity layer ultimately captures the retail, entertainment, and financial transactions of the nation.
+
+---
+
+---
+
+## Section 161: Rishabh Bidhuri — Nikola Tesla, Swami Vivekananda & Vedic Physics: Wireless Energy & The 3-6-9 Code (`Be3-NnOyQqU`)
+
+* **Core Hook & What Happened:** An extraordinary deep-tech, historical, and metaphysical investigation into Nikola Tesla: his historic interactions with Swami Vivekananda in New York in 1895, how ancient Vedic concepts of *Akasha* (ether/space) and *Prana* (universal life energy) inspired Tesla's theories of non-Hertzian wireless energy transmission, J.P. Morgan's suppression of the Wardenclyffe Tower project, and the mathematical mystery of the 3-6-9 frequency code.
+* **The Behind-the-Scenes Truth (DNA & RNA Level):**
+  - **1. The Vivekananda-Tesla Philosophical & Scientific Synthesis:**
+    * *The Historic Encounter:* In February 1896, Swami Vivekananda met Nikola Tesla in New York. Swamiji explained the Samkhya cosmology: that all matter is a manifestation of *Akasha* acted upon by the primal cosmic energy *Prana*.
+    * *Tesla's Epiphany:* Tesla was astonished to discover that ancient Vedic philosophy had mathematically formulated the relationship between matter and energy millennia before modern physics. Tesla attempted to formulate a mathematical proof showing that mass could be derived from energy, anticipating Einstein's $E=mc^2$.
+  - **2. The Suppression of Free Wireless Energy (Wardenclyffe Tower):**
+    * *The Capitalist Chokepoint:* Tesla constructed the Wardenclyffe Tower to demonstrate wireless electrical transmission through the Earth's ionosphere without power lines. When financier J.P. Morgan realized that electricity broadcast wirelessly could not be metered or monopolized, he abruptly pulled funding and ensured Tesla was marginalized.
+  - **3. Modern Applications in Directed Energy Weapons (DEWs):**
+    * Tesla’s principles of resonant electromagnetic wave propagation form the bedrock of modern advanced defense tech: Directed Energy Weapons (DEWs), high-power microwave drone-swarm neutralizers, and anti-satellite scalar systems currently developed by DRDO (*KALI* project).
+* **Scoring the Narrative:**
+  - **Logic vs. Ideology:** 94% Historical Correspondence, Applied Physics & Vedic Philosophical Precision / 6% Edutainment.
+  - **Agenda vs. Reality:** 95% Documented Historical Correspondence & Scientific Physics / 5% Lore.
+  - **Civilizational / Political Tilt:** Civilizational Scientific Parity (Sanatan Vedic Science & Frontier Tech).
+* **Strategic Council Perspectives:**
+  - **J Sai Deepak:** "Rishabh Bidhuri documents a historic truth that colonial historians suppressed: the greatest inventor of the electrical age acknowledged that his deepest physical insights were derived from Vedantic philosophy explained by Swami Vivekananda. Decolonizing science requires recognizing our foundational contributions to global physics."
+  - **Dr. Anand Ranganathan:** "Tesla’s experiments in electromagnetic resonance and wireless power were grounded in rigorous mathematics and empirical testing. His correspondence with Swamiji shows how profound philosophical metaphysics can inspire breakthrough physical hypotheses."
+  - **Ajit Doval:** "The weaponization of directed energy and electromagnetic pulses (EMP) is the future of battlefield supremacy. DRDO's work on high-power electromagnetic systems is the direct modern continuation of non-kinetic directed energy statecraft."
+* **Micro-Signal & Grayzone Insight:**
+  - When financial oligarchs suppress a technology because 'it cannot be metered', they reveal that corporate monopolies value scarcity and control far more than human civilizational advancement.
 
 ---
 

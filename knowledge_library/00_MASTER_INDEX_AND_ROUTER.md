@@ -1,17 +1,17 @@
 # BSKM: MASTER EPISTEMIC INDEX & ROUTING MATRIX
 > Central Navigational Compass for the 157+ Multi-Domain Video Intelligence Dossiers.
-> Total Indexed Dossiers: 157 | Domain Files: 6
+> Total Indexed Dossiers: 176 | Domain Files: 6
 
 ## 1. Domain Dossier Inventory
 
 | File | Domain Name | Sections Covered |
 | :--- | :--- | :--- |
-| [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 32 sections |
-| [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 43 sections |
-| [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 35 sections |
-| [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 23 sections |
-| [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 5 sections |
-| [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) | Cognitive Warfare, Media Deconstruction, Edutainment & Institutional Lawfare | 19 sections |
+| [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 33 sections |
+| [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 48 sections |
+| [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 42 sections |
+| [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 26 sections |
+| [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 6 sections |
+| [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) | Cognitive Warfare, Media Deconstruction, Edutainment & Institutional Lawfare | 21 sections |
 
 ## 2. Complete Chronological Video & Section Registry
 
@@ -174,3 +174,22 @@
 | Section 155: Rishabh Bidhuri — The End of Fiat Wealth: Real-World Asset (RWA) Tokenization & Energy Currencies (`J-95CHJ4uX4`) | `J-95CHJ4uX4` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
 | Section 156: Rishabh Bidhuri — CIA Project MK-Ultra: Cognitive Warfare Origins & Behavioral Modification (`UMSQJQEKOBY`) | `UMSQJQEKOBY` | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) |
 | Section 157: Rishabh Bidhuri — The Aksai Chin Strategic Encirclement: Nyoma Airbase & High-Altitude Defense Transformation (`IOMnLG-9jzs`) | `IOMnLG-9jzs` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 158: The Alternate Media (Dr. Deepessh Divaakaran) — The Modi-Doval 6-Mission Doctrine: Deterrence, Indigenization & Superpower Anxiety (`I3kIGekudqQ`) | `I3kIGekudqQ` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 159: India First (Amit Dubey) — The 2026 Global Cyber Grid Threat: Nvidia Espionage & Infrastructure Decapitation (`MPLAKlsIZKc`) | `MPLAKlsIZKc` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 160: The Alternate Media (Desh Kapoor) — The Red File Leak: Deep-State Financial Lawfare & Pre-2029 Banking Subversion (`tZGbzLmNnjo`) | `tZGbzLmNnjo` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
+| Section 161: Rishabh Bidhuri — Nikola Tesla, Swami Vivekananda & Vedic Physics: Wireless Energy & The 3-6-9 Code (`Be3-NnOyQqU`) | `Be3-NnOyQqU` | [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) |
+| Section 162: Ghoomta Aaina (Bhau Torsekar) — The Global-Domestic Geopolitical Crossroads: Trump Tariffs & Bharat's Anchor (`5e5gRnBNl04`) | `5e5gRnBNl04` | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) |
+| Section 163: DEF Talks by Aadi — Strategic Non-Alignment in Quad: PM Modi's Rejection of Asymmetric Demands (`4siDVRudSso`) | `4siDVRudSso` | [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) |
+| Section 164: SHLLOKA (Dr. Rahul Kumar) — Deconstructing Kuldhara & Gandikota: Feudal Extortion & Acoustic Waveguides (`9UJys0dibqg`) | `9UJys0dibqg` | [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) |
+| Section 165: Coffee With Sumeet Jain (Dr. Deepessh Divaakaran) — Coordinated Geopolitical Divergence & Harvard Network Science (`tuW0LwmqsDU`) | `tuW0LwmqsDU` | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) |
+| Section 166: Dr. Ankit Shah — The 12-Question Masterclass: Sanatan Economics, De-Dollarization & Sovereign Commodity Anchors (`diMJEEYedwI`) | `diMJEEYedwI` | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) |
+| Section 167: Lucky Bisht — Shenzhen Superpower Trilateral Summit (Trump-Xi-Putin): Yalta 2.0 & Multipolarity (`WCVA4pjqPvM`) | `WCVA4pjqPvM` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
+| Section 168: The Alternate Media (Desh Kapoor) — The Red File Blueprint: Deep-State Financial Lawfare (`tZGbzLmNnjo`) | `tZGbzLmNnjo` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
+| Section 169: Kabir Vani Podcast (Abhishek Kar) — Cognitive Atrophy & AI 'Brain Rot': Algorithmic Pacification & Labor Shifts (`u25wf-qmF0E`) | `u25wf-qmF0E` | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) |
+| Section 170: DEF Talks by Aadi (Col. R.S.N. Singh) — Cold War Penetration of New Delhi: KGB Archives & CIA Blackmail (`e41iA5ah8po`) | `e41iA5ah8po` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 171: Vigyan Recharge — Algorithmic Governance: Blockchain Smart Contracts & Anti-Corruption (`s0MWXhiVJtQ`) | `s0MWXhiVJtQ` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 172: Rishabh Bidhuri — Poland's Border Sovereignty: The 1683 Vienna Memory & EU Resistance (`QrJBC7csQUw`) | `QrJBC7csQUw` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 173: Amritva Explains — The 300-Year Swiss Banking Forensic: Secrecy, Nazi Gold & Credit Suisse (`0zgCcrlbN18`) | `0zgCcrlbN18` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
+| Section 174: Dr. Ankit Shah — US Banks Outage #Prediction of 2023 (`Y1f2rJnXKyE`) | `Y1f2rJnXKyE` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
+| Section 175: Dr. Ankit Shah — Putin-Xi-Trump Meeting: Tripolar Hegemony vs. PM Modi's Geopolitical Snub (`diMJEEYedwI`) | `diMJEEYedwI` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 176: The Economist 'The World Ahead 2027' Forensic Deconstruction: Tom Standage's 10 Global Trends, Cleon Peterson Cover Cryptography & Multipolar Geofinancial Scenarios | `N/A` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
