@@ -48,6 +48,7 @@ from .dharmik_statecraft import (
     DharmikStatecraftEvaluation,
     DharmikStatecraftPipeline,
 )
+from .semiotics import PredictiveIconographyAndSemioticDeconstructionEngine
 
 __all__ = [
     "NegativeSpaceDiffEngine",
@@ -84,5 +85,6 @@ __all__ = [
     "DharmikStatecraftDossier",
     "DharmikStatecraftEvaluation",
     "DharmikStatecraftPipeline",
+    "PredictiveIconographyAndSemioticDeconstructionEngine",
 ]
 

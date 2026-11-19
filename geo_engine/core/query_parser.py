@@ -205,6 +205,14 @@ class StrategicQuery(BaseModel):
     requires_credit_rating_cartel_bias: bool = False
     requires_civilizational_jurisprudence_decolonial: bool = False
     requires_empirical_falsification_cryptographic: bool = False
+    # Phases 434-440: Semiotic Iconography, Global Polycrisis Cascades & Sovereign Resilient Sieves
+    requires_semiotic_deconstruction: bool = False
+    requires_polycrisis_cascade: bool = False
+    requires_cultural_religious_grayzone_subversion: bool = False
+    requires_glp1_metabolic_shift: bool = False
+    requires_leo_orbital_weaponization: bool = False
+    requires_taiwan_semiconductor_choke: bool = False
+    requires_electoral_lawfare_polarization: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -623,6 +631,14 @@ class QueryParser:
         req_sanyal_rating = any(cls.matches_keyword(text_lower, kw) for kw in ["credit rating cartel", "sanjeev sanyal", "rating bias", "logistics cost compression", "wgi bias", "fast frequency data"])
         req_deepak_jurisprudence = any(cls.matches_keyword(text_lower, kw) for kw in ["civilizational jurisprudence", "decolonial lawfare", "j sai deepak", "sai deepak", "temple property autonomy", "decolonial legal"])
         req_ranga_falsification = any(cls.matches_keyword(text_lower, kw) for kw in ["empirical falsification", "cryptographic verification", "anand ranganathan", "ranganathan", "zero sycophancy", "karl popper standard"])
+        # Phases 434-440: Semiotic Iconography, Global Polycrisis Cascades & Sovereign Resilient Sieves
+        req_semiotic_deconstruct = any(cls.matches_keyword(text_lower, kw) for kw in ["semiotic deconstruction", "predictive iconography", "cover art decode", "cleon peterson", "economist cover"])
+        req_polycrisis_cascade = any(cls.matches_keyword(text_lower, kw) for kw in ["polycrisis", "systemic cascade", "cross-domain collision", "debt wall chokepoint", "compound crisis"])
+        req_grayzone_subversion = any(cls.matches_keyword(text_lower, kw) for kw in ["cultural religious grayzone subversion", "waqf act", "statutory exemption abuse", "demographic corridor density", "grayzone subversion"])
+        req_glp1_metabolic = any(cls.matches_keyword(text_lower, kw) for kw in ["glp-1", "ozempic", "wegovy", "consumer metabolic shift", "caloric demand drop", "appetite suppression"])
+        req_leo_orbital = any(cls.matches_keyword(text_lower, kw) for kw in ["low earth orbit congestion", "leo weaponization", "asat debris", "kessler syndrome", "orbital congestion"])
+        req_taiwan_choke = any(cls.matches_keyword(text_lower, kw) for kw in ["taiwan strait quarantine", "davidson window", "pla centenary 2027", "tsmc sub-5nm choke", "semiconductor quarantine"])
+        req_electoral_lawfare = any(cls.matches_keyword(text_lower, kw) for kw in ["electoral lawfare", "judicial disqualification", "le pen disqualification", "afd ban", "post-democratic"])
 
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
             active_lenses.append("digital_sovereignty")
@@ -819,6 +835,21 @@ class QueryParser:
             active_lenses.append("institutional_lawfare")
         if req_ranga_falsification and "deep_tech" not in active_lenses:
             active_lenses.append("deep_tech")
+        # Phases 434-440: Semiotic Iconography, Global Polycrisis Cascades & Sovereign Resilient Sieves
+        if req_semiotic_deconstruct and "propaganda" not in active_lenses:
+            active_lenses.append("propaganda")
+        if req_polycrisis_cascade and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_grayzone_subversion and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_glp1_metabolic and "food_security" not in active_lenses:
+            active_lenses.append("food_security")
+        if req_leo_orbital and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if req_taiwan_choke and "critical_minerals" not in active_lenses:
+            active_lenses.append("critical_minerals")
+        if req_electoral_lawfare and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
 
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
@@ -1028,6 +1059,14 @@ class QueryParser:
             requires_credit_rating_cartel_bias=req_sanyal_rating,
             requires_civilizational_jurisprudence_decolonial=req_deepak_jurisprudence,
             requires_empirical_falsification_cryptographic=req_ranga_falsification,
+            # Phases 434-440: Semiotic Iconography, Global Polycrisis Cascades & Sovereign Resilient Sieves
+            requires_semiotic_deconstruction=req_semiotic_deconstruct,
+            requires_polycrisis_cascade=req_polycrisis_cascade,
+            requires_cultural_religious_grayzone_subversion=req_grayzone_subversion,
+            requires_glp1_metabolic_shift=req_glp1_metabolic,
+            requires_leo_orbital_weaponization=req_leo_orbital,
+            requires_taiwan_semiconductor_choke=req_taiwan_choke,
+            requires_electoral_lawfare_polarization=req_electoral_lawfare,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

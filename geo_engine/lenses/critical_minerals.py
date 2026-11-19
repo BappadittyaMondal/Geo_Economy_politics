@@ -267,3 +267,52 @@ class CriticalMineralSupplyChainWeaponizationTensor:
             "tactical_rationale": rationale,
             "is_mineral_supply_chain_severed": score >= 0.70,
         }
+
+
+class TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve:
+    """Phase 439: Taiwan Strait Quarantine & Semiconductor Supply Resilience Sieve.
+    Quantifies systemic global supply chain decapitation if a maritime customs quarantine
+    is imposed on Taiwan during the 2027 PLA Centenary, cutting off sub-5nm logic chip
+    shipments (TSMC) across automotive, AI compute, and sovereign defense electronics.
+    Formula:
+        RawChoke = Norm(0.50 * quarantine_strictness + 0.30 * sub_5nm_dependency + 0.20 * foundry_replacement_latency)
+        ChokeIndex = RawChoke * (1.0 - domestic_fab_buffer_ratio)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        quarantine_enforcement_strictness: float = 0.85,
+        sub_5nm_logic_chip_dependency: float = 0.92,
+        foundry_replacement_latency_years: float = 0.80,
+        domestic_fab_buffer_ratio: float = 0.15,
+    ) -> Dict[str, Any]:
+        q_strict = float(max(0.0, min(1.0, quarantine_enforcement_strictness)))
+        dep_5nm = float(max(0.0, min(1.0, sub_5nm_logic_chip_dependency)))
+        lat_f = float(max(0.0, min(1.0, foundry_replacement_latency_years)))
+        buf_fab = float(max(0.0, min(1.0, domestic_fab_buffer_ratio)))
+
+        raw_choke = 0.50 * q_strict + 0.30 * dep_5nm + 0.20 * lat_f
+        final_index = round(max(0.0, min(1.0, raw_choke * (1.0 - buf_fab))), 4)
+
+        if final_index >= 0.65:
+            tier = "CATASTROPHIC_SEMICONDUCTOR_CHOKEPOINT_SEVERANCE"
+            verdict = "ENACT_DEFENSE_PRODUCTION_ACT_RATIONING_AND_ACCELERATE_DOMESTIC_PACKAGING"
+        elif final_index >= 0.40:
+            tier = "SEVERE_ELECTRONICS_ASSEMBLY_DELAYS"
+            verdict = "DIVERSIFY_CHIP_INVENTORIES_AND_SECURE_OFFTAKES_WITH_NON_TAIWAN_FOUNDRIES"
+        else:
+            tier = "INSULATED_SEMICONDUCTOR_BUFFER"
+            verdict = "DOMESTIC_FAB_CAPACITY_PROVIDES_CRITICAL_RUNWAY"
+
+        return {
+            "taiwan_quarantine_semiconductor_choke_index": final_index,
+            "quarantine_enforcement_strictness": round(q_strict, 4),
+            "sub_5nm_logic_chip_dependency": round(dep_5nm, 4),
+            "foundry_replacement_latency_years": round(lat_f, 4),
+            "domestic_fab_buffer_ratio": round(buf_fab, 4),
+            "semiconductor_choke_tier": tier,
+            "operational_verdict": verdict,
+            "is_semiconductor_choke_critical": final_index >= 0.65,
+        }
+

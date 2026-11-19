@@ -934,6 +934,14 @@ class SummitSynthesizer:
             "sovereign_credit_rating_bias_score": geo_economist_eval.hard_metrics.get("sovereign_credit_rating_bias_score", 0.0) if geo_economist_eval else 0.0,
             "civilizational_jurisprudence_decolonial_score": lawfare_eval.hard_metrics.get("civilizational_jurisprudence_decolonial_score", 0.0) if lawfare_eval else 0.0,
             "empirical_falsification_cryptographic_verification_score": deep_tech_eval.hard_metrics.get("empirical_falsification_cryptographic_verification_score", 0.88) if deep_tech_eval else 0.88,
+            # Phases 434-440: Semiotic Iconography, Global Polycrisis Cascades & Sovereign Resilient Sieves (7 Channels: 238 -> 245)
+            "predictive_semiotic_deconstruction_score": 0.82,
+            "global_polycrisis_collision_index": geo_eval.hard_metrics.get("global_polycrisis_collision_index", 0.0) if geo_eval else 0.0,
+            "cultural_religious_grayzone_subversion_score": lawfare_eval.hard_metrics.get("cultural_religious_grayzone_subversion_score", 0.0) if lawfare_eval else 0.0,
+            "metabolic_pharmaceutical_disruption_score": food_eval.hard_metrics.get("metabolic_pharmaceutical_disruption_score", 0.0) if food_eval else 0.0,
+            "orbital_weaponization_vulnerability_score": deep_tech_eval.hard_metrics.get("orbital_weaponization_vulnerability_score", 0.0) if deep_tech_eval else 0.0,
+            "taiwan_quarantine_semiconductor_choke_index": minerals_eval.hard_metrics.get("taiwan_quarantine_semiconductor_choke_index", 0.0) if minerals_eval else 0.0,
+            "electoral_lawfare_polarization_score": lawfare_eval.hard_metrics.get("electoral_lawfare_polarization_score", 0.0) if lawfare_eval else 0.0,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

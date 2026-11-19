@@ -85,6 +85,7 @@ from .critical_minerals import (
     CriticalMineralsLens,
     CriticalMineralsRefiningCrisisSieve,
     CriticalMineralSupplyChainWeaponizationTensor,
+    TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve,
 )
 
 from .deep_tech import (
@@ -108,6 +109,7 @@ from .deep_tech import (
     RemoteSiliconMicrocodeKillSwitchSieve,
     QuantumHarvestNowDecryptLaterVulnerabilitySieve,
     DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve,
+    LowEarthOrbitCongestionAndOrbitalWeaponizationSieve,
 )
 
 from .demographic_infiltration import (
@@ -144,6 +146,7 @@ from .food_security import (
     RiparianResilienceSieve,
     TrophicBiosecurityCascadeSieve,
     AgrochemicalFertilizerAndFoodSecurityWeaponizationSieve,
+    BiopharmaceuticalAndConsumerMetabolicShiftTensor,
 )
 
 from .geo_economist import (
@@ -181,6 +184,7 @@ from .geopolitical import (
     TrilateralSuperpowerCondominiumExclusionTensor,
     MultilateralAllianceHegemonicPressureResistanceSieve,
     MultipolarHedgingAndStrategicChokepointTensor,
+    GlobalPolycrisisCollisionAndSystemicCascadeTensor,
 )
 
 from .history import (
@@ -253,6 +257,8 @@ from .institutional_lawfare import (
     VigilanceStatutoryRemedySieve,
     CulturalReligiousGrayzoneLawfareSieve,
     CivilizationalJurisprudenceAndDecolonialLawfareTensor,
+    CulturalReligiousGrayzoneSubversionSieve,
+    ElectoralLawfareAndJudicialDisqualificationSieve,
 )
 
 from .kinesics import (
@@ -601,4 +607,12 @@ __all__ = [
     "MultipolarHedgingAndStrategicChokepointTensor",
     "ComplexAdaptiveMacroeconomicAndRatingCartelSieve",
     "CivilizationalJurisprudenceAndDecolonialLawfareTensor",
+
+    # Phases 435-440: Global Polycrisis Cascades & Sovereign Resilient Sieves
+    "GlobalPolycrisisCollisionAndSystemicCascadeTensor",
+    "CulturalReligiousGrayzoneSubversionSieve",
+    "BiopharmaceuticalAndConsumerMetabolicShiftTensor",
+    "LowEarthOrbitCongestionAndOrbitalWeaponizationSieve",
+    "TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve",
+    "ElectoralLawfareAndJudicialDisqualificationSieve",
 ]
