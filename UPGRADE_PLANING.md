@@ -1,6 +1,6 @@
-# STAGED ARCHITECTURAL UPGRADE PROPOSALS (PHASES 434–438)
+# FULL-PROOF STAGED ARCHITECTURAL UPGRADE PROPOSALS (PHASES 434–440)
 ## Zero Wheel-Spinning Policy: Verified Real Capabilities Staged for Future Execution
-*Status: Staged & Documented (Zero Codebase Changes Executed — Awaiting Future Phase Implementation)*
+*Status: Staged & Rigorously Formulated (Zero Codebase Changes Executed — Awaiting Future Phase Implementation)*
 
 ---
 
@@ -53,3 +53,24 @@
 * **Verified Analytical Problem:** Commercial rocket launch cost deflation has led to an exponential expansion of private satellite megaconstellations in Low Earth Orbit (LEO), turning space into a congested, weaponized theater vulnerable to ground-based RF electronic jamming, cyber-hijacking, and kinetic ASAT debris storms (Kessler syndrome).
 * **Mathematical & Algorithmic Formulation:**
   $$\text{OrbitalVulnerability} = \text{Norm}\left(0.40 \cdot D_{\text{ConstellationDensity}} + 0.35 \cdot J_{\text{RFJammingVulnerability}} + 0.25 \cdot A_{\text{ASATRisk}}\right) \cdot \left(1.0 - 0.40 \cdot S_{\text{HardeningCoverage}}\right)$$
+
+---
+
+### Phase 439: TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve
+* **Subsystem / Module:** `geo_engine/lenses/critical_minerals.py`
+* **Parent Architecture:** Critical Minerals, Industrial Base & Semiconductor Sovereignty Lens
+* **Target Telemetry Channel:** `taiwan_quarantine_semiconductor_choke_index`
+* **Verified Analytical Problem:** The 2027 PLA Centenary represents the critical "Davidson Window" where China possesses the naval and missile capability to impose a "Customs Quarantine" rather than a full kinetic invasion on Taiwan. Modeling must capture the systemic fragility of global high-end logic chips (92% of sub-5nm chips fabricated by TSMC), estimating automotive line shutdowns, telecommunications paralysis, and sovereign reserve adequacy.
+* **Mathematical & Algorithmic Formulation:**
+  $$\text{ChokeIndex} = \text{Norm}\left(0.50 \cdot Q_{\text{QuarantineStrictness}} + 0.30 \cdot \Delta_{\text{Sub5nmInventoryDepletion}} + 0.20 \cdot L_{\text{FoundryDisplacementCost}}\right)$$
+  $$\text{SovereignImpact} = \text{ChokeIndex} \cdot \left(1.0 - \text{DomesticFabBufferRatio}\right)$$
+
+---
+
+### Phase 440: ElectoralLawfareAndJudicialDisqualificationSieve
+* **Subsystem / Module:** `geo_engine/lenses/institutional_lawfare.py`
+* **Parent Architecture:** Institutional Lawfare & Sovereign Jurisdiction Lens
+* **Target Telemetry Channel:** `electoral_lawfare_polarization_score`
+* **Verified Analytical Problem:** Post-democratic governance in Western and allied democracies increasingly weaponizes judicial indictments, candidate disqualification rulings (e.g., attempts to disqualify Marine Le Pen in France, party-ban initiatives against the AfD in Germany, and civil court sanctions in the US) to nullify populist voting outcomes, triggering deep domestic civil unrest and bond market volatility.
+* **Mathematical & Algorithmic Formulation:**
+  $$\text{ElectoralLawfareScore} = \text{Norm}\left(0.45 \cdot J_{\text{JudicialInterventionSeverity}} + 0.35 \cdot P_{\text{PopulistPollingShare}} + 0.20 \cdot B_{\text{BondSpreadContagion}}\right)$$
