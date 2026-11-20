@@ -1,13 +1,13 @@
 # BSKM: MASTER EPISTEMIC INDEX & ROUTING MATRIX
 > Central Navigational Compass for the 157+ Multi-Domain Video Intelligence Dossiers.
-> Total Indexed Dossiers: 185 | Domain Files: 6
+> Total Indexed Dossiers: 186 | Domain Files: 6
 
 ## 1. Domain Dossier Inventory
 
 | File | Domain Name | Sections Covered |
 | :--- | :--- | :--- |
 | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 34 sections |
-| [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 48 sections |
+| [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 49 sections |
 | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 47 sections |
 | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 27 sections |
 | [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 6 sections |
@@ -202,3 +202,4 @@
 | Section 183: Daily Strategic Dispatch (2026-11-20): Shenzhen Yalta 2.0, Tokyo 2+2 Live-Fire Missile Pact, IEA Hormuz Energy Shock & SCO Civilisational Forum (`DISPATCH-20261120`) | `N/A` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
 | Section 184: The Sovereign Rupee Paradox: CEA Anantha Nageswaran's Appreciation Warning, $12B FII Rotation & The Geoeconomics of FX Valuation (`DISPATCH-20261120-RUPEE`) | `N/A` | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) |
 | Section 185: The Alternate Media (Gayatri Mishra & Girdhar Mamidipudi) — Trump's Shenzhen Fiasco, Modi-Putin Strategic Pincer & Deep-State WEF Revolt (`1C-Mps-LwXI`) | `1C-Mps-LwXI` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 186: Dr. Ankit Shah — NSA Communications Outage, Cybersecurity Leadership Purge, 9-Day T-Bills & GIFT City Physical Bullion Pricing (`PdDa0pCmsrY`) | `PdDa0pCmsrY` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
