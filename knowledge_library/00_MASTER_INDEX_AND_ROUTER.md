@@ -1,6 +1,6 @@
 # BSKM: MASTER EPISTEMIC INDEX & ROUTING MATRIX
 > Central Navigational Compass for the 157+ Multi-Domain Video Intelligence Dossiers.
-> Total Indexed Dossiers: 182 | Domain Files: 6
+> Total Indexed Dossiers: 183 | Domain Files: 6
 
 ## 1. Domain Dossier Inventory
 
@@ -8,7 +8,7 @@
 | :--- | :--- | :--- |
 | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 34 sections |
 | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 48 sections |
-| [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 45 sections |
+| [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 46 sections |
 | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 26 sections |
 | [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 6 sections |
 | [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) | Cognitive Warfare, Media Deconstruction, Edutainment & Institutional Lawfare | 23 sections |
@@ -199,3 +199,4 @@
 | Section 180: GYRUS SULCUS / Dharmendra Sir — Trump-Nvidia Geopolitical Nexus: GPU Export Controls, Silicon Cold War, ASML Chokepoints & India's ISM Window (`oBf8d_iyun4`) | `oBf8d_iyun4` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
 | Section 181: Ghoomta Aaina / Anupam Mishra — Loktantra Ka Nritya: The Crisis of Western Liberal Universalism, The Economist 2027 Projections & Sanatan Civilizational Statehood (`xgrJ4OjjUVA`) | `xgrJ4OjjUVA` | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) |
 | Section 182: Ankit Inspires India / Dr. Ankit Avasthi — APEC Shenzhen 2026 Trilateral Summit: Nuclear Treaties, UNSC Reforms, US-China-Russia Truce & Bharat's Strategic Autonomy (`ECYARxJ4k9I`) | `ECYARxJ4k9I` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| Section 183: Daily Strategic Dispatch (2026-11-20): Shenzhen Yalta 2.0, Tokyo 2+2 Live-Fire Missile Pact, IEA Hormuz Energy Shock & SCO Civilisational Forum (`DISPATCH-20261120`) | `N/A` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
