@@ -4518,3 +4518,16 @@ In response to the daily intelligence query covering geopolitical, geoeconomic, 
 3. **Deep-Tech:** AI power grid wall (50–100 GW electricity bottleneck) and Nvidia governance aftershocks driving the India Semiconductor Mission (ISM).
 4. **Historical:** Japan's first live-fire missile deployment on foreign soil since 1945; Xi Jinping breaking a 46-year Chinese protocol dating back to 1980.
 5. **Civilizational:** PM Narendra Modi inaugurating the First SCO Civilisational Dialogue Forum at Purana Qila, New Delhi.
+
+
+## Section 124: The Sovereign Rupee Paradox & $12B FII Great Rotation: CEA V. Anantha Nageswaran Analysis, Section 184 Ingestion & Phase 445 Queued
+
+### 1. Architectural Motivation & Executive Summary
+In direct response to the multi-link inquiry on the Indian Rupee's contrarian surge past the 93 level (settling at 92.67), $12B in monthly FII equity inflows rotating away from overvalued Silicon Valley AI tech, and Chief Economic Advisor (CEA) Dr. V. Anantha Nageswaran's strategic warning at FICCI's AGM on the perils of currency appreciation, Section 184 was formulated and ingested into `KNOWLEDGE_LIBRARY_GEO_POLITICS.md` (971 KB, 184 discourses indexed in SQLite `events.db`). A dedicated publication-grade PDF dossier (`2026-11-20_2015IST_SOVEREIGN_RUPEE_PARADOX_CEA_ANALYSIS.pdf`) was compiled and archived in `analysis_reports/` and mirrored to the active conversation artifact directory. In accordance with zero-wheel-spinning protocol, Phase 445 (`CurrencyAppreciationExportFrictionAndREERTensor`) was queued in `UPGRADE_PLANING` for subsequent implementation.
+
+### 2. Multi-Domain Analytical Highlights
+1. **The Currency Undervaluation & Equity Inflection (Moneycontrol):** Sinking past 94 earlier in 2026 overshot economic fundamentals; once bottomed out, currency risk evaporated, triggering a self-fulfilling $12B FII short-squeeze into Indian equities.
+2. **The Strong Rupee Paradox (CEA Nageswaran at FICCI):** A stronger rupee lowers crude import bills (<$80/bbl Brent) and debt servicing costs, but threatens labor-intensive MSME exports (textiles, gems, leather) and compresses IT services EBITDA margins by 25–35 bps per 1% appreciation.
+3. **The Global Risk Rotation (ET BFSI & The Hindu):** Global institutional allocators rotated out of high-multiple US tech stocks facing AI CapEx exhaustion and power constraints into Indian domestic manufacturing assets, lifting the INR by 1.75% as Asia's top performer.
+4. **Strategic Council Titans Synthesis:** Jaishankar, Doval, Ankit Shah, Modi, Sanyal, Sai Deepak, and Ranganathan formulated actionable, accessible directives for the public on decolonial currency statecraft and macro-prudential sterilization.
+5. **Phase 445 Staged in `UPGRADE_PLANING`:** `CurrencyAppreciationExportFrictionAndREERTensor` mathematically balances crude import savings against export margin friction.

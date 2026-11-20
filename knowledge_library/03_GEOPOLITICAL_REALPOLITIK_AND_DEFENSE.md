@@ -1851,3 +1851,5 @@ u$) to widening French and Italian OAT-Bund spreads.
   - **The AI Power Grid Chokepoint:** The sudden sell-off in AI equities following Nvidia leadership changes and grid power bottlenecks highlights that the next global shortage will not be code, but copper, uranium, and electrical substation transformers.
 
 ---
+
+---

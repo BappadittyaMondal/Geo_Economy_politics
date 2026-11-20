@@ -1,5 +1,5 @@
-# STRATEGIC ENGINE UPGRADE PLANNING: PHASES 441–444
-# Source: Multi-Domain Deep Analysis of 6 Geopolitical & Technological Intelligence Discourses
+# STRATEGIC ENGINE UPGRADE PLANNING: PHASES 441–445
+# Source: Multi-Domain Deep Analysis of Geopolitical, Technological & FX Valuation Discourses
 # Status: Queued for Execution (Architecture Designed, Zero Codebase Changes in Current Turn)
 
 ## Phase 441: TripolarSuperpowerCondominiumAndExclusionTensor
@@ -36,8 +36,17 @@
   $$\text{GPUChokepointVulnerability} = \text{Norm}\left(0.50 \cdot E_{\text{ExportBanSeverity}} + 0.30 \cdot P_{\text{PackagingConcentration}} + 0.20 \cdot L_{\text{LithographyDenial}}\right) \cdot (1.0 - \text{DomesticFabBuffer})$$
 - **Expected Integration:** Expands `SummitSynthesizer.strategic_resilience_matrix` by 1 live float channel.
 
+## Phase 445: CurrencyAppreciationExportFrictionAndREERTensor
+- **Subsystem / Parent Lens:** `geo_engine/lenses/geo_economist.py`
+- **Primary Metric / Channel:** `currency_appreciation_export_friction_score`
+- **Empirical Drivers:** Late-2026 Rupee surge (settling at 92.67), $12B FII portfolio rotation away from overstretched US AI equities into Indian assets, and CEA V. Anantha Nageswaran's FICCI warning on the structural hazards of a stronger rupee for MSME exporters and IT services.
+- **Mathematical Formulation:**
+  $$\text{AppreciationExportFriction} = \text{Norm}\left(0.45 \cdot \Delta_{\text{ITMarginCompression}} + 0.35 \cdot \Delta_{\text{MSMECompetitivenessLoss}} + 0.20 \cdot (\text{REER} - 100.0)^{+}\right)$$
+  $$\text{SovereignFXResilience} = \sigma\left(2.0 \cdot \Delta_{\text{CrudeImportSavings}} + 1.8 \cdot \Delta_{\text{ExternalDebtRelief}} - 2.2 \cdot \text{AppreciationExportFriction}\right)$$
+- **Expected Integration:** Expands `SummitSynthesizer.strategic_resilience_matrix` by 1 live float channel.
+
 ## Summary of Architectural Impact
-- **Total New Sieves / Tensors:** 4
-- **Projected Resilience Channels:** 245 -> 249
-- **Projected Lens Symbols:** 256 -> 260
+- **Total New Sieves / Tensors:** 5 (Phases 441–445)
+- **Projected Resilience Channels:** 245 -> 250
+- **Projected Lens Symbols:** 256 -> 261
 - **Status:** Staged in `UPGRADE_PLANING` for future execution when authorized.
