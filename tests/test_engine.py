@@ -4105,7 +4105,7 @@ class TestPhase66to69HeptarchyAndAtomicGuardrails:
 
         assert "modi" in PersonaNarrator.ARCHETYPES
         assert "sai_deepak" in PersonaNarrator.ARCHETYPES
-        assert len(PersonaNarrator.ARCHETYPES) in (8, 9, 13, 14)  # 8/9 operational archetypes; 13 after Vedic Trayodasha; 14 after Sadhguru expansion
+        assert len(PersonaNarrator.ARCHETYPES) in (8, 9, 13, 14, 17)  # 8/9 operational archetypes; 13 after Vedic Trayodasha; 14 after Sadhguru; 17 after Phase 447 council expansion
 
         mock_event = SummitEvent(summit_name="BRICS 2026 Test", year=2026, host_country="India")
         mock_report = SummitAnalysisReport(event=mock_event, overall_confidence_score=0.92)
@@ -4126,7 +4126,7 @@ class TestPhase66to69HeptarchyAndAtomicGuardrails:
 
         # 3. Test apply_all_personas
         all_res = PersonaNarrator.apply_all_personas(mock_report)
-        assert len(all_res) in (8, 9, 13, 14)
+        assert len(all_res) in (8, 9, 13, 14, 17)
         for k in ["sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah", "modi", "sai_deepak", "neutral"]:
             assert k in all_res
 
@@ -15064,5 +15064,59 @@ class TestPhases441to447SovereignForensicSievesAndExtendedCouncil:
         assert "institutional_lawfare" in sq.prioritized_lenses
         assert "critical_minerals" in sq.prioritized_lenses
         assert "geo_economist" in sq.prioritized_lenses
+
+    def test_phases441_to_447_speaker_profiler_and_extended_personas(self):
+        from geo_engine.core.speaker_profiler import EpistemicSpeakerProfiler, SpeakerArchetype
+        from geo_engine.core.query_parser import QueryParser
+        from geo_engine.arbitration.persona_narrator import PersonaNarrator
+        from geo_engine.core.models import SummitEvent, SummitAnalysisReport
+
+        # 1. Verify speaker profiles
+        prof_mj = EpistemicSpeakerProfiler.get_profile("Dr. Meenakshi Jain")
+        assert prof_mj is not None
+        assert prof_mj.canonical_id == "PROF-MEENAKSHI-JAIN"
+        assert prof_mj.archetype == SpeakerArchetype.EPIGRAPHIC_ARCHAEOLOGY_HISTORIOGRAPHY
+        assert prof_mj.baseline_reliability_weight == 0.96
+
+        prof_ag = EpistemicSpeakerProfiler.get_profile("Ami Ganatra")
+        assert prof_ag is not None
+        assert prof_ag.canonical_id == "PROF-AMI-GANATRA"
+        assert prof_ag.archetype == SpeakerArchetype.CANONICAL_EPIC_TEXTUAL_FIDELITY
+        assert prof_ag.baseline_reliability_weight == 0.95
+
+        prof_ga = EpistemicSpeakerProfiler.get_profile("Major Gaurav Arya")
+        assert prof_ga is not None
+        assert prof_ga.canonical_id == "PROF-GAURAV-ARYA"
+        assert prof_ga.archetype == SpeakerArchetype.TACTICAL_MILITARY_REALISM
+        assert prof_ga.baseline_reliability_weight == 0.90
+
+        # 2. Verify QueryParser leader patterns and speaker profile resolution
+        q = (
+            "Examine statements by Dr. Meenakshi Jain on temple inscriptions, "
+            "Ami Ganatra on Mahabharata critical edition, and Major Gaurav Arya on LoC deterrence."
+        )
+        sq = QueryParser.parse(q)
+        assert "Dr. Meenakshi Jain" in sq.target_leaders
+        assert "Ami Ganatra" in sq.target_leaders
+        assert "Major Gaurav Arya" in sq.target_leaders
+        profile_ids = [p["canonical_id"] for p in sq.speaker_profiles]
+        assert "PROF-MEENAKSHI-JAIN" in profile_ids
+        assert "PROF-AMI-GANATRA" in profile_ids
+        assert "PROF-GAURAV-ARYA" in profile_ids
+
+        # 3. Verify PersonaNarrator for new archetypes
+        from geo_engine.core.models import SummitAnalysisReport
+        report = SummitAnalysisReport(
+            event=SummitEvent(summit_name="Benchmark Summit", year=2026),
+            overall_confidence_score=0.85,
+            hard_money_audit={"total_nominal_announced_usd": 100e9, "total_effective_capex_usd": 15e9, "aggregate_haircut_pct": 85.0},
+        )
+        for persona_key in ["meenakshi_jain", "ami_ganatra", "gaurav_arya"]:
+            assert persona_key in PersonaNarrator.ARCHETYPES
+            p_res = PersonaNarrator.apply_persona(report, persona_key)
+            assert p_res["archetype_key"] == persona_key
+            assert len(p_res["executive_takeaway"]) > 50
+            assert len(p_res["strategic_recommendations"]) >= 3
+
 
 

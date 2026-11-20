@@ -24,6 +24,9 @@ class SpeakerArchetype(str, Enum):
     INDIC_CULTURAL_RHETORIC = "INDIC_CULTURAL_RHETORIC"
     VEDIC_SCIENTIFIC_NATIONALISM = "VEDIC_SCIENTIFIC_NATIONALISM"
     ECOLOGICAL_CONSCIOUSNESS_REALISM = "ECOLOGICAL_CONSCIOUSNESS_REALISM"
+    EPIGRAPHIC_ARCHAEOLOGY_HISTORIOGRAPHY = "EPIGRAPHIC_ARCHAEOLOGY_HISTORIOGRAPHY"
+    CANONICAL_EPIC_TEXTUAL_FIDELITY = "CANONICAL_EPIC_TEXTUAL_FIDELITY"
+    TACTICAL_MILITARY_REALISM = "TACTICAL_MILITARY_REALISM"
     INDEPENDENT_ANALYST = "INDEPENDENT_ANALYST"
 
 
@@ -468,6 +471,84 @@ _CANONICAL_PROFILES = [
             "isha", "maryada", "consecrated spaces", "living soil",
         ],
         baseline_reliability_weight=0.94,
+    ),
+    SpeakerProfile(
+        name="Dr. Meenakshi Jain",
+        canonical_id="PROF-MEENAKSHI-JAIN",
+        archetype=SpeakerArchetype.EPIGRAPHIC_ARCHAEOLOGY_HISTORIOGRAPHY,
+        core_frameworks=[
+            "Primary epigraphic archaeology & inscriptional evidence",
+            "Temple destruction ledgers & revenue settlement records reconciliation",
+            "Deconstruction of secularist and colonial historiographical denialism",
+            "Sacred geography and pilgrimage continuity (Rama and Ayodhya, Kashi, Mathura, Sati)",
+        ],
+        characteristic_strengths=[
+            "Forensic reliance on primary inscriptional and archaeological excavation records",
+            "Refusal to cite ideologically filtered secondary narratives",
+            "Meticulous archival citation of Persian, British, and Sanskrit primary sources",
+            "Irrefutable evidentiary standards accepted in judicial proceedings (Ayodhya Supreme Court verdict)",
+        ],
+        primary_blind_spots=[
+            "Focuses predominantly on medieval and ancient historical/religious documentation rather than modern kinetic or macroeconomic mechanics",
+        ],
+        frequent_thematic_tokens=[
+            "meenakshi jain", "dr meenakshi jain", "epigraphy", "inscriptions", "rama and ayodhya",
+            "kashi vishwanath", "vasudeva krishna", "archaeological survey", "temple demolition records",
+            "sacred geography", "flight of deities", "sati historical record",
+        ],
+        baseline_reliability_weight=0.96,
+    ),
+    SpeakerProfile(
+        name="Ami Ganatra",
+        canonical_id="PROF-AMI-GANATRA",
+        archetype=SpeakerArchetype.CANONICAL_EPIC_TEXTUAL_FIDELITY,
+        core_frameworks=[
+            "Canonical Sanskrit epic critical editions (BORI Mahabharata, Baroda Valmiki Ramayana)",
+            "Shlokic textual precision and manuscript variant reconciliation",
+            "Purging modern pop-cultural revisionism, cinematic interpolations, and fictional tropes",
+            "Shastric statecraft, ethics, and strategic decision-making analysis",
+        ],
+        characteristic_strengths=[
+            "Exact chapter-and-verse Sanskrit citations dispelling popular myths",
+            "Rigorous textual methodology debunking Marxist and modern moral inversion theories",
+            "Accessible exposition of classical statecraft (Mahabharata Unravelled, Ramayana Unravelled)",
+            "High analytical integrity reconciling complex moral dilemmas without whitewashing",
+        ],
+        primary_blind_spots=[
+            "Exclusively textual and manuscript focused; less engagement with contemporary international trade or fiscal instruments",
+        ],
+        frequent_thematic_tokens=[
+            "ami ganatra", "ganatra", "mahabharata unravelled", "ramayana unravelled",
+            "bori critical edition", "baroda critical edition", "shlokic evidence", "karna myth",
+            "dharma yuddha ethics", "canonical epic fidelity", "valmiki shlokas",
+        ],
+        baseline_reliability_weight=0.95,
+    ),
+    SpeakerProfile(
+        name="Major Gaurav Arya",
+        canonical_id="PROF-GAURAV-ARYA",
+        archetype=SpeakerArchetype.TACTICAL_MILITARY_REALISM,
+        core_frameworks=[
+            "Kinetic border realism & counter-insurgency deterrence",
+            "Asymmetric retaliatory cost imposition on hostile deep-state proxy networks",
+            "Deconstruction of adversary cognitive warfare and hybrid propaganda",
+            "Information operations, veterans' perspectives, and national security clarity",
+        ],
+        characteristic_strengths=[
+            "Direct infantry operational experience along the LoC and counter-terror theatres",
+            "Hard-hitting, accessible strategic communication exposing state-sponsored terror financing",
+            "Zero tolerance for diplomatic equivocation or appeasement narratives",
+            "Clear strategic foresight regarding adversary military-economic vulnerabilities (e.g. Pakistan army commercial empire / Fauji Foundation)",
+        ],
+        primary_blind_spots=[
+            "High-intensity tactical focus can occasionally prioritize immediate kinetic retaliation over long-term diplomatic or multilateral balancing nuances",
+        ],
+        frequent_thematic_tokens=[
+            "gaurav arya", "major gaurav arya", "major arya", "the chanakya dialogues",
+            "kinetic deterrence", "cross border terror", "hybrid warfare", "line of control",
+            "rawalpindi ghq", "asymmetric cost", "tactical deterrence", "military realism",
+        ],
+        baseline_reliability_weight=0.90,
     ),
 ]
 

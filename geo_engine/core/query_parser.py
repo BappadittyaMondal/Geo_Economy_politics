@@ -314,6 +314,9 @@ class QueryParser:
         r"\bansari\b|\bhamid ansari\b": "Hamid Ansari",
         r"\bsrijan\b|\bsrijan pal singh\b": "Srijan Pal Singh",
         r"\bsai deepak\b|\bj\.?\s*sai deepak\b": "J. Sai Deepak",
+        r"\bmeenakshi\b|\bmeenakshi jain\b|\bdr meenakshi jain\b": "Dr. Meenakshi Jain",
+        r"\bami\b|\bami ganatra\b": "Ami Ganatra",
+        r"\bgaurav arya\b|\bmajor gaurav arya\b|\bmajor arya\b": "Major Gaurav Arya",
     }
 
     MILITARY_BORDER_KEYWORDS: List[str] = [

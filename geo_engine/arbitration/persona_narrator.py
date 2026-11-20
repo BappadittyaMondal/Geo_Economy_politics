@@ -274,6 +274,57 @@ class PersonaNarrator:
                 "to physically bridge a maritime chokepoint and project force across an ocean."
             )
         },
+        "meenakshi_jain": {
+            "name": "Epigraphic Archaeology & Primary Historiography Realist (Dr. Meenakshi Jain Tradition)",
+            "doctrinal_axis": "Primary Epigraphy, Inscriptional Provenance, Sacred Geography & Historiographical Decolonization",
+            "lens_weights": {
+                "HistoryLens": 2.0,
+                "CivilizationalLens": 1.8,
+                "InstitutionalLawfareLens": 1.6,
+                "PropagandaLens": 1.5,
+                "IndiaTimelineLens": 1.5,
+            },
+            "conceptual_framing": (
+                "A forensic epigraphic and primary archival framework: historical statecraft, sacred geography, "
+                "and territorial claims must be authenticated strictly against physical inscriptional records, "
+                "copper plates, architectural excavation layers, and contemporaneous temple revenue ledgers. "
+                "Rejects speculative ideological revisionism and secondary historiographical denialism."
+            ),
+        },
+        "ami_ganatra": {
+            "name": "Canonical Sanskrit Epic Textual Fidelity Realist (Ami Ganatra Tradition)",
+            "doctrinal_axis": "Canonical Shlokic Textual Precision, Mahabharata & Ramayana Primary Manuscript Reconciliation, Anti-Interpolation Audit",
+            "lens_weights": {
+                "CivilizationalLens": 2.0,
+                "HistoryLens": 1.8,
+                "PropagandaLens": 1.7,
+                "GeopoliticalLens": 1.4,
+                "InstitutionalLawfareLens": 1.4,
+            },
+            "conceptual_framing": (
+                "A canonical Shastric and epic textual precision framework: statecraft, strategic ethics, and alliance "
+                "dynamics must be rooted in uncorrupted Sanskrit critical editions (BORI Mahabharata and Baroda Valmiki Ramayana). "
+                "Purges popular cinematic distortions, medieval folk interpolations, and ideological moral inversions to evaluate "
+                "sovereign decision-making through authentic Dharmik precedent and Rajadharma rigor."
+            ),
+        },
+        "gaurav_arya": {
+            "name": "Tactical Military Ground Realism & Hybrid Counter-Deterrence Realist (Major Gaurav Arya Tradition)",
+            "doctrinal_axis": "Kinetic Border Realism, Counter-Insurgency Deterrence, Asymmetric Cost Imposition & Cross-Border Hybrid Threat Neutralization",
+            "lens_weights": {
+                "MilitaryReadinessLens": 2.0,
+                "HybridCovertLens": 1.8,
+                "GeopoliticalLens": 1.6,
+                "DemographicInfiltrationLens": 1.5,
+                "PropagandaLens": 1.4,
+            },
+            "conceptual_framing": (
+                "A hard tactical military realism framework: national sovereignty is secured on the line of duty with "
+                "boots on the ground, forward airbases, and kinetic escalation dominance. Rejects diplomatic equivocation "
+                "in the face of cross-border asymmetric warfare; demands ruthless cost imposition on adversary military-economic "
+                "cartels (Rawalpindi GHQ / Fauji Foundation) and active neutralization of fifth-column information operations."
+            ),
+        },
         "neutral": {
             "name": "Neutral Epistemic Baseline",
             "doctrinal_axis": "Deterministic Epistemic Truth Hierarchy (Physical > Cash > Redlines > Kinesics > PR)",
@@ -498,6 +549,47 @@ class PersonaNarrator:
                 "Deploy Hanuman Protocol: before full-spectrum engagement, complete covert reconnaissance (intelligence mapping) and psychological warfare (information disruption) phases."
             ]
 
+
+        elif key == "meenakshi_jain":
+            takeaway = (
+                "Through the lens of primary epigraphic archaeology and inscriptional decolonization, civilizational "
+                "legitimacy and sovereign continuity are anchored in physical, dated stone inscriptions, copper plates, "
+                "and revenue records—not in imported colonial or ideologically motivated secondary narratives. "
+                "Whether evaluating temple despoliation, sacred pilgrimage geography, or territorial boundary claims, "
+                "Bharat must rely strictly on undeniable archaeological provenance and primary document audits to "
+                "assert its civilizational sovereignty."
+            )
+            recommendations = [
+                "Mandate primary inscriptional and epigraphic evidence for all civilizational and territorial historical disputes.",
+                "Dismantle colonial and secularist historiographical distortions using primary archaeological excavation ledgers.",
+                "Protect and legally fortify sacred geography through comprehensive digital and physical epigraphic documentation."
+            ]
+
+        elif key == "ami_ganatra":
+            takeaway = (
+                "From the perspective of canonical Sanskrit epic textual fidelity, statecraft and strategic ethics must "
+                "be derived from the authoritative critical editions of the Mahabharata and Ramayana, rather than popular "
+                "folklore, television serials, or ideological revisionism. Classical statecraft (Rajadharma) demands rigorous "
+                "adherence to duty without moral confusion, distinguishing between genuine peace diplomacy and cowardly appeasement."
+            )
+            recommendations = [
+                "Audit strategic decision-making against canonical Sanskrit epic precedents (BORI and Baroda Critical Editions).",
+                "Purge modern pop-cultural interpolations and moral inversions that undermine civilizational strategic clarity.",
+                "Apply the Udyoga Parva diplomatic exhaustion protocol before engaging in righteous civilizational defense."
+            ]
+
+        elif key == "gaurav_arya":
+            takeaway = (
+                "From the uncompromising standpoint of tactical military ground realism and asymmetric hybrid deterrence, "
+                "national sovereignty is non-negotiable and must be defended through kinetic readiness and cross-border cost imposition. "
+                "Polite diplomatic communiqués cannot substitute for combat dominance. Adversary military-commercial cartels "
+                "(Rawalpindi GHQ / Fauji Foundation) must be held accountable through relentless financial, diplomatic, and asymmetric counter-measures."
+            )
+            recommendations = [
+                "Enforce strict kinetic escalation dominance along vulnerable border sectors and strategic corridors.",
+                "Impose direct economic and asymmetric retaliatory costs on hostile cross-border deep-state terror infrastructure.",
+                "Neutralize adversary hybrid information warfare and proxy propaganda networks with decisive cognitive counter-strikes."
+            ]
 
         elif key == "neutral":
             takeaway = (
