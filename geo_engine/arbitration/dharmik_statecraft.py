@@ -198,6 +198,18 @@ class DharmikStatecraftPipeline:
             "Maryada_Purushottam_Sri_Ram": (
                 f"Ram Rajya Governance: Sovereign integrity is grounded in Praja-Anuraga and total adherence to ethical governance."
             ),
+            "Dr_Meenakshi_Jain": (
+                f"Epigraphic & Sacred Geography: Inscriptional continuity and primary archaeological evidence "
+                f"unmask iconoclastic distortions; reclaim civilizational heritage through rigorous historical record."
+            ),
+            "Ami_Ganatra": (
+                f"Canonical Sanskrit Epic Textual Fidelity: Primary shlokas of Mahabharata and Ramayana dispel popular "
+                f"apocrypha; evaluate statecraft through authentic Dharmik precedent and un-mutilated manuscript rigor."
+            ),
+            "Major_Gaurav_Arya": (
+                f"Tactical Military Ground Realism: Kinetic deterrence score {s_saptanga:.2f}. "
+                f"Impose asymmetric retaliatory costs on hostile cross-border deep-state terror infrastructure."
+            ),
         }
 
         return DharmikStatecraftEvaluation(

@@ -538,6 +538,26 @@ class InstitutionalLawfareLens:
         )
         metrics["civilizational_jurisprudence_decolonial_score"] = _jsd_res["civilizational_jurisprudence_decolonial_score"]
 
+        # Phase 443: Transnational Diaspora Lawfare and Narrative Subversion Sieve
+        _tds_res = TransnationalDiasporaLawfareAndNarrativeSubversionSieve.evaluate(
+            think_tank_echo_coordination=law_meta.get("think_tank_echo_coordination", 0.70),
+            constitutional_narrative_export=law_meta.get("constitutional_narrative_export", 0.65),
+            wedge_issue_amplification=law_meta.get("wedge_issue_amplification", 0.75),
+            counter_narrative_response_speed=law_meta.get("counter_narrative_response_speed", 0.70),
+            sovereign_legal_counter_offense=law_meta.get("sovereign_legal_counter_offense", 0.65),
+        )
+        metrics["transnational_diaspora_subversion_risk"] = _tds_res["transnational_diaspora_subversion_risk"]
+
+        # Phase 446: Supranational Oligarchy and Deep State Subversion Sieve
+        _sod_res = SupranationalOligarchyAndDeepStateSubversionSieve.evaluate(
+            wef_pushback_index=law_meta.get("wef_pushback_index", 0.70),
+            judicial_intel_lawfare=law_meta.get("judicial_intel_lawfare", 0.65),
+            tech_monopoly_censorship=law_meta.get("tech_monopoly_censorship", 0.75),
+            sovereign_rating_cartel_bias=law_meta.get("sovereign_rating_cartel_bias", 0.60),
+            sovereign_autonomy_enforcement=law_meta.get("sovereign_autonomy_enforcement", 0.75),
+        )
+        metrics["supranational_deep_state_subversion_risk"] = _sod_res["supranational_deep_state_subversion_risk"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -2379,4 +2399,109 @@ class ElectoralLawfareAndJudicialDisqualificationSieve:
             "operational_verdict": verdict,
             "is_electoral_lawfare_acute": final_score >= 0.65,
         }
+
+
+class TransnationalDiasporaLawfareAndNarrativeSubversionSieve:
+    """Phase 443: Transnational Diaspora Lawfare & Narrative Subversion Sieve.
+    Quantifies the weaponization of overseas diaspora groups, hostile foreign parliamentary motions,
+    coordinated think-tank echo chambers, and extraterritorial legal filings aimed at delegitimizing
+    sovereign governance and national security initiatives.
+    Formula:
+        RawSubversion = Norm(0.45 * think_tank_echo_coordination + 0.35 * constitutional_narrative_export + 0.20 * wedge_issue_amplification)
+        Mitigation = 0.50 * counter_narrative_response_speed + 0.50 * sovereign_legal_counter_offense
+        SubversionRisk = RawSubversion * (1.0 - 0.50 * Mitigation)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        think_tank_echo_coordination: float = 0.70,
+        constitutional_narrative_export: float = 0.65,
+        wedge_issue_amplification: float = 0.75,
+        counter_narrative_response_speed: float = 0.70,
+        sovereign_legal_counter_offense: float = 0.65,
+    ) -> Dict[str, Any]:
+        f_echo = float(max(0.0, min(1.0, think_tank_echo_coordination)))
+        d_const = float(max(0.0, min(1.0, constitutional_narrative_export)))
+        w_wedge = float(max(0.0, min(1.0, wedge_issue_amplification)))
+        c_speed = float(max(0.0, min(1.0, counter_narrative_response_speed)))
+        s_legal = float(max(0.0, min(1.0, sovereign_legal_counter_offense)))
+
+        raw_subversion = 0.45 * f_echo + 0.35 * d_const + 0.20 * w_wedge
+        mitigation = 0.50 * c_speed + 0.50 * s_legal
+        d_subversion = round(max(0.0, min(1.0, raw_subversion * (1.0 - 0.50 * mitigation))), 4)
+
+        if d_subversion >= 0.50:
+            tier = "SEVERE_TRANSNATIONAL_DIASPORA_SUBVERSION_RISK"
+            verdict = "DEPLOY_JURISDICTIONAL_COUNTER_MEASURES_AND_DIPLOMATIC_DEMARCHES"
+        elif d_subversion >= 0.25:
+            tier = "ELEVATED_NARRATIVE_ASYMMETRY"
+            verdict = "STRENGTHEN_INSTITUTIONAL_LEGAL_COUNTERS_AND_PRIMARY_SCHOLARSHIP"
+        else:
+            tier = "CONTAINED_INFORMATION_DOMAIN"
+            verdict = "MAINTAIN_VIGILANT_MEDIA_AND_DIASPORA_COHESION_MONITORING"
+
+        return {
+            "transnational_diaspora_subversion_risk": d_subversion,
+            "think_tank_echo_coordination": round(f_echo, 4),
+            "constitutional_narrative_export": round(d_const, 4),
+            "wedge_issue_amplification": round(w_wedge, 4),
+            "counter_narrative_response_speed": round(c_speed, 4),
+            "sovereign_legal_counter_offense": round(s_legal, 4),
+            "narrative_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "is_subversion_contained": d_subversion < 0.35,
+        }
+
+
+class SupranationalOligarchyAndDeepStateSubversionSieve:
+    """Phase 446: Supranational Oligarchy & Deep State Subversion Sieve.
+    Evaluates institutional and regulatory entrapment orchestrated by transnational oligarchic
+    networks, Davos/WEF policy mandates, rating agency cartels, Big Tech monopolistic narrative
+    curation, and covert intelligence alignment against sovereign decision-making.
+    Formula:
+        RawSubversion = Norm(0.35 * wef_pushback_index + 0.30 * judicial_intel_lawfare + 0.20 * tech_monopoly_censorship + 0.15 * sovereign_rating_cartel_bias)
+        SubversionRisk = RawSubversion * (1.0 - 0.40 * sovereign_autonomy_enforcement)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        wef_pushback_index: float = 0.70,
+        judicial_intel_lawfare: float = 0.65,
+        tech_monopoly_censorship: float = 0.75,
+        sovereign_rating_cartel_bias: float = 0.60,
+        sovereign_autonomy_enforcement: float = 0.75,
+    ) -> Dict[str, Any]:
+        w_wef = float(max(0.0, min(1.0, wef_pushback_index)))
+        j_law = float(max(0.0, min(1.0, judicial_intel_lawfare)))
+        t_mono = float(max(0.0, min(1.0, tech_monopoly_censorship)))
+        r_rate = float(max(0.0, min(1.0, sovereign_rating_cartel_bias)))
+        s_auto = float(max(0.0, min(1.0, sovereign_autonomy_enforcement)))
+
+        raw_subversion = 0.35 * w_wef + 0.30 * j_law + 0.20 * t_mono + 0.15 * r_rate
+        o_subversion = round(max(0.0, min(1.0, raw_subversion * (1.0 - 0.40 * s_auto))), 4)
+
+        if o_subversion >= 0.50:
+            tier = "ACUTE_SUPRANATIONAL_DEEP_STATE_SUBVERSION_RISK"
+            verdict = "ENFORCE_DOMESTIC_DATA_LOCALIZATION_AND_SANCTION_INTERFERING_ENTITIES"
+        elif o_subversion >= 0.25:
+            tier = "ELEVATED_OLIGARCHICAL_REGULATORY_PRESSURE"
+            verdict = "DIVERSIFY_CREDIT_RATING_AGENCIES_AND_EXPEDITE_INDIGENOUS_TECH_STANDARDS"
+        else:
+            tier = "SECURE_SOVEREIGN_REGULATORY_FRAMEWORK"
+            verdict = "SUSTAIN_PROACTIVE_INSTITUTIONAL_FIREWALLS_AND_DIPLOMATIC_AUTONOMY"
+
+        return {
+            "supranational_deep_state_subversion_risk": o_subversion,
+            "wef_pushback_index": round(w_wef, 4),
+            "judicial_intel_lawfare": round(j_law, 4),
+            "tech_monopoly_censorship": round(t_mono, 4),
+            "sovereign_rating_cartel_bias": round(r_rate, 4),
+            "sovereign_autonomy_enforcement": round(s_auto, 4),
+            "deep_state_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "is_institutional_autonomy_intact": o_subversion < 0.35,
+        }
+
 

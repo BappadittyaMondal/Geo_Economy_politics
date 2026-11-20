@@ -267,6 +267,17 @@ class GeopoliticalLens:
         )
         metrics["multipolar_hedging_reciprocal_leverage_score"] = _mhs_res["multipolar_hedging_reciprocal_leverage_score"]
 
+        # Phase 441: Tripolar Superpower Condominium and Exclusion Tensor
+        _tce_res = TripolarSuperpowerCondominiumAndExclusionTensor.evaluate(
+            bilateral_truce_depth=geo_meta.get("bilateral_truce_depth", 0.50),
+            energy_pact_alignment=geo_meta.get("energy_pact_alignment", 0.45),
+            nuclear_risk_reduction_cooperation=geo_meta.get("nuclear_risk_reduction_cooperation", 0.40),
+            multipolar_hedging_capacity=geo_meta.get("multipolar_hedging_capacity", 0.85),
+            sagar_naval_posture=geo_meta.get("sagar_naval_posture", 0.80),
+            domestic_capex_resilience=geo_meta.get("domestic_capex_resilience", 0.85),
+        )
+        metrics["tripolar_condominium_exclusion_risk"] = _tce_res["tripolar_condominium_exclusion_risk"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1005,4 +1016,65 @@ class GlobalPolycrisisCollisionAndSystemicCascadeTensor:
             "operational_verdict": verdict,
             "is_polycrisis_critical": final_index >= 0.45,
         }
+
+
+class TripolarSuperpowerCondominiumAndExclusionTensor:
+    """Phase 441: Tripolar Superpower Condominium & Exclusion Tensor.
+    Evaluates the threat of a tripolar condominium (US-China-Russia trilateral accommodation or regional
+    carve-outs, or US-China G2 entente) excluding middle/rising powers like Bharat from global rule-making,
+    maritime access, or tech corridors.
+    Formula:
+        RawCondominiumRisk = Norm(0.40 * bilateral_truce_depth + 0.35 * energy_pact_alignment + 0.25 * nuclear_risk_reduction_cooperation)
+        CondominiumRisk = RawCondominiumRisk * (1.0 - 0.45 * multipolar_hedging_capacity)
+        z = 2.5 * sagar_naval_posture + 2.0 * domestic_capex_resilience - 1.8 * CondominiumRisk - 1.5
+        SovereignAutonomy = 1.0 / (1.0 + exp(-z))
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        bilateral_truce_depth: float = 0.50,
+        energy_pact_alignment: float = 0.45,
+        nuclear_risk_reduction_cooperation: float = 0.40,
+        multipolar_hedging_capacity: float = 0.85,
+        sagar_naval_posture: float = 0.80,
+        domestic_capex_resilience: float = 0.85,
+    ) -> Dict[str, Any]:
+        b_truce = float(max(0.0, min(1.0, bilateral_truce_depth)))
+        e_pact = float(max(0.0, min(1.0, energy_pact_alignment)))
+        n_nuke = float(max(0.0, min(1.0, nuclear_risk_reduction_cooperation)))
+        m_hedge = float(max(0.0, min(1.0, multipolar_hedging_capacity)))
+        s_sagar = float(max(0.0, min(1.0, sagar_naval_posture)))
+        d_capex = float(max(0.0, min(1.0, domestic_capex_resilience)))
+
+        raw_risk = 0.40 * b_truce + 0.35 * e_pact + 0.25 * n_nuke
+        c_risk = round(max(0.0, min(1.0, raw_risk * (1.0 - 0.45 * m_hedge))), 4)
+
+        z = 2.5 * s_sagar + 2.0 * d_capex - 1.8 * c_risk - 1.5
+        s_autonomy = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if c_risk >= 0.55:
+            tier = "SEVERE_TRIPOLAR_CONDOMINIUM_EXCLUSION_RISK"
+            verdict = "ACTIVATE_ASYMMETRIC_CORRIDORS_AND_EXPEDITE_SAGAR_DEPLOYMENTS"
+        elif c_risk >= 0.30:
+            tier = "ELEVATED_SUPERPOWER_CARVEOUT_FRICTION"
+            verdict = "FORTIFY_BILATERAL_SWAPS_AND_MAINTAIN_STRATEGIC_AMBIGUITY"
+        else:
+            tier = "BALANCED_MULTIPOLAR_MANEUVERABILITY"
+            verdict = "PROCEED_WITH_MULTI_ALIGNED_STRATEGIC_ENGAGEMENTS"
+
+        return {
+            "tripolar_condominium_exclusion_risk": c_risk,
+            "sovereign_strategic_autonomy_score": s_autonomy,
+            "bilateral_truce_depth": round(b_truce, 4),
+            "energy_pact_alignment": round(e_pact, 4),
+            "nuclear_risk_reduction_cooperation": round(n_nuke, 4),
+            "multipolar_hedging_capacity": round(m_hedge, 4),
+            "sagar_naval_posture": round(s_sagar, 4),
+            "domestic_capex_resilience": round(d_capex, 4),
+            "condominium_threat_tier": tier,
+            "operational_verdict": verdict,
+            "is_exclusion_shield_effective": s_autonomy >= 0.65,
+        }
+
 

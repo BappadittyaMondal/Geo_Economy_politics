@@ -213,6 +213,14 @@ class StrategicQuery(BaseModel):
     requires_leo_orbital_weaponization: bool = False
     requires_taiwan_semiconductor_choke: bool = False
     requires_electoral_lawfare_polarization: bool = False
+    # Phases 441-447: Sovereign Forensic Sieves & Multilateral Autonomy Tensors
+    requires_tripolar_condominium: bool = False
+    requires_ai_labor_displacement: bool = False
+    requires_diaspora_subversion: bool = False
+    requires_gpu_export_chokepoint: bool = False
+    requires_reer_appreciation_friction: bool = False
+    requires_supranational_deep_state: bool = False
+    requires_bullion_cyber_sovereignty: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -639,6 +647,14 @@ class QueryParser:
         req_leo_orbital = any(cls.matches_keyword(text_lower, kw) for kw in ["low earth orbit congestion", "leo weaponization", "asat debris", "kessler syndrome", "orbital congestion"])
         req_taiwan_choke = any(cls.matches_keyword(text_lower, kw) for kw in ["taiwan strait quarantine", "davidson window", "pla centenary 2027", "tsmc sub-5nm choke", "semiconductor quarantine"])
         req_electoral_lawfare = any(cls.matches_keyword(text_lower, kw) for kw in ["electoral lawfare", "judicial disqualification", "le pen disqualification", "afd ban", "post-democratic"])
+        # Phases 441-447: Sovereign Forensic Sieves & Multilateral Autonomy Tensors
+        req_tripolar_condominium = any(cls.matches_keyword(text_lower, kw) for kw in ["tripolar condominium", "g2 entente", "superpower carveout", "exclusion risk", "multipolar hedging capacity"])
+        req_ai_labor_displacement = any(cls.matches_keyword(text_lower, kw) for kw in ["ai labor displacement", "services export displacement", "code synthesis rate", "bpo wage arbitrage decay", "voice agent displacement"])
+        req_diaspora_subversion = any(cls.matches_keyword(text_lower, kw) for kw in ["transnational diaspora subversion", "diaspora lawfare", "think tank echo", "constitutional narrative export", "wedge issue amplification"])
+        req_gpu_export_chokepoint = any(cls.matches_keyword(text_lower, kw) for kw in ["gpu export control", "semiconductor chokepoint", "h100 ban", "b200 export", "lithography denial", "advanced packaging chokepoint"])
+        req_reer_appreciation = any(cls.matches_keyword(text_lower, kw) for kw in ["currency appreciation friction", "reer overvaluation", "it margin compression", "msme competitiveness loss", "rupee appreciation"])
+        req_supranational_deep_state = any(cls.matches_keyword(text_lower, kw) for kw in ["supranational deep state", "wef pushback", "davos mandate", "oligarchical regulatory pressure", "rating cartel bias"])
+        req_bullion_cyber_sovereignty = any(cls.matches_keyword(text_lower, kw) for kw in ["bullion pricing power", "gift city bullion", "scada cyber sovereignty", "physical gold settlement", "paper gold discount spread"])
 
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
             active_lenses.append("digital_sovereignty")
@@ -850,6 +866,21 @@ class QueryParser:
             active_lenses.append("critical_minerals")
         if req_electoral_lawfare and "institutional_lawfare" not in active_lenses:
             active_lenses.append("institutional_lawfare")
+        # Phases 441-447: Route active lenses for Sovereign Forensic Sieves
+        if req_tripolar_condominium and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_ai_labor_displacement and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
+        if req_diaspora_subversion and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_gpu_export_chokepoint and "critical_minerals" not in active_lenses:
+            active_lenses.append("critical_minerals")
+        if req_reer_appreciation and "geo_economist" not in active_lenses:
+            active_lenses.append("geo_economist")
+        if req_supranational_deep_state and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_bullion_cyber_sovereignty and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
 
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
@@ -1067,6 +1098,14 @@ class QueryParser:
             requires_leo_orbital_weaponization=req_leo_orbital,
             requires_taiwan_semiconductor_choke=req_taiwan_choke,
             requires_electoral_lawfare_polarization=req_electoral_lawfare,
+            # Phases 441-447: Sovereign Forensic Sieves & Multilateral Autonomy Tensors
+            requires_tripolar_condominium=req_tripolar_condominium,
+            requires_ai_labor_displacement=req_ai_labor_displacement,
+            requires_diaspora_subversion=req_diaspora_subversion,
+            requires_gpu_export_chokepoint=req_gpu_export_chokepoint,
+            requires_reer_appreciation_friction=req_reer_appreciation,
+            requires_supranational_deep_state=req_supranational_deep_state,
+            requires_bullion_cyber_sovereignty=req_bullion_cyber_sovereignty,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

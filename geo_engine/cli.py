@@ -1856,7 +1856,7 @@ def main():
                 t.add_row(h, f"{prob * 100:.2f}%")
             console.print(t)
 
-            tc = Table(title="Complete 19-Member Sovereign Epistemic Council Directives")
+            tc = Table(title="Complete 22-Member Sovereign Epistemic Council Directives")
             tc.add_column("Council Member", style="bold yellow")
             tc.add_column("Strategic Directive & Shastric Lens")
             for member, comment in eval_res.council_perspectives.items():

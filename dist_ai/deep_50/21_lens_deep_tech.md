@@ -517,6 +517,29 @@ class DeepTechLens:
         )
         metrics["directed_energy_weapon_neutralization_score"] = _dew_res["directed_energy_weapon_neutralization_score"]
 
+        # Phase 442: Services Export Labor Displacement and AI Substitution Tensor
+        _sld_res = ServicesExportLaborDisplacementAndAISubstitutionTensor.evaluate(
+            code_synthesis_rate=deep_meta.get("code_synthesis_rate", 0.75),
+            voice_agent_displacement_rate=deep_meta.get("voice_agent_displacement_rate", 0.70),
+            bpo_wage_arbitrage_decay=deep_meta.get("bpo_wage_arbitrage_decay", 0.65),
+            physical_manufacturing_capex=deep_meta.get("physical_manufacturing_capex", 0.75),
+            sovereign_dpi_adoption=deep_meta.get("sovereign_dpi_adoption", 0.85),
+            high_end_skill_pivot_rate=deep_meta.get("high_end_skill_pivot_rate", 0.70),
+        )
+        metrics["ai_services_labor_displacement_index"] = _sld_res["ai_services_labor_displacement_index"]
+
+        # Phase 447: Critical Infrastructure Cyber Sovereignty and Bullion Pricing Tensor
+        _cib_res = CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor.evaluate(
+            gift_city_bullion_volume=deep_meta.get("gift_city_bullion_volume", 0.70),
+            shanghai_dubai_moscow_corridor_sync=deep_meta.get("shanghai_dubai_moscow_corridor_sync", 0.75),
+            physical_delivery_ratio=deep_meta.get("physical_delivery_ratio", 0.85),
+            paper_discount_spread=deep_meta.get("paper_discount_spread", 0.15),
+            airgapped_grid_infra_ratio=deep_meta.get("airgapped_grid_infra_ratio", 0.80),
+            pqc_authentication_coverage=deep_meta.get("pqc_authentication_coverage", 0.70),
+            foreign_os_dependency_ratio=deep_meta.get("foreign_os_dependency_ratio", 0.25),
+        )
+        metrics["physical_bullion_pricing_power_and_cyber_resilience_score"] = _cib_res["physical_bullion_pricing_power_and_cyber_resilience_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -1497,6 +1520,133 @@ class LowEarthOrbitCongestionAndOrbitalWeaponizationSieve:
             "operational_verdict": verdict,
             "is_orbital_vulnerability_acute": final_score >= 0.60,
         }
+
+
+class ServicesExportLaborDisplacementAndAISubstitutionTensor:
+    """Phase 442: Services Export Labor Displacement & AI Substitution Tensor.
+    Quantifies structural disruption to IT/ITES and BPO exports from generative AI code synthesis,
+    autonomous voice agents, and wage-arbitrage decay, offset by physical manufacturing capex,
+    sovereign DPI platforms, and high-end skill pivots.
+    Formula:
+        RawDisplacement = Norm(0.45 * code_synthesis_rate + 0.35 * voice_agent_displacement_rate + 0.20 * bpo_wage_arbitrage_decay)
+        RawMoat = Norm(0.40 * physical_manufacturing_capex + 0.35 * sovereign_dpi_adoption + 0.25 * high_end_skill_pivot_rate)
+        DisplacementIndex = RawDisplacement * (1.0 - 0.40 * RawMoat)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        code_synthesis_rate: float = 0.75,
+        voice_agent_displacement_rate: float = 0.70,
+        bpo_wage_arbitrage_decay: float = 0.65,
+        physical_manufacturing_capex: float = 0.75,
+        sovereign_dpi_adoption: float = 0.85,
+        high_end_skill_pivot_rate: float = 0.70,
+    ) -> Dict[str, Any]:
+        s_code = float(max(0.0, min(1.0, code_synthesis_rate)))
+        v_voice = float(max(0.0, min(1.0, voice_agent_displacement_rate)))
+        b_wage = float(max(0.0, min(1.0, bpo_wage_arbitrage_decay)))
+        m_mfg = float(max(0.0, min(1.0, physical_manufacturing_capex)))
+        d_dpi = float(max(0.0, min(1.0, sovereign_dpi_adoption)))
+        e_skill = float(max(0.0, min(1.0, high_end_skill_pivot_rate)))
+
+        raw_disp = 0.45 * s_code + 0.35 * v_voice + 0.20 * b_wage
+        raw_moat = 0.40 * m_mfg + 0.35 * d_dpi + 0.25 * e_skill
+
+        l_disp = round(max(0.0, min(1.0, raw_disp * (1.0 - 0.40 * raw_moat))), 4)
+        r_moat = round(max(0.0, min(1.0, raw_moat)), 4)
+
+        if l_disp >= 0.55:
+            tier = "SEVERE_AI_SERVICES_LABOR_DISPLACEMENT_RISK"
+            verdict = "EXPEDITE_PHYSICAL_MANUFACTURING_CAPEX_AND_DPI_INTEGRATION"
+        elif l_disp >= 0.30:
+            tier = "MODERATE_COGNITIVE_AUTOMATION_HEADWIND"
+            verdict = "ACCELERATE_DEEP_TECH_UPSKILLING_AND_SOVEREIGN_AI_FOUNDRY_EXPANSION"
+        else:
+            tier = "HIGH_RESILIENCE_LABOR_MOAT"
+            verdict = "MAINTAIN_VALUE_ADD_SERVICES_AND_EXPAND_HARDWARE_INTEGRATION"
+
+        return {
+            "ai_services_labor_displacement_index": l_disp,
+            "sovereign_economic_moat_score": r_moat,
+            "code_synthesis_rate": round(s_code, 4),
+            "voice_agent_displacement_rate": round(v_voice, 4),
+            "bpo_wage_arbitrage_decay": round(b_wage, 4),
+            "physical_manufacturing_capex": round(m_mfg, 4),
+            "sovereign_dpi_adoption": round(d_dpi, 4),
+            "high_end_skill_pivot_rate": round(e_skill, 4),
+            "ai_displacement_tier": tier,
+            "operational_verdict": verdict,
+            "is_labor_moat_resilient": r_moat >= 0.65,
+        }
+
+
+class CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor:
+    """Phase 447: Critical Infrastructure Cyber Sovereignty & Bullion Pricing Tensor.
+    Models physical gold/bullion sovereign pricing power (GIFT City, Shanghai/Dubai/Moscow exchanges)
+    de-linking from Western paper derivative fixes (LBMA/COMEX), coupled with critical SCADA power grid
+    cyber-sovereignty (airgapped topology, Post-Quantum Cryptography, foreign OS purge).
+    Formula:
+        RawBullion = Norm(0.40 * gift_city_bullion_volume + 0.35 * shanghai_dubai_moscow_corridor_sync + 0.25 * physical_delivery_ratio)
+        PhysicalPricing = RawBullion * (1.0 + 0.30 * paper_discount_spread)
+        z = 2.5 * airgapped_grid_infra_ratio + 2.0 * pqc_authentication_coverage - 2.2 * foreign_os_dependency_ratio - 1.0
+        CyberImmunity = 1.0 / (1.0 + exp(-z))
+        CompositeShield = 0.55 * PhysicalPricing + 0.45 * CyberImmunity
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        gift_city_bullion_volume: float = 0.70,
+        shanghai_dubai_moscow_corridor_sync: float = 0.75,
+        physical_delivery_ratio: float = 0.85,
+        paper_discount_spread: float = 0.15,
+        airgapped_grid_infra_ratio: float = 0.80,
+        pqc_authentication_coverage: float = 0.70,
+        foreign_os_dependency_ratio: float = 0.25,
+    ) -> Dict[str, Any]:
+        g_gift = float(max(0.0, min(1.0, gift_city_bullion_volume)))
+        s_corridor = float(max(0.0, min(1.0, shanghai_dubai_moscow_corridor_sync)))
+        p_ratio = float(max(0.0, min(1.0, physical_delivery_ratio)))
+        p_spread = float(max(0.0, min(1.0, paper_discount_spread)))
+        a_air = float(max(0.0, min(1.0, airgapped_grid_infra_ratio)))
+        h_pqc = float(max(0.0, min(1.0, pqc_authentication_coverage)))
+        f_dep = float(max(0.0, min(1.0, foreign_os_dependency_ratio)))
+
+        raw_bullion = 0.40 * g_gift + 0.35 * s_corridor + 0.25 * p_ratio
+        b_pricing = round(max(0.0, min(1.0, raw_bullion * (1.0 + 0.30 * p_spread))), 4)
+
+        z = 2.5 * a_air + 2.0 * h_pqc - 2.2 * f_dep - 1.0
+        c_immunity = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        composite_shield = round(0.55 * b_pricing + 0.45 * c_immunity, 4)
+
+        if composite_shield >= 0.70:
+            tier = "FORTRESS_SOVEREIGN_PRICING_AND_CYBER_SHIELD"
+            verdict = "MAINTAIN_PHYSICAL_SETTLEMENT_PRIMACY_AND_SCALE_PQC_GRID_PROTOCOLS"
+        elif composite_shield >= 0.45:
+            tier = "ELEVATED_PHYSICAL_MACRO_AND_DIGITAL_RESILIENCE"
+            verdict = "ACCELERATE_AIRGAPPING_OF_POWER_GRIDS_AND_EXPEDITE_GIFT_LIQUIDITY"
+        else:
+            tier = "VULNERABLE_FINANCIAL_SETTLEMENT_AND_SCADA_VECTOR"
+            verdict = "URGENTLY_PURGE_FOREIGN_OS_SYSTEMS_AND_ENFORCE_PHYSICAL_BULLION_DELIVERY"
+
+        return {
+            "physical_bullion_pricing_power_and_cyber_resilience_score": composite_shield,
+            "physical_bullion_pricing_power": b_pricing,
+            "scada_cyber_immunity_score": c_immunity,
+            "gift_city_bullion_volume": round(g_gift, 4),
+            "shanghai_dubai_moscow_corridor_sync": round(s_corridor, 4),
+            "physical_delivery_ratio": round(p_ratio, 4),
+            "paper_discount_spread": round(p_spread, 4),
+            "airgapped_grid_infra_ratio": round(a_air, 4),
+            "pqc_authentication_coverage": round(h_pqc, 4),
+            "foreign_os_dependency_ratio": round(f_dep, 4),
+            "sovereign_shield_tier": tier,
+            "operational_verdict": verdict,
+            "is_shield_fortified": composite_shield >= 0.65,
+        }
+
 
 
 ```

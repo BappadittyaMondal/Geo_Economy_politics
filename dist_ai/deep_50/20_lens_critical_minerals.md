@@ -88,6 +88,16 @@ class CriticalMineralsLens:
         )
         metrics["critical_mineral_weaponization_score"] = _cmw_res["critical_mineral_weaponization_score"]
 
+        # Phase 444: Semiconductor Hardware Chokepoint and GPU Export Control Tensor
+        _shc_res = SemiconductorHardwareChokepointAndGPUExportControlTensor.evaluate(
+            export_ban_severity=cm_meta.get("export_ban_severity", 0.80),
+            advanced_packaging_concentration=cm_meta.get("advanced_packaging_concentration", 0.75),
+            lithography_denial_index=cm_meta.get("lithography_denial_index", 0.85),
+            domestic_fab_buffer_months=cm_meta.get("domestic_fab_buffer_months", 18.0),
+            alternative_architecture_readiness=cm_meta.get("alternative_architecture_readiness", 0.40),
+        )
+        metrics["gpu_export_control_chokepoint_vulnerability"] = _shc_res["gpu_export_control_chokepoint_vulnerability"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -318,6 +328,61 @@ class TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve:
             "operational_verdict": verdict,
             "is_semiconductor_choke_critical": final_index >= 0.65,
         }
+
+
+class SemiconductorHardwareChokepointAndGPUExportControlTensor:
+    """Phase 444: Semiconductor Hardware Chokepoint & GPU Export Control Tensor.
+    Quantifies sovereign compute vulnerability to US/allied export control restrictions on advanced
+    AI accelerators (NVIDIA/AMD H100/B200 tier), high-bandwidth memory (HBM3e), advanced packaging (CoWoS),
+    and EUV/DUV lithography tool denial, offset by domestic fab buffering and open silicon architectures.
+    Formula:
+        RawChoke = Norm(0.50 * export_ban_severity + 0.30 * advanced_packaging_concentration + 0.20 * lithography_denial_index)
+        Mitigation = 0.60 * domestic_fab_buffer_ratio + 0.40 * alternative_architecture_readiness
+        ChokepointVulnerability = RawChoke * (1.0 - 0.50 * Mitigation)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        export_ban_severity: float = 0.80,
+        advanced_packaging_concentration: float = 0.75,
+        lithography_denial_index: float = 0.85,
+        domestic_fab_buffer_months: float = 18.0,
+        alternative_architecture_readiness: float = 0.40,
+    ) -> Dict[str, Any]:
+        e_ban = float(max(0.0, min(1.0, export_ban_severity)))
+        p_pack = float(max(0.0, min(1.0, advanced_packaging_concentration)))
+        l_denial = float(max(0.0, min(1.0, lithography_denial_index)))
+        buf_raw = float(max(0.0, domestic_fab_buffer_months))
+        b_buffer = min(1.0, buf_raw / 36.0)
+        a_alt = float(max(0.0, min(1.0, alternative_architecture_readiness)))
+
+        raw_choke = 0.50 * e_ban + 0.30 * p_pack + 0.20 * l_denial
+        mitigation = 0.60 * b_buffer + 0.40 * a_alt
+        g_chokepoint = round(max(0.0, min(1.0, raw_choke * (1.0 - 0.50 * mitigation))), 4)
+
+        if g_chokepoint >= 0.55:
+            tier = "ACUTE_HARDWARE_SANCTIONS_CHOKEPOINT"
+            verdict = "ACCELERATE_INDIGENOUS_PACKAGING_AND_OPEN_SILICON_PILOTS"
+        elif g_chokepoint >= 0.30:
+            tier = "MODERATE_COMPUTE_EQUIPMENT_RESTRICTION"
+            verdict = "DIVERSIFY_OFFSHORE_FOUNDRIES_AND_OPTIMIZE_INFERENCE_EFFICIENCY"
+        else:
+            tier = "RESILIENT_SILICON_SUPPLY_CHAIN"
+            verdict = "EXPAND_STRATEGIC_WAFER_RESERVES_AND_FAB_PARTNERSHIPS"
+
+        return {
+            "gpu_export_control_chokepoint_vulnerability": g_chokepoint,
+            "export_ban_severity": round(e_ban, 4),
+            "advanced_packaging_concentration": round(p_pack, 4),
+            "lithography_denial_index": round(l_denial, 4),
+            "domestic_fab_buffer_ratio": round(b_buffer, 4),
+            "alternative_architecture_readiness": round(a_alt, 4),
+            "silicon_chokepoint_tier": tier,
+            "operational_verdict": verdict,
+            "is_silicon_supply_secure": g_chokepoint < 0.40,
+        }
+
 
 
 ```

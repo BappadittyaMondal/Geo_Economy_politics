@@ -313,6 +313,16 @@ class GeoEconomistLens:
         )
         metrics["sovereign_credit_rating_bias_score"] = _sanyal_res["sovereign_credit_rating_bias_score"]
 
+        # Phase 445: Currency Appreciation Export Friction and REER Tensor
+        _cae_res = CurrencyAppreciationExportFrictionAndREERTensor.evaluate(
+            it_margin_compression_pct=geo_econ_meta.get("it_margin_compression_pct", 0.08),
+            msme_competitiveness_loss=geo_econ_meta.get("msme_competitiveness_loss", 0.35),
+            reer_index=geo_econ_meta.get("reer_index", 106.0),
+            crude_import_savings_rate=geo_econ_meta.get("crude_import_savings_rate", 0.45),
+            external_debt_service_relief=geo_econ_meta.get("external_debt_service_relief", 0.50),
+        )
+        metrics["currency_appreciation_export_friction_score"] = _cae_res["currency_appreciation_export_friction_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1473,3 +1483,63 @@ class ComplexAdaptiveMacroeconomicAndRatingCartelSieve:
             "tactical_rationale": rationale,
             "is_rating_cartel_bias_critical": score >= 0.70,
         }
+
+
+class CurrencyAppreciationExportFrictionAndREERTensor:
+    """Phase 445: Currency Appreciation Export Friction & REER Tensor.
+    Evaluates terms-of-trade dilemmas and export competitiveness frictions arising from sudden
+    sovereign currency appreciation (e.g. Rupee strengthening against USD/EUR), modeling margin
+    compression for price-sensitive services/IT exports and labor-intensive MSME manufacturing,
+    counterbalanced by cheaper energy/crude import bills and reduced external debt service burdens.
+    Formula:
+        RawFriction = Norm(0.45 * it_margin_compression + 0.35 * msme_competitiveness_loss + 0.20 * reer_deviation)
+        z = 2.0 * crude_import_savings_rate + 1.8 * external_debt_service_relief - 2.2 * RawFriction - 0.5
+        MacroResilience = 1.0 / (1.0 + exp(-z))
+        FrictionScore = RawFriction * (1.0 - 0.35 * MacroResilience)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        it_margin_compression_pct: float = 0.08,
+        msme_competitiveness_loss: float = 0.35,
+        reer_index: float = 106.0,
+        crude_import_savings_rate: float = 0.45,
+        external_debt_service_relief: float = 0.50,
+    ) -> Dict[str, Any]:
+        raw_it = float(it_margin_compression_pct)
+        m_it = float(max(0.0, min(1.0, raw_it / 0.20 if raw_it <= 0.25 else raw_it)))
+        m_msme = float(max(0.0, min(1.0, msme_competitiveness_loss)))
+        reer_val = float(reer_index)
+        reer_dev = float(max(0.0, min(1.0, (reer_val - 100.0) / 25.0))) if reer_val >= 100.0 else 0.0
+        c_crude = float(max(0.0, min(1.0, crude_import_savings_rate)))
+        d_debt = float(max(0.0, min(1.0, external_debt_service_relief)))
+
+        raw_friction = 0.45 * m_it + 0.35 * m_msme + 0.20 * reer_dev
+        z = 2.0 * c_crude + 1.8 * d_debt - 2.2 * raw_friction - 0.5
+        s_resilience = round(1.0 / (1.0 + math.exp(-z)), 4)
+        a_friction = round(max(0.0, min(1.0, raw_friction * (1.0 - 0.35 * s_resilience))), 4)
+
+        if a_friction >= 0.50:
+            tier = "SEVERE_CURRENCY_APPRECIATION_EXPORT_FRICTION"
+            verdict = "DEPLOY_TARGETED_EXPORT_CREDIT_REBATES_AND_CALIBRATE_FX_INTERVENTIONS"
+        elif a_friction >= 0.25:
+            tier = "MODERATE_TERMS_OF_TRADE_TENSION"
+            verdict = "MAINTAIN_PRUDENTIAL_REER_BAND_AND_ACCELERATE_LOCAL_CURRENCY_SETTLEMENT"
+        else:
+            tier = "OPTIMAL_EXTERNAL_BALANCE_DYNAMICS"
+            verdict = "LEVERAGE_PURCHASING_POWER_GAINS_FOR_STRATEGIC_CAPEX_IMPORTS"
+
+        return {
+            "currency_appreciation_export_friction_score": a_friction,
+            "macro_import_debt_resilience_score": s_resilience,
+            "it_margin_compression": round(m_it, 4),
+            "msme_competitiveness_loss": round(m_msme, 4),
+            "reer_deviation_index": round(reer_dev, 4),
+            "crude_import_savings_rate": round(c_crude, 4),
+            "external_debt_service_relief": round(d_debt, 4),
+            "export_friction_tier": tier,
+            "operational_verdict": verdict,
+            "is_external_trade_resilient": s_resilience >= 0.55,
+        }
+

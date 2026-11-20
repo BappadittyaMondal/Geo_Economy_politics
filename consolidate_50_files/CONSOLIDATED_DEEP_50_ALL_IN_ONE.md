@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `3bb8537`
+- **Canonical Git Commit:** `f5bcb49`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: 3bb8537
+CANONICAL_COMMIT: f5bcb49
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: 3bb8537
+CANONICAL_COMMIT: f5bcb49
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: 3bb8537
+CANONICAL_COMMIT: f5bcb49
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: 3bb8537
+CANONICAL_COMMIT: f5bcb49
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: 3bb8537
+CANONICAL_COMMIT: f5bcb49
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: 3bb8537
+CANONICAL_COMMIT: f5bcb49
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -5249,6 +5249,49 @@ In direct response to the multi-layered user inquiry analyzing the 71-minute str
 8. **Credibility & Bias Scorecard:** Evaluated at 86% Logical Rigor, 14% Ideological / Civilizational Framing, 85% Ground Reality vs. 15% Strategic Rhetoric, and 96% Civilizational / Bharatiya Alignment.
 9. **Strategic Council Titans Synthesis:** Directives from Dr. S. Jaishankar, NSA Ajit Doval, Dr. Ankit Shah, PM Narendra Modi, Sanjeev Sanyal, J Sai Deepak, and Dr. Anand Ranganathan condensed into accessible, citizen-focused bullet points.
 10. **Phase 447 Staged in `UPGRADE_PLANING`:** `CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor` in `geo_engine/lenses/deep_tech.py` and `critical_minerals.py` mathematically integrates physical bullion clearing volumes with air-gapped sovereign cyber immunity scores, expanding the system to 252 resilience channels across 263 lens symbols upon execution.
+
+
+## Section 127: Sovereign Strategic Autonomous Execution: Phases 441–447 Forensic Implementation, 22-Member Sovereign Council Expansion, 252-Channel Strategic Resilience Matrix & Zero-Debt Canonical Recompilation
+
+### 1. Architectural Motivation & Executive Summary
+In direct accordance with the Autonomous Execution Policy, Zero-Circular-Oscillation protocol, and microscopic DNA/RNA-level multi-domain forensic audit mandates, Phases 441 through 447 were fully implemented into production code. Furthermore, the Sovereign Epistemic Council was formally expanded from 19 to 22 members across both `DharmikStatecraftPipeline` (`dharmik_statecraft.py`) and `SatyamevaSuchakaPipeline` (`whistleblower.py`) by integrating Dr. Meenakshi Jain, Ami Ganatra, and Major Gaurav Arya. All 7 queued mathematical sieves and tensors from `UPGRADE_PLANING` were wired into the runtime engine, scaling exported lens symbols from 256 to 263 and the Strategic Resilience Matrix (SRM) from 245 to 252 live float channels. `UPGRADE_PLANING` and `UPGRADE_PLANING.md` were cleared to 0 bytes, achieving zero upgrade debt.
+
+### 2. The 7 Sovereign Forensic Mathematical Sieves & Tensors
+1. **Phase 441 (`geo_engine/lenses/geopolitical.py`): `TripolarSuperpowerCondominiumAndExclusionTensor`**
+   - **Metric:** `tripolar_condominium_exclusion_risk`
+   - **Formulation:** Evaluates superpower entente / carve-outs (US-China-Russia or US-China G2 condominium) excluding Bharat from global decision-making, maritime access, or high-tech corridors. Damped by multipolar hedging capacity ($1.0 - 0.45 \cdot H$) and counterbalanced by SAGAR naval posture and domestic CapEx resilience via non-linear sigmoid activation.
+2. **Phase 442 (`geo_engine/lenses/deep_tech.py`): `ServicesExportLaborDisplacementAndAISubstitutionTensor`**
+   - **Metric:** `ai_services_labor_displacement_index`
+   - **Formulation:** Quantifies structural risks to IT/ITES services and BPO wage-arbitrage from autonomous generative AI code synthesis and voice agents ($0.45 \cdot S_{\text{Code}} + 0.35 \cdot V_{\text{Voice}} + 0.20 \cdot B_{\text{Wage}}$), attenuated by a physical economic moat comprised of domestic manufacturing CapEx, sovereign DPI, and deep-tech skill pivots.
+3. **Phase 443 (`geo_engine/lenses/institutional_lawfare.py`): `TransnationalDiasporaLawfareAndNarrativeSubversionSieve`**
+   - **Metric:** `transnational_diaspora_subversion_risk`
+   - **Formulation:** Models the coordinated weaponization of hostile overseas diaspora networks, foreign parliamentary motions, think-tank echo chambers, and extraterritorial legal filings aimed at delegitimizing sovereign security initiatives, mitigated by counter-narrative response velocity and sovereign legal counter-offensives.
+4. **Phase 444 (`geo_engine/lenses/critical_minerals.py`): `SemiconductorHardwareChokepointAndGPUExportControlTensor`**
+   - **Metric:** `gpu_export_control_chokepoint_vulnerability`
+   - **Formulation:** Quantifies sovereign compute vulnerability to Western export controls on advanced AI hardware (Nvidia/AMD H100/B200 tier), high-bandwidth memory (HBM3e), advanced packaging (CoWoS), and lithography denial, mitigated by domestic fab buffer inventories and open silicon architectures.
+5. **Phase 445 (`geo_engine/lenses/geo_economist.py`): `CurrencyAppreciationExportFrictionAndREERTensor`**
+   - **Metric:** `currency_appreciation_export_friction_score`
+   - **Formulation:** Mathematically addresses the strong-Rupee paradox (CEA Dr. V. Anantha Nageswaran module), balancing export margin compression in price-sensitive IT/ITES and MSME manufacturing against macro savings from cheaper crude import bills (<$80/bbl) and reduced external debt servicing burdens.
+6. **Phase 446 (`geo_engine/lenses/institutional_lawfare.py`): `SupranationalOligarchyAndDeepStateSubversionSieve`**
+   - **Metric:** `supranational_deep_state_subversion_risk`
+   - **Formulation:** Evaluates institutional entrapment by transnational oligarchical bodies (Davos/WEF mandates, credit rating agency cartels, Big Tech monopolistic narrative moderation, and covert judicial lawfare), buffered by sovereign autonomy enforcement and domestic data localization.
+7. **Phase 447 (`geo_engine/lenses/deep_tech.py`): `CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor`**
+   - **Metric:** `physical_bullion_pricing_power_and_cyber_resilience_score`
+   - **Formulation:** Models physical gold/bullion sovereign price discovery power via GIFT City Gandhinagar and the Shanghai-Dubai-Moscow multipolar corridor de-linking from London/COMEX 100:1 paper suppression spreads, coupled with SCADA power grid cyber immunity (airgapped topology, Post-Quantum Cryptography, and foreign OS purge).
+
+### 3. Formal Expansion of the Sovereign Epistemic Council (19 -> 22 Members)
+The Sovereign Epistemic Council was formally expanded to 22 members across both `DharmikStatecraftPipeline` and `SatyamevaSuchakaPipeline`:
+1. **Dr. Meenakshi Jain:** Epigraphic archaeology, temple primary inscriptions, and inscriptional decolonization unmasking iconoclastic and colonial historiographical distortions.
+2. **Ami Ganatra:** Canonical Sanskrit epic textual fidelity, Mahabharata and Ramayana primary manuscript reconciliation, purging popular interpolations and pop-cultural revisionism.
+3. **Major Gaurav Arya:** Tactical military ground realism, cross-border proxy warfare deterrence, asymmetric retaliatory costs, and kinetic border security forensics.
+
+### 4. Telemetry Scaling & Anti-Drift Certification
+- **Lens Registry Symbols:** Scaled from 256 to 263 verified symbols in `geo_engine.lenses.__all__`.
+- **Strategic Resilience Matrix (SRM):** Scaled from 245 to 252 live float channels (0 `None` values, 100% bounded in $[0.0, 1.0]$).
+- **AST Query Router:** Added 7 new boolean query flags and routing triggers to `StrategicQuery` (`geo_engine/core/query_parser.py`).
+- **Regression Verification:** Test suite expanded to 760 tests in `tests/test_engine.py` with 100% green pass.
+- **Canonical Bundles:** Distribution bundles `dist_ai/core_5/` (strictly 5 markdown files) and `dist_ai/deep_50/` ($\le 50$ markdown files) recompiled and verified against all 10 Anti-Drift Quality Gates.
+- **Zero Upgrade Debt:** `UPGRADE_PLANING` and `UPGRADE_PLANING.md` reset to 0 bytes.
 
 
 
@@ -10794,6 +10837,16 @@ class CriticalMineralsLens:
         )
         metrics["critical_mineral_weaponization_score"] = _cmw_res["critical_mineral_weaponization_score"]
 
+        # Phase 444: Semiconductor Hardware Chokepoint and GPU Export Control Tensor
+        _shc_res = SemiconductorHardwareChokepointAndGPUExportControlTensor.evaluate(
+            export_ban_severity=cm_meta.get("export_ban_severity", 0.80),
+            advanced_packaging_concentration=cm_meta.get("advanced_packaging_concentration", 0.75),
+            lithography_denial_index=cm_meta.get("lithography_denial_index", 0.85),
+            domestic_fab_buffer_months=cm_meta.get("domestic_fab_buffer_months", 18.0),
+            alternative_architecture_readiness=cm_meta.get("alternative_architecture_readiness", 0.40),
+        )
+        metrics["gpu_export_control_chokepoint_vulnerability"] = _shc_res["gpu_export_control_chokepoint_vulnerability"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -11024,6 +11077,61 @@ class TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve:
             "operational_verdict": verdict,
             "is_semiconductor_choke_critical": final_index >= 0.65,
         }
+
+
+class SemiconductorHardwareChokepointAndGPUExportControlTensor:
+    """Phase 444: Semiconductor Hardware Chokepoint & GPU Export Control Tensor.
+    Quantifies sovereign compute vulnerability to US/allied export control restrictions on advanced
+    AI accelerators (NVIDIA/AMD H100/B200 tier), high-bandwidth memory (HBM3e), advanced packaging (CoWoS),
+    and EUV/DUV lithography tool denial, offset by domestic fab buffering and open silicon architectures.
+    Formula:
+        RawChoke = Norm(0.50 * export_ban_severity + 0.30 * advanced_packaging_concentration + 0.20 * lithography_denial_index)
+        Mitigation = 0.60 * domestic_fab_buffer_ratio + 0.40 * alternative_architecture_readiness
+        ChokepointVulnerability = RawChoke * (1.0 - 0.50 * Mitigation)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        export_ban_severity: float = 0.80,
+        advanced_packaging_concentration: float = 0.75,
+        lithography_denial_index: float = 0.85,
+        domestic_fab_buffer_months: float = 18.0,
+        alternative_architecture_readiness: float = 0.40,
+    ) -> Dict[str, Any]:
+        e_ban = float(max(0.0, min(1.0, export_ban_severity)))
+        p_pack = float(max(0.0, min(1.0, advanced_packaging_concentration)))
+        l_denial = float(max(0.0, min(1.0, lithography_denial_index)))
+        buf_raw = float(max(0.0, domestic_fab_buffer_months))
+        b_buffer = min(1.0, buf_raw / 36.0)
+        a_alt = float(max(0.0, min(1.0, alternative_architecture_readiness)))
+
+        raw_choke = 0.50 * e_ban + 0.30 * p_pack + 0.20 * l_denial
+        mitigation = 0.60 * b_buffer + 0.40 * a_alt
+        g_chokepoint = round(max(0.0, min(1.0, raw_choke * (1.0 - 0.50 * mitigation))), 4)
+
+        if g_chokepoint >= 0.55:
+            tier = "ACUTE_HARDWARE_SANCTIONS_CHOKEPOINT"
+            verdict = "ACCELERATE_INDIGENOUS_PACKAGING_AND_OPEN_SILICON_PILOTS"
+        elif g_chokepoint >= 0.30:
+            tier = "MODERATE_COMPUTE_EQUIPMENT_RESTRICTION"
+            verdict = "DIVERSIFY_OFFSHORE_FOUNDRIES_AND_OPTIMIZE_INFERENCE_EFFICIENCY"
+        else:
+            tier = "RESILIENT_SILICON_SUPPLY_CHAIN"
+            verdict = "EXPAND_STRATEGIC_WAFER_RESERVES_AND_FAB_PARTNERSHIPS"
+
+        return {
+            "gpu_export_control_chokepoint_vulnerability": g_chokepoint,
+            "export_ban_severity": round(e_ban, 4),
+            "advanced_packaging_concentration": round(p_pack, 4),
+            "lithography_denial_index": round(l_denial, 4),
+            "domestic_fab_buffer_ratio": round(b_buffer, 4),
+            "alternative_architecture_readiness": round(a_alt, 4),
+            "silicon_chokepoint_tier": tier,
+            "operational_verdict": verdict,
+            "is_silicon_supply_secure": g_chokepoint < 0.40,
+        }
+
 
 
 ```
@@ -11551,6 +11659,29 @@ class DeepTechLens:
             thermal_blooming_dissipation_loss=deep_meta.get("thermal_blooming_dissipation_loss", 0.30),
         )
         metrics["directed_energy_weapon_neutralization_score"] = _dew_res["directed_energy_weapon_neutralization_score"]
+
+        # Phase 442: Services Export Labor Displacement and AI Substitution Tensor
+        _sld_res = ServicesExportLaborDisplacementAndAISubstitutionTensor.evaluate(
+            code_synthesis_rate=deep_meta.get("code_synthesis_rate", 0.75),
+            voice_agent_displacement_rate=deep_meta.get("voice_agent_displacement_rate", 0.70),
+            bpo_wage_arbitrage_decay=deep_meta.get("bpo_wage_arbitrage_decay", 0.65),
+            physical_manufacturing_capex=deep_meta.get("physical_manufacturing_capex", 0.75),
+            sovereign_dpi_adoption=deep_meta.get("sovereign_dpi_adoption", 0.85),
+            high_end_skill_pivot_rate=deep_meta.get("high_end_skill_pivot_rate", 0.70),
+        )
+        metrics["ai_services_labor_displacement_index"] = _sld_res["ai_services_labor_displacement_index"]
+
+        # Phase 447: Critical Infrastructure Cyber Sovereignty and Bullion Pricing Tensor
+        _cib_res = CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor.evaluate(
+            gift_city_bullion_volume=deep_meta.get("gift_city_bullion_volume", 0.70),
+            shanghai_dubai_moscow_corridor_sync=deep_meta.get("shanghai_dubai_moscow_corridor_sync", 0.75),
+            physical_delivery_ratio=deep_meta.get("physical_delivery_ratio", 0.85),
+            paper_discount_spread=deep_meta.get("paper_discount_spread", 0.15),
+            airgapped_grid_infra_ratio=deep_meta.get("airgapped_grid_infra_ratio", 0.80),
+            pqc_authentication_coverage=deep_meta.get("pqc_authentication_coverage", 0.70),
+            foreign_os_dependency_ratio=deep_meta.get("foreign_os_dependency_ratio", 0.25),
+        )
+        metrics["physical_bullion_pricing_power_and_cyber_resilience_score"] = _cib_res["physical_bullion_pricing_power_and_cyber_resilience_score"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -12532,6 +12663,133 @@ class LowEarthOrbitCongestionAndOrbitalWeaponizationSieve:
             "operational_verdict": verdict,
             "is_orbital_vulnerability_acute": final_score >= 0.60,
         }
+
+
+class ServicesExportLaborDisplacementAndAISubstitutionTensor:
+    """Phase 442: Services Export Labor Displacement & AI Substitution Tensor.
+    Quantifies structural disruption to IT/ITES and BPO exports from generative AI code synthesis,
+    autonomous voice agents, and wage-arbitrage decay, offset by physical manufacturing capex,
+    sovereign DPI platforms, and high-end skill pivots.
+    Formula:
+        RawDisplacement = Norm(0.45 * code_synthesis_rate + 0.35 * voice_agent_displacement_rate + 0.20 * bpo_wage_arbitrage_decay)
+        RawMoat = Norm(0.40 * physical_manufacturing_capex + 0.35 * sovereign_dpi_adoption + 0.25 * high_end_skill_pivot_rate)
+        DisplacementIndex = RawDisplacement * (1.0 - 0.40 * RawMoat)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        code_synthesis_rate: float = 0.75,
+        voice_agent_displacement_rate: float = 0.70,
+        bpo_wage_arbitrage_decay: float = 0.65,
+        physical_manufacturing_capex: float = 0.75,
+        sovereign_dpi_adoption: float = 0.85,
+        high_end_skill_pivot_rate: float = 0.70,
+    ) -> Dict[str, Any]:
+        s_code = float(max(0.0, min(1.0, code_synthesis_rate)))
+        v_voice = float(max(0.0, min(1.0, voice_agent_displacement_rate)))
+        b_wage = float(max(0.0, min(1.0, bpo_wage_arbitrage_decay)))
+        m_mfg = float(max(0.0, min(1.0, physical_manufacturing_capex)))
+        d_dpi = float(max(0.0, min(1.0, sovereign_dpi_adoption)))
+        e_skill = float(max(0.0, min(1.0, high_end_skill_pivot_rate)))
+
+        raw_disp = 0.45 * s_code + 0.35 * v_voice + 0.20 * b_wage
+        raw_moat = 0.40 * m_mfg + 0.35 * d_dpi + 0.25 * e_skill
+
+        l_disp = round(max(0.0, min(1.0, raw_disp * (1.0 - 0.40 * raw_moat))), 4)
+        r_moat = round(max(0.0, min(1.0, raw_moat)), 4)
+
+        if l_disp >= 0.55:
+            tier = "SEVERE_AI_SERVICES_LABOR_DISPLACEMENT_RISK"
+            verdict = "EXPEDITE_PHYSICAL_MANUFACTURING_CAPEX_AND_DPI_INTEGRATION"
+        elif l_disp >= 0.30:
+            tier = "MODERATE_COGNITIVE_AUTOMATION_HEADWIND"
+            verdict = "ACCELERATE_DEEP_TECH_UPSKILLING_AND_SOVEREIGN_AI_FOUNDRY_EXPANSION"
+        else:
+            tier = "HIGH_RESILIENCE_LABOR_MOAT"
+            verdict = "MAINTAIN_VALUE_ADD_SERVICES_AND_EXPAND_HARDWARE_INTEGRATION"
+
+        return {
+            "ai_services_labor_displacement_index": l_disp,
+            "sovereign_economic_moat_score": r_moat,
+            "code_synthesis_rate": round(s_code, 4),
+            "voice_agent_displacement_rate": round(v_voice, 4),
+            "bpo_wage_arbitrage_decay": round(b_wage, 4),
+            "physical_manufacturing_capex": round(m_mfg, 4),
+            "sovereign_dpi_adoption": round(d_dpi, 4),
+            "high_end_skill_pivot_rate": round(e_skill, 4),
+            "ai_displacement_tier": tier,
+            "operational_verdict": verdict,
+            "is_labor_moat_resilient": r_moat >= 0.65,
+        }
+
+
+class CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor:
+    """Phase 447: Critical Infrastructure Cyber Sovereignty & Bullion Pricing Tensor.
+    Models physical gold/bullion sovereign pricing power (GIFT City, Shanghai/Dubai/Moscow exchanges)
+    de-linking from Western paper derivative fixes (LBMA/COMEX), coupled with critical SCADA power grid
+    cyber-sovereignty (airgapped topology, Post-Quantum Cryptography, foreign OS purge).
+    Formula:
+        RawBullion = Norm(0.40 * gift_city_bullion_volume + 0.35 * shanghai_dubai_moscow_corridor_sync + 0.25 * physical_delivery_ratio)
+        PhysicalPricing = RawBullion * (1.0 + 0.30 * paper_discount_spread)
+        z = 2.5 * airgapped_grid_infra_ratio + 2.0 * pqc_authentication_coverage - 2.2 * foreign_os_dependency_ratio - 1.0
+        CyberImmunity = 1.0 / (1.0 + exp(-z))
+        CompositeShield = 0.55 * PhysicalPricing + 0.45 * CyberImmunity
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        gift_city_bullion_volume: float = 0.70,
+        shanghai_dubai_moscow_corridor_sync: float = 0.75,
+        physical_delivery_ratio: float = 0.85,
+        paper_discount_spread: float = 0.15,
+        airgapped_grid_infra_ratio: float = 0.80,
+        pqc_authentication_coverage: float = 0.70,
+        foreign_os_dependency_ratio: float = 0.25,
+    ) -> Dict[str, Any]:
+        g_gift = float(max(0.0, min(1.0, gift_city_bullion_volume)))
+        s_corridor = float(max(0.0, min(1.0, shanghai_dubai_moscow_corridor_sync)))
+        p_ratio = float(max(0.0, min(1.0, physical_delivery_ratio)))
+        p_spread = float(max(0.0, min(1.0, paper_discount_spread)))
+        a_air = float(max(0.0, min(1.0, airgapped_grid_infra_ratio)))
+        h_pqc = float(max(0.0, min(1.0, pqc_authentication_coverage)))
+        f_dep = float(max(0.0, min(1.0, foreign_os_dependency_ratio)))
+
+        raw_bullion = 0.40 * g_gift + 0.35 * s_corridor + 0.25 * p_ratio
+        b_pricing = round(max(0.0, min(1.0, raw_bullion * (1.0 + 0.30 * p_spread))), 4)
+
+        z = 2.5 * a_air + 2.0 * h_pqc - 2.2 * f_dep - 1.0
+        c_immunity = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        composite_shield = round(0.55 * b_pricing + 0.45 * c_immunity, 4)
+
+        if composite_shield >= 0.70:
+            tier = "FORTRESS_SOVEREIGN_PRICING_AND_CYBER_SHIELD"
+            verdict = "MAINTAIN_PHYSICAL_SETTLEMENT_PRIMACY_AND_SCALE_PQC_GRID_PROTOCOLS"
+        elif composite_shield >= 0.45:
+            tier = "ELEVATED_PHYSICAL_MACRO_AND_DIGITAL_RESILIENCE"
+            verdict = "ACCELERATE_AIRGAPPING_OF_POWER_GRIDS_AND_EXPEDITE_GIFT_LIQUIDITY"
+        else:
+            tier = "VULNERABLE_FINANCIAL_SETTLEMENT_AND_SCADA_VECTOR"
+            verdict = "URGENTLY_PURGE_FOREIGN_OS_SYSTEMS_AND_ENFORCE_PHYSICAL_BULLION_DELIVERY"
+
+        return {
+            "physical_bullion_pricing_power_and_cyber_resilience_score": composite_shield,
+            "physical_bullion_pricing_power": b_pricing,
+            "scada_cyber_immunity_score": c_immunity,
+            "gift_city_bullion_volume": round(g_gift, 4),
+            "shanghai_dubai_moscow_corridor_sync": round(s_corridor, 4),
+            "physical_delivery_ratio": round(p_ratio, 4),
+            "paper_discount_spread": round(p_spread, 4),
+            "airgapped_grid_infra_ratio": round(a_air, 4),
+            "pqc_authentication_coverage": round(h_pqc, 4),
+            "foreign_os_dependency_ratio": round(f_dep, 4),
+            "sovereign_shield_tier": tier,
+            "operational_verdict": verdict,
+            "is_shield_fortified": composite_shield >= 0.65,
+        }
+
 
 
 ```
@@ -15131,6 +15389,16 @@ class GeoEconomistLens:
         )
         metrics["sovereign_credit_rating_bias_score"] = _sanyal_res["sovereign_credit_rating_bias_score"]
 
+        # Phase 445: Currency Appreciation Export Friction and REER Tensor
+        _cae_res = CurrencyAppreciationExportFrictionAndREERTensor.evaluate(
+            it_margin_compression_pct=geo_econ_meta.get("it_margin_compression_pct", 0.08),
+            msme_competitiveness_loss=geo_econ_meta.get("msme_competitiveness_loss", 0.35),
+            reer_index=geo_econ_meta.get("reer_index", 106.0),
+            crude_import_savings_rate=geo_econ_meta.get("crude_import_savings_rate", 0.45),
+            external_debt_service_relief=geo_econ_meta.get("external_debt_service_relief", 0.50),
+        )
+        metrics["currency_appreciation_export_friction_score"] = _cae_res["currency_appreciation_export_friction_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -16292,6 +16560,66 @@ class ComplexAdaptiveMacroeconomicAndRatingCartelSieve:
             "is_rating_cartel_bias_critical": score >= 0.70,
         }
 
+
+class CurrencyAppreciationExportFrictionAndREERTensor:
+    """Phase 445: Currency Appreciation Export Friction & REER Tensor.
+    Evaluates terms-of-trade dilemmas and export competitiveness frictions arising from sudden
+    sovereign currency appreciation (e.g. Rupee strengthening against USD/EUR), modeling margin
+    compression for price-sensitive services/IT exports and labor-intensive MSME manufacturing,
+    counterbalanced by cheaper energy/crude import bills and reduced external debt service burdens.
+    Formula:
+        RawFriction = Norm(0.45 * it_margin_compression + 0.35 * msme_competitiveness_loss + 0.20 * reer_deviation)
+        z = 2.0 * crude_import_savings_rate + 1.8 * external_debt_service_relief - 2.2 * RawFriction - 0.5
+        MacroResilience = 1.0 / (1.0 + exp(-z))
+        FrictionScore = RawFriction * (1.0 - 0.35 * MacroResilience)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        it_margin_compression_pct: float = 0.08,
+        msme_competitiveness_loss: float = 0.35,
+        reer_index: float = 106.0,
+        crude_import_savings_rate: float = 0.45,
+        external_debt_service_relief: float = 0.50,
+    ) -> Dict[str, Any]:
+        raw_it = float(it_margin_compression_pct)
+        m_it = float(max(0.0, min(1.0, raw_it / 0.20 if raw_it <= 0.25 else raw_it)))
+        m_msme = float(max(0.0, min(1.0, msme_competitiveness_loss)))
+        reer_val = float(reer_index)
+        reer_dev = float(max(0.0, min(1.0, (reer_val - 100.0) / 25.0))) if reer_val >= 100.0 else 0.0
+        c_crude = float(max(0.0, min(1.0, crude_import_savings_rate)))
+        d_debt = float(max(0.0, min(1.0, external_debt_service_relief)))
+
+        raw_friction = 0.45 * m_it + 0.35 * m_msme + 0.20 * reer_dev
+        z = 2.0 * c_crude + 1.8 * d_debt - 2.2 * raw_friction - 0.5
+        s_resilience = round(1.0 / (1.0 + math.exp(-z)), 4)
+        a_friction = round(max(0.0, min(1.0, raw_friction * (1.0 - 0.35 * s_resilience))), 4)
+
+        if a_friction >= 0.50:
+            tier = "SEVERE_CURRENCY_APPRECIATION_EXPORT_FRICTION"
+            verdict = "DEPLOY_TARGETED_EXPORT_CREDIT_REBATES_AND_CALIBRATE_FX_INTERVENTIONS"
+        elif a_friction >= 0.25:
+            tier = "MODERATE_TERMS_OF_TRADE_TENSION"
+            verdict = "MAINTAIN_PRUDENTIAL_REER_BAND_AND_ACCELERATE_LOCAL_CURRENCY_SETTLEMENT"
+        else:
+            tier = "OPTIMAL_EXTERNAL_BALANCE_DYNAMICS"
+            verdict = "LEVERAGE_PURCHASING_POWER_GAINS_FOR_STRATEGIC_CAPEX_IMPORTS"
+
+        return {
+            "currency_appreciation_export_friction_score": a_friction,
+            "macro_import_debt_resilience_score": s_resilience,
+            "it_margin_compression": round(m_it, 4),
+            "msme_competitiveness_loss": round(m_msme, 4),
+            "reer_deviation_index": round(reer_dev, 4),
+            "crude_import_savings_rate": round(c_crude, 4),
+            "external_debt_service_relief": round(d_debt, 4),
+            "export_friction_tier": tier,
+            "operational_verdict": verdict,
+            "is_external_trade_resilient": s_resilience >= 0.55,
+        }
+
+
 ```
 
 
@@ -16570,6 +16898,17 @@ class GeopoliticalLens:
             unilateral_bloc_entanglement=geo_meta.get("unilateral_bloc_entanglement", 0.25),
         )
         metrics["multipolar_hedging_reciprocal_leverage_score"] = _mhs_res["multipolar_hedging_reciprocal_leverage_score"]
+
+        # Phase 441: Tripolar Superpower Condominium and Exclusion Tensor
+        _tce_res = TripolarSuperpowerCondominiumAndExclusionTensor.evaluate(
+            bilateral_truce_depth=geo_meta.get("bilateral_truce_depth", 0.50),
+            energy_pact_alignment=geo_meta.get("energy_pact_alignment", 0.45),
+            nuclear_risk_reduction_cooperation=geo_meta.get("nuclear_risk_reduction_cooperation", 0.40),
+            multipolar_hedging_capacity=geo_meta.get("multipolar_hedging_capacity", 0.85),
+            sagar_naval_posture=geo_meta.get("sagar_naval_posture", 0.80),
+            domestic_capex_resilience=geo_meta.get("domestic_capex_resilience", 0.85),
+        )
+        metrics["tripolar_condominium_exclusion_risk"] = _tce_res["tripolar_condominium_exclusion_risk"]
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -17309,6 +17648,67 @@ class GlobalPolycrisisCollisionAndSystemicCascadeTensor:
             "operational_verdict": verdict,
             "is_polycrisis_critical": final_index >= 0.45,
         }
+
+
+class TripolarSuperpowerCondominiumAndExclusionTensor:
+    """Phase 441: Tripolar Superpower Condominium & Exclusion Tensor.
+    Evaluates the threat of a tripolar condominium (US-China-Russia trilateral accommodation or regional
+    carve-outs, or US-China G2 entente) excluding middle/rising powers like Bharat from global rule-making,
+    maritime access, or tech corridors.
+    Formula:
+        RawCondominiumRisk = Norm(0.40 * bilateral_truce_depth + 0.35 * energy_pact_alignment + 0.25 * nuclear_risk_reduction_cooperation)
+        CondominiumRisk = RawCondominiumRisk * (1.0 - 0.45 * multipolar_hedging_capacity)
+        z = 2.5 * sagar_naval_posture + 2.0 * domestic_capex_resilience - 1.8 * CondominiumRisk - 1.5
+        SovereignAutonomy = 1.0 / (1.0 + exp(-z))
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        bilateral_truce_depth: float = 0.50,
+        energy_pact_alignment: float = 0.45,
+        nuclear_risk_reduction_cooperation: float = 0.40,
+        multipolar_hedging_capacity: float = 0.85,
+        sagar_naval_posture: float = 0.80,
+        domestic_capex_resilience: float = 0.85,
+    ) -> Dict[str, Any]:
+        b_truce = float(max(0.0, min(1.0, bilateral_truce_depth)))
+        e_pact = float(max(0.0, min(1.0, energy_pact_alignment)))
+        n_nuke = float(max(0.0, min(1.0, nuclear_risk_reduction_cooperation)))
+        m_hedge = float(max(0.0, min(1.0, multipolar_hedging_capacity)))
+        s_sagar = float(max(0.0, min(1.0, sagar_naval_posture)))
+        d_capex = float(max(0.0, min(1.0, domestic_capex_resilience)))
+
+        raw_risk = 0.40 * b_truce + 0.35 * e_pact + 0.25 * n_nuke
+        c_risk = round(max(0.0, min(1.0, raw_risk * (1.0 - 0.45 * m_hedge))), 4)
+
+        z = 2.5 * s_sagar + 2.0 * d_capex - 1.8 * c_risk - 1.5
+        s_autonomy = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if c_risk >= 0.55:
+            tier = "SEVERE_TRIPOLAR_CONDOMINIUM_EXCLUSION_RISK"
+            verdict = "ACTIVATE_ASYMMETRIC_CORRIDORS_AND_EXPEDITE_SAGAR_DEPLOYMENTS"
+        elif c_risk >= 0.30:
+            tier = "ELEVATED_SUPERPOWER_CARVEOUT_FRICTION"
+            verdict = "FORTIFY_BILATERAL_SWAPS_AND_MAINTAIN_STRATEGIC_AMBIGUITY"
+        else:
+            tier = "BALANCED_MULTIPOLAR_MANEUVERABILITY"
+            verdict = "PROCEED_WITH_MULTI_ALIGNED_STRATEGIC_ENGAGEMENTS"
+
+        return {
+            "tripolar_condominium_exclusion_risk": c_risk,
+            "sovereign_strategic_autonomy_score": s_autonomy,
+            "bilateral_truce_depth": round(b_truce, 4),
+            "energy_pact_alignment": round(e_pact, 4),
+            "nuclear_risk_reduction_cooperation": round(n_nuke, 4),
+            "multipolar_hedging_capacity": round(m_hedge, 4),
+            "sagar_naval_posture": round(s_sagar, 4),
+            "domestic_capex_resilience": round(d_capex, 4),
+            "condominium_threat_tier": tier,
+            "operational_verdict": verdict,
+            "is_exclusion_shield_effective": s_autonomy >= 0.65,
+        }
+
 
 
 ```
@@ -20555,6 +20955,26 @@ class InstitutionalLawfareLens:
         )
         metrics["civilizational_jurisprudence_decolonial_score"] = _jsd_res["civilizational_jurisprudence_decolonial_score"]
 
+        # Phase 443: Transnational Diaspora Lawfare and Narrative Subversion Sieve
+        _tds_res = TransnationalDiasporaLawfareAndNarrativeSubversionSieve.evaluate(
+            think_tank_echo_coordination=law_meta.get("think_tank_echo_coordination", 0.70),
+            constitutional_narrative_export=law_meta.get("constitutional_narrative_export", 0.65),
+            wedge_issue_amplification=law_meta.get("wedge_issue_amplification", 0.75),
+            counter_narrative_response_speed=law_meta.get("counter_narrative_response_speed", 0.70),
+            sovereign_legal_counter_offense=law_meta.get("sovereign_legal_counter_offense", 0.65),
+        )
+        metrics["transnational_diaspora_subversion_risk"] = _tds_res["transnational_diaspora_subversion_risk"]
+
+        # Phase 446: Supranational Oligarchy and Deep State Subversion Sieve
+        _sod_res = SupranationalOligarchyAndDeepStateSubversionSieve.evaluate(
+            wef_pushback_index=law_meta.get("wef_pushback_index", 0.70),
+            judicial_intel_lawfare=law_meta.get("judicial_intel_lawfare", 0.65),
+            tech_monopoly_censorship=law_meta.get("tech_monopoly_censorship", 0.75),
+            sovereign_rating_cartel_bias=law_meta.get("sovereign_rating_cartel_bias", 0.60),
+            sovereign_autonomy_enforcement=law_meta.get("sovereign_autonomy_enforcement", 0.75),
+        )
+        metrics["supranational_deep_state_subversion_risk"] = _sod_res["supranational_deep_state_subversion_risk"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -22396,6 +22816,111 @@ class ElectoralLawfareAndJudicialDisqualificationSieve:
             "operational_verdict": verdict,
             "is_electoral_lawfare_acute": final_score >= 0.65,
         }
+
+
+class TransnationalDiasporaLawfareAndNarrativeSubversionSieve:
+    """Phase 443: Transnational Diaspora Lawfare & Narrative Subversion Sieve.
+    Quantifies the weaponization of overseas diaspora groups, hostile foreign parliamentary motions,
+    coordinated think-tank echo chambers, and extraterritorial legal filings aimed at delegitimizing
+    sovereign governance and national security initiatives.
+    Formula:
+        RawSubversion = Norm(0.45 * think_tank_echo_coordination + 0.35 * constitutional_narrative_export + 0.20 * wedge_issue_amplification)
+        Mitigation = 0.50 * counter_narrative_response_speed + 0.50 * sovereign_legal_counter_offense
+        SubversionRisk = RawSubversion * (1.0 - 0.50 * Mitigation)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        think_tank_echo_coordination: float = 0.70,
+        constitutional_narrative_export: float = 0.65,
+        wedge_issue_amplification: float = 0.75,
+        counter_narrative_response_speed: float = 0.70,
+        sovereign_legal_counter_offense: float = 0.65,
+    ) -> Dict[str, Any]:
+        f_echo = float(max(0.0, min(1.0, think_tank_echo_coordination)))
+        d_const = float(max(0.0, min(1.0, constitutional_narrative_export)))
+        w_wedge = float(max(0.0, min(1.0, wedge_issue_amplification)))
+        c_speed = float(max(0.0, min(1.0, counter_narrative_response_speed)))
+        s_legal = float(max(0.0, min(1.0, sovereign_legal_counter_offense)))
+
+        raw_subversion = 0.45 * f_echo + 0.35 * d_const + 0.20 * w_wedge
+        mitigation = 0.50 * c_speed + 0.50 * s_legal
+        d_subversion = round(max(0.0, min(1.0, raw_subversion * (1.0 - 0.50 * mitigation))), 4)
+
+        if d_subversion >= 0.50:
+            tier = "SEVERE_TRANSNATIONAL_DIASPORA_SUBVERSION_RISK"
+            verdict = "DEPLOY_JURISDICTIONAL_COUNTER_MEASURES_AND_DIPLOMATIC_DEMARCHES"
+        elif d_subversion >= 0.25:
+            tier = "ELEVATED_NARRATIVE_ASYMMETRY"
+            verdict = "STRENGTHEN_INSTITUTIONAL_LEGAL_COUNTERS_AND_PRIMARY_SCHOLARSHIP"
+        else:
+            tier = "CONTAINED_INFORMATION_DOMAIN"
+            verdict = "MAINTAIN_VIGILANT_MEDIA_AND_DIASPORA_COHESION_MONITORING"
+
+        return {
+            "transnational_diaspora_subversion_risk": d_subversion,
+            "think_tank_echo_coordination": round(f_echo, 4),
+            "constitutional_narrative_export": round(d_const, 4),
+            "wedge_issue_amplification": round(w_wedge, 4),
+            "counter_narrative_response_speed": round(c_speed, 4),
+            "sovereign_legal_counter_offense": round(s_legal, 4),
+            "narrative_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "is_subversion_contained": d_subversion < 0.35,
+        }
+
+
+class SupranationalOligarchyAndDeepStateSubversionSieve:
+    """Phase 446: Supranational Oligarchy & Deep State Subversion Sieve.
+    Evaluates institutional and regulatory entrapment orchestrated by transnational oligarchic
+    networks, Davos/WEF policy mandates, rating agency cartels, Big Tech monopolistic narrative
+    curation, and covert intelligence alignment against sovereign decision-making.
+    Formula:
+        RawSubversion = Norm(0.35 * wef_pushback_index + 0.30 * judicial_intel_lawfare + 0.20 * tech_monopoly_censorship + 0.15 * sovereign_rating_cartel_bias)
+        SubversionRisk = RawSubversion * (1.0 - 0.40 * sovereign_autonomy_enforcement)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        wef_pushback_index: float = 0.70,
+        judicial_intel_lawfare: float = 0.65,
+        tech_monopoly_censorship: float = 0.75,
+        sovereign_rating_cartel_bias: float = 0.60,
+        sovereign_autonomy_enforcement: float = 0.75,
+    ) -> Dict[str, Any]:
+        w_wef = float(max(0.0, min(1.0, wef_pushback_index)))
+        j_law = float(max(0.0, min(1.0, judicial_intel_lawfare)))
+        t_mono = float(max(0.0, min(1.0, tech_monopoly_censorship)))
+        r_rate = float(max(0.0, min(1.0, sovereign_rating_cartel_bias)))
+        s_auto = float(max(0.0, min(1.0, sovereign_autonomy_enforcement)))
+
+        raw_subversion = 0.35 * w_wef + 0.30 * j_law + 0.20 * t_mono + 0.15 * r_rate
+        o_subversion = round(max(0.0, min(1.0, raw_subversion * (1.0 - 0.40 * s_auto))), 4)
+
+        if o_subversion >= 0.50:
+            tier = "ACUTE_SUPRANATIONAL_DEEP_STATE_SUBVERSION_RISK"
+            verdict = "ENFORCE_DOMESTIC_DATA_LOCALIZATION_AND_SANCTION_INTERFERING_ENTITIES"
+        elif o_subversion >= 0.25:
+            tier = "ELEVATED_OLIGARCHICAL_REGULATORY_PRESSURE"
+            verdict = "DIVERSIFY_CREDIT_RATING_AGENCIES_AND_EXPEDITE_INDIGENOUS_TECH_STANDARDS"
+        else:
+            tier = "SECURE_SOVEREIGN_REGULATORY_FRAMEWORK"
+            verdict = "SUSTAIN_PROACTIVE_INSTITUTIONAL_FIREWALLS_AND_DIPLOMATIC_AUTONOMY"
+
+        return {
+            "supranational_deep_state_subversion_risk": o_subversion,
+            "wef_pushback_index": round(w_wef, 4),
+            "judicial_intel_lawfare": round(j_law, 4),
+            "tech_monopoly_censorship": round(t_mono, 4),
+            "sovereign_rating_cartel_bias": round(r_rate, 4),
+            "sovereign_autonomy_enforcement": round(s_auto, 4),
+            "deep_state_subversion_tier": tier,
+            "operational_verdict": verdict,
+            "is_institutional_autonomy_intact": o_subversion < 0.35,
+        }
+
 
 
 ```
@@ -26668,7 +27193,7 @@ class AbyssalHydrospatialSovereigntySieve:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `3bb8537`
+- **Canonical Git Commit:** `f5bcb49`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files

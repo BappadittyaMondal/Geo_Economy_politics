@@ -86,6 +86,7 @@ from .critical_minerals import (
     CriticalMineralsRefiningCrisisSieve,
     CriticalMineralSupplyChainWeaponizationTensor,
     TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve,
+    SemiconductorHardwareChokepointAndGPUExportControlTensor,
 )
 
 from .deep_tech import (
@@ -110,6 +111,8 @@ from .deep_tech import (
     QuantumHarvestNowDecryptLaterVulnerabilitySieve,
     DirectedEnergyWeaponAndAtmosphericPowerTransmissionSieve,
     LowEarthOrbitCongestionAndOrbitalWeaponizationSieve,
+    ServicesExportLaborDisplacementAndAISubstitutionTensor,
+    CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor,
 )
 
 from .demographic_infiltration import (
@@ -169,6 +172,7 @@ from .geo_economist import (
     PhysicalCapExTangibleMultiplierSieve,
     AviationTransitSlotCartelSieve,
     ComplexAdaptiveMacroeconomicAndRatingCartelSieve,
+    CurrencyAppreciationExportFrictionAndREERTensor,
 )
 
 from .geopolitical import (
@@ -185,6 +189,7 @@ from .geopolitical import (
     MultilateralAllianceHegemonicPressureResistanceSieve,
     MultipolarHedgingAndStrategicChokepointTensor,
     GlobalPolycrisisCollisionAndSystemicCascadeTensor,
+    TripolarSuperpowerCondominiumAndExclusionTensor,
 )
 
 from .history import (
@@ -259,6 +264,8 @@ from .institutional_lawfare import (
     CivilizationalJurisprudenceAndDecolonialLawfareTensor,
     CulturalReligiousGrayzoneSubversionSieve,
     ElectoralLawfareAndJudicialDisqualificationSieve,
+    TransnationalDiasporaLawfareAndNarrativeSubversionSieve,
+    SupranationalOligarchyAndDeepStateSubversionSieve,
 )
 
 from .kinesics import (
@@ -615,4 +622,13 @@ __all__ = [
     "LowEarthOrbitCongestionAndOrbitalWeaponizationSieve",
     "TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve",
     "ElectoralLawfareAndJudicialDisqualificationSieve",
+
+    # Phases 441-447: Sovereign Forensic Sieves & Multilateral Autonomy Tensors
+    "TripolarSuperpowerCondominiumAndExclusionTensor",
+    "ServicesExportLaborDisplacementAndAISubstitutionTensor",
+    "TransnationalDiasporaLawfareAndNarrativeSubversionSieve",
+    "SemiconductorHardwareChokepointAndGPUExportControlTensor",
+    "CurrencyAppreciationExportFrictionAndREERTensor",
+    "SupranationalOligarchyAndDeepStateSubversionSieve",
+    "CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor",
 ]

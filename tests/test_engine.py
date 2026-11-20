@@ -10893,7 +10893,7 @@ class TestPhase247to250SievesAndDigest:
     def test_phase250_lenses_init_exports_count_79(self):
         """Phase 250: geo_engine.lenses exports 79 verified symbols."""
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250, 256)
+        assert len(lenses.__all__) in (79, 86, 94, 100, 109, 121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250, 256, 263)
         assert "DigitalEnclosureTrapSieve" in lenses.__all__
         assert "KineticDiversionaryEscalationSieve" in lenses.__all__
 
@@ -11729,7 +11729,7 @@ class TestPhases274to282SievesAndTelemetry:
 
     def test_phases_274_to_282_lenses_init_exports_count_109(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250, 256)
+        assert len(lenses.__all__) in (109, 121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250, 256, 263)
 
 
 
@@ -12069,7 +12069,7 @@ class TestPhases283to294SievesAndTelemetry:
 
     def test_phases_283_to_294_lenses_init_exports_count_121(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250, 256)
+        assert len(lenses.__all__) in (121, 127, 134, 143, 163, 179, 186, 209, 214, 234, 250, 256, 263)
 
 
 class TestPhases295to300SievesAndTelemetry:
@@ -12274,7 +12274,7 @@ class TestPhases295to300SievesAndTelemetry:
 
     def test_phases_295_to_300_lenses_init_exports_count_127(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (127, 134, 143, 163, 179, 186, 209, 214, 234, 250, 256)
+        assert len(lenses.__all__) in (127, 134, 143, 163, 179, 186, 209, 214, 234, 250, 256, 263)
 
 
 class TestPhases301to307SievesAndQuantumGating:
@@ -12455,7 +12455,7 @@ class TestPhases301to307SievesAndQuantumGating:
 
     def test_phases_301_to_307_lenses_init_exports_count_134(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (134, 143, 163, 179, 186, 209, 214, 234, 250, 256)
+        assert len(lenses.__all__) in (134, 143, 163, 179, 186, 209, 214, 234, 250, 256, 263)
 
     def test_sadhguru_strategic_council_archetype(self):
         from geo_engine.arbitration.persona_narrator import PersonaNarrator
@@ -12712,7 +12712,7 @@ class TestPhases309to317SievesAndQuantumSynthesis:
 
     def test_phases_309_to_317_lenses_init_exports_count_143(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (143, 163, 179, 186, 209, 214, 234, 250, 256)
+        assert len(lenses.__all__) in (143, 163, 179, 186, 209, 214, 234, 250, 256, 263)
         for sieve in [
             "ArchivalPrimarySourceSieve",
             "AcademicGatekeepingSieve",
@@ -12968,7 +12968,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
         s = SummitEvent(summit_id="s_318_337", title="Forensic Multi-Domain Summit", date=datetime.now(), host_country="India", participant_countries=["India", "Global"])
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) in (149, 165, 172, 195, 200, 220, 238, 245)
+        assert len(srm) in (149, 165, 172, 195, 200, 220, 238, 245, 252)
         for key in [
             "basel_gold_allocation_score",
             "mnemonic_fidelity_score",
@@ -13032,7 +13032,7 @@ class TestPhases318to337SievesAndForensicSynthesis:
 
     def test_phases_318_to_337_lenses_init_exports_count_163(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (163, 179, 186, 209, 214, 234, 250, 256)
+        assert len(lenses.__all__) in (163, 179, 186, 209, 214, 234, 250, 256, 263)
         for sieve in [
             "BaselGoldAllocationSieve",
             "ApaurusheyaMnemonicFidelitySieve",
@@ -13219,7 +13219,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
         assert evaluation.dossier_id == "DOSSIER-TEST-99"
         assert 0.0 <= evaluation.composite_sovereign_authenticity_index <= 1.0
         assert len(evaluation.competing_hypotheses) == 4
-        assert len(evaluation.council_perspectives) in (7, 15, 19)
+        assert len(evaluation.council_perspectives) in (7, 15, 19, 22)
         assert "Ajit_Doval" in evaluation.council_perspectives
         assert "PM_Narendra_Modi" in evaluation.council_perspectives
         assert "Dr_Sudhanshu_Trivedi" in evaluation.council_perspectives
@@ -13251,7 +13251,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
         )
         res = SummitSynthesizer.synthesize(s)
         srm = res.strategic_resilience_matrix
-        assert len(srm) in (165, 172, 195, 200, 220, 238, 245)
+        assert len(srm) in (165, 172, 195, 200, 220, 238, 245, 252)
         for ch in [
             "sovereign_public_interest_score",
             "adversary_timing_correlation_score",
@@ -13274,7 +13274,7 @@ class TestPhases338to353WhistleblowerAndForensicSynthesis:
 
     def test_phases_338_to_353_lenses_init_exports_count_179(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (179, 186, 209, 214, 234, 250, 256)
+        assert len(lenses.__all__) in (179, 186, 209, 214, 234, 250, 256, 263)
         for sieve in [
             "SovereignPublicInterestSieve",
             "AdversaryTimingCorrelationSieve",
@@ -13397,7 +13397,7 @@ class TestPhases355to365DharmikStatecraftAndInvisibleCashFlows:
         assert eval_res.dossier_id == "DOSS-TEST-362"
         assert 0.0 <= eval_res.composite_dharmik_sovereignty_index <= 1.0
         assert len(eval_res.competing_strategic_doctrines) == 4
-        assert len(eval_res.council_perspectives) == 19
+        assert len(eval_res.council_perspectives) in (19, 22)
         assert "Ajit_Doval" in eval_res.council_perspectives
         assert "Acharya_Chanakya_Kautilya" in eval_res.council_perspectives
         assert "Sri_Krishna_Rajadharma" in eval_res.council_perspectives
@@ -13742,7 +13742,7 @@ class TestPhases368to390SovereignForensicSievesAndResilienceTelemetry:
         )
         report = SummitSynthesizer.synthesize_report(summit)
         srm = report.strategic_resilience_matrix
-        assert len(srm) in (195, 200, 220, 238, 245)
+        assert len(srm) in (195, 200, 220, 238, 245, 252)
         nones = [k for k, v in srm.items() if v is None]
         assert len(nones) == 0, f"Found None channels: {nones}"
 
@@ -13977,7 +13977,7 @@ class TestPhases391to395InvestigativeIntelligenceAndCashFlowSieves:
         )
         report = SummitSynthesizer.synthesize_report(summit)
         srm = report.strategic_resilience_matrix
-        assert len(srm) in (200, 220, 238, 245), f"Expected 200, 220, 238 or 245 channels, got {len(srm)}"
+        assert len(srm) in (200, 220, 238, 245, 252), f"Expected 200, 220, 238, 245 or 252 channels, got {len(srm)}"
         nones = [k for k, v in srm.items() if v is None]
         assert len(nones) == 0, f"Found None channels: {nones}"
 
@@ -13995,7 +13995,7 @@ class TestPhases391to395InvestigativeIntelligenceAndCashFlowSieves:
 
     def test_phases_391_to_395_lenses_init_exports(self):
         import geo_engine.lenses as l
-        assert len(l.__all__) in (214, 234, 250, 256), f"Expected 214, 234, 250 or 256 symbols, got {len(l.__all__)}"
+        assert len(l.__all__) in (214, 234, 250, 256, 263), f"Expected 214, 234, 250, 256 or 263 symbols, got {len(l.__all__)}"
         expected_sieves = [
             "TransnationalSemiconductorSmugglingAndExecutiveKompromatSieve",
             "MediaIntelligenceLeakTimingTensor",
@@ -14245,7 +14245,7 @@ class TestPhases396to415SovereignForensicSieves:
         from geo_engine.arbitration.synthesizer import SummitSynthesizer, SummitEvent
         import geo_engine.lenses as l
 
-        assert len(l.__all__) in (234, 250, 256)
+        assert len(l.__all__) in (234, 250, 256, 263)
 
         summit = SummitEvent(
             summit_name="220 Channels Comprehensive Calibration",
@@ -14286,7 +14286,7 @@ class TestPhases396to415SovereignForensicSieves:
         )
         rep = SummitSynthesizer.synthesize_report(summit)
         srm = rep.strategic_resilience_matrix
-        assert len(srm) in (220, 238, 245)
+        assert len(srm) in (220, 238, 245, 252)
         for ch, val in srm.items():
             assert val is not None, f"Channel {ch} is None"
             assert isinstance(val, (int, float)), f"Channel {ch} is not float: {type(val)}"
@@ -14609,14 +14609,14 @@ class TestPhases416to433SovereignForensicSievesAndTitans:
         )
         rep = SummitSynthesizer.synthesize_report(summit)
         srm = rep.strategic_resilience_matrix
-        assert len(srm) in (238, 245), f"Expected 238 or 245 channels, got {len(srm)}"
+        assert len(srm) in (238, 245, 252), f"Expected 238, 245 or 252 channels, got {len(srm)}"
         for ch, val in srm.items():
             assert val is not None, f"Channel {ch} is None"
             assert isinstance(val, (int, float)), f"Channel {ch} is not numeric: {type(val)}"
 
     def test_phase416_to_433_lens_exports_250_symbols(self):
         import geo_engine.lenses as lenses
-        assert len(lenses.__all__) in (250, 256), f"Expected 250 or 256 symbols in lenses.__all__, got {len(lenses.__all__)}"
+        assert len(lenses.__all__) in (250, 256, 263), f"Expected 250, 256 or 263 symbols in lenses.__all__, got {len(lenses.__all__)}"
 
     def test_phase416_to_433_query_parser_all_titans_ast(self):
         from geo_engine.core.query_parser import QueryParser
@@ -14758,7 +14758,7 @@ class TestPhases434to440SemioticPolycrisisAndSovereignSieves:
         )
         rep = SummitSynthesizer.synthesize_report(summit)
         srm = rep.strategic_resilience_matrix
-        assert len(srm) == 245, f"Expected 245 channels, got {len(srm)}"
+        assert len(srm) in (245, 252), f"Expected 245 or 252 channels, got {len(srm)}"
 
         expected_channels = [
             "predictive_semiotic_deconstruction_score",
@@ -14781,7 +14781,7 @@ class TestPhases434to440SemioticPolycrisisAndSovereignSieves:
     def test_phases434_to_440_lens_exports_256_symbols(self):
         import geo_engine.lenses as lenses
 
-        assert len(lenses.__all__) == 256, f"Expected 256 symbols in lenses.__all__, got {len(lenses.__all__)}"
+        assert len(lenses.__all__) in (256, 263), f"Expected 256 or 263 symbols in lenses.__all__, got {len(lenses.__all__)}"
         new_symbols = [
             "GlobalPolycrisisCollisionAndSystemicCascadeTensor",
             "CulturalReligiousGrayzoneSubversionSieve",
@@ -14811,4 +14811,258 @@ class TestPhases434to440SemioticPolycrisisAndSovereignSieves:
         assert sq.requires_leo_orbital_weaponization is True
         assert sq.requires_taiwan_semiconductor_choke is True
         assert sq.requires_electoral_lawfare_polarization is True
+
+
+class TestPhases441to447SovereignForensicSievesAndExtendedCouncil:
+    """
+    Phases 441-447: Tripolar Condominium, AI Services Labor Displacement,
+    Transnational Diaspora Lawfare, GPU Export Control Chokepoint, Currency Appreciation REER Friction,
+    Supranational Deep State Subversion, Critical Bullion Pricing & SCADA Cyber Shield Tensors,
+    and Formal Expansion of the Sovereign Epistemic Council to 22 Members.
+    """
+
+    def test_phase441_tripolar_superpower_condominium_tensor(self):
+        from geo_engine.lenses.geopolitical import TripolarSuperpowerCondominiumAndExclusionTensor
+        res = TripolarSuperpowerCondominiumAndExclusionTensor.evaluate(
+            bilateral_truce_depth=0.70,
+            energy_pact_alignment=0.65,
+            nuclear_risk_reduction_cooperation=0.60,
+            multipolar_hedging_capacity=0.85,
+            sagar_naval_posture=0.85,
+            domestic_capex_resilience=0.90,
+        )
+        assert 0.0 <= res["tripolar_condominium_exclusion_risk"] <= 1.0
+        assert 0.0 <= res["sovereign_strategic_autonomy_score"] <= 1.0
+        assert res["is_exclusion_shield_effective"] is True
+        assert res["condominium_threat_tier"] in [
+            "SEVERE_TRIPOLAR_CONDOMINIUM_EXCLUSION_RISK",
+            "ELEVATED_SUPERPOWER_CARVEOUT_FRICTION",
+            "BALANCED_MULTIPOLAR_MANEUVERABILITY",
+        ]
+
+    def test_phase442_services_export_labor_displacement_tensor(self):
+        from geo_engine.lenses.deep_tech import ServicesExportLaborDisplacementAndAISubstitutionTensor
+        res = ServicesExportLaborDisplacementAndAISubstitutionTensor.evaluate(
+            code_synthesis_rate=0.85,
+            voice_agent_displacement_rate=0.80,
+            bpo_wage_arbitrage_decay=0.75,
+            physical_manufacturing_capex=0.80,
+            sovereign_dpi_adoption=0.90,
+            high_end_skill_pivot_rate=0.75,
+        )
+        assert 0.0 <= res["ai_services_labor_displacement_index"] <= 1.0
+        assert 0.0 <= res["sovereign_economic_moat_score"] <= 1.0
+        assert res["is_labor_moat_resilient"] is True
+        assert res["ai_displacement_tier"] in [
+            "SEVERE_AI_SERVICES_LABOR_DISPLACEMENT_RISK",
+            "MODERATE_COGNITIVE_AUTOMATION_HEADWIND",
+            "HIGH_RESILIENCE_LABOR_MOAT",
+        ]
+
+    def test_phase443_transnational_diaspora_subversion_sieve(self):
+        from geo_engine.lenses.institutional_lawfare import TransnationalDiasporaLawfareAndNarrativeSubversionSieve
+        res = TransnationalDiasporaLawfareAndNarrativeSubversionSieve.evaluate(
+            think_tank_echo_coordination=0.75,
+            constitutional_narrative_export=0.70,
+            wedge_issue_amplification=0.80,
+            counter_narrative_response_speed=0.85,
+            sovereign_legal_counter_offense=0.80,
+        )
+        assert 0.0 <= res["transnational_diaspora_subversion_risk"] <= 1.0
+        assert res["narrative_subversion_tier"] in [
+            "SEVERE_TRANSNATIONAL_DIASPORA_SUBVERSION_RISK",
+            "ELEVATED_NARRATIVE_ASYMMETRY",
+            "CONTAINED_INFORMATION_DOMAIN",
+        ]
+
+    def test_phase444_gpu_export_control_chokepoint_tensor(self):
+        from geo_engine.lenses.critical_minerals import SemiconductorHardwareChokepointAndGPUExportControlTensor
+        res = SemiconductorHardwareChokepointAndGPUExportControlTensor.evaluate(
+            export_ban_severity=0.85,
+            advanced_packaging_concentration=0.80,
+            lithography_denial_index=0.90,
+            domestic_fab_buffer_months=24.0,
+            alternative_architecture_readiness=0.60,
+        )
+        assert 0.0 <= res["gpu_export_control_chokepoint_vulnerability"] <= 1.0
+        assert res["silicon_chokepoint_tier"] in [
+            "ACUTE_HARDWARE_SANCTIONS_CHOKEPOINT",
+            "MODERATE_COMPUTE_EQUIPMENT_RESTRICTION",
+            "RESILIENT_SILICON_SUPPLY_CHAIN",
+        ]
+
+    def test_phase445_currency_appreciation_friction_tensor(self):
+        from geo_engine.lenses.geo_economist import CurrencyAppreciationExportFrictionAndREERTensor
+        res = CurrencyAppreciationExportFrictionAndREERTensor.evaluate(
+            it_margin_compression_pct=0.10,
+            msme_competitiveness_loss=0.40,
+            reer_index=108.0,
+            crude_import_savings_rate=0.55,
+            external_debt_service_relief=0.60,
+        )
+        assert 0.0 <= res["currency_appreciation_export_friction_score"] <= 1.0
+        assert 0.0 <= res["macro_import_debt_resilience_score"] <= 1.0
+        assert res["is_external_trade_resilient"] is True
+        assert res["export_friction_tier"] in [
+            "SEVERE_CURRENCY_APPRECIATION_EXPORT_FRICTION",
+            "MODERATE_TERMS_OF_TRADE_TENSION",
+            "OPTIMAL_EXTERNAL_BALANCE_DYNAMICS",
+        ]
+
+    def test_phase446_supranational_deep_state_subversion_sieve(self):
+        from geo_engine.lenses.institutional_lawfare import SupranationalOligarchyAndDeepStateSubversionSieve
+        res = SupranationalOligarchyAndDeepStateSubversionSieve.evaluate(
+            wef_pushback_index=0.75,
+            judicial_intel_lawfare=0.70,
+            tech_monopoly_censorship=0.80,
+            sovereign_rating_cartel_bias=0.65,
+            sovereign_autonomy_enforcement=0.85,
+        )
+        assert 0.0 <= res["supranational_deep_state_subversion_risk"] <= 1.0
+        assert res["deep_state_subversion_tier"] in [
+            "ACUTE_SUPRANATIONAL_DEEP_STATE_SUBVERSION_RISK",
+            "ELEVATED_OLIGARCHICAL_REGULATORY_PRESSURE",
+            "SECURE_SOVEREIGN_REGULATORY_FRAMEWORK",
+        ]
+
+    def test_phase447_critical_infra_bullion_pricing_tensor(self):
+        from geo_engine.lenses.deep_tech import CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor
+        res = CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor.evaluate(
+            gift_city_bullion_volume=0.80,
+            shanghai_dubai_moscow_corridor_sync=0.85,
+            physical_delivery_ratio=0.90,
+            paper_discount_spread=0.20,
+            airgapped_grid_infra_ratio=0.85,
+            pqc_authentication_coverage=0.80,
+            foreign_os_dependency_ratio=0.20,
+        )
+        assert 0.0 <= res["physical_bullion_pricing_power_and_cyber_resilience_score"] <= 1.0
+        assert 0.0 <= res["physical_bullion_pricing_power"] <= 1.0
+        assert 0.0 <= res["scada_cyber_immunity_score"] <= 1.0
+        assert res["is_shield_fortified"] is True
+        assert res["sovereign_shield_tier"] in [
+            "FORTRESS_SOVEREIGN_PRICING_AND_CYBER_SHIELD",
+            "ELEVATED_PHYSICAL_MACRO_AND_DIGITAL_RESILIENCE",
+            "VULNERABLE_FINANCIAL_SETTLEMENT_AND_SCADA_VECTOR",
+        ]
+
+    def test_extended_sovereign_council_22_members(self):
+        from geo_engine.arbitration.dharmik_statecraft import (
+            DharmikStatecraftPipeline,
+            DharmikStatecraftDossier,
+        )
+        from geo_engine.arbitration.whistleblower import (
+            SatyamevaSuchakaPipeline,
+            WhistleblowerDossier,
+        )
+
+        # 1. Dharmik Statecraft 22 Members Verification
+        d_dharmik = DharmikStatecraftDossier(
+            dossier_id="DOSS-COUNCIL-22-DHARMIK",
+            title="Strategic Sovereignty and Civilizational Continuity",
+            target_nation_or_entity="Multipolar Strategic Landscape",
+            narrative_context="High-altitude Himalayan defenses, temple civilizational titling, and primary Sanskrit epic statecraft.",
+        )
+        res_dharmik = DharmikStatecraftPipeline.evaluate_scenario(d_dharmik)
+        council_d = res_dharmik.council_perspectives
+        assert len(council_d) == 22, f"Expected 22 council members, got {len(council_d)}"
+        assert "Dr_Meenakshi_Jain" in council_d
+        assert "Ami_Ganatra" in council_d
+        assert "Major_Gaurav_Arya" in council_d
+        assert "Epigraphic" in council_d["Dr_Meenakshi_Jain"]
+        assert "Mahabharata" in council_d["Ami_Ganatra"]
+        assert "Kinetic deterrence" in council_d["Major_Gaurav_Arya"]
+
+        # 2. Satyameva Suchaka Whistleblower 22 Members Verification
+        d_whistle = WhistleblowerDossier(
+            dossier_id="DOSS-COUNCIL-22-WHISTLE",
+            title="Forensic Authenticity of Sovereign Epistemic Evidence",
+            target_entity="Adversarial Disinformation Network",
+            domain="DEFENSE",
+            narrative_text="Inscriptional title fraud, manipulated translations, and covert proxy cross-border operations.",
+        )
+        res_whistle = SatyamevaSuchakaPipeline.evaluate_dossier(d_whistle)
+        council_w = res_whistle.council_perspectives
+        assert len(council_w) == 22, f"Expected 22 council members, got {len(council_w)}"
+        assert "Dr_Meenakshi_Jain" in council_w
+        assert "Ami_Ganatra" in council_w
+        assert "Major_Gaurav_Arya" in council_w
+        assert "Epigraphic" in council_w["Dr_Meenakshi_Jain"]
+        assert "Canonical" in council_w["Ami_Ganatra"]
+        assert "Tactical Hybrid" in council_w["Major_Gaurav_Arya"]
+
+    def test_phases441_to_447_strategic_resilience_matrix_252_channels(self):
+        from geo_engine.arbitration.synthesizer import SummitSynthesizer
+        from geo_engine.core.models import SummitEvent
+
+        summit = SummitEvent(
+            summit_name="252 Channels Complete Sovereign Resilience Calibration",
+            year=2026,
+            metadata={}
+        )
+        rep = SummitSynthesizer.synthesize_report(summit)
+        srm = rep.strategic_resilience_matrix
+        assert len(srm) == 252, f"Expected 252 channels, got {len(srm)}"
+
+        expected_channels = [
+            "tripolar_condominium_exclusion_risk",
+            "ai_services_labor_displacement_index",
+            "transnational_diaspora_subversion_risk",
+            "gpu_export_control_chokepoint_vulnerability",
+            "currency_appreciation_export_friction_score",
+            "supranational_deep_state_subversion_risk",
+            "physical_bullion_pricing_power_and_cyber_resilience_score",
+        ]
+        for ch in expected_channels:
+            assert ch in srm, f"Missing channel: {ch}"
+            assert srm[ch] is not None, f"Channel {ch} is None"
+            assert isinstance(srm[ch], (int, float)), f"Channel {ch} not numeric: {type(srm[ch])}"
+
+        for ch, val in srm.items():
+            assert val is not None, f"Channel {ch} is None"
+            assert isinstance(val, (int, float)), f"Channel {ch} is not numeric: {type(val)}"
+
+    def test_phases441_to_447_lens_exports_263_symbols(self):
+        import geo_engine.lenses as lenses
+
+        assert len(lenses.__all__) == 263, f"Expected 263 symbols in lenses.__all__, got {len(lenses.__all__)}"
+        new_symbols = [
+            "TripolarSuperpowerCondominiumAndExclusionTensor",
+            "ServicesExportLaborDisplacementAndAISubstitutionTensor",
+            "TransnationalDiasporaLawfareAndNarrativeSubversionSieve",
+            "SemiconductorHardwareChokepointAndGPUExportControlTensor",
+            "CurrencyAppreciationExportFrictionAndREERTensor",
+            "SupranationalOligarchyAndDeepStateSubversionSieve",
+            "CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor",
+        ]
+        for sym in new_symbols:
+            assert sym in lenses.__all__, f"Missing {sym} in lenses.__all__"
+            assert hasattr(lenses, sym), f"Missing attribute {sym} in lenses module"
+
+    def test_phases441_to_447_query_parser_ast_flags(self):
+        from geo_engine.core.query_parser import QueryParser
+
+        query_str = (
+            "Analyze tripolar condominium exclusion risk with g2 entente, "
+            "ai labor displacement and services export displacement code synthesis, "
+            "transnational diaspora subversion and diaspora lawfare think tank echo, "
+            "gpu export control semiconductor chokepoint h100 ban, "
+            "currency appreciation friction and reer overvaluation it margin compression, "
+            "supranational deep state wef pushback davos mandate, "
+            "and bullion pricing power with gift city bullion scada cyber sovereignty."
+        )
+        sq = QueryParser.parse(query_str)
+        assert sq.requires_tripolar_condominium is True
+        assert sq.requires_ai_labor_displacement is True
+        assert sq.requires_diaspora_subversion is True
+        assert sq.requires_gpu_export_chokepoint is True
+        assert sq.requires_reer_appreciation_friction is True
+        assert sq.requires_supranational_deep_state is True
+        assert sq.requires_bullion_cyber_sovereignty is True
+        assert "geopolitical" in sq.prioritized_lenses
+        assert "deep_tech" in sq.prioritized_lenses
+        assert "institutional_lawfare" in sq.prioritized_lenses
+        assert "critical_minerals" in sq.prioritized_lenses
+        assert "geo_economist" in sq.prioritized_lenses
+
 

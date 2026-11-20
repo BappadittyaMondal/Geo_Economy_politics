@@ -942,6 +942,14 @@ class SummitSynthesizer:
             "orbital_weaponization_vulnerability_score": deep_tech_eval.hard_metrics.get("orbital_weaponization_vulnerability_score", 0.0) if deep_tech_eval else 0.0,
             "taiwan_quarantine_semiconductor_choke_index": minerals_eval.hard_metrics.get("taiwan_quarantine_semiconductor_choke_index", 0.0) if minerals_eval else 0.0,
             "electoral_lawfare_polarization_score": lawfare_eval.hard_metrics.get("electoral_lawfare_polarization_score", 0.0) if lawfare_eval else 0.0,
+            # Phases 441-447: Sovereign Forensic Sieves & Multilateral Autonomy Tensors (7 Channels: 245 -> 252)
+            "tripolar_condominium_exclusion_risk": geo_eval.hard_metrics.get("tripolar_condominium_exclusion_risk", 0.0) if geo_eval else 0.0,
+            "ai_services_labor_displacement_index": deep_tech_eval.hard_metrics.get("ai_services_labor_displacement_index", 0.0) if deep_tech_eval else 0.0,
+            "transnational_diaspora_subversion_risk": lawfare_eval.hard_metrics.get("transnational_diaspora_subversion_risk", 0.0) if lawfare_eval else 0.0,
+            "gpu_export_control_chokepoint_vulnerability": minerals_eval.hard_metrics.get("gpu_export_control_chokepoint_vulnerability", 0.0) if minerals_eval else 0.0,
+            "currency_appreciation_export_friction_score": geo_economist_eval.hard_metrics.get("currency_appreciation_export_friction_score", 0.0) if geo_economist_eval else 0.0,
+            "supranational_deep_state_subversion_risk": lawfare_eval.hard_metrics.get("supranational_deep_state_subversion_risk", 0.0) if lawfare_eval else 0.0,
+            "physical_bullion_pricing_power_and_cyber_resilience_score": deep_tech_eval.hard_metrics.get("physical_bullion_pricing_power_and_cyber_resilience_score", 0.0) if deep_tech_eval else 0.0,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

@@ -352,6 +352,18 @@ class SatyamevaSuchakaPipeline:
                 f"Ram Rajya Governance Ethics: Maintain total administrative transparency and Praja-Anuraga (citizen trust). "
                 f"Zero compromise on public safety and moral integrity."
             ),
+            "Dr_Meenakshi_Jain": (
+                f"Epigraphic & Primary Evidence Audit: Sacrality score {s_chs:.2f}. "
+                f"Reconcile land revenue records, temple inscriptions, and colonial survey discrepancies to establish irrefutable historical title."
+            ),
+            "Ami_Ganatra": (
+                f"Canonical Textual & Epic Fidelity: Audit claims against original Sanskrit recensions to eliminate "
+                f"manipulative interpolations and preserve civilizational legal integrity."
+            ),
+            "Major_Gaurav_Arya": (
+                f"Tactical Hybrid Threat & Border Forensics: Exfiltration score {s_efs:.2f}, SCADA tamper {s_dst:.2f}. "
+                f"Expose adversary proxy intelligence warfare and maintain offensive counter-measures along sensitive operational axes."
+            ),
         }
 
         return WhistleblowerEvaluation(
