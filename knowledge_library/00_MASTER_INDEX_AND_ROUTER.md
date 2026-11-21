@@ -1,6 +1,6 @@
 # BSKM: MASTER EPISTEMIC INDEX & ROUTING MATRIX
 > Central Navigational Compass for the 157+ Multi-Domain Video Intelligence Dossiers.
-> Total Indexed Dossiers: 187 | Domain Files: 6
+> Total Indexed Dossiers: 188 | Domain Files: 6
 
 ## 1. Domain Dossier Inventory
 
@@ -8,7 +8,7 @@
 | :--- | :--- | :--- |
 | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 34 sections |
 | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 49 sections |
-| [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 47 sections |
+| [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 48 sections |
 | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 28 sections |
 | [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 6 sections |
 | [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) | Cognitive Warfare, Media Deconstruction, Edutainment & Institutional Lawfare | 23 sections |
@@ -204,3 +204,4 @@
 | Section 185: The Alternate Media (Gayatri Mishra & Girdhar Mamidipudi) — Trump's Shenzhen Fiasco, Modi-Putin Strategic Pincer & Deep-State WEF Revolt (`1C-Mps-LwXI`) | `1C-Mps-LwXI` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
 | Section 186: Dr. Ankit Shah — NSA Communications Outage, Cybersecurity Leadership Purge, 9-Day T-Bills & GIFT City Physical Bullion Pricing (`PdDa0pCmsrY`) | `PdDa0pCmsrY` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
 | Section 187: The Economist — 'The World Ahead 2027' Complete 97-Article Compendium, Semiotic Cover Mapping, Council Titans & Civilizational Synthesis (`ECONOMIST-2027-FULL-COMPENDIUM`) | `N/A` | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) |
+| Section 188: Comprehensive 22-Discourse Strategic Intelligence Audit — Geopolitics, Cognitive Lawfare, Geoeconomic Cashflows & Civilizational Statecraft (`MULTI-DISCOURSE-22-AUDIT`) | `N/A` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
