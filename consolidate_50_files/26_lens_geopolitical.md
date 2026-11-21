@@ -281,6 +281,18 @@ class GeopoliticalLens:
         )
         metrics["tripolar_condominium_exclusion_risk"] = _tce_res["tripolar_condominium_exclusion_risk"]
 
+        # Phase 448: The Economist Comprehensive 2027 Global Horizon Tensor
+        _eco_res = TheEconomistComprehensive2027GlobalHorizonTensor.evaluate(
+            fiscal_bond_squeeze=geo_meta.get("fiscal_bond_squeeze", 0.65),
+            tech_compute_bottleneck=geo_meta.get("tech_compute_bottleneck", 0.70),
+            geopolitical_friction=geo_meta.get("geopolitical_friction", 0.75),
+            climate_resource_stress=geo_meta.get("climate_resource_stress", 0.55),
+            middle_power_banding=geo_meta.get("middle_power_banding", 0.80),
+            domestic_industrial_capex=geo_meta.get("domestic_industrial_capex", 0.85),
+        )
+        metrics["economist_2027_poly_crisis_horizon_index"] = _eco_res["economist_2027_poly_crisis_horizon_index"]
+        metrics["multipolar_equilibrium_score"] = _eco_res["multipolar_equilibrium_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1079,6 +1091,67 @@ class TripolarSuperpowerCondominiumAndExclusionTensor:
             "operational_verdict": verdict,
             "is_exclusion_shield_effective": s_autonomy >= 0.65,
         }
+
+
+class TheEconomistComprehensive2027GlobalHorizonTensor:
+    """Phase 448: The Economist Comprehensive 2027 Global Horizon Tensor.
+    Deconstructs the 97-trend polycrisis taxonomy from The Economist: The World Ahead 2027,
+    evaluating fiscal bond vigilante squeezes, tech compute bottlenecks, geopolitical friction,
+    and climate resource stresses against multipolar middle-power banding and domestic industrial CapEx.
+    Formula:
+        RawPolyCrisis = Norm(0.30 * fiscal_bond_squeeze + 0.25 * tech_compute_bottleneck + 0.25 * geopolitical_friction + 0.20 * climate_resource_stress)
+        PolyCrisisHorizonIndex = round(max(0.0, min(1.0, RawPolyCrisis)), 4)
+        z = 2.2 * middle_power_banding + 1.9 * domestic_industrial_capex - 2.1 * PolyCrisisHorizonIndex - 1.2
+        MultipolarEquilibriumScore = round(1.0 / (1.0 + exp(-z)), 4)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        fiscal_bond_squeeze: float = 0.65,
+        tech_compute_bottleneck: float = 0.70,
+        geopolitical_friction: float = 0.75,
+        climate_resource_stress: float = 0.55,
+        middle_power_banding: float = 0.80,
+        domestic_industrial_capex: float = 0.85,
+    ) -> Dict[str, Any]:
+        f_squeeze = float(max(0.0, min(1.0, fiscal_bond_squeeze)))
+        t_compute = float(max(0.0, min(1.0, tech_compute_bottleneck)))
+        g_fric = float(max(0.0, min(1.0, geopolitical_friction)))
+        c_stress = float(max(0.0, min(1.0, climate_resource_stress)))
+        m_band = float(max(0.0, min(1.0, middle_power_banding)))
+        d_capex = float(max(0.0, min(1.0, domestic_industrial_capex)))
+
+        raw_poly = 0.30 * f_squeeze + 0.25 * t_compute + 0.25 * g_fric + 0.20 * c_stress
+        poly_index = round(max(0.0, min(1.0, raw_poly)), 4)
+
+        z = 2.2 * m_band + 1.9 * d_capex - 2.1 * poly_index - 1.2
+        eq_score = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        if poly_index >= 0.70:
+            tier = "ACUTE_POLYCRISIS_SYSTEMIC_FRACTURE"
+            verdict = "FORTIFY_SOVEREIGN_BALANCE_SHEET_AND_ACCELERATE_PHYSICAL_ASSET_HOARDING"
+        elif poly_index >= 0.40:
+            tier = "ELEVATED_GLOBAL_HORIZON_POLY_STRESS"
+            verdict = "EXPAND_MINILATERAL_CURRENCY_SWAPS_AND_DOMESTIC_COMPUTE_BUFFER"
+        else:
+            tier = "STABLE_MULTIPOLAR_HORIZON"
+            verdict = "MAINTAIN_EXPEDIENT_TRADE_AND_ENERGY_CONNECTIVITY"
+
+        return {
+            "economist_2027_poly_crisis_horizon_index": poly_index,
+            "multipolar_equilibrium_score": eq_score,
+            "fiscal_bond_squeeze": round(f_squeeze, 4),
+            "tech_compute_bottleneck": round(t_compute, 4),
+            "geopolitical_friction": round(g_fric, 4),
+            "climate_resource_stress": round(c_stress, 4),
+            "middle_power_banding": round(m_band, 4),
+            "domestic_industrial_capex": round(d_capex, 4),
+            "polycrisis_horizon_tier": tier,
+            "operational_verdict": verdict,
+            "is_multipolar_equilibrium_resilient": eq_score >= 0.65,
+        }
+
 
 
 

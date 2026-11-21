@@ -561,6 +561,17 @@ class InstitutionalLawfareLens:
         )
         metrics["supranational_deep_state_subversion_risk"] = _sod_res["supranational_deep_state_subversion_risk"]
 
+        # Phase 449: Multilateral Defense Interoperability and Cognitive Security Sieve
+        _mdi_res = MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve.evaluate(
+            fcra_lawfare_severance=law_meta.get("fcra_lawfare_severance", 0.85),
+            curriculum_decolonization=law_meta.get("curriculum_decolonization", 0.80),
+            historical_memory_defense=law_meta.get("historical_memory_defense", 0.85),
+            indigenous_aerospace_capex=law_meta.get("indigenous_aerospace_capex", 0.85),
+            bilateral_live_fire_pacts=law_meta.get("bilateral_live_fire_pacts", 0.80),
+            foreign_tot_denial=law_meta.get("foreign_tot_denial", 0.70),
+        )
+        metrics["defense_interoperability_and_cognitive_immunity_score"] = _mdi_res["defense_interoperability_and_cognitive_immunity_score"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -2506,6 +2517,70 @@ class SupranationalOligarchyAndDeepStateSubversionSieve:
             "operational_verdict": verdict,
             "is_institutional_autonomy_intact": o_subversion < 0.35,
         }
+
+
+class MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve:
+    """Phase 449: Multilateral Defense Interoperability & Cognitive Security Sieve.
+    Synthesizes bilateral military exercise readiness (Japan GSDF Pokhran live-fire pact,
+    indigenous aerospace CapEx) against asymmetric cognitive subversion, FCRA foreign funding
+    conduits ($1.5M anti-India subversion syndicates), and foreign Transfer of Technology (ToT) ceilings.
+    Formula:
+        CognitiveImmunity = Norm(0.40 * fcra_lawfare_severance + 0.35 * curriculum_decolonization + 0.25 * historical_memory_defense)
+        z = 2.4 * indigenous_aerospace_capex + 2.0 * bilateral_live_fire_pacts - 2.1 * foreign_tot_denial - 1.2
+        DefenseAbsorptionMoat = 1.0 / (1.0 + exp(-z))
+        SovereignSecurityScore = round(0.50 * CognitiveImmunity + 0.50 * DefenseAbsorptionMoat, 4)
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        fcra_lawfare_severance: float = 0.85,
+        curriculum_decolonization: float = 0.80,
+        historical_memory_defense: float = 0.85,
+        indigenous_aerospace_capex: float = 0.85,
+        bilateral_live_fire_pacts: float = 0.80,
+        foreign_tot_denial: float = 0.70,
+    ) -> Dict[str, Any]:
+        f_fcra = float(max(0.0, min(1.0, fcra_lawfare_severance)))
+        c_curr = float(max(0.0, min(1.0, curriculum_decolonization)))
+        h_mem = float(max(0.0, min(1.0, historical_memory_defense)))
+        a_capex = float(max(0.0, min(1.0, indigenous_aerospace_capex)))
+        b_pact = float(max(0.0, min(1.0, bilateral_live_fire_pacts)))
+        t_denial = float(max(0.0, min(1.0, foreign_tot_denial)))
+
+        raw_cog = 0.40 * f_fcra + 0.35 * c_curr + 0.25 * h_mem
+        cog_immunity = round(max(0.0, min(1.0, raw_cog)), 4)
+
+        z = 2.4 * a_capex + 2.0 * b_pact - 2.1 * t_denial - 1.2
+        defense_moat = round(1.0 / (1.0 + math.exp(-z)), 4)
+
+        sec_score = round(0.50 * cog_immunity + 0.50 * defense_moat, 4)
+
+        if sec_score >= 0.70:
+            tier = "FORTRESS_DEFENSE_AND_COGNITIVE_IMMUNITY"
+            verdict = "ACCELERATE_INDIGENOUS_PROPULSION_AND_SCALE_BILATERAL_LIVE_FIRE_EXERCISES"
+        elif sec_score >= 0.45:
+            tier = "ELEVATED_ASYMMETRIC_HYBRID_CONTESTATION"
+            verdict = "SEVER_COVERT_FCRA_CONDUITS_AND_EXPEDITE_DOMESTIC_AEROSPACE_SUB_ASSEMBLIES"
+        else:
+            tier = "VULNERABLE_COGNITIVE_AND_MILITARY_ABSORPTION_POSTURE"
+            verdict = "ACTIVATE_EMERGENCY_COUNTER_SUBVERSION_STRIKES_AND_EXPAND_AMMUNITION_RESERVES"
+
+        return {
+            "defense_interoperability_and_cognitive_immunity_score": sec_score,
+            "cognitive_immunity_index": cog_immunity,
+            "defense_absorption_moat": defense_moat,
+            "fcra_lawfare_severance": round(f_fcra, 4),
+            "curriculum_decolonization": round(c_curr, 4),
+            "historical_memory_defense": round(h_mem, 4),
+            "indigenous_aerospace_capex": round(a_capex, 4),
+            "bilateral_live_fire_pacts": round(b_pact, 4),
+            "foreign_tot_denial": round(t_denial, 4),
+            "sovereign_security_tier": tier,
+            "operational_verdict": verdict,
+            "is_defense_and_cognitive_fortified": sec_score >= 0.65,
+        }
+
 
 
 

@@ -950,6 +950,9 @@ class SummitSynthesizer:
             "currency_appreciation_export_friction_score": geo_economist_eval.hard_metrics.get("currency_appreciation_export_friction_score", 0.0) if geo_economist_eval else 0.0,
             "supranational_deep_state_subversion_risk": lawfare_eval.hard_metrics.get("supranational_deep_state_subversion_risk", 0.0) if lawfare_eval else 0.0,
             "physical_bullion_pricing_power_and_cyber_resilience_score": deep_tech_eval.hard_metrics.get("physical_bullion_pricing_power_and_cyber_resilience_score", 0.0) if deep_tech_eval else 0.0,
+            # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability (2 Channels: 252 -> 254)
+            "economist_2027_poly_crisis_horizon_index": geo_eval.hard_metrics.get("economist_2027_poly_crisis_horizon_index", 0.0) if geo_eval else 0.0,
+            "defense_interoperability_and_cognitive_immunity_score": lawfare_eval.hard_metrics.get("defense_interoperability_and_cognitive_immunity_score", 0.0) if lawfare_eval else 0.0,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

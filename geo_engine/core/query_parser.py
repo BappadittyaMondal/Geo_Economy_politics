@@ -221,6 +221,9 @@ class StrategicQuery(BaseModel):
     requires_reer_appreciation_friction: bool = False
     requires_supranational_deep_state: bool = False
     requires_bullion_cyber_sovereignty: bool = False
+    # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability
+    requires_economist_polycrisis: bool = False
+    requires_defense_interoperability: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -658,6 +661,10 @@ class QueryParser:
         req_reer_appreciation = any(cls.matches_keyword(text_lower, kw) for kw in ["currency appreciation friction", "reer overvaluation", "it margin compression", "msme competitiveness loss", "rupee appreciation"])
         req_supranational_deep_state = any(cls.matches_keyword(text_lower, kw) for kw in ["supranational deep state", "wef pushback", "davos mandate", "oligarchical regulatory pressure", "rating cartel bias"])
         req_bullion_cyber_sovereignty = any(cls.matches_keyword(text_lower, kw) for kw in ["bullion pricing power", "gift city bullion", "scada cyber sovereignty", "physical gold settlement", "paper gold discount spread"])
+        # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability
+        req_economist_polycrisis = any(cls.matches_keyword(text_lower, kw) for kw in ["economist 2027", "polycrisis horizon", "fiscal bond squeeze", "tech compute bottleneck", "multipolar equilibrium score", "the world ahead 2027"])
+        req_defense_interoperability = any(cls.matches_keyword(text_lower, kw) for kw in ["defense interoperability", "cognitive security", "live-fire pact", "fcra lawfare severance", "curriculum decolonization", "aerospace capex", "cognitive immunity"])
+
 
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
             active_lenses.append("digital_sovereignty")
@@ -884,6 +891,11 @@ class QueryParser:
             active_lenses.append("institutional_lawfare")
         if req_bullion_cyber_sovereignty and "deep_tech" not in active_lenses:
             active_lenses.append("deep_tech")
+        # Phases 448-449: Route active lenses
+        if req_economist_polycrisis and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
+        if req_defense_interoperability and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
 
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
@@ -1109,6 +1121,9 @@ class QueryParser:
             requires_reer_appreciation_friction=req_reer_appreciation,
             requires_supranational_deep_state=req_supranational_deep_state,
             requires_bullion_cyber_sovereignty=req_bullion_cyber_sovereignty,
+            # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability
+            requires_economist_polycrisis=req_economist_polycrisis,
+            requires_defense_interoperability=req_defense_interoperability,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

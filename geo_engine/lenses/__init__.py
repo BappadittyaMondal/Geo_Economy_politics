@@ -190,6 +190,7 @@ from .geopolitical import (
     MultipolarHedgingAndStrategicChokepointTensor,
     GlobalPolycrisisCollisionAndSystemicCascadeTensor,
     TripolarSuperpowerCondominiumAndExclusionTensor,
+    TheEconomistComprehensive2027GlobalHorizonTensor,
 )
 
 from .history import (
@@ -266,6 +267,7 @@ from .institutional_lawfare import (
     ElectoralLawfareAndJudicialDisqualificationSieve,
     TransnationalDiasporaLawfareAndNarrativeSubversionSieve,
     SupranationalOligarchyAndDeepStateSubversionSieve,
+    MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve,
 )
 
 from .kinesics import (
@@ -631,4 +633,7 @@ __all__ = [
     "CurrencyAppreciationExportFrictionAndREERTensor",
     "SupranationalOligarchyAndDeepStateSubversionSieve",
     "CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor",
+    # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability
+    "TheEconomistComprehensive2027GlobalHorizonTensor",
+    "MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve",
 ]
