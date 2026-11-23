@@ -1982,4 +1982,7 @@ u$) to widening French and Italian OAT-Bund spreads.
   - *The Bread Maker Metaphor:* Subversive foreign funding often masquerades as mundane vocational training, humanitarian aid, or bread-making cooperatives to bypass regulatory scrutiny.
   - *The Sacred Axis Defense:* The refusal to open Mount Kailash to commercial mountaineering is an assertion of metaphysical sovereignty, affirming that sacred geography cannot be commodified.
 
+
+---
+
 ---

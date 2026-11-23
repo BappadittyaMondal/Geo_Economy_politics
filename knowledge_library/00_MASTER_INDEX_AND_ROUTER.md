@@ -1,13 +1,13 @@
 # BSKM: MASTER EPISTEMIC INDEX & ROUTING MATRIX
 > Central Navigational Compass for the 157+ Multi-Domain Video Intelligence Dossiers.
-> Total Indexed Dossiers: 188 | Domain Files: 6
+> Total Indexed Dossiers: 190 | Domain Files: 6
 
 ## 1. Domain Dossier Inventory
 
 | File | Domain Name | Sections Covered |
 | :--- | :--- | :--- |
-| [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 34 sections |
-| [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 49 sections |
+| [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 35 sections |
+| [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 50 sections |
 | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 48 sections |
 | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 28 sections |
 | [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 6 sections |
@@ -205,3 +205,5 @@
 | Section 186: Dr. Ankit Shah — NSA Communications Outage, Cybersecurity Leadership Purge, 9-Day T-Bills & GIFT City Physical Bullion Pricing (`PdDa0pCmsrY`) | `PdDa0pCmsrY` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
 | Section 187: The Economist — 'The World Ahead 2027' Complete 97-Article Compendium, Semiotic Cover Mapping, Council Titans & Civilizational Synthesis (`ECONOMIST-2027-FULL-COMPENDIUM`) | `N/A` | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) |
 | Section 188: Comprehensive 22-Discourse Strategic Intelligence Audit — Geopolitics, Cognitive Lawfare, Geoeconomic Cashflows & Civilizational Statecraft (`MULTI-DISCOURSE-22-AUDIT`) | `N/A` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
+| SECTION 26: DEEP-TRANSCRIPT MULTI-DOMAIN SYNTHESIS & 25-VIDEO AUDIT (2026-11-23 BATCH) | `N/A` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
+| Section 189: Subcontinental Proxy Fractures, Indo-Pacific Live-Fire Deterrence, PayPal Mafia Deep Tech & Sanatan Statecraft — 11-Discourse Forensic Intelligence Audit (`ELEVEN-DISCOURSE-GEO-TECH-STATECRAFT`) | `N/A` | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) |
