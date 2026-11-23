@@ -268,6 +268,7 @@ from .institutional_lawfare import (
     TransnationalDiasporaLawfareAndNarrativeSubversionSieve,
     SupranationalOligarchyAndDeepStateSubversionSieve,
     MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve,
+    SubcontinentalProxyVulnerabilityAndSiliconOligarchyTensor,
 )
 
 from .kinesics import (
@@ -636,4 +637,6 @@ __all__ = [
     # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability
     "TheEconomistComprehensive2027GlobalHorizonTensor",
     "MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve",
+    # Phase 450: Subcontinental Proxy Vulnerability & Silicon Oligarchy Tensor
+    "SubcontinentalProxyVulnerabilityAndSiliconOligarchyTensor",
 ]

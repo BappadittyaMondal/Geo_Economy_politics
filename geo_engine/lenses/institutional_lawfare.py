@@ -569,6 +569,26 @@ class InstitutionalLawfareLens:
         )
         metrics["defense_interoperability_and_cognitive_immunity_score"] = _mdi_res["defense_interoperability_and_cognitive_immunity_score"]
 
+        # Phase 450: Subcontinental Proxy Vulnerability and Silicon Oligarchy Tensor
+        _spv_res = SubcontinentalProxyVulnerabilityAndSiliconOligarchyTensor.evaluate(
+            siliguri_corridor_width_km=law_meta.get("siliguri_corridor_width_km", 22.0),
+            effective_buffer_width_km=law_meta.get("effective_buffer_width_km", 20.0),
+            bangladesh_border_radicalization=law_meta.get("bangladesh_border_radicalization", 0.65),
+            pakistan_centrifugal_fracture=law_meta.get("pakistan_centrifugal_fracture", 0.70),
+            isi_chittagong_forward_logistics=law_meta.get("isi_chittagong_forward_logistics", 0.65),
+            chumbi_valley_artillery_los=law_meta.get("chumbi_valley_artillery_los", 0.60),
+            adani_godda_power_leverage=law_meta.get("adani_godda_power_leverage", 0.85),
+            friendship_pipeline_leverage=law_meta.get("friendship_pipeline_leverage", 0.80),
+            transboundary_river_control=law_meta.get("transboundary_river_control", 0.85),
+            orbital_constellation_lockin=law_meta.get("orbital_constellation_lockin", 0.75),
+            defense_ai_platform_dependency=law_meta.get("defense_ai_platform_dependency", 0.70),
+            agniveer_identity_breach_severity=law_meta.get("agniveer_identity_breach_severity", 0.60),
+            pqc_lattice_auth_coverage=law_meta.get("pqc_lattice_auth_coverage", 0.80),
+            indigenous_compute_capex=law_meta.get("indigenous_compute_capex", 0.75),
+            air_gapped_scada_isolation=law_meta.get("air_gapped_scada_isolation", 0.85),
+        )
+        metrics["subcontinental_asymmetric_defense_and_techno_sovereignty_score"] = _spv_res["subcontinental_asymmetric_defense_and_techno_sovereignty_score"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -2577,6 +2597,92 @@ class MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve:
             "operational_verdict": verdict,
             "is_defense_and_cognitive_fortified": sec_score >= 0.65,
         }
+
+
+class SubcontinentalProxyVulnerabilityAndSiliconOligarchyTensor:
+    """
+    Phase 450: Operationalizes Subcontinental Asymmetric Proxy Conflict, Siliguri Chokepoint Physics,
+    Techno-Feudal Silicon Oligarchies, and Post-Quantum Cryptographic Defense.
+    """
+    @classmethod
+    def evaluate(
+        cls,
+        siliguri_corridor_width_km: float = 22.0,
+        effective_buffer_width_km: float = 20.0,
+        bangladesh_border_radicalization: float = 0.65,
+        pakistan_centrifugal_fracture: float = 0.70,
+        isi_chittagong_forward_logistics: float = 0.65,
+        chumbi_valley_artillery_los: float = 0.60,
+        adani_godda_power_leverage: float = 0.85,
+        friendship_pipeline_leverage: float = 0.80,
+        transboundary_river_control: float = 0.85,
+        orbital_constellation_lockin: float = 0.75,
+        defense_ai_platform_dependency: float = 0.70,
+        agniveer_identity_breach_severity: float = 0.60,
+        pqc_lattice_auth_coverage: float = 0.80,
+        indigenous_compute_capex: float = 0.75,
+        air_gapped_scada_isolation: float = 0.85,
+    ) -> Dict[str, Any]:
+        # Clamped & verified inputs
+        w_nom = float(max(1.0, min(100.0, siliguri_corridor_width_km)))
+        w_eff = float(max(1.0, min(100.0, effective_buffer_width_km)))
+        b_rad = float(max(0.0, min(1.0, bangladesh_border_radicalization)))
+        p_frac = float(max(0.0, min(1.0, pakistan_centrifugal_fracture)))
+        isi_log = float(max(0.0, min(1.0, isi_chittagong_forward_logistics)))
+        chumbi_los = float(max(0.0, min(1.0, chumbi_valley_artillery_los)))
+        a_power = float(max(0.0, min(1.0, adani_godda_power_leverage)))
+        f_pipe = float(max(0.0, min(1.0, friendship_pipeline_leverage)))
+        r_flow = float(max(0.0, min(1.0, transboundary_river_control)))
+        orb_lock = float(max(0.0, min(1.0, orbital_constellation_lockin)))
+        ai_dep = float(max(0.0, min(1.0, defense_ai_platform_dependency)))
+        agn_leak = float(max(0.0, min(1.0, agniveer_identity_breach_severity)))
+        pqc_cov = float(max(0.0, min(1.0, pqc_lattice_auth_coverage)))
+        c_capex = float(max(0.0, min(1.0, indigenous_compute_capex)))
+        scada_iso = float(max(0.0, min(1.0, air_gapped_scada_isolation)))
+
+        # Sub-Phase 450A: Subcontinental Chokepoint Geometry & Kinetic Vulnerability
+        w_ratio = w_nom / w_eff
+        chokepoint_constriction_risk = min(1.0, max(0.0, (w_ratio - 0.7) / 1.3))
+        subcontinental_vuln = (
+            0.30 * isi_log +
+            0.25 * chumbi_los +
+            0.25 * b_rad +
+            0.20 * chokepoint_constriction_risk
+        )
+        non_kinetic_leverage = 0.40 * a_power + 0.35 * f_pipe + 0.25 * r_flow
+        subcontinental_defense_score = round(max(0.0, min(1.0, (1.0 - subcontinental_vuln) * 0.60 + non_kinetic_leverage * 0.40)), 4)
+
+        # Sub-Phase 450B: Silicon Oligarchies & Quantum Information Shield
+        oligarchy_exposure = 0.40 * orb_lock + 0.35 * ai_dep + 0.25 * agn_leak
+        quantum_sovereignty_moat = 0.45 * pqc_cov + 0.30 * c_capex + 0.25 * scada_iso
+        techno_sovereign_score = round(max(0.0, min(1.0, quantum_sovereignty_moat * (1.0 - 0.50 * oligarchy_exposure))), 4)
+
+        # Composite Phase 450 Channel
+        resilience_score = round(0.50 * subcontinental_defense_score + 0.50 * techno_sovereign_score, 4)
+
+        if resilience_score >= 0.70:
+            tier = "FORTIFIED_SOVEREIGN_CHOKEPOINT_AND_TECHNO_MOAT"
+            verdict = "MAINTAIN_NON_KINETIC_ENERGY_LEVERAGE_AND_EXPEDITE_PQC_ENCLAVE_DEPLOYMENT"
+        elif resilience_score >= 0.45:
+            tier = "ELEVATED_ASYMMETRIC_PROXY_AND_ALGORITHMIC_LOCKIN"
+            verdict = "FORTIFY_SILIGURI_BYPASS_LOGISTICS_AND_ENFORCE_AIR_GAPPED_MILITARY_CLOUDS"
+        else:
+            tier = "ACUTE_CHOKEPOINT_CONSTRICTION_AND_VENTURE_DEPENDENCY"
+            verdict = "ACTIVATE_TRANSBOUNDARY_LEVERAGE_AND_AIR_GAP_SCADA_INFRASTRUCTURE"
+
+        return {
+            "subcontinental_asymmetric_defense_and_techno_sovereignty_score": resilience_score,
+            "subcontinental_defense_score": subcontinental_defense_score,
+            "techno_sovereign_score": techno_sovereign_score,
+            "siliguri_chokepoint_constriction_risk": round(chokepoint_constriction_risk, 4),
+            "non_kinetic_counter_leverage": round(non_kinetic_leverage, 4),
+            "oligarchy_exposure_index": round(oligarchy_exposure, 4),
+            "quantum_sovereignty_moat": round(quantum_sovereignty_moat, 4),
+            "sovereign_tier": tier,
+            "operational_verdict": verdict,
+            "is_subcontinental_and_techno_fortified": resilience_score >= 0.60,
+        }
+
 
 
 

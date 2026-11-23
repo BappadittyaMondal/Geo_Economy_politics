@@ -953,6 +953,8 @@ class SummitSynthesizer:
             # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability (2 Channels: 252 -> 254)
             "economist_2027_poly_crisis_horizon_index": geo_eval.hard_metrics.get("economist_2027_poly_crisis_horizon_index", 0.0) if geo_eval else 0.0,
             "defense_interoperability_and_cognitive_immunity_score": lawfare_eval.hard_metrics.get("defense_interoperability_and_cognitive_immunity_score", 0.0) if lawfare_eval else 0.0,
+            # Phase 450: Subcontinental Asymmetric Defense and Techno Sovereignty (1 Channel: 254 -> 255)
+            "subcontinental_asymmetric_defense_and_techno_sovereignty_score": lawfare_eval.hard_metrics.get("subcontinental_asymmetric_defense_and_techno_sovereignty_score", 0.0) if lawfare_eval else 0.0,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

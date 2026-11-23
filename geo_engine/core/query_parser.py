@@ -224,6 +224,8 @@ class StrategicQuery(BaseModel):
     # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability
     requires_economist_polycrisis: bool = False
     requires_defense_interoperability: bool = False
+    # Phase 450: Subcontinental Proxy Risk & Silicon Venture Oligarchies
+    requires_subcontinental_proxy_risk: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -664,6 +666,8 @@ class QueryParser:
         # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability
         req_economist_polycrisis = any(cls.matches_keyword(text_lower, kw) for kw in ["economist 2027", "polycrisis horizon", "fiscal bond squeeze", "tech compute bottleneck", "multipolar equilibrium score", "the world ahead 2027"])
         req_defense_interoperability = any(cls.matches_keyword(text_lower, kw) for kw in ["defense interoperability", "cognitive security", "live-fire pact", "fcra lawfare severance", "curriculum decolonization", "aerospace capex", "cognitive immunity"])
+        # Phase 450: Subcontinental Proxy Risk & Silicon Venture Oligarchies
+        req_subcontinental_proxy_risk = any(cls.matches_keyword(text_lower, kw) for kw in ["subcontinental proxy", "siliguri corridor", "chittagong", "isi forward logistics", "cholistan", "agniveer", "palantir", "starlink", "paypal mafia", "quantum information", "pqc shield", "silicon oligarchy"])
 
 
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
@@ -896,6 +900,9 @@ class QueryParser:
             active_lenses.append("geopolitical")
         if req_defense_interoperability and "institutional_lawfare" not in active_lenses:
             active_lenses.append("institutional_lawfare")
+        # Phase 450: Route active lenses
+        if req_subcontinental_proxy_risk and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
 
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
@@ -1124,6 +1131,8 @@ class QueryParser:
             # Phases 448-449: Horizon Polycrisis & Multilateral Defense Interoperability
             requires_economist_polycrisis=req_economist_polycrisis,
             requires_defense_interoperability=req_defense_interoperability,
+            # Phase 450: Subcontinental Proxy Risk & Silicon Venture Oligarchies
+            requires_subcontinental_proxy_risk=req_subcontinental_proxy_risk,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )
