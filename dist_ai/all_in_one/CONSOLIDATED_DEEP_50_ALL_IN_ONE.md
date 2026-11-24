@@ -1,6 +1,6 @@
 # CONSOLIDATED ALL-IN-ONE DEEP RESEARCH UNIVERSE SPECIFICATION
 
-- **Canonical Git Commit:** `fae791d`
+- **Canonical Git Commit:** `d87f937`
 - **Project Identity:** `Geo_Economy_politics`
 - **Version Lineage:** Project: `0.0.5` | Contract: `C2` | Architecture: `A3` | Registry: `R20`
 
@@ -16,7 +16,7 @@ This master document consolidates all 32 research universe specifications, 20 an
 
 <!-- BUNDLE_MANIFEST
 BUNDLE_NAME: Geo_Engine_Core_5 (Runtime Brain)
-CANONICAL_COMMIT: fae791d
+CANONICAL_COMMIT: d87f937
 PROJECT_VERSION: 0.0.5
 CONTRACT_VERSION: C2
 ARCHITECTURE_VERSION: A3
@@ -28,7 +28,7 @@ CERTIFICATION_STATUS: CERTIFIED_CANONICAL
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 00_CANONICAL_CONTRACT.md
-CANONICAL_COMMIT: fae791d
+CANONICAL_COMMIT: d87f937
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -137,7 +137,7 @@ Claims with `reliability_weight == 0.0` produce zero likelihood shift.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 01_SYSTEM_ARCHITECTURE.md
-CANONICAL_COMMIT: fae791d
+CANONICAL_COMMIT: d87f937
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -242,7 +242,7 @@ Every analyzed event is classified into one of three temporal modes:
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 02_OBJECT_AND_DATA_CONTRACTS.md
-CANONICAL_COMMIT: fae791d
+CANONICAL_COMMIT: d87f937
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -386,7 +386,7 @@ Deterministic prospective calibrated forecast.
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 03_ENGINE_AND_LENS_REGISTRY.md
-CANONICAL_COMMIT: fae791d
+CANONICAL_COMMIT: d87f937
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -519,7 +519,7 @@ CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 <!-- RAG_CONTEXT_HEADER
 BUNDLE: Geo_Engine_Core_5
 MODULE: 04_RUNTIME_OPERATING_PROTOCOL.md
-CANONICAL_COMMIT: fae791d
+CANONICAL_COMMIT: d87f937
 CANONICAL_REPO: https://github.com/BappadittyaMondal/Geo_Economy_politics.git
 -->
 
@@ -17285,30 +17285,57 @@ class GeopoliticalLens:
         metrics["multipolar_equilibrium_score"] = _eco_res["multipolar_equilibrium_score"]
 
         # Phase 454: Sovereign Cognitive Subterranean and Kinetic Interoperability Hyper-Tensor
+        d_target_val = geo_meta.get("target_tissue_depth_mm", 12.0 if any(k in corpus for k in ["temple", "brainflow", "wearable"]) else 10.0)
+        d_max_val = geo_meta.get("max_penetration_depth_mm", 3.5 if any(k in corpus for k in ["temple", "brainflow", "wearable"]) else 5.0)
+        tbm_embargo_val = geo_meta.get("china_tbm_embargo_severity", 0.85 if any(k in corpus for k in ["tbm", "tunnel boring", "cutter disc", "shinku"]) else 0.70)
+        cutter_moat_val = geo_meta.get("cutter_disc_consumables_moat", 0.60 if any(k in corpus for k in ["cutter disc", "consumable"]) else 0.80)
+        p_interception_val = geo_meta.get("s400_akash_interception_prob", 0.88 if any(k in corpus for k in ["saturation missile", "salvo"]) else 0.90)
+
         _hyp_res = SovereignCognitiveSubterraneanAndKineticInteroperabilityHyperTensor.evaluate(
-            target_tissue_depth_mm=geo_meta.get("target_tissue_depth_mm", 10.0),
-            max_penetration_depth_mm=geo_meta.get("max_penetration_depth_mm", 5.0),
+            target_tissue_depth_mm=d_target_val,
+            max_penetration_depth_mm=d_max_val,
             optical_absorption_coeff=geo_meta.get("optical_absorption_coeff", 0.35),
-            clinical_trial_verification=geo_meta.get("clinical_trial_verification", 0.15),
-            signal_to_noise_ratio=geo_meta.get("signal_to_noise_ratio", 0.40),
-            sacred_symbolism_appropriation=geo_meta.get("sacred_symbolism_appropriation", 0.75),
-            marketing_hype_inflation=geo_meta.get("marketing_hype_inflation", 0.85),
-            pre_order_working_capital_float=geo_meta.get("pre_order_working_capital_float", 0.70),
-            statutory_wellness_loophole_exploitation=geo_meta.get("statutory_wellness_loophole_exploitation", 0.80),
+            clinical_trial_verification=geo_meta.get("clinical_trial_verification", 0.05 if any(k in corpus for k in ["temple", "wellness loophole"]) else 0.15),
+            signal_to_noise_ratio=geo_meta.get("signal_to_noise_ratio", 0.30 if any(k in corpus for k in ["temple", "motion artifact"]) else 0.40),
+            sacred_symbolism_appropriation=geo_meta.get("sacred_symbolism_appropriation", 0.85 if any(k in corpus for k in ["temple", "sacred"]) else 0.75),
+            marketing_hype_inflation=geo_meta.get("marketing_hype_inflation", 0.90 if any(k in corpus for k in ["temple", "hype"]) else 0.85),
+            pre_order_working_capital_float=geo_meta.get("pre_order_working_capital_float", 0.75 if any(k in corpus for k in ["pre-order", "preorder"]) else 0.70),
+            statutory_wellness_loophole_exploitation=geo_meta.get("statutory_wellness_loophole_exploitation", 0.85 if any(k in corpus for k in ["wellness", "cdsco"]) else 0.80),
             labharthi_dbt_consolidation=geo_meta.get("labharthi_dbt_consolidation", 0.85),
             panna_pramukh_micro_architecture=geo_meta.get("panna_pramukh_micro_architecture", 0.90),
             civilizational_pride_mobilization=geo_meta.get("civilizational_pride_mobilization", 0.85),
             anti_incumbency_years=geo_meta.get("anti_incumbency_years", 23.0),
             anti_incumbency_decay_rate=geo_meta.get("anti_incumbency_decay_rate", 0.015),
             sub_caste_wedge_friction=geo_meta.get("sub_caste_wedge_friction", 0.35),
-            indigenous_tbm_manufacturing=geo_meta.get("indigenous_tbm_manufacturing", 0.75),
-            cutter_disc_consumables_moat=geo_meta.get("cutter_disc_consumables_moat", 0.80),
-            china_tbm_embargo_severity=geo_meta.get("china_tbm_embargo_severity", 0.70),
-            s400_akash_interception_prob=geo_meta.get("s400_akash_interception_prob", 0.90),
+            indigenous_tbm_manufacturing=geo_meta.get("indigenous_tbm_manufacturing", 0.65 if any(k in corpus for k in ["tbm", "tunnel"]) else 0.75),
+            cutter_disc_consumables_moat=cutter_moat_val,
+            china_tbm_embargo_severity=tbm_embargo_val,
+            s400_akash_interception_prob=p_interception_val,
             navic_encrypted_pnt_coverage=geo_meta.get("navic_encrypted_pnt_coverage", 0.95),
             arihant_ssbn_deterrence=geo_meta.get("arihant_ssbn_deterrence", 0.95),
         )
         metrics["unified_sovereign_hyper_resilience_score"] = _hyp_res["unified_sovereign_hyper_resilience_score"]
+        metrics["optical_truth_gate"] = _hyp_res["optical_truth_gate"]
+        metrics["cognitive_grayzone_index"] = _hyp_res["cognitive_grayzone_index"]
+        metrics["democratic_moat"] = _hyp_res["democratic_moat"]
+        metrics["subterranean_tooling_moat"] = _hyp_res["subterranean_tooling_moat"]
+        metrics["kinetic_saturation_shield"] = _hyp_res["kinetic_saturation_shield"]
+        metrics["cognitive_truth_shield"] = _hyp_res["cognitive_truth_shield"]
+        metrics["sovereign_hyper_tier"] = _hyp_res["sovereign_hyper_tier"]
+        metrics["sovereign_operational_verdict"] = _hyp_res["operational_verdict"]
+
+        hyp_detected = any(k in corpus for k in [
+            "temple", "brainflow", "wearable", "beer-lambert", "tbm", "tunnel boring",
+            "cutter disc", "shinku", "zojila", "saturation missile", "salvo", "modi 23", "panna pramukh"
+        ])
+        if hyp_detected:
+            findings.insert(
+                0,
+                f"[SOVEREIGN HYPER-TENSOR FORENSICS] Verdict: {_hyp_res['operational_verdict']} | "
+                f"Tier: {_hyp_res['sovereign_hyper_tier']} | Resilience Score: {_hyp_res['unified_sovereign_hyper_resilience_score']} | "
+                f"Optical Gate: {_hyp_res['optical_truth_gate']} | Subterranean Moat: {_hyp_res['subterranean_tooling_moat']} | "
+                f"Kinetic Shield: {_hyp_res['kinetic_saturation_shield']}."
+            )
 
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
@@ -27949,7 +27976,7 @@ class AbyssalHydrospatialSovereigntySieve:
 # BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE
 
 - **Bundle Name:** Geo_Engine_Deep_50
-- **Canonical Git Commit:** `fae791d`
+- **Canonical Git Commit:** `d87f937`
 - **Project Version:** `0.0.5`
 - **Format:** 100% Pure Markdown (`.md`)
 - **Included Artifacts:** 31 files
