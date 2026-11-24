@@ -1,5 +1,5 @@
-# STRATEGIC ENGINE UPGRADE PLANNING: PHASE 451
-# Source: Forensic Analysis of the Temple Health Wearable Controversy & Epistemology of Controversy Objects
+# STRATEGIC ENGINE UPGRADE PLANNING: PHASES 451–452
+# Source: Multi-Domain Deep Analysis of Controversy Object Epistemology & Subaltern Electoral Statecraft
 # Status: Queued for Execution (Architecture Designed, Zero Codebase Changes in Current Turn)
 
 ## Phase 451: ControversyEpistemicDissectionAndWellnessArbitrageTensor
@@ -13,8 +13,19 @@
   $$\text{ControversyObjectiveTruthScore} = \sigma\left(2.5 \cdot \text{PhysicalFeasibilityFloor} - 2.2 \cdot \text{HypeExploitationIndex}\right)$$
 - **Expected Integration:** Expands `SummitSynthesizer.strategic_resilience_matrix` by 1 live float channel upon future authorized execution.
 
+## Phase 452: SubalternElectoralCapitalAndSuccessionContinuityTensor
+- **Subsystem / Parent Lens:** `geo_engine/lenses/institutional_lawfare.py` (and `geo_engine/lenses/geopolitical.py`)
+- **Primary Metric / Channel:** `subaltern_electoral_hegemony_and_succession_resilience_score`
+- **Empirical Drivers:** The 23-year unbroken electoral record of Narendra Modi (2001–2024+), Vadnagar subaltern genesis, Panna Pramukh booth-level micro-architecture, Labharthi Direct Benefit Transfer (DBT) post-caste consolidation, and the complementary governance symbiosis with Yogi Adityanath in Uttar Pradesh (Pankaj Prasoon / NMF News, `ENvsxdIB8TA`).
+- **Core Problem Modeled:** Systemic inability of conventional geopolitical engines to measure domestic political resilience against foreign-funded "Color Revolution" playbooks, diaspora lawfare, and manufactured leadership rift narratives.
+- **Mathematical Formulation:**
+  $$\text{SubalternHegemonyIndex} = \text{Norm}\left(0.40 \cdot L_{\text{LabharthiDirectBenefit}} + 0.35 \cdot B_{\text{BoothPannaPramukhMicroOp}} + 0.25 \cdot C_{\text{CivilizationalPrideMobilization}}\right)$$
+  $$\text{SuccessionFrictionMoat} = \sigma\left(2.3 \cdot S_{\text{SanghIdeologicalContinuity}} + 2.0 \cdot Y_{\text{YogiAdministrativeAlignment}} - 2.1 \cdot F_{\text{FactionalWedgeInfiltration}}\right)$$
+  $$\text{ElectoralSovereigntyScore} = 0.50 \cdot \text{SubalternHegemonyIndex} + 0.50 \cdot \text{SuccessionFrictionMoat}$$
+- **Expected Integration:** Expands `SummitSynthesizer.strategic_resilience_matrix` by 1 live float channel upon future authorized execution.
+
 ## Summary of Architectural Impact
-- **Total New Sieves / Tensors:** 1 (Phase 451)
-- **Projected Resilience Channels:** 255 -> 256
-- **Projected Lens Symbols:** 266 -> 267
+- **Total New Sieves / Tensors:** 2 (Phases 451–452)
+- **Projected Resilience Channels:** 255 -> 257
+- **Projected Lens Symbols:** 266 -> 268
 - **Status:** Staged in `UPGRADE_PLANING` and `UPGRADE_PLANING.md` for future execution when authorized.

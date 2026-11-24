@@ -1,6 +1,6 @@
 # BSKM: MASTER EPISTEMIC INDEX & ROUTING MATRIX
 > Central Navigational Compass for the 157+ Multi-Domain Video Intelligence Dossiers.
-> Total Indexed Dossiers: 191 | Domain Files: 6
+> Total Indexed Dossiers: 192 | Domain Files: 6
 
 ## 1. Domain Dossier Inventory
 
@@ -11,7 +11,7 @@
 | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 48 sections |
 | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 28 sections |
 | [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 6 sections |
-| [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) | Cognitive Warfare, Media Deconstruction, Edutainment & Institutional Lawfare | 23 sections |
+| [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) | Cognitive Warfare, Media Deconstruction, Edutainment & Institutional Lawfare | 24 sections |
 
 ## 2. Complete Chronological Video & Section Registry
 
@@ -208,3 +208,4 @@
 | SECTION 26: DEEP-TRANSCRIPT MULTI-DOMAIN SYNTHESIS & 25-VIDEO AUDIT (2026-11-23 BATCH) | `N/A` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
 | Section 189: Subcontinental Proxy Fractures, Indo-Pacific Live-Fire Deterrence, PayPal Mafia Deep Tech & Sanatan Statecraft — 11-Discourse Forensic Intelligence Audit (`ELEVEN-DISCOURSE-GEO-TECH-STATECRAFT`) | `N/A` | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) |
 | Section 190: The Temple Device Controversy: Epistemic Deconstruction of Biohacking Wellness Arbitrage, Cranial Photoplethysmography & Founder Status Capitalism (`TEMPLE-DEVICE-EPISTEMIC-AUDIT`) | `N/A` | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) |
+| Section 191: Subaltern Ascent, Electoral Invincibility & The Modi-Yogi Succession Dynamics: Forensic Deconstruction of Political Capital & Civilizational Hegemony (`MODI-YOGI-POLITICAL-GENESIS`) | `N/A` | [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) |
