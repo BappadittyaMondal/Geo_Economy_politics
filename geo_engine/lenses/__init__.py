@@ -191,6 +191,7 @@ from .geopolitical import (
     GlobalPolycrisisCollisionAndSystemicCascadeTensor,
     TripolarSuperpowerCondominiumAndExclusionTensor,
     TheEconomistComprehensive2027GlobalHorizonTensor,
+    SovereignCognitiveSubterraneanAndKineticInteroperabilityHyperTensor,
 )
 
 from .history import (
@@ -639,4 +640,6 @@ __all__ = [
     "MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve",
     # Phase 450: Subcontinental Proxy Vulnerability & Silicon Oligarchy Tensor
     "SubcontinentalProxyVulnerabilityAndSiliconOligarchyTensor",
+    # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability Hyper-Tensor
+    "SovereignCognitiveSubterraneanAndKineticInteroperabilityHyperTensor",
 ]

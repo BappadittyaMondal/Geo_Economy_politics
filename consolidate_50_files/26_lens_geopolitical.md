@@ -293,6 +293,32 @@ class GeopoliticalLens:
         metrics["economist_2027_poly_crisis_horizon_index"] = _eco_res["economist_2027_poly_crisis_horizon_index"]
         metrics["multipolar_equilibrium_score"] = _eco_res["multipolar_equilibrium_score"]
 
+        # Phase 454: Sovereign Cognitive Subterranean and Kinetic Interoperability Hyper-Tensor
+        _hyp_res = SovereignCognitiveSubterraneanAndKineticInteroperabilityHyperTensor.evaluate(
+            target_tissue_depth_mm=geo_meta.get("target_tissue_depth_mm", 10.0),
+            max_penetration_depth_mm=geo_meta.get("max_penetration_depth_mm", 5.0),
+            optical_absorption_coeff=geo_meta.get("optical_absorption_coeff", 0.35),
+            clinical_trial_verification=geo_meta.get("clinical_trial_verification", 0.15),
+            signal_to_noise_ratio=geo_meta.get("signal_to_noise_ratio", 0.40),
+            sacred_symbolism_appropriation=geo_meta.get("sacred_symbolism_appropriation", 0.75),
+            marketing_hype_inflation=geo_meta.get("marketing_hype_inflation", 0.85),
+            pre_order_working_capital_float=geo_meta.get("pre_order_working_capital_float", 0.70),
+            statutory_wellness_loophole_exploitation=geo_meta.get("statutory_wellness_loophole_exploitation", 0.80),
+            labharthi_dbt_consolidation=geo_meta.get("labharthi_dbt_consolidation", 0.85),
+            panna_pramukh_micro_architecture=geo_meta.get("panna_pramukh_micro_architecture", 0.90),
+            civilizational_pride_mobilization=geo_meta.get("civilizational_pride_mobilization", 0.85),
+            anti_incumbency_years=geo_meta.get("anti_incumbency_years", 23.0),
+            anti_incumbency_decay_rate=geo_meta.get("anti_incumbency_decay_rate", 0.015),
+            sub_caste_wedge_friction=geo_meta.get("sub_caste_wedge_friction", 0.35),
+            indigenous_tbm_manufacturing=geo_meta.get("indigenous_tbm_manufacturing", 0.75),
+            cutter_disc_consumables_moat=geo_meta.get("cutter_disc_consumables_moat", 0.80),
+            china_tbm_embargo_severity=geo_meta.get("china_tbm_embargo_severity", 0.70),
+            s400_akash_interception_prob=geo_meta.get("s400_akash_interception_prob", 0.90),
+            navic_encrypted_pnt_coverage=geo_meta.get("navic_encrypted_pnt_coverage", 0.95),
+            arihant_ssbn_deterrence=geo_meta.get("arihant_ssbn_deterrence", 0.95),
+        )
+        metrics["unified_sovereign_hyper_resilience_score"] = _hyp_res["unified_sovereign_hyper_resilience_score"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1151,6 +1177,120 @@ class TheEconomistComprehensive2027GlobalHorizonTensor:
             "operational_verdict": verdict,
             "is_multipolar_equilibrium_resilient": eq_score >= 0.65,
         }
+
+
+class SovereignCognitiveSubterraneanAndKineticInteroperabilityHyperTensor:
+    """
+    Phase 454: Master Sovereign Hyper-Tensor synthesizing Beer-Lambert optical truth gating,
+    sacred civilizational grayzone defense, subaltern democratic hegemony with anti-incumbency
+    entropy decay, Himalayan subterranean TBM consumable tooling, and Poisson saturation air defense.
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        target_tissue_depth_mm: float = 10.0,
+        max_penetration_depth_mm: float = 5.0,
+        optical_absorption_coeff: float = 0.35,
+        clinical_trial_verification: float = 0.15,
+        signal_to_noise_ratio: float = 0.40,
+        sacred_symbolism_appropriation: float = 0.75,
+        marketing_hype_inflation: float = 0.85,
+        pre_order_working_capital_float: float = 0.70,
+        statutory_wellness_loophole_exploitation: float = 0.80,
+        labharthi_dbt_consolidation: float = 0.85,
+        panna_pramukh_micro_architecture: float = 0.90,
+        civilizational_pride_mobilization: float = 0.85,
+        anti_incumbency_years: float = 23.0,
+        anti_incumbency_decay_rate: float = 0.015,
+        sub_caste_wedge_friction: float = 0.35,
+        indigenous_tbm_manufacturing: float = 0.75,
+        cutter_disc_consumables_moat: float = 0.80,
+        china_tbm_embargo_severity: float = 0.70,
+        s400_akash_interception_prob: float = 0.90,
+        navic_encrypted_pnt_coverage: float = 0.95,
+        arihant_ssbn_deterrence: float = 0.95,
+    ) -> Dict[str, Any]:
+        d_target = float(max(0.1, min(100.0, target_tissue_depth_mm)))
+        d_max = float(max(0.1, min(100.0, max_penetration_depth_mm)))
+        mu_a = float(max(0.01, min(5.0, optical_absorption_coeff)))
+        c_trial = float(max(0.0, min(1.0, clinical_trial_verification)))
+        snr = float(max(0.0, min(1.0, signal_to_noise_ratio)))
+
+        a_sacred = float(max(0.0, min(1.0, sacred_symbolism_appropriation)))
+        m_hype = float(max(0.0, min(1.0, marketing_hype_inflation)))
+        c_float = float(max(0.0, min(1.0, pre_order_working_capital_float)))
+        r_loop = float(max(0.0, min(1.0, statutory_wellness_loophole_exploitation)))
+
+        l_dbt = float(max(0.0, min(1.0, labharthi_dbt_consolidation)))
+        p_panna = float(max(0.0, min(1.0, panna_pramukh_micro_architecture)))
+        c_pride = float(max(0.0, min(1.0, civilizational_pride_mobilization)))
+        years = float(max(0.0, min(50.0, anti_incumbency_years)))
+        lambda_rate = float(max(0.0, min(0.10, anti_incumbency_decay_rate)))
+        f_wedge = float(max(0.0, min(1.0, sub_caste_wedge_friction)))
+
+        t_tbm = float(max(0.0, min(1.0, indigenous_tbm_manufacturing)))
+        r_discs = float(max(0.0, min(1.0, cutter_disc_consumables_moat)))
+        c_embargo = float(max(0.0, min(1.0, china_tbm_embargo_severity)))
+
+        p_s400 = float(max(0.0, min(1.0, s400_akash_interception_prob)))
+        p_navic = float(max(0.0, min(1.0, navic_encrypted_pnt_coverage)))
+        p_arihant = float(max(0.0, min(1.0, arihant_ssbn_deterrence)))
+
+        # 1. Optical Feasibility & Controversy Gating (Beer-Lambert Law)
+        penetration_gate = 1.0 if d_target <= d_max else 0.0
+        attenuation = math.exp(-mu_a * d_target)
+        optical_truth_gate = round(penetration_gate * attenuation * (0.60 * c_trial + 0.40 * snr), 4)
+
+        z_gray = (2.8 * a_sacred + 2.2 * m_hype + 1.8 * c_float - 2.5 * (1.0 - r_loop) - 1.5)
+        cognitive_grayzone_index = round(1.0 / (1.0 + math.exp(-z_gray)), 4)
+
+        # 2. Subaltern Democratic Hegemony & Entropy Decay
+        entropy_factor = math.exp(-lambda_rate * years)
+        raw_electoral = 0.40 * l_dbt + 0.35 * p_panna + 0.25 * c_pride
+        democratic_moat = round(max(0.0, min(1.0, raw_electoral * entropy_factor - 0.20 * f_wedge)), 4)
+
+        # 3. Subterranean Heavy Tooling & Consumables Moat
+        z_tbm = 2.5 * t_tbm + 2.0 * r_discs - 2.3 * c_embargo - 0.8
+        subterranean_tooling_moat = round(1.0 / (1.0 + math.exp(-z_tbm)), 4)
+
+        # 4. Kinetic Saturation Air Defense Physics
+        p_leakage = (1.0 - p_s400) * (1.0 - 0.85) * (1.0 - 0.88)
+        kinetic_saturation_shield = round(max(0.0, min(1.0, (1.0 - p_leakage) * p_navic * 0.50 + p_arihant * 0.50)), 4)
+
+        # 5. Composite Sovereign Hyper-Resilience Score
+        cognitive_truth_shield = max(0.0, min(1.0, optical_truth_gate * (1.0 - cognitive_grayzone_index) + (1.0 - cognitive_grayzone_index) * 0.50))
+        unified_score = round(
+            0.25 * kinetic_saturation_shield +
+            0.25 * subterranean_tooling_moat +
+            0.25 * democratic_moat +
+            0.25 * cognitive_truth_shield,
+            4
+        )
+
+        if unified_score >= 0.70:
+            tier = "IMPREGNABLE_SOVEREIGN_HYPER_RESILIENCE"
+            verdict = "ACCELERATE_SUBTERRANEAN_TBM_METALLURGY_AND_ENFORCE_PQC_COMMUNICATION_ENCLAVES"
+        elif unified_score >= 0.45:
+            tier = "ELEVATED_COGNITIVE_AND_KINETIC_CONTESTATION"
+            verdict = "FORTIFY_DOMESTIC_CUTTER_DISC_SUPPLY_AND_SEVER_REGULATORY_WELLNESS_ARBITRAGE"
+        else:
+            tier = "CRITICAL_SYSTEMIC_CHOKEPOINT_VULNERABILITY"
+            verdict = "MOBILIZE_STRATEGIC_RESERVES_AND_ACTIVATE_COUNTER_SATURATION_AIR_DEFENSE"
+
+        return {
+            "unified_sovereign_hyper_resilience_score": unified_score,
+            "optical_truth_gate": optical_truth_gate,
+            "cognitive_grayzone_index": cognitive_grayzone_index,
+            "democratic_moat": democratic_moat,
+            "subterranean_tooling_moat": subterranean_tooling_moat,
+            "kinetic_saturation_shield": kinetic_saturation_shield,
+            "cognitive_truth_shield": round(cognitive_truth_shield, 4),
+            "sovereign_hyper_tier": tier,
+            "operational_verdict": verdict,
+            "is_sovereign_hyper_resilient": unified_score >= 0.60,
+        }
+
 
 
 

@@ -226,6 +226,8 @@ class StrategicQuery(BaseModel):
     requires_defense_interoperability: bool = False
     # Phase 450: Subcontinental Proxy Risk & Silicon Venture Oligarchies
     requires_subcontinental_proxy_risk: bool = False
+    # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability
+    requires_sovereign_hyper_resilience: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -668,6 +670,8 @@ class QueryParser:
         req_defense_interoperability = any(cls.matches_keyword(text_lower, kw) for kw in ["defense interoperability", "cognitive security", "live-fire pact", "fcra lawfare severance", "curriculum decolonization", "aerospace capex", "cognitive immunity"])
         # Phase 450: Subcontinental Proxy Risk & Silicon Venture Oligarchies
         req_subcontinental_proxy_risk = any(cls.matches_keyword(text_lower, kw) for kw in ["subcontinental proxy", "siliguri corridor", "chittagong", "isi forward logistics", "cholistan", "agniveer", "palantir", "starlink", "paypal mafia", "quantum information", "pqc shield", "silicon oligarchy"])
+        # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability
+        req_sovereign_hyper_resilience = any(cls.matches_keyword(text_lower, kw) for kw in ["tunnel boring machine", "tbm embargo", "temple wearable", "brainflow", "subaltern electoral", "panna pramukh", "saturation air defense", "navic encryption", "himalayan tunnel", "sovereign hyper resilience"])
 
 
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
@@ -903,6 +907,9 @@ class QueryParser:
         # Phase 450: Route active lenses
         if req_subcontinental_proxy_risk and "institutional_lawfare" not in active_lenses:
             active_lenses.append("institutional_lawfare")
+        # Phase 454: Route active lenses
+        if req_sovereign_hyper_resilience and "geopolitical" not in active_lenses:
+            active_lenses.append("geopolitical")
 
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
@@ -1133,6 +1140,8 @@ class QueryParser:
             requires_defense_interoperability=req_defense_interoperability,
             # Phase 450: Subcontinental Proxy Risk & Silicon Venture Oligarchies
             requires_subcontinental_proxy_risk=req_subcontinental_proxy_risk,
+            # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability
+            requires_sovereign_hyper_resilience=req_sovereign_hyper_resilience,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )
