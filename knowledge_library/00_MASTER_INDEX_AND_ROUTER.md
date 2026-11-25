@@ -1,6 +1,6 @@
 # BSKM: MASTER EPISTEMIC INDEX & ROUTING MATRIX
 > Central Navigational Compass for the 157+ Multi-Domain Video Intelligence Dossiers.
-> Total Indexed Dossiers: 194 | Domain Files: 6
+> Total Indexed Dossiers: 195 | Domain Files: 6
 
 ## 1. Domain Dossier Inventory
 
@@ -8,7 +8,7 @@
 | :--- | :--- | :--- |
 | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 36 sections |
 | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 50 sections |
-| [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 49 sections |
+| [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 50 sections |
 | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 29 sections |
 | [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 6 sections |
 | [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) | Cognitive Warfare, Media Deconstruction, Edutainment & Institutional Lawfare | 24 sections |
@@ -211,3 +211,4 @@
 | Section 191: Subaltern Ascent, Electoral Invincibility & The Modi-Yogi Succession Dynamics: Forensic Deconstruction of Political Capital & Civilizational Hegemony (`MODI-YOGI-POLITICAL-GENESIS`) | `N/A` | [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) |
 | Section 192: Deep-Tech Rails, Kinetic Ballistic Shields, Colonial Drainage & Multipolar Foresight: 11-Target Forensic Intelligence Audit (`MULTI-VECTOR-INFRA-DEFENSE-EPISTEMOLOGY`) | `N/A` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
 | Section 193: Forensic Deconstruction of China’s Ministry of State Security (MSS), Asymmetric Commercial Cyber-Espionage (i-Soon Leaks), Cognitive Perception Laundering & Bharat’s Counter-Intelligence Sovereignty | `N/A` | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) |
+| Section 194: Neighborhood INR Statecraft, Space-ISR Pahalgam Forensics, Kalpakkam PFBR Stage 2, AI Circular Finance, Cyber OPSEC & Interleaved Epistemic Hygiene — 12-Video DNA Audit (`TWELVE-VIDEO-CYBER-NUCLEAR-NEIGHBORHOOD-AUDIT`) | `N/A` | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) |
