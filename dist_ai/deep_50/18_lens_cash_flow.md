@@ -570,6 +570,52 @@ class CashFlowLens:
         )
         metrics["sovereign_debt_maturity_rollover_risk_score"] = _sdm_res["sovereign_debt_maturity_rollover_risk_score"]
 
+        # Capstone: Sovereign Industrial Capital and Propulsion Tensor (Phases 456, 457, 459)
+        corpus_cf = (
+            f"{getattr(summit, 'summit_name', '')} {getattr(summit, 'title', '')} " +
+            " ".join(getattr(ev, 'raw_text', getattr(ev, 'asserted_fact', getattr(ev, 'assertion', ''))) for ev in (claims or []))
+        ).lower()
+
+        _sic_res = SovereignIndustrialCapitalAndPropulsionTensor.evaluate(
+            single_crystal_alloy_mastery=cf_meta.get("single_crystal_alloy_mastery", 0.75 if ("single-crystal" in corpus_cf or "kaveri" in corpus_cf) else 0.70),
+            fadec_and_blade_cooling_readiness=cf_meta.get("fadec_and_blade_cooling_readiness", 0.70 if ("fadec" in corpus_cf or "cooling" in corpus_cf) else 0.65),
+            altitude_test_infra_autonomy=cf_meta.get("altitude_test_infra_autonomy", 0.60),
+            cumulative_propulsion_rnd=cf_meta.get("cumulative_propulsion_rnd", 0.75),
+            legacy_turnover_procurement_bias=cf_meta.get("legacy_turnover_procurement_bias", 0.80 if ("turnover" in corpus_cf or "rfp" in corpus_cf) else 0.75),
+            foreign_cert_gate_friction=cf_meta.get("foreign_cert_gate_friction", 0.70),
+            msme_relaxation_enforcement=cf_meta.get("msme_relaxation_enforcement", 0.65),
+            pgi_collateral_transparency=cf_meta.get("pgi_collateral_transparency", 0.85 if ("pgi" in corpus_cf or "pooled gold" in corpus_cf) else 0.80),
+            rbi_stop_switch_and_dicgc_shield=cf_meta.get("rbi_stop_switch_and_dicgc_shield", 0.85 if ("stop switch" in corpus_cf or "dicgc" in corpus_cf) else 0.80),
+            orbital_delta_freq_warning=cf_meta.get("orbital_delta_freq_warning", 0.40),
+            proxy_imagery_surge_risk=cf_meta.get("proxy_imagery_surge_risk", 0.35),
+            pfbr_breeding_baseload=cf_meta.get("pfbr_breeding_baseload", 0.85 if ("pfbr" in corpus_cf or "liquid sodium" in corpus_cf) else 0.80),
+            shanti_act_nuclear_liability_unlock=cf_meta.get("shanti_act_nuclear_liability_unlock", 0.75),
+            indigenous_ai_cluster_compute=cf_meta.get("indigenous_ai_cluster_compute", 0.75 if ("ai cluster" in corpus_cf or "gpu" in corpus_cf) else 0.70),
+            inr_power_export_loc=cf_meta.get("inr_power_export_loc", 0.85 if ("power loc" in corpus_cf or "energy loc" in corpus_cf) else 0.80),
+            govt_port_customs_gate=cf_meta.get("govt_port_customs_gate", 0.85),
+            overland_freight_drag=cf_meta.get("overland_freight_drag", 0.25),
+            household_deposit_diversification=cf_meta.get("household_deposit_diversification", 0.80),
+            session_and_cookie_hygiene=cf_meta.get("session_and_cookie_hygiene", 0.75),
+            foreign_non_fara_media_leverage=cf_meta.get("foreign_non_fara_media_leverage", 0.35),
+        )
+        metrics["sovereign_industrial_capital_and_propulsion_score"] = _sic_res["sovereign_industrial_capital_and_propulsion_score"]
+        metrics["propulsion_autonomy_index"] = _sic_res["propulsion_autonomy_index"]
+        metrics["procurement_lockout_friction"] = _sic_res["procurement_lockout_friction"]
+        metrics["compute_energy_baseload_moat"] = _sic_res["compute_energy_baseload_moat"]
+        metrics["inr_corridor_lock_in"] = _sic_res["inr_corridor_lock_in"]
+        metrics["bullion_and_switch_resilience"] = _sic_res["bullion_and_switch_resilience"]
+        metrics["citizen_opsec_defense_moat"] = _sic_res["citizen_opsec_defense_moat"]
+        metrics["industrial_capital_tier"] = _sic_res["industrial_capital_tier"]
+        metrics["industrial_operational_verdict"] = _sic_res["operational_verdict"]
+
+        if any(k in corpus_cf for k in ["pfbr", "liquid sodium", "single-crystal", "kaveri", "pooled gold", "pgi", "dicgc", "rfp turnover"]):
+            findings.insert(
+                0,
+                f"[SOVEREIGN INDUSTRIAL CAPITAL FORENSICS] Verdict: {_sic_res['operational_verdict']} | "
+                f"Tier: {_sic_res['industrial_capital_tier']} | Propulsion Autonomy: {_sic_res['propulsion_autonomy_index']} | "
+                f"Compute Energy Moat: {_sic_res['compute_energy_baseload_moat']} | Bullion Shield: {_sic_res['bullion_and_switch_resilience']}."
+            )
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=clamped_alignment,
@@ -2170,6 +2216,116 @@ class SovereignDebtMaturityAndForensicCashFlowSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_debt_rollover_cliff_critical": score >= 0.70,
+        }
+
+
+class SovereignIndustrialCapitalAndPropulsionTensor:
+    """
+    Phases 456, 457, 459 Consolidated Capstone:
+    Synthesizes Aero-Propulsion Autonomy & Metallurgy (Kaveri/AMCA Cobalt/Rhenium Single-Crystal Blades),
+    Domestic Procurement Lock-Out Matrix Deconstruction & Pooled Gold Interests (PGIs),
+    Stage-2 PFBR Liquid Sodium AI Cluster Energy Baseload & Space-ISR Warnings,
+    and Citizen Cyber OPSEC with DICGC Banking Tail-Risk Insulation.
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        single_crystal_alloy_mastery: float = 0.70,
+        fadec_and_blade_cooling_readiness: float = 0.65,
+        altitude_test_infra_autonomy: float = 0.60,
+        cumulative_propulsion_rnd: float = 0.75,
+        legacy_turnover_procurement_bias: float = 0.75,
+        foreign_cert_gate_friction: float = 0.70,
+        msme_relaxation_enforcement: float = 0.65,
+        pgi_collateral_transparency: float = 0.85,
+        rbi_stop_switch_and_dicgc_shield: float = 0.80,
+        orbital_delta_freq_warning: float = 0.40,
+        proxy_imagery_surge_risk: float = 0.35,
+        pfbr_breeding_baseload: float = 0.80,
+        shanti_act_nuclear_liability_unlock: float = 0.75,
+        indigenous_ai_cluster_compute: float = 0.70,
+        inr_power_export_loc: float = 0.85,
+        govt_port_customs_gate: float = 0.85,
+        overland_freight_drag: float = 0.25,
+        household_deposit_diversification: float = 0.80,
+        session_and_cookie_hygiene: float = 0.75,
+        foreign_non_fara_media_leverage: float = 0.35,
+    ) -> Dict[str, Any]:
+        m_alloy = float(max(0.0, min(1.0, single_crystal_alloy_mastery)))
+        c_fadec = float(max(0.0, min(1.0, fadec_and_blade_cooling_readiness)))
+        t_alt = float(max(0.0, min(1.0, altitude_test_infra_autonomy)))
+        r_rnd = float(max(0.0, min(1.0, cumulative_propulsion_rnd)))
+
+        l_bias = float(max(0.0, min(1.0, legacy_turnover_procurement_bias)))
+        s_cert = float(max(0.0, min(1.0, foreign_cert_gate_friction)))
+        e_relax = float(max(0.0, min(1.0, msme_relaxation_enforcement)))
+
+        g_pgi = float(max(0.0, min(1.0, pgi_collateral_transparency)))
+        b_rbi = float(max(0.0, min(1.0, rbi_stop_switch_and_dicgc_shield)))
+
+        m_delta = float(max(0.0, min(1.0, orbital_delta_freq_warning)))
+        b_proxy = float(max(0.0, min(1.0, proxy_imagery_surge_risk)))
+        n_pfbr = float(max(0.0, min(1.0, pfbr_breeding_baseload)))
+        l_shanti = float(max(0.0, min(1.0, shanti_act_nuclear_liability_unlock)))
+        c_gpu = float(max(0.0, min(1.0, indigenous_ai_cluster_compute)))
+
+        r_loc = float(max(0.0, min(1.0, inr_power_export_loc)))
+        p_gate = float(max(0.0, min(1.0, govt_port_customs_gate)))
+        f_freight = float(max(0.0, min(1.0, overland_freight_drag)))
+
+        h_dep = float(max(0.0, min(1.0, household_deposit_diversification)))
+        s_opsec = float(max(0.0, min(1.0, session_and_cookie_hygiene)))
+        f_fara = float(max(0.0, min(1.0, foreign_non_fara_media_leverage)))
+
+        # 1. Aero-Propulsion Autonomy & Domestic Procurement Unlocking (Phase 459)
+        propulsion_index = 0.35 * m_alloy + 0.25 * c_fadec + 0.20 * t_alt + 0.20 * r_rnd
+        z_procure = 2.5 * l_bias + 2.2 * s_cert - 2.4 * e_relax
+        procurement_lockout = 1.0 / (1.0 + math.exp(-z_procure))
+        bullion_switch_shield = 0.55 * g_pgi + 0.45 * b_rbi
+        propulsion_moat = propulsion_index * (1.0 - 0.30 * procurement_lockout)
+
+        # 2. Orbital Nuclear Energy Baseload & Space-ISR Resilience (Phase 456)
+        compute_energy_moat = 0.45 * n_pfbr + 0.30 * l_shanti + 0.25 * c_gpu
+        corridor_lock_in = (0.50 * r_loc + 0.50 * p_gate) * (1.0 - 0.30 * f_freight)
+        z_space = 2.4 * m_delta + 2.1 * b_proxy - 1.5
+        space_isr_risk = 1.0 / (1.0 + math.exp(-z_space))
+        orbital_nuclear_score = 0.50 * compute_energy_moat + 0.30 * corridor_lock_in + 0.20 * (1.0 - space_isr_risk)
+
+        # 3. Citizen Cyber OPSEC & Depositor Protection (Phase 457)
+        citizen_defense_moat = 0.45 * s_opsec + 0.35 * h_dep + 0.20 * (1.0 - f_fara)
+
+        # Master Unified Metric
+        unified_score = round(
+            0.35 * propulsion_moat +
+            0.35 * orbital_nuclear_score +
+            0.15 * bullion_switch_shield +
+            0.15 * citizen_defense_moat,
+            4
+        )
+        unified_score = max(0.0, min(1.0, unified_score))
+
+        if unified_score >= 0.70:
+            tier = "FORTRESS_INDUSTRIAL_CAPITAL_AND_PROPULSION_SOVEREIGNTY"
+            verdict = "ACCELERATE_AMCA_PROTOTYPING_AND_COMMERCIALIZE_PFBR_BASELOAD_AI_RAILS"
+        elif unified_score >= 0.45:
+            tier = "ELEVATED_METALLURGY_AND_PROCUREMENT_BOTTLENECK"
+            verdict = "ELIMINATE_TURNOVER_BIAS_IN_RFPS_AND_EXPAND_DOMESTIC_ALTITUDE_TESTBEDS"
+        else:
+            tier = "CRITICAL_PROPULSION_AND_ENERGY_CHOKEPOINT"
+            verdict = "SECURE_SINGLE_CRYSTAL_METALLURGY_ALLOYS_AND_MANDATE_DICGC_SPLITTING"
+
+        return {
+            "sovereign_industrial_capital_and_propulsion_score": unified_score,
+            "propulsion_autonomy_index": round(propulsion_index, 4),
+            "procurement_lockout_friction": round(procurement_lockout, 4),
+            "compute_energy_baseload_moat": round(compute_energy_moat, 4),
+            "inr_corridor_lock_in": round(corridor_lock_in, 4),
+            "bullion_and_switch_resilience": round(bullion_switch_shield, 4),
+            "citizen_opsec_defense_moat": round(citizen_defense_moat, 4),
+            "industrial_capital_tier": tier,
+            "operational_verdict": verdict,
+            "is_propulsion_sovereign": unified_score >= 0.65,
         }
 
 ```

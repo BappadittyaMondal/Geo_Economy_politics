@@ -228,6 +228,9 @@ class StrategicQuery(BaseModel):
     requires_subcontinental_proxy_risk: bool = False
     # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability
     requires_sovereign_hyper_resilience: bool = False
+    # Phases 455-460 Capstones: Epistemic Validation & Sovereign Industrial Propulsion
+    requires_epistemic_validation: bool = False
+    requires_industrial_propulsion: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -672,6 +675,9 @@ class QueryParser:
         req_subcontinental_proxy_risk = any(cls.matches_keyword(text_lower, kw) for kw in ["subcontinental proxy", "siliguri corridor", "chittagong", "isi forward logistics", "cholistan", "agniveer", "palantir", "starlink", "paypal mafia", "quantum information", "pqc shield", "silicon oligarchy"])
         # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability
         req_sovereign_hyper_resilience = any(cls.matches_keyword(text_lower, kw) for kw in ["tunnel boring machine", "tbm embargo", "temple wearable", "brainflow", "subaltern electoral", "panna pramukh", "saturation air defense", "navic encryption", "himalayan tunnel", "sovereign hyper resilience"])
+        # Phases 455-460 Capstones: Epistemic Validation & Sovereign Industrial Propulsion
+        req_epistemic_validation = any(cls.matches_keyword(text_lower, kw) for kw in ["i-soon", "commercial hacking", "geo-spoof", "sakshi", "interleaved retrieval", "unit conversion", "textual stratigraphy", "dpdp 2027", "critical edition", "epistemic taxonomy"])
+        req_industrial_propulsion = any(cls.matches_keyword(text_lower, kw) for kw in ["single-crystal", "kaveri engine", "pfbr", "liquid sodium", "pooled gold", "pgi collateral", "dicgc", "rfp turnover", "industrial capital", "propulsion autonomy"])
 
 
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
@@ -1142,6 +1148,9 @@ class QueryParser:
             requires_subcontinental_proxy_risk=req_subcontinental_proxy_risk,
             # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability
             requires_sovereign_hyper_resilience=req_sovereign_hyper_resilience,
+            # Phases 455-460 Capstones: Epistemic Validation & Sovereign Industrial Propulsion
+            requires_epistemic_validation=req_epistemic_validation,
+            requires_industrial_propulsion=req_industrial_propulsion,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

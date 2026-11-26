@@ -540,6 +540,51 @@ class DeepTechLens:
         )
         metrics["physical_bullion_pricing_power_and_cyber_resilience_score"] = _cib_res["physical_bullion_pricing_power_and_cyber_resilience_score"]
 
+        # Capstone: Epistemic Taxonomy and Interleaved Validation Engine (Phases 455, 458, 460)
+        corpus_dt = (
+            f"{getattr(summit, 'summit_name', '')} {getattr(summit, 'title', '')} " +
+            " ".join(getattr(ev, 'raw_text', getattr(ev, 'asserted_fact', getattr(ev, 'assertion', ''))) for ev in (evidence or []))
+        ).lower()
+        has_epistemic_anomaly = any(k in corpus_dt for k in ["unit error", "conversion error", "10x", "lbs to kg", "jpy to inr"])
+
+        _etv_res = EpistemicTaxonomyAndInterleavedValidationEngine.evaluate(
+            geo_spoofed_disinformation=deep_meta.get("geo_spoofed_disinformation", 0.75 if ("geo-spoof" in corpus_dt or "i-soon" in corpus_dt) else 0.70),
+            narrative_laundering_intensity=deep_meta.get("narrative_laundering_intensity", 0.80 if ("laundering" in corpus_dt or "dhaka" in corpus_dt) else 0.75),
+            diaspora_isolation_rate=deep_meta.get("diaspora_isolation_rate", 0.65),
+            diplomatic_exposure_speed=deep_meta.get("diplomatic_exposure_speed", 0.80),
+            airgapped_segmentation_ratio=deep_meta.get("airgapped_segmentation_ratio", 0.85),
+            threat_hunting_speed=deep_meta.get("threat_hunting_speed", 0.80),
+            indigenous_firmware_adoption=deep_meta.get("indigenous_firmware_adoption", 0.75),
+            cross_domain_interleaving=deep_meta.get("cross_domain_interleaving", 0.80),
+            primary_entity_pinning=deep_meta.get("primary_entity_pinning", 0.85),
+            feynman_compression_rate=deep_meta.get("feynman_compression_rate", 0.75),
+            echo_chamber_loop_risk=deep_meta.get("echo_chamber_loop_risk", 0.30),
+            entity_conflation_error_rate=deep_meta.get("entity_conflation_error_rate", 0.25),
+            spaced_decay_audit_depth=deep_meta.get("spaced_decay_audit_depth", 0.80),
+            critical_edition_evidence_weight=deep_meta.get("critical_edition_evidence_weight", 0.85),
+            puranic_folk_retrofit_weight=deep_meta.get("puranic_folk_retrofit_weight", 0.25),
+            dpdp_may2027_saas_demand=deep_meta.get("dpdp_may2027_saas_demand", 0.85 if ("dpdp" in corpus_dt or "saas" in corpus_dt) else 0.75),
+            sarvam_indiaai_rails_adoption=deep_meta.get("sarvam_indiaai_rails_adoption", 0.80),
+            gpu_debt_obsolescence_drag=deep_meta.get("gpu_debt_obsolescence_drag", 0.35),
+            unit_currency_anomaly_detected=deep_meta.get("unit_currency_anomaly_detected", has_epistemic_anomaly),
+        )
+        metrics["epistemic_taxonomy_and_interleaved_validation_score"] = _etv_res["epistemic_taxonomy_and_interleaved_validation_score"]
+        metrics["asymmetric_cyber_defense_score"] = _etv_res["asymmetric_cyber_defense_score"]
+        metrics["interleaved_epistemic_score"] = _etv_res["interleaved_epistemic_score"]
+        metrics["civilizational_stratigraphy_index"] = _etv_res["civilizational_stratigraphy_index"]
+        metrics["dpdp_sovereign_compute_yield"] = _etv_res["dpdp_sovereign_compute_yield"]
+        metrics["sovereign_epistemic_tier"] = _etv_res["sovereign_epistemic_tier"]
+        metrics["epistemic_operational_verdict"] = _etv_res["operational_verdict"]
+
+        if any(k in corpus_dt for k in ["i-soon", "geo-spoof", "sakshi", "interleaved", "stratigraphy", "dpdp", "unit error"]):
+            findings.insert(
+                0,
+                f"[EPISTEMIC TAXONOMY FORENSICS] Verdict: {_etv_res['operational_verdict']} | "
+                f"Tier: {_etv_res['sovereign_epistemic_tier']} | Validation Score: {_etv_res['epistemic_taxonomy_and_interleaved_validation_score']} | "
+                f"Cyber Defense: {_etv_res['asymmetric_cyber_defense_score']} | Interleaved Epistemic: {_etv_res['interleaved_epistemic_score']} | "
+                f"Stratigraphy Index: {_etv_res['civilizational_stratigraphy_index']}."
+            )
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=net_score,
@@ -1645,6 +1690,110 @@ class CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor:
             "sovereign_shield_tier": tier,
             "operational_verdict": verdict,
             "is_shield_fortified": composite_shield >= 0.65,
+        }
+
+
+class EpistemicTaxonomyAndInterleavedValidationEngine:
+    """
+    Phases 455, 458, 460 Consolidated Capstone:
+    Synthesizes Asymmetric Commercial Hacking & Perception Defense (i-Soon MSS),
+    Interleaved Epistemic Retrieval & Sakshi Conflict Sieve (Bjork Desirable Difficulties, 10x Unit Quarantine),
+    and Civilizational Indic Textual Stratigraphy (Critical Edition vs. Puranic Retrofits) with DPDP May 2027 SaaS Demand.
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        geo_spoofed_disinformation: float = 0.70,
+        narrative_laundering_intensity: float = 0.75,
+        diaspora_isolation_rate: float = 0.65,
+        diplomatic_exposure_speed: float = 0.80,
+        airgapped_segmentation_ratio: float = 0.85,
+        threat_hunting_speed: float = 0.80,
+        indigenous_firmware_adoption: float = 0.75,
+        cross_domain_interleaving: float = 0.80,
+        primary_entity_pinning: float = 0.85,
+        feynman_compression_rate: float = 0.75,
+        echo_chamber_loop_risk: float = 0.30,
+        entity_conflation_error_rate: float = 0.25,
+        spaced_decay_audit_depth: float = 0.80,
+        critical_edition_evidence_weight: float = 0.85,
+        puranic_folk_retrofit_weight: float = 0.25,
+        dpdp_may2027_saas_demand: float = 0.85,
+        sarvam_indiaai_rails_adoption: float = 0.80,
+        gpu_debt_obsolescence_drag: float = 0.35,
+        unit_currency_anomaly_detected: bool = False,
+    ) -> Dict[str, Any]:
+        s_geo = float(max(0.0, min(1.0, geo_spoofed_disinformation)))
+        l_narr = float(max(0.0, min(1.0, narrative_laundering_intensity)))
+        d_diasp = float(max(0.0, min(1.0, diaspora_isolation_rate)))
+        c_diplo = float(max(0.0, min(1.0, diplomatic_exposure_speed)))
+        a_air = float(max(0.0, min(1.0, airgapped_segmentation_ratio)))
+        t_hunt = float(max(0.0, min(1.0, threat_hunting_speed)))
+        i_fw = float(max(0.0, min(1.0, indigenous_firmware_adoption)))
+
+        i_cross = float(max(0.0, min(1.0, cross_domain_interleaving)))
+        v_pin = float(max(0.0, min(1.0, primary_entity_pinning)))
+        f_comp = float(max(0.0, min(1.0, feynman_compression_rate)))
+        b_echo = float(max(0.0, min(1.0, echo_chamber_loop_risk)))
+        c_confl = float(max(0.0, min(1.0, entity_conflation_error_rate)))
+        d_decay = float(max(0.0, min(1.0, spaced_decay_audit_depth)))
+
+        e_ce = float(max(0.0, min(1.0, critical_edition_evidence_weight)))
+        i_folk = float(max(0.0, min(1.0, puranic_folk_retrofit_weight)))
+        c_dpdp = float(max(0.0, min(1.0, dpdp_may2027_saas_demand)))
+        s_rails = float(max(0.0, min(1.0, sarvam_indiaai_rails_adoption)))
+        d_gpu = float(max(0.0, min(1.0, gpu_debt_obsolescence_drag)))
+
+        # 1. Asymmetric Cyber & Perception Defense (Phase 455)
+        z_sub = 2.6 * s_geo + 2.2 * l_narr + 1.8 * d_diasp - 2.5 * c_diplo
+        p_subversion = 1.0 / (1.0 + math.exp(-z_sub))
+        m_airgap = 0.35 * a_air + 0.35 * t_hunt + 0.30 * i_fw
+        asymmetric_cyber_defense = round(max(0.0, min(1.0, 0.50 * m_airgap + 0.50 * (1.0 - p_subversion))), 4)
+
+        # 2. Interleaved Epistemic Retrieval & Sakshi Unit Quarantine (Phase 458)
+        retrieval_gain = 0.45 * i_cross + 0.35 * v_pin + 0.20 * f_comp
+        z_fluency = 2.6 * b_echo + 2.3 * c_confl - 2.5 * d_decay
+        p_fluency = 1.0 / (1.0 + math.exp(-z_fluency))
+        unit_penalty = 0.40 if unit_currency_anomaly_detected else 0.0
+        interleaved_score = round(max(0.0, min(1.0, retrieval_gain * (1.0 - 0.70 * p_fluency) - unit_penalty)), 4)
+
+        # 3. Civilizational Stratigraphy & DPDP Sovereign Compute (Phase 460)
+        stratigraphy_denom = e_ce + 0.75 * i_folk
+        stratigraphy_index = round(e_ce / stratigraphy_denom if stratigraphy_denom > 0 else 0.5, 4)
+        z_dpdp = 2.4 * c_dpdp + 1.8 * s_rails - 2.3 * d_gpu
+        dpdp_yield = round(1.0 / (1.0 + math.exp(-z_dpdp)), 4)
+
+        # Unified Composite Master Metric
+        unified_score = round(
+            0.30 * asymmetric_cyber_defense +
+            0.30 * interleaved_score +
+            0.20 * stratigraphy_index +
+            0.20 * dpdp_yield,
+            4
+        )
+        unified_score = max(0.0, min(1.0, unified_score))
+
+        if unified_score >= 0.70:
+            tier = "FORTRESS_EPISTEMIC_TAXONOMY_AND_CYBER_SHIELD"
+            verdict = "ENFORCE_CRITICAL_EDITION_PRIORS_AND_DEPLOY_SOVEREIGN_DPDP_INFERENCE"
+        elif unified_score >= 0.45:
+            tier = "ELEVATED_COGNITIVE_SUBVERSION_AND_CONFLATION_RISK"
+            verdict = "ISOLATE_PERCEPTION_BOTNETS_AND_QUARANTINE_UNIT_CONVERSION_ERRORS"
+        else:
+            tier = "CRITICAL_NARRATIVE_HIJACK_AND_INFRASTRUCTURE_BREACH"
+            verdict = "AIRGAP_CRITICAL_NETWORKS_AND_SEVER_FOREIGN_PUBLIC_API_DEPENDENCIES"
+
+        return {
+            "epistemic_taxonomy_and_interleaved_validation_score": unified_score,
+            "asymmetric_cyber_defense_score": asymmetric_cyber_defense,
+            "interleaved_epistemic_score": interleaved_score,
+            "civilizational_stratigraphy_index": stratigraphy_index,
+            "dpdp_sovereign_compute_yield": dpdp_yield,
+            "unit_currency_taxonomy_sanitized": not unit_currency_anomaly_detected,
+            "sovereign_epistemic_tier": tier,
+            "operational_verdict": verdict,
+            "is_epistemically_fortified": unified_score >= 0.65,
         }
 
 

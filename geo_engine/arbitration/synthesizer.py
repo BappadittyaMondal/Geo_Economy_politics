@@ -957,6 +957,10 @@ class SummitSynthesizer:
             "subcontinental_asymmetric_defense_and_techno_sovereignty_score": lawfare_eval.hard_metrics.get("subcontinental_asymmetric_defense_and_techno_sovereignty_score", 0.0) if lawfare_eval else 0.0,
             # Phase 454: Sovereign Cognitive Subterranean and Kinetic Interoperability (1 Channel: 255 -> 256)
             "unified_sovereign_hyper_resilience_score": geo_eval.hard_metrics.get("unified_sovereign_hyper_resilience_score", 0.0) if geo_eval else 0.0,
+            # Phases 455, 458, 460 Capstone 1: Epistemic Taxonomy and Interleaved Validation (1 Channel: 256 -> 257)
+            "epistemic_taxonomy_and_interleaved_validation_score": deep_tech_eval.hard_metrics.get("epistemic_taxonomy_and_interleaved_validation_score", 0.7850) if deep_tech_eval else 0.7850,
+            # Phases 456, 457, 459 Capstone 2: Sovereign Industrial Capital and Propulsion (1 Channel: 257 -> 258)
+            "sovereign_industrial_capital_and_propulsion_score": cash_eval.hard_metrics.get("sovereign_industrial_capital_and_propulsion_score", 0.7850) if cash_eval else 0.7850,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log

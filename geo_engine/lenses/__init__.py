@@ -48,6 +48,7 @@ from .cash_flow import (
     DeepStateBankingLawfareAndRatingSqueezeSieve,
     OffshoreBankingSecrecyAndAssetRepatriationSieve,
     SovereignDebtMaturityAndForensicCashFlowSieve,
+    SovereignIndustrialCapitalAndPropulsionTensor,
 )
 
 from .civilizational import (
@@ -113,6 +114,7 @@ from .deep_tech import (
     LowEarthOrbitCongestionAndOrbitalWeaponizationSieve,
     ServicesExportLaborDisplacementAndAISubstitutionTensor,
     CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor,
+    EpistemicTaxonomyAndInterleavedValidationEngine,
 )
 
 from .demographic_infiltration import (
@@ -642,4 +644,7 @@ __all__ = [
     "SubcontinentalProxyVulnerabilityAndSiliconOligarchyTensor",
     # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability Hyper-Tensor
     "SovereignCognitiveSubterraneanAndKineticInteroperabilityHyperTensor",
+    # Phases 455-460 Capstone 1 & 2: Epistemic Taxonomy & Sovereign Industrial Propulsion
+    "EpistemicTaxonomyAndInterleavedValidationEngine",
+    "SovereignIndustrialCapitalAndPropulsionTensor",
 ]
