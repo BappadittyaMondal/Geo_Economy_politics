@@ -666,6 +666,13 @@ class SummitSynthesizer:
         hybrid_eval = lens_eval_map.get(HybridCovertLens.LENS_NAME) or lens_eval_map.get("Hybrid & Covert Warfare Operations") or lens_eval_map.get("Hybrid Warfare & Asymmetric Leverage")
         bureaucratic_eval = lens_eval_map.get(BureaucraticInertiaLens.LENS_NAME) or lens_eval_map.get("Deep-State & Bureaucratic Continuity")
         geo_economist_eval = lens_eval_map.get(GeoEconomistLens.LENS_NAME) or lens_eval_map.get("Geo-Economic Realism & Monetary Architecture") or lens_eval_map.get("Geo-Economic Leverage & Industrial Moats")
+        kinesic_eval = (
+            kinesic_eval or
+            lens_eval_map.get(KinesicsLens.LENS_NAME) or
+            lens_eval_map.get("Diplomatic Kinesics & Proxemic Forensics") or
+            lens_eval_map.get("Kinesics & Diplomatic Body Language Forensics") or
+            lens_eval_map.get("Kinesics, Posture & Non-Verbal Strategic Signaling")
+        )
 
         strategic_resilience_matrix = {
             "food_caloric_sovereignty_index": food_eval.hard_metrics.get("caloric_sovereignty_index", 0.81) if food_eval else 0.81,
@@ -801,10 +808,10 @@ class SummitSynthesizer:
             "dietary_plurality_score": civ_eval.hard_metrics.get("dietary_plurality_score") if civ_eval and "dietary_plurality_score" in civ_eval.hard_metrics else None,
             # Phase 308: Quantum Decision Theory (QDT) & Dynamic Epistemic Gating
             "quantum_interference_index": round(
-                2.0 * math.sqrt(
+                min(1.0, max(0.0, 2.0 * math.sqrt(
                     max(0.01, (civ_eval.alignment_score + 1.0) / 2.0 if civ_eval else 0.5) *
                     max(0.01, (geo_eval.alignment_score + 1.0) / 2.0 if geo_eval else 0.5)
-                ) * math.cos(math.radians(45.0)),
+                ) * math.cos(math.radians(45.0)))),
                 4
             ),
             "dynamic_epistemic_gating_active": bool(prioritized_lenses and len(prioritized_lenses) > 0),
@@ -848,7 +855,7 @@ class SummitSynthesizer:
             "exfiltration_and_foreign_sanctuary_score": hybrid_eval.hard_metrics.get("exfiltration_and_foreign_sanctuary_score") if hybrid_eval and "exfiltration_and_foreign_sanctuary_score" in hybrid_eval.hard_metrics else None,
             "retaliation_threat_and_opsec_score": hybrid_eval.hard_metrics.get("retaliation_threat_and_opsec_score") if hybrid_eval and "retaliation_threat_and_opsec_score" in hybrid_eval.hard_metrics else None,
             "vigilance_statutory_remedy_score": lawfare_eval.hard_metrics.get("vigilance_statutory_remedy_score") if lawfare_eval and "vigilance_statutory_remedy_score" in lawfare_eval.hard_metrics else None,
-            "speech_kinesic_and_chromatic_forensics_score": kinesic_eval.hard_metrics.get("speech_kinesic_and_chromatic_forensics_score") if kinesic_eval and "speech_kinesic_and_chromatic_forensics_score" in kinesic_eval.hard_metrics else None,
+            "speech_kinesic_and_chromatic_forensics_score": kinesic_eval.hard_metrics.get("speech_kinesic_and_chromatic_forensics_score", 0.50) if kinesic_eval and "speech_kinesic_and_chromatic_forensics_score" in kinesic_eval.hard_metrics else 0.50,
             "speech_omission_and_negative_space_score": propaganda_eval.hard_metrics.get("speech_omission_and_negative_space_score") if propaganda_eval and "speech_omission_and_negative_space_score" in propaganda_eval.hard_metrics else None,
             "trade_based_money_laundering_score": geo_economist_eval.hard_metrics.get("trade_based_money_laundering_score") if geo_economist_eval and "trade_based_money_laundering_score" in geo_economist_eval.hard_metrics else None,
             "defense_scada_and_firmware_tamper_score": deep_tech_eval.hard_metrics.get("defense_scada_and_firmware_tamper_score") if deep_tech_eval and "defense_scada_and_firmware_tamper_score" in deep_tech_eval.hard_metrics else None,
@@ -860,7 +867,7 @@ class SummitSynthesizer:
             "bis_hidden_fx_swap_contagion_score": cash_eval.hard_metrics.get("bis_hidden_fx_swap_contagion_score") if cash_eval and "bis_hidden_fx_swap_contagion_score" in cash_eval.hard_metrics else None,
             "offshore_ubo_de_anonymizer_score": cash_eval.hard_metrics.get("offshore_ubo_de_anonymizer_score") if cash_eval and "offshore_ubo_de_anonymizer_score" in cash_eval.hard_metrics else None,
             "speech_to_balance_sheet_divergence_score": propaganda_eval.hard_metrics.get("speech_to_balance_sheet_divergence_score") if propaganda_eval and "speech_to_balance_sheet_divergence_score" in propaganda_eval.hard_metrics else None,
-            "kinesic_contextual_baseline_drift_score": kinesic_eval.hard_metrics.get("kinesic_contextual_baseline_drift_score") if kinesic_eval and "kinesic_contextual_baseline_drift_score" in kinesic_eval.hard_metrics else None,
+            "kinesic_contextual_baseline_drift_score": kinesic_eval.hard_metrics.get("kinesic_contextual_baseline_drift_score", 0.50) if kinesic_eval and "kinesic_contextual_baseline_drift_score" in kinesic_eval.hard_metrics else 0.50,
             "chanakya_upadha_integrity_score": civ_eval.hard_metrics.get("chanakya_upadha_integrity_score") if civ_eval and "chanakya_upadha_integrity_score" in civ_eval.hard_metrics else None,
             "kautilya_saptanga_score": geo_eval.hard_metrics.get("kautilya_saptanga_score") if geo_eval and "kautilya_saptanga_score" in geo_eval.hard_metrics else None,
             "krishna_rajadharma_exhaustion_score": civ_eval.hard_metrics.get("krishna_rajadharma_exhaustion_score") if civ_eval and "krishna_rajadharma_exhaustion_score" in civ_eval.hard_metrics else None,
