@@ -676,8 +676,8 @@ class QueryParser:
         # Phase 454: Sovereign Cognitive Subterranean & Kinetic Interoperability
         req_sovereign_hyper_resilience = any(cls.matches_keyword(text_lower, kw) for kw in ["tunnel boring machine", "tbm embargo", "temple wearable", "brainflow", "subaltern electoral", "panna pramukh", "saturation air defense", "navic encryption", "himalayan tunnel", "sovereign hyper resilience"])
         # Phases 455-460 Capstones: Epistemic Validation & Sovereign Industrial Propulsion
-        req_epistemic_validation = any(cls.matches_keyword(text_lower, kw) for kw in ["i-soon", "commercial hacking", "geo-spoof", "sakshi", "interleaved retrieval", "unit conversion", "textual stratigraphy", "dpdp 2027", "critical edition", "epistemic taxonomy"])
-        req_industrial_propulsion = any(cls.matches_keyword(text_lower, kw) for kw in ["single-crystal", "kaveri engine", "pfbr", "liquid sodium", "pooled gold", "pgi collateral", "dicgc", "rfp turnover", "industrial capital", "propulsion autonomy"])
+        req_epistemic_validation = any(cls.matches_keyword(text_lower, kw) for kw in ["i-soon", "commercial hacking", "geo-spoof", "sakshi", "interleaved retrieval", "unit conversion", "textual stratigraphy", "dpdp 2027", "dpdp", "section 301", "critical edition", "epistemic taxonomy", "epistemic validation"])
+        req_industrial_propulsion = any(cls.matches_keyword(text_lower, kw) for kw in ["single-crystal", "kaveri engine", "kaveri", "rhenium", "pfbr", "liquid sodium", "pooled gold", "pgi collateral", "dicgc", "stop switch", "rfp turnover", "industrial capital", "industrial propulsion", "propulsion autonomy"])
 
 
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
