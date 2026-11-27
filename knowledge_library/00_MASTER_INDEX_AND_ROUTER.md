@@ -1,13 +1,13 @@
 # BSKM: MASTER EPISTEMIC INDEX & ROUTING MATRIX
 > Central Navigational Compass for the 157+ Multi-Domain Video Intelligence Dossiers.
-> Total Indexed Dossiers: 198 | Domain Files: 6
+> Total Indexed Dossiers: 199 | Domain Files: 6
 
 ## 1. Domain Dossier Inventory
 
 | File | Domain Name | Sections Covered |
 | :--- | :--- | :--- |
 | [`01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md`](01_SANATAN_CIVILIZATIONAL_EPISTEMOLOGY.md) | Vedic & Sanatan Civilizational Epistemology, Shastras & Historiography | 36 sections |
-| [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 52 sections |
+| [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) | Invisible Cash Flow, Shadow Banking, Bullion & Geo-Economic Realism | 53 sections |
 | [`03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md`](03_GEOPOLITICAL_REALPOLITIK_AND_DEFENSE.md) | Geopolitical Realpolitik, Border Defense, Multipolar Balance & ORBAT | 50 sections |
 | [`04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md`](04_HYBRID_WARFARE_AND_COVERT_SUBVERSION.md) | Hybrid Warfare, Deep State Subversion, Honeytraps & Mobocracy | 29 sections |
 | [`05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md`](05_DEEP_TECH_AND_DIGITAL_SOVEREIGNTY.md) | Deep-Tech Sovereignty, Compute, Semiconductors & Critical Minerals | 6 sections |
@@ -215,3 +215,4 @@
 | Section 195: Dual-Use Propulsion Metallurgy, Wholesale Tokenized Bullion (PGIs), Banking Stop Switch vs Tail-Risk, Post-Sindoor Diplomatic Space & Quantitative Fact Quarantine — 7-Target Forensic Audit (`SEVEN-TARGET-METALLURGY-PGI-RESILIENCE`) | `N/A` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
 | Section 196: Section 301 Trade-Cap Warfare, RBI Securitisation & Stop Switch Controls, AI Bubble vs DPDP May 2027 Localization, Pyongyang/GEO-ISR Posture & Civilizational Stratigraphy — 10-Target Forensic Audit (`SECTION-301-DPDP-NBFC-STRATIGRAPHY`) | `N/A` | [`06_COGNITIVE_WARFARE_AND_LAWFARE.md`](06_COGNITIVE_WARFARE_AND_LAWFARE.md) |
 | Section 197: RBI 60-Tonne Sovereign Gold Repatriation vs. London PGIs & Lloyd's War-Risk Choke, Diaspora Brand-Hijack Spoofing & Monument Provenance Quarantine — 6-Target Forensic Audit (`GOLD-REPATRIATION-LONDON-COGNITIVE-AUDIT`) | `N/A` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
+| Section 198: Section 301 Net-vs-Stacked Tariff Math, RBI $239.2B Forward Book & FEMA 9-Month Compression, AI CapEx Rout ($8.5T), PMLA/TBML & Unconventional CI Tradecraft — 7-Target Forensic Audit (`TARIFF-FEMA-PMLA-CI-STRATAGEM`) | `N/A` | [`02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md`](02_INVISIBLE_CASH_FLOW_AND_GEO_ECONOMICS.md) |
