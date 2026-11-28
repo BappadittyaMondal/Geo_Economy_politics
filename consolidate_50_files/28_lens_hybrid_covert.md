@@ -339,6 +339,23 @@ class HybridCovertLens:
         )
         metrics["asymmetric_subversion_counter_penetration_score"] = _asd_res["asymmetric_subversion_counter_penetration_score"]
 
+        # Phase 462: Impossible Trinity FX Book, TBML/CBS Bypass & Counter-Infiltration OPSEC Tensor
+        _itf_res = ImpossibleTrinityForexBookTbmlAndCounterInfiltrationOpsecTensor.evaluate(
+            gross_fx_reserves_usd_b=hc_meta.get("gross_fx_reserves_usd_b", 705.34),
+            net_short_forward_book_usd_b=hc_meta.get("net_short_forward_book_usd_b", 239.20),
+            monthly_import_bill_usd_b=hc_meta.get("monthly_import_bill_usd_b", 55.0),
+            net_fdi_flow_norm=hc_meta.get("net_fdi_flow_norm", -0.15),
+            drawback_over_invoicing_rate=hc_meta.get("drawback_over_invoicing_rate", 0.35),
+            non_cbs_lou_bypass_risk=hc_meta.get("non_cbs_lou_bypass_risk", 0.30),
+            fema_realization_compression=hc_meta.get("fema_realization_compression", 0.45),
+            route_entropy_ci=hc_meta.get("route_entropy_ci", 0.80),
+            cantt_encroachment_cultivation=hc_meta.get("cantt_encroachment_cultivation", 0.25),
+            nuclear_devolution_latency_risk=hc_meta.get("nuclear_devolution_latency_risk", 0.20),
+        )
+        metrics["impossible_trinity_tbml_and_counter_infiltration_score"] = _itf_res["impossible_trinity_tbml_and_counter_infiltration_score"]
+        metrics["unencumbered_reserve_cushion"] = _itf_res["unencumbered_reserve_cushion"]
+        metrics["perimeter_and_pattern_opsec"] = _itf_res["perimeter_and_pattern_opsec"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,
@@ -1745,6 +1762,93 @@ class AsymmetricSubversionAndCounterPenetrationSieve:
             "operational_verdict": verdict,
             "tactical_rationale": rationale,
             "is_subversion_threat_critical": score >= 0.70,
+        }
+
+
+class ImpossibleTrinityForexBookTbmlAndCounterInfiltrationOpsecTensor:
+    """Phase 462: External Reserve Encumbrance, TBML/Non-CBS Bypass & Cantonment Counter-Infiltration Tensor.
+    Delegates baseline customs-vs-remittance TBML scoring to `TradeBasedMoneyLaunderingSieve` while modeling
+    net short forward encumbrance, FEMA export realization compression, zero-pattern CI entropy, and perimeter encroachment.
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        gross_fx_reserves_usd_b: float = 705.34,
+        net_short_forward_book_usd_b: float = 239.20,
+        monthly_import_bill_usd_b: float = 55.0,
+        net_fdi_flow_norm: float = -0.15,
+        drawback_over_invoicing_rate: float = 0.35,
+        non_cbs_lou_bypass_risk: float = 0.30,
+        fema_realization_compression: float = 0.45,
+        route_entropy_ci: float = 0.80,
+        cantt_encroachment_cultivation: float = 0.25,
+        nuclear_devolution_latency_risk: float = 0.20,
+    ) -> Dict[str, Any]:
+        from .geo_economist import TradeBasedMoneyLaunderingSieve
+
+        gross_fx = max(0.0, float(gross_fx_reserves_usd_b))
+        fwd_short = max(0.0, float(net_short_forward_book_usd_b))
+        annual_imports = max(1.0, float(monthly_import_bill_usd_b) * 12.0)
+        fdi_norm = float(max(-1.0, min(1.0, net_fdi_flow_norm)))
+
+        d_inv = float(max(0.0, min(1.0, drawback_over_invoicing_rate)))
+        b_lou = float(max(0.0, min(1.0, non_cbs_lou_bypass_risk)))
+        c_fema = float(max(0.0, min(1.0, fema_realization_compression)))
+        h_ci = float(max(0.0, min(1.0, route_entropy_ci)))
+        e_cantt = float(max(0.0, min(1.0, cantt_encroachment_cultivation)))
+        n_devol = float(max(0.0, min(1.0, nuclear_devolution_latency_risk)))
+
+        raw_cushion = max(0.0, min(1.0, (gross_fx - fwd_short) / annual_imports))
+        unencumbered_reserve_cushion = round(max(0.0, min(1.0, raw_cushion * (1.0 - 0.30 * max(0.0, -fdi_norm)))), 4)
+
+        delegated_tbml = TradeBasedMoneyLaunderingSieve.evaluate(
+            customs_remittance_discrepancy=d_inv,
+            gst_eway_divergence=c_fema,
+            port_clearance_verification=max(0.0, 1.0 - b_lou),
+        )
+        tbml_base = float(delegated_tbml["trade_based_money_laundering_score"])
+        z_strain = 2.2 * d_inv + 2.4 * b_lou + 1.6 * c_fema - 1.2
+        fema_sigmoid = 1.0 / (1.0 + math.exp(-z_strain))
+        trade_laundering_and_fema_strain = round(max(0.0, min(1.0, 0.50 * fema_sigmoid + 0.50 * tbml_base)), 4)
+
+        perimeter_and_pattern_opsec = round(
+            max(0.0, min(1.0, (0.55 * h_ci + 0.45 * (1.0 - e_cantt)) * (1.0 - 0.15 * n_devol))),
+            4,
+        )
+
+        composite_score = round(
+            max(
+                0.0,
+                min(
+                    1.0,
+                    0.40 * unencumbered_reserve_cushion
+                    + 0.30 * (1.0 - trade_laundering_and_fema_strain)
+                    + 0.30 * perimeter_and_pattern_opsec,
+                ),
+            ),
+            4,
+        )
+
+        if composite_score >= 0.65:
+            tier = "INSULATED_FX_BOOK_AND_HARDENED_CANTONMENT_OPSEC"
+            verdict = "MAINTAIN_UNENCUMBERED_RESERVES_CBS_AUDIT_AND_ZERO_PATTERN_PATROLS"
+        elif composite_score >= 0.40:
+            tier = "MODERATE_FORWARD_ENCUMBRANCE_AND_PERIMETER_FRICTION"
+            verdict = "ENFORCE_FEMA_EXPORT_VELOCITY_AND_AUDIT_CANTONMENT_PERIMETERS"
+        else:
+            tier = "ACUTE_IMPOSSIBLE_TRINITY_AND_TBML_OPSEC_STRESS"
+            verdict = "UNWIND_SHORT_FORWARD_OVERHANG_SEAL_CBS_LOU_BYPASS_AND_PURGE_ENCROACHMENTS"
+
+        return {
+            "impossible_trinity_tbml_and_counter_infiltration_score": composite_score,
+            "unencumbered_reserve_cushion": unencumbered_reserve_cushion,
+            "trade_laundering_and_fema_strain": trade_laundering_and_fema_strain,
+            "perimeter_and_pattern_opsec": perimeter_and_pattern_opsec,
+            "delegated_tbml_baseline_score": tbml_base,
+            "trinity_opsec_tier": tier,
+            "operational_verdict": verdict,
+            "is_trinity_tbml_opsec_fortified": composite_score >= 0.65,
         }
 
 ```

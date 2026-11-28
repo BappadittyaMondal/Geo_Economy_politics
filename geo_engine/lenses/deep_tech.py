@@ -537,6 +537,17 @@ class DeepTechLens:
         )
         metrics["physical_bullion_pricing_power_and_cyber_resilience_score"] = _cib_res["physical_bullion_pricing_power_and_cyber_resilience_score"]
 
+        # Phase 438: Low Earth Orbit Congestion & Orbital Weaponization Sieve
+        _leo_res = LowEarthOrbitCongestionAndOrbitalWeaponizationSieve.evaluate(
+            leo_constellation_density=deep_meta.get("leo_constellation_density", 0.80),
+            rf_electronic_jamming_vulnerability=deep_meta.get("rf_electronic_jamming_vulnerability", 0.75),
+            kinetic_asat_debris_cascade_risk=deep_meta.get("kinetic_asat_debris_cascade_risk", 0.70),
+            sovereign_rad_hardened_redundancy=deep_meta.get("sovereign_rad_hardened_redundancy", 0.45),
+        )
+        metrics["orbital_weaponization_vulnerability_score"] = _leo_res["orbital_weaponization_vulnerability_score"]
+        metrics["orbital_vulnerability_tier"] = _leo_res["orbital_vulnerability_tier"]
+        metrics["is_orbital_vulnerability_acute"] = _leo_res["is_orbital_vulnerability_acute"]
+
         # Capstone: Epistemic Taxonomy and Interleaved Validation Engine (Phases 455, 458, 460)
         corpus_dt = (
             f"{getattr(summit, 'summit_name', '')} {getattr(summit, 'title', '')} " +
@@ -572,6 +583,22 @@ class DeepTechLens:
         metrics["dpdp_sovereign_compute_yield"] = _etv_res["dpdp_sovereign_compute_yield"]
         metrics["sovereign_epistemic_tier"] = _etv_res["sovereign_epistemic_tier"]
         metrics["epistemic_operational_verdict"] = _etv_res["operational_verdict"]
+
+        # Phase 464: Mother-Machine Tool, Hydrospatial Sonar & Tri-Channel Monetary/Hydrocide Tensor
+        _mmh_res = MotherMachineToolHydrospatialSonarAndMonetaryHydrocideResilienceTensor.evaluate(
+            machine_tool_import_ratio=deep_meta.get("machine_tool_import_ratio", 0.66),
+            indigenous_controller_and_dual_trade_ratio=deep_meta.get("indigenous_controller_and_dual_trade_ratio", 0.45),
+            halocline_uda_profile_coverage=deep_meta.get("halocline_uda_profile_coverage", 0.60),
+            forward_sub_pen_detection_loss=deep_meta.get("forward_sub_pen_detection_loss", 0.35),
+            spot_fx_drain_inr=deep_meta.get("spot_fx_drain_inr", 8.0),
+            vrr_injection_inr=deep_meta.get("vrr_injection_inr", 6.5),
+            fema_relief_factor=deep_meta.get("fema_relief_factor", 0.55),
+            fsm_adoption_ratio=deep_meta.get("fsm_adoption_ratio", 0.50),
+            do_outlet_mg_l=deep_meta.get("do_outlet_mg_l", 3.5),
+        )
+        metrics["mother_machine_sonar_liquidity_hydrocide_score"] = _mmh_res["mother_machine_sonar_liquidity_hydrocide_score"]
+        metrics["mother_machine_autonomy"] = _mmh_res["mother_machine_autonomy"]
+        metrics["hydrospatial_sonar_resilience"] = _mmh_res["hydrospatial_sonar_resilience"]
 
         if any(k in corpus_dt for k in ["i-soon", "geo-spoof", "sakshi", "interleaved", "stratigraphy", "dpdp", "unit error"]):
             findings.insert(
@@ -1791,6 +1818,77 @@ class EpistemicTaxonomyAndInterleavedValidationEngine:
             "sovereign_epistemic_tier": tier,
             "operational_verdict": verdict,
             "is_epistemically_fortified": unified_score >= 0.65,
+        }
+
+
+class MotherMachineToolHydrospatialSonarAndMonetaryHydrocideResilienceTensor:
+    """Phase 464: 5-Axis <2-Micron Mother-Machine, Hydrospatial Halocline Sonar & Tri-Channel Monetary/Hydrocide Tensor.
+    Quantifies CNC controller / machine-tool sovereignty, Bay of Bengal halocline sonar masking vs forward submarine pens,
+    spot FX domestic liquidity drain vs VRR/FEMA offsets, and urban river dissolved-oxygen (DO) + FSM resilience.
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        machine_tool_import_ratio: float = 0.66,
+        indigenous_controller_and_dual_trade_ratio: float = 0.45,
+        halocline_uda_profile_coverage: float = 0.60,
+        forward_sub_pen_detection_loss: float = 0.35,
+        spot_fx_drain_inr: float = 8.0,
+        vrr_injection_inr: float = 6.5,
+        fema_relief_factor: float = 0.55,
+        fsm_adoption_ratio: float = 0.50,
+        do_outlet_mg_l: float = 3.5,
+    ) -> Dict[str, Any]:
+        imp_ratio = float(max(0.0, min(1.0, machine_tool_import_ratio)))
+        ctrl_ratio = float(max(0.0, min(1.0, indigenous_controller_and_dual_trade_ratio)))
+        uda_cov = float(max(0.0, min(1.0, halocline_uda_profile_coverage)))
+        sub_loss = float(max(0.0, min(1.0, forward_sub_pen_detection_loss)))
+        fx_drain = max(0.0, float(spot_fx_drain_inr))
+        vrr_inj = max(0.05, float(vrr_injection_inr))
+        fema_rel = float(max(0.0, min(1.0, fema_relief_factor)))
+        fsm_adopt = float(max(0.0, min(1.0, fsm_adoption_ratio)))
+        do_norm = max(0.0, min(1.0, float(do_outlet_mg_l) / 6.0))
+
+        mother_machine_autonomy = round(max(0.0, min(1.0, 0.55 * (1.0 - imp_ratio) + 0.45 * ctrl_ratio)), 4)
+        hydrospatial_sonar_resilience = round(max(0.0, min(1.0, 0.50 * uda_cov + 0.50 * (1.0 - sub_loss))), 4)
+
+        z_fx = 2.3 * (fx_drain / vrr_inj) - 1.5 * fema_rel - 1.2
+        fx_liquidity_shield = 1.0 - (1.0 / (1.0 + math.exp(-z_fx)))
+        hydrocide_shield = 0.60 * fsm_adopt + 0.40 * do_norm
+        tri_channel_monetary_and_hydrocide_shield = round(max(0.0, min(1.0, 0.50 * fx_liquidity_shield + 0.50 * hydrocide_shield)), 4)
+
+        composite_score = round(
+            max(
+                0.0,
+                min(
+                    1.0,
+                    0.30 * mother_machine_autonomy
+                    + 0.30 * hydrospatial_sonar_resilience
+                    + 0.40 * tri_channel_monetary_and_hydrocide_shield,
+                ),
+            ),
+            4,
+        )
+
+        if composite_score >= 0.65:
+            tier = "FORTIFIED_INDUSTRIAL_HYDROSPATIAL_AND_LIQUIDITY_SHIELD"
+            verdict = "SCALE_INDIGENOUS_CNC_FIRMWARE_HALOCLINE_UDA_AND_FSM_AUTONOMY"
+        elif composite_score >= 0.42:
+            tier = "MODERATE_TOOLING_SONAR_AND_LIQUIDITY_STRAIN"
+            verdict = "REDUCE_IMPORTED_CNC_DEPENDENCY_AND_EXPAND_VRR_LIQUIDITY_BUFFERS"
+        else:
+            tier = "CRITICAL_MOTHER_MACHINE_AND_HYDROCIDE_VULNERABILITY"
+            verdict = "ACCELERATE_2B001_SUBSTITUTION_SONAR_GRID_AND_DECENTRALIZED_FSM"
+
+        return {
+            "mother_machine_sonar_liquidity_hydrocide_score": composite_score,
+            "mother_machine_autonomy": mother_machine_autonomy,
+            "hydrospatial_sonar_resilience": hydrospatial_sonar_resilience,
+            "tri_channel_monetary_and_hydrocide_shield": tri_channel_monetary_and_hydrocide_shield,
+            "physical_resilience_tier": tier,
+            "operational_verdict": verdict,
+            "is_physical_hydrospatial_resilient": composite_score >= 0.60,
         }
 
 

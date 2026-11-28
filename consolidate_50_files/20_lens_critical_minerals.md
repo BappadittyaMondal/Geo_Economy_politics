@@ -98,6 +98,17 @@ class CriticalMineralsLens:
         )
         metrics["gpu_export_control_chokepoint_vulnerability"] = _shc_res["gpu_export_control_chokepoint_vulnerability"]
 
+        # Phase 439: Taiwan Strait Quarantine & Semiconductor Supply Resilience Sieve
+        _twq_res = TaiwanStraitQuarantineAndSemiconductorSupplyResilienceSieve.evaluate(
+            quarantine_enforcement_strictness=cm_meta.get("quarantine_enforcement_strictness", 0.85),
+            sub_5nm_logic_chip_dependency=cm_meta.get("sub_5nm_logic_chip_dependency", 0.92),
+            foundry_replacement_latency_years=cm_meta.get("foundry_replacement_latency_years", 0.80),
+            domestic_fab_buffer_ratio=cm_meta.get("domestic_fab_buffer_ratio", 0.15),
+        )
+        metrics["taiwan_quarantine_semiconductor_choke_index"] = _twq_res["taiwan_quarantine_semiconductor_choke_index"]
+        metrics["semiconductor_choke_tier"] = _twq_res["semiconductor_choke_tier"]
+        metrics["is_semiconductor_choke_critical"] = _twq_res["is_semiconductor_choke_critical"]
+
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,

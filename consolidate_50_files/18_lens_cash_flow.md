@@ -93,130 +93,8 @@ class CashFlowLens:
                 "illicit_crime_terror_hawala_index": 0.72,
                 "transnational_syndicate_asset_freeze_leverage": 0.68
             }
-            # Phase 247: Wire DigitalEnclosureTrapSieve fallback
-            det_meta = getattr(summit, "metadata", {}) or {}
-            det_params = det_meta.get("digital_enclosure_trap", {}) if isinstance(det_meta, dict) else {}
-            _det_res = DigitalEnclosureTrapSieve.calculate_digital_enclosure(
-                crypto_capital_flight_ratio=det_params.get("crypto_capital_flight_ratio", 0.50),
-                offshore_exchange_opacity=det_params.get("offshore_exchange_opacity", 0.60),
-                cbdc_programmability_index=det_params.get("cbdc_programmability_index", 0.65),
-                physical_gold_reserve_ratio=det_params.get("physical_gold_reserve_ratio", 0.40)
-            )
-            metrics["digital_enclosure_trap_score"] = _det_res["digital_enclosure_trap_score"]
-            metrics["digital_enclosure_trap_tier"] = _det_res["digital_enclosure_trap_tier"]
-            # Phase 258: Wire BullionPaperArbitrageDislocationSieve fallback
-            bdr_params = det_meta.get("bullion_dislocation", {}) if isinstance(det_meta, dict) else {}
-            _bdr_res = BullionPaperArbitrageDislocationSieve.calculate_bullion_dislocation_risk(
-                paper_to_physical_leverage=bdr_params.get("paper_to_physical_leverage", 0.70),
-                vault_drain_velocity=bdr_params.get("vault_drain_velocity", 0.60),
-                tariff_arbitrage_spread=bdr_params.get("tariff_arbitrage_spread", 0.40),
-                sovereign_bullion_repatriation=bdr_params.get("sovereign_bullion_repatriation", 0.80),
-            )
-            metrics.update(_bdr_res)
+            cls._populate_structural_cash_metrics(summit, claims, metrics, findings)
 
-            # Phase 268: Wire PreciousMetalSovereignArbitrageSieve
-            pms_params = det_meta.get("precious_metal_arbitrage", {}) if isinstance(det_meta, dict) else {}
-            _pms_res = PreciousMetalSovereignArbitrageSieve.calculate_bullion_sovereignty(
-                physical_vault_inventory=pms_params.get("physical_vault_inventory", 0.60),
-                paper_derivative_claims=pms_params.get("paper_derivative_claims", 0.50),
-                sge_comex_premium_usd=pms_params.get("sge_comex_premium_usd", 25.0),
-                central_bank_repatriation_rate=pms_params.get("central_bank_repatriation_rate", 0.70),
-                household_streedhan_buffer=pms_params.get("household_streedhan_buffer", 0.85),
-            )
-            metrics.update(_pms_res)
-    
-            # Phase 272: Wire SovereignBalanceSheetShieldSieve
-            bop_params = det_meta.get("sovereign_bop_shield", {}) if isinstance(det_meta, dict) else {}
-            _bop_res = SovereignBalanceSheetShieldSieve.calculate_bop_shield(
-                forex_reserves_usd_b=bop_params.get("forex_reserves_usd_b", 700.0),
-                short_term_external_debt_usd_b=bop_params.get("short_term_external_debt_usd_b", 140.0),
-                dii_retail_absorption_rate=bop_params.get("dii_retail_absorption_rate", 0.80),
-                cad_pressure_index=bop_params.get("cad_pressure_index", 0.40),
-                fii_flight_velocity=bop_params.get("fii_flight_velocity", 0.50),
-            )
-            metrics.update(_bop_res)
-            # Phase 275 & 276: Wire DomesticHNWICapitalFormationSieve & SovereignGoldRepatriationSieve
-            hnwi_params = det_meta.get("hnwi_capital", {}) if isinstance(det_meta, dict) else {}
-            _hnwi_res = DomesticHNWICapitalFormationSieve.calculate_capital_flight_risk(
-                hnwi_cohort_growth_rate=hnwi_params.get("hnwi_cohort_growth_rate", 0.12),
-                gift_city_onshoring_ratio=hnwi_params.get("gift_city_onshoring_ratio", 0.65),
-                confiscation_rhetoric_intensity=hnwi_params.get("confiscation_rhetoric_intensity", 0.35),
-                tax_unpredictability_index=hnwi_params.get("tax_unpredictability_index", 0.40),
-            )
-            metrics.update(_hnwi_res)
-    
-            gold_params = det_meta.get("gold_reserves", {}) if isinstance(det_meta, dict) else {}
-            _gold_res = SovereignGoldRepatriationSieve.calculate_reserve_immunity(
-                domestic_physical_gold_tonnes=gold_params.get("domestic_physical_gold_tonnes", 500.0),
-                total_sovereign_gold_tonnes=gold_params.get("total_sovereign_gold_tonnes", 850.0),
-                local_currency_settlement_pct=gold_params.get("local_currency_settlement_pct", 0.25),
-                g7_custody_exposure_pct=gold_params.get("g7_custody_exposure_pct", 0.40),
-            )
-            metrics.update(_gold_res)
-
-            # Phase 286: Wire CommercialBankAssetQualityAndCRARSieve
-            bank_params = det_meta.get("bank_asset_quality", {}) if isinstance(det_meta, dict) else {}
-            _bank_res = CommercialBankAssetQualityAndCRARSieve.calculate_banking_fortress(
-                crar_ratio=bank_params.get("crar_ratio", 0.80),
-                provision_coverage=bank_params.get("provision_coverage", 0.75),
-                net_npa_ratio=bank_params.get("net_npa_ratio", 0.15),
-                mtm_treasury_exposure=bank_params.get("mtm_treasury_exposure", 0.20),
-            )
-            metrics.update(_bank_res)
-
-            # Phases 355 & 356: Wire BISHiddenFXSwapContagionSieve & OffshoreUBOShellDeAnonymizerSieve
-            _bis_res_e = BISHiddenFXSwapContagionSieve.evaluate(
-                ois_sofr_spread_bps=det_meta.get("ois_sofr_spread_bps", 25.0),
-                cross_currency_basis_spread_bps=det_meta.get("cross_currency_basis_spread_bps", 35.0),
-                off_balance_sheet_swap_ratio=det_meta.get("off_balance_sheet_swap_ratio", 0.35),
-                bilateral_swap_line_coverage=det_meta.get("bilateral_swap_line_coverage", 0.75),
-            )
-            metrics["bis_hidden_fx_swap_contagion_score"] = _bis_res_e["bis_hidden_fx_swap_contagion_score"]
-
-            _ubo_res_e = OffshoreUBOShellDeAnonymizerSieve.evaluate(
-                pnote_concentration_ratio=det_meta.get("pnote_concentration_ratio", 0.30),
-                tax_haven_layering_depth=det_meta.get("tax_haven_layering_depth", 2),
-                pre_leak_put_oi_growth=det_meta.get("pre_leak_put_oi_growth", 0.25),
-                ubo_transparency_score=det_meta.get("ubo_transparency_score", 0.80),
-            )
-            metrics["offshore_ubo_de_anonymizer_score"] = _ubo_res_e["offshore_ubo_de_anonymizer_score"]
-
-            # Phases 396, 397, 401, 402: Early branch wiring
-            _isd_res_e = InformalSectorStatisticalDivergenceTensor.evaluate(
-                gdp_reported=det_meta.get("gdp_reported", 0.082),
-                corporate_index=det_meta.get("corporate_index", 0.120),
-                unorganized_wage_index=det_meta.get("unorganized_wage_index", 0.015),
-                alpha=det_meta.get("informal_alpha", 0.45),
-                unsecured_consumer_debt=det_meta.get("unsecured_consumer_debt", 0.28),
-                net_household_savings=det_meta.get("net_household_savings", 0.052),
-                informal_distress_factor=det_meta.get("informal_distress_factor", 0.75),
-            )
-            metrics["informal_sector_statistical_divergence_score"] = _isd_res_e["informal_sector_statistical_divergence_score"]
-
-            _pll_res_e = PBOCLGFVLiquidityTrapTensor.evaluate(
-                delta_net_new_loans=det_meta.get("delta_net_new_loans", -0.15),
-                lgfv_debt_service=det_meta.get("lgfv_debt_service", 0.85),
-                municipal_land_revenues=det_meta.get("municipal_land_revenues", 0.30),
-                bond_hoarding_ratio=det_meta.get("bond_hoarding_ratio", 0.75),
-            )
-            metrics["pboc_lgfv_liquidity_trap_score"] = _pll_res_e["pboc_lgfv_liquidity_trap_score"]
-
-            _imc_res_e = InstitutionalMonopolyCartelCrossShareholdingSieve.evaluate(
-                shareholding_overlap_index=det_meta.get("shareholding_overlap_index", 0.75),
-                institutional_holdings_top3=det_meta.get("institutional_holdings_top3", 0.45),
-                total_free_float=det_meta.get("total_free_float", 0.60),
-                aladdin_risk_weight=det_meta.get("aladdin_risk_weight", 0.85),
-            )
-            metrics["institutional_cartel_cross_shareholding_score"] = _imc_res_e["institutional_cartel_cross_shareholding_score"]
-
-            _msm_res_e = MSMEFormalizationSolvencyAsphyxiationTensor.evaluate(
-                working_capital_cycle_days=det_meta.get("working_capital_cycle_days", 120.0),
-                liquid_cash_runway_days=det_meta.get("liquid_cash_runway_days", 30.0),
-                compliance_friction_factor=det_meta.get("compliance_friction_factor", 0.35),
-                promoter_decoupling_ratio=det_meta.get("promoter_decoupling_ratio", 0.20),
-            )
-            metrics["msme_solvency_asphyxiation_score"] = _msm_res_e["msme_solvency_asphyxiation_score"]
-    
             if claims:
                 banking_npa_claims = [
                     c for c in claims
@@ -311,7 +189,27 @@ class CashFlowLens:
         # Mathematical Validation Gate: Clamps alignment score to the ratio of effective to nominal CapEx
         capex_ratio = total_effective / max(total_nominal, 1.0)
         clamped_alignment = round(min(1.0, 0.15 + (0.85 * capex_ratio)), 2)
+        cls._populate_structural_cash_metrics(summit, claims, metrics, findings)
 
+        return LensEvaluation(
+            lens_name=cls.LENS_NAME,
+            alignment_score=clamped_alignment,
+            confidence=0.95 if total_nominal > 0 else 0.20,
+            primary_epistemic_tier=cls.PRIMARY_TIER if total_nominal > 0 else EpistemicTier.TIER_0_INSUFFICIENT_EVIDENCE,
+            key_findings=findings,
+            hard_metrics=metrics,
+            evidence_status="sufficient" if total_nominal > 0 else "insufficient"
+        )
+
+    @classmethod
+    def _populate_structural_cash_metrics(
+        cls,
+        summit: SummitEvent,
+        claims: Optional[List[Any]],
+        metrics: Dict[str, Any],
+        findings: List[str],
+    ) -> None:
+        """Evaluates sovereign bullion, reserve shield, debt rollover, and Phase 461 structural sieves."""
         # Quantitative consolidated public capex model baseline (Union: ₹11.11L Cr, States: ₹8.5L Cr, IEBR: ₹3.5L Cr, Transfers: ₹1.5L Cr)
         capex_calc = cls.calculate_consolidated_public_capex(
             union_budget_capex=11.11,
@@ -608,6 +506,21 @@ class CashFlowLens:
         metrics["industrial_capital_tier"] = _sic_res["industrial_capital_tier"]
         metrics["industrial_operational_verdict"] = _sic_res["operational_verdict"]
 
+        # Phase 461: Physical Bullion Repatriation, Marine Insurance & Brand-India Sovereignty Tensor
+        _pbm_res = PhysicalBullionRepatriationMarineInsuranceAndBrandIdentitySovereigntyTensor.evaluate(
+            domestic_vault_gold_mt=cf_meta.get("domestic_vault_gold_mt", 740.13),
+            total_reserves_gold_mt=cf_meta.get("total_reserves_gold_mt", 880.52),
+            offshore_pgi_freeze_exposure=cf_meta.get("offshore_pgi_freeze_exposure", 0.25),
+            lloyds_specialty_share=cf_meta.get("lloyds_specialty_share", 0.36),
+            chokepoint_war_risk_pct=cf_meta.get("chokepoint_war_risk_pct", 0.65),
+            domestic_pi_capacity=cf_meta.get("domestic_pi_capacity", 0.35),
+            diaspora_gi_legal_defense=cf_meta.get("diaspora_gi_legal_defense", 0.70),
+            monument_or_quote_misattribution=cf_meta.get("monument_or_quote_misattribution", 0.20),
+        )
+        metrics["physical_bullion_marine_insurance_and_brand_sovereignty_score"] = _pbm_res["physical_bullion_marine_insurance_and_brand_sovereignty_score"]
+        metrics["maritime_underwriting_autonomy"] = _pbm_res["maritime_underwriting_autonomy"]
+        metrics["brand_and_provenance_integrity"] = _pbm_res["brand_and_provenance_integrity"]
+
         if any(k in corpus_cf for k in ["pfbr", "liquid sodium", "single-crystal", "kaveri", "pooled gold", "pgi", "dicgc", "rfp turnover"]):
             findings.insert(
                 0,
@@ -615,16 +528,6 @@ class CashFlowLens:
                 f"Tier: {_sic_res['industrial_capital_tier']} | Propulsion Autonomy: {_sic_res['propulsion_autonomy_index']} | "
                 f"Compute Energy Moat: {_sic_res['compute_energy_baseload_moat']} | Bullion Shield: {_sic_res['bullion_and_switch_resilience']}."
             )
-
-        return LensEvaluation(
-            lens_name=cls.LENS_NAME,
-            alignment_score=clamped_alignment,
-            confidence=0.95 if total_nominal > 0 else 0.20,
-            primary_epistemic_tier=cls.PRIMARY_TIER if total_nominal > 0 else EpistemicTier.TIER_0_INSUFFICIENT_EVIDENCE,
-            key_findings=findings,
-            hard_metrics=metrics,
-            evidence_status="sufficient" if total_nominal > 0 else "insufficient"
-        )
 
     @classmethod
     def calculate_consolidated_public_capex(
@@ -2326,6 +2229,90 @@ class SovereignIndustrialCapitalAndPropulsionTensor:
             "industrial_capital_tier": tier,
             "operational_verdict": verdict,
             "is_propulsion_sovereign": unified_score >= 0.65,
+        }
+
+
+class PhysicalBullionRepatriationMarineInsuranceAndBrandIdentitySovereigntyTensor:
+    """Phase 461: Physical Sovereign Gold Custody, Maritime War-Risk Insurance & Brand-India Provenance Tensor.
+    Delegates baseline sovereign gold repatriation velocity to `SovereignGoldRepatriationVelocitySieve`
+    while coupling Lloyd's P&I chokepoint war-risk vulnerability with Diaspora GI / Monument Provenance defense.
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        domestic_vault_gold_mt: float = 740.13,
+        total_reserves_gold_mt: float = 880.52,
+        offshore_pgi_freeze_exposure: float = 0.25,
+        domestic_vault_security: float = 0.90,
+        fx_sanction_exposure: float = 0.20,
+        lloyds_specialty_share: float = 0.36,
+        chokepoint_war_risk_pct: float = 0.65,
+        domestic_pi_capacity: float = 0.35,
+        diaspora_gi_legal_defense: float = 0.70,
+        monument_or_quote_misattribution: float = 0.20,
+    ) -> Dict[str, Any]:
+        g_tot = max(1.0, float(total_reserves_gold_mt))
+        g_dom = max(0.0, min(g_tot, float(domestic_vault_gold_mt)))
+        g_offshore = max(0.0, g_tot - g_dom)
+        dom_ratio = g_dom / g_tot
+        off_ratio = g_offshore / g_tot
+
+        pgi_exp = float(max(0.0, min(1.0, offshore_pgi_freeze_exposure)))
+        l_share = float(max(0.0, min(1.0, lloyds_specialty_share)))
+        war_risk = float(max(0.0, min(1.0, chokepoint_war_risk_pct)))
+        dom_pi = float(max(0.0, min(1.0, domestic_pi_capacity)))
+        gi_def = float(max(0.0, min(1.0, diaspora_gi_legal_defense)))
+        misattr = float(max(0.0, min(1.0, monument_or_quote_misattribution)))
+
+        # Delegate baseline repatriation velocity calculation cleanly (zero duplicate math)
+        delegated_vel = SovereignGoldRepatriationVelocitySieve.calculate(
+            repatriated_bullion_metric=g_dom,
+            foreign_custody_gold=g_offshore,
+            domestic_vault_security=domestic_vault_security,
+            fx_sanction_exposure=fx_sanction_exposure,
+        )
+        vel_score = float(delegated_vel["sovereign_gold_repatriation_velocity_score"])
+
+        raw_custody = (0.65 * dom_ratio + 0.35 * (1.0 - pgi_exp) - 0.15 * abs(off_ratio - 0.12))
+        sovereign_bullion_custody_ratio = round(max(0.0, min(1.0, 0.70 * raw_custody + 0.30 * vel_score)), 4)
+
+        z_marine = 2.3 * l_share + 2.0 * war_risk - 2.4 * dom_pi
+        maritime_underwriting_autonomy = round(max(0.0, min(1.0, 1.0 - (1.0 / (1.0 + math.exp(-z_marine))))), 4)
+        brand_and_provenance_integrity = round(max(0.0, min(1.0, 0.55 * gi_def + 0.45 * (1.0 - misattr))), 4)
+
+        composite_score = round(
+            max(
+                0.0,
+                min(
+                    1.0,
+                    0.40 * sovereign_bullion_custody_ratio
+                    + 0.30 * maritime_underwriting_autonomy
+                    + 0.30 * brand_and_provenance_integrity,
+                ),
+            ),
+            4,
+        )
+
+        if composite_score >= 0.70:
+            tier = "SOVEREIGN_CUSTODY_AND_MARITIME_UNDERWRITING_AUTONOMY"
+            verdict = "SCALE_DOMESTIC_VAULT_BUFFER_AND_IFSC_GIFT_MARINE_INSURANCE"
+        elif composite_score >= 0.45:
+            tier = "MODERATE_OFFSHORE_INSURANCE_AND_BRAND_EXPOSURE"
+            verdict = "EXPAND_DOMESTIC_PI_POOL_AND_ENFORCE_GI_PROVENANCE_QUARANTINE"
+        else:
+            tier = "CRITICAL_PGI_FREEZE_AND_WAR_RISK_DRAIN"
+            verdict = "REPATRIATE_OFFSHORE_BULLION_AND_INSULATE_CHOKEPOINT_HULL_COVER"
+
+        return {
+            "physical_bullion_marine_insurance_and_brand_sovereignty_score": composite_score,
+            "sovereign_bullion_custody_ratio": sovereign_bullion_custody_ratio,
+            "maritime_underwriting_autonomy": maritime_underwriting_autonomy,
+            "brand_and_provenance_integrity": brand_and_provenance_integrity,
+            "delegated_gold_repatriation_velocity": vel_score,
+            "bullion_marine_brand_tier": tier,
+            "operational_verdict": verdict,
+            "is_bullion_marine_brand_sovereign": composite_score >= 0.65,
         }
 
 ```

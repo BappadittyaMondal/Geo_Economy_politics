@@ -592,6 +592,45 @@ class InstitutionalLawfareLens:
         )
         metrics["subcontinental_asymmetric_defense_and_techno_sovereignty_score"] = _spv_res["subcontinental_asymmetric_defense_and_techno_sovereignty_score"]
 
+        # Phase 436: Cultural & Religious Grayzone Subversion Sieve
+        _cgs_res = CulturalReligiousGrayzoneSubversionSieve.evaluate(
+            statutory_religious_exemption_abuse=law_meta.get("statutory_religious_exemption_abuse", 0.75),
+            demographic_corridor_density=law_meta.get("demographic_corridor_density", 0.70),
+            foreign_funding_traceability_deficit=law_meta.get("foreign_funding_traceability_deficit", 0.80),
+            sovereign_judicial_resilience=law_meta.get("sovereign_judicial_resilience", 0.40),
+        )
+        metrics["cultural_religious_grayzone_subversion_score"] = _cgs_res["cultural_religious_grayzone_subversion_score"]
+        metrics["grayzone_subversion_tier"] = _cgs_res["grayzone_subversion_tier"]
+
+        # Phase 440: Electoral Lawfare & Judicial Disqualification Sieve
+        _elq_res = ElectoralLawfareAndJudicialDisqualificationSieve.evaluate(
+            judicial_intervention_severity=law_meta.get("judicial_intervention_severity", 0.85),
+            populist_polling_share=law_meta.get("populist_polling_share", 0.70),
+            bond_spread_contagion=law_meta.get("bond_spread_contagion", 0.65),
+            institutional_trust_deficit=law_meta.get("institutional_trust_deficit", 0.80),
+        )
+        metrics["electoral_lawfare_polarization_score"] = _elq_res["electoral_lawfare_polarization_score"]
+        metrics["electoral_lawfare_tier"] = _elq_res["electoral_lawfare_tier"]
+        metrics["is_electoral_lawfare_acute"] = _elq_res["is_electoral_lawfare_acute"]
+
+        # Phase 463: Constitutional Supermajority Engineering, Judicial Override & Grayzone Proxy Tensor
+        _ceg_res = ConstitutionalSupermajorityEngineeringJudicialOverrideAndGrayzoneProxyTensor.evaluate(
+            unprorogued_bypass_factor=law_meta.get("unprorogued_bypass_factor", 0.45),
+            consensus_package_trap=law_meta.get("consensus_package_trap", 0.50),
+            lok_sabha_seats=law_meta.get("lok_sabha_seats", 543.0),
+            rajya_sabha_seats=law_meta.get("rajya_sabha_seats", 250.0),
+            pending_disqualification_ratio=law_meta.get("pending_disqualification_ratio", 0.30),
+            state_board_vs_priest_divergence=law_meta.get("state_board_vs_priest_divergence", 0.60),
+            art144_defiance_delay=law_meta.get("art144_defiance_delay", 0.45),
+            judicial_receiver_capf_override=law_meta.get("judicial_receiver_capf_override", 0.75),
+            juvenile_cap_deterrence=law_meta.get("juvenile_cap_deterrence", 0.55),
+            false_complaint_immunity_gap=law_meta.get("false_complaint_immunity_gap", 0.35),
+            grayzone_subversion_baseline=_cgs_res["cultural_religious_grayzone_subversion_score"],
+        )
+        metrics["constitutional_engineering_and_grayzone_proxy_score"] = _ceg_res["constitutional_engineering_and_grayzone_proxy_score"]
+        metrics["legislative_bundling_leverage"] = _ceg_res["legislative_bundling_leverage"]
+        metrics["institutional_board_shield_risk"] = _ceg_res["institutional_board_shield_risk"]
+
         return LensEvaluation(
 
             lens_name=cls.LENS_NAME,
@@ -2684,6 +2723,90 @@ class SubcontinentalProxyVulnerabilityAndSiliconOligarchyTensor:
             "sovereign_tier": tier,
             "operational_verdict": verdict,
             "is_subcontinental_and_techno_fortified": resilience_score >= 0.60,
+        }
+
+
+class ConstitutionalSupermajorityEngineeringJudicialOverrideAndGrayzoneProxyTensor:
+    """Phase 463: Constitutional Super-Majority Bundling, State Temple-Board Shielding & Grayzone Proxy Tensor.
+    Models unprorogued legislative bypassing + Art. 108 joint-sitting ratios, HR&CE Board proxy defiance vs Art. 144 CAPF
+    receivership (modulating live CulturalReligiousGrayzoneSubversionSieve without duplicating land-buffer math),
+    and juvenile street-veto / asymmetric statutory exclusions.
+    """
+
+    @classmethod
+    def evaluate(
+        cls,
+        unprorogued_bypass_factor: float = 0.45,
+        consensus_package_trap: float = 0.50,
+        lok_sabha_seats: float = 543.0,
+        rajya_sabha_seats: float = 250.0,
+        pending_disqualification_ratio: float = 0.30,
+        state_board_vs_priest_divergence: float = 0.60,
+        art144_defiance_delay: float = 0.45,
+        judicial_receiver_capf_override: float = 0.75,
+        juvenile_cap_deterrence: float = 0.55,
+        false_complaint_immunity_gap: float = 0.35,
+        grayzone_subversion_baseline: Optional[float] = None,
+    ) -> Dict[str, Any]:
+        u_byp = float(max(0.0, min(1.0, unprorogued_bypass_factor)))
+        b_trap = float(max(0.0, min(1.0, consensus_package_trap)))
+        s_ls = max(1.0, float(lok_sabha_seats))
+        s_rs = max(1.0, float(rajya_sabha_seats))
+        d_pend = float(max(0.0, min(1.0, pending_disqualification_ratio)))
+        board_div = float(max(0.0, min(1.0, state_board_vs_priest_divergence)))
+        art_delay = float(max(0.0, min(1.0, art144_defiance_delay)))
+        capf_ovr = float(max(0.0, min(1.0, judicial_receiver_capf_override)))
+        juv_det = float(max(0.0, min(1.0, juvenile_cap_deterrence)))
+        false_gap = float(max(0.0, min(1.0, false_complaint_immunity_gap)))
+
+        # Delegate baseline cultural grayzone score if not explicitly injected
+        if grayzone_subversion_baseline is None:
+            gz_res = CulturalReligiousGrayzoneSubversionSieve.evaluate()
+            gz_base = float(gz_res["cultural_religious_grayzone_subversion_score"])
+        else:
+            gz_base = float(max(0.0, min(1.0, grayzone_subversion_baseline)))
+
+        z_leg = 2.1 * u_byp + 2.4 * b_trap + 1.9 * ((s_ls / s_rs) - 2.17) + 2.0 * d_pend - 1.5
+        legislative_bundling_leverage = round(1.0 / (1.0 + math.exp(-z_leg)), 4)
+
+        z_board = 2.7 * board_div + 2.3 * art_delay - 2.5 * capf_ovr
+        institutional_board_shield_risk = round(1.0 / (1.0 + math.exp(-z_board)), 4)
+
+        raw_grayzone_asym = 0.55 * (1.0 - juv_det) + 0.45 * false_gap
+        grayzone_proxy_asymmetry = round(max(0.0, min(1.0, 0.70 * raw_grayzone_asym + 0.30 * gz_base)), 4)
+
+        composite_score = round(
+            max(
+                0.0,
+                min(
+                    1.0,
+                    0.35 * (1.0 - legislative_bundling_leverage)
+                    + 0.35 * (1.0 - institutional_board_shield_risk)
+                    + 0.30 * (1.0 - grayzone_proxy_asymmetry),
+                ),
+            ),
+            4,
+        )
+
+        if composite_score >= 0.65:
+            tier = "CONSTITUTIONAL_GUARDRAILS_AND_JUDICIAL_SUPREMACY_INTACT"
+            verdict = "ENFORCE_ART144_COMPLIANCE_AND_STATUTORY_DETERRENCE_PARITY"
+        elif composite_score >= 0.40:
+            tier = "ELEVATED_PROCEDURAL_BUNDLING_AND_BOARD_SHIELD_FRICTION"
+            verdict = "AUDIT_UNPROROGUED_SITTING_NOTICES_AND_CLOSE_JUVENILE_DETERRENCE_GAPS"
+        else:
+            tier = "CRITICAL_SUPERMAJORITY_OVERRIDE_AND_PROXY_SUBVERSION"
+            verdict = "INVOKE_JUDICIAL_RECEIVERSHIP_CAPF_PROTECTORS_AND_RESTORE_CHECK_BALANCES"
+
+        return {
+            "constitutional_engineering_and_grayzone_proxy_score": composite_score,
+            "legislative_bundling_leverage": legislative_bundling_leverage,
+            "institutional_board_shield_risk": institutional_board_shield_risk,
+            "grayzone_proxy_asymmetry": grayzone_proxy_asymmetry,
+            "delegated_grayzone_baseline": gz_base,
+            "constitutional_grayzone_tier": tier,
+            "operational_verdict": verdict,
+            "is_constitutional_equilibrium_protected": composite_score >= 0.65,
         }
 
 

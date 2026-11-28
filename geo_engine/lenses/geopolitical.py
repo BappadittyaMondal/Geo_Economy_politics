@@ -278,6 +278,19 @@ class GeopoliticalLens:
         )
         metrics["tripolar_condominium_exclusion_risk"] = _tce_res["tripolar_condominium_exclusion_risk"]
 
+        # Phase 435: Global Polycrisis Collision & Systemic Cascade Tensor
+        _gpc_res = GlobalPolycrisisCollisionAndSystemicCascadeTensor.evaluate(
+            debt_wall_shock=geo_meta.get("debt_wall_shock", 0.80),
+            chokepoint_interdiction_shock=geo_meta.get("chokepoint_interdiction_shock", 0.75),
+            food_fertilizer_shock=geo_meta.get("food_fertilizer_shock", 0.70),
+            electoral_lawfare_shock=geo_meta.get("electoral_lawfare_shock", 0.65),
+            contagion_gamma=geo_meta.get("contagion_gamma", 0.50),
+            buffer_adequacy_ratio=geo_meta.get("buffer_adequacy_ratio", 0.35),
+        )
+        metrics["global_polycrisis_collision_index"] = _gpc_res["global_polycrisis_collision_index"]
+        metrics["polycrisis_severity_tier"] = _gpc_res["polycrisis_severity_tier"]
+        metrics["is_polycrisis_critical"] = _gpc_res["is_polycrisis_critical"]
+
         # Phase 448: The Economist Comprehensive 2027 Global Horizon Tensor
         _eco_res = TheEconomistComprehensive2027GlobalHorizonTensor.evaluate(
             fiscal_bond_squeeze=geo_meta.get("fiscal_bond_squeeze", 0.65),

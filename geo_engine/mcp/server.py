@@ -12,7 +12,7 @@ from ..core.models import SummitEvent
 from ..core.query_parser import QueryParser
 from ..arbitration.synthesizer import SummitSynthesizer
 from ..arbitration.persona_narrator import PersonaNarrator
-from ..simulation.cascading_engine import CascadingSimulationEngine
+from ..simulation.cascading_engine import CascadingSimulationEngine, SimulationShock
 from ..simulation.game_theoretic import GameTheoreticEngine
 from ..storage.event_store import EventStore
 from ..lenses import LENS_REGISTRY
@@ -40,7 +40,7 @@ class GeoEngineMCPServer:
                     },
                     "persona": {
                         "type": "string",
-                        "enum": ["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"],
+                        "enum": list(PersonaNarrator.ARCHETYPES.keys()),
                         "default": "neutral",
                         "description": "Strategic persona projection tradition to apply."
                     }
@@ -111,7 +111,7 @@ class GeoEngineMCPServer:
                 "properties": {
                     "persona": {
                         "type": "string",
-                        "enum": ["neutral", "sanyal", "doval", "jaishankar", "ranganathan", "ankit_shah"],
+                        "enum": list(PersonaNarrator.ARCHETYPES.keys()),
                         "default": "neutral",
                         "description": "Persona tradition to retrieve weight multipliers for."
                     }
@@ -391,7 +391,7 @@ class GeoEngineMCPServer:
             report = SummitSynthesizer.synthesize_report(
                 summit=target_event,
                 prioritized_lenses=parsed_query.prioritized_lenses,
-                fixture_mode=True
+                fixture_mode=bool(arguments.get("fixture_mode", True)),
             )
             persona_view = PersonaNarrator.apply_persona(report, persona_key=persona)
             return {
@@ -410,18 +410,23 @@ class GeoEngineMCPServer:
             domain = arguments["domain"]
             severity = float(arguments["severity"])
             description = arguments["description"]
-            engine = CascadingSimulationEngine()
-            result = engine.simulate_shock(domain=domain, severity=severity, description=description)
+            shock = SimulationShock(
+                shock_id=f"MCP-{domain.upper()}",
+                domain=domain,
+                severity=severity,
+                description=description,
+            )
+            result = CascadingSimulationEngine.simulate_shock(shock)
             return {
-                "domain": result.initial_shock.domain,
-                "severity": result.initial_shock.severity,
+                "domain": result.shock.domain,
+                "severity": result.shock.severity,
                 "systemic_vulnerability_index": result.systemic_vulnerability_index,
-                "is_tipping_point": result.is_tipping_point,
-                "critical_resilience_deficit": result.critical_resilience_deficit,
+                "is_tipping_point": result.systemic_phase_transition_risk,
+                "critical_resilience_deficit": result.critical_tipping_lenses,
                 "order_1_impacts": [i.model_dump() for i in result.order_1_impacts],
                 "order_2_impacts": [i.model_dump() for i in result.order_2_impacts],
                 "order_3_impacts": [i.model_dump() for i in result.order_3_impacts],
-                "strategic_hedges": result.strategic_hedges
+                "strategic_hedges": result.recommended_mitigations,
             }
 
         elif tool_name == "geo_red_team":
@@ -431,14 +436,13 @@ class GeoEngineMCPServer:
             severity = float(arguments["severity"])
             action = arguments["action"]
             intent = arguments.get("intent", "")
-            engine = GameTheoreticEngine()
-            interaction = engine.simulate_interaction(
-                initiator=initiator,
-                target=target,
+            interaction = GameTheoreticEngine.simulate_interaction(
+                initiator_name=initiator,
+                target_name=target,
                 domain=domain,
                 severity=severity,
-                action=action,
-                intent=intent
+                action_description=action,
+                intent=intent,
             )
             return interaction.model_dump()
 

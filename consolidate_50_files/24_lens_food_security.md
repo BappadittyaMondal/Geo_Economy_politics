@@ -338,6 +338,17 @@ class FoodSecurityLens:
             calorie_inflation_index=food_meta.get("calorie_inflation_index", 0.65),
         )
         metrics["agrochemical_food_weaponization_score"] = _aff_res["agrochemical_food_weaponization_score"]
+
+        # Phase 437: Biopharmaceutical & Consumer Metabolic Shift Tensor
+        _bmp_res = BiopharmaceuticalAndConsumerMetabolicShiftTensor.evaluate(
+            glp1_population_penetration_rate=food_meta.get("glp1_population_penetration_rate", 0.65),
+            processed_calorie_demand_drop=food_meta.get("processed_calorie_demand_drop", 0.70),
+            agro_processed_margin_compression=food_meta.get("agro_processed_margin_compression", 0.60),
+            healthcare_fiscal_savings_offset=food_meta.get("healthcare_fiscal_savings_offset", 0.40),
+        )
+        metrics["metabolic_pharmaceutical_disruption_score"] = _bmp_res["metabolic_pharmaceutical_disruption_score"]
+        metrics["metabolic_shift_tier"] = _bmp_res["metabolic_shift_tier"]
+        metrics["is_metabolic_disruption_acute"] = _bmp_res["is_metabolic_disruption_acute"]
         return LensEvaluation(
             lens_name=cls.LENS_NAME,
             alignment_score=alignment,

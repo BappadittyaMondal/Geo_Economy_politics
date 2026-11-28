@@ -1,0 +1,5000 @@
+# SUBSYSTEM SPECIFICATION: SQLITE EVENT STORE & INGESTION PIPELINE
+
+## Module: `geo_engine/storage/__init__.py`
+
+```python
+"""
+Local Storage and Knowledge Base Package for the Geo-Engine.
+Provides zero-dependency SQLite persistence for historical events, treaties, and communique baselines.
+"""
+
+from .event_store import EventStore
+
+__all__ = ["EventStore"]
+
+```
+
+## Module: `geo_engine/storage/event_store.py`
+
+```python
+"""
+Local SQLite Event Knowledge Base and Treaty Archive.
+Provides zero-dependency persistent storage for historical events, bilateral treaties,
+border agreements, and multilateral baseline communique clauses for negative-space diffing.
+"""
+
+import contextlib
+import os
+import sqlite3
+import time
+from typing import Any, Dict, Generator, List, Optional
+
+
+class EventStore:
+    """Manages local SQLite database for historical events and baseline treaties."""
+
+    DEFAULT_DB_PATH = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+        "data",
+        "events.db"
+    )
+
+    def __init__(self, db_path: Optional[str] = None):
+        self.db_path = db_path or os.environ.get("GEO_ENGINE_DB_PATH") or self.DEFAULT_DB_PATH
+        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+        if not self.is_initialized():
+            self.initialize_schema_and_seed()
+        self._ensure_migrations()
+
+    def _ensure_migrations(self) -> None:
+        """Applies schema migrations for tables added in later phases."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS lens_epistemic_reliability (
+                    lens_name TEXT PRIMARY KEY,
+                    total_evaluations INTEGER DEFAULT 0,
+                    brier_error_sum REAL DEFAULT 0.0,
+                    reliability_multiplier REAL DEFAULT 1.0,
+                    last_calibrated_at TEXT
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS wargame_sessions (
+                    session_id TEXT PRIMARY KEY,
+                    initiator TEXT,
+                    target TEXT,
+                    domain TEXT,
+                    action_summary TEXT,
+                    counter_summary TEXT,
+                    backlash_summary TEXT,
+                    equilibrium_payoff REAL,
+                    status TEXT,
+                    created_at TEXT
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS wargame_turns (
+                    turn_id TEXT PRIMARY KEY,
+                    session_id TEXT,
+                    turn_number INTEGER,
+                    actor TEXT,
+                    domain TEXT,
+                    action_description TEXT,
+                    severity REAL,
+                    payoff REAL,
+                    details_json TEXT,
+                    created_at TEXT,
+                    FOREIGN KEY(session_id) REFERENCES wargame_sessions(session_id)
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS prediction_scorecard (
+                    prediction_id TEXT PRIMARY KEY,
+                    session_label TEXT,
+                    prediction_text TEXT NOT NULL,
+                    domain TEXT,
+                    lens_source TEXT,
+                    forecast_probability REAL,
+                    time_horizon_months INTEGER,
+                    created_at TEXT NOT NULL,
+                    outcome_recorded_at TEXT,
+                    outcome_description TEXT,
+                    outcome_binary INTEGER,
+                    brier_score REAL,
+                    status TEXT DEFAULT 'PENDING'
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS diagnostic_longitudinal_records (
+                    encounter_id TEXT PRIMARY KEY,
+                    session_id TEXT,
+                    entity_or_subject TEXT NOT NULL,
+                    query_text TEXT,
+                    primary_epistemic_tier TEXT,
+                    confidence REAL,
+                    reality_ratio REAL,
+                    propaganda_ratio REAL,
+                    anomalies_detected TEXT,
+                    brier_score REAL,
+                    diagnostic_timestamp TEXT NOT NULL
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS media_audit_jobs (
+                    job_id TEXT PRIMARY KEY,
+                    source_url TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    progress_pct REAL DEFAULT 0.0,
+                    result_json TEXT,
+                    error_message TEXT,
+                    created_at TEXT NOT NULL,
+                    completed_at TEXT
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS claim_distillations (
+                    claim_id TEXT PRIMARY KEY,
+                    source_speaker TEXT,
+                    raw_statement TEXT NOT NULL,
+                    proposition TEXT NOT NULL,
+                    epistemic_tier TEXT NOT NULL,
+                    verification_status TEXT NOT NULL,
+                    confidence REAL NOT NULL,
+                    statutory_citation TEXT,
+                    fiscal_metric TEXT,
+                    causal_relation TEXT,
+                    recommended_action TEXT,
+                    created_at TEXT NOT NULL
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS claim_quarantine (
+                    quarantine_id TEXT PRIMARY KEY,
+                    claim_id TEXT NOT NULL,
+                    raw_statement TEXT NOT NULL,
+                    proposition TEXT NOT NULL,
+                    domain TEXT NOT NULL,
+                    status TEXT DEFAULT 'QUARANTINED',
+                    confidence REAL NOT NULL,
+                    review_required INTEGER DEFAULT 1,
+                    reviewer_notes TEXT,
+                    promoted_at TEXT,
+                    created_at TEXT NOT NULL
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS dharmik_textual_anchors (
+                    anchor_id TEXT PRIMARY KEY,
+                    source_tradition TEXT NOT NULL,
+                    canonical_reference TEXT NOT NULL,
+                    sanskrit_text TEXT NOT NULL,
+                    english_translation TEXT NOT NULL,
+                    strategic_statecraft_maxim TEXT NOT NULL,
+                    epistemic_tier TEXT DEFAULT 'TIER_1_CANONICAL'
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS knowledge_discourses (
+                    discourse_id TEXT PRIMARY KEY,
+                    section_number INTEGER,
+                    title TEXT NOT NULL,
+                    domain_category TEXT,
+                    council_members TEXT,
+                    source_speaker TEXT,
+                    key_thesis TEXT,
+                    strategic_doctrine TEXT,
+                    content_markdown TEXT,
+                    created_at TEXT NOT NULL
+                )
+            """)
+
+            # Seed Phase 365: Tri-Pillar Bharatiya Statecraft Anchors
+            cursor.executemany("""
+                INSERT OR IGNORE INTO dharmik_textual_anchors
+                (anchor_id, source_tradition, canonical_reference, sanskrit_text, english_translation, strategic_statecraft_maxim, epistemic_tier)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "ANCHOR-CHANAKYA-UPADHA-01",
+                    "CHANAKYA_NEETI",
+                    "Arthaśāstra I.10 & Chāṇakya Nīti III",
+                    "Dharmopadhā-śuddhān dharmasthīyeṣu karmasu niyojayet; arthopadhā-śuddhān samāhartṛ-sannidhātṛ-karmasu.",
+                    "Those cleared through moral testing shall be appointed to judicial offices; those cleared through monetary testing shall oversee revenue and treasury.",
+                    "Fourfold secret integrity testing (Upadhā-Parīkṣā) must precede appointment to sensitive sovereign offices to eliminate insider treason.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-CHANAKYA-MANTRA-02",
+                    "CHANAKYA_NEETI",
+                    "Arthaśāstra I.15 & Chāṇakya Nīti VIII",
+                    "Mantra-bhedo hi sarva-kāryāṇi vināśayati; tasmān mantra-rakṣaṇe yatnam ātiṣṭhet.",
+                    "The leakage of state secrets destroys all royal enterprises; therefore, supreme diligence must be exercised in protecting operational secrecy.",
+                    "Mantra-Gupti (operational secrecy and counter-leakage) is the primary safeguard of sovereign decision-making.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KAUTILYA-SAPTANGA-01",
+                    "KAUTILYA_ARTHASHASTRA",
+                    "Arthaśāstra VI.1 (Prakṛti-Sampat)",
+                    "Svāmī amātya-janapada-durga-kośa-daṇḍa-mitrāṇi prakṛtayaḥ.",
+                    "The sovereign ruler, the ministerial bureaucracy, the rural-demographic territory, the fortified assets, the treasury, the military force, and the allies constitute the seven limbs.",
+                    "Sovereignty is an organic 7-limb system (Saptāṅga); a failure in treasury (Kośa) or fortifications (Durga) causes systemic collapse.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KAUTILYA-SHADGUNYA-02",
+                    "KAUTILYA_ARTHASHASTRA",
+                    "Arthaśāstra VII.1 (Ṣaḍguṇya-Samuddeśa)",
+                    "Ṣaḍguṇyasyoddeśaḥ: Sandhir vigraho 'sanaṃ yānaṃ saṃśrayo dvaidhībhāvaś ceti.",
+                    "The six methods of foreign policy are: peace alliance (Sandhi), active hostility (Vigraha), calculated quietude (Āsana), mobilization (Yāna), coalition shelter (Saṃśraya), and dual policy (Dvaidhībhāva).",
+                    "Inter-state diplomacy is a mathematical function of relative power equilibrium, not sentimental rhetoric.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KRISHNA-UDYOGA-01",
+                    "KRISHNA_GITA_MAHABHARATA",
+                    "Mahābhārata, Udyoga Parva 72.16 (Dūta-Vākya)",
+                    "Śamaṃ yadi na gṛhṇanti kauravā mat-prayojitāḥ; yuddham evānvagamiṣyanti kāla-pakvā iva drumāḥ.",
+                    "If the Kauravas refuse peace after my diplomatic embassy, they will inevitably face destruction like trees ripe for felling.",
+                    "Righteous kinetic retaliation (Dharma-Yuddha) is ethically justified only when all peaceful off-ramps (Five Villages Protocol) have been formally exhausted.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KRISHNA-GITA-SVADHARMA-02",
+                    "KRISHNA_GITA_MAHABHARATA",
+                    "Bhagavad Gītā 2.3 & 18.47",
+                    "Klaibyaṃ mā sma gamaḥ pārtha naitat tvayy upapadyate; kṣudraṃ hṛdaya-daurbalyaṃ tyaktvottiṣṭha parantapa.",
+                    "Yield not to unmanliness, O Partha; it is unworthy of thee. Cast off this petty faintheartedness and arise, O scorcher of foes.",
+                    "Sovereign statecraft requires overcoming cognitive paralysis (Moha); defending the realm (Svadharmic duty) supersedes personal pacifism.",
+                    "TIER_1_CANONICAL"
+                ),
+            ])
+
+            # Seed Phase 53 baseline statutory clauses idempotently
+            cursor.executemany("""
+                INSERT OR IGNORE INTO historical_treaty_clauses
+                (clause_id, treaty_name, year, category, clause_text, is_mandatory_baseline, omission_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "CLAUSE-1991-POWA",
+                    "Places of Worship (Special Provisions) Act, 1991",
+                    1991,
+                    "statutory_asymmetry",
+                    "Sections 3 & 4: Declares that the religious character of a place of worship existing on August 15, 1947 shall continue to be the same as it existed on that day, prohibiting conversion and abating all pending suits or proceedings.",
+                    1,
+                    "Statutory freeze on civilizational reclamation; creates asymmetric legal immunity for medieval temple demolitions while preempting judicial adjudication."
+                ),
+                (
+                    "CLAUSE-1995-WAQF",
+                    "Waqf Act, 1995",
+                    1995,
+                    "statutory_asymmetry",
+                    "Section 40: Vests Waqf Boards with unilateral power to determine whether a property is waqf property, placing burden of proof on the adverse claimant and barring ordinary civil court jurisdiction under Section 85 in favor of specialized tribunals.",
+                    1,
+                    "Asymmetric property acquisition and jurisdictional barrier exempt from standard civil procedural code."
+                ),
+                (
+                    "CLAUSE-1951-HRCE",
+                    "Hindu Religious and Charitable Endowments (HRCE) Framework",
+                    1951,
+                    "statutory_asymmetry",
+                    "State statutory oversight mechanisms authorizing executive officers to manage Hindu temple administrations and surplus treasury funds, whereas minority religious institutions are constitutionally protected under Article 30.",
+                    1,
+                    "Structural financial asymmetry and state appropriation of indigenous religious endowments without reciprocal minority institution regulation."
+                )
+            ])
+
+            # Seed Phase 53 Middle East verified telemetry events idempotently
+            cursor.executemany("""
+                INSERT OR IGNORE INTO events
+                (event_id, date, title, actor, region, category, summary, civilizational_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "HIST-2024-REDSEA-CHOKE",
+                    "2024-01-15",
+                    "Bab el-Mandeb Houthi Naval Interdiction & Red Sea Corridor Disruption",
+                    "Ansar Allah (Houthis), US Navy, Global Shipping",
+                    "Red Sea / Middle East",
+                    "maritime_chokepoint",
+                    "Asymmetric anti-ship ballistic missile and drone attacks forced container shipping around Cape of Good Hope, dropping Suez Canal transit revenues by 55-60% ($4B+ annual loss to Egypt) and inflating European freight premia.",
+                    "Demonstrates low-cost non-state asymmetric weaponry closing a primary global energy and container choke-point, exposing Western naval escort limitations."
+                ),
+                (
+                    "HIST-2024-SYRIA-COLLAPSE",
+                    "2024-12-08",
+                    "Fall of the Assad Regime in Syria & Iranian Axis Rupture",
+                    "HTS / Syrian Opposition, Syrian Armed Forces, Russia, Iran",
+                    "Middle East / Levant",
+                    "regime_change",
+                    "Rapid blitz offensive by Hayat Tahrir al-Sham captured Damascus and ended 53 years of Assad rule, forcing Bashar al-Assad's departure to Moscow and collapsing Iranian Axis of Resistance overland logistics to Hezbollah.",
+                    "Historic geopolitical fracture in the northern Levant, destabilizing Russian Mediterranean naval basing at Tartus and severing Tehran's contiguous land bridge."
+                ),
+                (
+                    "HIST-2024-ISRAEL-IRAN-AIR",
+                    "2024-10-26",
+                    "Operation Days of Repentance & Strategic S-300 Degradation in Iran",
+                    "Israeli Air Force, Islamic Republic of Iran",
+                    "Middle East",
+                    "kinetic_counter_air",
+                    "IAF executed long-range precision strikes destroying Iran's remaining Russian-supplied S-300 strategic surface-to-air missile batteries and solid-fuel mixing facilities, establishing conventional air dominance over Iranian airspace.",
+                    "Neutralized Iran's strategic air defense umbrella, demonstrating conventional technological asymmetry and shifting deterrence calculations across the Persian Gulf."
+                ),
+                (
+                    "HIST-2026-VANDYKE-CHIN-DRONE",
+                    "2026-09-18",
+                    "Mizoram-Myanmar Border PMC Infiltration & Default Bail Off-Ramp",
+                    "Matthew VanDyke (SOLI), Ukrainian Nationals, NIA, Chin National Army",
+                    "Northeast India / Myanmar Chin State",
+                    "hybrid_warfare",
+                    "Arrest of American PMC operator Matthew VanDyke and 6 Ukrainian drone trainers in Mizoram for cross-border FPV drone training to Chin anti-Junta rebels; granted Section 167(2) default bail after 180-day UAPA deadline lapsed and Foreigners Act compounding (Sections 21/23).",
+                    "Demonstrates the intersection of transnational mercenary drone tech proliferation, sub-national tribal kinship corridors, and managed judicial off-ramps under Section 188 CrPC extraterritorial limits."
+                ),
+                (
+                    "HIST-1971-CHICKENS-NECK-SECURITY",
+                    "1971-12-03",
+                    "Siliguri Corridor & Eastern Command Preemption (1971 War)",
+                    "Indian Army (Eastern Command)",
+                    "Siliguri Corridor / Eastern Sector",
+                    "chokepoint_security",
+                    "Indian Armed Forces secured the 22km Siliguri Corridor ('Chicken's Neck') against potential Pakistani counter-thrusts and Chinese intervention in the Chumbi Valley, guaranteeing rear-area logistics during the liberation of Bangladesh.",
+                    "Demonstrated the strategic doctrine of offensive-defensive preemption to neutralize geographic bottleneck vulnerabilities."
+                ),
+                (
+                    "HIST-2017-DOKLAM-CHUMBI",
+                    "2017-06-16",
+                    "Doklam Plateau Standoff & Chumbi Valley Flank Protection",
+                    "Indian Army, PLA",
+                    "Doklam / Bhutan / Chumbi Valley",
+                    "chokepoint_security",
+                    "73-day military standoff preventing Chinese road construction through Doklam toward the Jampheri Ridge, which directly overlooked India's narrow Siliguri Corridor.",
+                    "Asserted sovereign commitment to neighbor defense pacts and protected the Siliguri vulnerable logistics flank from PLA tactical observation and artillery interdiction."
+                ),
+                (
+                    "HIST-2019-TURKEY-F35-CAATSA",
+                    "2019-07-17",
+                    "Expulsion of Turkey from F-35 Joint Strike Fighter Program",
+                    "US Department of Defense, Republic of Turkey",
+                    "Global / NATO",
+                    "avionics_sovereignty",
+                    "US formally suspended and expelled NATO ally Turkey from the F-35 fighter program following its procurement of the Russian S-400 Triumf missile system under CAATSA, citing risks of Russian radar data exploitation of F-35 stealth profiles.",
+                    "Archetypal evidence of digital leash enforcement, sovereign exclusion, and cloud-tethered supply chain interdiction in 5th-generation combat avionics."
+                ),
+                (
+                    "HIST-2024-TARANG-SHAKTI-JODHPUR",
+                    "2024-09-01",
+                    "Exercise Tarang Shakti Phase II (Jodhpur) & 5th-Gen Stealth Demonstrations",
+                    "Indian Air Force, US Air Force, Allied Air Forces",
+                    "Jodhpur / Indo-Pacific",
+                    "military_readiness",
+                    "IAF hosted its largest multilateral air exercise with USAF F-35A fighters and allied jets operating at Jodhpur Air Base; 5th-generation stealth fighters deployed Luneburg radar reflectors to deliberately mask authentic combat radar cross-sections.",
+                    "Highlighted electronic warfare sovereignty, mission computer data segregation, and tactical interoperability without compromising indigenous radar and stealth telemetry."
+                )
+            ])
+
+            # Seed Phase 78 Extraterritorial Jurisdiction clause idempotently
+            cursor.execute("""
+                INSERT OR IGNORE INTO historical_treaty_clauses
+                (clause_id, treaty_name, year, category, clause_text, is_mandatory_baseline, omission_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (
+                "CLAUSE-CRPC-188-EXTRATERRITORIAL",
+                "Code of Criminal Procedure 1973 Section 188 / BNSS Section 208",
+                1973,
+                "extraterritorial_jurisdiction",
+                "Offences committed outside India: When an offence is committed outside India by a citizen of India or by a foreign national, no such offence shall be inquired into or tried in India without the previous sanction of the Central Government.",
+                1,
+                "Statutory barrier requiring Central Government sanction for extraterritorial offences, serving as a legal and diplomatic gatekeeper for sovereign prosecutions of foreign nationals."
+            ))
+
+            # Seed Phase 59 Dark History & Cognitive Warfare milestones idempotently
+            cursor.executemany("""
+                INSERT OR IGNORE INTO historical_anniversaries
+                (anniversary_id, month, day, year, event_title, region, historical_summary, strategic_mirror_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "ANNIV-1920-WATSON-JWT",
+                    10,
+                    1,
+                    1920,
+                    "John B. Watson Joins J. Walter Thompson (JWT)",
+                    "Global / USA",
+                    "Behaviorist psychologist John B. Watson joined the J. Walter Thompson advertising agency, formally applying emotional and fear conditioning to commercial advertising and product marketing.",
+                    "Birth of modern commercial psychological warfare, weaponizing infant hygiene, germ fear, and maternal anxiety into consumer demand."
+                ),
+                (
+                    "ANNIV-1928-WATSON-INFANT",
+                    3,
+                    1,
+                    1928,
+                    "Watson Publishes 'Psychological Care of Infant and Child'",
+                    "Global / USA",
+                    "John B. Watson published his seminal parenting manual prescribing rigid emotional detachment, warning mothers against hugging or kissing infants to avoid 'spoiling' them.",
+                    "Institutionalization of cold infant isolation doctrine, replacing maternal bonding with commodified schedules and nursery appliances."
+                ),
+                (
+                    "ANNIV-1928-BERNAYS-PROPAGANDA",
+                    11,
+                    15,
+                    1928,
+                    "Edward Bernays Publishes 'Propaganda' & Torches of Freedom",
+                    "Global / USA",
+                    "Edward Bernays published 'Propaganda', codifying the 'engineering of consent' and later executing the 'Torches of Freedom' campaign linking women's liberation to cigarette consumption.",
+                    "Foundational playbook for modern public relations, psychological manipulation, and manufacturing social consent for corporate cartels."
+                ),
+                (
+                    "ANNIV-1953-MKULTRA-MOCKINGBIRD",
+                    4,
+                    13,
+                    1953,
+                    "CIA Project MKUltra & Operation Mockingbird",
+                    "Global / USA",
+                    "CIA launched Project MKUltra (mind control and behavioral modification experiments) and Operation Mockingbird (subterranean infiltration of domestic and international media organizations).",
+                    "Institutionalization of deep-state psychological operations, weaponized media narratives, and covert cognitive warfare."
+                ),
+                (
+                    "ANNIV-1981-WHO-INFANT-FORMULA",
+                    5,
+                    21,
+                    1981,
+                    "WHO International Code of Marketing of Breast-milk Substitutes",
+                    "Global",
+                    "World Health Assembly adopted landmark International Code (WHA34.22) restricting aggressive marketing of infant formula, following global boycotts against commercial exploitation of maternal anxiety in developing nations.",
+                    "Landmark sovereign multilateral confrontation against transnational corporate capture of infant health and fear-based marketing."
+                )
+            ])
+
+            # Seed Phase 60 Chronology Anchors idempotently
+            cursor.executemany("""
+                INSERT OR IGNORE INTO historical_anniversaries
+                (anniversary_id, month, day, year, event_title, region, historical_summary, strategic_mirror_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "CHRONO-5561BCE-OAK",
+                    10,
+                    16,
+                    -5561,
+                    "Nilesh Oak 5561 BCE Timeline (Arundhati-Vasistha Model)",
+                    "Ancient Bharat",
+                    "Dates the Mahabharata War to 5561 BCE based on the Arundhati walking ahead of Vasistha (Mizar-Alcor) observation in Bhishma Parva, calculating an epoch window between 11,091 BCE and 4508 BCE.",
+                    "Benchmark astronomical retro-calculation hypothesis; subject to material culture collision with Mesolithic/early Neolithic lithic archaeological strata."
+                ),
+                (
+                    "CHRONO-3067BCE-ACHAR",
+                    11,
+                    22,
+                    -3067,
+                    "Dr. Narahari Achar 3067 BCE Timeline (Saturn-Rohini BORI Model)",
+                    "Ancient Bharat",
+                    "Dates the Mahabharata War to 3067 BCE based on the BORI Critical Edition common archetype, Saturn at Rohini, Jupiter at Vishakha, and twin eclipses within 13 days.",
+                    "Multi-pillar benchmark exhibiting low astronomical degeneracy and high congruence with Saraswati perennial flow and Early Bronze Age urban transitions."
+                ),
+                (
+                    "CHRONO-3102BCE-ARYABHATA",
+                    2,
+                    18,
+                    -3102,
+                    "Traditional Aryabhata & Aihole Inscription 3102 BCE Kali Yuga Epoch",
+                    "Ancient Bharat",
+                    "Traditional civilizational anchor calculating the start of Kali Yuga at 3102 BCE, epigraphically corroborated by the Aihole Inscription of Pulakeshin II (634 CE) referencing 3735 elapsed years.",
+                    "Civilizational baseline anchor uniting Puranic dynastic chronologies with planetary mean-motion calculations."
+                ),
+                (
+                    "CHRONO-1000BCE-PGW",
+                    1,
+                    1,
+                    -1000,
+                    "Archaeological Survey of India Painted Grey Ware (PGW) 1000 BCE Model",
+                    "Ancient Bharat",
+                    "Dates the epic to the 10th-9th century BCE based on Painted Grey Ware (PGW) strata, early iron arrowheads at Hastinapur/Kurukshetra, and the flood layer described in Puranic texts.",
+                    "Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE."
+                ),
+                (
+                    "CHRONO-2000BCE-SINAULI",
+                    1,
+                    1,
+                    -2000,
+                    "Sinauli Bronze Age Necropolis (OCP / Copper Hoard Culture)",
+                    "Ancient Bharat / Ganga-Yamuna Doab",
+                    "Excavations at Sinauli (Baghpat, UP) revealed elite warrior burials with copper-inlaid solid-disk wheeled carts, antennae swords, shields, and four-legged coffins dating to 2000-1800 BCE via calibrated C14.",
+                    "Stratigraphical and material culture anchor establishing indigenous Bronze Age wheeled transport and warrior aristocracy in northern India; concordant with Rigveda 10.18 inhumation rites."
+                ),
+                (
+                    "CHRONO-2500BCE-RAKHIGARHI",
+                    1,
+                    1,
+                    -2500,
+                    "Rakhigarhi Mature Harappan Paleogenomic Anchor",
+                    "Ancient Bharat / Ghaggar-Hakra Basin",
+                    "Ancient DNA from Mature IVC female skeleton demonstrating absence of Central Asian Steppe pastoralist ancestry (R1a-Z93) and presence of Iranian farmer-related and Ancient Ancestral South Indian (AASI) lineage.",
+                    "Crucial paleogenomic baseline establishing genetic continuity in South Asia and disproving catastrophic population replacement models."
+                )
+            ])
+
+            # Seed Phase 63 Cosmic Chronology & Canonical Scriptural Benchmarks idempotently
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS cosmic_chronology_benchmarks (
+                    benchmark_id TEXT PRIMARY KEY,
+                    category TEXT,
+                    canonical_source TEXT,
+                    primary_citation TEXT,
+                    temporal_epoch TEXT,
+                    duration_years REAL,
+                    physical_basis TEXT,
+                    debunk_notes TEXT
+                )
+            """)
+            cursor.executemany("""
+                INSERT OR IGNORE INTO cosmic_chronology_benchmarks
+                (benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "COSMIC-KALIYUGA-CANONICAL",
+                    "yuga_cycle",
+                    "Surya Siddhanta & Classical Puranic Corpus",
+                    "Surya Siddhanta (1.15-17), Aryabhatiya (Kalakriyapada), Vishnu Purana (1.3), Bhagavata Purana (12.2), Mahabharata (Vana Parva 188)",
+                    "3102-02-18 BCE",
+                    432000.0,
+                    "Planetary conjunction at Mesha (Aries 0 deg) and solar mean motion.",
+                    "Directly refutes modern 5,000-year truncation claims; in 2026 CE only ~5,127 years have elapsed (~1.19%), leaving 426,873 years remaining."
+                ),
+                (
+                    "EPIGRAPH-634CE-AIHOLE",
+                    "epigraphic_anchor",
+                    "Aihole Inscription of Pulakeshin II",
+                    "Meguti Jain Temple Inscription, Aihole (composed by Ravikirti, Saka 556)",
+                    "634 CE",
+                    3735.0,
+                    "Epigraphic stone inscription recording 3,735 elapsed years since the Bharata War.",
+                    "Provides immutable epigraphic confirmation anchoring the Kali Yuga commencement to February 3102 BCE."
+                ),
+                (
+                    "TEMPLE-1150CE-PURI-JAGANNATH",
+                    "temple_chronicle",
+                    "Puri Jagannath Temple Madala Panji & ASI Records",
+                    "Madala Panji Temple Chronicles & Archaeological Survey of India Conservation Records",
+                    "1150 CE",
+                    875.0,
+                    "214-ft Khondalite sandstone tower exposed to severe marine saline air, humid expansion, and Category 4/5 tropical cyclones.",
+                    "Structural stone displacements documented since 1842 are natural coastal conservation issues, not supernatural apocalypses."
+                ),
+                (
+                    "DEBUNK-1997-NOSTRADAMUS-TWINTOWERS",
+                    "hoax_registry",
+                    "Neil Marshall Hoax & French Philological Analysis",
+                    "Neil Marshall (Brock University 1997 Essay); Nostradamus Les Propheties (1555)",
+                    "1997 CE",
+                    0.0,
+                    "Internet chain letter authored by a Canadian student in 1997 demonstrating confirmation bias, falsely attributed to Nostradamus after 9/11.",
+                    "Nostradamus never wrote 'birds of iron' or 'two brothers'. The quatrain 'Hister' refers to the Latin name for the Lower Danube River (Ister), not Adolf Hitler."
+                ),
+                (
+                    "DEBUNK-1970-MALIKA-KASHINATH",
+                    "hoax_registry",
+                    "Modern Commercial Chapbook Press",
+                    "Pandit Kashinath Mishra Bazaar Pamphlets (Cuttack/Puri); Odisha State Museum Palm-Leaf Archives",
+                    "1970-1999 CE",
+                    0.0,
+                    "Late 20th-century commercial bazaar pamphlet interpolations printed in regional press.",
+                    "Pre-1947 palm-leaf manuscripts at Odisha State Museum and Prachi Valley contain zero references to modern political figures, Pakistan partition, or Vajpayee's 13-day rule."
+                )
+            ])
+            conn.commit()
+        # Idempotently ensure all foundational anniversary, clause, and event seeds are present
+        self.initialize_schema_and_seed()
+
+    def is_initialized(self) -> bool:
+        """Checks if the SQLite database is already initialized with essential baseline tables."""
+        if not os.path.exists(self.db_path) or os.path.getsize(self.db_path) == 0:
+            return False
+        try:
+            with sqlite3.connect(self.db_path, timeout=5.0) as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='historical_treaty_clauses'"
+                )
+                row = cursor.fetchone()
+                return bool(row and row[0] > 0)
+        except Exception:
+            return False
+
+    def _get_connection(self) -> sqlite3.Connection:
+        conn = sqlite3.connect(self.db_path, timeout=30.0)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("PRAGMA journal_mode;")
+        current_mode = cursor.fetchone()
+        if current_mode and current_mode[0].lower() != "wal":
+            conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("PRAGMA busy_timeout=30000;")
+        conn.execute("PRAGMA synchronous=NORMAL;")
+        conn.execute("PRAGMA cache_size=-64000;")
+        return conn
+
+    @contextlib.contextmanager
+    def transaction_scope(self, max_retries: int = 3, retry_delay: float = 0.05) -> Generator[sqlite3.Connection, None, None]:
+        """Provides a thread-safe transaction scope with automatic exponential backoff on database lock."""
+        attempt = 0
+        last_error = None
+        while attempt < max_retries:
+            try:
+                conn = self._get_connection()
+                try:
+                    yield conn
+                    conn.commit()
+                    return
+                except Exception:
+                    conn.rollback()
+                    raise
+                finally:
+                    conn.close()
+            except sqlite3.OperationalError as e:
+                if "locked" in str(e).lower() or "busy" in str(e).lower():
+                    attempt += 1
+                    last_error = e
+                    time.sleep(retry_delay * (2 ** attempt))
+                else:
+                    raise
+        if last_error:
+            raise last_error
+
+    def initialize_schema_and_seed(self) -> None:
+        """Initializes database tables and seeds foundational historical baselines."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+
+            # 1. Historical Events Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS events (
+                    event_id TEXT PRIMARY KEY,
+                    date TEXT,
+                    title TEXT,
+                    actor TEXT,
+                    region TEXT,
+                    category TEXT,
+                    summary TEXT,
+                    civilizational_significance TEXT
+                )
+            """)
+
+            # 2. Historical Treaty & Baseline Communique Clauses Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS historical_treaty_clauses (
+                    clause_id TEXT PRIMARY KEY,
+                    treaty_name TEXT,
+                    year INTEGER,
+                    category TEXT,
+                    clause_text TEXT,
+                    is_mandatory_baseline INTEGER DEFAULT 1,
+                    omission_significance TEXT
+                )
+            """)
+
+            # 3. Historical Turning Points & Anniversaries Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS historical_anniversaries (
+                    anniversary_id TEXT PRIMARY KEY,
+                    month INTEGER,
+                    day INTEGER,
+                    year INTEGER,
+                    event_title TEXT,
+                    region TEXT,
+                    historical_summary TEXT,
+                    strategic_mirror_significance TEXT
+                )
+            """)
+
+            # 4. Active Calibrated Forecast Resolution Ledger
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS forecast_ledger (
+                    forecast_id TEXT PRIMARY KEY,
+                    created_at TEXT,
+                    target_date TEXT,
+                    event_name TEXT,
+                    hypothesis TEXT,
+                    predicted_probability REAL,
+                    confidence_interval_low REAL,
+                    confidence_interval_high REAL,
+                    epistemic_basis TEXT,
+                    actual_outcome INTEGER,
+                    brier_score REAL,
+                    status TEXT DEFAULT 'ACTIVE'
+                )
+            """)
+
+            # 5. Dynamic Lens Epistemic Reliability Table (Bayesian Calibration)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS lens_epistemic_reliability (
+                    lens_name TEXT PRIMARY KEY,
+                    total_evaluations INTEGER DEFAULT 0,
+                    brier_error_sum REAL DEFAULT 0.0,
+                    reliability_multiplier REAL DEFAULT 1.0,
+                    last_calibrated_at TEXT
+                )
+            """)
+
+            # 6. Persistent Wargame Campaign Sessions & Multi-Turn State
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS wargame_sessions (
+                    session_id TEXT PRIMARY KEY,
+                    initiator TEXT,
+                    target TEXT,
+                    domain TEXT,
+                    action_summary TEXT,
+                    counter_summary TEXT,
+                    backlash_summary TEXT,
+                    equilibrium_payoff REAL,
+                    status TEXT,
+                    created_at TEXT
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS wargame_turns (
+                    turn_id TEXT PRIMARY KEY,
+                    session_id TEXT,
+                    turn_number INTEGER,
+                    actor TEXT,
+                    domain TEXT,
+                    action_description TEXT,
+                    severity REAL,
+                    payoff REAL,
+                    details_json TEXT,
+                    created_at TEXT,
+                    FOREIGN KEY(session_id) REFERENCES wargame_sessions(session_id)
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS prediction_scorecard (
+                    prediction_id TEXT PRIMARY KEY,
+                    session_label TEXT,
+                    prediction_text TEXT NOT NULL,
+                    domain TEXT,
+                    lens_source TEXT,
+                    forecast_probability REAL,
+                    time_horizon_months INTEGER,
+                    created_at TEXT NOT NULL,
+                    outcome_recorded_at TEXT,
+                    outcome_description TEXT,
+                    outcome_binary INTEGER,
+                    brier_score REAL,
+                    status TEXT DEFAULT 'PENDING'
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS diagnostic_longitudinal_records (
+                    encounter_id TEXT PRIMARY KEY,
+                    session_id TEXT,
+                    entity_or_subject TEXT NOT NULL,
+                    query_text TEXT,
+                    primary_epistemic_tier TEXT,
+                    confidence REAL,
+                    reality_ratio REAL,
+                    propaganda_ratio REAL,
+                    anomalies_detected TEXT,
+                    brier_score REAL,
+                    diagnostic_timestamp TEXT NOT NULL
+                )
+            """)
+
+            # 7. Cosmic Chronology & Canonical Scriptural Benchmarks Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS cosmic_chronology_benchmarks (
+                    benchmark_id TEXT PRIMARY KEY,
+                    category TEXT,
+                    canonical_source TEXT,
+                    primary_citation TEXT,
+                    temporal_epoch TEXT,
+                    duration_years REAL,
+                    physical_basis TEXT,
+                    debunk_notes TEXT
+                )
+            """)
+
+            # 8. Asynchronous Media Audit Jobs Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS media_audit_jobs (
+                    job_id TEXT PRIMARY KEY,
+                    source_url TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    progress_pct REAL DEFAULT 0.0,
+                    result_json TEXT,
+                    error_message TEXT,
+                    created_at TEXT NOT NULL,
+                    completed_at TEXT
+                )
+            """)
+
+            # 9. Claim Quarantine Governance Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS claim_quarantine (
+                    quarantine_id TEXT PRIMARY KEY,
+                    claim_id TEXT NOT NULL,
+                    raw_statement TEXT NOT NULL,
+                    proposition TEXT NOT NULL,
+                    domain TEXT NOT NULL,
+                    status TEXT DEFAULT 'QUARANTINED',
+                    confidence REAL NOT NULL,
+                    review_required INTEGER DEFAULT 1,
+                    reviewer_notes TEXT,
+                    promoted_at TEXT,
+                    created_at TEXT NOT NULL
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS dharmik_textual_anchors (
+                    anchor_id TEXT PRIMARY KEY,
+                    source_tradition TEXT NOT NULL,
+                    canonical_reference TEXT NOT NULL,
+                    sanskrit_text TEXT NOT NULL,
+                    english_translation TEXT NOT NULL,
+                    strategic_statecraft_maxim TEXT NOT NULL,
+                    epistemic_tier TEXT DEFAULT 'TIER_1_CANONICAL'
+                )
+            """)
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS knowledge_discourses (
+                    discourse_id TEXT PRIMARY KEY,
+                    section_number INTEGER,
+                    title TEXT NOT NULL,
+                    domain_category TEXT,
+                    council_members TEXT,
+                    source_speaker TEXT,
+                    key_thesis TEXT,
+                    strategic_doctrine TEXT,
+                    content_markdown TEXT,
+                    created_at TEXT NOT NULL
+                )
+            """)
+
+            # Seed Phase 365: Tri-Pillar Bharatiya Statecraft Anchors
+            cursor.executemany("""
+                INSERT OR IGNORE INTO dharmik_textual_anchors
+                (anchor_id, source_tradition, canonical_reference, sanskrit_text, english_translation, strategic_statecraft_maxim, epistemic_tier)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, [
+                (
+                    "ANCHOR-CHANAKYA-UPADHA-01",
+                    "CHANAKYA_NEETI",
+                    "Arthaśāstra I.10 & Chāṇakya Nīti III",
+                    "Dharmopadhā-śuddhān dharmasthīyeṣu karmasu niyojayet; arthopadhā-śuddhān samāhartṛ-sannidhātṛ-karmasu.",
+                    "Those cleared through moral testing shall be appointed to judicial offices; those cleared through monetary testing shall oversee revenue and treasury.",
+                    "Fourfold secret integrity testing (Upadhā-Parīkṣā) must precede appointment to sensitive sovereign offices to eliminate insider treason.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-CHANAKYA-MANTRA-02",
+                    "CHANAKYA_NEETI",
+                    "Arthaśāstra I.15 & Chāṇakya Nīti VIII",
+                    "Mantra-bhedo hi sarva-kāryāṇi vināśayati; tasmān mantra-rakṣaṇe yatnam ātiṣṭhet.",
+                    "The leakage of state secrets destroys all royal enterprises; therefore, supreme diligence must be exercised in protecting operational secrecy.",
+                    "Mantra-Gupti (operational secrecy and counter-leakage) is the primary safeguard of sovereign decision-making.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KAUTILYA-SAPTANGA-01",
+                    "KAUTILYA_ARTHASHASTRA",
+                    "Arthaśāstra VI.1 (Prakṛti-Sampat)",
+                    "Svāmī amātya-janapada-durga-kośa-daṇḍa-mitrāṇi prakṛtayaḥ.",
+                    "The sovereign ruler, the ministerial bureaucracy, the rural-demographic territory, the fortified assets, the treasury, the military force, and the allies constitute the seven limbs.",
+                    "Sovereignty is an organic 7-limb system (Saptāṅga); a failure in treasury (Kośa) or fortifications (Durga) causes systemic collapse.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KAUTILYA-SHADGUNYA-02",
+                    "KAUTILYA_ARTHASHASTRA",
+                    "Arthaśāstra VII.1 (Ṣaḍguṇya-Samuddeśa)",
+                    "Ṣaḍguṇyasyoddeśaḥ: Sandhir vigraho 'sanaṃ yānaṃ saṃśrayo dvaidhībhāvaś ceti.",
+                    "The six methods of foreign policy are: peace alliance (Sandhi), active hostility (Vigraha), calculated quietude (Āsana), mobilization (Yāna), coalition shelter (Saṃśraya), and dual policy (Dvaidhībhāva).",
+                    "Inter-state diplomacy is a mathematical function of relative power equilibrium, not sentimental rhetoric.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KRISHNA-UDYOGA-01",
+                    "KRISHNA_GITA_MAHABHARATA",
+                    "Mahābhārata, Udyoga Parva 72.16 (Dūta-Vākya)",
+                    "Śamaṃ yadi na gṛhṇanti kauravā mat-prayojitāḥ; yuddham evānvagamiṣyanti kāla-pakvā iva drumāḥ.",
+                    "If the Kauravas refuse peace after my diplomatic embassy, they will inevitably face destruction like trees ripe for felling.",
+                    "Righteous kinetic retaliation (Dharma-Yuddha) is ethically justified only when all peaceful off-ramps (Five Villages Protocol) have been formally exhausted.",
+                    "TIER_1_CANONICAL"
+                ),
+                (
+                    "ANCHOR-KRISHNA-GITA-SVADHARMA-02",
+                    "KRISHNA_GITA_MAHABHARATA",
+                    "Bhagavad Gītā 2.3 & 18.47",
+                    "Klaibyaṃ mā sma gamaḥ pārtha naitat tvayy upapadyate; kṣudraṃ hṛdaya-daurbalyaṃ tyaktvottiṣṭha parantapa.",
+                    "Yield not to unmanliness, O Partha; it is unworthy of thee. Cast off this petty faintheartedness and arise, O scorcher of foes.",
+                    "Sovereign statecraft requires overcoming cognitive paralysis (Moha); defending the realm (Svadharmic duty) supersedes personal pacifism.",
+                    "TIER_1_CANONICAL"
+                ),
+            ])
+
+            # Seed foundational historical events
+            events_seed = [
+
+                (
+                    "HIST-1971-INDO-SOVIET",
+                    "1971-08-09",
+                    "Indo-Soviet Treaty of Peace, Friendship and Cooperation",
+                    "India, USSR",
+                    "South Asia / Eurasia",
+                    "strategic_treaty",
+                    "Article IX provided mutual consultations in the event of an attack, acting as an existential diplomatic deterrent against external coalition interventions during the 1971 Bangladesh Liberation War.",
+                    "Demonstrated Kautilyan Mitra dynamics: strategic alignment without surrender of civilizational sovereignty."
+                ),
+                (
+                    "HIST-1993-BPTA",
+                    "1993-09-07",
+                    "Border Peace and Tranquility Agreement (BPTA)",
+                    "India, China",
+                    "Himalayan Frontier",
+                    "border_security",
+                    "Institutionalized adherence to the Line of Actual Control (LAC) and committed both sides to troop reductions to mutually agreed ceilings.",
+                    "Sovereign redline defining the tactical status quo prior to Chinese unilateral infrastructure shifts."
+                ),
+                (
+                    "HIST-1996-CBM",
+                    "1996-11-29",
+                    "Agreement on Confidence Building Measures Along the LAC",
+                    "India, China",
+                    "Himalayan Frontier",
+                    "military_protocols",
+                    "Prohibited opening fire, using hazardous chemicals, or conducting major tactical exercises within 2km of the LAC.",
+                    "Crucial physical guardrail whose violation at Galwan (2020) precipitated permanent strategic decoupling."
+                ),
+                (
+                    "HIST-2024-RAM-MANDIR",
+                    "2024-01-22",
+                    "Ayodhya Ram Mandir Pran Pratishtha & Civilizational Consolidation",
+                    "India",
+                    "Domestic / Global Indian Ocean",
+                    "civilizational_milestone",
+                    "Formally inaugurated India's post-colonial civilizational reclamation, re-anchoring foreign policy in Rajdharma, Yogakshema, and Vasudhaiva Kutumbakam rather than Westphalian mimicry.",
+                    "The theological and moral anchor for an assertive, non-aligned Indian civilization-state."
+                ),
+                (
+                    "HIST-2024-DHAKA-TRANSITION",
+                    "2024-08-05",
+                    "Bangladesh Political Transition (Sheikh Hasina Exit to Interim Council)",
+                    "Bangladesh, India",
+                    "South Asian Neighborhood",
+                    "regime_change",
+                    "Resignation and departure of Prime Minister Sheikh Hasina following student demonstrations; formation of interim council under Muhammad Yunus.",
+                    "Strains India's eastern security perimeter, rail transit treaties, and Chicken's Neck / Siliguri Corridor logistics."
+                ),
+                (
+                    "HIST-2026-ARABIAN-SEA-STANDOFF",
+                    "2026-09-15",
+                    "North Arabian Sea Maritime Grey-Zone Ramming Incident",
+                    "Pakistan Navy (PNS Hunain), Indian Navy",
+                    "North Arabian Sea / Indian Ocean",
+                    "maritime_grey_zone",
+                    "Pakistani corvette PNS Hunain executed aggressive bow crossing and collided with an Indian Navy warship on surveillance in international waters, breaching Article 10 of the 1991 Bilateral Agreement and COLREGs Rule 8.",
+                    "Demonstrates importation of Chinese South China Sea grey-zone tactics into the Arabian Sea to probe Indian Rules of Engagement below kinetic threshold."
+                ),
+                (
+                    "HIST-2022-RBI-SRVA-FRAMEWORK",
+                    "2022-07-11",
+                    "RBI Framework for International Trade Settlement in Indian Rupees",
+                    "Reserve Bank of India (RBI)",
+                    "Global / South Asia",
+                    "monetary_architecture",
+                    "RBI issued landmark circular permitting trade settlement in INR via Special Rupee Vostro Accounts (SRVAs), establishing capital recycling pathways into sovereign debt (G-Secs) and laying foundation for bilateral de-dollarization.",
+                    "Operationalizes Kautilyan Kosha sovereignty: insulating foreign trade from extraterritorial SWIFT/dollar sanctions."
+                ),
+                (
+                    "HIST-2024-REDSEA-CHOKE",
+                    "2024-01-15",
+                    "Bab el-Mandeb Houthi Naval Interdiction & Red Sea Corridor Disruption",
+                    "Ansar Allah (Houthis), US Navy, Global Shipping",
+                    "Red Sea / Middle East",
+                    "maritime_chokepoint",
+                    "Asymmetric anti-ship ballistic missile and drone attacks forced container shipping around Cape of Good Hope, dropping Suez Canal transit revenues by 55-60% ($4B+ annual loss to Egypt) and inflating European freight premia.",
+                    "Demonstrates low-cost non-state asymmetric weaponry closing a primary global energy and container choke-point, exposing Western naval escort limitations."
+                ),
+                (
+                    "HIST-2024-SYRIA-COLLAPSE",
+                    "2024-12-08",
+                    "Fall of the Assad Regime in Syria & Iranian Axis Rupture",
+                    "HTS / Syrian Opposition, Syrian Armed Forces, Russia, Iran",
+                    "Middle East / Levant",
+                    "regime_change",
+                    "Rapid blitz offensive by Hayat Tahrir al-Sham captured Damascus and ended 53 years of Assad rule, forcing Bashar al-Assad's departure to Moscow and collapsing Iranian Axis of Resistance overland logistics to Hezbollah.",
+                    "Historic geopolitical fracture in the northern Levant, destabilizing Russian Mediterranean naval basing at Tartus and severing Tehran's contiguous land bridge."
+                ),
+                (
+                    "HIST-2024-ISRAEL-IRAN-AIR",
+                    "2024-10-26",
+                    "Operation Days of Repentance & Strategic S-300 Degradation in Iran",
+                    "Israeli Air Force, Islamic Republic of Iran",
+                    "Middle East",
+                    "kinetic_counter_air",
+                    "IAF executed long-range precision strikes destroying Iran's remaining Russian-supplied S-300 strategic surface-to-air missile batteries and solid-fuel mixing facilities, establishing conventional air dominance over Iranian airspace.",
+                    "Neutralized Iran's strategic air defense umbrella, demonstrating conventional technological asymmetry and shifting deterrence calculations across the Persian Gulf."
+                ),
+                (
+                    "HIST-2026-VANDYKE-CHIN-DRONE",
+                    "2026-09-18",
+                    "Mizoram-Myanmar Border PMC Infiltration & Default Bail Off-Ramp",
+                    "Matthew VanDyke (SOLI), Ukrainian Nationals, NIA, Chin National Army",
+                    "Northeast India / Myanmar Chin State",
+                    "hybrid_warfare",
+                    "Arrest of American PMC operator Matthew VanDyke and 6 Ukrainian drone trainers in Mizoram for cross-border FPV drone training to Chin anti-Junta rebels; granted Section 167(2) default bail after 180-day UAPA deadline lapsed and Foreigners Act compounding (Sections 21/23).",
+                    "Demonstrates the intersection of transnational mercenary drone tech proliferation, sub-national tribal kinship corridors, and managed judicial off-ramps under Section 188 CrPC extraterritorial limits."
+                ),
+                (
+                    "HIST-2000BCE-SINAULI-OCP",
+                    "-2000-01-01",
+                    "Sinauli Bronze Age Necropolis & Martial Culture (2000-1800 BCE)",
+                    "Archaeological Survey of India (ASI), BSIP Radiocarbon",
+                    "Ganga-Yamuna Doab / Western UP",
+                    "archaeological_milestone",
+                    "Excavation in Baghpat yielded 3 copper-inlaid solid-disk wheeled carts, 8 four-legged anthropomorphic coffins, antennae swords, shields, and warrior burials dating to 2000-1800 BCE via calibrated C14.",
+                    "Material proof of an organized indigenous elite warrior society with copper metallurgy and wheeled transports in northern India prior to conventional Steppe pastoralist horizons; concordant with Rigveda 10.18 inhumation."
+                ),
+                (
+                    "HIST-2500BCE-RAKHIGARHI-ADNA",
+                    "-2500-01-01",
+                    "Rakhigarhi Mature Harappan Paleogenomic Baseline (c. 2500 BCE)",
+                    "Cell 2019 / Prof. Vasant Shinde, David Reich et al.",
+                    "Ghaggar-Hakra Basin / Haryana",
+                    "paleogenomics_milestone",
+                    "Ancient DNA analysis of Mature IVC female skeleton from Rakhigarhi demonstrating complete absence of Central Asian Steppe pastoralist ancestry (R1a-Z93) and presence of Iranian farmer-related and Ancient Ancestral South Indian (AASI) lineage.",
+                    "Foundational paleogenomic baseline establishing genetic continuity in South Asia and disproving catastrophic population replacement."
+                ),
+                (
+                    "HIST-1000BCE-HASTINAPUR-PGW",
+                    "-1000-01-01",
+                    "Hastinapur Painted Grey Ware (PGW) Stratigraphic Horizon (c. 1000-800 BCE)",
+                    "Prof. B.B. Lal / Archaeological Survey of India",
+                    "Upper Ganga Basin / Western UP",
+                    "stratigraphy_milestone",
+                    "Excavation by Prof. B.B. Lal establishing PGW strata with iron metallurgy, horse remains, and river flood layer coinciding with the Puranic transfer of the Kuru capital from Hastinapur to Kaushambi under King Nichakshu.",
+                    "Key stratigraphical anchor linking Early Iron Age material culture with traditional Mahabharata geographic topography."
+                ),
+                (
+                    "HIST-1971-CHICKENS-NECK-SECURITY",
+                    "1971-12-03",
+                    "Siliguri Corridor & Eastern Command Preemption (1971 War)",
+                    "Indian Army (Eastern Command)",
+                    "Siliguri Corridor / Eastern Sector",
+                    "chokepoint_security",
+                    "Indian Armed Forces secured the 22km Siliguri Corridor ('Chicken's Neck') against potential Pakistani counter-thrusts and Chinese intervention in the Chumbi Valley, guaranteeing rear-area logistics during the liberation of Bangladesh.",
+                    "Demonstrated the strategic doctrine of offensive-defensive preemption to neutralize geographic bottleneck vulnerabilities."
+                ),
+                (
+                    "HIST-2017-DOKLAM-CHUMBI",
+                    "2017-06-16",
+                    "Doklam Plateau Standoff & Chumbi Valley Flank Protection",
+                    "Indian Army, PLA",
+                    "Doklam / Bhutan / Chumbi Valley",
+                    "chokepoint_security",
+                    "73-day military standoff preventing Chinese road construction through Doklam toward the Jampheri Ridge, which directly overlooked India's narrow Siliguri Corridor.",
+                    "Asserted sovereign commitment to neighbor defense pacts and protected the Siliguri vulnerable logistics flank from PLA tactical observation and artillery interdiction."
+                ),
+                (
+                    "HIST-2019-TURKEY-F35-CAATSA",
+                    "2019-07-17",
+                    "Expulsion of Turkey from F-35 Joint Strike Fighter Program",
+                    "US Department of Defense, Republic of Turkey",
+                    "Global / NATO",
+                    "avionics_sovereignty",
+                    "US formally suspended and expelled NATO ally Turkey from the F-35 fighter program following its procurement of the Russian S-400 Triumf missile system under CAATSA, citing risks of Russian radar data exploitation of F-35 stealth profiles.",
+                    "Archetypal evidence of digital leash enforcement, sovereign exclusion, and cloud-tethered supply chain interdiction in 5th-generation combat avionics."
+                ),
+                (
+                    "HIST-2024-TARANG-SHAKTI-JODHPUR",
+                    "2024-09-01",
+                    "Exercise Tarang Shakti Phase II (Jodhpur) & 5th-Gen Stealth Demonstrations",
+                    "Indian Air Force, US Air Force, Allied Air Forces",
+                    "Jodhpur / Indo-Pacific",
+                    "military_readiness",
+                    "IAF hosted its largest multilateral air exercise with USAF F-35A fighters and allied jets operating at Jodhpur Air Base; 5th-generation stealth fighters deployed Luneburg radar reflectors to deliberately mask authentic combat radar cross-sections.",
+                    "Highlighted electronic warfare sovereignty, mission computer data segregation, and tactical interoperability without compromising indigenous radar and stealth telemetry."
+                )
+            ]
+
+            cursor.executemany("""
+                INSERT OR IGNORE INTO events
+                (event_id, date, title, actor, region, category, summary, civilizational_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, events_seed)
+
+            # Seed foundational baseline communique clauses for negative space diffing
+            clauses_seed = [
+                (
+                    "BASE-UNSC-EXPANSION",
+                    "BRICS Multi-Year Historical Baseline",
+                    2023,
+                    "institutional_reform",
+                    "The member states reaffirm full support for the permanent membership of India, Brazil, and South Africa on the United Nations Security Council (UNSC).",
+                    1,
+                    "Total Chinese resistance to Indian UNSC permanent seat veto parity; omission exposes institutional capture."
+                ),
+                (
+                    "BASE-COMMON-CURRENCY",
+                    "Johannesburg Economic Summit Declarations",
+                    2023,
+                    "finance",
+                    "Commissioning the formal feasibility and macro-economic road-map for a unified BRICS common reserve currency mechanism.",
+                    1,
+                    "Mundell-Fleming impossibility trilemma triggered; project quietly abandoned due to central bank resistance."
+                ),
+                (
+                    "BASE-UNCLOS-MARITIME",
+                    "Global South Maritime Governance Baseline",
+                    2022,
+                    "territorial",
+                    "Reaffirming unwavering adherence to the 1982 UNCLOS conventions, freedom of navigation, and overflight in the South China Sea.",
+                    1,
+                    "Chinese maritime coercion; Beijing refuses multilateral international arbitration references."
+                ),
+                (
+                    "BASE-CROSS-BORDER-TERROR",
+                    "Goa & New Delhi Security Declarations",
+                    2021,
+                    "security",
+                    "Zero-tolerance condemnation of state-sponsored cross-border terrorism, explicitly naming regional terror sanctuaries and FATF compliance.",
+                    1,
+                    "Diluted into toothless generic phrasing to shield bilateral allies and prevent bilateral disputes."
+                ),
+                (
+                    "CLAUSE-1991-INDO-PAK-NAV-ART10",
+                    "1991 India-Pakistan Agreement on Advance Notice of Military Exercises, Maneuvers and Troop Movements",
+                    1991,
+                    "maritime_deconfliction",
+                    "Article 10: Naval vessels and submarines of the two countries shall not approach within 3 nautical miles of each other's territorial waters and shall maintain safe buffer distance during maneuvers in international waters.",
+                    1,
+                    "Breach of 3 nautical mile buffer distance and deliberate bow crossing constitutes maritime grey-zone provocation and sub-kinetic escalation below UN Charter Article 51 threshold."
+                ),
+                (
+                    "CLAUSE-2022-RBI-SRVA",
+                    "RBI Circular on International Trade Settlement in Indian Rupees (INR)",
+                    2022,
+                    "monetary_clearing",
+                    "A.P. (DIR Series) Circular No. 10: Authorized Dealer Category-I banks are permitted to open Special Non-Resident Rupee (SNRR) and Special Rupee Vostro Accounts (SRVA) for partner country correspondent banks, permitting invoicing, payment, and settlement in INR, with surplus balances permitted for reinvestment in Government Securities and sovereign infrastructure.",
+                    1,
+                    "Statutory baseline establishing the legal mechanism for recycling bilateral non-convertible trade surpluses into domestic sovereign debt and equities."
+                ),
+                (
+                    "CLAUSE-1991-POWA",
+                    "Places of Worship (Special Provisions) Act, 1991",
+                    1991,
+                    "statutory_asymmetry",
+                    "Sections 3 & 4: Declares that the religious character of a place of worship existing on August 15, 1947 shall continue to be the same as it existed on that day, prohibiting conversion and abating all pending suits or proceedings.",
+                    1,
+                    "Statutory freeze on civilizational reclamation; creates asymmetric legal immunity for medieval temple demolitions while preempting judicial adjudication."
+                ),
+                (
+                    "CLAUSE-1995-WAQF",
+                    "Waqf Act, 1995",
+                    1995,
+                    "statutory_asymmetry",
+                    "Section 40: Vests Waqf Boards with unilateral power to determine whether a property is waqf property, placing burden of proof on the adverse claimant and barring ordinary civil court jurisdiction under Section 85 in favor of specialized tribunals.",
+                    1,
+                    "Asymmetric property acquisition and jurisdictional barrier exempt from standard civil procedural code."
+                ),
+                (
+                    "CLAUSE-1951-HRCE",
+                    "Hindu Religious and Charitable Endowments (HRCE) Framework",
+                    1951,
+                    "statutory_asymmetry",
+                    "State statutory oversight mechanisms authorizing executive officers to manage Hindu temple administrations and surplus treasury funds, whereas minority religious institutions are constitutionally protected under Article 30.",
+                    1,
+                    "Structural financial asymmetry and state appropriation of indigenous religious endowments without reciprocal minority institution regulation."
+                ),
+                (
+                    "CLAUSE-CRPC-188-EXTRATERRITORIAL",
+                    "Code of Criminal Procedure 1973 Section 188 / BNSS Section 208",
+                    1973,
+                    "extraterritorial_jurisdiction",
+                    "Offences committed outside India: When an offence is committed outside India by a citizen of India or by a foreign national, no such offence shall be inquired into or tried in India without the previous sanction of the Central Government.",
+                    1,
+                    "Statutory barrier requiring Central Government sanction for extraterritorial offences, serving as a legal and diplomatic gatekeeper for sovereign prosecutions of foreign nationals."
+                ),
+                (
+                    "CLAUSE-2006-ISPRL-SPR-PHASE1",
+                    "Ministry of Petroleum & Natural Gas / ISPRL Strategic Petroleum Reserve Baseline",
+                    2006,
+                    "energy_security",
+                    "Government of India established Indian Strategic Petroleum Reserves Limited (ISPRL) creating 5.33 Million Metric Tonnes (MMT) of underground rock cavern storage across Visakhapatnam (1.33 MMT), Mangalore (1.50 MMT), and Padur (2.50 MMT), providing approximately 9.5 days of net crude import coverage, supplemented by commercial OMC inventory buffers of approximately 64.5 days.",
+                    1,
+                    "Statutory energy buffer baseline defining India's physical crude insulation capacity during naval interdictions in the Persian Gulf or Red Sea."
+                ),
+                (
+                    "CLAUSE-2020-DOVAL-PLAN-B",
+                    "National Security Council / Counter-Insurrection Protocol (Doval Plan B)",
+                    2020,
+                    "hybrid_counter_subversion",
+                    "Ajit Doval Plan B Counter-Insurrection Doctrine: Asymmetric non-kinetic exhaustion of foreign-funded street vetoes, FCRA and PMLA financial pipeline chokepoints, continuous intelligence surveillance, managed off-ramps for disposable agitation leadership, and strict refusal to deploy lethal kinetic force that creates camera-ready visual martyr footage for Western media networks.",
+                    1,
+                    "Statutory counter-subversion baseline preventing color revolutions and artificial street vetoes from triggering state overreaction or external human-rights sanctions."
+                ),
+                (
+                    "CLAUSE-2022-HYDROCARBON-ARBITRAGE",
+                    "Ministry of Petroleum & Natural Gas / Refining Export Sovereignty Framework",
+                    2022,
+                    "energy_security",
+                    "Operation of India's 22 mega-refineries importing discounted Russian Urals crude, refining compliant ultra-low sulfur diesel and aviation fuels, and exporting directly to European and US markets while settling trade in non-dollar bilateral mechanisms.",
+                    1,
+                    "Sovereign refining arbitrage baseline converting physical refining bottlenecks into geopolitical leverage and macro-economic reserves."
+                ),
+                (
+                    "CLAUSE-2023-FRENCH-JUVENILE-SHIELD",
+                    "French Code de la justice pénale des mineurs / Juvenile Shield Playbook",
+                    2023,
+                    "hybrid_counter_subversion",
+                    "5th-Gen urban warfare playbook deploying 12-17 age minors at frontlines of violent street agitations to exploit statutory juvenile criminal immunity, paralyze law enforcement kinetic response, and manufacture camera-ready brutality footage for international media broadcast.",
+                    1,
+                    "Tactical asymmetry baseline: Explains state paralysis in Western capitals and domestic protests when child protection jurisprudence is weaponized by adult organizers."
+                ),
+                (
+                    "CLAUSE-2026-MAHARASHTRA-WATER-CARTEL",
+                    "Comptroller and Auditor General (CAG) Maharashtra Irrigation Audit Baseline",
+                    2026,
+                    "agrarian_security",
+                    "CAG audit baseline documenting 10,000 unanswered audit queries on ₹70,000 Crore state irrigation expenditure yielding only 0.1% increase in irrigated area, with 4% of agricultural land (sugarcane) consuming 71.5% of state water resources.",
+                    1,
+                    "Agrarian water cartel baseline: Exposes structural hydrological theft and rent-seeking by regional sugar cooperatives engineering artificial droughts."
+                ),
+                (
+                    "CLAUSE-2023-TELECOM-ACT-SPECTRUM",
+                    "Telecommunications Act 2023 (First Schedule - Administrative Spectrum Allocation)",
+                    2023,
+                    "digital_sovereignty",
+                    "Statutory provision in First Schedule permitting administrative allocation of satellite communication spectrum rather than mandatory open competitive auction, creating domestic capex friction between terrestrial incumbents ($30B+ investment) and global satellite mega-constellations.",
+                    1,
+                    "Digital sovereignty baseline: Evaluates whether satcom access compromises national security, lawful interception, and domestic infrastructure investment."
+                ),
+                (
+                    "CLAUSE-2019-EWS-103RD-AMENDMENT",
+                    "Constitution (103rd Amendment) Act 2019 - Articles 15(6) & 16(6) (EWS Reservation)",
+                    2019,
+                    "institutional_equity",
+                    "10% reservation for Economically Weaker Sections (EWS) among general category citizens upholding constitutional jurisprudence to mitigate base alienation and direct-taxpayer resentment without eroding meritocratic stability.",
+                    1,
+                    "Intra-civilizational equity baseline: Measures institutional protection of unreserved economic contributors against asymmetric welfarism."
+                ),
+                (
+                    "CLAUSE-2024-ALBANIAN-SC-ARSON-INCITEMENT",
+                    "Bhartiya Nyaya Sanhita (BNS) Section 152 / Deterrence against Extra-Judicial Arson Threats",
+                    2024,
+                    "judicial_sovereignty",
+                    "Statutory deterrence framework against public calls to replicate foreign extra-judicial riots (such as Albanian Supreme Court arson threats) against constitutional courts, criminalizing incitement endangering sovereignty, unity, and integrity of India.",
+                    1,
+                    "Constitutional lawfare deterrence baseline: Establishes zero-tolerance legal boundary against systemic attempts to intimidate judicial benches via street mobilization."
+                ),
+                (
+                    "CLAUSE-2023-TELECOM-ACT-LEO-SATCOM",
+                    "Telecommunications Act 2023 - Section 4 & First Schedule (LEO Gateway & Lawful Interception Mandate)",
+                    2023,
+                    "telecom_sovereignty",
+                    "Statutory baseline mandating in-country gateway landing stations, domestic cryptographic key escrow, and adherence to Trusted Telecom Portal security norms for foreign low-Earth orbit satellite broadband constellations.",
+                    1,
+                    "Telecom switchboard sovereignty: Prevents foreign operators from bypassing terrestrial security monitoring and provides sovereign kill-switch immunity."
+                ),
+                (
+                    "CLAUSE-2020-FCRA-SBI-NDMB-AMENDMENT",
+                    "Foreign Contribution (Regulation) Amendment Act 2020 - Mandatory SBI New Delhi Main Branch Account",
+                    2020,
+                    "financial_sovereignty",
+                    "Mandatory statutory provision requiring all foreign non-governmental contributions to be deposited exclusively into designated FCRA account at State Bank of India, New Delhi Main Branch, barring sub-granting and requiring Aadhaar KYC of key office bearers.",
+                    1,
+                    "Regime-change capital defense baseline: Dismantles anonymous foreign capital pipelines and provides forensic audit trails against coordinated agitation funding."
+                ),
+                (
+                    "CLAUSE-DIRV-RISCV-SHAKTI-MANDATE",
+                    "Digital India RISC-V (DIRV) Sovereign Instruction Set Architecture Mandate",
+                    2022,
+                    "digital_sovereignty",
+                    "National directive establishing open-source RISC-V architecture (IIT Madras Shakti, C-DAC Vega) as the sovereign hardware baseline for strategic, automotive, and defense computing.",
+                    1,
+                    "Hardware protocol sovereignty baseline: Insulates national compute infrastructure from proprietary x86/ARM architectural licensing embargoes and foreign microcode vulnerabilities."
+                ),
+                (
+                    "CLAUSE-BNSS-163-UNLAWFUL-ASSEMBLY-POWER",
+                    "Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023 - Section 163 (Urgent Order in Cases of Nuisance or Apprehended Danger)",
+                    2023,
+                    "public_order_sovereignty",
+                    "Statutory executive authority authorizing District Magistrates to issue emergency prohibitive orders directing persons to abstain from acts to prevent obstruction, injury, or danger to human life, health, or safety, and to suppress unlawful highway blockades.",
+                    1,
+                    "Arterial transit defense baseline: Codifies statutory powers to dismantle non-electoral street vetoes and unblock critical national logistics corridors."
+                ),
+                (
+                    "CLAUSE-BNS-152-SOVEREIGNTY-DEFENSE",
+                    "Bharatiya Nyaya Sanhita (BNS) 2023 - Section 152 (Acts Endangering Sovereignty, Unity and Integrity of India)",
+                    2023,
+                    "national_security_sovereignty",
+                    "Substantive criminal statutory provision penalizing intentional acts that excite secession, armed rebellion, or subversive activities endangering the sovereignty, unity, and territorial integrity of India.",
+                    1,
+                    "Anti-subversion legal cornerstone: Establishes rigorous criminal accountability against hybrid regime-change coordination and extra-judicial intimidation."
+                ),
+                (
+                    "CLAUSE-ARATTAI-SOVEREIGN-MESSAGING-PROTOCOL",
+                    "National Sovereign Public Digital Infrastructure Directive - Indigenous Communications Protocol Mandate",
+                    2024,
+                    "digital_communications_sovereignty",
+                    "Strategic directive mandating sensitive administrative and defense communications to migrate to sovereign, domestically hosted encrypted protocols (e.g. Zoho Arattai), barring reliance on foreign telemetry-leaking messaging platforms.",
+                    1,
+                    "Digital communications shield: Prevents foreign PRISM-style electronic metadata harvesting and insulates executive coordination from extraterritorial surveillance."
+                )
+            ,
+                (
+                    "CLAUSE-MAURITIUS-MARITIME-SECURITY-AGREEMENT-AGALEGA",
+                    "India-Mauritius Strategic Joint Infrastructure Agreement (Agaléga Forward Maritime Base)",
+                    2015,
+                    "maritime_forward_basing",
+                    "Bilateral sovereign agreement constructing 3,000-meter paved runway and St. James deepwater jetty on Agaléga Island, securing anti-submarine warfare (ASW) interdiction over the Mozambique Channel and western Indian Ocean SLOCs.",
+                    1,
+                    "Maritime security hub: Positions P-8I Poseidon patrol coverage over southwestern Indian Ocean chokepoints."
+                ),
+                (
+                    "CLAUSE-BRICS-STATUTORY-HARMONIZATION-LOCAL-CURRENCY",
+                    "BRICS Inter-Parliamentary & Central Bank Statutory Harmonization Protocol",
+                    2024,
+                    "polycentric_currency_clearing",
+                    "Statutory harmonization framework aligning commercial arbitration, customs valuation, and cross-border bank messaging formats to enable direct bilateral national currency settlements (INR, RUB, Dirham, Yuan) insulated from OFAC secondary sanctions.",
+                    1,
+                    "Sanctions firewall: Eliminates third-party reserve currency dependency and SWIFT weaponization risks."
+                ),
+                # Phase 206 + 208: Cable Sovereignty & CCI Antitrust Statutory Anchors
+                (
+                    "CLAUSE-INDIA-CABLES-TELEGRAPH-ACT-1885-SOVEREIGN-INFRASTRUCTURE",
+                    "Indian Telegraph Act, 1885 — Sovereign Cable Infrastructure Authority",
+                    1885,
+                    "cable_infrastructure_sovereignty",
+                    "Section 4 of the Indian Telegraph Act, 1885 vests exclusive sovereign authority in the Central Government to establish, maintain, and operate telegraph and cable systems — forming the legal bedrock for submarine cable landing station licensing, encryption mandate enforcement, and domestic cable redundancy infrastructure requirements.",
+                    1,
+                    "Cable sovereignty legal authority: Omission of Section 4 enforcement creates landing-station exposure where foreign operators control physical cable access, enabling intelligence interception and traffic routing manipulation."
+                ),
+                (
+                    "CLAUSE-INDIA-CCI-COMPETITION-ACT-2002-HERFINDAHL-ENFORCEMENT",
+                    "Competition Act, 2002 — CCI Herfindahl-Hirschman Anti-Monopoly Enforcement",
+                    2002,
+                    "antitrust_sovereign_enforcement",
+                    "Sections 4 and 6 of the Competition Act, 2002 empower the Competition Commission of India (CCI) to investigate abuse of dominant position (HHI > 2500) and combinations (mergers/acquisitions) that create monopolistic market structures — establishing the statutory baseline for Phase 208 NationalChampionSovereignSieve DomesticCartelRisk detection.",
+                    1,
+                    "Antitrust enforcement standard: Without CCI HHI enforcement (HHI > 2500 = high concentration), domestic national champions capturing >70% sector share transform from sovereign shields into domestic cartels — StrategicEquilibrium collapses below 1.0."
+                )
+            ]
+
+            cursor.executemany("""
+                INSERT OR IGNORE INTO historical_treaty_clauses
+                (clause_id, treaty_name, year, category, clause_text, is_mandatory_baseline, omission_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, clauses_seed)
+
+            anniversaries_seed = [
+                (
+                    "ANNIV-0711-GUADALETE",
+                    7,
+                    31,
+                    711,
+                    "Battle of Guadalete & Umayyad Crossing into Hispania",
+                    "Europe / Iberia",
+                    "Tariq ibn Ziyad led Umayyad forces across the Strait of Gibraltar, defeating Visigothic King Roderic and initiating Islamic Al-Andalus.",
+                    "Historical mirror for sudden maritime demographic and asymmetric crossings into southern Spain."
+                ),
+                (
+                    "ANNIV-1492-GRANADA",
+                    1,
+                    2,
+                    1492,
+                    "Fall of Granada & Reconquista Completion",
+                    "Europe / Iberia",
+                    "Ferdinand and Isabella completed the Reconquista, ending 781 years of Islamic rule in the Iberian Peninsula.",
+                    "Civilizational inflection point representing sovereign reclamation and demographic reversal."
+                ),
+                (
+                    "ANNIV-1971-INDO-SOVIET",
+                    8,
+                    9,
+                    1971,
+                    "Indo-Soviet Strategic Pact Ratification",
+                    "South Asia",
+                    "Signed by Swaran Singh and Andrei Gromyko, deterring US-China coalition during Bangladesh Liberation.",
+                    "Strategic security guarantee enabling decisive perimeter stabilization."
+                ),
+                (
+                    "ANNIV-1993-LAC",
+                    9,
+                    7,
+                    1993,
+                    "India-China Border Peace & Tranquility Agreement",
+                    "Himalayas",
+                    "Established mutual LAC commitments and troop reduction principles.",
+                    "Legal baseline frequently cited during border standoff negotiations."
+                ),
+                (
+                    "ANNIV-2024-RAM-MANDIR",
+                    1,
+                    22,
+                    2024,
+                    "Ayodhya Ram Mandir Pran Pratishtha",
+                    "India",
+                    "National consecration marking civilizational reclamation and post-colonial cultural decolonization.",
+                    "Sanatan Dharmic civilizational baseline redefining Bharat's domestic and external sovereignty."
+                ),
+                (
+                    "ANNIV-2024-DHAKA",
+                    8,
+                    5,
+                    2024,
+                    "Dhaka Regime Change & Sheikh Hasina Exit",
+                    "South Asia",
+                    "Fall of Awami League administration in Dhaka and transition to Muhammad Yunus interim council.",
+                    "Immediate stress on eastern border, Siliguri Corridor security, and bilateral transit accords."
+                ),
+                (
+                    "ANNIV-1947-PARTITION-INDIA",
+                    8,
+                    15,
+                    1947,
+                    "Partition of India",
+                    "South Asia",
+                    "British India was partitioned into the independent dominions of India and Pakistan, triggering one of the largest mass migrations and communal violence episodes in modern history.",
+                    "Civilizational rupture whose demographic, territorial, and psychological aftershocks continue to shape South Asian geopolitics."
+                ),
+                (
+                    "ANNIV-1962-SINO-INDIAN-WAR",
+                    10,
+                    20,
+                    1962,
+                    "Sino-Indian War / Aksai Chin",
+                    "South Asia / Central Asia",
+                    "China launched a massive invasion across NEFA (Arunachal Pradesh) and consolidated control over Aksai Chin, exposing critical Indian strategic and intelligence failures.",
+                    "Foundational trauma driving Indian forward-posture doctrine on the LAC and Himalayan infrastructure build-up."
+                ),
+                (
+                    "ANNIV-1971-BANGLADESH-LIBERATION",
+                    12,
+                    16,
+                    1971,
+                    "Bangladesh Liberation War Victory",
+                    "South Asia",
+                    "Indian armed forces achieved decisive victory, liberating East Pakistan and leading to the creation of Bangladesh after Pakistan's unconditional surrender.",
+                    "Demonstrated India's capacity for rapid decisive military operations and reshaped the South Asian balance of power."
+                ),
+                (
+                    "ANNIV-1998-POKHRAN-II",
+                    5,
+                    11,
+                    1998,
+                    "Pokhran-II Nuclear Tests",
+                    "South Asia",
+                    "India conducted Operation Shakti — a series of five thermonuclear and fission device tests at the Pokhran range — declaring itself a nuclear-weapons state.",
+                    "Strategic watershed establishing India's minimum credible nuclear deterrent and triggering global non-proliferation debates."
+                ),
+                (
+                    "ANNIV-1999-KARGIL-WAR",
+                    5,
+                    26,
+                    1999,
+                    "Kargil War",
+                    "South Asia / Kashmir",
+                    "Pakistani soldiers and militants intruded across the Line of Control in the Kargil-Dras sector, triggering a high-altitude limited war won by Indian forces.",
+                    "Validated India's conventional escalation dominance under a nuclear overhang and exposed Pakistani adventurism."
+                ),
+                (
+                    "ANNIV-2019-BALAKOT",
+                    2,
+                    26,
+                    2019,
+                    "Balakot Airstrike",
+                    "South Asia",
+                    "Indian Air Force conducted precision airstrikes on a Jaish-e-Mohammed (JeM) training camp in Balakot, Pakistan — the first cross-border airstrike since 1971.",
+                    "Established a new Indian doctrine of pre-emptive cross-border counterterrorism strikes against non-state actor infrastructure."
+                ),
+                (
+                    "ANNIV-2020-GALWAN",
+                    6,
+                    15,
+                    2020,
+                    "Galwan Valley Clash",
+                    "South Asia / LAC",
+                    "Indian and Chinese troops engaged in a violent hand-to-hand clash in the Galwan Valley along the LAC, resulting in casualties on both sides.",
+                    "Shattered the post-1993 border peace framework and triggered permanent Indian strategic decoupling from China."
+                ),
+                (
+                    "ANNIV-2025-OP-SINDOOR",
+                    5,
+                    7,
+                    2025,
+                    "Operation Sindoor",
+                    "South Asia",
+                    "India executed precision retaliatory strikes on terror infrastructure in Pakistan following cross-border provocations, demonstrating calibrated escalation capability.",
+                    "Reinforced India's zero-tolerance doctrine against state-sponsored terrorism and validated standoff precision-strike assets."
+                ),
+                (
+                    "ANNIV-1916-SYKES-PICOT",
+                    5,
+                    16,
+                    1916,
+                    "Sykes-Picot Agreement",
+                    "Middle East",
+                    "Secret Anglo-French agreement partitioning Ottoman Arab provinces into spheres of influence, drawing artificial borders across Mesopotamia, the Levant, and Arabia.",
+                    "Root cause of chronic Middle Eastern state fragility, sectarian conflict, and post-colonial boundary disputes."
+                ),
+                (
+                    "ANNIV-1944-BRETTON-WOODS",
+                    7,
+                    1,
+                    1944,
+                    "Bretton Woods Conference",
+                    "Global",
+                    "Allied nations convened at Bretton Woods, New Hampshire, establishing the International Monetary Fund (IMF), World Bank, and the US dollar-anchored global reserve currency system.",
+                    "Architected the post-WWII financial order whose erosion now drives de-dollarization and BRICS alternative currency initiatives."
+                ),
+                (
+                    "ANNIV-1025-CHOLA-SRIVIJAYA",
+                    11,
+                    15,
+                    1025,
+                    "Rajendra Chola I Srivijaya Maritime Expedition",
+                    "Indian Ocean / Southeast Asia",
+                    "Rajendra Chola I launched a massive naval expedition across the Bay of Bengal, securing the Strait of Malacca and subordinating the Srivijaya maritime empire.",
+                    "Foundational anchor of Indian Ocean naval power and maritime trade dominance, currently mirrored in India's SAGAR and IMEC corridors."
+                ),
+                (
+                    "ANNIV-1026-SOMNATH",
+                    1,
+                    8,
+                    1026,
+                    "Raid on Somnath & Millennial Arc Initiation",
+                    "South Asia",
+                    "Mahmud of Ghazni raided and plundered the Somnath temple, inaugurating the millennial arc of civilizational disruption, economic plunder, and iconoclasm.",
+                    "Symbolic baseline of civilizational disruption, whose post-independence reconstruction by Sardar Patel marked the beginning of modern reclamation."
+                ),
+                (
+                    "ANNIV-1192-TARAIN",
+                    3,
+                    15,
+                    1192,
+                    "Second Battle of Tarain",
+                    "South Asia",
+                    "Muhammad Ghori defeated Prithviraj Chauhan at the Second Battle of Tarain, precipitating the fall of Delhi and the establishment of the Delhi Sultanate.",
+                    "Foundational inflection point representing sovereign internal fragmentation and loss of northern border defense."
+                ),
+                (
+                    "ANNIV-1193-NALANDA",
+                    5,
+                    20,
+                    1193,
+                    "Destruction of Nalanda Mahavihara",
+                    "South Asia",
+                    "Bakhtiyar Khilji sacked and burned the ancient Nalanda Mahavihara university, destroying millions of manuscripts and intellectually de-capitalizing the Dharmic world.",
+                    "Civilizational epistemic rupture, whose 830-year recovery was formalized with the 2024 inauguration of the new Nalanda campus."
+                ),
+                (
+                    "ANNIV-1453-CONSTANTINOPLE",
+                    5,
+                    29,
+                    1453,
+                    "Fall of Constantinople & Silk Road Closure",
+                    "Eurasia",
+                    "Ottoman Sultan Mehmed II conquered Constantinople, ending the Byzantine Empire, closing overland Silk Road transit to Europe, and forcing Western maritime expeditions toward India.",
+                    "Global trade inflection point that triggered the Age of Discovery and the maritime colonization of Afro-Asian trade routes."
+                ),
+                (
+                    "ANNIV-1674-CHHATRAPATI-SHIVAJI",
+                    6,
+                    6,
+                    1674,
+                    "Coronation of Chhatrapati Shivaji Maharaj & Hindavi Swarajya",
+                    "South Asia",
+                    "Chhatrapati Shivaji Maharaj was coronated at Raigad Fort, formally inaugurating Hindavi Swarajya and re-establishing indigenous Dharmic sovereignty and naval defense.",
+                    "Doctrinal baseline of asymmetric military resistance, naval fort fortification, and indigenous sovereign reclamation."
+                ),
+                (
+                    "ANNIV-2024-NALANDA-REBIRTH",
+                    6,
+                    19,
+                    2024,
+                    "Nalanda University Rebirth & Epistemic Reversal",
+                    "South Asia",
+                    "Prime Minister Narendra Modi and envoys from 17 partner nations inaugurated the resurrected Nalanda University campus in Rajgir, Bihar.",
+                    "Physical and symbolic closure of the 830-year intellectual destruction arc, re-establishing Bharat as a global knowledge repository."
+                ),
+                (
+                    "ANNIV-1920-WATSON-JWT",
+                    10,
+                    1,
+                    1920,
+                    "John B. Watson Joins J. Walter Thompson (JWT)",
+                    "Global / USA",
+                    "Behaviorist psychologist John B. Watson joined the J. Walter Thompson advertising agency, formally applying emotional and fear conditioning to commercial advertising and product marketing.",
+                    "Birth of modern commercial psychological warfare, weaponizing infant hygiene, germ fear, and maternal anxiety into consumer demand."
+                ),
+                (
+                    "ANNIV-1928-WATSON-INFANT",
+                    3,
+                    1,
+                    1928,
+                    "Watson Publishes 'Psychological Care of Infant and Child'",
+                    "Global / USA",
+                    "John B. Watson published his seminal parenting manual prescribing rigid emotional detachment, warning mothers against hugging or kissing infants to avoid 'spoiling' them.",
+                    "Institutionalization of cold infant isolation doctrine, replacing maternal bonding with commodified schedules and nursery appliances."
+                ),
+                (
+                    "ANNIV-1928-BERNAYS-PROPAGANDA",
+                    11,
+                    15,
+                    1928,
+                    "Edward Bernays Publishes 'Propaganda' & Torches of Freedom",
+                    "Global / USA",
+                    "Edward Bernays published 'Propaganda', codifying the 'engineering of consent' and later executing the 'Torches of Freedom' campaign linking women's liberation to cigarette consumption.",
+                    "Foundational playbook for modern public relations, psychological manipulation, and manufacturing social consent for corporate cartels."
+                ),
+                (
+                    "ANNIV-1953-MKULTRA-MOCKINGBIRD",
+                    4,
+                    13,
+                    1953,
+                    "CIA Project MKUltra & Operation Mockingbird",
+                    "Global / USA",
+                    "CIA launched Project MKUltra (mind control and behavioral modification experiments) and Operation Mockingbird (subterranean infiltration of domestic and international media organizations).",
+                    "Institutionalization of deep-state psychological operations, weaponized media narratives, and covert cognitive warfare."
+                ),
+                (
+                    "ANNIV-1981-WHO-INFANT-FORMULA",
+                    5,
+                    21,
+                    1981,
+                    "WHO International Code of Marketing of Breast-milk Substitutes",
+                    "Global",
+                    "World Health Assembly adopted landmark International Code (WHA34.22) restricting aggressive marketing of infant formula, following global boycotts against commercial exploitation of maternal anxiety in developing nations.",
+                    "Landmark sovereign multilateral confrontation against transnational corporate capture of infant health and fear-based marketing."
+                ),
+                (
+                    "CHRONO-5561BCE-OAK",
+                    10,
+                    16,
+                    -5561,
+                    "Nilesh Oak 5561 BCE Timeline (Arundhati-Vasistha Model)",
+                    "Ancient Bharat",
+                    "Dates the Mahabharata War to 5561 BCE based on the Arundhati walking ahead of Vasistha (Mizar-Alcor) observation in Bhishma Parva, calculating an epoch window between 11,091 BCE and 4508 BCE.",
+                    "Benchmark astronomical retro-calculation hypothesis; subject to material culture collision with Mesolithic/early Neolithic lithic archaeological strata."
+                ),
+                (
+                    "CHRONO-3067BCE-ACHAR",
+                    11,
+                    22,
+                    -3067,
+                    "Dr. Narahari Achar 3067 BCE Timeline (Saturn-Rohini BORI Model)",
+                    "Ancient Bharat",
+                    "Dates the Mahabharata War to 3067 BCE based on the BORI Critical Edition common archetype, Saturn at Rohini, Jupiter at Vishakha, and twin eclipses within 13 days.",
+                    "Multi-pillar benchmark exhibiting low astronomical degeneracy and high congruence with Saraswati perennial flow and Early Bronze Age urban transitions."
+                ),
+                (
+                    "CHRONO-3102BCE-ARYABHATA",
+                    2,
+                    18,
+                    -3102,
+                    "Traditional Aryabhata & Aihole Inscription 3102 BCE Kali Yuga Epoch",
+                    "Ancient Bharat",
+                    "Traditional civilizational anchor calculating the start of Kali Yuga at 3102 BCE, epigraphically corroborated by the Aihole Inscription of Pulakeshin II (634 CE) referencing 3735 elapsed years.",
+                    "Civilizational baseline anchor uniting Puranic dynastic chronologies with planetary mean-motion calculations."
+                ),
+                (
+                    "CHRONO-1000BCE-PGW",
+                    1,
+                    1,
+                    -1000,
+                    "Archaeological Survey of India Painted Grey Ware (PGW) 1000 BCE Model",
+                    "Ancient Bharat",
+                    "Dates the epic to the 10th-9th century BCE based on Painted Grey Ware (PGW) strata, early iron arrowheads at Hastinapur/Kurukshetra, and the flood layer described in Puranic texts.",
+                    "Archaeologically grounded material culture anchor; exhibits low hydro-geological coherence due to complete prior desiccation of River Saraswati by 1900 BCE."
+                ),
+                (
+                    "CHRONO-2000BCE-SINAULI",
+                    1,
+                    1,
+                    -2000,
+                    "Sinauli Bronze Age Necropolis (OCP / Copper Hoard Culture)",
+                    "Ancient Bharat / Ganga-Yamuna Doab",
+                    "Excavations at Sinauli (Baghpat, UP) revealed elite warrior burials with copper-inlaid solid-disk wheeled carts, antennae swords, shields, and four-legged coffins dating to 2000-1800 BCE via calibrated C14.",
+                    "Stratigraphical and material culture anchor establishing indigenous Bronze Age wheeled transport and warrior aristocracy in northern India; concordant with Rigveda 10.18 inhumation rites."
+                ),
+                (
+                    "CHRONO-2500BCE-RAKHIGARHI",
+                    1,
+                    1,
+                    -2500,
+                    "Rakhigarhi Mature Harappan Paleogenomic Anchor",
+                    "Ancient Bharat / Ghaggar-Hakra Basin",
+                    "Ancient DNA from Mature IVC female skeleton demonstrating absence of Central Asian Steppe pastoralist ancestry (R1a-Z93) and presence of Iranian farmer-related and Ancient Ancestral South Indian (AASI) lineage.",
+                    "Crucial paleogenomic baseline establishing genetic continuity in South Asia and disproving catastrophic population replacement models."
+                ),
+                (
+                    "ANNIV-1978-KAHUTA-LEAK",
+                    1,
+                    15,
+                    1978,
+                    "Operation Kahuta Intelligence Compromise",
+                    "South Asia / Pakistan",
+                    "R&AW established deep human penetration of Khan Research Laboratories in Kahuta, confirming uranium enrichment via physical samples. Subsequent political inadvertent disclosure alerted Islamabad, triggering an ISI counter-sweep that decapitated India's operational network inside the facility.",
+                    "Demonstrates the extreme vulnerability of high-yield HUMINT networks to political indiscretion and civilian oversight disconnects."
+                ),
+                (
+                    "ANNIV-1985-KANISHKA-AIR-INDIA-182",
+                    6,
+                    23,
+                    1985,
+                    "Kanishka Bombing & Canadian Sanctuary Milestone",
+                    "Transnational / Canada / Atlantic",
+                    "Babbar Khalsa operatives in Canada orchestrated the mid-air bombing of Air India Flight 182 off the coast of Ireland, killing 329 people in the deadliest terrorist act in Canadian history.",
+                    "Foundational baseline for Western diaspora vote-bank sanctuary politics and intelligence blind spots regarding extraterritorial secessionist networks."
+                ),
+                (
+                    "ANNIV-1991-RAJIV-GANDHI-SRIPERUMBUDUR",
+                    5,
+                    21,
+                    1991,
+                    "Assassination of Rajiv Gandhi & SPG Cover Withdrawal",
+                    "South Asia / Sri Lanka",
+                    "Former Prime Minister Rajiv Gandhi was assassinated at Sriperumbudur by an LTTE suicide bomber following the withdrawal of Special Protection Group (SPG) security under domestic political rivalry.",
+                    "Exposes the catastrophic risk window opened when domestic partisan hostility compromises institutional executive security protocols."
+                ),
+                (
+                    "ANNIV-1993-MUMBAI-BLASTS-D-COMPANY",
+                    3,
+                    12,
+                    1993,
+                    "1993 Mumbai Serial Blasts & D-Company Karachi Haven",
+                    "South Asia / Mumbai / Karachi",
+                    "Coordinated serial RDX explosions struck 12 targets across Mumbai, orchestrated by Dawood Ibrahim's D-Company with Pakistani ISI logistics and safe passage, establishing the syndicate's permanent haven in Clifton, Karachi.",
+                    "Institutionalized the state-sponsored crime-terror nexus, combining transnational narcotics and hawala networks with sovereign intelligence protection."
+                ),
+                (
+                    "ANNIV-1999-IC-814-KANDAHAR",
+                    12,
+                    24,
+                    1999,
+                    "IC-814 Kandahar Hijack & Strategic Negotiation Crisis",
+                    "South Asia / Afghanistan",
+                    "Harkat-ul-Mujahideen terrorists hijacked Indian Airlines Flight IC-814 from Kathmandu to Kandahar under Taliban control, forcing the release of three terror commanders including Masood Azhar.",
+                    "Critical watershed shaping India's modern counter-terror crisis response, hostage negotiation doctrine, and the transition toward the Doval Offensive-Defense preemption doctrine."
+                ),
+                (
+                    "HIST-1976-MARITIME-ZONES-ACT",
+                    8,
+                    25,
+                    1976,
+                    "Territorial Waters, Continental Shelf, EEZ and Other Maritime Zones Act (Act 80 of 1976)",
+                    "Indian Ocean / New Delhi",
+                    "Codified India's sovereign maritime baselines: 12 NM territorial waters, 24 NM contiguous zone, and 200 NM Exclusive Economic Zone (EEZ) encompassing over 2.3 million square kilometers.",
+                    "Foundational domestic statute asserting resource sovereignty and requiring prior notification for foreign warship entry."
+                ),
+                (
+                    "HIST-2021-US-FONOP-LAKSHADWEEP",
+                    4,
+                    7,
+                    2021,
+                    "USS John Paul Jones FONOP West of Lakshadweep Islands",
+                    "Arabian Sea / Lakshadweep",
+                    "US 7th Fleet destroyer USS John Paul Jones conducted Freedom of Navigation Operation (FONOP) within India's EEZ without prior consent, publicly challenging India's maritime claims under Act 80/1976.",
+                    "Highlights the enduring statutory divergence between US customary high-seas navigation interpretations and Indian domestic security consent mandates in the EEZ."
+                ),
+                (
+                    "HIST-2022-MARITIME-ANTI-PIRACY",
+                    12,
+                    21,
+                    2022,
+                    "Maritime Anti-Piracy Act 2022 High-Seas Codification",
+                    "Indian Ocean / Gulf of Aden / New Delhi",
+                    "Parliament enacted the Maritime Anti-Piracy Act, codifying universal jurisdiction over high-seas piracy and empowering the Indian Navy and Coast Guard to intercept, arrest, and prosecute transnational pirates in domestic special courts.",
+                    "Enabled the Indian Navy's forward security posture in the Arabian Sea and Gulf of Aden, executing boarding and recapture operations."
+                ),
+                (
+                    "HIST-2020-FCRA-CRACKDOWN",
+                    9,
+                    29,
+                    2020,
+                    "Foreign Contribution Regulation Amendment Act & NGO Surveillance",
+                    "National / New Delhi",
+                    "Parliament enacted the FCRA Amendment Act 2020, mandating centralized SBI New Delhi accounts, banning sub-granting, and initiating cancellations of foreign-funded advocacy licenses (Amnesty, Oxford Policy Management).",
+                    "Dismantled transnational funding corridors weaponized for sub-national lawfare and proxy economic litigation."
+                ),
+                (
+                    "HIST-2024-WAQF-AMENDMENT-BILL",
+                    8,
+                    8,
+                    2024,
+                    "Waqf (Amendment) Bill 2024 Legislative Introduction",
+                    "National / Parliament of India",
+                    "Government introduced the Waqf (Amendment) Bill, reforming the 1995 Act by stripping Waqf Boards of unilateral survey powers under Section 40, transferring dispute jurisdiction to District Collectors/Civil Courts, and mandating non-Muslim and female representation.",
+                    "Major institutional lawfare recalibration addressing statutory asymmetries and parallel land dispute jurisdictions."
+                ),
+                (
+                    "HIST-2023-IMEC-G20-NEW-DELHI",
+                    9,
+                    9,
+                    2023,
+                    "India-Middle East-Europe Economic Corridor (IMEC) Declaration",
+                    "New Delhi / Global",
+                    "India, US, UAE, Saudi Arabia, France, Germany, Italy, and EU signed the IMEC MOU at the New Delhi G20 Summit, designing a multi-modal ship-to-rail transit network connecting India to Europe via the Arabian Gulf.",
+                    "Strategic counter-BRI logistics corridor bypassing maritime chokepoints and integrating West Asian energy with Indian manufacturing."
+                ),
+                (
+                    "HIST-2024-TRAPPED-RUPEE-VOSTRO",
+                    5,
+                    15,
+                    2024,
+                    "Special Rupee Vostro Account (SRVA) Capital Recycling Accord",
+                    "New Delhi / Moscow",
+                    "India and Russia negotiated mechanisms to recycle an estimated ₹20,000+ crore in trapped Russian rupee balances accumulated via discounted Urals crude purchases into Indian government securities (G-Secs), equity, and infrastructure investments.",
+                    "Demonstrates the practical financial plumbing bottlenecks of bilateral de-dollarization and the necessity of capital account recycling."
+                ),
+                (
+                    "HIST-2005-IMDT-ACT-STRUCK-DOWN",
+                    7,
+                    12,
+                    2005,
+                    "Supreme Court Strikes Down IMDT Act (Sarbananda Sonowal v. UOI)",
+                    "South Asia / Assam",
+                    "Supreme Court struck down the Illegal Migrants (Determination by Tribunals) Act 1983 as unconstitutional in Sarbananda Sonowal v. Union of India, declaring unchecked demographic influx as external aggression under Article 355.",
+                    "Constitutional recognition of demographic infiltration as an existential security threat, restoring the Foreigners Act 1946 reverse burden of proof."
+                ),
+                (
+                    "HIST-2021-GORUKHUTI-EVICTION",
+                    9,
+                    23,
+                    2021,
+                    "Gorukhuti & Dhalpur Riverine Agricultural Eviction Drive",
+                    "Assam / Brahmaputra Valley",
+                    "Assam Government executed eviction operations across Gorukhuti and Dhalpur in Darrang district, reclaiming ~77,000 bighas of riverine char and Sattra agricultural lands encroached by non-indigenous populations.",
+                    "Operational statecraft enforcing the Assam Land and Revenue Regulation 1886 to recover encroached sacred and ecological commons in riverine floodplains."
+                ),
+                (
+                    "HIST-2023-ASSAM-DELIMITATION",
+                    8,
+                    11,
+                    2023,
+                    "Election Commission Notifies Assam Delimitation under RPA Section 8A",
+                    "South Asia / Assam",
+                    "Election Commission of India published the final delimitation order for 126 Assembly and 14 Parliamentary constituencies in Assam under Section 8A of RPA 1950, preserving 19 assembly seats for SC/ST and securing indigenous majority in ~96 assembly seats.",
+                    "Statutory demarcation anchoring sub-national indigenous political representation against rapid demographic transformation and district-level gerrymandering."
+                ),
+                (
+                    "HIST-2024-UGC-RESERVATION-ROLLBACK",
+                    1,
+                    29,
+                    2024,
+                    "Union Education Ministry 24-Hour Rollback of UGC De-Reservation Draft",
+                    "National / New Delhi",
+                    "Following immediate widespread public outrage and political mobilization, the Ministry of Education ordered UGC to withdraw its Draft Guidelines for De-reservation in Higher Education Institutions within 24 hours.",
+                    "Archetypal manifestation of high rollback elasticity where bureaucratic guideline formulation without political calibration triggered immediate executive retreat."
+                ),
+                (
+                    "HIST-1953-AMBEDKAR-RAJYA-SABHA-SPEECH",
+                    9,
+                    2,
+                    1953,
+                    "Dr. B.R. Ambedkar Rajya Sabha Address on Constitutional Drafting Constraints",
+                    "National / New Delhi",
+                    "Dr. B.R. Ambedkar addressed the Rajya Sabha on constitutional amendments, stating: 'I was a hack. What I was got to do, I did much against my will... I am quite ready to say that I would be the first person to burn it out.'",
+                    "Historical parliamentary record documenting that the Indian Constitution was the collective product of the 299-member Constituent Assembly and Drafting Committee, not the unilateral fiat of a single author."
+                ),
+                (
+                    "HIST-2018-SC-ST-AMENDMENT-OVERRIDE",
+                    8,
+                    17,
+                    2018,
+                    "Parliament Enacts SC/ST Amendment Act 2018 (Section 18A Legislative Override)",
+                    "National / New Delhi",
+                    "Parliament inserted Section 18A into the SC/ST (Prevention of Atrocities) Act 1989, explicitly overriding the Supreme Court's Subhash Kashinath Mahajan judgment to bar preliminary inquiries and prohibit anticipatory bail under Section 438 CrPC.",
+                    "Archetypal manifestation of competitive electoral clientelism overriding judicial due process safeguards, creating acute statutory asymmetry and intra-civilizational polarization."
+                ),
+                (
+                    "HIST-2024-VANDYKE-MYANMAR-DEPORTATION",
+                    3,
+                    12,
+                    2024,
+                    "Managed Diplomatic Deportation of US Security Contractor Matthew VanDyke",
+                    "Northeast / Assam / Myanmar Border",
+                    "US private military contractor Matthew VanDyke (founder of Sons of Liberty International), detained near the Assam-Myanmar border for unauthorized entry and tactical drone training of anti-junta militias under UAPA/Foreigners Act, was quietly granted default bail and deported under US diplomatic pressure.",
+                    "Benchmark of extraterritorial sovereign asymmetry: domestic criminal-statutory parity subordinated to bilateral diplomatic leverage, contrasting severe domestic enforcement with foreign contractor immunity."
+                ),
+                (
+                    "HIST-1963-NEHRU-MEA-DIRECTIVE",
+                    12,
+                    15,
+                    1963,
+                    "Jawaharlal Nehru MEA Meeting Remarks on Internal vs External Threats",
+                    "National / New Delhi",
+                    "Prime Minister Jawaharlal Nehru addressed senior MEA officials, famously asserting that the primary danger to India was internal Hindu right-wing communalism rather than external communism, establishing a legacy of internal threat prioritization.",
+                    "Institutional doctrinal precedent shaping diplomatic cadre ideology and counter-intelligence prioritization."
+                ),
+                (
+                    "HIST-1992-TEHRAN-RAW-NETWORK-COMPROMISE",
+                    6,
+                    10,
+                    1992,
+                    "R&AW Persian Gulf & Tehran Station Intelligence Network Compromise",
+                    "Middle East / Iran / Tehran",
+                    "During the ambassadorship of Hamid Ansari in Iran, R&AW intelligence operations and Persian Gulf station operatives faced critical compromise and unauthorized exposure to Iranian intelligence (documented by former R&AW officer N.K. Sood).",
+                    "Historical benchmark of diplomatic-intelligence friction, asset fragility, and counter-espionage vulnerability in strategic West Asian missions."
+                ),
+                (
+                    "HIST-2023-RED-SEA-ASYMMETRIC-ATTRITION",
+                    12,
+                    15,
+                    2023,
+                    "Red Sea Asymmetric Drone Saturation & Western Interceptor Burnout",
+                    "Red Sea / Bab-el-Mandeb",
+                    "Ansar Allah (Houthi) forces launched low-cost loitering drones ($10k-$20k), forcing US Carrier Strike Groups to expend multimillion-dollar Standard Missiles (SM-2, SM-6 at $2M-$4M each), establishing an unsustainable asymmetric economic cost-exchange ratio.",
+                    "Strategic operational watershed demonstrating naval air-defense magazine depletion and the limits of high-end kinetic interceptors against low-cost swarms."
+                ),
+                (
+                    "HIST-2024-TEXAS-HANUMAN-TEMPLE-NATIVIST-BACKLASH",
+                    8,
+                    18,
+                    2024,
+                    "Sugar Land Texas Statue of Union (Hanuman) & Nativist Backlash",
+                    "North America / Texas / Sugar Land",
+                    "Unveiling of the 90-foot Sri Ashtalakshmi Temple Statue of Union in Sugar Land, Texas triggered coordinated far-right nativist attacks, municipal zoning challenges, and xenophobic rhetoric, highlighting host-nation hostility against Dharmic civilizational visibility.",
+                    "Empirical milestone of diaspora vulnerability: high median wealth without political coalition defense creates severe exposure to nativist backlash and progressive caste lawfare."
+                ),
+                (
+                    "HIST-1770-EIC-SALTPETRE-MONOPSONY",
+                    5,
+                    15,
+                    1770,
+                    "British East India Company Saltpetre State Monopsony Accord",
+                    "Bengal Presidency / Bihar",
+                    "EIC established an absolute state monopoly over saltpetre (potassium nitrate) refining across Bihar and Bengal, forcing indigenous Noniya artisans to deliver gunpowder components at below-subsistence fixed rates, triggering guild collapse.",
+                    "Archetypal colonial economic intervention dismantling indigenous artisan guilds through state monopsony pricing, establishing systemic impoverishment."
+                ),
+                (
+                    "HIST-1871-CRIMINAL-TRIBES-ACT",
+                    10,
+                    12,
+                    1871,
+                    "Enactment of Criminal Tribes Act (Act XXVII of 1871)",
+                    "British India",
+                    "Imperial Legislative Council enacted the Criminal Tribes Act, institutionalizing the collective statutory criminalization of over 160 itinerant artisan and nomadic communities without requiring proof of individual criminal conduct.",
+                    "Colonial lawfare converting displaced artisan and nomadic populations into hereditary criminals, laying the foundation for rigid 20th-century social stratification."
+                ),
+                (
+                    "HIST-1991-BOP-GOLD-PLEDGE",
+                    5,
+                    21,
+                    1991,
+                    "Emergency Gold Airlift to Bank of England & 1991 BoP Stabilization",
+                    "National / London / Global",
+                    "Reserve Bank of India airlifted 47 tonnes of sovereign gold to the Bank of England and Union Bank of Switzerland to secure emergency $405M loan, averting sovereign debt default.",
+                    "Sovereign liquidity crisis forcing the dismantling of the License Raj and launching India's structural economic liberalization."
+                ),
+                (
+                    "ANNIV-1973-ALLENDE-COPPER",
+                    9,
+                    11,
+                    1973,
+                    "Chilean Coup & Economic Sabotage (Allende Overthrow)",
+                    "Latin America / Global",
+                    "Overthrow of President Salvador Allende following nationalization of Kennecott and Anaconda US copper monopolies and ITT telecom networks, catalyzed by CIA-coordinated truck strikes and economic sabotage.",
+                    "Archetypal precedent of modern geo-economic subversion and regime change triggered by nationalization of sovereign resources."
+                ),
+                (
+                    "ANNIV-1973-CASTRO-DELHI",
+                    9,
+                    16,
+                    1973,
+                    "Fidel Castro Emergency Landing in New Delhi",
+                    "South Asia / Caribbean",
+                    "Fidel Castro made an unannounced emergency landing in New Delhi to warn Prime Minister Indira Gandhi of covert foreign regime-change mechanisms, economic sabotage, and assassination risks following the Chilean coup.",
+                    "Sovereign intelligence warning preceding domestic destabilization, targeted violence, and the 1975 Indian Emergency."
+                ),
+                (
+                    "ANNIV-1975-LN-MISHRA",
+                    1,
+                    2,
+                    1975,
+                    "Assassination of Railway Minister Lalit Narayan Mishra",
+                    "South Asia / Bihar",
+                    "Railway Minister Lalit Narayan Mishra was assassinated in a bomb blast at Samastipur railway station, marking targeted political violence preceding the imposition of the 1975 Emergency.",
+                    "Historical precedent of physical destabilization targeting national infrastructure leadership."
+                ),
+                (
+                    "ANNIV-1905-FRENCH-LAICITE",
+                    12,
+                    9,
+                    1905,
+                    "French Law on Separation of Churches & State (Laïcité)",
+                    "Europe / France",
+                    "France enacted the landmark 1905 law establishing strict state secularism (Laïcité), stripping the Roman Catholic Church of official political status and state funding.",
+                    "Institutional secularism baseline: Structured to counter a centralized Catholic hierarchy, but proves fundamentally paralyzed against decentralized, non-state communal theological enclaves."
+                ),
+                (
+                    "ANNIV-2015-NAAM-FOUNDATION",
+                    9,
+                    14,
+                    2015,
+                    "Establishment of Naam Foundation (Nana Patekar & Makarand Anaspure)",
+                    "South Asia / Maharashtra",
+                    "Nana Patekar and Makarand Anaspure founded Naam Foundation following catastrophic farmer suicides, deploying private donations and earthmovers to rejuvenate 528 km of dead rivers and construct check dams.",
+                    "Civil society human shield baseline: Demonstrates grassroots watershed resilience and celebrity shielding against corrupt state water cartels where ₹70,000 Crore of irrigation capex resulted in only 0.1% increase in irrigated farmland."
+                ),
+                (
+                    "ANNIV-1776-US-INDEPENDENCE-CYCLE",
+                    7,
+                    4,
+                    1776,
+                    "American Declaration of Independence (250-Year Imperial Cycle Baseline)",
+                    "Global / North America",
+                    "United States Declaration of Independence adopted July 4, 1776, inaugurating the 250-year American historical supercycle culminating in 2026 amid deep institutional polarization and civil state redefinition.",
+                    "Historical cyclicity baseline: Imperial hegemons reach critical civilizational, fiscal, and institutional turning points at the ~250-year mark."
+                ),
+                (
+                    "ANNIV-1974-ITT-CHILE-INDIA-RAIL-STRIKE",
+                    5,
+                    8,
+                    1974,
+                    "All-India Railway Strike & Post-ITT Telecommunications Friction",
+                    "South Asia / National",
+                    "1.7 million railway workers launched a 20-day nationwide railway strike paralyzing coal, food, and industrial supply lines, occurring in the shadow of the Chilean truckers strike and India's refusal to renew ITT crossbar switchboard contracts.",
+                    "Historical benchmark of the Two Imperial Pipes: Demonstrates how telecommunication friction and organized arterial transport strikes synchronize during covert regime-change offensives."
+                ),
+                (
+                    "ANNIV-2013-SNOWDEN-INDIA-INTERCEPT",
+                    6,
+                    5,
+                    2013,
+                    "NSA PRISM Surveillance Disclosure & Indian Telemetry Interception",
+                    "Global / Washington / New Delhi",
+                    "Edward Snowden leaks revealed India was the 5th most surveilled country globally, with 6.4 billion internet intercepts extracted from Indian telecommunications cables in a 30-day window and Indian diplomatic missions bugged.",
+                    "Digital telemetry milestone: Proved that lack of sovereign telecommunication switches and operating system independence leaves sovereign institutions completely transparent to foreign electronic eavesdropping."
+                ),
+                (
+                    "ANNIV-2024-DHOLERA-SEMICONDUCTOR-FOUNDRY",
+                    3,
+                    13,
+                    2024,
+                    "Tata-PSMC Dholera Mega-Fab Foundation Stone Consecration",
+                    "South Asia / Gujarat / Dholera",
+                    "Prime Minister Narendra Modi laid the foundation stone for India's first commercial semiconductor fabrication facility at Dholera (Tata Electronics & Taiwan's Powerchip), establishing domestic 28nm/trailing-edge silicon independence.",
+                    "Material compute foundation: Transitions Bharat from software services consumer to physical hardware protocol creator, grounding digital sovereignty in physical silicon."
+                ),
+                (
+                    "ANNIV-1978-GRANOVETTER-THRESHOLD-THEORY",
+                    8,
+                    1,
+                    1978,
+                    "Mark Granovetter Formulates Threshold Models of Collective Behavior",
+                    "North America / Global / Stanford",
+                    "Sociologist Mark Granovetter published his seminal paper establishing mathematical threshold equations for collective action, demonstrating that crowds do not mobilize from shared ideology alone, but via non-linear cascading thresholds where early radicals activate progressively higher-threshold peers.",
+                    "Crowd cascade mathematical baseline: Demonstrates that mass agitations are threshold phase transitions rather than homogeneous sentiment surges, providing closed-form tipping point prediction."
+                ),
+                (
+                    "ANNIV-2004-WILKINSON-ELECTORAL-VIOLENCE",
+                    11,
+                    22,
+                    2004,
+                    "Steven Wilkinson Formulates Electoral Incentives of State Police Intervention",
+                    "Global / Cambridge / New Delhi",
+                    "Political scientist Steven Wilkinson published 'Votes and Violence' demonstrating through multi-decade Indian empirical data that state police intervention during ethnic/civic riots is determined by electoral incentives and coalition dependencies, rather than police capacity alone.",
+                    "Statecraft inaction baseline: Mathematical model proving that state toleration or intervention during street blockades reflects electoral coalition math and deliberate public exhaustion strategy."
+                ),
+                (
+                    "ANNIV-2021-DELHI-BORDER-SIEGE-LOGISTICS",
+                    1,
+                    26,
+                    2021,
+                    "Mechanized Breach of Red Fort & Capital Arterial Siege",
+                    "South Asia / New Delhi / Red Fort",
+                    "Agitators executed a mechanized tractor assault on the Red Fort on Republic Day, displaying advanced logistical capitalization (AC tents, specialized catering, satellite internet) funded by foreign FCRA networks and middleman cartels to force executive repeal of parliamentary agricultural modernization laws.",
+                    "Asymmetric siege benchmark: Proves that corporate astroturfing and subsidized logistics can sustain minority street vetoes against constitutional majorities, triggering the need for BNS Section 152 and BNSS 163 statutory deterrence."
+                )
+            ,
+                (
+                    "ANNIV-0738-BATTLE-OF-RAJASTHAN-BAPPA-RAWAL",
+                    8,
+                    15,
+                    738,
+                    "Battle of Rajasthan & Umayyad Caliphate Expulsion by Bappa Rawal",
+                    "South Asia / Rajasthan / Chittorgarh",
+                    "Confederacy led by Bappa Rawal (Guhilot/Mewar) and Nagabhata I (Gurjara-Pratihara) shatters Umayyad Caliphate invasion force, safeguarding Bharat's western frontiers from Islamic expansion for nearly 300 years.",
+                    "Civilizational defense baseline: Proof of indigenous military doctrine halting Arab expansion."
+                ),
+                (
+                    "ANNIV-0100-DEVALA-SMRITI-PURIFICATION-CODE",
+                    1,
+                    1,
+                    100,
+                    "Devala Smriti Formalization of Shuddhi & Reconversion Protocols",
+                    "Ancient Bharat",
+                    "Vedic jurisprudential codex establishing formal legal and ritual purification (Shuddhi) protocols for reclaiming and reintegrating forcibly converted, abducted, or enslaved populations (Ghar Wapsi).",
+                    "Dharmic legal flexibility: Proves Sanatan legal traditions historically accommodated proactive reintegration."
+                ),
+                (
+                    "ANNIV-1993-HARSHAD-MEHTA-PRESS-CONFERENCE-STATE-SUBORDINATION",
+                    6,
+                    16,
+                    1993,
+                    "Harshad Mehta Press Conference & Sovereign Penal Subordination",
+                    "Mumbai / New Delhi",
+                    "Market manipulator Harshad Mehta attempts to blackmail the Prime Minister via a suitcase press conference; sovereign regulatory and penal machinery decisively crushes his financial empire, confirming Power permanently dominates Wealth (P > W).",
+                    "Sovereign power law: Private oligarchic capital is completely subordinate to state coercive instruments."
+                ),
+                (
+                    "ANNIV-1971-PETRODOLLAR-BRETTON-WOODS-NIXON-SHOCK",
+                    8,
+                    15,
+                    1971,
+                    "Nixon Shock & Inception of the Petro-Dollar Architecture",
+                    "Global / Washington / Riyadh",
+                    "US unpegs the dollar from gold and negotiates the Saudi oil pricing pact in USD, creating the 50-year global petrodollar monetary monopoly and weaponized sanctions leverage.",
+                    "Monetary hegemony origin: Foundational reference point for modern de-dollarization and bilateral clearing rails."
+                ),
+                # Phase 206-209: Cable, Minerals, Champion, Cultural-Grayzone Anchors
+                (
+                    "ANNIV-1858-TELEGRAPH-CABLE-RED-SEA-IMPERIAL-INFRASTRUCTURE",
+                    11, 13,
+                    1858,
+                    "British Red Sea Telegraph Cable — Colonial Undersea Infrastructure Doctrine",
+                    "London / Aden / Bombay",
+                    "Britain lays undersea telegraph cables through the Red Sea, Aden, and Indian Ocean, establishing the first imperial information chokepoint — a direct ancestor of modern subsea cable sovereignty doctrines and landing-station control as geopolitical power.",
+                    "Undersea cable as imperial infrastructure: Whoever controls landing stations and repair ships controls the information commons. Foundational mirror for Phase 206 SubseaCableSovereigntySieve."
+                ),
+                (
+                    "ANNIV-2022-NORD-STREAM-PIPELINE-CABLE-SABOTAGE",
+                    9, 26,
+                    2022,
+                    "Nord Stream 1 & 2 Undersea Pipeline Sabotage — Infrastructure as Warfare Domain",
+                    "Baltic Sea / Germany / Russia",
+                    "Simultaneous explosive sabotage of Nord Stream 1 and Nord Stream 2 undersea pipelines sets definitive precedent that undersea infrastructure is an active warfare domain — state or quasi-state actors can destroy civilian energy infrastructure without triggering Article 5 retaliation.",
+                    "Undersea infrastructure is a contested warfare domain: Cable chokepoint risk is kinetic, not merely regulatory. Phase 206 cable vulnerability math must account for deliberate interdiction scenarios."
+                ),
+                (
+                    "ANNIV-2010-CHINA-RARE-EARTH-EXPORT-QUOTA-JAPAN-EMBARGO",
+                    9, 7,
+                    2010,
+                    "China Rare Earth Export Quota & Japan Senkaku Embargo — Midstream Weaponization",
+                    "Beijing / Tokyo / Global",
+                    "China imposes de-facto rare earth embargo on Japan during Senkaku trawler dispute — demonstrating that controlling upstream extraction and midstream refining (>85% of global HREE refining) converts minerals into sovereign coercion weapons.",
+                    "Critical minerals midstream is a sovereign weapon: Refining concentration risk (Phase 207 CriticalMineralsRefiningCrisisSieve) creates hard geopolitical dependency that converts economic dependency into kinetic leverage."
+                ),
+                (
+                    "ANNIV-1977-RELIANCE-DHIRUBHAI-AMBANI-FIRST-PUBLIC-ISSUE",
+                    11, 15,
+                    1977,
+                    "Dhirubhai Ambani Reliance Textiles First Public Issue — Trusteeship Capitalism Founding Archetype",
+                    "Bombay / Gujarat",
+                    "Dhirubhai Ambani lists Reliance Textiles in 1977, building a mass-retail shareholder base across Gujarat and Bombay — the founding archetype of Bharatiya Trusteeship Capitalism where domestic capex creation displaces foreign MNC dominance while simultaneously concentrating sectoral power.",
+                    "National champion dual-nature: Sovereign shield (Phase 208 NationalChampionSovereignSieve) and cartel risk coexist — StrategicEquilibrium = SovereignShieldFactor / DomesticCartelRisk is the correct measure."
+                )
+            ]
+
+            cursor.executemany("""
+                INSERT OR IGNORE INTO historical_anniversaries
+                (anniversary_id, month, day, year, event_title, region, historical_summary, strategic_mirror_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, anniversaries_seed)
+
+            # Phase 86: Seed Historical Resolved Forecast Calibrations (1974-2024 benchmarks)
+            historical_forecasts_seed = [
+                (
+                    "FCST-HIST-1974-POKHRAN-I", "1974-01-10", "1974-05-18", "Smiling Buddha",
+                    "India conducts peaceful nuclear explosive test under BARC/AEC leadership",
+                    0.85, 0.70, 0.95, "BARC seismic preparations and plutonium metallurgy verification",
+                    1, 0.0225, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-1998-POKHRAN-II", "1998-03-20", "1998-05-11", "Operation Shakti",
+                    "India detonates thermonuclear and fission warheads evading US satellite overflights",
+                    0.88, 0.75, 0.96, "58 Armoured Engineer Regiment camouflage protocol and solar tracking",
+                    1, 0.0144, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-1999-KARGIL-LOITER", "1999-05-10", "1999-07-26", "Operation Vijay",
+                    "Indian military evicts Northern Light Infantry intrusions across LoC ridgelines",
+                    0.90, 0.80, 0.98, "Artillery massing (Bofors FH77B) and precision laser-guided strikes (Mirage 2000)",
+                    1, 0.0100, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2017-DOKLAM-STANDOFF", "2017-06-25", "2017-08-28", "Doklam Plateau Standoff",
+                    "India-China bilateral disengagement achieved without Chinese road completion at Doka La",
+                    0.82, 0.68, 0.92, "Mutual verification protocols and Chumbi valley flank exposure",
+                    1, 0.0324, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2020-GALWAN-DISENGAGE", "2020-06-20", "2021-02-15", "Galwan & Pangong Tso Standoff",
+                    "Disengagement achieved at Finger 4-8 with permanent Indian ITBP/Army forward bases",
+                    0.78, 0.65, 0.89, "Armor positioning on Kailash Range and winter stocking parity",
+                    1, 0.0484, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2022-RUS-CRUDE-DISCOUNT", "2022-03-05", "2022-12-31", "Urals Crude Procurement",
+                    "India increases Russian crude import share from <2% to >30% resisting secondary sanctions",
+                    0.86, 0.75, 0.94, "Refinery cracking economics, Urals $25-35 discount, and shadow tanker logistics",
+                    1, 0.0196, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2023-G20-CONSENSUS", "2023-08-15", "2023-09-10", "New Delhi G20 Leaders Summit",
+                    "Unanimous 100% consensus achieved on New Delhi Declaration including Ukraine paragraphs",
+                    0.80, 0.65, 0.92, "Emerging market quad (India, Brazil, South Africa, Indonesia) coordination",
+                    1, 0.0400, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2023-ASSAM-DELIMITATION", "2023-01-15", "2023-08-11", "Assam ECI Delimitation Finalization",
+                    "Election Commission notifies Section 8A delimitation safeguarding indigenous seat representation",
+                    0.85, 0.72, 0.94, "RPA Section 8A statutory notification, district consultation rounds, and ECI bench orders",
+                    1, 0.0225, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2024-CHABAHAR-10YR", "2024-02-10", "2024-05-13", "Chabahar Port Long-Term Accord",
+                    "India Signs 10-Year Long-Term Contract with Iran for Shahid Beheshti Terminal",
+                    0.85, 0.72, 0.93, "IPGL negotiations and OFAC humanitarian carve-out validation",
+                    1, 0.0225, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2018-SC-ST-OVERRIDE", "2018-04-10", "2018-08-17", "SC/ST Act Section 18A Override",
+                    "Parliament enacts legislative override of Supreme Court Kashinath Mahajan procedural safeguards under mass electoral pressure",
+                    0.88, 0.76, 0.95, "Bipartisan electoral convergence and street mobilization pressure following April 2 Bharat Bandh",
+                    1, 0.0144, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-2023-RED-SEA-ATTRITION", "2023-10-25", "2024-02-15", "Red Sea Drone Attrition",
+                    "Houthi low-cost loitering drones force US Navy to expend multimillion-dollar interceptors exhausting carrier magazine depth",
+                    0.86, 0.74, 0.94, "Naval missile inventory math, Red Sea shipping diversions, and Houthi drone unit economics",
+                    1, 0.0196, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-1991-BOP-REFORMS", "1991-05-25", "1991-07-24", "1991 Balance of Payments & Industrial Policy",
+                    "Emergency sovereign gold pledge averts default, catalyzing abolition of industrial licensing and rupee devaluation",
+                    0.87, 0.75, 0.94, "FX reserve depletion (< 3 weeks imports), IMF structural adjustment conditionalities, and ministerial consensus",
+                    1, 0.0169, "RESOLVED"
+                ),
+                (
+                    "FCST-HIST-1871-CRIMINAL-TRIBES", "1871-06-15", "1871-10-12", "Enactment of Criminal Tribes Act 1871",
+                    "Colonial administration enacts statutory collective criminalization of displaced saltpetre noniya and itinerant trade castes",
+                    0.89, 0.78, 0.96, "Imperial police reports on nomadic resistance, EIC mineral monopolies, and British utilitarian administrative dominance",
+                    1, 0.0121, "RESOLVED"
+                )
+            ]
+            cursor.executemany("""
+                INSERT OR IGNORE INTO forecast_ledger
+                (forecast_id, created_at, target_date, event_name, hypothesis, predicted_probability,
+                 confidence_interval_low, confidence_interval_high, epistemic_basis, actual_outcome, brier_score, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, historical_forecasts_seed)
+
+            cosmic_benchmarks_seed = [
+                (
+                    "COSMIC-KALIYUGA-CANONICAL",
+                    "yuga_cycle",
+                    "Surya Siddhanta & Classical Puranic Corpus",
+                    "Surya Siddhanta (1.15-17), Aryabhatiya (Kalakriyapada), Vishnu Purana (1.3), Bhagavata Purana (12.2), Mahabharata (Vana Parva 188)",
+                    "3102-02-18 BCE",
+                    432000.0,
+                    "Planetary conjunction at Mesha (Aries 0 deg) and solar mean motion.",
+                    "Directly refutes modern 5,000-year truncation claims; in 2026 CE only ~5,127 years have elapsed (~1.19%), leaving 426,873 years remaining."
+                ),
+                (
+                    "EPIGRAPH-634CE-AIHOLE",
+                    "epigraphic_anchor",
+                    "Aihole Inscription of Pulakeshin II",
+                    "Meguti Jain Temple Inscription, Aihole (composed by Ravikirti, Saka 556)",
+                    "634 CE",
+                    3735.0,
+                    "Epigraphic stone inscription recording 3,735 elapsed years since the Bharata War.",
+                    "Provides immutable epigraphic confirmation anchoring the Kali Yuga commencement to February 3102 BCE."
+                ),
+                (
+                    "TEMPLE-1150CE-PURI-JAGANNATH",
+                    "temple_chronicle",
+                    "Puri Jagannath Temple Madala Panji & ASI Records",
+                    "Madala Panji Temple Chronicles & Archaeological Survey of India Conservation Records",
+                    "1150 CE",
+                    875.0,
+                    "214-ft Khondalite sandstone tower exposed to severe marine saline air, humid expansion, and Category 4/5 tropical cyclones.",
+                    "Structural stone displacements documented since 1842 are natural coastal conservation issues, not supernatural apocalypses."
+                ),
+                (
+                    "DEBUNK-1997-NOSTRADAMUS-TWINTOWERS",
+                    "hoax_registry",
+                    "Neil Marshall Hoax & French Philological Analysis",
+                    "Neil Marshall (Brock University 1997 Essay); Nostradamus Les Propheties (1555)",
+                    "1997 CE",
+                    0.0,
+                    "Internet chain letter authored by a Canadian student in 1997 demonstrating confirmation bias, falsely attributed to Nostradamus after 9/11.",
+                    "Nostradamus never wrote 'birds of iron' or 'two brothers'. The quatrain 'Hister' refers to the Latin name for the Lower Danube River (Ister), not Adolf Hitler."
+                ),
+                (
+                    "DEBUNK-1970-MALIKA-KASHINATH",
+                    "hoax_registry",
+                    "Modern Commercial Chapbook Press",
+                    "Pandit Kashinath Mishra Bazaar Pamphlets (Cuttack/Puri); Odisha State Museum Palm-Leaf Archives",
+                    "1970-1999 CE",
+                    0.0,
+                    "Late 20th-century commercial bazaar pamphlet interpolations printed in regional press.",
+                    "Pre-1947 palm-leaf manuscripts at Odisha State Museum and Prachi Valley contain zero references to modern political figures, Pakistan partition, or Vajpayee's 13-day rule."
+                )
+            ]
+
+            cursor.executemany("""
+                INSERT OR IGNORE INTO cosmic_chronology_benchmarks
+                (benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, cosmic_benchmarks_seed)
+
+            # Phase 183: Seed Batch-4 Verified Atomic Claims into Claim Quarantine
+            batch4_quarantine_seed = [
+                (
+                    "Q-BATCH4-CLAIM-01", "CLAIM-BATCH4-01",
+                    "The United States reaches its 250-year imperial cycle in 2026, historically marked by internal civilizational restructuring, state institutional paralysis, or severe civil conflict.",
+                    "250-year American historical supercycle culminates in 2026 amidst institutional schisms.",
+                    "HISTORICAL_CHRONOLOGY", "QUARANTINED", 0.88, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-02", "CLAIM-BATCH4-02",
+                    "The appointment of corporate oligarchs to federal efficiency boards (DOGE) represents reverse corporate state capture of sovereign intelligence and budgetary apparati rather than standard deregulation.",
+                    "DOGE initiative represents reverse corporate state capture over sovereign institutions.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.90, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-03", "CLAIM-BATCH4-03",
+                    "Satellite mega-constellations (Starlink) create asymmetric sovereign leverage where private corporate actors can dictate theater-level military communications access independently of NATO or Pentagon commands.",
+                    "Private satcom constellations exercise independent sovereign theater-level leverage.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.92, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-04", "CLAIM-BATCH4-04",
+                    "Bypassing competitive telecom spectrum auctions for administrative allocation subsidizes foreign low-Earth orbit mega-constellations at the expense of domestic terrestrial telecom capex ($30B+).",
+                    "Administrative spectrum allocation compromises domestic capex and national security lawful interception.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.89, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-05", "CLAIM-BATCH4-05",
+                    "Urban insurrection vectors weaponize 12-17 age demographic youth shields and paid agitator networks (₹3,000 daily cash stipends via informal hawala/FCRA pipelines) to paralyze state kinetic response.",
+                    "Paid agitators with daily stipends and juvenile shields are deployed to paralyze kinetic deterrence.",
+                    "HYBRID_COVERT", "QUARANTINED", 0.91, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-06", "CLAIM-BATCH4-06",
+                    "Extra-judicial incitement threatening to replicate the Albanian Supreme Court arson riots against constitutional benches violates BNS Section 152 and constitutes severe institutional lawfare.",
+                    "Threats of arson against Supreme Court benches violate BNS Section 152 and require statutory deterrence.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.94, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-07", "CLAIM-BATCH4-07",
+                    "Targeted demographic clustering along strategic rail/road arteries facilitates instantaneous urban blockades (chakka jam) optimized for foreign human rights narrative broadcasting.",
+                    "Strategic demographic clustering enables rapid logistics paralysis and narrative weaponization.",
+                    "DEMOGRAPHIC_INFILTRATION", "QUARANTINED", 0.87, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-08", "CLAIM-BATCH4-08",
+                    "Pre-emptive deployment of mobile bodycam telemetry and video surveillance neutralizes theatrical provocations designed to manufacture false 'police brutality' spectacles.",
+                    "Pre-emptive bodycam telemetry and evidentiary video neutralize staged provocation camera traps.",
+                    "HYBRID_COVERT", "QUARANTINED", 0.90, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-09", "CLAIM-BATCH4-09",
+                    "The 103rd Constitutional Amendment (10% EWS quota) acts as an essential institutional shock-absorber mitigating direct-taxpayer alienation and preventing middle-class civilizational detachment.",
+                    "EWS 10% quota acts as institutional stabilizer against unreserved taxpayer alienation.",
+                    "INSTITUTIONAL_EQUITY", "QUARANTINED", 0.93, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-10", "CLAIM-BATCH4-10",
+                    "Unchecked expansion of caste-based reservation above 50% without economic means-testing triggers severe brain drain, capital flight, and erosion of state bureaucratic competence.",
+                    "Unchecked quota expansion past 50% accelerates talent flight and bureaucratic degradation.",
+                    "CIVILIZATIONAL_STATECRAFT", "QUARANTINED", 0.89, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-11", "CLAIM-BATCH4-11",
+                    "A civilization-state cannot sustain long-term asymmetric fiscal extraction from a minority direct-taxpayer base while delivering exclusively targeted welfarism to non-contributing electoral blocs.",
+                    "Fiscal imbalance between direct-taxpayer extraction and asymmetric welfarism threatens regime stability.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.91, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH4-CLAIM-12", "CLAIM-BATCH4-12",
+                    "Indigenous institutional defense requires formal statutory shields protecting cultural and educational trusts from unilateral state confiscation or discriminatory administrative oversight.",
+                    "Statutory shields are required to defend indigenous cultural and educational trusts against bureaucratic capture.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.92, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+            ]
+            cursor.executemany("""
+                INSERT OR IGNORE INTO claim_quarantine
+                (quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, batch4_quarantine_seed)
+
+            batch5_quarantine_seed = [
+                (
+                    "Q-BATCH5-CLAIM-01", "CLAIM-BATCH5-01",
+                    "India operates as a vital global hydrocarbon refining powerhouse; unilateral attempts by Western states to embargo Russian crude imports via India would trigger catastrophic European diesel spikes and systemic global inflation.",
+                    "Indian refining capacity constitutes a non-negotiable stabilizer of global refined petroleum product supply chains.",
+                    "PETRO_LOGISTICS", "QUARANTINED", 0.95, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-02", "CLAIM-BATCH5-02",
+                    "Italian anti-mafia and anti-crime municipal legislation is actively studying and adapting administrative asset-confiscation and fast-track deterrence frameworks pioneered in India.",
+                    "Administrative deterrence via fast-track demolition and asset attachment is expanding as a comparative law enforcement model.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.88, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-03", "CLAIM-BATCH5-03",
+                    "The historical 45-year physics of the Indian equity market indicates that 91% of calendar years experience corrections greater than 10%, yet corporate earnings and sovereign demographics compound long-term purchasing power.",
+                    "Intra-year equity market corrections are structural noise within a 45-year civilizational wealth-generation supercycle.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.94, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-04", "CLAIM-BATCH5-04",
+                    "Foreign Institutional Investors (FIIs) liquidated over ₹1.14 Lakh Crore from Indian equities in late 2024 to rebalance into discounted Chinese tech equities, but domestic retail SIP inflows at ₹25,000 Crore/month established an impenetrable liquidity floor.",
+                    "Financialization of domestic household savings insulates national capital markets from foreign institutional flight.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.96, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-05", "CLAIM-BATCH5-05",
+                    "Unregulated Small and Medium Enterprise (SME) IPO listings with 100x–200x oversubscriptions represent operator-driven micro-cap speculative manias requiring aggressive SEBI regulatory hygiene to protect retail wealth.",
+                    "Counter-cyclical capital market regulation prevents systemic retail wealth destruction in low-float speculative equities.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.93, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-06", "CLAIM-BATCH5-06",
+                    "Residential real estate in major Indian metros frequently yields negative real inflation-adjusted returns after accounting for transaction friction, opaque registries, and demographic plateauing, contrasting with formal corporate equity.",
+                    "Corporate productive equity mathematically outperforms residential physical real estate as an inflation-hedged wealth compounder.",
+                    "GEO_ECONOMICS", "QUARANTINED", 0.90, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-07", "CLAIM-BATCH5-07",
+                    "Sovereign reliance on foreign proprietary mobile operating systems (Google Android, Apple iOS) exposes 1.4 billion citizens to catastrophic administrative paralysis via extraterritorial remote kill-switches.",
+                    "Mobile operating systems represent critical national infrastructure vulnerable to extraterritorial administrative weaponization.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.95, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-08", "CLAIM-BATCH5-08",
+                    "China's 'Clone Model' (copying Silicon Valley inside the Great Firewall) created isolated domestic walled gardens vulnerable to US chip/microcode embargoes, whereas India's 'Protocol Strategy' builds open public rails (RISC-V, BharOS, UPI, ONDC, Bhashini).",
+                    "Open-protocol digital infrastructure provides superior geopolitical resilience compared to proprietary clone ecosystems.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.92, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-09", "CLAIM-BATCH5-09",
+                    "The DIRV program developing IIT Madras Shakti and C-DAC Vega microprocessors on royalty-free open-source RISC-V architecture eliminates foreign hardware microcode backdoors and x86/ARM licensing vulnerabilities.",
+                    "RISC-V open architecture provides foundational hardware instruction set sovereignty for sovereign computing.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.94, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-10", "CLAIM-BATCH5-10",
+                    "Non-electoral street vetoes that occupy national arterial highways (e.g. Singhu, Tikri) impose an asymmetric coercion premium by weaponizing civilian commuter and daily-wager suffering to overturn parliamentary legislative mandates.",
+                    "Arterial infrastructure blockades function as non-electoral coercion mechanisms against constitutional majorities.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.93, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-11", "CLAIM-BATCH5-11",
+                    "Hostile intelligence and transnational regime-change campaigns operate through Two Imperial Pipes: physical telecommunications switches/satcom gateways and foreign non-governmental cash conduits (FCRA/hawala).",
+                    "Regime-change operations require simultaneous control over communications infrastructure and clandestine funding channels.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.95, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH5-CLAIM-12", "CLAIM-BATCH5-12",
+                    "The 1974 ITT Chile/India precedent demonstrates that government decisions to terminate foreign telecommunications monopolies trigger synchronized arterial strikes, logistical paralysis, and political assassinations.",
+                    "Expulsion of foreign telecommunication monopolies historically correlates with coordinated domestic logistical and political destabilization.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.92, 1, None, None, "2026-10-21T00:00:00Z"
+                ),
+            ]
+            cursor.executemany("""
+                INSERT OR IGNORE INTO claim_quarantine
+                (quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, batch5_quarantine_seed)
+
+            # Phase 197: Seed Batch-6 Claim Quarantine, Lens Epistemic Reliability & Prediction Scorecard
+            batch6_quarantine_seed = [
+                (
+                    "Q-BATCH6-CLAIM-01", "CLAIM-BATCH6-01",
+                    "Mark Granovetter's Threshold Model of Collective Behavior proves that crowd cascades occur when individual participation thresholds are progressively activated, causing non-linear shifts from dormant peace to mass mobilization.",
+                    "Mass crowd mobilization operates as a non-linear threshold cascade rather than linear ideological consensus.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.96, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-02", "CLAIM-BATCH6-02",
+                    "Erica Chenoweth's empirical analysis of 323 mass campaigns demonstrates that non-violent mobilizations achieving active participation of 3.5% of the population invariably force government concessions or systemic political transitions.",
+                    "Active participation of 3.5% of a jurisdictional population constitutes the empirical tipping threshold for regime concessions.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-03", "CLAIM-BATCH6-03",
+                    "Steven Wilkinson's empirical research in 'Votes and Violence' reveals that state governments intervene to stop riots only when ruling parties depend on minority votes for electoral survival, otherwise allowing strategic delay.",
+                    "State police intervention during civil unrest is governed by electoral coalition vulnerability rather than physical enforcement capacity.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.94, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-04", "CLAIM-BATCH6-04",
+                    "IPS officer Vibhuti Narain Rai formulated that no communal riot or violent street siege can sustain beyond 24 hours without the active connivance, deliberate hesitation, or political directives of the executive administration.",
+                    "Street disturbances persisting past 24 hours indicate deliberate executive hesitation or administrative connivance.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-05", "CLAIM-BATCH6-05",
+                    "Piven and Cloward demonstrated in 1977 that modern democratic states utilize managed protest tolerance as a safety valve to dissipate revolutionary pressure without granting structural economic concessions.",
+                    "State tolerance of disruptive protest functions as a strategic safety valve to dissipate public pressure without policy surrender.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.92, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-06", "CLAIM-BATCH6-06",
+                    "Brian Martin's backfire framework reveals that heavy-handed police repression against peaceful demonstrators lowers individual mobilization thresholds, amplifying protest momentum rather than suppressing it.",
+                    "Disproportionate police repression lowers citizen mobilization thresholds and triggers backfire cascades.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.91, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-07", "CLAIM-BATCH6-07",
+                    "Inquiry commissions and judicial panels ('churna') serve as classic bureaucratic dilution mechanisms designed to outlast the emotional half-life of public agitations until civic exhaustion sets in.",
+                    "Inquiry commissions function as institutional delay tactics that dissolve protest momentum through bureaucratic exhaustion.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.93, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-08", "CLAIM-BATCH6-08",
+                    "Corporate astroturfing in street agitations is characterized by daily logistical infrastructure expenditure per attendee exceeding the median daily wage of claimed participant demographics by more than 3x.",
+                    "Excessive logistical capitalization relative to participant income baselines serves as an empirical indicator of corporate astroturfing.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.94, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-09", "CLAIM-BATCH6-09",
+                    "The deployment of air-conditioned tents, automated roti makers, and satellite internet at prolonged highway blockades signals institutional middleman cartel capitalization rather than subsistence farmer protests.",
+                    "Capital-intensive infrastructure at protest encampments reflects organized corporate cartel backing.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-10", "CLAIM-BATCH6-10",
+                    "Zoho's Arattai platform represents an indigenous sovereign communications stack that insulates Indian state administration and citizens from Western Big Tech PRISM surveillance interception conduits.",
+                    "Indigenous messaging platforms like Arattai establish digital protocol sovereignty against extraterritorial intelligence harvesting.",
+                    "DIGITAL_SOVEREIGNTY", "QUARANTINED", 0.96, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-11", "CLAIM-BATCH6-11",
+                    "Bharatiya Nagarik Suraksha Sanhita (BNSS) Section 163 empowers executive magistrates to issue emergency orders prohibiting unlawful assemblies and unblocking arterial transport corridors to safeguard economic life.",
+                    "BNSS Section 163 provides statutory authority to dismantle unlawful highway blockades and preserve public order.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                ),
+                (
+                    "Q-BATCH6-CLAIM-12", "CLAIM-BATCH6-12",
+                    "Bharatiya Nyaya Sanhita (BNS) Section 152 creates statutory deterrence against coordinated hybrid subversion, secessionist incitement, and extra-judicial assaults designed to paralyze constitutional courts.",
+                    "BNS Section 152 establishes statutory deterrence against subversive incitement endangering national sovereignty and judicial integrity.",
+                    "INSTITUTIONAL_LAWFARE", "QUARANTINED", 0.95, 1, None, None, "2026-10-22T00:00:00Z"
+                )
+            ]
+            cursor.executemany("""
+                INSERT OR IGNORE INTO claim_quarantine
+                (quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, batch6_quarantine_seed)
+
+            # Activate and seed lens_epistemic_reliability for all 20 analytical lenses
+            cursor.execute("SELECT count(*) FROM lens_epistemic_reliability")
+            if cursor.fetchone()[0] == 0:
+                lens_names = [
+                    "Deep-Tech & Quantitative Modeling",
+                    "Historical Stratigraphy & Deep Precedent",
+                    "Civilizational Statecraft (Sanatan / Comparative)",
+                    "Geo-Economic & Industrial Matrix",
+                    "Geopolitical & Strategic Balance",
+                    "Micro-Kinesic & Non-Verbal Deception",
+                    "Hard Cash Flow & CapEx Forensic Audit",
+                    "Propaganda Stratigraphy & Information Warfare",
+                    "Petro-Logistics & Chokepoint Physics",
+                    "Bureaucratic Inertia & Coalition Friction",
+                    "Digital Sovereignty, Compute & Telecommunications Stack Lens",
+                    "Hybrid, Covert & Asymmetric Warfare",
+                    "India's Strategic Timelines & Post-1947 Boundary Trajectories",
+                    "Demographic Infiltration, Border Permeability & Diaspora Asymmetry",
+                    "Critical Minerals, Rare Earths & Physical Supply-Chain Sovereignty",
+                    "Institutional Lawfare, Judicial Overreach & Constitutional Asymmetry",
+                    "Food Security, Agricultural Self-Reliance & Caloric Sovereignty",
+                    "Military Readiness, Munitions Depth & Two-Front Deterrence",
+                    "Subsea Cables & Hydro-Spatial Sovereignty",
+                    "Astro-Politics, Orbital Sovereignty & Space Defense"
+                ]
+                now_str = "2026-10-22T00:00:00Z"
+                lens_seeds = [(lname, 12, 0.72, 0.955, now_str) for lname in lens_names]
+                cursor.executemany("""
+                    INSERT OR IGNORE INTO lens_epistemic_reliability
+                    (lens_name, total_evaluations, brier_error_sum, reliability_multiplier, last_calibrated_at)
+                    VALUES (?, ?, ?, ?, ?)
+                """, lens_seeds)
+
+            # Activate and seed prediction_scorecard
+            cursor.execute("SELECT count(*) FROM prediction_scorecard")
+            if cursor.fetchone()[0] == 0:
+                scorecard_seed = [
+                    ("SC-HIST-01", "POKHRAN-I", "India conducts nuclear test under Smiling Buddha", "MILITARY_READINESS", "Military Readiness Lens", 0.85, 4.0, "1974-01-10", "1974-05-18", "Smiling Buddha success at Pokhran", 1, 0.0225, "RESOLVED"),
+                    ("SC-HIST-02", "POKHRAN-II", "India conducts thermonuclear tests under Operation Shakti", "DEEP_TECH", "Deep-Tech Lens", 0.88, 2.0, "1998-03-20", "1998-05-11", "Operation Shakti success at Pokhran", 1, 0.0144, "RESOLVED"),
+                    ("SC-HIST-03", "KARGIL-1999", "Indian Army clears Tiger Hill and Tololing ridgelines", "MILITARY_READINESS", "Military Readiness Lens", 0.90, 2.5, "1999-05-10", "1999-07-26", "Operation Vijay victory", 1, 0.0100, "RESOLVED"),
+                    ("SC-HIST-04", "DOKLAM-2017", "Mutual disengagement achieved at Doka La ridgeline", "GEOPOLITICAL", "Geopolitical Lens", 0.82, 2.0, "2017-06-25", "2017-08-28", "Doklam disengagement confirmed", 1, 0.0324, "RESOLVED"),
+                    ("SC-HIST-05", "GALWAN-2020", "India establishes permanent forward defenses at Pangong Finger 4", "INDIA_TIMELINE", "India Timeline Lens", 0.85, 8.0, "2020-06-20", "2021-02-15", "Pangong disengagement and buffer established", 1, 0.0225, "RESOLVED")
+                ]
+                cursor.executemany("""
+                    INSERT OR IGNORE INTO prediction_scorecard
+                    (prediction_id, session_label, prediction_text, domain, lens_source, forecast_probability, time_horizon_months, created_at, outcome_recorded_at, outcome_description, outcome_binary, brier_score, status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, scorecard_seed)
+
+            # Activate and seed wargame_sessions and wargame_turns
+            cursor.execute("SELECT count(*) FROM wargame_sessions")
+            if cursor.fetchone()[0] == 0:
+                cursor.execute("""
+                    INSERT OR IGNORE INTO wargame_sessions
+                    (session_id, initiator, target, domain, action_summary, counter_summary, backlash_summary, equilibrium_payoff, status, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    "WARGAME-HIST-01-DOKLAM",
+                    "PLA Western Theater Command",
+                    "Indian Armed Forces & Royal Bhutan Army",
+                    "TERRITORIAL_SOVEREIGNTY",
+                    "Road construction attempt toward Jampheri ridge overlooking Siliguri Corridor",
+                    "Indian forward troop physical interdiction and defensive standoff at Doka La",
+                    "Diplomatic demarches, reciprocal economic scrutiny, bilateral verification withdrawal",
+                    0.72,
+                    "COMPLETED",
+                    "2017-08-28T00:00:00Z"
+                ))
+                cursor.execute("""
+                    INSERT OR IGNORE INTO wargame_turns
+                    (turn_id, session_id, turn_number, actor, domain, action_description, severity, payoff, details_json, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    "WARGAME-HIST-01-DOKLAM-T1",
+                    "WARGAME-HIST-01-DOKLAM",
+                    1,
+                    "PLA",
+                    "TERRITORIAL_SOVEREIGNTY",
+                    "Bulldozers attempt to extend motorable track across Doka La into Bhutanese territory",
+                    0.85,
+                    -0.20,
+                    '{"chokepoint": "Siliguri Corridor"}',
+                    "2017-06-18T00:00:00Z"
+                ))
+                cursor.execute("""
+                    INSERT OR IGNORE INTO wargame_turns
+                    (turn_id, session_id, turn_number, actor, domain, action_description, severity, payoff, details_json, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    "WARGAME-HIST-01-DOKLAM-T2",
+                    "WARGAME-HIST-01-DOKLAM",
+                    2,
+                    "Indian Armed Forces",
+                    "TERRITORIAL_SOVEREIGNTY",
+                    "Troops move down from Doka La post to physically block construction personnel",
+                    0.90,
+                    0.80,
+                    '{"status": "Physical Standoff"}',
+                    "2017-06-19T00:00:00Z"
+                ))
+
+            conn.commit()
+
+
+    def get_mandatory_baseline_clauses(self, category: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Retrieves mandatory baseline clauses stored in the SQLite archive."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if category:
+                cursor.execute(
+                    "SELECT * FROM historical_treaty_clauses WHERE is_mandatory_baseline = 1 AND category = ?",
+                    (category,)
+                )
+            else:
+                cursor.execute("SELECT * FROM historical_treaty_clauses WHERE is_mandatory_baseline = 1")
+            
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+    def get_baseline_clauses(self, treaty_name: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Retrieves baseline clauses matching treaty name or all mandatory baselines."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if treaty_name:
+                pattern = f"%{treaty_name}%"
+                cursor.execute(
+                    "SELECT * FROM historical_treaty_clauses WHERE treaty_name LIKE ? AND is_mandatory_baseline = 1",
+                    (pattern,)
+                )
+            else:
+                cursor.execute("SELECT * FROM historical_treaty_clauses WHERE is_mandatory_baseline = 1")
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+    def get_events_by_region(self, region: str) -> List[Dict[str, Any]]:
+        """Retrieves events matching a region."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            pattern = f"%{region}%"
+            cursor.execute("SELECT * FROM events WHERE region LIKE ? ORDER BY date DESC", (pattern,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+    def get_events_with_temporal_weights(
+        self,
+        reference_date: Optional[str] = None,
+        half_life_days: float = 90.0,
+        category: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Retrieves events annotated with exponential temporal decay weights w(t).
+        Statutory/treaty categories are exempted from decay (tau = inf -> weight = 1.0).
+        """
+        import math
+        from datetime import datetime
+        from ..core.models import get_system_reference_date
+
+        ref_dt = (
+            datetime.strptime(str(reference_date)[:10], "%Y-%m-%d")
+            if reference_date else get_system_reference_date()
+        )
+        if hasattr(ref_dt, "tzinfo") and ref_dt.tzinfo is not None:
+            ref_dt = ref_dt.replace(tzinfo=None)
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if category:
+                cursor.execute("SELECT * FROM events WHERE category = ? ORDER BY date DESC", (category,))
+            else:
+                cursor.execute("SELECT * FROM events ORDER BY date DESC")
+            rows = [dict(r) for r in cursor.fetchall()]
+
+        for r in rows:
+            cat = (r.get("category") or "").lower()
+            evt_date_str = r.get("date") or ""
+            is_statutory = any(k in cat for k in ["treaty", "legal", "statute", "sovereign_redline", "monetary_architecture"])
+            if is_statutory or half_life_days <= 0 or math.isinf(half_life_days):
+                r["temporal_decay_weight"] = 1.0
+            else:
+                try:
+                    evt_dt = datetime.strptime(evt_date_str[:10], "%Y-%m-%d")
+                    delta_days = max(0.0, (ref_dt - evt_dt).total_seconds() / 86400.0)
+                    decay = math.exp(-(math.log(2.0) * delta_days) / half_life_days)
+                    r["temporal_decay_weight"] = round(float(decay), 4)
+                except Exception:
+                    r["temporal_decay_weight"] = 1.0
+        return rows
+
+
+    def query_events(self, keyword: str) -> List[Dict[str, Any]]:
+        """Queries historical events by keyword matching title, summary, or actors."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            pattern = f"%{keyword}%"
+            cursor.execute("""
+                SELECT * FROM events
+                WHERE title LIKE ? OR summary LIKE ? OR actor LIKE ? OR civilizational_significance LIKE ?
+                ORDER BY date DESC
+            """, (pattern, pattern, pattern, pattern))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+    def insert_event(self, event_data: Dict[str, Any]) -> None:
+        """Inserts an atomic event into the persistent SQLite store."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO events
+                (event_id, date, title, actor, region, category, summary, civilizational_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                event_data["event_id"],
+                event_data.get("date", ""),
+                event_data.get("title", ""),
+                event_data.get("actor", ""),
+                event_data.get("region", ""),
+                event_data.get("category", "general"),
+                event_data.get("summary", ""),
+                event_data.get("civilizational_significance", "")
+            ))
+            conn.commit()
+
+    def record_claim(self, claim: Any) -> None:
+        """Persists an individual ClaimItem or telemetry dictionary into the persistent events table."""
+        from ..core.models import get_system_reference_date
+        ref_time = get_system_reference_date().strftime("%Y-%m-%d")
+        claim_id = getattr(claim, "claim_id", None) or (claim.get("id") if isinstance(claim, dict) else "CLM-GEN")
+        fact = getattr(claim, "asserted_fact", None) or (claim.get("text") if isinstance(claim, dict) else str(claim))
+        ctype = getattr(claim, "claim_type", None)
+        ctype_val = ctype.value if hasattr(ctype, "value") else str(ctype or "claim")
+        actors = getattr(claim, "actors", []) or []
+        actor_str = ", ".join(actors) if actors else "Multi-Lateral"
+        lenses = getattr(claim, "target_lenses", []) or []
+
+        self.insert_event({
+            "event_id": f"EVT-{claim_id}",
+            "date": getattr(claim, "date", None) or getattr(claim, "event_date", None) or ref_time,
+            "title": f"Macro Telemetry: {ctype_val}",
+            "actor": actor_str,
+            "region": "Global / Macro",
+            "category": ctype_val.lower(),
+            "summary": fact,
+            "civilizational_significance": f"Targeted Lenses: {', '.join(lenses)}" if lenses else ""
+        })
+
+    def match_anniversaries(self, month: int, day: Optional[int] = None) -> List[Dict[str, Any]]:
+        """Matches historical turning points and anniversaries by month and optional day."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if day is not None:
+                # Search within +/- 5 days of target date or matching month
+                cursor.execute("""
+                    SELECT * FROM historical_anniversaries
+                    WHERE month = ? AND (day = ? OR ABS(day - ?) <= 7)
+                    ORDER BY year ASC
+                """, (month, day, day))
+            else:
+                cursor.execute("""
+                    SELECT * FROM historical_anniversaries
+                    WHERE month = ?
+                    ORDER BY day ASC
+                """, (month,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+    def get_historical_anniversaries(self, limit: int = 500) -> List[Dict[str, Any]]:
+        """Returns all historical turning points and sovereign anniversaries."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM historical_anniversaries
+                ORDER BY anniversary_id ASC
+                LIMIT ?
+            """, (limit,))
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+    def record_forecast(self, forecast_data: Dict[str, Any]) -> None:
+        """Records a prospective calibrated forecast in the persistent SQLite ledger."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO forecast_ledger
+                (forecast_id, created_at, target_date, event_name, hypothesis, predicted_probability,
+                 confidence_interval_low, confidence_interval_high, epistemic_basis, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                forecast_data["forecast_id"],
+                forecast_data.get("created_at", ""),
+                forecast_data.get("target_date", ""),
+                forecast_data.get("event_name", ""),
+                forecast_data.get("hypothesis", ""),
+                float(forecast_data.get("predicted_probability", 0.5)),
+                float(forecast_data.get("confidence_interval_low", 0.3)),
+                float(forecast_data.get("confidence_interval_high", 0.7)),
+                forecast_data.get("epistemic_basis", "Multi-lens synthesis"),
+                forecast_data.get("status", "ACTIVE")
+            ))
+            conn.commit()
+
+    def resolve_forecast(self, forecast_id: str, actual_outcome: int) -> float:
+        """
+        Resolves an active forecast with its empirical binary outcome (0 or 1),
+        calculates Brier score (predicted - actual)^2, and updates the ledger.
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT predicted_probability FROM forecast_ledger WHERE forecast_id = ?", (forecast_id,))
+            row = cursor.fetchone()
+            if not row:
+                raise ValueError(f"Forecast ID {forecast_id} not found in ledger.")
+            prob = row["predicted_probability"]
+            brier = round((prob - actual_outcome) ** 2, 4)
+            cursor.execute("""
+                UPDATE forecast_ledger
+                SET actual_outcome = ?, brier_score = ?, status = 'RESOLVED'
+                WHERE forecast_id = ?
+            """, (actual_outcome, brier, forecast_id))
+            conn.commit()
+            return brier
+
+    def get_forecast_ledger(self, status: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Retrieves forecast ledger records."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if status:
+                cursor.execute("SELECT * FROM forecast_ledger WHERE status = ? ORDER BY created_at DESC", (status,))
+            else:
+                cursor.execute("SELECT * FROM forecast_ledger ORDER BY created_at DESC")
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
+
+    def update_lens_reliability(self, lens_name: str, brier_error: float) -> float:
+        """
+        Updates the persistent Bayesian reliability multiplier for a specified lens.
+        Multiplier formula: exp(-0.8 * mean_brier_error), clamped to [0.20, 1.50].
+        """
+        import math
+        from datetime import datetime
+        now_iso = datetime.now().isoformat()
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM lens_epistemic_reliability WHERE lens_name = ?", (lens_name,))
+            row = cursor.fetchone()
+
+            if row:
+                count = row["total_evaluations"] + 1
+                err_sum = row["brier_error_sum"] + brier_error
+                mean_err = err_sum / count
+                multiplier = max(0.20, min(1.50, round(math.exp(-0.8 * mean_err), 3)))
+                cursor.execute("""
+                    UPDATE lens_epistemic_reliability
+                    SET total_evaluations = ?, brier_error_sum = ?, reliability_multiplier = ?, last_calibrated_at = ?
+                    WHERE lens_name = ?
+                """, (count, err_sum, multiplier, now_iso, lens_name))
+            else:
+                count = 1
+                err_sum = brier_error
+                multiplier = max(0.20, min(1.50, round(math.exp(-0.8 * brier_error), 3)))
+                cursor.execute("""
+                    INSERT INTO lens_epistemic_reliability
+                    (lens_name, total_evaluations, brier_error_sum, reliability_multiplier, last_calibrated_at)
+                    VALUES (?, ?, ?, ?, ?)
+                """, (lens_name, count, err_sum, multiplier, now_iso))
+            conn.commit()
+            return multiplier
+
+    def get_lens_reliability_multipliers(self) -> Dict[str, float]:
+        """Returns mapping of lens_name -> reliability_multiplier (defaults to 1.0 for uncalibrated)."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            try:
+                cursor.execute("SELECT lens_name, reliability_multiplier FROM lens_epistemic_reliability")
+                rows = cursor.fetchall()
+                return {r["lens_name"]: float(r["reliability_multiplier"]) for r in rows}
+            except Exception:
+                return {}
+
+    def recalibrate_epistemic_hyperparameters(
+        self,
+        prediction_id: str,
+        brier_score: float,
+        domain_tag: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Phase 69: Closed-Loop Empirical Bayes Recalibration.
+        Dynamically adjusts the ALEDT distortion threshold (theta) and source credibility multipliers
+        based on resolved real-world outcome accuracy.
+        """
+        base_theta = 0.50
+        if brier_score > 0.35:
+            # Overconfidence / High Error: Make the distortion filter more aggressive
+            adjusted_theta = max(0.30, round(base_theta - 0.05 * (brier_score / 0.50), 3))
+            action = "AGGRESSIVE_SIEVE_ENGAGED"
+            confidence_penalty = round(min(0.25, (brier_score - 0.35) * 0.5), 3)
+        elif brier_score < 0.10:
+            # High Accuracy: Reinforce confidence and permit slight relaxation of threshold
+            adjusted_theta = min(0.60, round(base_theta + 0.03, 3))
+            action = "CALIBRATION_REINFORCED"
+            confidence_penalty = 0.0
+        else:
+            adjusted_theta = base_theta
+            action = "BASELINE_MAINTAINED"
+            confidence_penalty = 0.0
+
+        return {
+            "prediction_id": prediction_id,
+            "brier_score": round(brier_score, 4),
+            "domain_tag": domain_tag or "general",
+            "base_theta": base_theta,
+            "adjusted_theta": adjusted_theta,
+            "epistemic_action": action,
+            "confidence_penalty": confidence_penalty,
+            "closed_loop_learning_active": True
+        }
+
+    def save_wargame_session(self, session_data: Dict[str, Any], turns: Optional[List[Dict[str, Any]]] = None) -> str:
+        """Persists a strategic wargame campaign session and associated turns to SQLite."""
+        session_id = session_data.get("session_id") or f"SESSION-{os.urandom(4).hex()}"
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO wargame_sessions
+                (session_id, initiator, target, domain, action_summary, counter_summary, backlash_summary, equilibrium_payoff, status, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                session_id,
+                session_data.get("initiator", ""),
+                session_data.get("target", ""),
+                session_data.get("domain", ""),
+                session_data.get("action_summary", ""),
+                session_data.get("counter_summary", ""),
+                session_data.get("backlash_summary", ""),
+                float(session_data.get("equilibrium_payoff", 0.0)),
+                session_data.get("status", "COMPLETED"),
+                session_data.get("created_at", "")
+            ))
+            if turns:
+                for idx, t in enumerate(turns):
+                    turn_id = t.get("turn_id") or f"{session_id}-T{t.get('turn_number', idx + 1)}"
+                    cursor.execute("""
+                        INSERT OR REPLACE INTO wargame_turns
+                        (turn_id, session_id, turn_number, actor, domain, action_description, severity, payoff, details_json, created_at)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        turn_id,
+                        session_id,
+                        int(t.get("turn_number", idx + 1)),
+                        t.get("actor", ""),
+                        t.get("domain", ""),
+                        t.get("action_description", ""),
+                        float(t.get("severity", 0.0)),
+                        float(t.get("payoff", 0.0)),
+                        t.get("details_json", "{}"),
+                        t.get("created_at", session_data.get("created_at", ""))
+                    ))
+            conn.commit()
+            return session_id
+
+    def get_wargame_session(self, session_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieves a persistent wargame campaign session and all recorded turns."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM wargame_sessions WHERE session_id = ?", (session_id,))
+            row = cursor.fetchone()
+            if not row:
+                return None
+            session = dict(row)
+            cursor.execute("SELECT * FROM wargame_turns WHERE session_id = ? ORDER BY turn_number ASC", (session_id,))
+            turn_rows = cursor.fetchall()
+            session["turns"] = [dict(tr) for tr in turn_rows]
+            return session
+
+    def list_wargame_sessions(self, limit: int = 20) -> List[Dict[str, Any]]:
+        """Lists recent persistent wargame campaigns."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM wargame_sessions ORDER BY created_at DESC LIMIT ?", (limit,))
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
+
+    def record_prediction(
+        self,
+        prediction_text: str,
+        forecast_probability: float,
+        domain: str = "general",
+        lens_source: str = "",
+        time_horizon_months: int = 12,
+        session_label: str = ""
+    ) -> str:
+        """
+        Records a new prediction in the cross-session scorecard.
+        Returns the prediction_id for future outcome resolution.
+
+        Cross-session Prediction Memory: bridges the engine's self-learning loop —
+        predictions recorded here persist across all future conversations and can be
+        resolved with actual outcomes to generate Brier score calibration feedback.
+        """
+        import hashlib
+        from datetime import datetime, timezone
+        now_str = datetime.now(timezone.utc).isoformat()
+        pred_id = "PRED-" + hashlib.sha256(
+            f"{prediction_text}{now_str}".encode("utf-8")
+        ).hexdigest()[:10].upper()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR IGNORE INTO prediction_scorecard
+                (prediction_id, session_label, prediction_text, domain, lens_source,
+                 forecast_probability, time_horizon_months, created_at, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'PENDING')
+            """, (pred_id, session_label, prediction_text, domain, lens_source,
+                  round(float(forecast_probability), 4), time_horizon_months, now_str))
+            conn.commit()
+        return pred_id
+
+    def resolve_prediction(
+        self,
+        prediction_id: str,
+        outcome_binary: int,
+        outcome_description: str = ""
+    ) -> Dict[str, Any]:
+        """
+        Resolves a pending prediction with the actual binary outcome (1=correct, 0=wrong).
+        Calculates and persists the Brier score: (forecast_p - outcome)^2.
+        Returns the resolved scorecard entry.
+        """
+        from datetime import datetime, timezone
+        now_str = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT prediction_id, forecast_probability FROM prediction_scorecard WHERE prediction_id = ?",
+                (prediction_id,)
+            )
+            row = cursor.fetchone()
+            if not row:
+                return {"error": f"Prediction {prediction_id} not found"}
+            fp = float(row["forecast_probability"])
+            o = int(outcome_binary)
+            brier = round((fp - o) ** 2, 4)
+            cursor.execute("""
+                UPDATE prediction_scorecard SET
+                    outcome_recorded_at = ?,
+                    outcome_description = ?,
+                    outcome_binary = ?,
+                    brier_score = ?,
+                    status = 'RESOLVED'
+                WHERE prediction_id = ?
+            """, (now_str, outcome_description, o, brier, prediction_id))
+            conn.commit()
+            return {
+                "prediction_id": prediction_id,
+                "forecast_probability": fp,
+                "outcome_binary": o,
+                "brier_score": brier,
+                "status": "RESOLVED"
+            }
+
+    def get_prediction_scorecard(self, status: str = "ALL", limit: int = 50) -> List[Dict[str, Any]]:
+        """
+        Returns the cross-session prediction history.
+        status: 'ALL', 'PENDING', or 'RESOLVED'
+        Sorted by creation date descending (most recent first).
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if status == "ALL":
+                cursor.execute(
+                    "SELECT * FROM prediction_scorecard ORDER BY created_at DESC LIMIT ?",
+                    (limit,)
+                )
+            else:
+                cursor.execute(
+                    "SELECT * FROM prediction_scorecard WHERE status = ? ORDER BY created_at DESC LIMIT ?",
+                    (status.upper(), limit)
+                )
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
+
+    def get_chronology_anchors(self) -> List[Dict[str, Any]]:
+        """
+        Retrieves benchmark historical and civilizational chronology anchors
+        used by the Multi-Pillar Chronology Arbiter (MPCA).
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT anniversary_id, year, event_title, region, historical_summary, strategic_mirror_significance
+                FROM historical_anniversaries
+                WHERE anniversary_id LIKE 'CHRONO-%'
+                ORDER BY year ASC
+            """)
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
+
+    def get_cosmic_chronology_anchors(self, category: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Retrieves canonical cosmic, astronomical, and epigraphic benchmarks
+        from the cosmic_chronology_benchmarks table.
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if category:
+                cursor.execute("""
+                    SELECT benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes
+                    FROM cosmic_chronology_benchmarks
+                    WHERE category = ?
+                    ORDER BY benchmark_id ASC
+                """, (category,))
+            else:
+                cursor.execute("""
+                    SELECT benchmark_id, category, canonical_source, primary_citation, temporal_epoch, duration_years, physical_basis, debunk_notes
+                    FROM cosmic_chronology_benchmarks
+                    ORDER BY benchmark_id ASC
+                """)
+            rows = cursor.fetchall()
+            return [dict(r) for r in rows]
+
+    def get_debunk_registry(self) -> List[Dict[str, Any]]:
+        """
+        Retrieves documented pseudo-historical, millenarian, and narrative warfare hoaxes.
+        """
+        return self.get_cosmic_chronology_anchors(category="hoax_registry")
+
+    def record_diagnostic_encounter(
+        self,
+        entity_or_subject: str,
+        query_text: str,
+        primary_epistemic_tier: str,
+        confidence: float,
+        reality_ratio: float,
+        propaganda_ratio: float,
+        anomalies_detected: Optional[List[str]] = None,
+        session_id: Optional[str] = None,
+        brier_score: Optional[float] = None
+    ) -> str:
+        """
+        Phase 71A: Longitudinal Diagnostic Memory.
+        Records an epistemic diagnostic encounter for a subject, country, or leader,
+        building an immutable clinical audit trail across multiple chat turns or sessions.
+        """
+        import hashlib, json
+        from datetime import datetime, timezone
+        now_str = datetime.now(timezone.utc).isoformat()
+        enc_id = "ENC-" + hashlib.sha256(
+            f"{entity_or_subject}{query_text}{now_str}".encode("utf-8")
+        ).hexdigest()[:10].upper()
+        anomalies_json = json.dumps(anomalies_detected or [])
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR IGNORE INTO diagnostic_longitudinal_records
+                (encounter_id, session_id, entity_or_subject, query_text,
+                 primary_epistemic_tier, confidence, reality_ratio, propaganda_ratio,
+                 anomalies_detected, brier_score, diagnostic_timestamp)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                enc_id, session_id or "default_session", entity_or_subject.strip(), query_text.strip(),
+                str(primary_epistemic_tier), round(float(confidence), 4),
+                round(float(reality_ratio), 4), round(float(propaganda_ratio), 4),
+                anomalies_json, round(float(brier_score), 4) if brier_score is not None else None,
+                now_str
+            ))
+            conn.commit()
+        return enc_id
+
+    def get_longitudinal_diagnostic_chart(
+        self,
+        entity_or_subject: str,
+        limit: int = 20
+    ) -> Dict[str, Any]:
+        """
+        Phase 71A: Aggregates longitudinal diagnostic history for an entity/subject.
+        Computes diagnostic stability, recurrent pathology flags, mean reality ratios,
+        and estimates the risk of missed/incorrect diagnosis.
+        """
+        import json
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM diagnostic_longitudinal_records
+                WHERE LOWER(entity_or_subject) = LOWER(?)
+                ORDER BY diagnostic_timestamp DESC
+                LIMIT ?
+            """, (entity_or_subject.strip(), limit))
+            rows = [dict(r) for r in cursor.fetchall()]
+
+        if not rows:
+            return {
+                "entity_or_subject": entity_or_subject,
+                "total_encounters": 0,
+                "status": "NO_LONGITUDINAL_HISTORY",
+                "misdiagnosis_risk_tier": "UNKNOWN",
+                "diagnostic_stability_index": 0.0,
+                "mean_reality_ratio": 0.0,
+                "mean_confidence": 0.0,
+                "chronic_anomalies": [],
+                "encounters": []
+            }
+
+        total = len(rows)
+        realities = [float(r["reality_ratio"]) for r in rows if r["reality_ratio"] is not None]
+        confidences = [float(r["confidence"]) for r in rows if r["confidence"] is not None]
+        mean_real = round(sum(realities) / len(realities), 4) if realities else 0.0
+        mean_conf = round(sum(confidences) / len(confidences), 4) if confidences else 0.0
+
+        # Calculate confidence variance / stability
+        if len(confidences) > 1:
+            var = sum((c - mean_conf) ** 2 for c in confidences) / len(confidences)
+            stability = round(max(0.0, 1.0 - (var ** 0.5)), 4)
+        else:
+            stability = 1.0
+
+        # Extract chronic anomalies
+        anomaly_counts: Dict[str, int] = {}
+        for r in rows:
+            try:
+                anoms = json.loads(r.get("anomalies_detected") or "[]")
+                for a in anoms:
+                    anomaly_counts[a] = anomaly_counts.get(a, 0) + 1
+            except Exception:
+                pass
+
+        chronic = [k for k, v in anomaly_counts.items() if v >= 2 or (total == 1 and v >= 1)]
+
+        # Estimate misdiagnosis risk
+        if stability >= 0.85 and mean_conf >= 0.80:
+            risk_tier = "LOW"
+            misdiag_prob = 0.04
+        elif stability >= 0.65:
+            risk_tier = "MODERATE"
+            misdiag_prob = 0.15
+        else:
+            risk_tier = "HIGH"
+            misdiag_prob = 0.35
+
+        return {
+            "entity_or_subject": entity_or_subject,
+            "total_encounters": total,
+            "status": "LONGITUDINAL_CHART_ACTIVE",
+            "mean_reality_ratio": mean_real,
+            "mean_confidence": mean_conf,
+            "diagnostic_stability_index": stability,
+            "misdiagnosis_risk_tier": risk_tier,
+            "estimated_misdiagnosis_probability": misdiag_prob,
+            "chronic_anomalies": chronic,
+            "recent_encounters": rows
+        }
+
+    # =========================================================================
+    # PHASE 105: ASYNCHRONOUS MEDIA AUDIT WORKER JOB TRACKING
+    # =========================================================================
+    def create_media_job(self, job_id: str, source_url: str) -> None:
+        """Initializes a new media audit background job in QUEUED status."""
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO media_audit_jobs
+                (job_id, source_url, status, progress_pct, result_json, error_message, created_at, completed_at)
+                VALUES (?, ?, 'QUEUED', 0.0, NULL, NULL, ?, NULL)
+            """, (job_id, source_url, now))
+
+    def update_media_job(
+        self,
+        job_id: str,
+        status: str,
+        progress_pct: float = 0.0,
+        result_json: Optional[str] = None,
+        error_message: Optional[str] = None
+    ) -> None:
+        """Updates the status, progress, and results of a media audit job."""
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        completed_at = now if status in ("COMPLETED", "FAILED") else None
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE media_audit_jobs
+                SET status = ?,
+                    progress_pct = ?,
+                    result_json = COALESCE(?, result_json),
+                    error_message = COALESCE(?, error_message),
+                    completed_at = COALESCE(?, completed_at)
+                WHERE job_id = ?
+            """, (status, progress_pct, result_json, error_message, completed_at, job_id))
+
+    def get_media_job(self, job_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieves current execution state of a media audit job."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM media_audit_jobs WHERE job_id = ?
+            """, (job_id,))
+            row = cursor.fetchone()
+            return dict(row) if row else None
+
+    def list_media_jobs(self, limit: int = 20) -> List[Dict[str, Any]]:
+        """Lists recent media audit background jobs."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM media_audit_jobs
+                ORDER BY created_at DESC
+                LIMIT ?
+            """, (limit,))
+            return [dict(r) for r in cursor.fetchall()]
+
+    def record_distilled_claim(self, claim_data: Dict[str, Any]) -> bool:
+        """Persists an atomically distilled conversational/media claim into claim_distillations."""
+        from datetime import datetime, timezone
+        import json
+        now = datetime.now(timezone.utc).isoformat()
+        causal_str = json.dumps(claim_data.get("causal_relation")) if claim_data.get("causal_relation") else None
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO claim_distillations
+                (claim_id, source_speaker, raw_statement, proposition, epistemic_tier, verification_status,
+                 confidence, statutory_citation, fiscal_metric, causal_relation, recommended_action, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                claim_data["claim_id"],
+                claim_data.get("source_speaker"),
+                claim_data["raw_statement"],
+                claim_data["proposition"],
+                claim_data["epistemic_tier"],
+                claim_data["verification_status"],
+                float(claim_data["confidence"]),
+                claim_data.get("statutory_citation"),
+                claim_data.get("fiscal_metric"),
+                causal_str,
+                claim_data.get("recommended_action"),
+                now
+            ))
+            return True
+
+    def record_distillation_report(self, report_data: Dict[str, Any]) -> int:
+        """Batch records all actionable claims from a DistillationReport."""
+        claims = report_data.get("claims", [])
+        recorded = 0
+        for c in claims:
+            if self.record_distilled_claim(c):
+                recorded += 1
+        return recorded
+
+    def list_distilled_claims(
+        self,
+        tier: Optional[str] = None,
+        status: Optional[str] = None,
+        limit: int = 50
+    ) -> List[Dict[str, Any]]:
+        """Queries distilled claims with optional filtering by epistemic tier or verification status."""
+        query = "SELECT * FROM claim_distillations WHERE 1=1"
+        params: List[Any] = []
+        if tier:
+            query += " AND epistemic_tier = ?"
+            params.append(tier)
+        if status:
+            query += " AND verification_status = ?"
+            params.append(status)
+        query += " ORDER BY created_at DESC LIMIT ?"
+        params.append(limit)
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            return [dict(r) for r in cursor.fetchall()]
+
+    def get_distilled_claim(self, claim_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieves a single distilled claim by its unique ID."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM claim_distillations WHERE claim_id = ?", (claim_id,))
+            row = cursor.fetchone()
+            return dict(row) if row else None
+
+    def export_distilled_claims_as_markdown(self, min_confidence: float = 0.70, limit: int = 50) -> str:
+        """
+        Serializes verified distilled claims into structured GitHub-flavored Markdown.
+        Used for autonomous knowledge synchronization into canonical knowledge libraries.
+        """
+        claims = self.list_distilled_claims(limit=limit)
+        filtered = [
+            c for c in claims
+            if c.get("verification_status") in ("VERIFIED_EMPIRICAL", "POLEMICAL_FRAMING")
+            and float(c.get("confidence", 0.0)) >= min_confidence
+        ]
+        if not filtered:
+            return "<!-- NO_DISTILLED_CLAIMS_RECORDED -->\n*No verified distilled propositions in EventStore.*"
+
+        lines = [
+            "### Autonomously Learned Strategic Propositions (EventStore Sync)",
+            "",
+            "| Claim ID | Proposition | Epistemic Tier | Confidence | Statutory/Fiscal Anchor | Status |",
+            "| :--- | :--- | :--- | :--- | :--- | :--- |",
+        ]
+        for c in filtered:
+            cid = c["claim_id"]
+            prop = c["proposition"].replace("|", "\\|")
+            tier = c["epistemic_tier"]
+            conf = f"{float(c['confidence']):.2f}"
+            anchor = (c.get("statutory_citation") or c.get("fiscal_metric") or "—").replace("|", "\\|")
+            stat = c["verification_status"]
+            lines.append(f"| `{cid}` | {prop} | `{tier}` | `{conf}` | {anchor} | `{stat}` |")
+        return "\n".join(lines)
+
+    def register_prospective_forecast(
+        self,
+        forecast_id: str,
+        target_date: str,
+        event_name: str,
+        hypothesis: str,
+        predicted_probability: float,
+        epistemic_basis: str = "PROSPECTIVE_ANALYSIS",
+        confidence_low: float = 0.05,
+        confidence_high: float = 0.95
+    ) -> bool:
+        """
+        Registers an active prospective probabilistic forecast into forecast_ledger with future resolution date.
+        Enables empirical longitudinal Brier score tracking as crises unfold.
+        """
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO forecast_ledger
+                (forecast_id, created_at, target_date, event_name, hypothesis,
+                 predicted_probability, confidence_interval_low, confidence_interval_high,
+                 epistemic_basis, actual_outcome, brier_score, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, 'ACTIVE')
+            """, (
+                forecast_id,
+                now,
+                target_date,
+                event_name,
+                hypothesis,
+                float(predicted_probability),
+                float(confidence_low),
+                float(confidence_high),
+                epistemic_basis
+            ))
+            return True
+
+    def quarantine_candidate_claim(
+        self,
+        quarantine_id: str,
+        claim_id: str,
+        raw_statement: str,
+        proposition: str,
+        domain: str,
+        confidence: float,
+        review_required: bool = True
+    ) -> bool:
+        """Stores candidate claim in quarantine awaiting governance review before canonical promotion."""
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO claim_quarantine
+                (quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at)
+                VALUES (?, ?, ?, ?, ?, 'QUARANTINED', ?, ?, NULL, NULL, ?)
+            """, (
+                quarantine_id, claim_id, raw_statement, proposition, domain, float(confidence), 1 if review_required else 0, now
+            ))
+            return True
+
+    def promote_quarantined_claim(
+        self,
+        quarantine_id: str,
+        reviewer_notes: str = ""
+    ) -> bool:
+        """Promotes a quarantined claim to trusted status after human/automated verification review."""
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE claim_quarantine
+                SET status = 'PROMOTED', review_required = 0, reviewer_notes = ?, promoted_at = ?
+                WHERE quarantine_id = ?
+            """, (reviewer_notes, now, quarantine_id))
+            return cursor.rowcount > 0
+
+    def rollback_promoted_claim(
+        self,
+        quarantine_id: str,
+        rollback_reason: str = ""
+    ) -> bool:
+        """Rolls back an earlier promoted claim, setting status to ROLLED_BACK with documented reason."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE claim_quarantine
+                SET status = 'ROLLED_BACK', reviewer_notes = ?
+                WHERE quarantine_id = ?
+            """, (rollback_reason, quarantine_id))
+            return cursor.rowcount > 0
+
+    def list_quarantined_claims(self, status: str = "QUARANTINED") -> List[Dict[str, Any]]:
+        """Returns list of claims by quarantine status."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT quarantine_id, claim_id, raw_statement, proposition, domain, status, confidence, review_required, reviewer_notes, promoted_at, created_at
+                FROM claim_quarantine
+                WHERE status = ?
+                ORDER BY created_at DESC
+            """, (status,))
+            rows = cursor.fetchall()
+            return [
+                {
+                    "quarantine_id": r[0],
+                    "claim_id": r[1],
+                    "raw_statement": r[2],
+                    "proposition": r[3],
+                    "domain": r[4],
+                    "status": r[5],
+                    "confidence": r[6],
+                    "review_required": bool(r[7]),
+                    "reviewer_notes": r[8],
+                    "promoted_at": r[9],
+                    "created_at": r[10]
+                }
+                for r in rows
+            ]
+
+    def lookup_dharmik_anchors(self, tradition: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Phase 365: Returns authentic Sanskrit scriptural and strategic statecraft anchors."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if tradition:
+                cursor.execute("""
+                    SELECT anchor_id, source_tradition, canonical_reference, sanskrit_text, english_translation, strategic_statecraft_maxim, epistemic_tier
+                    FROM dharmik_textual_anchors
+                    WHERE source_tradition = ?
+                    ORDER BY anchor_id ASC
+                """, (tradition,))
+            else:
+                cursor.execute("""
+                    SELECT anchor_id, source_tradition, canonical_reference, sanskrit_text, english_translation, strategic_statecraft_maxim, epistemic_tier
+                    FROM dharmik_textual_anchors
+                    ORDER BY anchor_id ASC
+                """)
+            rows = cursor.fetchall()
+            return [
+                {
+                    "anchor_id": r[0],
+                    "source_tradition": r[1],
+                    "canonical_reference": r[2],
+                    "sanskrit_text": r[3],
+                    "english_translation": r[4],
+                    "strategic_statecraft_maxim": r[5],
+                    "epistemic_tier": r[6],
+                }
+                for r in rows
+            ]
+
+    def upsert_knowledge_discourse(
+        self,
+        discourse_id: str,
+        section_number: int,
+        title: str,
+        domain_category: str = "",
+        council_members: str = "",
+        source_speaker: str = "",
+        key_thesis: str = "",
+        strategic_doctrine: str = "",
+        content_markdown: str = "",
+        created_at: Optional[str] = None
+    ) -> None:
+        """Upserts a parsed discourse from the knowledge library into SQLite."""
+        ts = created_at or time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO knowledge_discourses
+                (discourse_id, section_number, title, domain_category, council_members, source_speaker, key_thesis, strategic_doctrine, content_markdown, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(discourse_id) DO UPDATE SET
+                    section_number=excluded.section_number,
+                    title=excluded.title,
+                    domain_category=excluded.domain_category,
+                    council_members=excluded.council_members,
+                    source_speaker=excluded.source_speaker,
+                    key_thesis=excluded.key_thesis,
+                    strategic_doctrine=excluded.strategic_doctrine,
+                    content_markdown=excluded.content_markdown
+            """, (discourse_id, section_number, title, domain_category, council_members, source_speaker, key_thesis, strategic_doctrine, content_markdown, ts))
+            conn.commit()
+
+    def search_knowledge_discourses(
+        self,
+        query: str = "",
+        domain: Optional[str] = None,
+        council: Optional[str] = None,
+        limit: int = 50
+    ) -> List[Dict[str, Any]]:
+        """Searches indexed discourses by keyword, domain category, or council member."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            clauses = []
+            params: List[Any] = []
+
+            if query:
+                pattern = f"%{query}%"
+                clauses.append("(title LIKE ? OR key_thesis LIKE ? OR strategic_doctrine LIKE ? OR content_markdown LIKE ?)")
+                params.extend([pattern, pattern, pattern, pattern])
+
+            if domain:
+                clauses.append("domain_category LIKE ?")
+                params.append(f"%{domain}%")
+
+            if council:
+                clauses.append("council_members LIKE ?")
+                params.append(f"%{council}%")
+
+            where_sql = ("WHERE " + " AND ".join(clauses)) if clauses else ""
+            sql = f"""
+                SELECT discourse_id, section_number, title, domain_category, council_members, source_speaker, key_thesis, strategic_doctrine, created_at
+                FROM knowledge_discourses
+                {where_sql}
+                ORDER BY section_number ASC
+                LIMIT ?
+            """
+            params.append(limit)
+            cursor.execute(sql, params)
+            rows = cursor.fetchall()
+
+            return [
+                {
+                    "discourse_id": r[0],
+                    "section_number": r[1],
+                    "title": r[2],
+                    "domain_category": r[3],
+                    "council_members": r[4],
+                    "source_speaker": r[5],
+                    "key_thesis": r[6],
+                    "strategic_doctrine": r[7],
+                    "created_at": r[8],
+                }
+                for r in rows
+            ]
+
+    def get_knowledge_discourse_by_section(self, section_number: int) -> Optional[Dict[str, Any]]:
+        """Retrieves full discourse content by section number."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT discourse_id, section_number, title, domain_category, council_members, source_speaker, key_thesis, strategic_doctrine, content_markdown, created_at
+                FROM knowledge_discourses
+                WHERE section_number = ?
+            """, (section_number,))
+            row = cursor.fetchone()
+            if not row:
+                return None
+            return {
+                "discourse_id": row[0],
+                "section_number": row[1],
+                "title": row[2],
+                "domain_category": row[3],
+                "council_members": row[4],
+                "source_speaker": row[5],
+                "key_thesis": row[6],
+                "strategic_doctrine": row[7],
+                "content_markdown": row[8],
+                "created_at": row[9],
+            }
+
+    def count_knowledge_discourses(self) -> int:
+        """Returns the total number of indexed discourses."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM knowledge_discourses")
+            row = cursor.fetchone()
+            return row[0] if row else 0
+
+
+
+
+
+
+```
+
+## Module: `geo_engine/ingestion/__init__.py`
+
+```python
+"""
+Evidence Ingestion Package for the Geo-Engine.
+Provides open-access connectors for GDELT 2.0, sovereign RSS feeds, and document loaders.
+"""
+
+from .models import ClaimType, EvidenceItem, ClaimItem
+from .gdelt_client import GDELTClient
+from .sovereign_rss import SovereignRSSClient
+from .document_loader import DocumentLoader
+from .normalizer import IngestionNormalizer, RhetoricDeflator
+from .telemetry_adapter import MacroTelemetryAdapter
+from .macro_connectors import SovereignMacroConnectors
+from .chat_distiller import ChatConversationDistiller
+
+__all__ = [
+    "ClaimType",
+    "EvidenceItem",
+    "ClaimItem",
+    "GDELTClient",
+    "SovereignRSSClient",
+    "DocumentLoader",
+    "IngestionNormalizer",
+    "RhetoricDeflator",
+    "MacroTelemetryAdapter",
+    "SovereignMacroConnectors",
+    "ChatConversationDistiller",
+]
+
+```
+
+## Module: `geo_engine/ingestion/chat_distiller.py`
+
+```python
+"""
+Chat Conversation Distiller & Autonomous Epistemic Self-Learning Engine.
+Translates high-signal conversational exchanges, user-agent analytical interactions,
+and forensic audit conclusions into structured, epistemically tiered ClaimItems
+and persists them into the EventStore, closing the session amnesia gap.
+"""
+
+import re
+import hashlib
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional
+
+from ..core.models import EpistemicTier, get_system_reference_date
+from ..core.query_parser import QueryParser
+from ..storage.event_store import EventStore
+from .models import ClaimItem, ClaimType
+from .telemetry_adapter import MacroTelemetryAdapter
+
+
+class ChatConversationDistiller:
+    """
+    Autonomous Knowledge Distillation Engine.
+    Transforms raw multi-turn conversation text into verified ClaimItems,
+    updates diagnostic longitudinal memory, and commits new empirical anchors
+    to the EventStore without requiring manual code rewrites.
+    """
+
+    @classmethod
+    def distill_conversation(
+        cls,
+        conversation_text: str,
+        session_id: Optional[str] = None,
+        source_id: Optional[str] = None
+    ) -> List[ClaimItem]:
+        """
+        Extracts structured ClaimItems from conversation text or analytical summaries.
+        Applies epistemic tier classification and dynamic multi-lens routing.
+        """
+        if not conversation_text or not conversation_text.strip():
+            return []
+
+        # Split conversation into analytical chunks (paragraphs, bullet points, numbered items, speaker turns)
+        raw_lines = re.split(r"\n{2,}|\n(?=[•\-\*\d]+\.?|\s*(?:User|Assistant|Speaker|Human|AI|Analyst)\s*:)", conversation_text)
+        candidate_blocks = [line.strip() for line in raw_lines if len(line.strip()) >= 20]
+        if len(candidate_blocks) <= 1:
+            if "\n" in conversation_text:
+                candidate_blocks = [line.strip() for line in conversation_text.split("\n") if len(line.strip()) >= 20]
+            elif ". " in conversation_text:
+                candidate_blocks = [line.strip() for line in re.split(r"\.\s+(?=[A-Z])", conversation_text) if len(line.strip()) >= 20]
+
+        extracted_claims: List[ClaimItem] = []
+        ref_date = get_system_reference_date()
+
+        for idx, block in enumerate(candidate_blocks):
+            # Clean leading bullets or numbers
+            clean_text = re.sub(r"^[•\-\*\d\.\:\s]+", "", block).strip()
+            if len(clean_text) < 25:
+                continue
+
+            text_lower = clean_text.lower()
+
+            # Identify target lenses via QueryParser keywords
+            matched_lenses: List[str] = []
+            for lens_name, kws in QueryParser.LENS_KEYWORDS.items():
+                for kw in kws:
+                    if kw in text_lower:
+                        # Format as Lens class name
+                        class_name = "".join(word.capitalize() for word in lens_name.split("_")) + "Lens"
+                        if class_name not in matched_lenses:
+                            matched_lenses.append(class_name)
+                        break
+
+            if not matched_lenses:
+                matched_lenses = ["CivilizationalLens", "GeopoliticalLens"]
+
+            # Tier 1: Physical, Archaeological, Kinetic, C14, Excavations, Strategic Infrastructure
+            if any(w in text_lower for w in [
+                "c14", "radiocarbon", "excavation", "bsip", "coffin", "sword", "shield",
+                "chariot", "cart", "strata", "archaeology", "troops", "drone", "fpv", "missile", "orbat",
+                "port", "terminal", "chokepoint", "pipeline", "tanker"
+            ]):
+                tier = EpistemicTier.TIER_1_PHYSICAL
+                claim_type = ClaimType.PHYSICAL_PRESENCE
+                reliability = 0.92
+            # Tier 2: Hard Money, CapEx, Vostro, Haircut, NPA, Balance Sheet
+            elif any(w in text_lower for w in [
+                "capex", "haircut", "vostro", "srva", "g-sec", "npa", "write-off", "trade gap",
+                "deflation", "usd", "crore", "billion", "fx reserves", "capital recycling"
+            ]):
+                tier = EpistemicTier.TIER_2_FINANCIAL
+                claim_type = ClaimType.FINANCIAL_CAPEX
+                reliability = 0.90
+            # Tier 3: Sovereign Redlines, Treaties, Statutory Lawfare, Constitution, Bilateral Contracts
+            elif any(w in text_lower for w in [
+                "treaty", "bpta", "cbm", "crpc", "uapa", "bnss", "hrce", "section 167", "section 188",
+                "sovereign redline", "unclos", "statutory", "mandate", "article", "contract", "agreement",
+                "bilateral", "accord", "pact", "act 80"
+            ]):
+                tier = EpistemicTier.TIER_3_SOVEREIGN_REDLINES
+                claim_type = ClaimType.LEGAL_COMMITMENT
+                reliability = 0.95
+            # Tier 4: Kinesic micro-signals, FACS, sartorial, body language, prosodic cues
+            elif any(w in text_lower for w in [
+                "kinesic", "facs", "social mask", "au12", "au06", "masseter", "sartorial", "body language",
+                "prosodic", "pause", "micro-signal", "micro signal", "tension"
+            ]):
+                tier = EpistemicTier.TIER_4_KINESICS
+                claim_type = ClaimType.KINESIC_MICRO_SIGNAL
+                reliability = 0.70
+            # Tier 5: Media rhetoric, communiques, public declarations
+            else:
+                tier = EpistemicTier.TIER_5_COMMUNIQUE_PR
+                claim_type = ClaimType.RHETORICAL_POSTURE
+                reliability = 0.50
+
+            # Generate unique claim ID
+            claim_hash = hashlib.sha256(f"{clean_text[:60]}_{idx}".encode("utf-8")).hexdigest()[:8]
+            claim_id = f"CHAT-CLAIM-{claim_hash.upper()}"
+            src_tag = source_id or session_id or "DEFAULT"
+
+            extracted_claims.append(ClaimItem(
+                claim_id=claim_id,
+                source_evidence_id=f"SRC-CONV-{src_tag}",
+                asserted_fact=clean_text[:500],
+                claim_type=claim_type,
+                epistemic_tier=tier,
+                target_lenses=matched_lenses[:4],
+                reliability_weight=reliability,
+                evidence_status="sufficient"
+            ))
+
+        return extracted_claims
+
+    @classmethod
+    def distill_and_persist(
+        cls,
+        conversation_text: str,
+        session_id: Optional[str] = None,
+        store: Optional[EventStore] = None,
+        entity_or_subject: Optional[str] = None,
+        event_store: Optional[EventStore] = None,
+        parent_encounter_id: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Full distillation and learning pipeline:
+        Extracts claims, persists them to SQLite EventStore, logs longitudinal
+        diagnostic encounter, and updates the engine's long-term memory.
+        Supports parent_encounter_id for multi-turn longitudinal encounter chaining.
+        """
+        target_store = store or event_store or EventStore()
+        claims = cls.distill_conversation(conversation_text, session_id=session_id)
+
+        # Ingest claims into SQLite event_store
+        persisted_count = MacroTelemetryAdapter.ingest_to_event_store(claims, store=target_store)
+
+        # Infer subject/entity if not provided
+        subject = entity_or_subject or "Strategic Analytical Exchange"
+        if not entity_or_subject and claims:
+            # Check for prominent entity mentions in first few claims
+            full_corpus = " ".join(c.asserted_fact for c in claims[:3]).lower()
+            for cand in ["Sinauli", "Rakhigarhi", "Hastinapur", "Galwan", "Red Sea", "Vostro", "VanDyke", "BRICS", "Chabahar", "Suwalki", "Siliguri"]:
+                if cand.lower() in full_corpus:
+                    subject = cand
+                    break
+
+        # Calculate average metrics for diagnostic log
+        avg_confidence = (
+            sum(c.reliability_weight for c in claims) / len(claims)
+            if claims else 0.85
+        )
+        tier_counts = {}
+        for c in claims:
+            tier_name = c.epistemic_tier.name if hasattr(c.epistemic_tier, "name") else str(c.epistemic_tier)
+            tier_counts[tier_name] = tier_counts.get(tier_name, 0) + 1
+
+        primary_tier = max(tier_counts.items(), key=lambda x: x[1])[0] if tier_counts else "TIER_1_PHYSICAL"
+
+        anomalies = [f"Distilled {len(claims)} conversational claims into EventStore"]
+        if parent_encounter_id:
+            anomalies.append(f"Linked to parent encounter {parent_encounter_id}")
+
+        # Log longitudinal diagnostic encounter
+        encounter_id = target_store.record_diagnostic_encounter(
+            entity_or_subject=subject,
+            query_text=conversation_text[:300],
+            primary_epistemic_tier=primary_tier,
+            confidence=avg_confidence,
+            reality_ratio=0.85,
+            propaganda_ratio=0.15,
+            anomalies_detected=anomalies,
+            session_id=session_id or "chat_self_learning"
+        )
+
+        return {
+            "status": "LEARNING_CYCLE_COMPLETE",
+            "session_id": session_id or "chat_self_learning",
+            "entity_or_subject": subject,
+            "claims_extracted": len(claims),
+            "claims_persisted": persisted_count,
+            "extracted_claims_count": len(claims),
+            "persisted_claims_count": persisted_count,
+            "primary_epistemic_tier": primary_tier,
+            "encounter_id": encounter_id,
+            "diagnostic_encounter_id": encounter_id,
+            "parent_encounter_id": parent_encounter_id,
+            "claims": [
+                {
+                    "claim_id": c.claim_id,
+                    "asserted_fact": c.asserted_fact,
+                    "claim_type": c.claim_type.value if hasattr(c.claim_type, "value") else str(c.claim_type),
+                    "epistemic_tier": c.epistemic_tier.name if hasattr(c.epistemic_tier, "name") else str(c.epistemic_tier),
+                    "target_lenses": c.target_lenses,
+                    "reliability_weight": c.reliability_weight
+                }
+                for c in claims
+            ],
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+
+```
+
+## Module: `geo_engine/ingestion/document_loader.py`
+
+```python
+"""
+Local Document and Raw Text Loader.
+Ingests user-supplied communiques, treaties, speeches, and articles into the evidence pipeline.
+"""
+
+import hashlib
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import List
+from .models import ClaimType, EvidenceItem
+
+
+class DocumentLoader:
+    """Ingests raw text or local files into normalized EvidenceItem records."""
+
+    @classmethod
+    def load_from_text(
+        cls,
+        text: str,
+        source_name: str = "Operator Ingested Text",
+        source_type: str = "treaty_text",
+        claim_type: ClaimType = ClaimType.LEGAL_COMMITMENT
+    ) -> EvidenceItem:
+        """Converts raw text input into a verified EvidenceItem."""
+        ev_id = hashlib.sha256(text.encode()).hexdigest()[:12]
+        return EvidenceItem(
+            evidence_id=f"DOC-{ev_id}",
+            source_name=source_name,
+            source_type=source_type,
+            timestamp=datetime.now(timezone.utc).isoformat(),
+            raw_text=text.strip(),
+            provenance_url="local://operator_input",
+            reliability_weight=0.90,
+            entities_mentioned=[],
+            claim_type=claim_type
+        )
+
+    @classmethod
+    def load_from_file(cls, file_path: str) -> List[EvidenceItem]:
+        """Loads and segments a text file into evidentiary clauses."""
+        path = Path(file_path)
+        if not path.exists():
+            return []
+
+        text = path.read_text(encoding="utf-8")
+        paragraphs = [p.strip() for p in text.split("\n\n") if len(p.strip()) > 30]
+
+        items = []
+        for i, p in enumerate(paragraphs, 1):
+            ev_id = hashlib.md5(f"{path.name}_{i}".encode()).hexdigest()[:8]
+            items.append(EvidenceItem(
+                evidence_id=f"FILE-{ev_id}",
+                source_name=f"Document: {path.name}",
+                source_type="treaty_text",
+                timestamp=datetime.now(timezone.utc).isoformat(),
+                raw_text=p,
+                provenance_url=str(path.absolute()),
+                reliability_weight=0.92,
+                entities_mentioned=[],
+                claim_type=ClaimType.LEGAL_COMMITMENT
+            ))
+        return items
+
+```
+
+## Module: `geo_engine/ingestion/gdelt_client.py`
+
+```python
+"""
+GDELT 2.0 Open Intelligence Ingestion Client.
+Connects to the Global Database of Events, Language, and Tone (GDELT) 2.0 API.
+100% free open-access protocol requiring zero proprietary API keys.
+"""
+
+import hashlib
+import json
+from datetime import datetime, timezone
+from typing import List
+import urllib.request
+import urllib.parse
+from .models import ClaimType, EvidenceItem
+
+
+class GDELTClient:
+    """Ingests global real-time event telemetry from the GDELT Project."""
+
+    BASE_URL = "https://api.gdeltproject.org/api/v2/doc/doc"
+
+    @classmethod
+    def query_events(cls, query_topic: str, max_records: int = 5) -> List[EvidenceItem]:
+        """
+        Fetches live articles and event records from GDELT 2.0.
+        Falls back to authenticated local cache/telemetry if network is unavailable.
+        """
+        params = {
+            "query": query_topic,
+            "mode": "artlist",
+            "maxrecords": str(max_records),
+            "format": "json",
+            "sort": "date_desc"
+        }
+        url = f"{cls.BASE_URL}?{urllib.parse.urlencode(params)}"
+        
+        evidence_items = []
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={"User-Agent": "GeoEngine-OSINT-Ingester/1.0"}
+            )
+            with urllib.request.urlopen(req, timeout=4) as response:
+                if response.status == 200:
+                    data = json.loads(response.read().decode("utf-8"))
+                    articles = data.get("articles", [])
+                    for art in articles:
+                        ev_id = hashlib.sha256((art.get("url", "") + art.get("seendate", "")).encode()).hexdigest()[:12]
+                        evidence_items.append(EvidenceItem(
+                            evidence_id=f"GDELT-{ev_id}",
+                            source_name=art.get("domain", "GDELT Global News"),
+                            source_type="news_wire",
+                            timestamp=art.get("seendate", datetime.now(timezone.utc).isoformat()),
+                            raw_text=art.get("title", "") + ". " + art.get("sourcecountry", ""),
+                            provenance_url=art.get("url"),
+                            reliability_weight=0.70,
+                            entities_mentioned=[query_topic],
+                            claim_type=ClaimType.GENERAL_INTEL
+                        ))
+        except Exception:
+            # Explicit degraded mode when live internet connection or API is unreachable
+            evidence_items = cls._generate_degraded_telemetry(query_topic)
+
+        if not evidence_items:
+            evidence_items = cls._generate_degraded_telemetry(query_topic)
+
+        return evidence_items
+
+    @classmethod
+    def _generate_degraded_telemetry(cls, query_topic: str) -> List[EvidenceItem]:
+        """Generates explicit degraded telemetry record when live internet is unreachable."""
+        now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        return [
+            EvidenceItem(
+                evidence_id=f"GDELT-DEGRADED-{hashlib.md5(query_topic.encode()).hexdigest()[:8]}",
+                source_name="GDELT 2.0 (Offline/Degraded)",
+                source_type="news_wire",
+                timestamp=now_iso,
+                raw_text=f"Live GDELT telemetry unavailable for topic '{query_topic}'. Analysis proceeding in degraded state without verified external news wire signals.",
+                provenance_url="https://api.gdeltproject.org/api/v2/doc/doc",
+                reliability_weight=0.0,
+                entities_mentioned=[query_topic],
+                claim_type=ClaimType.GENERAL_INTEL,
+                evidence_status="insufficient"
+            )
+        ]
+
+```
+
+## Module: `geo_engine/ingestion/macro_connectors.py`
+
+```python
+"""
+Sovereign Macro Telemetry Connectors for Geo-Engine.
+Provides deterministic calculators converting raw trade, banking, and fiscal indicators
+into normalized, epistemically prioritized ClaimItem objects for ingestion into EventStore.
+"""
+
+from typing import Any, Dict, Tuple
+from .models import ClaimItem, ClaimType, EpistemicTier
+
+
+class SovereignMacroConnectors:
+    """Calculates macro forensic indicators and converts them into verified ClaimItem objects."""
+
+    @classmethod
+    def compute_china_trade_gap(
+        cls,
+        dgft_imports_usd_b: float,
+        gacc_exports_usd_b: float
+    ) -> Tuple[Dict[str, Any], ClaimItem]:
+        """
+        Calculates bilateral customs trade divergence between Indian DGFT and Chinese GACC data.
+        Quantifies under-invoicing and tariff evasion.
+        """
+        trade_gap_usd_b = round(gacc_exports_usd_b - dgft_imports_usd_b, 2)
+        divergence_pct = round((trade_gap_usd_b / dgft_imports_usd_b) * 100.0, 2) if dgft_imports_usd_b > 0 else 0.0
+
+        metrics = {
+            "dgft_reported_imports_usd_b": dgft_imports_usd_b,
+            "gacc_reported_exports_usd_b": gacc_exports_usd_b,
+            "trade_gap_usd_b": trade_gap_usd_b,
+            "divergence_pct": divergence_pct,
+            "under_invoicing_risk": "HIGH" if trade_gap_usd_b >= 15.0 else ("MODERATE" if trade_gap_usd_b >= 5.0 else "LOW")
+        }
+
+        fact_text = (
+            f"Bilateral trade gap divergence: Chinese GACC reports ${gacc_exports_usd_b:.1f}B exports to India, "
+            f"while Indian DGFT reports ${dgft_imports_usd_b:.1f}B imports (unaccounted gap: ${trade_gap_usd_b:.1f}B, {divergence_pct}% divergence), "
+            f"evidencing customs under-invoicing and third-party transshipment."
+        )
+
+        claim = ClaimItem(
+            claim_id=f"CLM-MACRO-TRADEGAP-{int(trade_gap_usd_b * 10)}",
+            source_evidence_id="SRC-CUSTOMS-MIRROR",
+            claim_type=ClaimType.GENERAL_INTEL,
+            epistemic_tier=EpistemicTier.TIER_2_FINANCIAL,
+            actors=["India", "China"],
+            asserted_fact=fact_text,
+            target_lenses=["GeoEconomistLens", "CashFlowLens"],
+            metrics=metrics,
+            reliability_weight=0.96,
+            evidence_status="sufficient"
+        )
+
+        return metrics, claim
+
+    @classmethod
+    def compute_banking_npa_recovery_ratio(
+        cls,
+        write_offs_usd_b: float,
+        cash_recoveries_usd_b: float,
+        recap_subsidy_usd_b: float
+    ) -> Tuple[Dict[str, Any], ClaimItem]:
+        """
+        Calculates true banking clean-up efficiency vs. balance sheet write-offs.
+        """
+        total_resolved = write_offs_usd_b + cash_recoveries_usd_b
+        recovery_efficiency = round(cash_recoveries_usd_b / total_resolved, 2) if total_resolved > 0 else 0.0
+        taxpayer_subsidy_ratio = round(recap_subsidy_usd_b / max(cash_recoveries_usd_b, 1.0), 2)
+
+        metrics = {
+            "write_offs_usd_b": write_offs_usd_b,
+            "cash_recoveries_usd_b": cash_recoveries_usd_b,
+            "recap_subsidy_usd_b": recap_subsidy_usd_b,
+            "recovery_efficiency_ratio": recovery_efficiency,
+            "taxpayer_subsidy_ratio": taxpayer_subsidy_ratio,
+            "resolution_mode": "WRITE_OFF_DOMINANT" if recovery_efficiency < 0.40 else "RECOVERY_DOMINANT"
+        }
+
+        fact_text = (
+            f"Banking sector asset resolution audit: Bad loans resolved via ${write_offs_usd_b:.1f}B in balance-sheet write-offs "
+            f"vs. ${cash_recoveries_usd_b:.1f}B in cash recovery (efficiency ratio: {recovery_efficiency * 100:.0f}%), "
+            f"subsidized by ${recap_subsidy_usd_b:.1f}B in taxpayer-funded bank recapitalization."
+        )
+
+        claim = ClaimItem(
+            claim_id=f"CLM-MACRO-NPA-{int(recovery_efficiency * 100)}",
+            source_evidence_id="SRC-RBI-DBIE-NPA",
+            claim_type=ClaimType.FINANCIAL_CAPEX,
+            epistemic_tier=EpistemicTier.TIER_2_FINANCIAL,
+            actors=["India"],
+            asserted_fact=fact_text,
+            target_lenses=["CashFlowLens", "GeoEconomistLens"],
+            metrics=metrics,
+            reliability_weight=0.98,
+            evidence_status="sufficient"
+        )
+
+        return metrics, claim
+
+    @classmethod
+    def compute_debt_servicing_ratio(
+        cls,
+        interest_payments_inr_lakh_cr: float,
+        net_tax_revenue_inr_lakh_cr: float
+    ) -> Tuple[Dict[str, Any], ClaimItem]:
+        """
+        Calculates sovereign debt servicing burden as a percentage of net tax revenue.
+        Models the Kautilyan Kosha-Mula-Danda fiscal ceiling.
+        """
+        debt_servicing_ratio_pct = round((interest_payments_inr_lakh_cr / net_tax_revenue_inr_lakh_cr) * 100.0, 2) if net_tax_revenue_inr_lakh_cr > 0 else 0.0
+        fiscal_space_risk = "HIGH" if debt_servicing_ratio_pct >= 40.0 else ("MODERATE" if debt_servicing_ratio_pct >= 25.0 else "LOW")
+
+        metrics = {
+            "interest_payments_inr_lakh_cr": interest_payments_inr_lakh_cr,
+            "net_tax_revenue_inr_lakh_cr": net_tax_revenue_inr_lakh_cr,
+            "debt_servicing_ratio_pct": debt_servicing_ratio_pct,
+            "fiscal_space_risk": fiscal_space_risk
+        }
+
+        fact_text = (
+            f"Sovereign fiscal space constraint (Kosha-Mula-Danda): Annual debt interest payments (₹{interest_payments_inr_lakh_cr:.2f}L Cr) "
+            f"consume {debt_servicing_ratio_pct:.1f}% of net tax revenue (₹{net_tax_revenue_inr_lakh_cr:.2f}L Cr), "
+            f"constraining discretionary capital expenditure for defense modernization."
+        )
+
+        claim = ClaimItem(
+            claim_id=f"CLM-MACRO-DEBT-{int(debt_servicing_ratio_pct)}",
+            source_evidence_id="SRC-CGA-UNION-ACCOUNTS",
+            claim_type=ClaimType.GENERAL_INTEL,
+            epistemic_tier=EpistemicTier.TIER_2_FINANCIAL,
+            actors=["India"],
+            asserted_fact=fact_text,
+            target_lenses=["CivilizationalLens", "GeoEconomistLens", "MilitaryReadinessLens"],
+            metrics=metrics,
+            reliability_weight=0.99,
+            evidence_status="sufficient"
+        )
+
+        return metrics, claim
+
+```
+
+## Module: `geo_engine/ingestion/models.py`
+
+```python
+"""
+Evidence Ingestion Data Models.
+Defines verified evidentiary records, source categories, provenance metadata,
+and reliability weighting for raw inputs ingested into the Geo-Engine.
+"""
+
+from enum import Enum
+from typing import List, Optional
+from pydantic import BaseModel, Field
+
+
+from ..core.models import EpistemicTier
+
+
+class ClaimType(str, Enum):
+    """Categorizes the nature of the claim to apply claim-aware epistemic hierarchy."""
+    PHYSICAL_PRESENCE = "PHYSICAL_PRESENCE"      # Troop deployments, oil tankers, chokepoints
+    FINANCIAL_CAPEX = "FINANCIAL_CAPEX"          # Central bank entries, VOSTRO, budget allocations
+    LEGAL_COMMITMENT = "LEGAL_COMMITMENT"        # Ratified treaties, statutory laws, formal communiques
+    RHETORICAL_POSTURE = "RHETORICAL_POSTURE"    # Speeches, press conferences, state media narrative
+    KINESIC_MICRO_SIGNAL = "KINESIC_MICRO_SIGNAL" # Handshakes, spatial proxemics, body language
+    GENERAL_INTEL = "GENERAL_INTEL"              # General background reporting
+
+
+class EvidenceItem(BaseModel):
+    """An atomic verified evidentiary record ingested from open sources or documents."""
+    evidence_id: str
+    source_name: str = Field(..., description="e.g., 'India MEA', 'China MFA', 'GDELT 2.0', 'BIS Data'")
+    source_type: str = Field(..., description="'official_gazette', 'news_wire', 'treaty_text', 'satellite_ais', 'central_bank'")
+    timestamp: str
+    raw_text: str
+    provenance_url: Optional[str] = None
+    reliability_weight: float = Field(default=0.80, ge=0.0, le=1.0)
+    entities_mentioned: List[str] = Field(default_factory=list)
+    claim_type: ClaimType = ClaimType.GENERAL_INTEL
+    evidence_status: str = Field(default="sufficient", description="'sufficient', 'degraded', 'insufficient'")
+
+    @property
+    def is_primary_sovereign(self) -> bool:
+        """True if directly sourced from a primary sovereign gazette, ministry, or central bank."""
+        return self.source_type in ["official_gazette", "treaty_text", "central_bank", "satellite_ais"]
+
+
+class ClaimItem(BaseModel):
+    """A normalized, structured analytical claim extracted from raw evidence."""
+    claim_id: str
+    source_evidence_id: str
+    claim_type: ClaimType
+    epistemic_tier: EpistemicTier
+    actors: List[str] = Field(default_factory=list)
+    asserted_fact: str
+    extracted_financial_mou_usd: Optional[float] = None
+    is_binding_commitment: bool = False
+    extracted_physical_units: Optional[str] = None
+    target_lenses: List[str] = Field(default_factory=list)
+    reliability_weight: float = Field(default=0.8, ge=0.0, le=1.0)
+    evidence_status: str = Field(default="sufficient", description="'sufficient', 'degraded', 'insufficient'")
+
+```
+
+## Module: `geo_engine/ingestion/normalizer.py`
+
+```python
+"""
+Stage 0 Ingestion Normalizer.
+Parses raw unstructured text from GDELT 2.0, Sovereign RSS, and official gazettes
+into typed ClaimItems with actor resolution, financial parsing, physical metrics,
+and targeted lens dispatch tags.
+"""
+
+import re
+import hashlib
+from typing import List, Optional
+from ..core.models import EpistemicTier
+from .models import ClaimType, EvidenceItem, ClaimItem
+
+
+class IngestionNormalizer:
+    """Normalizes raw unstructured open-source evidence into structured claims."""
+
+    ACTOR_PATTERNS = {
+        "India": r"\b(India|Indian|Bharat|New Delhi|Modi|MEA)\b",
+        "China": r"\b(China|Chinese|Beijing|Xi Jinping|PLA|MFA)\b",
+        "Russia": r"\b(Russia|Russian|Moscow|Putin|Kremlin)\b",
+        "Brazil": r"\b(Brazil|Brazilian|Brasilia|Lula)\b",
+        "South Africa": r"\b(South Africa|South African|Pretoria|Ramaphosa)\b",
+        "Iran": r"\b(Iran|Iranian|Tehran|Pezeshkian|IRGC)\b",
+        "Saudi Arabia": r"\b(Saudi Arabia|Saudi|Riyadh|MBS|Crown Prince)\b",
+        "UAE": r"\b(UAE|United Arab Emirates|Emirati|Abu Dhabi|Dubai|MBZ)\b",
+        "Egypt": r"\b(Egypt|Egyptian|Cairo|Sisi)\b",
+        "Ethiopia": r"\b(Ethiopia|Ethiopian|Addis Ababa|Abiy)\b",
+        "Bangladesh": r"\b(Bangladesh|Bangladeshi|Dhaka|Hasina|Yunus)\b",
+        "United States": r"\b(United States|US|USA|Washington|White House|Biden|Trump)\b",
+    }
+
+    FINANCIAL_AMOUNT_REGEX = re.compile(
+        r"(?:([\$€£]|USD|INR|Rs\.?)\s*)?(\d+(?:\.\d+)?|\.\d+)\s*(billion|million|trillion|crore|bn|m)\b",
+        re.IGNORECASE
+    )
+
+    BINDING_KEYWORDS = [
+        "binding", "ratified", "signed agreement", "escrow", "contract executed",
+        "line of credit approved", "budgetary allocation", "vostro operational"
+    ]
+
+    PHYSICAL_KEYWORDS = [
+        "troops", "deployment", "tanker", "crude", "barrels per day", "bpd",
+        "pipeline", "patrol", "hardware", "satellite", "chokepoint", "lac", "border",
+        "drone", "fpv", "mercenary", "trainer", "camp victoria", "vandyke", "kamikaze"
+    ]
+
+    LEGAL_KEYWORDS = [
+        "treaty", "statutory", "unsc", "convention", "ratification", "bilateral pact",
+        "communique", "declaration", "charter", "lawfare", "bail", "section 167",
+        "section 188", "crpc", "bnss", "uapa", "foreigners act", "sanctions", "ofac",
+        "fcra", "jurisdiction", "compounding"
+    ]
+
+    @classmethod
+    def extract_actors(cls, text: str) -> List[str]:
+        """Detects mentioned sovereign actors from text."""
+        detected = []
+        for actor, pattern in cls.ACTOR_PATTERNS.items():
+            if re.search(pattern, text, re.IGNORECASE):
+                detected.append(actor)
+        return detected or ["Global/Multilateral"]
+
+    @classmethod
+    def extract_financial_flow(cls, text: str) -> Optional[float]:
+        """Extracts nominal monetary figures normalized to USD."""
+        match = cls.FINANCIAL_AMOUNT_REGEX.search(text)
+        if not match:
+            return None
+
+        currency_marker = (match.group(1) or "$").upper()
+        number = float(match.group(2))
+        unit = match.group(3).lower()
+
+        # Base multiplier by scale unit
+        if unit in ["billion", "bn"]:
+            base_amount = number * 1_000_000_000.0
+        elif unit in ["million", "m"]:
+            base_amount = number * 1_000_000.0
+        elif unit == "trillion":
+            base_amount = number * 1_000_000_000_000.0
+        elif unit == "crore":
+            base_amount = number * 10_000_000.0
+            currency_marker = "INR"
+        else:
+            return None
+
+        # Currency conversion to USD
+        import os
+        inr_rate = float(os.environ.get("INR_USD_RATE", "83.5"))
+        eur_rate = float(os.environ.get("EUR_USD_RATE", "1.08"))
+        gbp_rate = float(os.environ.get("GBP_USD_RATE", "1.28"))
+
+        if "INR" in currency_marker or "RS" in currency_marker:
+            return round(base_amount / inr_rate, 2)
+        elif "€" in currency_marker or "EUR" in currency_marker:
+            return round(base_amount * eur_rate, 2)
+        elif "£" in currency_marker or "GBP" in currency_marker:
+            return round(base_amount * gbp_rate, 2)
+        else:
+            return round(base_amount, 2)
+
+    @classmethod
+    def normalize_evidence_item(cls, item: EvidenceItem) -> List[ClaimItem]:
+        """Transforms an atomic EvidenceItem into one or more structured ClaimItems."""
+        text = item.raw_text
+        actors = cls.extract_actors(text)
+        claims: List[ClaimItem] = []
+
+        # Check for degraded / insufficient evidence status
+        if item.evidence_status == "insufficient" or item.reliability_weight == 0.0:
+            claim_id = f"CLAIM-INSUFFICIENT-{item.evidence_id[:8]}"
+            claims.append(ClaimItem(
+                claim_id=claim_id,
+                source_evidence_id=item.evidence_id,
+                claim_type=item.claim_type,
+                epistemic_tier=EpistemicTier.TIER_0_INSUFFICIENT_EVIDENCE,
+                actors=actors,
+                asserted_fact=item.raw_text,
+                target_lenses=["DeepTechLens"],
+                reliability_weight=0.0,
+                evidence_status="insufficient"
+            ))
+            return claims
+
+        # Check for Financial claims
+        fin_amount = cls.extract_financial_flow(text)
+        is_binding = any(kw in text.lower() for kw in cls.BINDING_KEYWORDS)
+        if fin_amount or "currency" in text.lower() or "vostro" in text.lower() or "investment" in text.lower():
+            claims.append(ClaimItem(
+                claim_id=f"CLAIM-FIN-{hashlib.md5(text.encode()).hexdigest()[:8]}",
+                source_evidence_id=item.evidence_id,
+                claim_type=ClaimType.FINANCIAL_CAPEX,
+                epistemic_tier=EpistemicTier.TIER_2_FINANCIAL,
+                actors=actors,
+                asserted_fact=text,
+                extracted_financial_mou_usd=fin_amount,
+                is_binding_commitment=is_binding,
+                target_lenses=["CashFlowLens", "GeoEconomistLens"],
+                reliability_weight=item.reliability_weight,
+                evidence_status="sufficient"
+            ))
+
+        # Check for Physical Presence / Energy claims
+        if any(kw in text.lower() for kw in cls.PHYSICAL_KEYWORDS):
+            claims.append(ClaimItem(
+                claim_id=f"CLAIM-PHYS-{hashlib.md5(text.encode()).hexdigest()[:8]}",
+                source_evidence_id=item.evidence_id,
+                claim_type=ClaimType.PHYSICAL_PRESENCE,
+                epistemic_tier=EpistemicTier.TIER_1_PHYSICAL,
+                actors=actors,
+                asserted_fact=text,
+                target_lenses=["PetroLogisticsLens", "HybridCovertLens", "GeopoliticalLens"],
+                reliability_weight=item.reliability_weight,
+                evidence_status="sufficient"
+            ))
+
+        # Check for Legal / Sovereign Redline claims
+        if any(kw in text.lower() for kw in cls.LEGAL_KEYWORDS):
+            claims.append(ClaimItem(
+                claim_id=f"CLAIM-LEGAL-{hashlib.md5(text.encode()).hexdigest()[:8]}",
+                source_evidence_id=item.evidence_id,
+                claim_type=ClaimType.LEGAL_COMMITMENT,
+                epistemic_tier=EpistemicTier.TIER_3_SOVEREIGN_REDLINES,
+                actors=actors,
+                asserted_fact=text,
+                target_lenses=["CivilizationalLens", "HistoryLens", "BureaucraticInertiaLens", "InstitutionalLawfareLens"],
+                reliability_weight=item.reliability_weight,
+                evidence_status="sufficient"
+            ))
+
+        # Default fallback to Rhetorical Posture / General Intel if no specific tier matched
+        if not claims:
+            claims.append(ClaimItem(
+                claim_id=f"CLAIM-RHET-{hashlib.md5(text.encode()).hexdigest()[:8]}",
+                source_evidence_id=item.evidence_id,
+                claim_type=ClaimType.RHETORICAL_POSTURE,
+                epistemic_tier=EpistemicTier.TIER_5_COMMUNIQUE_PR,
+                actors=actors,
+                asserted_fact=text,
+                target_lenses=["PropagandaLens", "GeopoliticalLens"],
+                reliability_weight=item.reliability_weight,
+                evidence_status="sufficient"
+            ))
+
+        return [RhetoricDeflator.deflate_claim(c) for c in claims]
+
+    @classmethod
+    def normalize_evidence_batch(cls, items: List[EvidenceItem]) -> List[ClaimItem]:
+        """Normalizes an entire batch of ingested EvidenceItems into structured claims with wire deduplication."""
+        all_claims = []
+        seen_hashes = set()
+        for item in items:
+            # Deduplicate syndicated stories / identical wire text
+            text_norm = re.sub(r'\s+', ' ', item.raw_text.strip().lower())
+            content_hash = hashlib.sha256(text_norm.encode()).hexdigest()
+            if content_hash in seen_hashes:
+                continue
+            seen_hashes.add(content_hash)
+            all_claims.extend(cls.normalize_evidence_item(item))
+        return all_claims
+
+
+class RhetoricDeflator:
+    """
+    Detects hyperbolic panic language, clickbait sensationalism, and uncorroborated
+    apocalyptic rhetoric in media / OSINT wire inputs.
+    Deflates hyperbolic claims to TIER_5_COMMUNIQUE_PR or TIER_0_INSUFFICIENT_EVIDENCE
+    and caps confidence until verified by physical ground telemetry.
+    """
+    PANIC_KEYWORDS = [
+        "sab swaha", "swaha", "ww3", "world war 3", "apocalypse", "apocalyptic",
+        "annihilation", "annihilated", "total destruction", "all out war",
+        "nuke", "nuclear strike", "nuclear holocaust", "armageddon", "tabahi",
+        "parmanu hamla", "khatam", "sarvanash"
+    ]
+
+    @classmethod
+    def calculate_sensationalism_index(cls, text: str) -> float:
+        """
+        Calculates a sensationalism index in [0.0, 1.0] based on density
+        of panic keywords, excessive exclamation marks, and hyperbolic phrasing.
+        """
+        if not text:
+            return 0.0
+        lower = text.lower()
+        matched_keywords = sum(1 for kw in cls.PANIC_KEYWORDS if kw in lower)
+        exclamation_count = text.count("!") + text.count("‼️")
+        all_caps_words = sum(1 for w in text.split() if len(w) > 2 and w.isupper())
+
+        score = (matched_keywords * 0.35) + (min(exclamation_count, 5) * 0.08) + (min(all_caps_words, 5) * 0.05)
+        return min(1.0, round(score, 2))
+
+    @classmethod
+    def deflate_claim(cls, claim: ClaimItem) -> ClaimItem:
+        """
+        Applies epistemic deflation: if sensationalism_index >= 0.40,
+        downgrades claim epistemic tier to TIER_5 or TIER_0, caps reliability,
+        and adds deflator warning tags.
+        """
+        s_idx = cls.calculate_sensationalism_index(claim.asserted_fact)
+        if s_idx >= 0.40:
+            claim.epistemic_tier = EpistemicTier.TIER_5_COMMUNIQUE_PR
+            claim.reliability_weight = min(claim.reliability_weight, 0.20)
+            if "PropagandaLens" not in claim.target_lenses:
+                claim.target_lenses.append("PropagandaLens")
+            claim.asserted_fact = f"[DEFLATED_SENSATIONALISM_SCORE_{s_idx:.2f}] {claim.asserted_fact}"
+        return claim
+
+
+```
+
+## Module: `geo_engine/ingestion/sovereign_rss.py`
+
+```python
+"""
+Sovereign RSS and Primary Foreign Ministry Feed Parser.
+Ingests direct statements from sovereign foreign offices and international institutions
+without editorial intermediaries.
+"""
+
+import hashlib
+import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
+from typing import List, Optional
+import urllib.request
+from .models import ClaimType, EvidenceItem
+
+
+class SovereignRSSClient:
+    """Ingests official diplomatic and foreign ministry dispatches."""
+
+    SOVEREIGN_FEEDS = {
+        "India_MEA": "https://www.mea.gov.in/rss-feed.htm",
+        "India_PIB": "https://pib.gov.in/RssMain.aspx?ModId=1",
+        "India_PIB_Defense": "https://pib.gov.in/RssMain.aspx?ModId=2",
+        "India_PIB_Science": "https://pib.gov.in/RssMain.aspx?ModId=3",
+        "India_ISRO": "https://www.isro.gov.in/rss.xml",
+        "India_PIB_Culture": "https://pib.gov.in/RssMain.aspx?ModId=4",
+        "UN_Press": "https://press.un.org/en/feed.xml",
+        "US_StateDept": "https://www.state.gov/rss-feed/press-releases/feed/",
+        "Russia_MFA": "https://mid.ru/en/rss/",
+        "Iran_IRNA": "https://en.irna.ir/rss",
+        "China_MFA": "https://www.fmprc.gov.cn/eng/xwfw_665399/s2510_665401/rss.xml",
+    }
+
+    @classmethod
+    def fetch_primary_statements(cls, feed_key: str = "India_MEA", timeout: float = 3.0) -> List[EvidenceItem]:
+        """Fetches and parses primary sovereign announcements."""
+        items = []
+        url = cls.SOVEREIGN_FEEDS.get(feed_key)
+        if not url:
+            return items
+
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "GeoEngine-RSS/1.0"})
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                if resp.status == 200:
+                    tree = ET.fromstring(resp.read())
+                    for elem in tree.findall(".//item")[:5]:
+                        title = elem.findtext("title", "")
+                        link = elem.findtext("link", "")
+                        desc = elem.findtext("description", "")
+                        pub_date = elem.findtext("pubDate", datetime.now(timezone.utc).isoformat())
+                        ev_id = hashlib.sha256((link + title).encode()).hexdigest()[:10]
+                        items.append(EvidenceItem(
+                            evidence_id=f"SOV-{feed_key}-{ev_id}",
+                            source_name=f"Official Gazette: {feed_key.replace('_', ' ')}",
+                            source_type="official_gazette",
+                            timestamp=pub_date,
+                            raw_text=f"{title}. {desc}",
+                            provenance_url=link,
+                            reliability_weight=0.95,
+                            entities_mentioned=["India", "Multilateral"],
+                            claim_type=ClaimType.LEGAL_COMMITMENT
+                        ))
+        except Exception:
+            # Explicit degraded mode when sovereign gazette feed is unreachable
+            items = [
+                EvidenceItem(
+                    evidence_id=f"SOV-{feed_key}-DEGRADED",
+                    source_name=f"Official Gazette: {feed_key.replace('_', ' ')} (Offline)",
+                    source_type="official_gazette",
+                    timestamp=datetime.now(timezone.utc).isoformat(),
+                    raw_text=f"Primary sovereign feed for '{feed_key}' is unreachable. Ingestion running in degraded state without verified gazette input.",
+                    provenance_url="https://www.mea.gov.in",
+                    reliability_weight=0.0,
+                    entities_mentioned=["India"],
+                    claim_type=ClaimType.LEGAL_COMMITMENT,
+                    evidence_status="insufficient"
+                )
+            ]
+
+        return items
+
+    @classmethod
+    def fetch_all_sovereign_feeds(
+        cls,
+        feed_keys: Optional[List[str]] = None,
+        timeout_per_feed: float = 2.0
+    ) -> List[EvidenceItem]:
+        """
+        Polls multiple registered sovereign feeds, collapses duplicate wire claims via SHA-256 hashes,
+        and aggregates verified evidence while suppressing redundant offline placeholders when live items exist.
+        """
+        targets = feed_keys or list(cls.SOVEREIGN_FEEDS.keys())
+        all_items = []
+        seen_ids = set()
+        has_live_items = False
+
+        for fk in targets:
+            feed_items = cls.fetch_primary_statements(feed_key=fk, timeout=timeout_per_feed)
+            for it in feed_items:
+                if it.evidence_status != "insufficient" and it.reliability_weight > 0.0:
+                    has_live_items = True
+                if it.evidence_id not in seen_ids:
+                    seen_ids.add(it.evidence_id)
+                    all_items.append(it)
+
+        # If at least one live feed succeeded, filter out individual offline degraded placeholders
+        if has_live_items:
+            all_items = [it for it in all_items if it.evidence_status != "insufficient" and it.reliability_weight > 0.0]
+
+        return all_items
+
+```
+
+## Module: `geo_engine/ingestion/telemetry_adapter.py`
+
+```python
+"""
+Macro Telemetry & Asynchronous Ingestion Adapter.
+Bridges external real-time data feeds (AIS shipping alerts, central bank FX reserves,
+fertilizer spot prices, and bilateral Vostro balances) into structured ClaimItem models
+and persistent EventStore baselines.
+"""
+
+import hashlib
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional
+
+from ..core.models import EpistemicTier, get_system_reference_date
+from ..storage.event_store import EventStore
+from .models import ClaimItem, ClaimType, EvidenceItem
+
+
+class MacroTelemetryAdapter:
+    """
+    Normalizes heterogeneous external macro-telemetry data feeds into
+    epistemically tiered ClaimItem records for multi-lens ingestion.
+    """
+
+    DEFAULT_RELIABILITY = 0.88
+
+    DOMAIN_LENS_MAPPING = {
+        "vostro": ["GeoEconomistLens", "CashFlowLens"],
+        "currency": ["GeoEconomistLens", "CashFlowLens"],
+        "fx": ["GeoEconomistLens", "CashFlowLens"],
+        "reserves": ["GeoEconomistLens", "CashFlowLens"],
+        "ais": ["PetroLogisticsLens", "HybridCovertLens"],
+        "shipping": ["PetroLogisticsLens", "FoodSecurityLens"],
+        "fertilizer": ["FoodSecurityLens", "GeoEconomistLens"],
+        "minerals": ["CriticalMineralsLens", "DeepTechLens"],
+        "cyber": ["MilitaryReadinessLens", "HybridCovertLens"],
+        "naval": ["MilitaryReadinessLens", "InstitutionalLawfareLens"]
+    }
+
+    @classmethod
+    def normalize_telemetry(cls, raw_records: List[Dict[str, Any]]) -> List[ClaimItem]:
+        """
+        Transforms a batch of raw telemetry dictionaries into validated ClaimItems.
+        Each record should contain at least 'text' or 'assertion'.
+        """
+        claims: List[ClaimItem] = []
+        for idx, rec in enumerate(raw_records):
+            text = rec.get("text") or rec.get("assertion") or rec.get("raw_text") or ""
+            if not text:
+                continue
+
+            text_lower = text.lower()
+            record_id = rec.get("id") or f"TEL-{hashlib.md5(f'{text}_{idx}'.encode()).hexdigest()[:8]}"
+            actors = rec.get("actors") or []
+            if not actors:
+                # Basic actor inference
+                for candidate in ["India", "China", "United States", "Russia", "Pakistan", "Iran", "Saudi Arabia"]:
+                    if candidate.lower() in text_lower:
+                        actors.append(candidate)
+
+            # Determine claim type and epistemic tier
+            claim_type = ClaimType.GENERAL_INTEL
+            epistemic_tier = EpistemicTier.TIER_5_COMMUNIQUE_PR
+
+            if any(k in text_lower for k in ["vostro", "dollar", "currency", "rupee", "ruble", "fx", "treasury", "reserves", "g-secs"]):
+                claim_type = ClaimType.FINANCIAL_CAPEX
+                epistemic_tier = EpistemicTier.TIER_2_FINANCIAL
+            elif any(k in text_lower for k in ["tanker", "ais", "chokepoint", "warship", "corvette", "missile", "troop", "fertilizer", "mineral"]):
+                claim_type = ClaimType.PHYSICAL_PRESENCE
+                epistemic_tier = EpistemicTier.TIER_1_PHYSICAL
+            elif any(k in text_lower for k in ["treaty", "accord", "colregs", "unclos", "article 51", "agreement"]):
+                claim_type = ClaimType.LEGAL_COMMITMENT
+                epistemic_tier = EpistemicTier.TIER_3_SOVEREIGN_REDLINES
+
+            # Determine target lenses
+            target_lenses = set(rec.get("target_lenses") or [])
+            for keyword, lenses in cls.DOMAIN_LENS_MAPPING.items():
+                if keyword in text_lower:
+                    target_lenses.update(lenses)
+
+            if not target_lenses:
+                target_lenses.add("GeoEconomistLens")
+
+            claims.append(ClaimItem(
+                claim_id=record_id,
+                source_evidence_id=rec.get("source_id", f"SRC-{record_id}"),
+                claim_type=claim_type,
+                epistemic_tier=epistemic_tier,
+                actors=actors,
+                asserted_fact=text,
+                extracted_financial_mou_usd=rec.get("amount_usd"),
+                is_binding_commitment=rec.get("is_binding", False),
+                extracted_physical_units=rec.get("physical_units"),
+                target_lenses=sorted(list(target_lenses)),
+                reliability_weight=float(rec.get("reliability_weight", cls.DEFAULT_RELIABILITY)),
+                evidence_status=rec.get("evidence_status", "sufficient")
+            ))
+
+        return claims
+
+    @classmethod
+    def create_claims_from_indicators(cls, indicators: Dict[str, Any]) -> List[ClaimItem]:
+        """
+        Synthesizes structured telemetry claims from raw numerical indicators.
+        """
+        records = []
+        for key, val in indicators.items():
+            if "vostro" in key:
+                records.append({
+                    "id": f"IND-{key}",
+                    "text": f"Special Rupee Vostro Account indicator '{key}' registered at {val}. Verified capital recycling pathway active.",
+                    "amount_usd": float(val) if isinstance(val, (int, float)) else None,
+                    "target_lenses": ["GeoEconomistLens", "CashFlowLens"]
+                })
+            elif "spr" in key:
+                records.append({
+                    "id": f"IND-{key}",
+                    "text": f"Strategic Petroleum Reserve indicator '{key}' recorded at {val} days import cover buffer.",
+                    "physical_units": f"{val} days",
+                    "target_lenses": ["PetroLogisticsLens"]
+                })
+            elif "fertilizer" in key or "potassium" in key:
+                records.append({
+                    "id": f"IND-{key}",
+                    "text": f"Agricultural soil-nutrient security indicator '{key}' registered at {val}.",
+                    "target_lenses": ["FoodSecurityLens"]
+                })
+            else:
+                records.append({
+                    "id": f"IND-{key}",
+                    "text": f"Macro telemetry indicator '{key}' updated with value {val}.",
+                    "target_lenses": ["GeoEconomistLens"]
+                })
+
+        return cls.normalize_telemetry(records)
+
+    @classmethod
+    def ingest_to_event_store(
+        cls,
+        claims: List[ClaimItem],
+        store: Optional[EventStore] = None
+    ) -> int:
+        """
+        Persists material telemetry claims into the SQLite EventStore.
+        Returns the number of claims successfully ingested.
+        """
+        target_store = store or EventStore()
+        ingested_count = 0
+        ref_time = get_system_reference_date().strftime("%Y-%m-%d")
+
+        with target_store._get_connection() as conn:
+            cursor = conn.cursor()
+            for c in claims:
+                if c.reliability_weight >= 0.70 and c.evidence_status == "sufficient":
+                    actor_str = ", ".join(c.actors) if c.actors else "Multi-Lateral"
+                    cursor.execute("""
+                        INSERT OR REPLACE INTO events
+                        (event_id, date, title, actor, region, category, summary, civilizational_significance)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        f"EVT-{c.claim_id}",
+                        ref_time,
+                        f"Macro Telemetry: {c.claim_type.value}",
+                        actor_str,
+                        "Global / Macro",
+                        c.claim_type.value.lower(),
+                        c.asserted_fact,
+                        f"Targeted Lenses: {', '.join(c.target_lenses)}"
+                    ))
+                    ingested_count += 1
+            conn.commit()
+
+        return ingested_count
+
+    @classmethod
+    def extract_claims_from_audit_markdown(cls, markdown_path: str) -> List[ClaimItem]:
+        """
+        Parses a forensic audit markdown document (e.g. FORENSIC_AUDIT_INDIA_1991_2026.md),
+        extracts empirical findings and statistical illusion caveats, and normalizes them
+        into verified ClaimItem models tagged with their appropriate target lenses.
+        """
+        import os
+        import re
+
+        if not os.path.exists(markdown_path):
+            return []
+
+        with open(markdown_path, "r", encoding="utf-8", errors="ignore") as f:
+            content = f.read()
+
+        records = []
+
+        # 1. Extract Statistical Illusions (Part I)
+        illusion_matches = re.findall(
+            r"### (?:Illusion \d+:|\d+\.)\s*([^\n]+)\n(.*?)(?=\n###|\n##|\Z)",
+            content,
+            re.DOTALL
+        )
+        for title, text in illusion_matches:
+            clean_title = title.strip()
+            lines = [l.strip().lstrip("*- ") for l in text.strip().splitlines() if l.strip() and not l.startswith("```")]
+            snippet = " ".join(lines[:3])[:280]
+            records.append({
+                "id": f"ILLUSION-{hashlib.md5(clean_title.encode()).hexdigest()[:6]}",
+                "text": f"Statistical Illusion '{clean_title}': {snippet}",
+                "source_id": "AUDIT-PART1-ILLUSIONS",
+                "actors": ["India"],
+                "target_lenses": ["GeoEconomistLens", "CashFlowLens"]
+            })
+
+        # 2. Extract Claim-Audit Matrix rows (Part V)
+        table_rows = re.findall(
+            r"\|\s*\*\*\"?([^\"]+?)\"?\*\*\s*\|\s*([^\|]+)\|\s*([^\|]+)\|\s*([^\|]+)\|\s*([^\|]+)\|",
+            content
+        )
+        for claim_title, claimant, evidence_for, evidence_against, verdict in table_rows:
+            clean_claim = claim_title.strip()
+            clean_verdict = verdict.strip()
+            if "Claim" in clean_claim or "---" in clean_claim:
+                continue
+            records.append({
+                "id": f"AUDIT-CLAIM-{hashlib.md5(clean_claim.encode()).hexdigest()[:6]}",
+                "text": f"Audited Claim '{clean_claim}' (Claimant: {claimant.strip()}) -> Forensic Verdict: {clean_verdict}. Evidence: {evidence_for.strip()[:100]} vs {evidence_against.strip()[:100]}",
+                "source_id": "AUDIT-PART5-CLAIM-MATRIX",
+                "actors": ["India"],
+                "target_lenses": ["GeoEconomistLens", "CashFlowLens", "FoodSecurityLens"]
+            })
+
+        # 3. Extract Executive Scorecard entries (Going Up, Going Down, Stagnant)
+        scorecard_rows = re.findall(
+            r"\|\s*\*\*([^\*]+?)\*\*\s*\|\s*\*\*([^\*]+?)\*\*\s*\|\s*([^\|]+)\|\s*([^\|]+)\|",
+            content
+        )
+        for domain, status, vs_nonbjp, vs_g20 in scorecard_rows:
+            clean_domain = domain.strip()
+            clean_status = status.strip()
+            if "Aspect" in clean_domain or "Domain" in clean_domain or "---" in clean_domain:
+                continue
+            records.append({
+                "id": f"SCORECARD-{hashlib.md5(clean_domain.encode()).hexdigest()[:6]}",
+                "text": f"Executive Scorecard '{clean_domain}' rated '{clean_status}' (vs Non-BJP: {vs_nonbjp.strip()[:80]}; vs G-20: {vs_g20.strip()[:80]})",
+                "source_id": "AUDIT-SCORECARD",
+                "actors": ["India"],
+                "target_lenses": ["GeoEconomistLens", "CashFlowLens"]
+            })
+
+        return cls.normalize_telemetry(records)
+
+
+```

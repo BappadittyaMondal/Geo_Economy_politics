@@ -49,6 +49,7 @@ from .cash_flow import (
     OffshoreBankingSecrecyAndAssetRepatriationSieve,
     SovereignDebtMaturityAndForensicCashFlowSieve,
     SovereignIndustrialCapitalAndPropulsionTensor,
+    PhysicalBullionRepatriationMarineInsuranceAndBrandIdentitySovereigntyTensor,
 )
 
 from .civilizational import (
@@ -115,6 +116,7 @@ from .deep_tech import (
     ServicesExportLaborDisplacementAndAISubstitutionTensor,
     CriticalInfrastructureCyberSovereigntyAndBullionPricingTensor,
     EpistemicTaxonomyAndInterleavedValidationEngine,
+    MotherMachineToolHydrospatialSonarAndMonetaryHydrocideResilienceTensor,
 )
 
 from .demographic_infiltration import (
@@ -236,6 +238,7 @@ from .hybrid_covert import (
     AsymmetricSubTacticalHoneytrapEspionageSieve,
     ForeignIntelligenceInstitutionalPenetrationSieve,
     AsymmetricSubversionAndCounterPenetrationSieve,
+    ImpossibleTrinityForexBookTbmlAndCounterInfiltrationOpsecTensor,
 )
 
 from .india_timeline import (
@@ -272,6 +275,7 @@ from .institutional_lawfare import (
     SupranationalOligarchyAndDeepStateSubversionSieve,
     MultilateralDefenseInteroperabilityAndCognitiveSecuritySieve,
     SubcontinentalProxyVulnerabilityAndSiliconOligarchyTensor,
+    ConstitutionalSupermajorityEngineeringJudicialOverrideAndGrayzoneProxyTensor,
 )
 
 from .kinesics import (
@@ -647,4 +651,9 @@ __all__ = [
     # Phases 455-460 Capstone 1 & 2: Epistemic Taxonomy & Sovereign Industrial Propulsion
     "EpistemicTaxonomyAndInterleavedValidationEngine",
     "SovereignIndustrialCapitalAndPropulsionTensor",
+    # Phases 461-464: Bullion/Marine/Brand, Impossible Trinity/OPSEC, Constitutional/Grayzone, Mother-Machine/Sonar/Hydrocide
+    "PhysicalBullionRepatriationMarineInsuranceAndBrandIdentitySovereigntyTensor",
+    "ImpossibleTrinityForexBookTbmlAndCounterInfiltrationOpsecTensor",
+    "ConstitutionalSupermajorityEngineeringJudicialOverrideAndGrayzoneProxyTensor",
+    "MotherMachineToolHydrospatialSonarAndMonetaryHydrocideResilienceTensor",
 ]

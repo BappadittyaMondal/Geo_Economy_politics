@@ -1,6 +1,6 @@
 """
 5-Tier Response Protocol Synthesizer.
-Reconciles all 12 analytical lenses, executes epistemic truth arbitration,
+Reconciles all 20 analytical lenses, executes epistemic truth arbitration,
 and outputs a complete, de-sanitized multilateral summit intelligence report.
 """
 
@@ -212,9 +212,34 @@ class SummitSynthesizer:
     def generate_country_ledgers(
         cls,
         target_countries: Optional[List[str]] = None,
-        summit_name: str = ""
+        summit_name: str = "",
+        fixture_mode: bool = True,
+        claims: Optional[List[Any]] = None,
     ) -> List[MemberCountryAudit]:
-        """Generates comprehensive, realistic 4-dimensional country audits for requested countries or default member states."""
+        """Generates 4-dimensional country audits, augmenting templates dynamically when fixture_mode is False."""
+        def _dynamic_augment(base: MemberCountryAudit, country: str) -> MemberCountryAudit:
+            if fixture_mode and not claims:
+                return base
+            event_label = summit_name or "Active Strategic Event"
+            c_low = country.lower()
+            rel_claims = [
+                str(getattr(c, "asserted_fact", getattr(c, "assertion", ""))).strip()
+                for c in (claims or [])
+                if c_low in str(getattr(c, "asserted_fact", getattr(c, "assertion", ""))).lower()
+            ]
+            context_snippet = rel_claims[0][:160] if rel_claims else f"Evaluated dynamically under {event_label}."
+            if fixture_mode:
+                return base
+            return MemberCountryAudit(
+                country_name=base.country_name,
+                public_domestic_narrative=f"[{event_label}] {context_snippet} | Baseline Posture: {base.public_domestic_narrative}",
+                geopolitical_yield=base.geopolitical_yield,
+                hard_cash_yield_usd=base.hard_cash_yield_usd,
+                concessions_or_vulnerabilities=base.concessions_or_vulnerabilities,
+                strategic_autonomy_score=base.strategic_autonomy_score,
+                key_bilateral_postures=dict(base.key_bilateral_postures),
+            )
+
         if target_countries:
             ledgers = []
             for country in target_countries:
@@ -223,17 +248,17 @@ class SummitSynthesizer:
                 for key, template in cls.COUNTRY_AUDIT_TEMPLATES.items():
                     k_lower = key.lower()
                     if k_lower == c_norm or k_lower.startswith(c_norm) or c_norm in k_lower:
-                        matched = template
+                        matched = _dynamic_augment(template, country)
                         break
-                if matched and matched not in ledgers:
+                if matched and all(l.country_name != matched.country_name for l in ledgers):
                     ledgers.append(matched)
                 elif not matched:
                     ledgers.append(MemberCountryAudit(
                         country_name=country,
-                        public_domestic_narrative=f"Domestic state media in {country} frames event through national sovereignty, economic security, and regional stability lenses.",
+                        public_domestic_narrative=f"[{summit_name or 'Strategic Audit'}] Domestic state media in {country} frames event through national sovereignty, economic security, and regional stability lenses.",
                         geopolitical_yield=f"Bilateral strategic leverage and diplomatic posture consolidation for {country}.",
                         hard_cash_yield_usd=1_000_000_000.0,
-                        concessions_or_vulnerabilities=f"Exposure to regional friction, supply chain disruption, and external trade/sanctions pressures.",
+                        concessions_or_vulnerabilities="Exposure to regional friction, supply chain disruption, and external trade/sanctions pressures.",
                         strategic_autonomy_score=0.70,
                         key_bilateral_postures={"Multilateral": "Pragmatic sovereign hedging."}
                     ))
@@ -242,14 +267,8 @@ class SummitSynthesizer:
 
         # Default 8 core BRICS member country audits
         return [
-            cls.COUNTRY_AUDIT_TEMPLATES["India"],
-            cls.COUNTRY_AUDIT_TEMPLATES["China"],
-            cls.COUNTRY_AUDIT_TEMPLATES["Russia"],
-            cls.COUNTRY_AUDIT_TEMPLATES["Brazil"],
-            cls.COUNTRY_AUDIT_TEMPLATES["South Africa"],
-            cls.COUNTRY_AUDIT_TEMPLATES["Iran"],
-            cls.COUNTRY_AUDIT_TEMPLATES["Saudi Arabia & UAE"],
-            cls.COUNTRY_AUDIT_TEMPLATES["Egypt & Ethiopia"],
+            _dynamic_augment(cls.COUNTRY_AUDIT_TEMPLATES[k], k)
+            for k in ("India", "China", "Russia", "Brazil", "South Africa", "Iran", "Saudi Arabia & UAE", "Egypt & Ethiopia")
         ]
 
     @classmethod
@@ -354,7 +373,9 @@ class SummitSynthesizer:
         claims: Optional[List[Any]] = None,
         evidence_items: Optional[List[Any]] = None,
         fixture_mode: bool = True,
-        prioritized_lenses: Optional[List[str]] = None
+        prioritized_lenses: Optional[List[str]] = None,
+        verify_claims: bool = True,
+        learn_from_session: bool = False,
     ) -> SummitAnalysisReport:
         """
         Executes the end-to-end synthesis pipeline across all 5 tiers.
@@ -362,6 +383,43 @@ class SummitSynthesizer:
         # Validate temporal guardrail
         mode, guidance = TemporalGuardrail.evaluate_event_mode(summit)
         summit.temporal_mode = mode
+
+        # Stage B: Pre-Synthesis Fact Verification Gate (non-blocking)
+        verification_notes: List[str] = []
+        verification_penalty: float = 0.0
+        if verify_claims:
+            try:
+                from ..verification.engine import FactVerificationEngine
+                from ..verification.models import VerificationVerdict
+                _fv = FactVerificationEngine()
+                texts_to_verify: List[str] = []
+                meta_dict = getattr(summit, "metadata", None) or {}
+                for _cand in (
+                    getattr(summit, "communique_text", None),
+                    meta_dict.get("communique_text") if isinstance(meta_dict, dict) else None,
+                    getattr(summit, "title", None),
+                ):
+                    _s_txt = str(_cand or "").strip()
+                    if len(_s_txt) >= 20 and _s_txt not in texts_to_verify:
+                        texts_to_verify.append(_s_txt)
+                for _c in (claims or []):
+                    _c_txt = str(getattr(_c, "asserted_fact", getattr(_c, "assertion", "")) or "").strip()
+                    if len(_c_txt) >= 15 and _c_txt not in texts_to_verify:
+                        texts_to_verify.append(_c_txt)
+                if texts_to_verify:
+                    fv_rep = _fv.verify_text(" ".join(texts_to_verify[:12]))
+                    flagged_cnt = int(getattr(fv_rep, "false_claims_count", 0)) + int(
+                        getattr(fv_rep, "misleading_claims_count", 0)
+                    )
+                    total_analyzed = int(getattr(fv_rep, "total_claims_analyzed", len(getattr(fv_rep, "claim_results", []))))
+                    verification_notes.append(
+                        f"[VERIFICATION_GATE] Audited {total_analyzed} atomic claim(s); "
+                        f"flagged {flagged_cnt} anomaly/contradiction(s)."
+                    )
+                    if flagged_cnt > 0:
+                        verification_penalty = min(0.10, flagged_cnt * 0.05)
+            except Exception:
+                pass
 
         # Run all registered lenses with evidence claims if supported
         import inspect
@@ -414,7 +472,9 @@ class SummitSynthesizer:
         target_countries = getattr(summit, "target_countries", getattr(summit, "member_countries", None))
         country_ledgers = cls.generate_country_ledgers(
             target_countries=target_countries,
-            summit_name=getattr(summit, "summit_name", getattr(summit, "title", ""))
+            summit_name=getattr(summit, "summit_name", getattr(summit, "title", "")),
+            fixture_mode=fixture_mode,
+            claims=claims,
         )
 
         # Tier 3: Kinesics Forensics
@@ -463,7 +523,9 @@ class SummitSynthesizer:
             "total_nominal_announced_usd": cash_eval.hard_metrics.get("total_nominal_announced_usd", 0.0),
             "total_effective_capex_usd": cash_eval.hard_metrics.get("total_effective_capex_usd", 0.0),
             "aggregate_haircut_pct": cash_eval.hard_metrics.get("aggregate_haircut_percentage", 0.0),
-            "bilateral_local_currency_clearing_share_pct": 38.5 if fixture_mode else 0.0,
+            "bilateral_local_currency_clearing_share_pct": (
+                38.5 if fixture_mode else round(float(cash_eval.hard_metrics.get("bilateral_local_currency_clearing_share_pct", 0.0) or 0.0), 2)
+            ),
             "common_reserve_currency_status": "STRUCTURALLY IMPOSSIBLE (Mundell-Fleming Trilemma)",
             "physical_crude_re_routed_bpd": petro_eval.hard_metrics.get("physical_crude_diversion_bpd", 0.0),
             "shadow_tanker_fleet_pct": petro_eval.hard_metrics.get("shadow_tanker_dependence_pct", 0.0),
@@ -628,6 +690,17 @@ class SummitSynthesizer:
         arbitration_log = [
             f"[TEMPORAL_VALIDATION] Mode set to {mode.value.upper()}. {guidance}",
         ]
+        if verification_notes:
+            arbitration_log.extend(verification_notes)
+        if learn_from_session or (getattr(summit, "metadata", {}) or {}).get("enable_autonomous_learning", False):
+            try:
+                from ..verification.learner import AutonomousLearner
+                _learn_res = AutonomousLearner().learn_from_event(summit, auto_promote=False)
+                arbitration_log.append(
+                    f"[AUTONOMOUS_LEARNER] Quarantined {_learn_res.get('quarantined_count', 0)} candidate claim(s) safely."
+                )
+            except Exception:
+                pass
         if ach_report:
             arbitration_log.append(
                 f"[ACH_ARBITRATION] Causal hypothesis '{ach_report.dominant_hypothesis_label}' selected with {ach_report.dominant_probability:.1%} probability."
@@ -635,8 +708,8 @@ class SummitSynthesizer:
             if ach_report.is_epistemically_contested:
                 arbitration_log.append("[ACH_CONTESTED] High epistemic ambiguity detected; alternative non-hostile causes probable.")
 
-        if petro_eval.hard_metrics.get("physical_crude_diversion_bpd"):
-            arbitration_log.append("[ARBITRATION_T1_OVER_T5] Petro-logistics physical tanker data (Tier 1) verified 4.2M bpd diversion; superseded communique rhetoric (Tier 5).")
+        if (fixture_mode or petro_eval.hard_metrics.get("grounded_energy_claims_verified")) and petro_eval.hard_metrics.get("physical_crude_diversion_bpd"):
+            arbitration_log.append(f"[ARBITRATION_T1_OVER_T5] Petro-logistics physical tanker data (Tier 1) verified {petro_eval.hard_metrics.get('physical_crude_diversion_bpd')}; superseded communique rhetoric (Tier 5).")
 
         if cash_eval.primary_epistemic_tier == EpistemicTier.TIER_0_INSUFFICIENT_EVIDENCE:
             arbitration_log.append("[EVIDENCE_DEGRADED] Zero empirical financial flows verified. Tier 2 CapEx audit suppressed to TIER_0_INSUFFICIENT_EVIDENCE.")
@@ -968,6 +1041,11 @@ class SummitSynthesizer:
             "epistemic_taxonomy_and_interleaved_validation_score": deep_tech_eval.hard_metrics.get("epistemic_taxonomy_and_interleaved_validation_score", 0.7850) if deep_tech_eval else 0.7850,
             # Phases 456, 457, 459 Capstone 2: Sovereign Industrial Capital and Propulsion (1 Channel: 257 -> 258)
             "sovereign_industrial_capital_and_propulsion_score": cash_eval.hard_metrics.get("sovereign_industrial_capital_and_propulsion_score", 0.7850) if cash_eval else 0.7850,
+            # Phases 461-464: Sovereign Bullion/Marine/Brand, Impossible Trinity/OPSEC, Constitutional/Grayzone, Mother-Machine/Sonar/Hydrocide (4 Channels: 258 -> 262)
+            "physical_bullion_marine_insurance_and_brand_sovereignty_score": cash_eval.hard_metrics.get("physical_bullion_marine_insurance_and_brand_sovereignty_score", 0.0) if cash_eval else 0.0,
+            "impossible_trinity_tbml_and_counter_infiltration_score": hybrid_eval.hard_metrics.get("impossible_trinity_tbml_and_counter_infiltration_score", 0.0) if hybrid_eval else 0.0,
+            "constitutional_engineering_and_grayzone_proxy_score": lawfare_eval.hard_metrics.get("constitutional_engineering_and_grayzone_proxy_score", 0.0) if lawfare_eval else 0.0,
+            "mother_machine_sonar_liquidity_hydrocide_score": deep_tech_eval.hard_metrics.get("mother_machine_sonar_liquidity_hydrocide_score", 0.0) if deep_tech_eval else 0.0,
         }
 
         # Add explicit Tier 1 physical log entries to arbitration_log
@@ -982,6 +1060,8 @@ class SummitSynthesizer:
             hard_money_audit=hard_money_audit,
             arbitration_log=arbitration_log
         )
+        if verification_penalty > 0:
+            contradiction_penalty = min(0.20, contradiction_penalty + verification_penalty)
 
         # Epistemic Tier-Weighted Confidence Calculation with Dynamic Bayesian Calibration
         tier_weights = {

@@ -34,6 +34,7 @@ class AutonomousLearner:
 
     def __init__(self, db_path: Optional[str] = None):
         self.store = EventStore(db_path=db_path) if db_path else EventStore()
+        self.db_path = db_path or getattr(self.store, "db_path", "data/events.db")
         self.extractor = AtomicClaimExtractor()
         self.engine = FactVerificationEngine(event_store=self.store)
         self.sanitizer = EvidenceSanitizer()
@@ -155,67 +156,96 @@ class AutonomousLearner:
             min_promotion_confidence=min_promotion_confidence,
         )
 
+    _STOPWORDS = frozenset({
+        "that", "this", "with", "from", "have", "will", "into", "over", "their",
+        "about", "which", "were", "been", "also", "more", "than", "what", "when",
+        "where", "there", "they", "would", "could", "should", "after", "before",
+        "under", "between", "through", "during", "while", "some", "only", "very",
+    })
+    _DEBUNK_MARKERS = (
+        "not true", "false", "debunked", "fabricated", "hoax", "morphed",
+        "cropped", "fake", "refuted", "never occurred", "misleading", "out of context",
+        "manipulated", "deepfake",
+    )
+    _NEGATION_TOKENS = frozenset({"not", "never", "no", "neither", "nor", "false", "fake", "hoax", "debunked", "refuted"})
+
+    @classmethod
+    def _extract_content_tokens(cls, text: str) -> set:
+        import re
+        raw_tokens = re.findall(r"[a-z0-9]{4,}", (text or "").lower())
+        return {tok for tok in raw_tokens if tok not in cls._STOPWORDS}
+
+    @classmethod
+    def _has_contradiction_or_debunk(cls, proposition: str, candidate_text: str) -> bool:
+        prop_low = (proposition or "").lower()
+        cand_low = (candidate_text or "").lower()
+        if any(marker in prop_low for marker in cls._DEBUNK_MARKERS):
+            return True
+        if any(marker in cand_low for marker in cls._DEBUNK_MARKERS):
+            return True
+        import re
+        prop_neg = bool(cls._NEGATION_TOKENS.intersection(re.findall(r"[a-z]+", prop_low)))
+        cand_neg = bool(cls._NEGATION_TOKENS.intersection(re.findall(r"[a-z]+", cand_low)))
+        return prop_neg != cand_neg
+
     def auto_harmonize_quarantine(self, min_corroboration_count: int = 3) -> dict:
         """
-        Phase 215 (Schema-Corrected): Autonomous Quarantine Harmonizer Daemon.
+        Phase 215 (Schema-Corrected & Contradiction-Safe): Autonomous Quarantine Harmonizer Daemon.
         Scans claim_quarantine table (column: status, proposition),
-        cross-references against events (description) and
-        historical_treaty_clauses (clause_text) tables,
-        promotes claims with >= min_corroboration_count anchors to 'promoted' status.
+        cross-references against events (description), historical_treaty_clauses (clause_text),
+        and historical_anniversaries (historical_summary) tables using stopword-filtered
+        per-row token overlap and negation/debunk contradiction screening,
+        promoting claims with >= min_corroboration_count verified anchors to 'promoted' status.
         """
         import sqlite3
-        db_path = getattr(self, 'db_path', 'data/events.db')
+        db_path = getattr(self, 'db_path', None) or getattr(self.store, 'db_path', 'data/events.db')
         promoted = []
         retained = []
+        contradicted_retained = []
         try:
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
-            # Correct column names: status (not verification_status), proposition (not claim_text)
             cur.execute(
                 "SELECT quarantine_id, proposition, confidence "
-                "FROM claim_quarantine WHERE status = 'quarantined' "
+                "FROM claim_quarantine WHERE LOWER(status) = 'quarantined' "
                 "ORDER BY confidence DESC"
             )
             quarantined_rows = cur.fetchall()
+
+            corpus_rows: List[str] = []
+            for sql_q in (
+                "SELECT COALESCE(title, '') || ' ' || COALESCE(summary, '') FROM events WHERE summary IS NOT NULL OR title IS NOT NULL",
+                "SELECT clause_text FROM historical_treaty_clauses WHERE clause_text IS NOT NULL",
+                "SELECT historical_summary FROM historical_anniversaries WHERE historical_summary IS NOT NULL",
+                "SELECT COALESCE(key_thesis, '') || ' ' || COALESCE(strategic_doctrine, '') FROM knowledge_discourses WHERE key_thesis IS NOT NULL OR strategic_doctrine IS NOT NULL",
+            ):
+                try:
+                    cur.execute(sql_q)
+                    corpus_rows.extend(r[0] for r in cur.fetchall() if r and r[0])
+                except sqlite3.OperationalError:
+                    pass
+
+            tokenized_corpus = [
+                (row_txt, self._extract_content_tokens(row_txt))
+                for row_txt in corpus_rows
+            ]
+
             for row_id, proposition, confidence in quarantined_rows:
-                words = [w.strip().lower() for w in (proposition or "").split()
-                         if len(w.strip()) >= 4]
-                corroboration_count = 0
-                for word in words[:10]:
-                    # Correct table: events (has description column)
-                    try:
-                        cur.execute(
-                            "SELECT COUNT(*) FROM events "
-                            "WHERE LOWER(description) LIKE ?",
-                            ("%" + word + "%",)
-                        )
-                        ev_count = cur.fetchone()[0]
-                    except sqlite3.OperationalError:
-                        ev_count = 0
-                    # Correct table: historical_treaty_clauses (has clause_text column)
-                    try:
-                        cur.execute(
-                            "SELECT COUNT(*) FROM historical_treaty_clauses "
-                            "WHERE LOWER(clause_text) LIKE ?",
-                            ("%" + word + "%",)
-                        )
-                        tc_count = cur.fetchone()[0]
-                    except sqlite3.OperationalError:
-                        tc_count = 0
-                    # Also check historical_anniversaries (historical_summary column)
-                    try:
-                        cur.execute(
-                            "SELECT COUNT(*) FROM historical_anniversaries "
-                            "WHERE LOWER(historical_summary) LIKE ?",
-                            ("%" + word + "%",)
-                        )
-                        ha_count = cur.fetchone()[0]
-                    except sqlite3.OperationalError:
-                        ha_count = 0
-                    if ev_count > 0 or tc_count > 0 or ha_count > 0:
-                        corroboration_count += 1
-                # Promote if corroboration meets threshold
-                if corroboration_count >= min_corroboration_count:
+                prop_tokens = self._extract_content_tokens(proposition or "")
+                best_overlap = 0
+                contradiction_hit = any(m in (proposition or "").lower() for m in self._DEBUNK_MARKERS)
+
+                if len(prop_tokens) >= min_corroboration_count and not contradiction_hit:
+                    for row_txt, row_tokens in tokenized_corpus:
+                        overlap = len(prop_tokens.intersection(row_tokens))
+                        if overlap >= min_corroboration_count:
+                            if self._has_contradiction_or_debunk(proposition or "", row_txt):
+                                contradiction_hit = True
+                                break
+                            if overlap > best_overlap:
+                                best_overlap = overlap
+
+                if best_overlap >= min_corroboration_count and not contradiction_hit:
                     cur.execute(
                         "UPDATE claim_quarantine SET status = 'promoted' "
                         "WHERE quarantine_id = ?",
@@ -223,11 +253,17 @@ class AutonomousLearner:
                     )
                     promoted.append({
                         "id": row_id,
-                        "corroboration_count": corroboration_count,
+                        "corroboration_count": best_overlap,
                         "confidence": confidence,
                     })
                 else:
-                    retained.append({"id": row_id, "corroboration_count": corroboration_count})
+                    retained.append({
+                        "id": row_id,
+                        "corroboration_count": best_overlap,
+                        "contradiction_blocked": contradiction_hit,
+                    })
+                    if contradiction_hit:
+                        contradicted_retained.append(row_id)
             conn.commit()
             conn.close()
         except Exception as exc:
@@ -241,10 +277,11 @@ class AutonomousLearner:
             "harmonizer_status": "HARMONIZATION_COMPLETE",
             "promoted_count": len(promoted),
             "retained_count": len(retained),
+            "contradiction_blocked_count": len(contradicted_retained),
             "promoted_ids": [r["id"] for r in promoted],
             "min_corroboration_threshold": min_corroboration_count,
             "operational_note": (
-                "Claims promoted to 'promoted' status for active knowledge graph ingestion."
+                "Claims promoted to 'promoted' status after multi-token entity/predicate corroboration and contradiction screening."
             ),
         }
 

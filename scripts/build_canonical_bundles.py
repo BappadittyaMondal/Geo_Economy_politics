@@ -238,6 +238,61 @@ def build_deep_50_bundle(commit_hash: str) -> List[str]:
                 emitted.append(dst)
                 idx += 1
 
+    # 4b. Compile Condensed Subsystem & Knowledge Library Markdown Bundles (filling slots 39-45, <= 50 ceiling)
+    def _compile_py_group(title: str, rel_paths: List[str]) -> str:
+        parts = [f"# SUBSYSTEM SPECIFICATION: {title}\n"]
+        for rel in rel_paths:
+            full = os.path.join(REPO_ROOT, rel)
+            if os.path.isfile(full):
+                with open(full, "r", encoding="utf-8") as pf:
+                    parts.append(f"## Module: `{rel}`\n\n```python\n{pf.read()}\n```\n")
+            elif os.path.isdir(full):
+                for fn in sorted(os.listdir(full)):
+                    if fn.endswith(".py"):
+                        fp = os.path.join(full, fn)
+                        with open(fp, "r", encoding="utf-8") as pf:
+                            parts.append(f"## Module: `{rel}/{fn}`\n\n```python\n{pf.read()}\n```\n")
+        return "\n".join(parts)
+
+    subsystem_specs = [
+        ("39_subsys_core_and_query.md", "CORE ENGINE, QUERY PARSER & KNOWLEDGE BRIDGE", ["geo_engine/core", "geo_engine/knowledge_bridge.py"]),
+        ("40_subsys_arbitration_and_council.md", "SYNTHESIZER, PERSONA COUNCIL & CAUSAL GRAPH", ["geo_engine/arbitration"]),
+        ("41_subsys_verification_and_learner.md", "FACT VERIFICATION ENGINE & AUTONOMOUS LEARNER", ["geo_engine/verification"]),
+        ("42_subsys_simulation_forecast_and_mcp.md", "SIMULATION, FORECASTING & MCP SERVER", ["geo_engine/simulation", "geo_engine/forecasting", "geo_engine/mcp"]),
+        ("43_subsys_storage_and_ingestion.md", "SQLITE EVENT STORE & INGESTION PIPELINE", ["geo_engine/storage", "geo_engine/ingestion"]),
+    ]
+    for dest_md, group_title, paths in subsystem_specs:
+        dst = os.path.join(DEEP_50_DIR, dest_md)
+        with open(dst, "w", encoding="utf-8") as f:
+            f.write(_compile_py_group(group_title, paths))
+        emitted.append(dst)
+
+    kl_path = os.path.join(REPO_ROOT, "KNOWLEDGE_LIBRARY_GEO_POLITICS.md")
+    if os.path.exists(kl_path):
+        with open(kl_path, "r", encoding="utf-8") as f:
+            kl_text = f.read()
+        sec_matches = list(re.finditer(r"^##\s+Section\s+(\d+)[^\n]*", kl_text, flags=re.MULTILINE))
+        idx_lines = [
+            "# KNOWLEDGE LIBRARY SECTIONS INDEX (SECTIONS 1 TO 199)\n",
+            f"- **Total Indexed Sections:** {len(sec_matches)}",
+            f"- **Source Size (bytes):** {len(kl_text.encode('utf-8'))}\n",
+            "| Section # | Heading |",
+            "| :--- | :--- |",
+        ]
+        for m in sec_matches:
+            idx_lines.append(f"| {m.group(1)} | {m.group(0).lstrip('# ').strip().replace('|', '\\|')} |")
+        dst_idx = os.path.join(DEEP_50_DIR, "44_knowledge_library_sections_index.md")
+        with open(dst_idx, "w", encoding="utf-8") as f:
+            f.write("\n".join(idx_lines))
+        emitted.append(dst_idx)
+
+        sec195_m = re.search(r"^##\s+Section\s+195\b", kl_text, flags=re.MULTILINE)
+        recent_slice = kl_text[sec195_m.start():] if sec195_m else kl_text[-35000:]
+        dst_rec = os.path.join(DEEP_50_DIR, "45_knowledge_library_recent_195_to_199.md")
+        with open(dst_rec, "w", encoding="utf-8") as f:
+            f.write(f"# KNOWLEDGE LIBRARY RECENT DOCTRINES (SECTIONS 195-199)\n\n{recent_slice}")
+        emitted.append(dst_rec)
+
     # 5. Emit Deep 50 BUNDLE_MANIFEST.md
     manifest_text = (
         f"# BUNDLE MANIFEST: DEEP 50 RESEARCH UNIVERSE\n\n"

@@ -231,6 +231,11 @@ class StrategicQuery(BaseModel):
     # Phases 455-460 Capstones: Epistemic Validation & Sovereign Industrial Propulsion
     requires_epistemic_validation: bool = False
     requires_industrial_propulsion: bool = False
+    # Phases 461-464: Sovereign Bullion/Marine/Brand, Impossible Trinity/OPSEC, Constitutional/Grayzone, Mother-Machine/Sonar/Hydrocide
+    requires_bullion_marine_brand_sovereignty: bool = False
+    requires_impossible_trinity_tbml_opsec: bool = False
+    requires_constitutional_grayzone_proxy: bool = False
+    requires_mother_machine_sonar_hydrocide: bool = False
     speaker_profiles: List[Dict[str, Any]] = Field(default_factory=list)
     confidence_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -277,28 +282,28 @@ class QueryParser:
     }
 
     COUNTRY_PATTERNS: Dict[str, str] = {
-        r"\bindia\b|\bbharat\b": "India",
-        r"\bchina\b|\bbeijing\b": "China",
-        r"\brussia\b|\bmoscow\b": "Russia",
-        r"\bbrazil\b": "Brazil",
-        r"\bsouth africa\b": "South Africa",
-        r"\biran\b|\btehran\b": "Iran",
+        r"\bindia\b|\bindian\b|\bbharat\b|\bbharatiya\b": "India",
+        r"\bchina\b|\bchinese\b|\bbeijing\b": "China",
+        r"\brussia\b|\brussian\b|\bmoscow\b": "Russia",
+        r"\bbrazil\b|\bbrazilian\b": "Brazil",
+        r"\bsouth africa\b|\bsouth african\b": "South Africa",
+        r"\biran\b|\biranian\b|\btehran\b": "Iran",
         r"\bsaudi\b|\bsaudi arabia\b|\briyadh\b": "Saudi Arabia",
         r"\buae\b|\bemirates\b|\bdubai\b|\babu dhabi\b": "UAE",
-        r"\begypt\b|\bcairo\b": "Egypt",
-        r"\bethiopia\b|\baddis\b": "Ethiopia",
-        r"\bbangladesh\b|\bdhaka\b": "Bangladesh",
-        r"\bnepal\b|\bkathmandu\b": "Nepal",
-        r"\bsri lanka\b|\bcolombo\b": "Sri Lanka",
-        r"\bmyanmar\b|\bburma\b": "Myanmar",
-        r"\bpakistan\b|\bislamabad\b": "Pakistan",
-        r"\bmaldives\b|\bmale\b": "Maldives",
-        r"\bbhutan\b|\bthimphu\b": "Bhutan",
+        r"\begypt\b|\begyptian\b|\bcairo\b": "Egypt",
+        r"\bethiopia\b|\bethiopian\b|\baddis\b": "Ethiopia",
+        r"\bbangladesh\b|\bbangladeshi\b|\bdhaka\b": "Bangladesh",
+        r"\bnepal\b|\bnepali\b|\bkathmandu\b": "Nepal",
+        r"\bsri lanka\b|\bsri lankan\b|\bcolombo\b": "Sri Lanka",
+        r"\bmyanmar\b|\bburma\b|\bburmese\b": "Myanmar",
+        r"\bpakistan\b|\bpakistani\b|\bislamabad\b": "Pakistan",
+        r"\bmaldives\b|\bmaldivian\b|\bmale\b": "Maldives",
+        r"\bbhutan\b|\bbhutanese\b|\bthimphu\b": "Bhutan",
         r"\bspain\b|\bspanish\b|\bmadrid\b|\bandalucia\b": "Spain",
         r"\bmorocco\b|\bmoroccan\b|\brabat\b": "Morocco",
-        r"\btaiwan\b|\btaipei\b": "Taiwan",
-        r"\bukraine\b|\bkyiv\b": "Ukraine",
-        r"\busa\b|\bunited states\b|\bamerica\b|\bwashington\b": "USA",
+        r"\btaiwan\b|\btaiwanese\b|\btaipei\b": "Taiwan",
+        r"\bukraine\b|\bukrainian\b|\bkyiv\b": "Ukraine",
+        r"\busa\b|\bunited states\b|\bamerica\b|\bamerican\b|\bwashington\b": "USA",
     }
 
     LEADER_PATTERNS: Dict[str, str] = {
@@ -359,10 +364,10 @@ class QueryParser:
         "history": ["treaty", "precedent", "historical", "panchsheel", "1962", "1971", "1993", "cold war", "bretton woods", "bandung", "partition", "kargil", "balakot", "galwan", "pokhran", "sindoor", "sykes-picot", "1947", "1998", "1999", "somnath", "nalanda", "tarain", "chola", "srivijaya", "shivaji", "swarajya", "reversal", "millennial", "1000 year", "watson", "bernays", "mkultra", "mockingbird", "who code", "1920", "1928", "1953", "1981", "nilesh oak", "arundhati vasistha", "5561 bce", "3067 bce", "3102 bce", "bori critical edition", "sanauli chariot", "saraswati desiccation", "chronology arbitration", "historical timeline", "kahuta", "kanishka", "air india 182", "sriperumbudur", "ic 814", "kandahar hijack", "1993 mumbai blasts", "sinauli", "sanauli", "rakhigarhi", "copper hoard", "ocp", "pgw", "antennae sword", "chariot vs cart", "paleogenomics", "adna", "bsip"],
         "civilizational": ["meaning", "inner meaning", "civilization", "sanatan", "history", "kautilya", "mandala", "rajdharma", "dharmashastra", "smriti", "sadachara", "deshadharma", "kuladharma", "shankaracharya", "peetham", "matha", "parampara", "sampradaya", "dharma", "reversal", "symbolic date", "calendar", "temporal", "panchanga", "swarajya", "nalanda", "saptanga", "swami", "amatya", "janapada", "durga", "kosha", "danda", "seven limbs", "state sovereignty", "itihasa", "itihaasa", "mahabharata timeline", "ramayana timeline", "nilesh oak", "bori", "kali yuga epoch", "paradiplomacy", "sub-national paradiplomacy", "mizo-chin", "chin refugee", "yma", "soli", "sons of liberty", "faith-based contractor", "evangelical corridor", "sinauli", "sanauli", "rakhigarhi", "copper hoard", "ocp", "rigveda 10.18", "inhumation", "shmashana", "paleogenomics", "adna", "sattra", "srimanta sankardev", "batadrava", "gamusa"],
         "geo_economist": ["geo-economic", "geoeconomic", "trilemma", "mundell-fleming", "cips", "mbridge", "swift", "de-dollarization", "dedollarization", "dedollar", "vostro", "current account", "gold reserve", "central bank gold", "sovereign debt", "srva", "trapped rupee", "capital recycling", "vostro recycling", "g-sec reinvestment", "trade gap", "under-invoicing", "china deficit", "gdp discrepancy", "double deflation", "single deflation", "iebr", "fuel tax"],
-        "geopolitical": ["power", "alliance", "rivalry", "border", "lac", "loc", "military", "troops", "standoff", "hedging", "security", "aukus", "imec", "i2u2", "quad", "bri", "belt and road", "game theory", "red team", "counter-move", "escalation spiral", "wargame campaign", "persistent campaign", "wargame session", "siliguri", "chicken's neck", "chickens neck", "chumbi", "doklam", "suwalki", "wakhan", "teesta", "rangpur", "pincer", "chokepoint kinetic"],
-        "kinesics": ["bodylanguage", "body language", "photoshoot", "photo", "handshake", "posture", "gaze", "facial", "gamusa", "gamosa", "sartorial", "semiotic", "sartorial dissonance", "theatrical optics"],
+        "geopolitical": ["geopolitics", "geopolitical", "diplomacy", "diplomatic", "power", "alliance", "rivalry", "border", "lac", "loc", "military", "troops", "standoff", "hedging", "security", "aukus", "imec", "i2u2", "quad", "bri", "belt and road", "game theory", "red team", "counter-move", "escalation spiral", "wargame campaign", "persistent campaign", "wargame session", "siliguri", "chicken's neck", "chickens neck", "chumbi", "doklam", "suwalki", "wakhan", "teesta", "rangpur", "pincer", "chokepoint kinetic"],
+        "kinesics": ["bodylanguage", "body language", "photoshoot", "photo", "handshake", "posture", "gaze", "facial", "gamusa", "gamosa", "sartorial", "semiotic", "sartorial dissonance", "theatrical optics", "touch feet", "touching feet", "bowing", "is it true", "deepfake", "morphed", "cropped"],
         "cash_flow": ["cash", "investment", "fdi", "capex", "mou", "currency", "settlement", "money", "vostro", "funding", "npa write-off", "bad loan", "bank recapitalization", "haircut ratio", "ibc resolution", "write-off", "hawala", "d-company", "drone drop", "illicit finance", "crime-terror nexus", "syndicate liquidity", "asset freeze"],
-        "propaganda": ["optics", "narrative", "message", "propaganda", "spin", "media", "watson", "bernays", "behavioral conditioning", "fear marketing", "anxiety capture", "torches of freedom", "mkultra", "mockingbird", "breast-milk substitutes", "teleological", "social engineering", "engineering of consent", "guilt marketing", "psychological warfare", "turn approver", "approver", "deshdrohi", "vote chori", "vote theft", "hisab chukta", "hisaab chukta", "hisab karega", "settle scores", "karega ki nahi", "antithetical priming", "oratorical priming", "grievance priming"],
+        "propaganda": ["optics", "narrative", "narrative warfare", "viral", "fact check", "fact-check", "message", "propaganda", "spin", "media", "watson", "bernays", "behavioral conditioning", "fear marketing", "anxiety capture", "torches of freedom", "mkultra", "mockingbird", "breast-milk substitutes", "teleological", "social engineering", "engineering of consent", "guilt marketing", "psychological warfare", "turn approver", "approver", "deshdrohi", "vote chori", "vote theft", "hisab chukta", "hisaab chukta", "hisab karega", "settle scores", "karega ki nahi", "antithetical priming", "oratorical priming", "grievance priming"],
         "petro_logistics": ["crude", "oil", "energy", "tanker", "chokepoint", "malacca", "hormuz"],
         "bureaucratic_inertia": ["bureaucracy", "bureaucratic", "press note 3", "veto", "ndrc", "rbi", "mea", "commerce", "regulatory delay", "inter-ministerial", "inertia", "putnam", "two-level game", "domestic backlash", "ugc rollback", "de-reservation", "draft guidelines", "policy rollback", "executive retreat", "clerical overreach", "bureaucratic disconnect"],
         "digital_sovereignty": ["digital sovereignty", "semiconductor", "lithography", "asml", "tsmc", "chip", "chips", "huawei", "5g", "6g", "telecom ban", "navic", "beidou", "gps", "data sovereignty"],
@@ -458,7 +463,7 @@ class QueryParser:
                 active_lenses.append(lens_name)
 
         # Boolean flags
-        req_kinesics = "kinesics" in active_lenses or any(cls.matches_keyword(text_lower, kw) for kw in ["photo", "photoshoot", "bodylanguage", "body language"])
+        req_kinesics = "kinesics" in active_lenses or any(cls.matches_keyword(text_lower, kw) for kw in ["photo", "photoshoot", "bodylanguage", "body language", "touch feet", "touching feet", "is it true", "deepfake", "morphed", "cropped"])
         req_cash = "cash_flow" in active_lenses or any(cls.matches_keyword(text_lower, kw) for kw in ["cash", "investment", "achieve", "achive", "yield"])
         req_neg_space = "negative_space" in active_lenses or any(cls.matches_keyword(text_lower, kw) for kw in ["synopsis", "meeting", "communique", "declaration"])
         req_civilizational = "civilizational" in active_lenses or any(cls.matches_keyword(text_lower, kw) for kw in ["meaning", "deep", "civilization", "sanatan"])
@@ -678,6 +683,11 @@ class QueryParser:
         # Phases 455-460 Capstones: Epistemic Validation & Sovereign Industrial Propulsion
         req_epistemic_validation = any(cls.matches_keyword(text_lower, kw) for kw in ["i-soon", "commercial hacking", "geo-spoof", "sakshi", "interleaved retrieval", "unit conversion", "textual stratigraphy", "dpdp 2027", "dpdp", "section 301", "critical edition", "epistemic taxonomy", "epistemic validation"])
         req_industrial_propulsion = any(cls.matches_keyword(text_lower, kw) for kw in ["single-crystal", "kaveri engine", "kaveri", "rhenium", "pfbr", "liquid sodium", "pooled gold", "pgi collateral", "dicgc", "stop switch", "rfp turnover", "industrial capital", "industrial propulsion", "propulsion autonomy"])
+        # Phases 461-464: Bullion/Marine/Brand, Impossible Trinity/OPSEC, Constitutional/Grayzone, Mother-Machine/Sonar/Hydrocide
+        req_bullion_marine_brand_sovereignty = any(cls.matches_keyword(text_lower, kw) for kw in ["lloyds war risk", "marine p&i", "gift marine insurance", "brand india gi", "monument provenance", "physical gold vault", "rehypothecation pgi"])
+        req_impossible_trinity_tbml_opsec = any(cls.matches_keyword(text_lower, kw) for kw in ["impossible trinity", "net short forward", "fema realization", "cbs lou bypass", "duty drawback tbml", "cantonment perimeter", "zero-pattern ci", "route entropy"])
+        req_constitutional_grayzone_proxy = any(cls.matches_keyword(text_lower, kw) for kw in ["unprorogued session", "article 108 joint sitting", "delimitation 850", "hrce board shield", "thirupparankundram", "art 144 receivership", "juvenile street veto", "ugc equity reg"])
+        req_mother_machine_sonar_hydrocide = any(cls.matches_keyword(text_lower, kw) for kw in ["5-axis cnc", "2b001", "mother machine", "halocline sonar", "cox's bazar submarine", "vrr liquidity", "spot fx drain", "river hydrocide", "dissolved oxygen", "fecal sludge management"])
 
 
         if (req_cloud_monopoly or req_legacy_infra_obs or req_platform_defiance) and "digital_sovereignty" not in active_lenses:
@@ -916,6 +926,15 @@ class QueryParser:
         # Phase 454: Route active lenses
         if req_sovereign_hyper_resilience and "geopolitical" not in active_lenses:
             active_lenses.append("geopolitical")
+        # Phases 461-464: Route active lenses
+        if req_bullion_marine_brand_sovereignty and "cash_flow" not in active_lenses:
+            active_lenses.append("cash_flow")
+        if req_impossible_trinity_tbml_opsec and "hybrid_covert" not in active_lenses:
+            active_lenses.append("hybrid_covert")
+        if req_constitutional_grayzone_proxy and "institutional_lawfare" not in active_lenses:
+            active_lenses.append("institutional_lawfare")
+        if req_mother_machine_sonar_hydrocide and "deep_tech" not in active_lenses:
+            active_lenses.append("deep_tech")
 
         # Resolve speaker profiles
         from .speaker_profiler import EpistemicSpeakerProfiler
@@ -1151,6 +1170,11 @@ class QueryParser:
             # Phases 455-460 Capstones: Epistemic Validation & Sovereign Industrial Propulsion
             requires_epistemic_validation=req_epistemic_validation,
             requires_industrial_propulsion=req_industrial_propulsion,
+            # Phases 461-464: Bullion/Marine/Brand, Impossible Trinity/OPSEC, Constitutional/Grayzone, Mother-Machine/Sonar/Hydrocide
+            requires_bullion_marine_brand_sovereignty=req_bullion_marine_brand_sovereignty,
+            requires_impossible_trinity_tbml_opsec=req_impossible_trinity_tbml_opsec,
+            requires_constitutional_grayzone_proxy=req_constitutional_grayzone_proxy,
+            requires_mother_machine_sonar_hydrocide=req_mother_machine_sonar_hydrocide,
             speaker_profiles=resolved_profiles,
             confidence_threshold=0.80
         )

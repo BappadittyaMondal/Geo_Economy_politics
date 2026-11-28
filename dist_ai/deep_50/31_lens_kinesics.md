@@ -228,24 +228,34 @@ class KinesicsLens:
             "semiotic_alignment_tier": sartorial_audit["semiotic_alignment_tier"]
         }
 
-                # Phase 346: Speech Kinesic and Chromatic Forensics Sieve Evaluation
-        k_meta = getattr(event, "metadata", {}) if 'event' in locals() else {}
+        # Phase 346: Speech Kinesic and Chromatic Forensics Sieve Evaluation
+        k_meta = (getattr(event, "metadata", {}) if 'event' in locals() and event is not None else {}) or {}
+        derived_deception = min(1.0, (concealed_antagonism_count * 0.35 + social_mask_count * 0.25)) if observations else 0.30
         _skc_res = SpeechKinesicAndChromaticForensicsSieve.evaluate(
-            facs_deception_marker=k_meta.get("facs_deception_marker", 0.30),
+            facs_deception_marker=k_meta.get("facs_deception_marker", derived_deception),
             vocal_pitch_jitter=k_meta.get("vocal_pitch_jitter", 0.25),
-            chromatic_incongruence=k_meta.get("chromatic_incongruence", 0.35),
+            chromatic_incongruence=k_meta.get("chromatic_incongruence", dissonance),
             autonomic_baseline_stability=k_meta.get("autonomic_baseline_stability", 0.70),
         )
         metrics["speech_kinesic_and_chromatic_forensics_score"] = _skc_res["speech_kinesic_and_chromatic_forensics_score"]
 
-        # Phase 358: Wire KinesicContextualBaselineDriftSieve
+        # Phase 358: Wire KinesicContextualBaselineDriftSieve & normalize Stage-B kinesic output
+        observed_intensity = k_meta.get(
+            "observed_micro_expression_intensity",
+            min(1.0, round(0.30 + 0.30 * concealed_antagonism_count + 0.15 * social_mask_count, 4)),
+        )
         _kbd_res = KinesicContextualBaselineDriftSieve.evaluate(
-            observed_micro_expression_intensity=k_meta.get("observed_micro_expression_intensity", 0.40),
+            observed_micro_expression_intensity=observed_intensity,
             cultural_expressiveness_norm=k_meta.get("cultural_expressiveness_norm", 0.50),
             summit_pressure_elevation=k_meta.get("summit_pressure_elevation", 0.60),
             individual_historical_stability=k_meta.get("individual_historical_stability", 0.75),
         )
         metrics["kinesic_contextual_baseline_drift_score"] = _kbd_res["kinesic_contextual_baseline_drift_score"]
+        metrics["kinesic_baseline_normalized_deception_score"] = round(
+            min(1.0, max(0.0, _skc_res["speech_kinesic_and_chromatic_forensics_score"] * (0.65 + 0.35 * _kbd_res["kinesic_contextual_baseline_drift_score"]))),
+            4,
+        )
+        metrics["kinesic_calibration_applied"] = True
 
         # Phase 407: Diplomatic Non-Verbal Optics & Attire Forensics Sieve
         _dnv_res = DiplomaticNonVerbalOpticsAndAttireForensicsSieve.evaluate(
